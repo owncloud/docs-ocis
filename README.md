@@ -32,7 +32,7 @@ yarn antora-local
 
 ## Previewing the Generated Docs
 
-Assuming that there are no build errors, the next thing to do is to view the result in your browser. In case you have already installed a web server to access local pages, you need to configure a virtual host (or similar) which points to the directory `public/`, located in the root directory of this repository. This directory contains the generated documentation. Alternatively, use the simple web server `serve` bundled with the current package.json, just execute the following command to serve the documentation at [http://localhost:8080/branded_clients/](http://localhost:8080/ocis/):
+Assuming that there are no build errors, the next thing to do is to view the result in your browser. In case you have already installed a web server to access local pages, you need to configure a virtual host (or similar) which points to the directory `public/`, located in the root directory of this repository. This directory contains the generated documentation. Alternatively, use the simple web server `serve` bundled with the current package.json, just execute the following command to serve the documentation at [http://localhost:8080/ocis/](http://localhost:8080/ocis/):
 
 ```
 yarn serve
