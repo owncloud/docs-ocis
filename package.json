@@ -1,0 +1,54 @@
+{
+  "private": true,
+  "name": "owncloud-ios",
+  "description": "The ownCloud iOS documentation",
+  "version": "1.0.0",
+  "license": "AGPL-3.0",
+  "author": "The ownCloud Team <docs@owncloud.com>",
+  "homepage": "https://github.com/owncloud/docs-client-ios-app#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owncloud/docs-client-ios-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/owncloud/docs-client-ios-app/issues"
+  },
+  "contributors": [
+    {
+      "name": "Martin Mattel",
+      "email": "github@diemattels.at"
+    }
+  ],
+  "scripts": {
+    "prose": "write-good --parse **/*.adoc",
+    "serve": "http-server public/ -d -i",
+    "antora": "antora --stacktrace generate --cache-dir cache --redirect-facility static --generator ./generator/generate-site.js --clean --fetch --attribute format=html site.yml",
+    "antora-local": "antora --stacktrace generate --cache-dir cache --redirect-facility static --generator ./generator/generate-site.js --clean --fetch --attribute format=html --url http://localhost:8080 site.yml",
+    "validate": "antora --stacktrace generate --cache-dir cache --redirect-facility disabled --generator ./generator/xref-validator.js --clean site.yml",
+    "linkcheck": "broken-link-checker --filter-level 3 --recursive --verbose"
+  },
+  "dependencies": {
+    "@antora/cli": "^2.3",
+    "@antora/site-generator-default": "^2.3",
+    "asciidoctor-kroki": "^0.12.0",
+    "cheerio": "^1.0.0-rc.9",
+    "elasticsearch": "^16.7.2",
+    "html-entities": "2.3.2",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "broken-link-checker": "^0.7.8",
+    "http-server": "^0.12.3",
+    "write-good": "^1.0"
+  },
+  "resolutions": {
+    "glob-parent": "^6.0"
+  },
+  "keywords": [
+    "antora",
+    "asciidoc",
+    "documentation",
+    "owncloud",
+    "client"
+  ]
+}

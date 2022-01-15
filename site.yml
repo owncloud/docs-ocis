@@ -1,0 +1,31 @@
+site:
+  title: ownCloud oCis Documentation
+  url: https://doc.owncloud.com
+
+content:
+  sources:
+  - url: .
+    branches:
+    - HEAD
+
+ui:
+  output_dir: assets
+  bundle:
+    snapshot: true
+    url: https://minio.owncloud.com/documentation/ui-bundle.zip
+
+output:
+  clean: true
+  dir: public
+
+asciidoc:
+  attributes:
+    idprefix: ''
+    idseparator: '-'
+    experimental: ''
+    latest-ocis-version: next
+    previous-ocis-version: next
+  extensions:
+    - ./lib/extensions/tabs.js
+    - ./lib/extensions/remote-include-processor.js
+    - ./node_modules/asciidoctor-kroki/src/asciidoctor-kroki.js

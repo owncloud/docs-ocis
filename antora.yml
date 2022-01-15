@@ -1,0 +1,9 @@
+name: ocis
+title: oCis Documentation
+version: 'next'
+start_page: ROOT:index.adoc
+nav:
+- modules/ROOT/partials/nav.adoc
+
+asciidoc:
+  attributes:

@@ -1,0 +1,19 @@
+= ownCloud oCis Manual
+:toc:
+:toclevels: 2
+:homepage: https://github.com/owncloud/ocis
+:icon-set: octicon
+:icons: font
+:listing-caption: Listing
+:source-highlighter: rouge
+:version-label: Version:
+:module_base_path: modules/ROOT/pages/
+The ownCloud Team <docs@owncloud.com>
+{revnumber}, {revdate}
+
+include::modules/ROOT/pages/index.adoc[leveloffset=+1]
+
+== Administrating oCis
+
+// include::modules/ROOT/pages/index.adoc[leveloffset=+2]
+
