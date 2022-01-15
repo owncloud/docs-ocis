@@ -25,7 +25,7 @@ When doing a new release for oCIS docs `1.x`, a new version branch must be creat
 14. Commit changes and push it
 15. Create a Pull Request. When CI is green, all is done correctly. Merge the PR to master.
 
-**Step 3: Set the correct Desktop build branches in the docs repo**
+**Step 3: Set the correct oCis build branches in the docs repo**
 
 16. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust the last **two** branches at `url: https://github.com/owncloud/docs-ocis.git` accordingly
     (in section `content.sources.url.branches`)
@@ -47,7 +47,7 @@ When 1.x (oCIS Docs) is finally out, the 1.x-2 branch can be archived,
 see step 4 in https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md
 
 Note, that the 1.x branch in this repo is already created, but the `latest` pointer on the web
-will be set to it automatically when the tag in Desktop is set. This means, that in the docs homepage,
+will be set to it automatically when the tag in oCis is set. This means, that in the docs homepage,
 `latest` will point to 1.x-1 until the tag in oCis is set accordingly. When merging this PR,
 1.x-2 will be dropped from the web but is available via pdf as usual.
 
