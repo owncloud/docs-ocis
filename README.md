@@ -10,6 +10,10 @@ Whenever a Pull Request of this repo gets merged, it automatically triggers a fu
 
 To make life easier, most of the content written in [docs](https://github.com/owncloud/docs#readme) applies also here. For ease of reading, the most important steps are documented here too. For more information see the link provided. Only a few topics of this repo are unique like the branching.
 
+## Antora Site Structure for Docs
+
+Refer to the [Antora Site Structure for Docs](https://github.com/owncloud/docs/blob/master/docs/antora-site-structure.md) for more information. 
+
 ## Prepare Your Environment
 
 To prepare your local environment, some steps need to be made:
