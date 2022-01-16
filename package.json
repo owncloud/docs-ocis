@@ -1,17 +1,17 @@
 {
   "private": true,
-  "name": "owncloud-docs",
-  "description": "The ownCloud Core documentation",
+  "name": "owncloud-ocis",
+  "description": "The ownCloud oCis documentation",
   "version": "2.0.0",
   "license": "AGPL-3.0",
   "author": "The ownCloud Team <docs@owncloud.com>",
-  "homepage": "https://github.com/owncloud/docs#readme",
+  "homepage": "https://github.com/owncloud/docs-ocis#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/owncloud/docs.git"
+    "url": "git+https://github.com/owncloud/docs-ocis.git"
   },
   "bugs": {
-    "url": "https://github.com/owncloud/docs/issues"
+    "url": "https://github.com/owncloud/docs-ocis/issues"
   },
   "contributors": [
     {
