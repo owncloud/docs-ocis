@@ -23,8 +23,8 @@ asciidoc:
     idprefix: ''
     idseparator: '-'
     experimental: ''
-    latest-ocis-version: next
-    previous-ocis-version: next
+    latest-ocis-version: 'next'
+    previous-ocis-version: 'next'
   extensions:
     - ./lib/extensions/tabs.js
     - ./lib/extensions/remote-include-processor.js
