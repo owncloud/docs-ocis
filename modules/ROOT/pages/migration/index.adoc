@@ -1,0 +1,5 @@
+= Migrating from ownCloud 10 to ownCloud Infinite Scale
+
+Basically the content here:
+https://owncloud.dev/ocis/migration/
+

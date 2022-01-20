@@ -1,0 +1,27 @@
+= Configuration
+
+The configuration of ownCloud Infinite Scale is simple yet powerful and extremely flexible.
+
+== Overview Configuration Files
+
+$HOME/.ocis/config/
+
+/etc/ocis/
+
+.config/
+
+$HOME/.ocis/config/proxy.yaml
+
+$HOME/.ocis/config/accounts.yaml
+
+CAUTION: `accounts.yaml` and `proxy.yaml` overwrite the values set in `ocis.yaml`.
+
+== Environment Variables
+
+== Workflows
+
+== Shared Values
+
+== Default Configuration Values and ENV Mappings
+
+
