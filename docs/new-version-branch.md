@@ -18,8 +18,7 @@ When doing a new release for oCIS docs `1.x`, a new version branch must be creat
 
 9.  Create a new `changes_necessary_for_1.x` branch based on latest `origin/master`
 10.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`)
-11. In `site.yml` adjust all `-version` keys according the new and former releases
-    (in section `asciidoc.attributes`)
+11. . In `site.yml` in section `asciidoc.attributes`, adjust all `-version` keys related to this repo according the new and former releases. Note if those attributes exist in other content sources, they must be set to the identical value to create consistent test builds.
 12. No changes in `antora.yml` but check if the version is set to `master`
 13. Run a build by entering `yarn antora-local`. No errors should occur
 14. Commit changes and push it
