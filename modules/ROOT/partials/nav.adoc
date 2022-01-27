@@ -1,6 +1,7 @@
 * xref:index.adoc[Introduction]
 * ownCloud Infinite Scale 
 ** xref:prerequisites/index.adoc[Prerequisites]
+** xref:architecture/index.adoc[Architecture and Conecpts]
 ** xref:deployment/index.adoc[Deployment Considerations]
 ** xref:installation/index.adoc[Installation]
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
