@@ -5,7 +5,8 @@ Welcome to the ownCloud Infinite Scale (oCIS) documentation. This guide provides
 Here you find information on:
 
 * Prerequisites
-* Deployment Considerations, Architecture, Spaces Concept
+* Architecture, Spaces Concept
+* Deployment Considerations
 * Installation
 * Migration from the classic ownCloud Server to oCIS
 * Configuration
