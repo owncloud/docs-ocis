@@ -2,6 +2,28 @@
 
 == Hardware
 
+=== Ram Considerations
+
+// harvested from https://owncloud.dev/architecture/efficient-stat-polling/
+
+Every client polls the virtual root ETag (every 30 sec). The gateway will cache the virtual root ETag of every storage for 30 sec as well. That way every storage provider is only stated once every 30 sec (can be throttled dynamically to adapt to storage IO load).
+
+Since the active clients will poll the ETag for all active users, the gateway will have their ETag cached. This is where sharing comes into play: The gateway also needs to stat the ETag of all other entry points or mount points. That may increase the number of stat like requests to storage providers by an order of magnitude.
+
+For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported). With 4k inodes 256 nodes take 1 MB of RAM, 1k inodes take 4 MB and 1M inodes take 4 GB to completely cache the file metadata. For distributed file systems a dedicated cache might make sense to prevent hammering it with stat like requests to calculate ETags.
+
+=== Bandwidth Considerations
+
+The bandwith for a single machine might be another bottleneck. Consider a PROPFIND request with roughly 500 bytes and a response with roughly 800 bytes in size:
+
+* At 100 Mbit (~10MB/s) you can receive 20 000 PROPFIND requests
+* At 1000 Mbit (~100MB/s) you can receive 200 000 PROPFIND requests
+* At 10 Gbit (~1GB/s) you can receive 2 000 000 PROPFIND requests
+
+This can be scaled by adding more gateways and sharding users because these components are stateless.
+
 == Software
+
+The oCIS server is Apache v2 licensed. The lower storage layer of oCIS is defined by the CS3 APIs and implemented in the REVA project. Our goal is to develop the CS3 APIs to an open standard and collaborate on the open source REVA reference implementation for CS3 APIs.
 
 ???
