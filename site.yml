@@ -2,6 +2,7 @@
 site:
   title: ownCloud oCis Documentation
   url: https://doc.owncloud.com
+  start_page: ocis::index.adoc
 
 content:
   sources:
