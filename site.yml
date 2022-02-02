@@ -1,3 +1,4 @@
+# note that this site.yml file is for local building and testing only
 site:
   title: ownCloud oCis Documentation
   url: https://doc.owncloud.com
@@ -20,9 +21,12 @@ output:
 
 asciidoc:
   attributes:
+#   branch-specific-variables: 'see antora.yml'
+#   build relevant    idprefix: ''
     idprefix: ''
     idseparator: '-'
     experimental: ''
+#   ocis
     latest-ocis-version: 'next'
     previous-ocis-version: 'next'
   extensions:
