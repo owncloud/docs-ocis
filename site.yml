@@ -22,7 +22,7 @@ output:
 asciidoc:
   attributes:
 #   branch-specific-variables: 'see antora.yml'
-#   build relevant    idprefix: ''
+#   build relevant
     idprefix: ''
     idseparator: '-'
     experimental: ''
