@@ -2,16 +2,56 @@
 
 // https://owncloud.dev/ocis/deployment/
 
-There are several deployment options for oCIS to consider before you get started.
+There are several deployment options for ownCloud Infinite Space (oCIS) to consider before you get started.
 
 == Basic Setup
 
-If you want to test oCIS and see how well it fits your needs, download the binary and and run it on your server.
+If you want to test oCIS and see how well it fits your needs, download the binary from
+https://download.owncloud.com/ocis/ocis/ and make it executable with `chmod +x ocis`. Depending on your system and preferences, you may want to save the binary as `/var/lib/ocis` or `/usr/bin/ocis`.
+
+// URL with curl/wget command, once we know it. Recommended directory possibly to be adjusted when we actually have a recommend or standard location.
+
+You can now start the fullstack oCIS server with the command: `ocis server`. However, if you're using oCIS with self-signed certificates, you need to set the environment variable `OCIS_INSECURE=true`:
+
+[source,console]
+----
+`OCIS_INSECURE=true ocis server`
+----
+
+If you have your own certificates already in place, you may want to make oCIS use them:
+
+[source,console]
+----
+OCIS_INSECURE=false \
+PROXY_HTTP_ADDR=0.0.0.0:9200 \
+OCIS_URL=https://your-host:9200 \
+PROXY_TRANSPORT_TLS_KEY=./certs/your-host.key \
+PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
+ocis server
+----
+
+In case your certificates are self-signed, better set `OCIS_INSECURE=true` in the above example command.
+
+Log in via the web interface at https://localhost:9200 using one of the demo users provided for testing purposes:
+
+[source,console]
+----
++----------+---------------+----------------------+-------+
+| username | password      | email                | role  |
++----------+---------------+----------------------+------ +
+| admin    | admin         | admin@example.org    | admin |
+| einstein | relativity    | einstein@example.org | user  |
+| marie    | radioactivity | marie@example.org    | user  |
+| moss     | vista         | moss@example.org     | admin |
+| richard  | superfluidity | richard@example.org  | user  |
++----------+---------------+----------------------+-------+
+----
+
 
 // https://owncloud.dev/ocis/deployment/basic-remote-setup/
-// This does not match my test setup.
+// Does not really match my test setup.
 
-== Setup with Traefik for SSL Termination
+== Setup with Traefik
 
 // https://owncloud.dev/ocis/deployment/ocis_traefik/
 
