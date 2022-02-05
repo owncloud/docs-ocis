@@ -1,4 +1,7 @@
 = Prerequisites
+:nginx-url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+:traefik-url: https://doc.traefik.io/traefik/
+:apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 
 == Hardware
 
@@ -24,6 +27,29 @@ This can be scaled by adding more gateways and sharding users because these comp
 
 == Software
 
-The oCIS server is Apache v2 licensed. The lower storage layer of oCIS is defined by the CS3 APIs and implemented in the REVA project. Our goal is to develop the CS3 APIs to an open standard and collaborate on the open source REVA reference implementation for CS3 APIs.
+For _best performance_, _stability_, _support_, and _full functionality_ we officially support oCIS running on the following Linux distributions:
 
-???
+* Debian 10 and 11
+* Fedora 32 and 33
+* Red Hat Enterprise Linux/Centos 7.5 and 8
+* SUSE Linux Enterprise Server 12 with SP4/5 and 15
+* openSUSE Leap 15.2 and 15.3
+* Ubuntu 20.04
+
+In addition, we strongly recommend a reverse proxy for security reasons, load balancing and high availability, e.g., {traefik-url}[Traefik], {apache-rev-url}[Apache] or {nginx.url}[NGINX].
+
+== Storage
+
+oCIS works with POSIX-compliant file systems:
+
+* EXT4
+* BTRFS
+* ZFS
+* XFS
+* CephFS
+* NFS
+
+// Note to Martin: Can and should we pull the NFS section from the classic admin guide in here or copy the section?
+// https://doc.owncloud.com/server/10.9/admin_manual/installation/deployment_recommendations/nfs.html
+
+S3 storage is supported but requires POSIX for meta data persistance.
