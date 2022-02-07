@@ -1,5 +1,0 @@
-= Installation of ownCloud Infinite Scale
-
-== Binary Installation
-
-== Docker Installation

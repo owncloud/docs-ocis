@@ -1,8 +1,8 @@
-= Deployment Considerations
+= Deployment
 
 // https://owncloud.dev/ocis/deployment/
 
-There are several deployment options for ownCloud Infinite Space (oCIS) to consider before you get started.
+There are several deployment options for ownCloud Infinite Space (oCIS). Consider which one serves your purposes best.
 
 == Basic Setup
 
@@ -18,7 +18,7 @@ You can now start the fullstack oCIS server with the command: `ocis server`. How
 `OCIS_INSECURE=true ocis server`
 ----
 
-If you have your own certificates already in place, you may want to make oCIS use them:
+If you have your own certificates already in place, you may want to make oCIS use them by adding the following environment variables to the command:
 
 [source,console]
 ----
@@ -30,7 +30,7 @@ PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
 ocis server
 ----
 
-In case your certificates are self-signed, better set `OCIS_INSECURE=true` in the above example command.
+In case your certificates are self-signed, better set `OCIS_INSECURE=true` in the above example.
 
 Log in via the web interface at https://localhost:9200 using one of the demo users provided for testing purposes:
 
@@ -147,7 +147,5 @@ TIP: To prevent the generation of demo users, run the initial setup with an addi
 After you have added an additional user with admin privileges, delete the demo users in ownCloud Web or use the command `ocis accounts remove <ID>`.
 
 CAUTION: Do not delete any of the system users but change their default secrets instead.
-
-
 
 

@@ -6,8 +6,7 @@ Here you find information on:
 
 * Prerequisites
 * Architecture and Concepts
-* Deployment Considerations
-* Installation
+* Deployment
 * Migration from the classic ownCloud Server to oCIS
 * Configuration
 * Maintenance
