@@ -40,7 +40,9 @@ In addition, we strongly recommend a reverse proxy for security reasons, load ba
 
 == Storage
 
-oCIS works with POSIX-compliant file systems:
+oCIS works with POSIX-compliant file systems. S3 storage is supported but requires POSIX for meta data persistance.
+
+The main POSIX-compliant file systems are:
 
 * EXT4
 * BTRFS
@@ -49,7 +51,4 @@ oCIS works with POSIX-compliant file systems:
 * CephFS
 * NFS
 
-// Note to Martin: Can and should we pull the NFS section from the classic admin guide in here or copy the section?
-// https://doc.owncloud.com/server/10.9/admin_manual/installation/deployment_recommendations/nfs.html
-
-S3 storage is supported but requires POSIX for meta data persistance.
+include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]

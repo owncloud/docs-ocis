@@ -1,5 +1,7 @@
 = Deployment
 
+:docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
+
 // https://owncloud.dev/ocis/deployment/
 
 There are several deployment options for ownCloud Infinite Space (oCIS). Consider which one serves your purposes best.
@@ -50,6 +52,21 @@ Log in via the web interface at https://localhost:9200 using one of the demo use
 
 // https://owncloud.dev/ocis/deployment/basic-remote-setup/
 // Does not really match my test setup.
+
+== Setup with Docker
+
+Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, enter:
+
+[source,console]
+----
+docker pull owncloud/ocis
+docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
+----
+
+The environment variable OCIS_INSECURE=true is necessary when you’re using oCIS with self-signed certificates.
+
+To be continued with more substance.
+
 
 == Setup with Traefik
 
