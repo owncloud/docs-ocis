@@ -8,7 +8,7 @@ There are several deployment options for ownCloud Infinite Space (oCIS). Conside
 
 == Basic Setup
 
-If you want to test oCIS and see how well it fits your needs, download the binary from
+Install oCIS via the package manager of your Linux system or download the binary from
 https://download.owncloud.com/ocis/ocis/ and make it executable with `chmod +x ocis`. Depending on your system and preferences, you may want to save the binary as `/var/lib/ocis` or `/usr/bin/ocis`.
 
 // URL with curl/wget command, once we know it. Recommended directory possibly to be adjusted when we actually have a recommend or standard location.
