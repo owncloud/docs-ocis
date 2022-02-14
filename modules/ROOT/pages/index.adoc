@@ -1,6 +1,6 @@
 = Introduction to ownCloud Infinite Scale
 
-Welcome to the ownCloud Infinite Scale (oCIS) documentation. This guide provides information on installation and administration tasks for oCIS, the next generation of open source file sharing and synchronization solutions. There's no need for PHP or a database, which allows for high performance, flexibility and scalability. Check out the short list of [prerequisites]. With oCIS, not much is needed to run your own cloud server the way you want.
+Welcome to the ownCloud Infinite Scale (oCIS) documentation. This guide provides information on installation and administration tasks for oCIS, the next generation of open source file sharing and synchronization solutions. There is no need for PHP or a database, which allows for high performance, flexibility and scalability. Check out the short list of [prerequisites]. With oCIS, not much is needed to run your own cloud server the way you want.
 
 One of the first decisions you'll have to make is whether to user docker for oCIS, run it in a virtual machine or simply on a bare metal server. If you're unsure, check out the xref:architecture/index.adoc[Architecture and Concepts] section first, then take a look at the xref:deployment/index.adoc[deployment] options.
 
