@@ -1,20 +1,21 @@
 = Configuration
 
-The configuration of ownCloud Infinite Scale is simple yet powerful and extremely flexible.
+The configuration of ownCloud Infinite Scale is simple yet powerful and extremely flexible. If you have downloaded the binary from ownCloud directly instead of installing it via the package manager of your Linux operating system, copy or move the file to `/usr/bin/ocis` and make it executable with the command: `chmod +x /usr/bin/ocis`.
+
+Enter `ocis help` and you'll see the all available options for the command.
 
 == Overview Configuration Files
 
-$HOME/.ocis/config/
 
-/etc/ocis/
+If you have a systemd service configured for oCIS, you have your environment file defined in `/etc/systemd/system/ocis.service`, likely `/etc/ocis/ocis.env`.
 
-.config/
+// $HOME/.ocis/config/
 
-$HOME/.ocis/config/proxy.yaml
+// $HOME/.ocis/config/proxy.yaml
 
-$HOME/.ocis/config/accounts.yaml
+// $HOME/.ocis/config/accounts.yaml
 
-CAUTION: `accounts.yaml` and `proxy.yaml` overwrite the values set in `ocis.yaml`.
+// CAUTION: `accounts.yaml` and `proxy.yaml` overwrite the values set in `ocis.yaml`.
 
 == Environment Variables
 

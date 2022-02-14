@@ -1,15 +1,18 @@
 = Deployment
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
-
+:systemd-url: https://systemd.io/
+:traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 // https://owncloud.dev/ocis/deployment/
 
-There are several deployment options for ownCloud Infinite Space (oCIS). Consider which one serves your purposes best.
+There are several deployment options for ownCloud Infinite Space (oCIS). Consider which one serves your purposes best. The first decision you'll have to make is whether to use docker containers or manually set up a regular server.
 
-== Basic Setup
+== Manual Setup
+
+=== Basic Setup
 
 Install oCIS via the package manager of your Linux system or download the binary from
-https://download.owncloud.com/ocis/ocis/ and make it executable with `chmod +x ocis`. Depending on your system and preferences, you may want to save the binary as `/var/lib/ocis` or `/usr/bin/ocis`.
+`https://download.owncloud.com/ocis/ocis/` and make it executable with `chmod +x ocis`. Depending on your system and preferences, you may want to save the binary as `/usr/bin/ocis`.
 
 // URL with curl/wget command, once we know it. Recommended directory possibly to be adjusted when we actually have a recommend or standard location.
 
@@ -53,6 +56,66 @@ Log in via the web interface at https://localhost:9200 using one of the demo use
 // https://owncloud.dev/ocis/deployment/basic-remote-setup/
 // Does not really match my test setup.
 
+=== Setting up the systemd Service
+
+To run oCIS as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the following content:
+
+[source,console]
+----
+[Unit]
+Description=OCIS server
+
+[Service]
+Type=simple
+User=ocisadmin
+Group=ocisadmin
+EnvironmentFile=/etc/ocis/ocis.env
+ExecStart=ocis server
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+----
+
+The user `ocisadmin` is just a placeholder for any user to run oCIS. We strongly advise against using the user `root` for this purpose. Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one. The directory `/etc/ocis/` needs to be created first with `sudo mkdir /etc/ocis`.
+
+Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables:
+
+[source,console]
+----
+OCIS_URL=https://some-hostname-or-ip:9200
+PROXY_HTTP_ADDR=0.0.0.0:9200
+OCIS_INSECURE=false
+
+OCIS_LOG_LEVEL=error
+
+GLAUTH_LDAPS_CERT=/etc/ocis/ldap/ldaps.crt
+GLAUTH_LDAPS_KEY=/etc/ocis/ldap/ldaps.key
+IDP_TRANSPORT_TLS_CERT=/etc/ocis/idp/server.crt
+IDP_TRANSPORT_TLS_KEY=/etc/ocis/idp/server.key
+PROXY_TRANSPORT_TLS_CERT=/etc/ocis/proxy/server.crt
+PROXY_TRANSPORT_TLS_KEY=/etc/ocis/proxy/server.key
+----
+
+Exchange the placeholder `some-hostname-or-ip` with the actual hostname or IP address of your oCIS instance.
+
+If you are using self-signed certificates, you need to set OCIS_INSECURE=true instead of using false like in the above example.
+
+Now you can run oCIS as a systemd service. Start it with `systemctl enable --now ocis`. With this setup, oCIS is restarted automatically if the host got rebooted.
+
+If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run `systemctl restart ocis`.
+
+The logs of oCIS can be displayed by issuing `journalctl -f -u ocis`.
+
+=== Traefik
+
+A reverse proxy is highly recommended for load balancing and security reasons. You'll also need it if you intend to run oCIS and an ownCloud 10 server in parallel before migrating. If you choose Traefik for your deployment, check out the {traefik-url}[documentation]. You'll see several options. In case you want to run it in a docker container, consider using the version from the oCIS stack.
+
+
+=== WOPI Server
+
+A WOPI server allows you to integrate online Office software including Microsoft Office Online and Collabora Online. It can be installed with the package manager of your operating system and is also provided as a docker container.
+
 == Setup with Docker
 
 Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, enter:
@@ -65,36 +128,42 @@ docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
 
 The environment variable OCIS_INSECURE=true is necessary when you’re using oCIS with self-signed certificates.
 
-To be continued with more substance.
+For your convenience, we provide a stack of docker containers optimized for use with oCIS.
+
+=== Traefik
+
+=== Using an S3 Storage Backend (MinIO)
+
+// https://owncloud.dev/ocis/deployment/ocis_s3/
 
 
-== Setup with Traefik
 
-// https://owncloud.dev/ocis/deployment/ocis_traefik/
+=== Keycloak
 
-== Setup with Keycloak as Identity Provider
+=== LDAP
 
-// https://owncloud.dev/ocis/deployment/ocis_keycloak/
+=== WOPI Server
 
-== Setup with WOPI Server
+=== Kubernetes
 
-// https://owncloud.dev/ocis/deployment/ocis_wopi/
-
-A WOPI server allows you to open office documents in a browser.
 
 == Parallel Deployment of ownCloud 10 and oCIS
 
 // https://owncloud.dev/ocis/deployment/oc10_ocis_parallel/
 
-If you already have an ownCloud 10 running and want to start using oCIS in parallel either to find out if you want to migrate or to prepare for migration, proceed as follows...
+If you already have an ownCloud 10 running and want to start using oCIS in parallel, either to find out if you want to migrate or to prepare for migration, proceed as follows...
 
-== Using an S3 Storage Backend (MinIO)
+=== Bridge
 
-// https://owncloud.dev/ocis/deployment/ocis_s3/
 
-== Running oCIS with the Hello Extension Example
+
+
+== Extensions
+
+=== Running oCIS with the Hello Extension
 
 // https://owncloud.dev/ocis/deployment/ocis_hello/
+
 
 == Securing oCIS
 
