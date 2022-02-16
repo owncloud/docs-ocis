@@ -10,7 +10,7 @@
 
 // harvested from https://owncloud.dev/ocis/
 
-Running `ocis server` will start the following services, which can be scaled and deployed on a single node or in a cloud native environment, as needed.
+Running the command `ocis server` will start the following services, which can be scaled and deployed on a single node or in a cloud native environment.
 
 image:architecture/architecture-overview.drawio.svg[]
 
@@ -20,7 +20,7 @@ image:architecture/architecture-overview.drawio.svg[]
 
 === Federated Storage
 
-To create a truly federated storage architecture, oCIS breaks down the old ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
+To create a truly federated storage architecture, oCIS breaks down the ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
 
 The diagram below shows the core concepts of the new architecture:
 
@@ -28,17 +28,17 @@ The diagram below shows the core concepts of the new architecture:
 
 * Storage space registries manage the list of storage spaces a user has access to. They may subscribe to storage spaces in order to receive notifications about changes on behalf of an end-user's mobile or desktop client.
 
-* Storage spaces represent a collection of files and folders. A user's personal files are contained in a storage space, a group or project drive is a storage space. Even incoming shares are treated and implemented as storage spaces, each with properties like owners, permissions, quota and type.
+* Storage spaces represent a collection of files and folders. A user's personal files are contained in a storage space. A group or project drive is a storage space. Even incoming shares are treated and implemented as storage spaces, each with properties like owners, permissions, quota and type.
 
-* Storage providers can hold multiple storage spaces. On an oCIS instance, there might be a dedicated storage provider responsible for users' personal storage spaces. There might be multiple, either to shard the load, provide different levels of redundancy or support custom workflows. Or there might be just one, hosting all types of storage spaces.
+* Storage providers can hold multiple storage spaces. On an oCIS instance, there might be a dedicated storage provider responsible for users' personal storage spaces. There might be multiple storage providers, either to shard the load, provide different levels of redundancy or support custom workflows. Or there might be just one, hosting all types of storage spaces.
 
 image:architecture/idea.drawio.svg[]
 
 For example, Einstein wants to share something with Marie, who has an account at a different identity provider and uses a different storage space registry. OpenID Connect (OIDC) is used for authentication.
 
-To share something with Marie, Einstein opens `https://cloud.zurich.test`. His browser loads oCIS Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `https://idp.zurich.test`, authenticate and get redirected back to `https://cloud.zurich.test`. Now, oCIS Web will use a similar discovery to look up the storage space registry for the account based on the email (or username). He will discover that `https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
+To share something with Marie, Einstein opens `https://cloud.zurich.test`. His browser loads oCIS Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `https://idp.zurich.test`, authenticate and get redirected back to `https://cloud.zurich.test`. Now, oCIS Web will use a similar discovery to look up the storage space registry for the account based on the email address (or username). He will discover that `https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
 
-After locating a folder that he wants to share with Marie he enters her email `marie@paris.test` in the sharing dialog to grant her the editor role. This, in effect, creates a new storage space that is registered with the storage space registry at `https://cloud.zurich.test`.
+After locating a folder that he wants to share with Marie, he enters her email address `marie@paris.test` in the sharing dialog to grant her the editor role. This, in effect, creates a new storage space that is registered with the storage space registry at `https://cloud.zurich.test`.
 
 Einstein copies the URL in the browser (or an email with the same URL is sent automatically, or the storage registries use a back-channel mechanism). It contains the most specific storage space ID and a path relative to it: `https://cloud.zurich.test/#/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path`.
 
@@ -46,23 +46,23 @@ When Marie enters that URL, she will be presented with a login form on the `http
 
 === oCIS Microservice Runtime
 
-oCIS runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default oCIS will start all built-in oCIS extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
+oCIS runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, oCIS will start all built-in oCIS extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
 
 === oCIS Extensions
 
-Every oCIS extension uses ocis-pkg, which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with oCIS. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the oCIS runtime to the individual extensions.
+Every oCIS extension uses https://github.com/owncloud/ocis/tree/master/ocis-pkg[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with oCIS. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the oCIS runtime to the individual extensions.
 
 === Go-Micro
 
-While the go-micro framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For oCIS we decided to use a more admin-friendly runtime: You can download a single binary and start the contained oCIS extensions with a single ocis server`. This also makes packaging easier.
+While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For oCIS we decided to use a more admin-friendly runtime: You can download a single binary and start the contained oCIS extensions with a single command: `ocis server`. This also makes packaging easier.
 
 
 === REVA
 
-A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the CS3 services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with up and download, are one example. The frontend with the oc-flavoured WebDAV, ocs handlers and a data gateway are another.
+A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the CS3 services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
 
 === Protocol-Driven Development
 
-Interacting with oCIS involves a multitude af APIs. The server and all clients rely on {oidc-url}[OpenID Connect] for authentication. The embedded LibreGraph Connect can be replaced with any other OpenID Connect Identity Provider. Clients use the {webdav-url}[WebDAV]-based oc sync protocol to manage files and folders, ocs to manage shares and TUS to upload files in a resumable way. On the server side, REVA is the reference implementation of the CS3 API, which is defined using protocol buffers. By embedding glauth, oCIS provides a read-only LDAP interface to make accounts, including guests, available to firewalls and other systems.
+Interacting with oCIS involves a multitude af APIs. The server and all clients rely on {oidc-url}[OpenID Connect] for authentication. The embedded LibreGraph Connect can be replaced with any other OpenID Connect Identity Provider. Clients use the {webdav-url}[WebDAV]-based https://github.com/cernbox/smashbox/blob/master/protocol/protocol.md[ownCloud sync protocol] to manage files and folders, Open Collaboration Services (OCS) to manage shares and TUS to upload files in a resumable way. On the server side, REVA is the reference implementation of the https://github.com/cs3org/cs3apis[CS3APIS], which are defined using protocol buffers. By embedding Go-lang LDAP Authentication (GLAuth), oCIS provides a read-only LDAP interface to make accounts, including guests, available to firewalls and other systems.
 
 
