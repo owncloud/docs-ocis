@@ -107,7 +107,7 @@ If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.
 
 The logs of oCIS can be displayed by issuing `journalctl -f -u ocis`.
 
-include::{latest-server-version}@server:admin_manual:installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
+include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
 
 
 
