@@ -40,7 +40,7 @@ In addition, we strongly recommend a reverse proxy for security reasons, load ba
 
 == Storage
 
-oCIS works with POSIX-compliant file systems. S3 storage is supported but requires POSIX for meta data persistance.
+In addition to well known metadata like name size and mtime, oCIS allows users to add arbitrary metadata like tags and comments. Therefore oCIS works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported but requires POSIX for meta data persistance.
 
 The main POSIX-compliant file systems are:
 
