@@ -107,6 +107,10 @@ If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.
 
 The logs of oCIS can be displayed by issuing `journalctl -f -u ocis`.
 
+include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
+
+
+
 === Traefik
 
 A reverse proxy is highly recommended for load balancing and security reasons. You'll also need it if you intend to run oCIS and an ownCloud 10 server in parallel before migrating. If you choose Traefik for your deployment, check out the {traefik-url}[documentation]. You'll see several options. In case you want to run it in a docker container, consider using the version from the oCIS stack.
@@ -115,6 +119,7 @@ A reverse proxy is highly recommended for load balancing and security reasons. Y
 === WOPI Server
 
 A WOPI server allows you to integrate online Office software including Microsoft Office Online and Collabora Online. It can be installed with the package manager of your operating system and is also provided as a docker container.
+
 
 == Setup with Docker
 

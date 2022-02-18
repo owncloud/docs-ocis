@@ -51,4 +51,3 @@ The main POSIX-compliant file systems are:
 * CephFS
 * NFS
 
-include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
