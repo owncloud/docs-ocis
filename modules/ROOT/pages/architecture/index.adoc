@@ -1,5 +1,6 @@
 = Architecture and Concepts of ownCloud Infinite Scale
 :toc: right
+:toclevels: 2
 :suture-url: https://github.com/thejerf/suture
 :go-micro-url: https://github.com/asim/go-micro/blob/master/registry/registry.go
 :reva-url: https://reva.link/

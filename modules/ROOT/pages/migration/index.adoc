@@ -1,4 +1,6 @@
 = Migrating from ownCloud 10 to ownCloud Infinite Scale
+:toc: right
+:toclevels: 1
 
 Basically the content here:
 https://owncloud.dev/ocis/migration/
