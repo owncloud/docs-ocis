@@ -1,4 +1,7 @@
 = Prerequisites
+:toc: right
+:toclevels: 1
+
 :nginx-url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 :traefik-url: https://doc.traefik.io/traefik/
 :apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html

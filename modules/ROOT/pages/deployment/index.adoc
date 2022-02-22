@@ -1,8 +1,11 @@
 = Deployment
+:toc: right
+:toclevels: 2
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
+
 // https://owncloud.dev/ocis/deployment/
 
 There are several deployment options for ownCloud Infinite Space (oCIS). Consider which one serves your purposes best. The first decision you'll have to make is whether to use docker containers or manually set up a regular server.

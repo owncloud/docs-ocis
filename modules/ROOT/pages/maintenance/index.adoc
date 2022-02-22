@@ -1,7 +1,10 @@
 = Maintenance
+:toc: right
+:toclevels: 1
 
 == Backup
 
 == Upgrade
 
-== ???
+== Restore
+
