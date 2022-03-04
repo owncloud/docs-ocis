@@ -1,0 +1,69 @@
+== Securing oCIS
+
+ownCloud Infinite Scale comes with demo users that should be deleted for security reasons and system users with default secrets that need to be changed.
+
+=== Changing the Default Secrets
+
+oCIS uses two system users necessary for proper operation:
+
+* Reva Inter-Operability Platform (ID: bc596f3c-c955-4328-80a0-60d018b4ad57)
+
+* Kopano IDP (ID: 820ba2a1-3f54-4538-80a4-2d73007e30bf)
+
+Both have simple default passwords which need to be changed. Currently, changing a password is only possible on the command line. You need to run `ocis accounts update --password <new-password> <ID>` for both users.
+
+//The "currently" will still be true at GA?
+
+The new password for the Reva Inter-Operability Platform user must be made available to oCIS by using the environment variable `STORAGE_LDAP_BIND_PASSWORD`. The same applies to the new Kopano IDP user password, which needs do be made available to oCIS in `IDP_LDAP_BIND_PASSWORD`.
+
+//Where is this setting?
+
+oCIS also uses a shared secret to sign JSON Web Tokens (JWT) for inter-service authorization, which also needs to be changed by the user. You can change it by setting the `OCIS_JWT_SECRET` environment variable for oCIS to a random string.
+
+Another secret is used for singing JWTs for uploads and downloads. Change this by setting the `STORAGE_TRANSFER_SECRET` environment variable for oCIS to a random string.
+
+One more secret is used for machine auth, so that external applications can authenticate with an API key. You can change it by setting the `OCIS_MACHINE_AUTH_API_KEY` environment variable for oCIS to a random string.
+
+=== Delete Demo Users
+
+oCIS ships with five demo users for our customers to play around with before they start a serious rollout:
+
+[source,console]
+----
++----------+---------------+----------------------+-------+
+| username | password      | email                | role  |
++----------+---------------+----------------------+------ +
+| admin    | admin         | admin@example.org    | admin |
+| einstein | relativity    | einstein@example.org | user  |
+| marie    | radioactivity | marie@example.org    | user  |
+| moss     | vista         | moss@example.org     | admin |
+| richard  | superfluidity | richard@example.org  | user  |
++----------+---------------+----------------------+-------+
+----
+
+On a production system, these default users should go, but only after you have created a new account for your self and assigned the administrator role to it.
+
+You can list all existing users with `ocis accounts list`:
+
+[source,console]
+----
++--------------------------------------+------------------------+----------------------+----------------+
+|                  Id                  |          DisplayName   |         Mail         | AccountEnabled |
++--------------------------------------+------------------------+----------------------+----------------+
+| 4c510ada-c86b-4815-8820-42cdf82c3d51 | Albert Einstein        | einstein@example.org | true           |
+| ddc2004c-0977-11eb-9d3f-a793888cd0f8 | Admin                  | admin@example.org    | true           |
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c | Marie Curie            | marie@example.org    | true           |
+| 932b4540-8d16-481e-8ef4-588e4b6b151c | Richard Feynman        | richard@example.org  | true           |
+| bc596f3c-c955-4328-80a0-60d018b4ad57 | Reva Inter Operability | storage@example.org  | true           |
+|                                      | Platform               |                      |                |
+| 820ba2a1-3f54-4538-80a4-2d73007e30bf | Kopano IDP             | idp@example.org      | true           |
+| 058bff95-6708-4fe5-91e4-9ea3d377588b | Maurice Moss           | moss@example.org     | true           |
++--------------------------------------+------------------------+----------------------+----------------+
+----
+
+TIP: To prevent the generation of demo users, run the initial setup with an additional environment variable: `ACCOUNTS_DEMO_USERS_AND_GROUPS=false ./bin/ocis server`. In this case, only the user Admin is created plus the system users for IDP and Reva IOP.
+
+After you have added an additional user with admin privileges, delete the demo users in ownCloud Web or use the command `ocis accounts remove <ID>`.
+
+CAUTION: Do not delete any of the system users but change their default secrets instead.
+

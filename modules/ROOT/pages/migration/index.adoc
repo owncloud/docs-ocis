@@ -2,6 +2,14 @@
 :toc: right
 :toclevels: 1
 
-Basically the content here:
-https://owncloud.dev/ocis/migration/
+If you already have an ownCloud 10 running and want to start using oCIS in parallel, either to find out if you want to migrate or to prepare for migration, proceed as follows...
+
+== Switching to the New Web UI
+
+== Parallel Deployment of ownCloud 10 and oCIS
+
+https://owncloud.dev/ocis/deployment/oc10_ocis_parallel/
+
+Plus: https://owncloud.dev/ocis/migration/
+
 

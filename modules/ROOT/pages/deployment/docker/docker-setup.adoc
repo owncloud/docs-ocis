@@ -1,0 +1,29 @@
+== Setup with Docker
+:toc: right
+:toclevels: 2
+
+:docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
+:traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
+
+Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, enter:
+
+[source,console]
+----
+docker pull owncloud/ocis
+docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
+----
+
+The environment variable OCIS_INSECURE=true is necessary when you’re using oCIS with self-signed certificates.
+
+For your convenience, we provide a stack of docker containers optimized for use with oCIS.
+
+=== Traefik
+
+=== Keycloak
+
+=== LDAP
+
+=== WOPI Server
+
+=== Kubernetes
+
