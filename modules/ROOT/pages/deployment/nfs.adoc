@@ -1,0 +1,1 @@
+include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
