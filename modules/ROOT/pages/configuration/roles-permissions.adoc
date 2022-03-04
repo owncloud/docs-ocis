@@ -1,0 +1,10 @@
+== Roles & Permissions
+:toc: right
+:toclevels: 1
+
+=== Available roles and permissions
+
+- admin
+- user
+
+=== How to map them to users? (integrated IDM, external IDM)

@@ -1,0 +1,9 @@
+== Integrating Office Applications
+:toc: right
+:toclevels: 1
+
+If you install the WOPI server extension, you can integrate major office applications in oCIS:
+
+* Collabora Online
+* ONLYOFFICE
+* Microsoft Office Online
