@@ -1,7 +1,6 @@
 == Extensions
 
-=== Running oCIS with the Hello Extension
+ownCloud Infinite Space functionality comes with a groing number of extenstions.
 
-// https://owncloud.dev/ocis/deployment/ocis_hello/
+// Which are available at GA?
 
-=== ???
