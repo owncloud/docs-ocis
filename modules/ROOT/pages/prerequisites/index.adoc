@@ -1,34 +1,99 @@
 = Prerequisites
 :toc: right
-:toclevels: 1
+:toclevels: 2
+
+:ext4_url: https://en.wikipedia.org/wiki/Ext4
+:btrfs_url: https://en.wikipedia.org/wiki/Btrfs
+:zfs_url: https://en.wikipedia.org/wiki/ZFS
+:xfs_url: https://en.wikipedia.org/wiki/XFS
+:cephfs_url: https://en.wikipedia.org/wiki/Ceph_(software)#File_system
+:nfs_url: https://en.wikipedia.org/wiki/Network_File_System
 
 :nginx-url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 :traefik-url: https://doc.traefik.io/traefik/
 :apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 
+:description: The prerequisites described give an overview and background about minimum requirements with respect to hardware, operating system and optional additional software to operate oCIS successfully.
+
+== Introduction
+
+{description}
+
 == Hardware
 
-=== Ram Considerations
+// fixme: what are the real minimum physical hardware requirements or what is definitely excluded
+
+The minimum hardware requirements depend on the usecase you plan for your oCIS instance. At minimum you need hardware that runs a 64bit Linux based Operating System. This means, you can start with a hardware environment, eg for testing, running on a laptop or a Raspberry PI.
+
+Because oCIS with its webinterface ownCloud Web is shipped as a single binary, you can migrate your instance with the configurations and the OS setup made with minimal effort to a more capable hardware satisfying your needs.
+
+=== RAM Considerations
 
 // harvested from https://owncloud.dev/architecture/efficient-stat-polling/
 
-Every client polls the virtual root ETag (every 30 sec). The gateway will cache the virtual root ETag of every storage for 30 sec as well. That way every storage provider is only stated once every 30 sec (can be throttled dynamically to adapt to storage IO load).
+The RAM requirements are mainly based on caching inodes and meta-data (ETags).
 
-Since the active clients will poll the ETag for all active users, the gateway will have their ETag cached. This is where sharing comes into play: The gateway also needs to stat the ETag of all other entry points or mount points. That may increase the number of stat like requests to storage providers by an order of magnitude.
+NOTE: Your RAM requirements may change over time dependent on the amount of users accessing an increasing amount of data from different sources concurrently.
 
-For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported). With 4k inodes 256 nodes take 1 MB of RAM, 1k inodes take 4 MB and 1M inodes take 4 GB to completely cache the file metadata. For distributed file systems a dedicated cache might make sense to prevent hammering it with stat like requests to calculate ETags.
+Calculation example:
+
+For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported).
+
+With 4k inodes, the following RAM is needed to completely cache the ETags.
+
+[width="40%",cols="30%,50%",options="header"]
+|===
+| Inodes
+| RAM requirement
+
+| 256
+| 1 MB
+
+| 1k
+| 4MB
+
+| 1M
+| 4GB
+|===
+
+NOTE: For distributed file systems, a dedicated cache might make sense to prevent a high number of requests to calculate ETags.
+
+==== Background
+
+Each storage mounted provides a virtual root to the user and enables access to the data underneath. Whenever a file changes its content or metadata, the ETag or “entity tag” changes. To let a client detect changes in a provided storage - which is a tree of files and folders - the ETag of every node in that tree is used. The discovery phase starts at the root of the tree and checks if the ETag has changed since the last discovery.
+
+Backend Check::
+A gateway is used as common source for all clients to cache virtual ETags from provided storages. Checks for  changes are made every 30 seconds, the value is configurable to adapt to storage IO load.
+
+Client Check::
+Usually, every client connected polls the virtual root ETag every 30 sec.
+
+Since the active clients will poll the ETag for all active users, the gateway will have their ETag cached. This is also true where sharing comes into play. The gateway request the ETag of all mount or entry points to eliminate concurrent caclulation requests triggered by clients for the same ETag. For this reason, RAM is a crucial performance factor.
 
 === Bandwidth Considerations
 
-The bandwith for a single machine might be another bottleneck. Consider a PROPFIND request with roughly 500 bytes and a response with roughly 800 bytes in size:
+The bandwith requirements respectively limitations are based on following background:
 
-* At 100 Mbit (~10MB/s) you can receive 20 000 PROPFIND requests
-* At 1000 Mbit (~100MB/s) you can receive 200 000 PROPFIND requests
-* At 10 Gbit (~1GB/s) you can receive 2 000 000 PROPFIND requests
+When a client triggers a request to manage eg documents and versions (aka PROPFIND), it triggers internally a check on changed ETags. Expect to have with the request about 500 bytes and a response with roughly 800 bytes in size. This will result in following calculation with regards to the bandwith:
 
-This can be scaled by adding more gateways and sharding users because these components are stateless.
+[width="55%",cols="50%,80%",options="header"]
+|===
+| Network
+| max. PROPFIND responses/s
 
-== Software
+| 100 Mbit (~10MB/s)
+| 12.500
+
+| 1 Gbit (~100MB/s)
+| 125.000
+
+| 10 Gbit (~1GB/s)
+| 1.250.000
+|===
+
+NOTE: Bandwidth can be scaled by adding more gateways and sharing users, because these components are stateless.
+
+== Supported Operating Systems
 
 For _best performance_, _stability_, _support_, and _full functionality_ we officially support oCIS running on the following Linux distributions:
 
@@ -39,18 +104,27 @@ For _best performance_, _stability_, _support_, and _full functionality_ we offi
 * openSUSE Leap 15.2 and 15.3
 * Ubuntu 20.04
 
-In addition, we strongly recommend a reverse proxy for security reasons, load balancing and high availability, e.g., {traefik-url}[Traefik], {apache-rev-url}[Apache] or {nginx-url}[NGINX].
+== Additional Software
 
-== Storage
+It is strongly recommend to use a reverse proxy for:
 
-In addition to well known metadata like name size and mtime, oCIS allows users to add arbitrary metadata like tags and comments. Therefore oCIS works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported but requires POSIX for meta data persistance.
+. Security reasons
+. Load balancing and
+. High availability
 
-The main POSIX-compliant file systems are:
+like {traefik-url}[Traefik], {nginx-url}[NGINX] or {apache-rev-url}[Apache].
 
-* EXT4
-* BTRFS
-* ZFS
-* XFS
-* CephFS
-* NFS
+// fixme: links to how to setup these things, maybe external links will work well too
 
+== Filesystems and External Storage
+
+In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX compliant local storage for meta data persistance.
+
+The main POSIX-compliant file systems currently supported by oCIS are:
+
+* {ext4_url}[EXT4]
+* {btrfs_url}[BTRFS]
+* {zfs_url}[ZFS]
+* {xfs_url}[XFS]
+* {cephfs_url}[CephFS]
+* {nfs_url}[NFS]
