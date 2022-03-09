@@ -14,7 +14,8 @@ oCIS key benefits:
 * Single binary delivery +
   Shipped as binary bundled together with the web interface `ownCloud Web`
 
-// fixme: we should have a cross component link to owncloud web
+// fixme: we should have a cross component link to owncloud web when available
+// fixme: shall we have a feature list page ?
 
 With oCIS, not much is needed to run your ownCloud server the way you want. Check out the short list of xref:prerequisites/index.adoc[prerequisites].
 
