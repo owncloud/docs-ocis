@@ -1,6 +1,6 @@
 # note that this site.yml file is for local building and testing only
 site:
-  title: ownCloud oCis Documentation
+  title: ownCloud oCIS Documentation
   url: https://doc.owncloud.com
   start_page: ocis::index.adoc
 
