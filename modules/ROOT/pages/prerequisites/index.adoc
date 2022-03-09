@@ -39,13 +39,22 @@ Calculation example:
 
 For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported).
 
-With 4k inodes
+With 4k inodes, the following RAM is needed to completely cache the ETags.
 
-* 256 nodes take 1 MB of RAM
-* 1k inodes take 4 MB of RAM
-* 1M inodes take 4 GB of RAM
+[width="40%",cols="30%,50%",options="header"]
+|===
+| Inodes
+| RAM requirement
 
-to completely cache the ETags.
+| 256
+| 1 MB
+
+| 1k
+| 4MB
+
+| 1M
+| 4GB
+|===
 
 NOTE: For distributed file systems, a dedicated cache might make sense to prevent a high number of requests to calculate ETags.
 
@@ -67,9 +76,20 @@ The bandwith requirements respectively limitations are based on following backgr
 
 When a client triggers a request to manage eg documents and versions (aka PROPFIND), it triggers internally a check on changed ETags. Expect to have with the request about 500 bytes and a response with roughly 800 bytes in size. This will result in following calculation with regards to the bandwith:
 
-* At 100 Mbit (~10MB/s) you can receive 20 000 PROPFIND requests/s
-* At 1 Gbit (~100MB/s) you can receive 200 000 PROPFIND requests/s
-* At 10 Gbit (~1GB/s) you can receive 2 000 000 PROPFIND requests/s
+[width="55%",cols="50%,80%",options="header"]
+|===
+| Network
+| max. PROPFIND responses/s
+
+| 100 Mbit (~10MB/s)
+| 12.500
+
+| 1 Gbit (~100MB/s)
+| 125.000
+
+| 10 Gbit (~1GB/s)
+| 1.250.000
+|===
 
 NOTE: Bandwidth can be scaled by adding more gateways and sharing users, because these components are stateless.
 
