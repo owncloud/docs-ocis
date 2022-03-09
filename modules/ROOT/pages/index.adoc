@@ -11,8 +11,7 @@ oCIS key benefits:
 * No need for PHP or a database
 * High performance, flexibility and scalability
 * Extended functionality
-* Single binary delivery +
-  Shipped as binary bundled together with the web interface `ownCloud Web`
+* Single binary delivery, shipped with the user interface `ownCloud Web`
 
 // fixme: we should have a cross component link to owncloud web when available
 // fixme: shall we have a feature list page ?
