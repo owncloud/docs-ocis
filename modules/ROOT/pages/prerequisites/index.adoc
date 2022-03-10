@@ -128,9 +128,9 @@ NOTE: Bandwidth can be scaled by adding more gateways and distributing users bet
 
 Depending on the usecase, you can run oCIS on:
 
-* Bare metal
+* No virtualization, bare metal
 * Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
-* Virtualized linux operating system which is docker
+* Virtualized Linux operating system in Docker containers
 
 == Supported Operating Systems
 
