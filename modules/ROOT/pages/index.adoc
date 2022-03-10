@@ -20,13 +20,17 @@ oCIS key benefits:
 
 == Brief Overview
 
+=== Architecture and Concepts
+
+To learn more about oCIS, check out the xref:architecture/index.adoc[Architecture and Concepts] section first. This information may help deciding which installation options you would like to go for and which hardware fits your needs best.
+
 === Prerequisites
 
 With oCIS, not much is needed to run your ownCloud server the way you want. Check out the short list of xref:prerequisites/index.adoc[prerequisites].
 
 === Installation
 
-One of the first decisions you'll have to make is whether to user docker for oCIS, run it in a virtual machine or simply on a bare metal server. If you're unsure, check out the xref:architecture/index.adoc[Architecture and Concepts] section first, then take a look at the xref:deployment/index.adoc[deployment] options.
+oCIS can be deployed via docker or you can run it manually installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
 
 === Configuration
 
