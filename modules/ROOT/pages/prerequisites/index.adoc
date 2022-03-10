@@ -13,7 +13,7 @@
 :traefik-url: https://doc.traefik.io/traefik/
 :apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 
-:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, operating system and optional additional software to operate oCIS successfully.
+:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualisation, operating system and optional software to operate oCIS successfully.
 
 == Introduction
 
@@ -21,9 +21,38 @@
 
 == Hardware
 
-// fixme: what are the real minimum physical hardware requirements or what is definitely excluded
+The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system preferrable 64bit.
 
-The minimum hardware requirements depend on the deployment scenario you have in mind for your oCIS instance. You need at least hardware that runs a 64bit Linux operating system. For simple testing purposes, you can even use a laptop or Raspberry Pi.
+* For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
+* For more intense testing purposes, the recommended start hardware is a multi core processor with at least 4GB of RAM.
+* For productive environments, RAM and bandwidth are the main limiting factors, see xref:ram-considerations[RAM Considerations] and xref:bandwidth-considerations[Bandwidth Considerations].
+
+// fixme: info of architectures came from willy, also see: 
+// https://download.owncloud.com/ocis/ocis/1.18.0/
+// https://hub.docker.com/r/owncloud/ocis/tags
+
+[caption=]
+.Tested and Supported Hardware Architecture Matrix
+[width="65%",cols="50%,50%",options="header"]
+|===
+| OS / Docker
+| Hardware Architecture
+
+| Linux on Bare Metal
+| 386, AMD64, ARM, ARM64
+
+| Linux Hardware Virtualized
+| 386, AMD64, ARM, ARM64
+
+| Linux Docker
+| AMD64, ARM, ARM64
+
+| Darwin (MacOS)
+| AMD64, ARM64, +
+M1 (ARM64 compatible)
+|===
+
+Note when referencing software built for a particular architecture, *ARM* stands for ARM32(v6/v7) and *ARM64* stands for ARM64(v8).
 
 === RAM Considerations
 
@@ -37,7 +66,7 @@ Calculation example:
 
 For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported).
 
-// fixme: Zusammenhang von inode/etag und client (files/directories)
+// fixme: relationship of inode/etag and client (files/directories)
 
 With 4k inodes, the following RAM is needed to completely cache the ETags:
 
@@ -76,6 +105,8 @@ The bandwidth requirements and limitations are based on following background:
 
 When a client triggers a request to manage e.g. documents and versions (aka PROPFIND), it triggers internally a check on changed ETags. A request of about 500 bytes and a response with roughly 800 bytes in size will result in the following bandwidth requirements:
 
+// fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
+
 [width="55%",cols="50%,80%",options="header"]
 |===
 | Network
@@ -92,6 +123,14 @@ When a client triggers a request to manage e.g. documents and versions (aka PROP
 |===
 
 NOTE: Bandwidth can be scaled by adding more gateways and distributing users between them because these components are stateless.
+
+== Virtualisation
+
+Depending on the usecase, you can run oCIS on:
+
+* Bare metal
+* Virtualised hardware like VMWare, KVM, HyperV, VirtualBox ect.
+* Virtualized linux operating system which is docker
 
 == Supported Operating Systems
 
@@ -112,17 +151,21 @@ It is strongly recommend to use a reverse proxy like {traefik-url}[Traefik], {ng
 . load balancing and
 . high availability.
 
+// fixme: describe the reason for the need
 // fixme: links to how to setup these things, maybe external links will work well too
 
 == Filesystems and External Storage
 
 In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX-compliant local storage for meta data persistance.
 
-The main POSIX-compliant file systems currently supported by oCIS are:
+The currently supported oCIS POSIX-compliant file systems are:
 
-* {ext4_url}[EXT4]
+. Local Filesystems
 * {btrfs_url}[BTRFS]
-* {zfs_url}[ZFS]
+* {ext4_url}[EXT4]
 * {xfs_url}[XFS]
+* {zfs_url}[ZFS]
+
+. Shared Filesystems
 * {cephfs_url}[CephFS]
 * {nfs_url}[NFS]
