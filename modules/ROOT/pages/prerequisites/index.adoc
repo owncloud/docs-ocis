@@ -13,7 +13,7 @@
 :traefik-url: https://doc.traefik.io/traefik/
 :apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 
-:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualisation, operating system and optional software to operate oCIS successfully.
+:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate oCIS successfully.
 
 == Introduction
 
@@ -24,7 +24,7 @@
 The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system preferrable 64bit.
 
 * For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
-* For more intense testing purposes, the recommended start hardware is a multi core processor with at least 4GB of RAM.
+* For more intense testing purposes, the recommended start hardware is a multi-core processor with at least 4GB of RAM.
 * For productive environments, RAM and bandwidth are the main limiting factors, see xref:ram-considerations[RAM Considerations] and xref:bandwidth-considerations[Bandwidth Considerations].
 
 // fixme: info of architectures came from willy, also see: 
@@ -124,12 +124,12 @@ When a client triggers a request to manage e.g. documents and versions (aka PROP
 
 NOTE: Bandwidth can be scaled by adding more gateways and distributing users between them because these components are stateless.
 
-== Virtualisation
+== Virtualization
 
 Depending on the usecase, you can run oCIS on:
 
 * Bare metal
-* Virtualised hardware like VMWare, KVM, HyperV, VirtualBox ect.
+* Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
 * Virtualized linux operating system which is docker
 
 == Supported Operating Systems
