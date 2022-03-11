@@ -172,7 +172,7 @@ It is strongly recommend to use a reverse proxy like {traefik-url}[Traefik], {ng
 // fixme: describe the reason for the need
 // fixme: links to how to setup these things, maybe external links will work well too
 
-== Filesystems and External Storage
+== Filesystems and Shared Storage
 
 In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX-compliant local storage for meta data persistance.
 
