@@ -100,13 +100,18 @@ Since active clients will poll the ETag for all active users, the gateway will h
 
 === Bandwidth Considerations
 
-The bandwidth requirements and limitations are based on following background:
+The bandwidth requirements and limitations are based on following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from external like via the Internet are not part of this description but can be derived from LAN:
 
-When a client triggers a request to manage e.g. documents and versions (aka PROPFIND), it triggers internally a check on changed ETags. A request of about 500 bytes and a response with roughly 800 bytes in size will result in the following bandwidth requirements:
+Clients which are accessing oCIS, request the information about what has changed. Depending on the response and if a file synchronisation is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and the Virtual Files (VFS), only those files get phyically synced which are set to be local present, preventing additional bandwidth consumption.
 
 // fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
 
-[width="55%",cols="50%,80%",options="header"]
+Request for changed elements::
+To get the information about changes, the request always starts at the root looking for changed ETags and goes along only that path that has changed elements. Therefore PROPFIND requests and responses are used. A request has about 500 bytes and a response has roughly 800 bytes in size.
++
+[caption=]
+.Number of concurrent PROPFIND responses per second
+[width="60%",cols="55%,80%",options="header"]
 |===
 | Network
 | max. PROPFIND responses/s
@@ -121,7 +126,21 @@ When a client triggers a request to manage e.g. documents and versions (aka PROP
 | 1.250.000
 |===
 
-NOTE: Bandwidth can be scaled by adding more gateways and distributing users between them because these components are stateless.
+Request syncing changed files::
+When a file has been identified to be physically synced, the bandwidth requirements are dependent on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling for changed ETags!
+
+Summary::
+[NOTE]
+====
+As you can see above, the bandwidth requirements depend on:
+
+* The number of concurrent clients accessing oCIS
+* The quantity of files and folders
+* The dynamics of changes
+* The need to download changed files locally
+====
+// fixme: to be clarified about scaling
+// NOTE: Bandwidth can be scaled by adding more gateways and distributing users between them because these components are stateless.
 
 == Virtualization
 
