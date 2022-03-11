@@ -100,9 +100,9 @@ Since active clients will poll the ETag for all active users, the gateway will h
 
 === Bandwidth Considerations
 
-The bandwidth requirements and limitations are based on following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from external like via the Internet are not part of this description but can be derived from LAN:
+The bandwidth requirements and limitations are based on the following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from the Internet are not part of this description but can be derived from LAN:
 
-Clients which are accessing oCIS, request the information about what has changed. Depending on the response and if a file synchronisation is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and the Virtual Files (VFS), only those files get phyically synced which are set to be local present, preventing additional bandwidth consumption.
+Clients, which are accessing oCIS, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
 
 // fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
 
@@ -127,7 +127,7 @@ To get the information about changes, the request always starts at the root look
 |===
 
 Request syncing changed files::
-When a file has been identified to be physically synced, the bandwidth requirements are dependent on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling for changed ETags!
+When a file has been identified to be physically synced, the bandwidth requirements depend on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling of changed ETags!
 
 Summary::
 [NOTE]
