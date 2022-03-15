@@ -19,17 +19,17 @@
 
 {description}
 
-Note that oCIS is based on a highly dynamic interoperable _microservices_ concept, even it is delievered as single binary. Of course this software has to run on hardware, but its ability to adopt to various and maybe dynamic load scenarious across physical bounderies means, that you can setup your physical environment accordingly using modern technology.
+Note that oCIS is based on a highly dynamic interoperable _microservices_ concept, even when it is delivered as single binary. Of course this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can setup your physical environment flexibly using modern technology.
 
-The following sections can be seen as a fundament to understand general prerequisites, but their implementation is very dependent on your usecase. To support your decision about the environment, we recommend to read the documents about  xref:architecture/index.adoc[Architecture and Concepts] and xref:availability/index.adoc[Availability, Redundancy and Load Distribution] first.
+The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/index.adoc[Architecture and Concepts] and xref:availability/index.adoc[Availability, Redundancy and Load Distribution] first.
 
 == Hardware
 
-The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system, preferrable 64bit.
+The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system, preferably 64bit.
 
 * For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
 * For more intense testing purposes, the recommended start hardware is a multi-core processor with at least 4GB of RAM.
-* For productive environments, CPU and RAM are the main limiting factors. A clear guideline for CPU's cant be given at the moment as there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network related factors.
+* For production environments, CPU and RAM are the main limiting factors. A clear guideline for CPU's cant be given at the moment as there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network related factors.
 
 // fixme: info of architectures came from willy, also see: 
 // https://download.owncloud.com/ocis/ocis/1.18.0/
@@ -64,7 +64,7 @@ Note when referencing software builds for a particular architecture, *ARM* stand
 
 // fixme: how to read stat info (local and eg nfs)
 
-RAM requirements are mainly based on caching the mounted filesystems meta-data like inodes (even extended attributes are supported) and include calculated ETags (entity tag). Meta-data caching is mostly based on the kernal caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the meta-data may be used. Avoid swap space usage because of meta-data caching for performance reasons.
+RAM requirements are mainly based on caching the mounted filesystems meta-data like inodes (even extended attributes are supported) and include calculated ETags (entity tag). Meta-data caching is mostly based on the kernel caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the meta-data may be used. Avoid swap space usage because of meta-data caching for performance reasons.
 
 NOTE: In an optimal environment, all the meta-data is kept in memory for best perfomance. If that information is not available in memory, physical access to the storage backend needs to be made to gather and calculate the required information slowing down the response. In real life, a balance between memory for cached meta-data, physical storage access and performance will take place.
 
@@ -74,9 +74,9 @@ NOTE: Your RAM requirements may change over time depending on the amount of user
 
 For a single machine using a local posix storage, the Linux kernel caches meta-data which is necessary to calculate the ETag. Note that the following description focuses on classical meta-data. Additional information added to the meta-data by oCIS like user added tags or comments are not considered. This functionality may increase the meta-data quantity that should be cached.
 
-// fixme: differnt fs have different fs have different meta-data blocksizes or can even chain them
+// fixme: different fs have different meta-data block-sizes or can even chain them
 
-With a meta-data size of 4K each, as it it used in the EXT4 filesystem, the following RAM is needed to completely cache all meta-data:
+With a meta-data size of 4K each, as is used in the EXT4 filesystem, the following RAM is needed to completely cache all meta-data:
 
 [width="60%",cols="^40%,^70%",options="header"]
 |===
@@ -93,7 +93,7 @@ a| RAM requirement for [.underline]#_caching only_#
 | 4 GB
 |===
 
-Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regulary, independent if they are accessing oCIS via the web interface, via a mobile client, or the desktop synchronisation client. If this access is not held in memory, the access needs to go thru the backend slowing down the overall response and consumes more CPU accordingly.
+Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regularly, independent of if they are accessing oCIS via the web interface, via a mobile client, or the desktop synchronisation client. If this access is not held in memory, the access needs to go thru the backend slowing down the overall response and consumes more CPU accordingly.
 
 Note that the table below shows only one xref:background[spaces] created and no shares or reshares which would multiply the needed quantity of meta-data.
 
@@ -134,13 +134,13 @@ a| *Changed meta/h*
 a| *Changed meta/h*
 | 712
 |===
-It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single spaces, creating 4 times the quantity of changed meta-data.
+It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single space, creating 4 times the quantity of changed meta-data.
 
 ==== Background
 
-The reason storing meta-data in memory is important with respect to access and synchronisation performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and reshares.
+Storing meta-data in memory is important with respect to access and synchronisation performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and reshares.
 
-Each space provides a virtual root and occupies 4K for this root meta-data. Additionally each space provides the complete meta-data information about the underlaying content. As you can see, the quantity of meta-data can grow high.
+Each space provides a virtual root and occupies 4K for this root meta-data. Additionally each space provides the complete meta-data information about the underlying content. As you can see, the quantity of meta-data can grow large.
 
 Whenever a file or folder (node) changes its content or metadata somewhere in the path, the ETag gets recalculated and the change is propagated to the spaces root for identifying a change. To let a client detect changes, the discovery phase starts at the spaces root and checks if the ETag has changed since the last discovery going forward in the tree of changed ETags.
 
@@ -150,7 +150,7 @@ Checks for changes in the backend are made every 30 seconds for the available sp
 Client Check::
 Usually, every connected client polls his assigned spaces root ETag also every 30 seconds and compares to the former ETag recieved for changes. Based on detected changes, actions take place.
 
-This makes it clear why RAM is an essential performance factor for client access and synchronisation when more spaces are present. If the gathered spaces root ETag has changed and the underlaying meta-data is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
+This makes it clear why RAM is an essential performance factor for client access and synchronisation when more spaces are present. If the gathered spaces root ETag has changed and the underlying meta-data is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
 
 // fixme: how to get the actual cache % for a server
 // fixme: where to tune in case (vfs_cache_pressure ?) or is this not wanted
@@ -192,7 +192,7 @@ When a file has been identified to be physically synced, the bandwidth requireme
 Calculation example::
 // fixme: check calculation
 +
-Consider the xref:sample_environments[sample environments table] above to see how clients will trigger propfind responses resulting in bandwidth consumption. 500 concurring syncing users, syncinging with the default setting of every 30 sec, will create about ~3K propfind requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
+Consider the xref:sample_environments[sample environments table] above to see how clients will trigger propfind responses resulting in bandwidth consumption. 500 concurring syncing users, syncing with the default setting of every 30 sec, will create about ~3K propfind requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
 
 Summary::
 [NOTE]
