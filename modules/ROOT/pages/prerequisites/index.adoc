@@ -100,40 +100,34 @@ Note that the table below shows only one xref:background[space] created and no s
 [[sample_environments]]
 [caption=]
 .Sample environments (Node = file or folder)
-[width="100%",cols="70%,^40%,70%,^40%,70%,^40%",options="header"]
+[width="75%",cols="70%,^55%,^55%,^55%",options="header"]
 |===
-2+^| Environment 1
-2+^| Environment 2
-2+^| Environment 3
+|
+<| Environment 1
+<| Environment 2
+<| Environment 3
 
 a| *Nodes*
 | 3 Millions
-a| *Nodes*
 | 2 Millions
-a| *Nodes*
 | 3 Billions
 
 a| *Users*
 | 30
-a| *Users*
 | 80
-a| *Users*
 | 500
 
 a| *Changed Nodes/h*
 | 65
-a| *Changed Nodes/h*
 | 18
-a| *Changed Nodes/h*
 | 178
 
 a| *Changed meta/h*
 | 260
-a| *Changed meta/h*
 | 72
-a| *Changed meta/h*
 | 712
 |===
+
 It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single space, creating 4 times the quantity of changed meta-data.
 
 ==== Background
