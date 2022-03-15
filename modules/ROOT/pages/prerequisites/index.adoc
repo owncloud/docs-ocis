@@ -19,19 +19,23 @@
 
 {description}
 
+Note that oCIS is based on a highly dynamic interoperable _microservices_ concept, even it is delievered as single binary. Of course this software has to run on hardware, but its ability to adopt to various and maybe dynamic load scenarious across physical bounderies means, that you can setup your physical environment accordingly using modern technology.
+
+The following sections can be seen as a fundament to understand general prerequisites, but their implementation is very dependent on your usecase. To support your decision about the environment, we recommend to read the documents about  xref:architecture/index.adoc[Architecture and Concepts] and xref:availability/index.adoc[Availability, Redundancy and Load Distribution] first.
+
 == Hardware
 
-The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system preferrable 64bit.
+The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system, preferrable 64bit.
 
 * For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
 * For more intense testing purposes, the recommended start hardware is a multi-core processor with at least 4GB of RAM.
-* For productive environments, CPU and RAM are the main limiting factors. A clear guideline for CPU's cant be given at the moment as there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory related factors.
+* For productive environments, CPU and RAM are the main limiting factors. A clear guideline for CPU's cant be given at the moment as there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network related factors.
 
 // fixme: info of architectures came from willy, also see: 
 // https://download.owncloud.com/ocis/ocis/1.18.0/
 // https://hub.docker.com/r/owncloud/ocis/tags
 
-See the following table for a tested and supported hardware architecture matrix::
+The following table shows the tested and supported hardware architecture matrix::
 [width="65%",cols="50%,50%",options="header"]
 |===
 | OS / Docker
@@ -56,61 +60,117 @@ Note when referencing software builds for a particular architecture, *ARM* stand
 === RAM Considerations
 
 // harvested from https://owncloud.dev/architecture/efficient-stat-polling/
+// text adopted based on an intense discussion with jfd/willy on 11.3.
 
-The RAM requirements are mainly based on caching inodes and meta-data (ETags).
+// fixme: how to read stat info (local and eg nfs)
 
-NOTE: Your RAM requirements may change over time depending on the amount of users accessing an increasing amount of data from different sources concurrently.
+RAM requirements are mainly based on caching the mounted filesystems meta-data like inodes (even extended attributes are supported) and include calculated ETags (entity tag). Meta-data caching is mostly based on the kernal caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the meta-data may be used. Avoid swap space usage because of meta-data caching for performance reasons.
 
-Calculation example:
+NOTE: In an optimal environment, all the meta-data is kept in memory for best perfomance. If that information is not available in memory, physical access to the storage backend needs to be made to gather and calculate the required information slowing down the response. In real life, a balance between memory for cached meta-data, physical storage access and performance will take place.
 
-For a single machine using a local posix storage, the Linux kernel already caches the inodes that contain the metadata that is necessary to calculate the ETag (even extended attributes are supported).
+NOTE: Your RAM requirements may change over time depending on the amount of users accessing an increasing amount of data from different sources with different change rates concurrently.
 
-// fixme: relationship of inode/etag and client (files/directories)
+==== Calculation example:
 
-With 4k inodes, the following RAM is needed to completely cache the ETags:
+For a single machine using a local posix storage, the Linux kernel caches meta-data which is necessary to calculate the ETag. Note that the following description focuses on classical meta-data. Additional information added to the meta-data by oCIS like user added tags or comments are not considered. This functionality may increase the meta-data quantity that should be cached.
 
-[width="40%",cols="30%,50%",options="header"]
+// fixme: differnt fs have different fs have different meta-data blocksizes or can even chain them
+
+With a meta-data size of 4K each, as it it used in the EXT4 filesystem, the following RAM is needed to completely cache all meta-data:
+
+[width="60%",cols="^40%,^70%",options="header"]
 |===
-| Inodes
-| RAM requirement
+| Meta-data items
+a| RAM requirement for [.underline]#_caching only_#
 
 | 256
 | 1 MB
 
-| 1k
-| 4MB
+| 1 K
+| 4 MB
 
-| 1M
-| 4GB
+| 1 M
+| 4 GB
 |===
 
-NOTE: For distributed file systems, a dedicated cache might make sense to prevent a high number of requests to calculate ETags.
+Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regulary, independent if they are accessing oCIS via the web interface, via a mobile client, or the desktop synchronisation client. If this access is not held in memory, the access needs to go thru the backend slowing down the overall response and consumes more CPU accordingly.
+
+Note that the table below shows only one xref:background[spaces] created and no shares or reshares which would multiply the needed quantity of meta-data.
+
+[[sample_environments]]
+[caption=]
+.Sample environments (Node = file or folder)
+[width="100%",cols="70%,^40%,70%,^40%,70%,^40%",options="header"]
+|===
+2+^| Environment 1
+2+^| Environment 2
+2+^| Environment 3
+
+a| *Nodes*
+| 3 Millions
+a| *Nodes*
+| 2 Millions
+a| *Nodes*
+| 3 Billions
+
+a| *Users*
+| 30
+a| *Users*
+| 80
+a| *Users*
+| 500
+
+a| *Changed Nodes/h*
+| 65
+a| *Changed Nodes/h*
+| 18
+a| *Changed Nodes/h*
+| 178
+
+a| *Changed meta/h*
+| 260
+a| *Changed meta/h*
+| 72
+a| *Changed meta/h*
+| 712
+|===
+It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single spaces, creating 4 times the quantity of changed meta-data.
 
 ==== Background
 
-Each storage mounted provides a virtual root to the user and enables access to the data underneath. Whenever a file changes its content or metadata, the ETag or “entity tag” changes. To let a client detect changes in a provided storage - which is a tree of files and folders - the ETag of every node in that tree is used. The discovery phase starts at the root of the tree and checks if the ETag has changed since the last discovery.
+The reason storing meta-data in memory is important with respect to access and synchronisation performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and reshares.
+
+Each space provides a virtual root and occupies 4K for this root meta-data. Additionally each space provides the complete meta-data information about the underlaying content. As you can see, the quantity of meta-data can grow high.
+
+Whenever a file or folder (node) changes its content or metadata somewhere in the path, the ETag gets recalculated and the change is propagated to the spaces root for identifying a change. To let a client detect changes, the discovery phase starts at the spaces root and checks if the ETag has changed since the last discovery going forward in the tree of changed ETags.
 
 Backend Check::
-A gateway is used as common source for all clients to cache virtual ETags from provided storages. Checks for changes are made every 30 seconds, the value is configurable to adapt to storage IO load.
+Checks for changes in the backend are made every 30 seconds for the available spaces. As the space is owner-less, the check appears only once in that interval. The value is configurable to adapt to storage IO load.
 
 Client Check::
-Usually, every connected client polls the virtual root ETag every 30 seconds.
+Usually, every connected client polls his assigned spaces root ETag also every 30 seconds and compares to the former ETag recieved for changes. Based on detected changes, actions take place.
 
-Since active clients will poll the ETag for all active users, the gateway will have their ETag cached. This is also true where sharing comes into play. The gateway requests the ETag of all mount or entry points to eliminate concurrent calculation requests triggered by clients for the same ETag. For this reason, RAM is a crucial performance factor.
+This makes it clear why RAM is an essential performance factor for client access and synchronisation when more spaces are present. If the gathered spaces root ETag has changed and the underlaying meta-data is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
+
+// fixme: how to get the actual cache % for a server
+// fixme: where to tune in case (vfs_cache_pressure ?) or is this not wanted
+// fixme: see https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that
+// fixme: https://manhart.blog/2020/04/linux-leistungsverbesserungen/
+// fixme: personal note: reducing vfs_cache_pressure from 100 to 20 improved the "real" component by 40% up to 90%!
 
 === Bandwidth Considerations
 
-The bandwidth requirements and limitations are based on the following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from the Internet are not part of this description but can be derived from LAN:
+The bandwidth requirements and limitations are based on the following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from the Internet are not part of this description but can be derived from the LAN point of view:
 
 Clients, which are accessing oCIS, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
 
 // fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
 
 Request for changed elements::
-To get the information about changes, the request always starts at the root looking for changed ETags and goes along only that path that has changed elements. Therefore PROPFIND requests and responses are used. A request has about 500 bytes and a response has roughly 800 bytes in size.
+To get the information about changes, the request always starts at the spaces root looking for changed ETags and goes along only that path that has changed elements. Therefore PROPFIND requests and responses are used. A request has about 500 bytes and a response has roughly 800 bytes in size.
 +
 [caption=]
-.Number of concurrent PROPFIND responses per second
+.Number of maximum concurrent PROPFIND responses per second
 [width="60%",cols="55%,80%",options="header"]
 |===
 | Network
@@ -129,6 +189,11 @@ To get the information about changes, the request always starts at the root look
 Request syncing changed files::
 When a file has been identified to be physically synced, the bandwidth requirements depend on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling of changed ETags!
 
+Calculation example::
+// fixme: check calculation
++
+Consider the xref:sample_environments[sample environments table] above to see how clients will trigger propfind responses resulting in bandwidth consumption. 500 concurring syncing users, syncinging with the default setting of every 30 sec, will create about ~3K propfind requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
+
 Summary::
 [NOTE]
 ====
@@ -137,6 +202,7 @@ As you can see above, the bandwidth requirements depend on:
 * The number of concurrent clients accessing oCIS
 * The quantity of files and folders
 * The dynamics of changes
+* The relative location of the change
 * The need to download changed files locally
 ====
 // fixme: to be clarified about scaling
