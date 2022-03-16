@@ -64,23 +64,23 @@ Note when referencing software builds for a particular architecture, *ARM* stand
 
 // fixme: how to read stat info (local and eg nfs)
 
-RAM requirements are mainly based on caching the mounted filesystems meta-data like inodes (even extended attributes are supported) and include calculated ETags (entity tag). Meta-data caching is mostly based on the kernel caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the meta-data may be used. Avoid swap space usage because of meta-data caching for performance reasons.
+RAM requirements are mainly based on caching the mounted filesystems metadata like inodes (even extended attributes are supported) and include calculated ETags (entity tag). metadata caching is mostly based on the kernel caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the metadata may be used. Avoid swap space usage because of metadata caching for performance reasons.
 
-NOTE: In an ideal environment, all the meta-data is kept in memory for best performance. If that information is not available in memory, physical access to the storage backend is necessary to gather and calculate the required information, which slows down the response. In real life, memory for cached meta-data, physical storage access and performance will have to be balanced.
+NOTE: In an ideal environment, all the metadata is kept in memory for best performance. If that information is not available in memory, physical access to the storage backend is necessary to gather and calculate the required information, which slows down the response. In real life, memory for cached metadata, physical storage access and performance will have to be balanced.
 
 NOTE: Your RAM requirements may change over time depending on the amount of users accessing an increasing amount of data from different sources with different change rates concurrently.
 
 ==== Calculation example:
 
-For a single machine using a local posix storage, the Linux kernel caches meta-data which is necessary to calculate the ETag. Note that the following description focuses on classical meta-data. Additional information added to the meta-data by oCIS like user added tags or comments are not considered. This functionality may increase the meta-data quantity that should be cached.
+For a single machine using a local posix storage, the Linux kernel caches metadata which is necessary to calculate the ETag. Note that the following description focuses on classical metadata. Additional information added to the metadata by oCIS like user added tags or comments are not considered. This functionality may increase the metadata quantity that should be cached.
 
-// fixme: different fs have different meta-data block-sizes or can even chain them
+// fixme: different fs have different metadata block-sizes or can even chain them
 
-With a meta-data size of 4K each, as is used in the EXT4 filesystem, the following RAM is needed to completely cache all meta-data:
+With a metadata size of `4K` for each block, as is used in the EXT4 filesystem (see xref:filesystems-and-shared-storage[Filesystems and Shared Storage] for other values), the following RAM is needed to completely cache all metadata:
 
 [width="60%",cols="^40%,^70%",options="header"]
 |===
-| Meta-data items
+| Metadata items
 a| RAM requirement for [.underline]#_caching only_#
 
 | 256
@@ -95,7 +95,7 @@ a| RAM requirement for [.underline]#_caching only_#
 
 Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regularly, independent of whether they are accessing oCIS via the web interface, via a mobile client or the desktop synchronization client. If this access is not held in memory, the access needs to go through the backend slowing down the overall response and consumes more CPU accordingly.
 
-Note that the table below shows only one xref:background[space] created and no shares or re-shares which would multiply the needed quantity of meta-data.
+Note that the table below shows only one xref:background[spaces] created and no shares or re-shares which would multiply the needed quantity of metadata.
 
 [[sample_environments]]
 [caption=]
@@ -128,13 +128,13 @@ a| *Changed meta/h*
 | 712
 |===
 
-It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single space, creating 4 times the quantity of changed meta-data.
+It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single space, creating 4 times the quantity of changed metadata.
 
 ==== Background
 
-Storing meta-data in memory is important with respect to access and synchronization performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
+Storing metadata in memory is important with respect to access and synchronization performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
 
-Each space provides a virtual root and occupies 4K for this root meta-data. Additionally each space provides the complete meta-data information about the underlying content. As you can see, the quantity of meta-data can grow large.
+Each space provides a virtual root and occupies at least one metadata block at its root. Additionally each space provides the complete metadata information about the underlying content. As you can see, the quantity of metadata can grow large.
 
 Whenever a file or folder (node) changes its content or metadata somewhere in the path, the ETag gets recalculated and the change is propagated to the spaces root for identifying a change. To let a client detect changes, the discovery phase starts at the spaces root and checks if the ETag has changed since the last discovery going forward in the tree of changed ETags.
 
@@ -144,7 +144,7 @@ Checks for changes in the backend are made every 30 seconds for the available sp
 Client Check::
 Usually, every connected client also polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
 
-This makes it clear why RAM is an essential performance factor for client access and synchronization when more spaces are present. If the gathered spaces root ETag has changed and the underlying meta-data is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
+This makes it clear why RAM is an essential performance factor for client access and synchronization when more spaces are present. If the gathered spaces root ETag has changed and the underlying metadata is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
 
 // fixme: how to get the actual cache % for a server
 // fixme: where to tune in case (vfs_cache_pressure ?) or is this not wanted
@@ -165,7 +165,7 @@ To get the information about changes, the request always starts at the spaces ro
 +
 [caption=]
 .Number of maximum concurrent PROPFIND responses per second
-[width="60%",cols="55%,80%",options="header"]
+[width="60%",cols="60%,80%",options="header"]
 |===
 | Network
 | max. PROPFIND responses/s
@@ -234,16 +234,53 @@ It is strongly recommend to use a reverse proxy like {traefik-url}[Traefik], {ng
 
 == Filesystems and Shared Storage
 
-In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX-compliant local storage for meta data persistance.
+In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX-compliant local storage for metadata persistance.
 
-The currently supported oCIS POSIX-compliant file systems are:
+The currently supported oCIS POSIX-compliant file systems are the following. Note that the default block size equals the metadata block size used for the xref:ram-considerations[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
 
-. Local Filesystems
-* {btrfs_url}[BTRFS]
-* {ext4_url}[EXT4]
-* {xfs_url}[XFS]
-* {zfs_url}[ZFS]
+[caption=]
+.Local Filesystems
+[width="60%",cols="30%,70%",options="header"]
+|===
+| Name
+| Default Block Size
 
-. Shared Filesystems
-* {cephfs_url}[CephFS]
-* {nfs_url}[NFS]
+a| {ext4_url}[EXT4]
+| 4K
+
+a| {xfs_url}[XFS]
+| 4K
+
+a| {btrfs_url}[BTRFS]
+| 16K
+
+a| {zfs_url}[ZFS]
+| 128K
+|===
+
+[caption=]
+.Shared Filesystems
+[width="80%",cols="26%,90%",options="header"]
+|===
+| Name
+| Default Block Size
+
+a| {nfs_url}[NFS]
+| The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
+
+a| {cephfs_url}[CephFS]
+| CephFS does not have metadata by design, You have to use a POSIX-compliant filesystem (see list above) to store the metadata.
+|===
+
+[NOTE]
+====
+When using NFS, you have to take care that the NFS server provides `Extended Attributes`.
+
+NFS storage based on Linux servers::
+Extended attributes are supported by NFS starting with Kernel version 5.9, which means that the server with the NFS server has to run a kernel with that or a higher version number. To check that, run the command `uname -a` on the NFS server and compare the displayed version number.
++
+Note that if the kernel supports extended attributes, you have to use NFSv4 in order to use it.
+
+NFS servers provided from storage vendors::
+A certification matrix will be provided when available.
+====
