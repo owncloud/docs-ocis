@@ -100,12 +100,12 @@ Note that the table below shows only one xref:background[spaces] created and no 
 [[sample_environments]]
 [caption=]
 .Sample environments (Node = file or folder)
-[width="75%",cols="70%,^55%,^55%,^55%",options="header"]
+[width="75%",cols="75%,^60%,^60%,^60%",options="header"]
 |===
 |
-<| Environment 1
-<| Environment 2
-<| Environment 3
+| Environment 1
+| Environment 2
+| Environment 3
 
 a| *Nodes*
 | 3 Millions
@@ -128,18 +128,18 @@ a| *Changed meta/h*
 | 712
 |===
 
-It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single space, creating 4 times the quantity of changed metadata.
+It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single spaces, creating 4 times the quantity of changed metadata.
 
 ==== Background
 
 Storing metadata in memory is important with respect to access and synchronization performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
 
-Each space provides a virtual root and occupies at least one metadata block at its root. Additionally each space provides the complete metadata information about the underlying content. As you can see, the quantity of metadata can grow large.
+Each spaces provides a virtual root and occupies at least one metadata block at its root. Additionally each spaces provides the complete metadata information about the underlying content. As you can see, the quantity of metadata can grow large.
 
 Whenever a file or folder (node) changes its content or metadata somewhere in the path, the ETag gets recalculated and the change is propagated to the spaces root for identifying a change. To let a client detect changes, the discovery phase starts at the spaces root and checks if the ETag has changed since the last discovery going forward in the tree of changed ETags.
 
 Backend Check::
-Checks for changes in the backend are made every 30 seconds for the available spaces. As the space is owner-less, the check appears only once in that interval. The value is configurable to adapt to storage IO load.
+Checks for changes in the backend are made every 30 seconds for the available spaces. As spaces are owner-less, the check appears only once in that interval. The value is configurable to adapt to storage IO load.
 
 Client Check::
 Usually, every connected client also polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
