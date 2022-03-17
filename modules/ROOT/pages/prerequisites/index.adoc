@@ -100,7 +100,7 @@ Note that the table below shows only one xref:background[spaces] created and no 
 [[sample_environments]]
 [caption=]
 .Sample environments (Node = file or folder)
-[width="75%",cols="75%,^60%,^60%,^60%",options="header"]
+[width="80%",cols="75%,^65%,^65%,^65%",options="header"]
 |===
 |
 | Environment 1
