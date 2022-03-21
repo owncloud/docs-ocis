@@ -1,7 +1,8 @@
 * xref:index.adoc[Introduction]
 * ownCloud Infinite Scale 
-** xref:prerequisites/index.adoc[Prerequisites]
 ** xref:architecture/index.adoc[Architecture and Concepts]
+** xref:availability_scaling/index.adoc[Availability and Scalability]
+** xref:prerequisites/index.adoc[Prerequisites]
 ** xref:deployment/index.adoc[Deployment]
 *** xref:deployment/manual/manual-setup.adoc[Manual Setup]
 *** xref:deployment/docker/docker-setup.adoc[Docker Setup]
