@@ -15,16 +15,16 @@ Because oCIS is by design enabled to run as a distributed service and not a stat
 
 == Terminology
 
-* High availability is a method that groups servers that support applications or services that can be reliably used with a minimum amount of downtime.
+High availability:: is a method that groups servers that support applications or services that can be reliably used with a minimum amount of downtime.
 
-* Scalability means adding more instances.
-** Horizontal scalability, which is also known as *scale-out*, can be performed by adding more hardware resources like physical or virtual servers.
-** Vertical Scalability, also known as *scale-up*, can be performed by getting more powerful hardware that can either outperform the replaced one and/or run more services.
+Scalability:: means adding more instances.
+Horizontal scalability:::  which is also known as *scale-out*, can be performed by adding more hardware resources like physical or virtual servers.
+Vertical Scalability::: also known as *scale-up*, can be performed by getting more powerful hardware that can either outperform the replaced one and/or run more services.
 
-* Virtualization is the ability to abstract hardware, software or a deployment.
-** Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
-** Virtualized Linux operating systems in Docker containers.
-** Virtualization of a deployment, e.g. with Kubernetes.
+Virtualization:: is the ability to abstract hardware, software or a deployment.
+* Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
+* Virtualized Linux operating systems in Docker containers.
+* Virtualization of a deployment, e.g. with Kubernetes.
 
 == Supporting Questions
 
