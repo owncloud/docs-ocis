@@ -95,7 +95,7 @@ a| RAM requirement for [.underline]#_caching only_#
 
 Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regularly, independent of whether they are accessing oCIS via the web interface, via a mobile client or the desktop synchronization client. If this access is not held in memory, the access needs to go through the backend slowing down the overall response and consumes more CPU accordingly.
 
-Note that the table below shows only one xref:background[spaces] created and no shares or re-shares which would multiply the needed quantity of metadata.
+Note that the table below shows only one xref:background[space] created and no shares or re-shares which would multiply the needed quantity of metadata.
 
 [[sample_environments]]
 [caption=]
