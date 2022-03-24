@@ -5,7 +5,7 @@
 :ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
 :ocis_youtube_short_url: C4a4q9IGyFQ
 
-:description: Welcome to the ownCloud Infinite Scale (oCIS) documentation. ownCloud Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics and on installation and administrative tasks for oCIS.
+:description: Welcome to the ownCloud Infinite Scale (oCIS) documentation. oCIS is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics and on installation and administrative tasks for oCIS.
 
 == Introduction
 
@@ -13,24 +13,24 @@
 
 === ownCloud Infinite Scale Key Benefits
 
-The oCIS data platform is designed for multi storage access, is cloud native (microservices) and provides unified data access.
+The oCIS data platform is designed for multi-storage access, is cloud-native (microservices) and provides unified data access.
 
 The key benefits are::
 
-* Integrate distributed data sources into one Cloud Data Ecosystem
-* Provide a Unifed Data Access layer across all data
-* Merge on-prem and cloud operated environments into one user experience
-* No need for PHP or a database
-* High performance, flexibility and scalability
-* Extended functionality
-* Single binary or container delivery, shipped with the user interface `ownCloud Web`
+* Integration of distributed data sources into one cloud data ecosystem.
+* A unifed data access layer across all data.
+* Combination of on-premises and cloud-operated environments into one user experience.
+* No need for PHP or a database.
+* High performance, flexibility and scalability.
+* Extended functionality.
+* Single binary or container delivery, shipped with the user interface `ownCloud Web`.
 
-See the following inline YouTube video for more details or use the link:{ocis_youtube_long_url}[link, window=_blank] to view it in an own browser tab.
+See the following in-line YouTube video for more details or use the link:{ocis_youtube_long_url}[link, window=_blank] to view it in a separate browser tab.
 
 .Infinite Scale - A new era for ownCloud - ownCloud Conference 2021
 video::{ocis_youtube_short_url}[youtube]
 
-// fixme: we should have a cross component link to owncloud web when available
+// fixme: we should have a cross-component link to ownCloud Web when available
 // fixme: shall we have a feature list page ?
 
 == Brief Overview
@@ -41,7 +41,7 @@ To learn more about oCIS, check out the xref:architecture/index.adoc[Architectur
 
 === Availability and Scalability
 
-With knowledge about architecture and concepts, look at the different xref:availability_scaling/index.adoc[Availability and Scalability] options to define your environment oCIS should run on.
+With knowledge about architecture and concepts, look at the different xref:availability_scaling/index.adoc[Availability and Scalability] options to define the environment oCIS should run on.
 
 === Prerequisites
 
