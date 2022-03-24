@@ -1,13 +1,48 @@
 = Architecture and Concepts of ownCloud Infinite Scale
 :toc: right
 :toclevels: 2
+
+:c4-model-url: https://en.wikipedia.org/wiki/C4_model
 :suture-url: https://github.com/thejerf/suture
 :go-micro-url: https://github.com/asim/go-micro/blob/master/registry/registry.go
 :reva-url: https://reva.link/
 :oidc-url: https://openid.net/connect/
 :webdav-url: http://webdav.org/
 
+:description: This page gives you an overview of the architecture and the concepts behind ownCloud Infinite Scale. oCIS was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
+
+== Introduction
+
+{description}
+
+These topics have always been kept in mind during the development of oCIS:
+
+* data platform
+* unified data access 
+* cloud data ecosystems
+* support of the customers data strategy
+
 == Architecture Overview
+
+Looking at the image below, you see that the state of classic file sharing is not sufficient for today's requirements and the trend clearly heads toward services around data and metadata. Iron-cast structures do not allow for additional value that could be created out of data and metadata. Services available to clients like end users or management have to be able to follow different and dynamic requirements. This is the basis of the oCIS architecture. 
+
+image::architecture/ocis_data_platform.svg[width=750]
+
+=== C4 Model
+
+We use the C4 model to visualise the software architecture of oCIS.
+
+[quote, '(C) Wikipedia {c4-model-url}[C4 Model]']
+____
+The C4 model is a lean graphical notation technique for modelling the architecture of software systems. It is based on a structural decomposition of a system into containers and components and relies on existing modelling techniques such as the Unified Modelling Language (UML) or Entity Relation Diagrams (ERD) for the more detailed decomposition of the architectural building blocks.
+____
+
+Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[oCIS C4 Model] raw description file.
+
+image:architecture/ocis_c4m_system_landscape.svg[]
+
+
+*THIS PART IS NOT FINISHED AND NEEDS MORE CONTENT - THE DETAILS OF THE C4 MODEL ARE URGENTLY NEEDED. WHEN DONE, THE IMAGE BELOW CAN BE REMOVED. PLEASE DOWNLOAD THE C4MODEL FILE, REFINE IT AND CREATE A PR WITH THE CHANGES. WE WILL USE THE CHANGES  TO CREATE THE .svg IMAGES AND ADD THEM VIA THE DESCRIBED PROCESS (see the file).*
 
 // harvested from https://owncloud.dev/ocis/
 

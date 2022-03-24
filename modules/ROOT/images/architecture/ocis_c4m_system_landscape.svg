@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="523px" preserveAspectRatio="none" style="width:401px;height:523px;background:#FFFFFF;" version="1.1" viewBox="0 0 401 523" width="401px" zoomAndPan="magnify"><defs/><g><rect height="26.2969" style="stroke:#00000000;stroke-width:1.0;fill:none;" width="161" x="113.25" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="151" x="118.25" y="22.9951">System Landscape</text><!--MD5=[0ba5ee7700168656dc1b457c6fe9fdac]
+entity Client--><g id="elem_Client"><ellipse cx="200" cy="68.8719" fill="#08427B" rx="25.5751" ry="25.5751" style="stroke:#052E56;stroke-width:0.5;"/><rect fill="#08427B" height="82.8594" rx="25.5751" ry="25.5751" style="stroke:#052E56;stroke-width:0.5;" width="179" x="110.5" y="94.447"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="53" x="173.5" y="119.2986">Client</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="44" x="178" y="132.3542">[Person]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="198" y="147.7077"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="120.5" y="164.0046">Clients accessing oCIS</text></g><!--MD5=[a085c0112c4ae2ff9eb8ea62b160a737]
+entity oCISenvironment--><g id="elem_oCISenvironment"><rect fill="#1168BD" height="82.8594" rx="2.5" ry="2.5" style="stroke:#0B4884;stroke-width:0.5;" width="187" x="106.5" y="250.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="162" x="119" y="275.1484">oCIS environment</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="150.5" y="288.2041">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="198" y="303.5576"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="116.5" y="319.8545">ownCloud Infinite Scale</text></g><!--MD5=[d23a0d79cc7c5abefc2134e42e0a640e]
+entity ExternalStorage--><g id="elem_ExternalStorage"><rect fill="#999999" height="82.8594" rx="2.5" ry="2.5" style="stroke:#6B6B6B;stroke-width:0.5;" width="174" x="7" y="425.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="154" x="17" y="450.1484">External Storage</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="44.5" y="463.2041">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="92" y="478.5576"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="18" y="494.8545">Google, FTP, Cloud ...</text></g><!--MD5=[f9737ca175e099f561ad10040d378332]
+entity InternalBackendStorage--><g id="elem_InternalBackendStorage"><rect fill="#999999" height="101.4844" rx="2.5" ry="2.5" style="stroke:#6B6B6B;stroke-width:0.5;" width="179" x="216.5" y="416.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="153" x="226.5" y="441.1484">Internal Backend</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="73" x="269.5" y="459.7734">Storage</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="256.5" y="472.8291">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="304" y="488.1826"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="241.5" y="504.4795">NFS, SMB, CephFS</text></g><!--MD5=[14c5c1beb7a4b57e8d0c6d8a0fe2b5bd]
+link Client to oCISenvironment--><g id="link_Client_oCISenvironment"><path d="M200,177.3709 C200,199.8569 200,224.4779 200,245.0179 " fill="none" id="Client-to-oCISenvironment" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="200,250.1479,204,241.1479,200,245.1479,196,241.1479,200,250.1479" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="51" x="201" y="217.5791">Connects</text></g><!--MD5=[14ad8b426fb5b7408673048354678403]
+link oCISenvironment to InternalBackendStorage--><g id="link_oCISenvironment_InternalBackendStorage"><path d="M224.852,333.3579 C239.198,356.7709 257.42,386.5099 272.96,411.8739 " fill="none" id="oCISenvironment-to-InternalBackendStorage" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="275.629,416.2289,274.3385,406.4649,273.0171,411.9653,267.5168,410.6439,275.629,416.2289" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="16" x="263.5" y="373.5791">API</text><text fill="#707070" font-family="sans-serif" font-size="8" lengthAdjust="spacing" textLength="27" x="258" y="383.3633">[Uses]</text></g><!--MD5=[16db47b260f1cabbeb4581cf073a7a13]
+link oCISenvironment to ExternalStorage--><g id="link_oCISenvironment_ExternalStorage"><path d="M175.148,333.3579 C159.058,359.6169 138.093,393.8329 121.504,420.909 " fill="none" id="oCISenvironment-to-ExternalStorage" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="118.88,425.1908,126.9931,419.607,121.4925,420.9276,120.1719,415.427,118.88,425.1908" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="16" x="163.5" y="373.5791">API</text><text fill="#707070" font-family="sans-serif" font-size="8" lengthAdjust="spacing" textLength="27" x="158" y="383.3633">[Uses]</text></g><!--MD5=[ca7cb9581ba814d842deac5b2c5a4803]
+@startuml
+title System Landscape
+
+top to bottom direction
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam person<<Client>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<ExternalStorage>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+}
+skinparam rectangle<<InternalBackendStorage>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+}
+skinparam rectangle<<oCISenvironment>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
+
+person "==Client\n<size:10>[Person]</size>\n\nClients accessing oCIS" <<Client>> as Client
+rectangle "==oCIS environment\n<size:10>[Software System]</size>\n\nownCloud Infinite Scale" <<oCISenvironment>> as oCISenvironment
+rectangle "==External Storage\n<size:10>[Software System]</size>\n\nGoogle, FTP, Cloud ..." <<ExternalStorage>> as ExternalStorage
+rectangle "==Internal Backend Storage\n<size:10>[Software System]</size>\n\nNFS, SMB, CephFS" <<InternalBackendStorage>> as InternalBackendStorage
+
+Client .[#707070,thickness=2].> oCISenvironment : "<color:#707070>Connects"
+oCISenvironment .[#707070,thickness=2].> InternalBackendStorage : "<color:#707070>API\n<color:#707070><size:8>[Uses]</size>"
+oCISenvironment .[#707070,thickness=2].> ExternalStorage : "<color:#707070>API\n<color:#707070><size:8>[Uses]</size>"
+@enduml
+
+PlantUML version 1.2022.3beta2(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
