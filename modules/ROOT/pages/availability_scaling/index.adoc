@@ -15,16 +15,19 @@ Because oCIS is by design enabled to run as a distributed service and not a stat
 
 == Terminology
 
-* High availability is a method that groups servers that support applications or services that can be reliably used with a minimum amount of downtime.
+High availability::
+High availability is a method that groups servers that support applications or services that can be reliably used with a minimum amount of downtime.
 
-* Scalability means adding more instances.
-** Horizontal scalability, which is also known as *scale-out*, can be performed by adding more hardware resources like physical or virtual servers.
-** Vertical Scalability, also known as *scale-up*, can be performed by getting more powerful hardware that can either outperform the replaced one and/or run more services.
+Scalability::
+Scalability means adding more instances.
+* Horizontal scalability, which is also known as *scale-out*, can be performed by adding more hardware resources like physical or virtual servers.
+* Vertical Scalability, also known as *scale-up*, can be performed by getting more powerful hardware that can either outperform the replaced one and/or run more services.
 
-* Virtualization is the ability to abstract hardware, software or a deployment.
-** Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
-** Virtualized Linux operating systems in Docker containers.
-** Virtualization of a deployment, e.g. with Kubernetes.
+Virtualization::
+Virtualization is the ability to abstract hardware, software or a deployment.
+* Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
+* Virtualized Linux operating systems in Docker containers.
+* Virtualization of a deployment, e.g. with Kubernetes.
 
 == Supporting Questions
 
@@ -44,9 +47,9 @@ This questionnaire is not static and more rounds may be needed to refine each it
 
 Traditionally, availability concepts often focus on monolithic hardware and software components. This changes when you take a services-centered view. While a service may be up and running, it might not respond accordingly to requests because of scaling factors. This means for clients, the driver for the measures taken is not just "available". Using a sophisticated hardware setup can be one way to solve this. But it usually does not or only partially solves the scalability issues.
 
-In Gartner's report link:{attachmentsdir}/availability/gartner_complexity_reduces_uptime.pdf[How Systems Complexity Reduces Uptime] from 2021, you can see that the more components you have the lower the resulting availability will be, which is especially true when using a bunch of monolithic software components.
+In Gartner's report _How Systems Complexity Reduces Uptime_ link:{attachmentsdir}/availability/gartner_complexity_reduces_uptime.pdf[(pdf copy)] from 2021, you can see that the more components you have the lower the resulting availability will be, which is especially true when using a bunch of monolithic software components.
 
-.Quote
+[quote, '(C) Gartner {gartner_complexity_url}[How Systems Complexity Reduces Uptime]']
 ____
 The availability of a system with ten components, each having three-nines availability, is reduced to two-nines, increasing potential system downtime from 44 minutes per month to 7 hours 18 minutes per month.
 ____
@@ -59,16 +62,18 @@ If you have oCIS running on the same physical or virtual server where its config
 image::availability_scaling/single_server_with_disks.svg[width=130]
 
 Summary::
-While such a setup may suffice for small environments or testing purposes, the efforts for protection, maintenance, backup and restore or migration to a more powerful environment, etc., must be carefully evaluated before starting production. As with any single server environment: *Scalability is at the lowest possible level*.
+While such a setup may suffice for small environments or testing purposes, the efforts for protection, maintenance, backup and restore or migration to a more powerful environment, etc., must be carefully evaluated before starting production. As with any single server environment: *Scalability is limited to vertical scalability*.
 
 ==== Separating User Data
 
-The first consideration in terms of availability, flexibility and scalability should be where to store user data. It is **highly recommended** to physically separate user data from the oCIS instance and store them on a shared filesystem. See the xref:prerequisites/index.html#filesystems-and-external-storage[Filesystems and Shared Storage] section for supported types.
+The first consideration in terms of availability, flexibility and scalability should be where to store user data. It is **highly recommended** to physically separate user data from the oCIS instance and store them on a shared filesystem. See the xref:prerequisites/index.html#filesystems-and-external-storage[Filesystems and Shared Storage] section for supported types. 
+
+Separating the compute from the storage part may sound contrary with respect to the report about availability referenced above. Storage systems contribute with a static high availability number to the overall systems availability. This is because compute environments are more dynamic and storage environments are more static.
 
 image::availability_scaling/ocis_with_data_server.svg[width=300]
 
 Summary::
-Such a setup is also recommended for smaller environments or testing purposes. In case of a failure, it is much easier to fix the defect because of separated components. *Scalability is still on a low level*.
+Such a setup is also recommended for smaller environments or testing purposes. In case of a failure, it is much easier to fix the defect because of separated components. *Scalability is still limited to vertical scalability*.
 
 === Forms of High Availability
 
