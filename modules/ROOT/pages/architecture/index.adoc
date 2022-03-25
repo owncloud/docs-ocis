@@ -1,6 +1,6 @@
 = Architecture and Concepts of ownCloud Infinite Scale
 :toc: right
-:toclevels: 2
+:toclevels: 4
 
 :c4-model-url: https://en.wikipedia.org/wiki/C4_model
 :suture-url: https://github.com/thejerf/suture
@@ -54,7 +54,19 @@ image:architecture/architecture-overview.drawio.svg[]
 
 // from https://owncloud.dev/ocis/
 
-=== Federated Storage
+=== Functional Concepts
+
+==== Spaces
+
+A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It is identified by a `storage space id`, but no ownership is needed. Spaces can have users or groups, a quota, permissions etc. assigned. They may serve different purposes and have different workflows enabled like anti-virus scanning. Examples for spaces would be every user’s personal storage space, project or group storage spaces including shares and reshares.
+
+A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root ETag, upload workflow steps...
+
+For detailed information on the implementation of spaces, check out the https://owncloud.dev/extensions/storage/spaces/[Developer Guide].
+
+Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/index.adoc#ram-considerations[RAM Considerations]
+
+==== Federated Storage
 
 To create a truly federated storage architecture, oCIS breaks down the ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
 
@@ -70,43 +82,42 @@ The diagram below shows the core concepts of the new architecture:
 
 image:architecture/idea.drawio.svg[]
 
-For example, Einstein wants to share something with Marie, who has an account at a different identity provider and uses a different storage space registry. OpenID Connect (OIDC) is used for authentication.
+For example, *Einstein* wants to share something with *Marie*, who has an account at a _different_ identity provider and uses a different storage space registry. OpenID Connect (OIDC) is used for authentication.
 
-To share something with Marie, Einstein opens `https://cloud.zurich.test`. His browser loads oCIS Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `https://idp.zurich.test`, authenticate and get redirected back to `https://cloud.zurich.test`. Now, oCIS Web will use a similar discovery to look up the storage space registry for the account based on the email address (or username). He will discover that `https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
+* *Einstein* opens `\https://cloud.zurich.test`. His browser loads oCIS Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `\https://idp.zurich.test`, authenticate and get redirected back to `\https://cloud.zurich.test`.
 
-After locating a folder that he wants to share with Marie, he enters her email address `marie@paris.test` in the sharing dialog to grant her the editor role. This, in effect, creates a new storage space that is registered with the storage space registry at `https://cloud.zurich.test`.
+* Now, oCIS Web will use a similar discovery to look up the storage space registry for the account based on the email address (or username). He will discover that `\https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
 
-Einstein copies the URL in the browser (or an email with the same URL is sent automatically, or the storage registries use a back-channel mechanism). It contains the most specific storage space ID and a path relative to it: `https://cloud.zurich.test/#/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path`.
+* After locating a folder that *Einstein* wants to share with *Marie*, he enters her email address `marie@paris.test` in the sharing dialog to grant her the editor role. This, in effect, creates a new storage space that is registered with the storage space registry at `\https://cloud.zurich.test`.
 
-When Marie enters that URL, she will be presented with a login form on the `https://cloud.zurich.test` instance, because the share was created on that domain. If `https://cloud.zurich.test` trusts her OpenID Connect identity provider `https://idp.paris.test`, she can log in. This time, the storage space registry discovery will come up with `https://cloud.paris.test` though. Since that registry is different than the registry tied to `https://cloud.zurich.test`, oCIS Web can look up the storage space `716199a6-00c0-4fec-93d2-7e00150b1c84` and register the WebDAV URL `https://cloud.zurich.test/dav/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path` in Marie`s storage space registry at `https://cloud.paris.test`. When she accepts that share, her clients will be able to sync the new storage space at `https://cloud.zurich.test`.
+* *Einstein* copies the URL in the browser (or an email with the same URL is sent automatically, or the storage registries use a back-channel mechanism). It contains the most specific storage space ID and a path relative to it: `\https://cloud.zurich.test/#/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path`.
 
-=== Spaces
+* When *Marie* enters that URL, she will be presented with a login form on the `\https://cloud.zurich.test` instance, because the share was created on that domain.
 
-A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It has a single owner (user or group), a quota, permissions and is identified by a `storage space id`. Examples would be every user’s personal storage space, project storage spaces or group storage spaces. They may serve different purposes and have different workflows enabled like anti-virus scanning.
+* If `\https://cloud.zurich.test` trusts her OpenID Connect identity provider `\https://idp.paris.test`, she can log in.
 
-A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root ETag, upload workflow steps...
+* This time, the storage space registry discovery will come up with `\https://cloud.paris.test` though. Since that registry is different than the registry tied to `\https://cloud.zurich.test`, oCIS Web can look up the storage space `716199a6-00c0-4fec-93d2-7e00150b1c84` and register the WebDAV URL `\https:/cloud.zurich.test/dav/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path` in Marie`s storage space registry at `\https://cloud.paris.test`.
 
-For detailed information on the implementation of spaces, check out the https://owncloud.dev/extensions/storage/spaces/[Developer Guide].
+* When *Marie* accepts that share, her clients will be able to sync the new storage space at `\https://cloud.zurich.test`.
 
-=== oCIS Microservice Runtime
+=== Runtime Concepts
+
+==== oCIS Microservice Runtime
 
 oCIS runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, oCIS will start all built-in oCIS extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
 
-=== oCIS Extensions
+==== oCIS Extensions
 
 Every oCIS extension uses https://github.com/owncloud/ocis/tree/master/ocis-pkg[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with oCIS. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the oCIS runtime to the individual extensions.
 
-=== Go-Micro
+==== Go-Micro
 
 While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For oCIS we decided to use a more admin-friendly runtime: You can download a single binary and start the contained oCIS extensions with a single command: `ocis server`. This also makes packaging easier.
 
-
-=== REVA
+==== REVA
 
 A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the CS3 services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
 
-=== Protocol-Driven Development
+==== Protocol-Driven Development
 
 Interacting with oCIS involves a multitude af APIs. The server and all clients rely on {oidc-url}[OpenID Connect] for authentication. The embedded LibreGraph Connect can be replaced with any other OpenID Connect Identity Provider. Clients use the {webdav-url}[WebDAV]-based https://github.com/cernbox/smashbox/blob/master/protocol/protocol.md[ownCloud sync protocol] to manage files and folders, Open Collaboration Services (OCS) to manage shares and https://tus.io/protocols/resumable-upload.html[TUS] to upload files in a resumable way. On the server side, REVA is the reference implementation of the https://github.com/cs3org/cs3apis[CS3APIS], which are defined using protocol buffers. By embedding Go-lang LDAP Authentication (GLAuth), oCIS provides a read-only LDAP interface to make accounts, including guests, available to firewalls and other systems.
-
-
