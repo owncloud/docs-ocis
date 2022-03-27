@@ -5,7 +5,13 @@
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, enter:
+Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, make sure the following packages are installed:
+
+* docker,
+* docker-compose,
+* optionally kubernetes for more sophisticated container management.
+
+Now download and start oCIS with the following commands:
 
 [source,console]
 ----
@@ -13,9 +19,11 @@ docker pull owncloud/ocis
 docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
 ----
 
-The environment variable OCIS_INSECURE=true is necessary when you’re using oCIS with self-signed certificates.
+// this should probably be a docker-compose command
 
-For your convenience, we provide a stack of docker containers optimized for use with oCIS.
+Port 9200 on localhost will be used for oCIS in this basic setup with Docker. The environment variable OCIS_INSECURE=true is necessary whenever you’re using oCIS with self-signed certificates.
+
+For your convenience, we provide a stack of docker containers prepared for use with oCIS. Example configurations are provided but need adjustments for your environment. You also need to decide which components to use. We certainly recommend Traefik as reverse proxy and load balancer.
 
 === Traefik
 
@@ -24,6 +32,8 @@ For your convenience, we provide a stack of docker containers optimized for use 
 === LDAP
 
 === WOPI Server
+
+=== S3 Storage
 
 === Kubernetes
 
