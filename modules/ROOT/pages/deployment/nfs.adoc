@@ -15,7 +15,6 @@
 :nmcli-url: https://manpages.ubuntu.com/manpages/focal/man1/nmcli.1.html
 :nmtui-url: https://manpages.ubuntu.com/manpages/focal/man1/nmtui.1.html
 :rpc-statd-url: https://linux.die.net/man/8/rpc.statd
-:man-nfs-ubuntu-url: http://manpages.ubuntu.com/manpages/focal/man5/nfs.5.html
 :innodb_flush_method-url: https://mariadb.com/kb/en/library/innodb-system-variables/#innodb_flush_method
 
 :description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for oCIS.
@@ -82,7 +81,7 @@ To use NFS for oCIS, you must use *NFSv4* for various reasons.
 
 == NFS Mount Options
 
-See the {nfs-man-page-url}[man pages] for a detailed description of the NFS mount options. The following options are default for NFS except if explicitly set differently when mounting: `rw`, `suid`, `dev`, `exec`, `auto`, `nouser`, and `async`.
+See the {nfs-man-page-url}[Linux man pages] for a detailed description of the NFS mount options. The following options are default for NFS except if explicitly set differently when mounting: `rw`, `suid`, `dev`, `exec`, `auto`, `nouser`, and `async`.
 
 === Mount Options to Consider
 
