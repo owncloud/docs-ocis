@@ -14,4 +14,4 @@
 
 * xref:deployment/security.adoc[Securing oCIS] should be a primary concern after you've set up your server.
 
-* The next steps will likely be setting up a xref:deployment/nfs.adoc[Network File System] and adding xref:extensions/index.adoc[Extensions].
+* The next steps will likely be mounting a xref:deployment/nfs.adoc[Network File System] and adding xref:extensions/index.adoc[Extensions].
