@@ -18,13 +18,13 @@
 :man-nfs-ubuntu-url: http://manpages.ubuntu.com/manpages/focal/man5/nfs.5.html
 :innodb_flush_method-url: https://mariadb.com/kb/en/library/innodb-system-variables/#innodb_flush_method
 
-:description: ownCloud recommends using NFS for any scenario when accessing Unix based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for oCIS.
+:description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for oCIS.
 
 == Introduction
 
 {description}
 
-NOTE: This guide only covers the NFS client side where ownCloud runs. Follow the server or storage vendors recommendations to configure the NFS server (storage backend).
+NOTE: This guide only covers the NFS client side where ownCloud runs. Follow the server or storage vendors' recommendations to configure the NFS server (storage back end).
 
 == NFS Prerequisites
 
@@ -34,17 +34,17 @@ See the xref:prerequisites/index.adoc#nfs_notes_prerequisites[NFS Notes] in the 
 
 It is advised to use network storage like NFS only in un-routed, switched Gigabit or higher environments.
 
-Please consider that a network stack runs in ranges of µs while a storage backend usually runs in ranges of ms.
-Any tuning considerations should therefore, beside mounting options, first be attempted on the backend storage layout side, especially under high loads.
+Consider that a network stack runs in ranges of µs while a storage back end usually runs in ranges of ms.
+Any tuning considerations, beside mounting options, should therefore be attempted first on the back end storage layout side, especially under high loads.
 
 == NFSv4 Overview
 
 To use NFS for oCIS, you must use *NFSv4* for various reasons. 
 
-* Most important, starting with NFSv4, *Extended Attributes* can be provided by the NFS server, _if implemented_. See the xref:prerequisites/index.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for more details.
+* Most importantly, starting with NFSv4, *Extended Attributes* can be provided by the NFS server, _if implemented_. See the xref:prerequisites/index.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for more details.
 * *Improved Security:* It {nfs-strong-security-architecture-url}[mandates a strong security architecture]. It does not require {rpc-statd-url}[rpc.statd] or {lockd-url}[lockd]. As a result, it only uses port 2049.
-* *Improved Reliability:* Uses TCP by default.
-* *Improved Performance:* It uses Multi-Component Messages, which reduce network traffic. It is capable of using a 32KB page size, compared to the default, 1024 bytes.
+* *Improved Reliability:* It uses TCP by default.
+* *Improved Performance:* It uses multi-component messages, which reduce network traffic. It is capable of using a 32KB page size, compared to the default, 1024 bytes.
 * Use of {nfs-read-write-delegations-url}[Read/Write Delegations].
 
 [caption=]
@@ -62,18 +62,18 @@ To use NFS for oCIS, you must use *NFSv4* for various reasons.
 | A single protocol with the addition of OPEN and CLOSE for security auditing
 
 | Locking
-| Lease based locking in the same protocol
+| Lease-based locking in the same protocol
 
 | Security
-| Kerberos and ACL based
+| Kerberos and ACL-based
 
 | Communication
-| Multiple operations per RPC. (Improves performance)
+| Multiple operations per RPC (improves performance)
 
 | I18N
 | UTF-8
 
-| Scalable parallel access to files distributed among multiple servers
+| Scalable parallel access to files distributed between multiple servers
 | pNFS (with NFSv4.1)
 
 | Extended Attributes
@@ -88,7 +88,7 @@ See the {man-nfs-ubuntu-url}[Ubuntu 20.04 man pages] for a detailed description 
 
 ==== _netdev
 
-Use this option to ensure that the network is enabled, before NFS attempts to mount these filesystems. This setting is essential when other services depend on the availability of the NFS storage during the start process. A service may error or not start correctly, if the mount is not ready before attempting to access its data files.
+Use this option to ensure that the network is enabled before NFS attempts to mount these filesystems. This setting is essential when other services depend on the availability of the NFS storage during the start process. A service may fail or not start correctly if the mount is not ready before attempting to access its data files.
 
 TIP: You can also use {autofs-url}[autofs], to ensure that mounts are always available before attempting to access them.
 
@@ -98,7 +98,7 @@ Using `nofail` allows the boot sequence to continue even if the drive fails to m
 
 ==== bg
 
-ownCloud recommends using this option. Determines how the mount command behaves if an attempt to mount an export fails. If the bg option is specified, a timeout or failure triggers the mount command to fork a child, which will continue to attempt mounting the export. The parent immediately returns with a zero exit code. This is known as a "background" mount. This option is useful for continuous operation without manual intervention if the network connectivity is temporarily down or the storage backend must be rebooted.
+ownCloud recommends using this option. Determines how the mount command behaves if an attempt to mount an export fails. If the bg option is specified, a timeout or failure triggers the mount command to fork a child, which will continue to attempt mounting the export. The parent immediately returns with a zero exit code. This is known as a "background" mount. This option is useful for continuous operation without manual intervention if the network connectivity is temporarily down or the storage back end must be rebooted.
 
 ==== hard
 
@@ -118,15 +118,15 @@ With the default value of _async_, the NFS client may delay sending application 
 
 ==== tcp
 
-ownCloud recommends using this option. Force using TCP as transport protocol. Alternatively you can use _proto=tcp_.
+ownCloud recommends using this option forcing the use of TCP as transport protocol. Alternatively you can use _proto=tcp_.
 
 ==== Tune the Read and Write Block Sizes
 
-The allowed block sizes are the packet chunk sizes that NFS uses when reading and writing data. The smaller the size, the greater the number of packets need to be sent to send or receive a file. Conversely, the larger the size, the fewer the number of packets need to be sent to send or receive a file. With NFS Version 3 and 4, you can set the `rsize` and `wsize` values as high as 65536, when the network transport is TCP. The default value is 32768 and must be a multiple of 4096.
+The allowed block sizes are the packet chunk sizes that NFS uses when reading and writing data. The smaller the size, the greater the number of packets needed to transfer a file. Conversely, the larger the size, the fewer the number of packets that need to be sent to transfer a file. With NFS Version 3 and 4, you can set the `rsize` and `wsize` values as high as 65536 if the network transport protocol is TCP. The default value is 32768 and must be a multiple of 4096.
 
 NOTE: Read and write size must be identical on the NFS server and client.
 
-You can find the set values by working with the output of the `mount` command on a standard server, as in the example below.
+You can find the configured values in the output of the `mount` command on a standard server, as in the example below.
 
 [source,console]
 ----
@@ -168,10 +168,10 @@ bg,nfsvers=4,wsize=65536,rsize=65536,tcp,_netdev
 === MTU (Maximum Transmission Unit) Size
 
 The MTU size dictates the maximum amount of data that can be transferred in one Ethernet frame.
-If the MTU size is too small, then regardless of the read and write block sizes, the data must still be fragmented across multiple frames.
+If the MTU size is too small, the data must still be fragmented across multiple frames regardless of the read and write block sizes.
 Keep in mind that MTU = payload (`packetsize`) + 28.
 
-==== Get the Current Set MTU Size
+==== Get the Current MTU Size
 
 You can find the current MTU size for each interface using _netstat_, _ifconfig_, _ip_, and _cat_, as in the following examples:
 
@@ -230,7 +230,7 @@ ping <your-storage-backend> -c 3 -M do -s <packetsize>
 
 ==== Get the Optimal MTU Size
 
-To get the optimal MTU size, run following command:
+To get the optimal MTU size, run the following command:
 
 [source,bash]
 ----
