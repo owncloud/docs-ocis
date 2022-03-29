@@ -6,12 +6,16 @@
 :btrfs_url: https://en.wikipedia.org/wiki/Btrfs
 :zfs_url: https://en.wikipedia.org/wiki/ZFS
 :xfs_url: https://en.wikipedia.org/wiki/XFS
-:cephfs_url: https://en.wikipedia.org/wiki/Ceph_(software)#File_system
+:ceph_url: https://docs.ceph.com/en/latest/start/intro/
+:ceph_ram_url: https://docs.ceph.com/en/latest/start/hardware-recommendations/#ram
 :nfs_url: https://en.wikipedia.org/wiki/Network_File_System
 
-:nginx-url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
-:traefik-url: https://doc.traefik.io/traefik/
-:apache-rev-url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
+:what_is_nginx_url: https://www.nginx.com/resources/glossary/nginx/
+:nginx_url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+:what_is_traefik_url: https://doc.traefik.io/traefik/
+:traefik_github_url: https://github.com/traefik/traefik#readme
+:apache_rev_url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
+:what_is_apache_url: https://www.apache.org/
 
 :description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate oCIS successfully.
 
@@ -60,97 +64,114 @@ Note when referencing software builds for a particular architecture, *ARM* stand
 === RAM Considerations
 
 // harvested from https://owncloud.dev/architecture/efficient-stat-polling/
-// text adopted based on an intense discussion with jfd/willy on 11.3.
+// text adopted based on a discussion with jfd on 24.3.
 
 // fixme: how to read stat info (local and eg nfs)
 
-RAM requirements are mainly based on caching the mounted filesystems metadata like inodes (even extended attributes are supported) and include calculated ETags (entity tag). metadata caching is mostly based on the kernel caching capability of the OS for the mounted filesystems. Dependent on the filesystem(s) mounted, a different block size for the metadata may be used. Avoid swap space usage because of metadata caching for performance reasons.
+With regard to RAM, the question how much is needed can be answered with: it depends.
 
-NOTE: In an ideal environment, all the metadata is kept in memory for best performance. If that information is not available in memory, physical access to the storage backend is necessary to gather and calculate the required information, which slows down the response. In real life, memory for cached metadata, physical storage access and performance will have to be balanced.
+RAM requirements depend a lot on the quantity of spaces, the tasks that will run concurrently and if they access the storage back end. You can split this into the following main parts:
 
-NOTE: Your RAM requirements may change over time depending on the amount of users accessing an increasing amount of data from different sources with different change rates concurrently.
+OS-dependent::
+* Needs for the OS
+* Classic inode/block caching for storage back ends
+
+oCIS-dependent::
+* Keeping the `stat info` in memory (`stat cache`)
+* Keeping static assets like for the web frontend
+* The number of concurrent clients accessing oCIS
+* Computation processes like calculating thumbnails from files or images
+
+While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy oCIS before you get started. Consider re-reading the xref:availability_scaling/index.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
+
+==== Keeping Things in Memory
+
+oCIS has the concept of _spaces_ where a space contains files and folders, is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
+
+Each space provides a virtual root and occupies at least one metadata block at its root. A metadata block will contain at minimum one inode, and can contain dependent of the inode size multiple inodes.
+
+Whenever a file or folder below the root of the tree changes its content or metadata, and inode changes and the change is propagated to the spaces root to indicate it. A new stat info is created and cached and ETags get recalculated if requested based on the stat info. To let a client detect changes, the discovery phase starts at the spaces root to check for changed ETags since the last discovery going forward in the tree based on changed ETags.
+
+oCIS also has an internal process to identify when changes to files or folders happen to create a new stat info which is the base to calculate ETags.
+
+The number of spaces one oCIS instance can handle can be huge without re-accessing the storage back end, limited only by the server's memory. If you chose a distributed deployment, there is no limit in spaces at all.
+
+Here are some numbers based on the ext4 filesystem, see xref:filesystems-and-shared-storage[Filesystems and Shared Storage] for different values:
+
+// fixme: https://unix.stackexchange.com/a/385341
+
+* An inode has a size of 256 bytes.
+* The blocksize that is cached by the OS is 4K.
+* A block therefore can contain max 16 inodes.
+* A spaces root needs at least one inode which results in occupying at least one 4k block.
+* The `stat info` managed and cached by oCIS per space is 1K.
+* The size of an ETag is 40 bytes.
+
+The benefit of keeping the inode/stat/block in memory is easily explained. All clients accessing oCIS poll for ETag changes. If the base infos are kept in memory, the response time minimizes.
 
 ==== Calculation example:
 
-For a single machine using a local posix storage, the Linux kernel caches metadata which is necessary to calculate the ETag. Note that the following description focuses on classical metadata. Additional information added to the metadata by oCIS like user added tags or comments are not considered. This functionality may increase the metadata quantity that should be cached.
-
-// fixme: different fs have different metadata block-sizes or can even chain them
-
-With a metadata size of `4K` for each block, as is used in the EXT4 filesystem (see xref:filesystems-and-shared-storage[Filesystems and Shared Storage] for other values), the following RAM is needed to completely cache all metadata:
-
-[width="60%",cols="^40%,^70%",options="header"]
-|===
-| Metadata items
-a| RAM requirement for [.underline]#_caching only_#
-
-| 256
-| 1 MB
-
-| 1 K
-| 4 MB
-
-| 1 M
-| 4 GB
-|===
-
-Using the above table and some sample environments from below, you can easily match the sweet spot and possibly extrapolate it to your environment. Consider that more users will do more requests for content or changes regularly, independent of whether they are accessing oCIS via the web interface, via a mobile client or the desktop synchronization client. If this access is not held in memory, the access needs to go through the backend slowing down the overall response and consumes more CPU accordingly.
-
-Note that the table below shows only one xref:background[space] created and no shares or re-shares which would multiply the needed quantity of metadata.
+Taking the numbers from above:
 
 [[sample_environments]]
-[caption=]
-.Sample environments (Node = file or folder)
-[width="80%",cols="75%,^65%,^65%,^65%",options="header"]
+[width="70%",cols="^90%,^60%,^60%,^60%",options="header"]
 |===
-|
-| Environment 1
-| Environment 2
-| Environment 3
+| # of Spaces +
+(# of Root Blocks)
+| Block Cache +
+(4K)
+| Stat Cache +
+(1K)
+| Total RAM
 
-a| *Nodes*
-| 3 Millions
-| 2 Millions
-| 3 Billions
+| 1.000
+| 4 MB
+| 1 MB
+| 5 MB
 
-a| *Users*
-| 30
-| 80
-| 500
+| 100.000
+| 400 MB
+| 100 MB
+| 500 MB
 
-a| *Changed Nodes/h*
-| 65
-| 18
-| 178
-
-a| *Changed meta/h*
-| 260
-| 72
-| 712
+| 1.000.000
+| 4 GB
+| 1 GB
+| 5 GB
 |===
 
-It is assumed in the examples above, that on avarage, the original change was 4 levels below the root level of a single spaces, creating 4 times the quantity of changed metadata.
 
-==== Background
+Summary (caching view only)::
+[NOTE]
+====
+The above table can be interpreted as follows:
 
-Storing metadata in memory is important with respect to access and synchronization performance. oCIS has the concept of _spaces_ which you can see in a nutshell as a space containing files and folders which is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
+* The memory needed for keeping the root inode is based on the number of spaces created (oCIS relevant) and the blocksize (filesystem dependent).
+* The memory needed for caching stat info is directly related to the number spaces (oCIS relevant).
+====
 
-Each spaces provides a virtual root and occupies at least one metadata block at its root. Additionally each spaces provides the complete metadata information about the underlying content. As you can see, the quantity of metadata can grow large.
+Consideration Summary::
+* Using 4GB of RAM is a good starting point.
+* Regulary check the quantity of spaces a servers must handle.
+* Getting a VFS cache hit/miss ratio is hard. Keep an eye on Kernel `iostat` which measures raw io. When it starts increasing and all RAM has been used as buffer cache, you may need to increase the amount of available RAM or redistribute services.
+* When using a distributed deployment, it is much easier to scale and re-distribute dynamic loads accordingly.
 
-Whenever a file or folder (node) changes its content or metadata somewhere in the path, the ETag gets recalculated and the change is propagated to the spaces root for identifying a change. To let a client detect changes, the discovery phase starts at the spaces root and checks if the ETag has changed since the last discovery going forward in the tree of changed ETags.
-
-Backend Check::
-Checks for changes in the backend are made every 30 seconds for the available spaces. As spaces are owner-less, the check appears only once in that interval. The value is configurable to adapt to storage IO load.
-
-Client Check::
-Usually, every connected client also polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
-
-This makes it clear why RAM is an essential performance factor for client access and synchronization when more spaces are present. If the gathered spaces root ETag has changed and the underlying metadata is not in memory, it has to be queried from the physical storage and the ETag needs recalculation. 
-
-// fixme: how to get the actual cache % for a server
-// fixme: where to tune in case (vfs_cache_pressure ?) or is this not wanted
+// fixme: where to tune in case the os (vfs_cache_pressure ?) or is this not needes/wanted
 // fixme: see https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that
 // fixme: https://manhart.blog/2020/04/linux-leistungsverbesserungen/
 // fixme: personal note: reducing vfs_cache_pressure from 100 to 20 improved the "real" component by 40% up to 90%!
+
+==== Background
+
+Storing metadata in memory is important with respect to access and synchronization performance.
+
+Backend Check::
+oCIS has a notification process when a change occcurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
+
+Client Check::
+Usually, every connected client polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
+
+This makes it clear why RAM can be an essential performance factor for client access and synchronization when more spaces are present.
 
 === Bandwidth Considerations
 
@@ -186,7 +207,7 @@ When a file has been identified to be physically synced, the bandwidth requireme
 Calculation example::
 // fixme: check calculation
 +
-Consider the xref:sample_environments[sample environments table] above to see how clients will trigger PROPFIND responses resulting in bandwidth consumption. 500 concurring syncing users, syncing with the default setting of every 30 sec, will create about ~3K PROPFIND requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
+Consider 500 concurring syncing users, syncing with the default setting of every 30 sec, will create about ~3K PROPFIND requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
 
 Summary::
 [NOTE]
@@ -194,13 +215,13 @@ Summary::
 As you can see above, the bandwidth requirements depend on:
 
 * The number of concurrent clients accessing oCIS
-* The quantity of files and folders
+* The number of spaces to be synced
 * The dynamics of changes
-* The relative location of the change
+* The relative location of a change
 * The need to download changed files locally
+
+The quantity of files and folders in total has only an impact on the first, but not on recurring synchronizations.
 ====
-// fixme: to be clarified about scaling
-// NOTE: Bandwidth can be scaled by adding more gateways and distributing users between them because these components are stateless.
 
 == Virtualization
 
@@ -223,20 +244,47 @@ For _best performance_, _stability_, _support_, and _full functionality_ we offi
 
 == Additional Software
 
-It is strongly recommend to use a reverse proxy like {traefik-url}[Traefik], {nginx-url}[NGINX] or {apache-rev-url}[Apache] for:
+It is strongly recommend to use a reverse proxy for:
 
 . security reasons,
 . load balancing and
 . high availability.
+
+
+The oCIS documentation will use *traefik* for examples, but you can use NGINX, Apache or others too. All three products provide either a binary or docker file to download.
+
+[quote, '(C) {traefik_github_url}[Traefik Labs, The Cloud Native Application Proxy]']
+____
+{what_is_traefik_url}[Traefik] is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy. Traefik integrates with your existing infrastructure components (https://www.docker.com/[Docker], https://docs.docker.com/engine/swarm/[Swarm mode], https://kubernetes.io/[Kubernetes], Marathon, Consul, Etcd, Rancher, Amazon ECS, ...) and configures itself automatically and dynamically. Pointing Traefik at your orchestrator should be the only configuration step you need.
+____
+
+[quote, '(C) {nginx_url}[NGINX Reverse Proxy]']
+____
+{what_is_nginx_url}[NGINX] NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.
+____
+
+
+[quote, '(C) {apache_rev_url}[Apache Reverse Proxy]']
+____
+{what_is_apache_url}[Apache] In addition to being a "basic" web server and providing static and dynamic content to end-users, Apache httpd (as well as most other web servers) can also act as a reverse proxy server, also-known-as a "gateway" server.
+____
+
 
 // fixme: describe the reason for the need
 // fixme: links to how to setup these things, maybe external links will work well too
 
 == Filesystems and Shared Storage
 
-In addition to well known metadata like _name_, _size_ and _mtime_ (time a file was last modified), oCIS allows users to add arbitrary metadata like _tags_ and _comments_. Therefore oCIS requires and works with POSIX-compliant file systems where this metadata can be mapped to extended attributes. S3 storage is supported too, but requires POSIX-compliant local storage for metadata persistance.
+oCIS currently supports two different internal filesystem drivers which are `ocisfs` and `s3ng`.
 
-The currently supported oCIS POSIX-compliant file systems are the following. Note that the default block size equals the metadata block size used for the xref:ram-considerations[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
+* When the `ocisfs` driver is used, data and metadata must be on a POSIX-compliant filesystem.
+* When the `s3ng` driver is used, data resides on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. This is necessary for performance reasons.
+
+Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
+
+The currently supported oCIS POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
+
+Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
 
 [caption=]
 .Local Filesystems
@@ -245,16 +293,16 @@ The currently supported oCIS POSIX-compliant file systems are the following. Not
 | Name
 | Default Block Size
 
-a| {ext4_url}[EXT4]
+| {ext4_url}[EXT4]
 | 4K
 
-a| {xfs_url}[XFS]
+| {xfs_url}[XFS]
 | 4K
 
-a| {btrfs_url}[BTRFS]
+| {btrfs_url}[BTRFS]
 | 16K
 
-a| {zfs_url}[ZFS]
+| {zfs_url}[ZFS]
 | 128K
 |===
 
@@ -265,22 +313,34 @@ a| {zfs_url}[ZFS]
 | Name
 | Default Block Size
 
-a| {nfs_url}[NFS]
+| {nfs_url}[NFS]
 | The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
-
-a| {cephfs_url}[CephFS]
-| CephFS does not have metadata by design, You have to use a POSIX-compliant filesystem (see list above) to store the metadata.
 |===
 
+[[nfs_notes_prerequisites]]
+NFS Notes::
++
 [NOTE]
 ====
 When using NFS, you have to take care that the NFS server provides `Extended Attributes`.
 
 NFS storage based on Linux servers::
-Extended attributes are supported by NFS starting with Kernel version 5.9, which means that the server with the NFS server has to run a kernel with that or a higher version number. To check that, run the command `uname -a` on the NFS server and compare the displayed version number.
-+
-Note that if the kernel supports extended attributes, you have to use NFSv4 in order to use it.
+Extended attributes are supported by NFS starting with kernel version 5.9, therefore the NFS server has to run on a system with kernel 5.9 or higher. To check, run the command `uname -a` on the NFS server and compare the displayed version number.
 
 NFS servers provided from storage vendors::
 A certification matrix will be provided when available.
+
+NFS version::
+Note that if the kernel or the storage system supports extended attributes, you have to use *NFSv4* in order to use it.
+====
+
+Ceph Notes::
++
+[NOTE]
+====
+* {ceph_url}[Ceph] is an open source flexible distributed storage system (multi-server, multi-rack, multi-site) with an object storage layer. Ceph-S3 presents that object storage with an API that emulates the AWS' S3 API.
+
+* Ceph follows a different concept with regard to handling metadata, which impacts memory requirements. See the {ceph_ram_url}[Ceph Hardware Recommendations] for more details.
+
+* Note that you cannot access the same files in CephFS and Ceph-S3. Ceph allows exposing commodity hardware as either blockstorage (RBD), S3 or CephFS. It is not possible to write a file via S3 and then read it via CephFS.
 ====
