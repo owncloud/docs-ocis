@@ -2,15 +2,115 @@
 :toc: right
 :toclevels: 2
 
+:downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-=== Basic Setup
+:description: oCIS can be downloaded from ownCloud or installed via the package manger of your Linux system. Select the way you prefer most. Note that the download version is more often updated than the package manager version.
 
-Install oCIS via the package manager of your Linux system or download the binary from
-`https://download.owncloud.com/ocis/ocis/` and make it executable with `chmod +x ocis`. Depending on your system and preferences, you may want to save the binary as `/usr/bin/ocis`.
+== Introduction
 
-// URL with curl/wget command, once we know it. Recommended directory possibly to be adjusted when we actually have a recommended or standard location.
+{description}
+
+Using the manual method to install oCIS is best when you want to quickly test oCIS without doing additional tasks like docker preperation or kubernetes. Of course you can use it for production in your environment too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
+
+== Installation
+
+* To get the binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`.
++
+To download use:
++
+[source,bash]
+----
+sudo wget -O /usr/bin/ocis <link>
+----
++
+Make the binary executable with
++
+[source,bash]
+----
+sudo chmod +x /usr/bin/ocis
+----
++
+Check the version installed
++
+[source,bash]
+----
+ocis --version
+----
++
+Which prints an output like
++
+[source,plaintext,subs="attributes+"]
+----
+ocis version {actual-ocis-version}
+----
+
+// fixme: recommended directory possibly to be adjusted when we actually have a recommended or standard location.
+
+* To install oCIS via the package manager of your Linux system, use the package manager commands to search for ocis and install it accordingly.
++
+[NOTE]
+====
+Package manager installation is in preperation and will be available soon.
+====
+
+== Getting Command Line Help
+
+To get a list of available options and commands type:
+
+[source,bash]
+----
+ocis
+----
+
+or
+
+[source,bash]
+----
+ocis --help
+----
+
+== Start and Stop oCIS
+
+=== Starting oCIS
+
+When oCIS has been installed, you can start oCIS as follows:
+
+[source,bash]
+----
+ocis server
+----
+
+Note that this will bind `ocis` to the shell you are running. If you want to decouple it from the shell, use the following command:
+
+[source,bash]
+----
+ocis server &
+----
+
+If you want to _add_ instances of an extension like `proxy`, run:
+
+[source,bash]
+----
+ocis run proxy
+----
+
+=== List Running oCIS Processes
+
+To list all running processes type
+
+[source,bash]
+----
+ps ax | grep ocis | grep -v grep
+----
+
+ps -ax | grep ocis | grep -v grep | awk '{ print $1 }'
+
+=== Stopping oCIS
+
+
+== Basic Setup
 
 You can now start the fullstack oCIS server with the command: `ocis server`. However, if you're using oCIS with self-signed certificates, you need to set the environment variable `OCIS_INSECURE=true`:
 

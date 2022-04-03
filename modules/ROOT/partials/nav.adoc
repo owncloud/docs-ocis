@@ -4,6 +4,7 @@
 ** xref:availability_scaling/index.adoc[Availability and Scalability]
 ** xref:prerequisites/index.adoc[Prerequisites]
 ** xref:deployment/index.adoc[Deployment]
+*** xref:deployment/general/general-info.adoc[General Info]
 *** xref:deployment/manual/manual-setup.adoc[Manual Setup]
 *** xref:deployment/docker/docker-setup.adoc[Docker Setup]
 *** xref:deployment/security.adoc[Securing oCIS]
