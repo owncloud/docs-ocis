@@ -71,6 +71,7 @@ asciidoc:
 #   ocis
     latest-ocis-version: 'next'
     previous-ocis-version: 'next'
+    actual-ocis-version: '1.9.1'
 #   desktop
     latest-desktop-version: 'next'
     previous-desktop-version: 'next'

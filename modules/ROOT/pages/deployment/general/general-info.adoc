@@ -1,0 +1,202 @@
+= General Info
+
+:toc: right
+
+:description: This document covers general aspects of oCIS like start modes, extensions, configuration etc. for a common understanding.
+
+== Introduction
+
+{description}
+
+The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
+
+== Embedded Supervisor
+
+oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+
+== Deciding the Startup Mode
+
+The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes as supervisor, the docker installation is mandatory.  
+
+Starting oCIS using the embedded supervisor::
+This mode can be used when scaling is not the primary focus and can be the case if you have a:
+* small productive environment or 
+* when you do testing and/or development
+
+Starting oCIS in unsupervised mode::
+This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/index.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
+
+== Start oCIS With All Predefined Extensions
+
+When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts on port 9250 (by default) and listens for commands regarding the lifecycle of the supervised extensions.
+
+To list the started predefined extensions, type:
+
+[source,bash]
+----
+ocis list
+----
+
+This will print an output like:
+
+[source,plaintext]
+----
++------------------------+
+|       EXTENSION        |
++------------------------+
+| accounts               |
+| glauth                 |
+| graph                  |
+| graph-explorer         |
+| idp                    |
+| ocs                    |
+| onlyoffice             |
+| proxy                  |
+| settings               |
+| storage-authbasic      |
+| storage-authbearer     |
+| storage-frontend       |
+| storage-gateway        |
+| storage-groupsprovider |
+| storage-home           |
+| storage-metadata       |
+| storage-public-link    |
+| storage-sharing        |
+| storage-users          |
+| storage-users-provider |
+| store                  |
+| thumbnails             |
+| web                    |
+| webdav                 |
++------------------------+
+----
+
+== Managing Extensions
+
+=== List Available Extensions
+
+Type `ocis --help` to get a list of available extensions.
+
+=== Manage Instances of Extensions
+
+==== oCIS Supervised Extensions
+
+You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an error will be thrown.
+
+NOTE: When an extension runs supervised, is killed and started again, the only way to provide or overwrite configuration values will be through an *extension config file*. This is due to the parent process having already started in its own environment.
+
+List running extensions::
+[source,bash]
+----
+ocis list
+----
+
+Kill a running extension::
+[source,bash]
+----
+ocis kill [extension name]
+----
+
+Start an extension::
+[source,bash]
+----
+ocis run [extension name]
+----
+
+==== Unsupervised Extensions
+
+At any time, you can create unsupervised instances of an extension with `ocis [extension name]`, for example `ocis proxy`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classical OS methods or e.g. via Kubernetes.
+
+Creating multiple instances of an extension is used for scaling. Note that you may need configuration for and access to the extension instances like with a load balancer when you scale.
+
+== Configuration of oCIS
+
+// taken from: https://owncloud.dev/ocis/config/
+
+oCIS uses a hierachical structure for its configuration, *where each element overwrites its precedent*. These are:
+
+. Environment variables
+. Extension configuration file
+. oCIS configuration file
+
+The expected locations are:
+
+. `$HOME/.ocis/config/`
+. `/etc/ocis/`
+. `.config/`
+// check in beta 1 if this is accurate
+You can define a nonstandard configuration file location on startup either with an:
+
+* command option (`--config-file value`) or with an
+* environment variable (`OCIS_CONFIG_FILE`)
+
+NOTE: Administrators must be aware of these sources and the order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
+
+=== Configuration File Naming
+
+The configuration files for oCIS are YAML-based (a human-friendly data serialization language).
+
+The filename to define a config has following namespace:
+
+[source,plaintext]
+----
+ocis.yaml
+ or
+[extension name].yaml
+----
+
+You can list the possible extension names by typing:
+
+[source,bash]
+----
+ocis list
+----
+
+=== Starting oCIS With Environment Variables
+
+You can use environment variables to define or overwrite config parameters which will be used when starting oCIS like:
+
+[source,bash]
+----
+PROXY_HTTP_ADDR=localhost:5555 ocis server
+----
+
+or when using multiple environment variables like:
+
+[source,bash]
+----
+PROXY_HTTP_ADDR=localhost:5555 \
+PROXY_DEBUG_ADDR=localhost:6666 \
+ocis server
+----
+
+Remember the note in xref:ocis_supervised_extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
+
+=== Globally Shared Logging Values
+
+When running in supervised mode (`ocis server`), it is beneficial to have common values for logging so that the log output is correctly formatted or everything is piped to the same file without duplicating config keys and values all over the place. This is possible using the global log config key with the following example:
+
+.ocis.yaml
+[source,yaml]
+----
+log:
+  level: error
+  color: true
+  pretty: true
+  file: /var/tmp/ocis_output.log
+----
+
+NOTE: In case of an extension overwriting its shared logging config received from the main ocis.yaml file, you *MUST* specify all values.
+
+==== Log Config Keys
+
+These are the necessary log keys and the available values:
+
+[source,plaintext]
+----
+log:
+  level: [ error | warning | info | debug ]
+  color: [ true | false ]
+  pretty: [ true | false ]
+  file: [ path/to/log/file ] # MUST not be used with pretty = true
+----
