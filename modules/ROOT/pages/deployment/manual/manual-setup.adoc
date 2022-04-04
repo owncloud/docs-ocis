@@ -6,13 +6,13 @@
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-:description: oCIS can be downloaded from ownCloud or installed via the package manger of your Linux system. Select the way you prefer most. Note that the download version is more often updated than the package manager version.
+:description: oCIS can either be downloaded from ownCloud or installed via the package manger of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
 == Introduction
 
 {description}
 
-Using the manual method to install oCIS is best when you want to quickly test oCIS without doing additional tasks like docker preperation or kubernetes. Of course you can use it for production in your environment too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
+Installing oCIS manually works well if you want to quickly test oCIS without performing additional tasks like Docker preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
 
 == Installation
 
@@ -25,21 +25,21 @@ To download use:
 sudo wget -O /usr/bin/ocis <link>
 ----
 +
-Make the binary executable with
+Make the binary executable with:
 +
 [source,bash]
 ----
 sudo chmod +x /usr/bin/ocis
 ----
 +
-Check the version installed
+Check the version installed:
 +
 [source,bash]
 ----
 ocis --version
 ----
 +
-Which prints an output like
+The output looks like this:
 +
 [source,plaintext,subs="attributes+"]
 ----

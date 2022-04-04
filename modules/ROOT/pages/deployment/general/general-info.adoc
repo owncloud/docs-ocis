@@ -2,17 +2,17 @@
 
 :toc: right
 
-:description: This document covers general aspects of oCIS like start modes, extensions, configuration ect. for a common understanding.
+:description: This document covers general aspects of oCIS like start modes, extensions, configuration etc. for a common understanding.
 
 == Introduction
 
 {description}
 
-The example commands shown need to be adopted depending if you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
+The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
 
 == Embedded Supervisor
 
-oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint needed. In addition, this supervisor takes care that an extension will be restarted automatically in case it fails. When using an external supervisor like systemd, Kubernetes or others, this supervisor is not required.
+oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
@@ -24,13 +24,13 @@ This mode can be used when scaling is not the primary focus and can be the case 
 * when you do testing and/or development
 
 Starting oCIS in unsupervised mode::
-This mode is used when _availability, scaling and the adoption to dynamically changing requirements_ have a xref:availability_scaling/index.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
+This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/index.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
 
 == Start oCIS With All Predefined Extensions
 
 When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts on port 9250 (by default) and listens for commands regarding the lifecycle of the supervised extensions.
 
-To list the started predefined extension type:
+To list the started predefined extensions, type:
 
 [source,bash]
 ----
@@ -81,9 +81,9 @@ Type `ocis --help` to get a list of available extensions.
 
 ==== oCIS Supervised Extensions
 
-You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions can not be instantinated and share the same PID_. To manage supervised extensions, you need to have a running `ocis server` first or an error will be thrown.
+You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an error will be thrown.
 
-NOTE: When an extension runs supervised, is killed and started again, the only way to provide / overwrite configuration values will be through an *extension config file*. This is due to the parent process has already started, and it already has its own environment.
+NOTE: When an extension runs supervised, is killed and started again, the only way to provide or overwrite configuration values will be through an *extension config file*. This is due to the parent process having already started in its own environment.
 
 List running extensions::
 [source,bash]
@@ -97,17 +97,17 @@ Kill a running extension::
 ocis kill [extension name]
 ----
 
-Start a extension::
+Start an extension::
 [source,bash]
 ----
 ocis run [extension name]
 ----
 
-==== Non Supervised Extensions
+==== Unsupervised Extensions
 
-You can create at any time non oCIS supervised instances of an extension with `ocis [extension name]` like `ocis proxy`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classical OS methods or e.g. via Kubernetes.
+At any time, you can create unsupervised instances of an extension with `ocis [extension name]`, for example `ocis proxy`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classical OS methods or e.g. via Kubernetes.
 
-Creating multiple instances of an extensions is used for scaling. Note that you may need configuration for and access to the instantinated extensions like with a load balancer when you scale.
+Creating multiple instances of an extension is used for scaling. Note that you may need configuration for and access to the extension instances like with a load balancer when you scale.
 
 == Configuration of oCIS
 
@@ -119,22 +119,22 @@ oCIS uses a hierachical structure for its configuration, *where each element ove
 . Extension configuration file
 . oCIS configuration file
 
-The expected loading locations are:
+The expected locations are:
 
 . `$HOME/.ocis/config/`
 . `/etc/ocis/`
 . `.config/`
+// check in beta 1 if this is accurate
+You can define a nonstandard configuration file location on startup either with an:
 
-You can define a non standard configuration file location on startup either with an:
-
-* command option (`--config-file value`) or with a
+* command option (`--config-file value`) or with an
 * environment variable (`OCIS_CONFIG_FILE`)
 
-NOTE: Administrators must be aware of these sources and the order applied (the _configuration file arithmetics_). Mis-managing them can be a source of confusion leading to undesired results on the final configuration created and applied.
+NOTE: Administrators must be aware of these sources and the order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
 === Configuration File Naming
 
-The configuration files for oCIS are YAML based (a human-friendly data serialization language).
+The configuration files for oCIS are YAML-based (a human-friendly data serialization language).
 
 The filename to define a config has following namespace:
 
@@ -170,11 +170,11 @@ PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
 
-Remember the note in xref:ocis_supervised_extensions[oCIS Supervised Extensions] when killing/restarting extensions in superviced mode.
+Remember the note in xref:ocis_supervised_extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
-When running in supervised mode (`ocis server`), it is beneficial to have common values for logging so that the log output is correctly formatted or everything is piped to the same file without duplicating config keys and values all over the place. This is possible using the global log config key with following example:
+When running in supervised mode (`ocis server`), it is beneficial to have common values for logging so that the log output is correctly formatted or everything is piped to the same file without duplicating config keys and values all over the place. This is possible using the global log config key with the following example:
 
 .ocis.yaml
 [source,yaml]
@@ -186,11 +186,11 @@ log:
   file: /var/tmp/ocis_output.log
 ----
 
-NOTE: In case of an extension overwriting its shared logging config that received from the main ocis.yaml file, you *MUST* specify all values.
+NOTE: In case of an extension overwriting its shared logging config received from the main ocis.yaml file, you *MUST* specify all values.
 
 ==== Log Config Keys
 
-This are the necessary log keys and the available values:
+These are the necessary log keys and the available values:
 
 [source,plaintext]
 ----
