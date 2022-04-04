@@ -1,5 +1,4 @@
 = General Info
-
 :toc: right
 
 :description: This document covers general aspects of oCIS like start modes, extensions, configuration etc. for a common understanding.
@@ -10,7 +9,7 @@
 
 The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
 
-== Embedded Supervisor
+== Embedded Supervisor (Runtime)
 
 oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
@@ -109,6 +108,24 @@ At any time, you can create unsupervised instances of an extension with `ocis [e
 
 Creating multiple instances of an extension is used for scaling. Note that you may need configuration for and access to the extension instances like with a load balancer when you scale.
 
+== Default Runtime Error Response
+
+If you have not started up `ocis server` but try to file a runtime command except `run` and `version`, a default error message like the following will be printed:
+
+[source,plaintext]
+----
+2022/04/04 13:57:32 dialing:dial tcp 127.0.0.1:9250: connect: connection refused
+----
+
+This info contains a:
+
+* Timestamp
+* The statement that it tries to call the following address
+* The connection type and address
+* The reason it failed
+
+The term _dial/connect_ in the error message above comes from the Dial function of the _net_ package in Golang which connects to a server address on a named network.
+
 == Configuration of oCIS
 
 // taken from: https://owncloud.dev/ocis/config/
@@ -124,7 +141,9 @@ The expected locations are:
 . `$HOME/.ocis/config/`
 . `/etc/ocis/`
 . `.config/`
+
 // check in beta 1 if this is accurate
+
 You can define a nonstandard configuration file location on startup either with an:
 
 * command option (`--config-file value`) or with an
