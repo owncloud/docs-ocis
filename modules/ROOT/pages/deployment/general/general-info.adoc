@@ -9,7 +9,7 @@
 
 The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
 
-When using global options on startup, you can always use command line options or environment variables. Run `ocis --help` and see xref:starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] for details.
+When using global options on startup, you can always use command line options or environment variables. Run `ocis --help` and see xref:starting-ocis-with-environment-variables[] for details.
 
 == Embedded Supervisor (Runtime)
 
@@ -200,7 +200,7 @@ PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
 
-Remember the note in xref:ocis-supervised-extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
+Remember the note in xref:ocis-supervised-extensions[] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
@@ -230,3 +230,101 @@ log:
   pretty: [ true | false ]
   file: [ path/to/log/file ] # MUST not be used with pretty = true
 ----
+
+== Accessing oCIS Via the WebUI
+
+You can easily access oCIS via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:login-with-demo-users-provided[].
+
+`OCIS_URL`::
+Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
++
+NOTE: If you need to access oCIS running in a docker container, on a VM or a remote machine via a host name other than localhost, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
+
+`PROXY_HTTP_ADDR`::
+When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
+
+// fixme: explain the proxy - but on a different page.
+
+== Handling Certificates
+
+// https://owncloud.dev/ocis/deployment/basic-remote-setup/
+
+Certificates are necessary to secure browser access. oCIS can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell oCIS which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+
+=== Using a Reverse Proxy
+
+// https://owncloud.dev/ocis/deployment/ocis_individual_services/
+
+If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates, there is no need to use these certificates between the reverse proxy and oCIS again. Therefore set `OCIS_INSECURE=false` or remove it completely.
+
+=== Embedded Self-Signed Certificates
+
+In order to run oCIS with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
+
+[source,console]
+----
+OCIS_INSECURE=true \
+PROXY_HTTP_ADDR=0.0.0.0:9200 \
+OCIS_URL=https://localhost:9200 \
+ocis server
+----
+
+=== Provided Signed Certificates
+
+==== Self-Signed Certificates
+
+In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the example of embedded self-signed certificates above.
+
+==== Certificates Signed by a Trusted CA
+
+If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command:
+
+[source,console]
+----
+OCIS_INSECURE=false \
+PROXY_HTTP_ADDR=0.0.0.0:9200 \
+OCIS_URL=https://localhost:9200 \
+PROXY_TRANSPORT_TLS_KEY=./certs/your-host.key \
+PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
+ocis server
+----
+
+== Login With Demo Users
+
+// fixme: needs checking
+
+With a fresh installation of oCIS, you can log in via the web interface at `\https://localhost:9200` using one of the demo users provided for testing purposes:
+
+[width="70%",cols="30%,30%,60%,30%",options="header"]
+|===
+| Username
+| Password
+| email
+| Role
+
+| admin
+| admin
+| \admin@example.org
+| admin
+
+| einstein
+| relativity
+| \einstein@example.org
+| user
+
+| marie
+| radioactivity
+| \marie@example.org
+| user
+
+| moss
+| vista
+| \moss@example.org
+| admin
+
+| richard
+| superfluidity
+| \richard@example.org
+| user
+|===
+
