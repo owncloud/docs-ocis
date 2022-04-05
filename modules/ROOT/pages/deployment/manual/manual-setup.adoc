@@ -16,7 +16,7 @@ Installing oCIS manually works well if you want to quickly test oCIS without per
 
 == Installation
 
-* To get the binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`.
+* To get the binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`
 +
 To download use:
 +
@@ -75,40 +75,88 @@ ocis --help
 
 === Starting oCIS
 
-When oCIS has been installed, you can start oCIS as follows:
+When oCIS has been installed, you can start the oCIS runtime which includes the available extension as follows:
 
 [source,bash]
 ----
 ocis server
 ----
 
-Note that this will bind `ocis` to the shell you are running. If you want to decouple it from the shell, use the following command:
+Note that this will bind `ocis` to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
 
 [source,bash]
 ----
-ocis server &
+ocis server & disown -h
 ----
 
-If you want to _add_ instances of an extension like `proxy`, run:
+The same mechanism is true to start or instantinate extensions like:
 
 [source,bash]
 ----
-ocis run proxy
+ocis web & disown -h
 ----
+
+Note that instantination of runtime extensions is not possible, for more details see: xref:general/general-info.adoc#manage-instances-of-extensions[Manage Instances of Extensions]
 
 === List Running oCIS Processes
 
-To list all running processes type
+To list all running ocis processes type:
 
 [source,bash]
 ----
 ps ax | grep ocis | grep -v grep
 ----
 
-ps -ax | grep ocis | grep -v grep | awk '{ print $1 }'
+[source,plaintext]
+----
+ 221297 pts/1    Sl     0:04 ocis server
+ 221706 pts/0    Sl     0:00 ocis proxy
+----
 
 === Stopping oCIS
 
+Depending what you want to stop, differnt commands need to be applied.
+
+If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
+
+Stopping an extension from the runtime::
+Note that the ocis runtime (`ocis server`) needs to be active or a default error message will be returned, see xref:general/general-info.adoc#default-runtime-error-response[Default Runtime Error Response]
++
+[source,bash]
+----
+ocis kill [extension name]
+----
+
+Stopping the complete runtime with all its running extensions::
+Depending on the user you started `ocis` and with which user you are currently logged in, you may need to use `sudo` for proper permissions.
++ 
+[source,bash]
+----
+ps ax | grep "ocis server" | grep -v grep | awk '{ print $1 }' | xargs kill -15
+----
+
+Stopping a particular ocis PID::
+First identify which PID you want to terminate:
++
+[source,bash]
+----
+ps ax | grep "ocis" | grep -v grep
+----
++
+This may give an output like the following:
++
+[source,plaintext]
+----
+ 221297 pts/1    Sl     0:04 ocis server
+ 221706 pts/0    Sl     0:00 ocis proxy
+----
++
+To terminate the `ocis proxy` service, type:
++
+[source,bash]
+----
+kill -15 221706
+----
 
 == Basic Setup
 

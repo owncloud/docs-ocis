@@ -9,13 +9,15 @@
 
 The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
 
+When using global options on startup, you can always use command line options or environment variables. Run `ocis --help` and see xref:starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] for details.
+
 == Embedded Supervisor (Runtime)
 
 oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
-The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes as supervisor, the docker installation is mandatory.  
+The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlaying system is used.  
 
 Starting oCIS using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
@@ -82,7 +84,16 @@ Type `ocis --help` to get a list of available extensions.
 
 You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an error will be thrown.
 
-NOTE: When an extension runs supervised, is killed and started again, the only way to provide or overwrite configuration values will be through an *extension config file*. This is due to the parent process having already started in its own environment.
+[NOTE]
+====
+When an extension runs supervised, is killed and started again, the only way to provide or overwrite configuration values will be through an *extension config file*. This is because the parent process has already started in its own environment with the configuration already loaded. See the example below:
+
+[source,bash]
+----
+ocis run proxy --config-file=/path/proxy.yaml
+----
+
+====
 
 List running extensions::
 [source,bash]
@@ -189,7 +200,7 @@ PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
 
-Remember the note in xref:ocis_supervised_extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
+Remember the note in xref:ocis-supervised-extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
