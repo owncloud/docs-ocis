@@ -200,7 +200,7 @@ PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
 
-Remember the note in xref:ocis_supervised_extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
+Remember the note in xref:ocis-supervised-extensions[oCIS Supervised Extensions] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
