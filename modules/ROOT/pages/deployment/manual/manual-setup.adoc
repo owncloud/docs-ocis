@@ -158,48 +158,6 @@ To terminate the `ocis proxy` service, type:
 kill -15 221706
 ----
 
-== Basic Setup
-
-You can now start the fullstack oCIS server with the command: `ocis server`. However, if you're using oCIS with self-signed certificates, you need to set the environment variable `OCIS_INSECURE=true`:
-
-[source,console]
-----
-`OCIS_INSECURE=true ocis server`
-----
-
-If you have your own certificates already in place, you may want to make oCIS use them by adding the following environment variables to the command:
-
-[source,console]
-----
-OCIS_INSECURE=false \
-PROXY_HTTP_ADDR=0.0.0.0:9200 \
-OCIS_URL=https://your-host:9200 \
-PROXY_TRANSPORT_TLS_KEY=./certs/your-host.key \
-PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
-ocis server
-----
-
-In case your certificates are self-signed, better set `OCIS_INSECURE=true` in the above example.
-
-Log in via the web interface at https://localhost:9200 using one of the demo users provided for testing purposes:
-
-[source,console]
-----
-+----------+---------------+----------------------+-------+
-| username | password      | email                | role  |
-+----------+---------------+----------------------+------ +
-| admin    | admin         | admin@example.org    | admin |
-| einstein | relativity    | einstein@example.org | user  |
-| marie    | radioactivity | marie@example.org    | user  |
-| moss     | vista         | moss@example.org     | admin |
-| richard  | superfluidity | richard@example.org  | user  |
-+----------+---------------+----------------------+-------+
-----
-
-
-// https://owncloud.dev/ocis/deployment/basic-remote-setup/
-// Does not really match my test setup.
-
 === Setting up the systemd Service
 
 To run oCIS as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the following content:
@@ -250,9 +208,6 @@ Now you can run oCIS as a systemd service. Start it with `systemctl enable --now
 If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run `systemctl restart ocis`.
 
 The logs of oCIS can be displayed by issuing `journalctl -f -u ocis`.
-
-// include::{latest-server-version}@server:admin_manual:page$installation/deployment_recommendations/nfs.adoc[leveloffset=+2]
-
 
 
 === Traefik
