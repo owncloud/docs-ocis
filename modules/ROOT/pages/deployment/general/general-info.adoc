@@ -233,15 +233,15 @@ log:
 
 == Accessing oCIS Via the WebUI
 
-You can access oCIS via ownCloud Web easily with minimal configuration needs. Without going too much into the details, following are the two environment variables you need to provide. See also the section about xref:handling-certificates[] and xref:login-with-demo-users-provided[].
+You can easily access oCIS via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:login-with-demo-users-provided[].
 
 `OCIS_URL`::
 Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
 +
-NOTE: If you need to access oCIS running in a docker container, on a VM or a remote machine via an other hostname than localhost, you need to configure the hostname with `OCIS_URL`. The same applies if you are not using hostnames but an IP address (e.g. 192.168.178.25) instead.
+NOTE: If you need to access oCIS running in a docker container, on a VM or a remote machine via a host name other than localhost, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
 `PROXY_HTTP_ADDR`::
-When using `0.0.0.0:9200` the proxy will listen to all available interfaces. If you want or need to change hat based on requirements, you can use a different address e.g. to bind the proxy to an interface. 
+When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
 
 // fixme: explain the proxy - but on a different page.
 
@@ -249,7 +249,7 @@ When using `0.0.0.0:9200` the proxy will listen to all available interfaces. If 
 
 // https://owncloud.dev/ocis/deployment/basic-remote-setup/
 
-Certificates are necessary to secure browser access. oCIS can run with embedded self signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell oCIS which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+Certificates are necessary to secure browser access. oCIS can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell oCIS which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
 
 === Using a Reverse Proxy
 
@@ -257,9 +257,9 @@ Certificates are necessary to secure browser access. oCIS can run with embedded 
 
 If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates, there is no need to use these certificates between the reverse proxy and oCIS again. Therefore set `OCIS_INSECURE=false` or remove it completely.
 
-=== Embedded Self Signed Certificates
+=== Embedded Self-Signed Certificates
 
-In order to run oCIS with automatically generated and self signed certificates, set `OCIS_INSECURE=true`.
+In order to run oCIS with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
 
 [source,console]
 ----
@@ -271,11 +271,11 @@ ocis server
 
 === Provided Signed Certificates
 
-==== Self Signed Certificates
+==== Self-Signed Certificates
 
-In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the example of embedded self signed certificates above.
+In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the example of embedded self-signed certificates above.
 
-==== Trusted CA Signed Certificates
+==== Certificates Signed by a Trusted CA
 
 If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command:
 
@@ -289,7 +289,7 @@ PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
 ocis server
 ----
 
-== Login With Demo Users Provided
+== Login With Demo Users
 
 // fixme: needs checking
 
