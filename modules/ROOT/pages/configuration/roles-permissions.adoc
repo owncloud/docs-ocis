@@ -1,6 +1,6 @@
-== Roles & Permissions
+= Roles & Permissions
 :toc: right
-:toclevels: 1
+:toclevels: 2
 
 :description: Like ownCloud server, oCIS distinguishes between regular users and the admin user with extended configuration and administration priviledges. However, with the new spaces concept, regular users can have different roles with different permissions for individual spaces.
 
@@ -12,11 +12,17 @@
 
 === Viewer
 
-Users with the role `viewer` for a certain space can only read documents, view images, play videos, etc., but not change anything.
+Users with the role _viewer_ for a certain space can only
+
+* read documents,
+* view images,
+* play videos, etc.,
+
+but not change anything.
 
 === Editor
 
-Editors of a space have additional permissions. They can:
+_Editors_ of a space have additional permissions. They can:
 
 * modify documents and even delete them,
 * upload content to a space,
@@ -27,7 +33,7 @@ Editors of a space have additional permissions. They can:
 
 === Manager
 
-In addition to the viewer and editor permissions, the manager can:
+In addition to the viewer and editor permissions, the _manager_ can:
 
 * invite additional members,
 * edit the quota of a space,
@@ -39,7 +45,7 @@ The creator of a space becomes manager and can delegate this role to another mem
 
 === Admin
 
-The admin user is created during the setup of on oCIS instance. Check out the ownCloud Web section of the documention for details on all configuration options for admins.
+The _admin_ user is created during the setup of on oCIS instance. Check out the ownCloud Web section of the documention for details on all configuration options for admins.
 
 With regard to spaces, roles and permissions, the admin user can create a new space and is then automatically assigned the manager role. After inviting more members to a space, the manager role can be delegated to another person. If an admin then downgrades his or her role to editor or viewer, this role can only be changes by the manager. The admin has no special priveledges with regard to spaces.
 
