@@ -37,7 +37,7 @@ The creator of a space becomes manager and can delegate this role to another mem
 
 // Unclear if only Admin can create spaces or everyone.
 
-== Admin
+=== Admin
 
 The admin user is created during the setup of on oCIS instance. Check out the ownCloud Web section of the documention for details on all configuration options for admins.
 
