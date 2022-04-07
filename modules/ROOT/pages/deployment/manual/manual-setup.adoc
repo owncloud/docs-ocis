@@ -158,11 +158,34 @@ To terminate the `ocis proxy` service, type:
 kill -15 221706
 ----
 
-=== Setting up the systemd Service
+=== Setting up systemd for oCIS
 
-To run oCIS as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the following content:
+To run the oCIS runtime as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the following content. The easiest way to do this is:
 
-[source,console]
+[source,bash]
+----
+sudo systemctl edit ocis.service
+----
+
+Then copy the content of the systemd file below into the editor and save it.
+
+* The user `ocisadmin` is just a placeholder for any user to run oCIS, the user must exist or be created first.
++
+NOTE: This user can be a system user without e.g. having a home directory.
+* We strongly advise *against* using the user `root` for this purpose.
+* Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
+** The directory `/etc/ocis/` must exist and the user must be able to read. For security reasons, this user should have restricted permissions. In case, create and set permissions, adopt the values to your needs:
++
+[source,bash]
+----
+sudo mkdir -p /etc/ocis
+sudo chown -R ocisadmin /etc/ocis
+sudo chmod 0570 /etc/ocis
+----
+
+[caption=]
+.systemd file
+[source,plaintext]
 ----
 [Unit]
 Description=OCIS server
@@ -179,36 +202,48 @@ Restart=always
 WantedBy=multi-user.target
 ----
 
-The user `ocisadmin` is just a placeholder for any user to run oCIS. We strongly advise against using the user `root` for this purpose. Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one. The directory `/etc/ocis/` needs to be created first with `sudo mkdir /etc/ocis`.
+Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See following sections for additional environment variables like xref:deployment/general/general-info.adoc#accessing-ocis-via-the-webui[Accessing oCIS Via the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
 
-Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables:
+NOTE: This is just an example with a minimal set of environment variables used.
 
-[source,console]
+[source,plaintext]
 ----
-OCIS_URL=https://some-hostname-or-ip:9200
+OCIS_INSECURE=true
+OCIS_URL=https://localhost:9200
 PROXY_HTTP_ADDR=0.0.0.0:9200
-OCIS_INSECURE=false
 
 OCIS_LOG_LEVEL=error
-
-GLAUTH_LDAPS_CERT=/etc/ocis/ldap/ldaps.crt
-GLAUTH_LDAPS_KEY=/etc/ocis/ldap/ldaps.key
-IDP_TRANSPORT_TLS_CERT=/etc/ocis/idp/server.crt
-IDP_TRANSPORT_TLS_KEY=/etc/ocis/idp/server.key
-PROXY_TRANSPORT_TLS_CERT=/etc/ocis/proxy/server.crt
-PROXY_TRANSPORT_TLS_KEY=/etc/ocis/proxy/server.key
 ----
 
-Exchange the placeholder `some-hostname-or-ip` with the actual hostname or IP address of your oCIS instance.
+Run the following command to apply your changes:
 
-If you are using self-signed certificates, you need to set OCIS_INSECURE=true instead of using false like in the above example.
+[source,bash]
+----
+sudo systemctl daemon-reload
+----
 
-Now you can run oCIS as a systemd service. Start it with `systemctl enable --now ocis`. With this setup, oCIS is restarted automatically if the host got rebooted.
+Now you can run oCIS as a systemd service. Start it with:
 
-If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run `systemctl restart ocis`.
+[source,bash]
+----
+sudo systemctl enable --now ocis
+----
 
-The logs of oCIS can be displayed by issuing `journalctl -f -u ocis`.
+With this setup, oCIS is restarted automatically if the host got rebooted.
 
+If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run:
+
+[source,bash]
+----
+sudo systemctl restart ocis
+----
+
+The logs of oCIS can be displayed by issuing:
+
+[source,bash]
+----
+sudo journalctl -f -u ocis
+----
 
 === Traefik
 
