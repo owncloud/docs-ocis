@@ -278,7 +278,7 @@ In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the 
 
 ==== Certificates Signed by a Trusted CA
 
-If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command, replace the certificates path and file names according your needs:
+If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command. Replace the certificates path and file names according to your needs:
 
 [source,console]
 ----
@@ -333,15 +333,15 @@ NOTE: You should remove these demo users in a productive environment.
 
 == Define the oCIS Data Path
 
-Because oCIS does not use a database for storing several information like users, groups, spaces, internal data, etc, it saves all this data to a permanent file location. This location is also used for storing user generated data and must be a supported filesystem as described in xref:prerequisites/index.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
+Because oCIS does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/index.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
 The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
 
-Following rules apply:
+The following rules apply:
 
-* When you do NOT define this environment variable:
-** The base path is by default the `home directory` of the user, when using the manual installation.
+* If you do NOT define this environment variable, the following applies:
+** The base path is by default the `home directory` of the user after performing a manual installation.
 ** The base path is by default `/var/lib/oics` when using the docker installation.
-* The directory/mount must exist and the user used for oCIS must have full access and permissions to.
+* The directory must exist and the user used for oCIS must have full access and permissions.
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!

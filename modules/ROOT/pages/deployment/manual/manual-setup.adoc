@@ -160,7 +160,7 @@ kill -15 221706
 
 === Setting up systemd for oCIS
 
-To run the oCIS runtime as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the following content. The easiest way to do this is:
+To run the oCIS runtime as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
 
 [source,bash]
 ----
@@ -174,7 +174,7 @@ Then copy the content of the systemd file below into the editor and save it.
 NOTE: This user can be a system user without e.g. having a home directory.
 * We strongly advise *against* using the user `root` for this purpose.
 * Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
-** The directory `/etc/ocis/` must exist and the user must be able to read. For security reasons, this user should have restricted permissions. In case, create and set permissions, adopt the values to your needs:
+** The directory `/etc/ocis/` must exist and the `ocisadmin` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values to your needs:
 +
 [source,bash]
 ----
@@ -202,7 +202,7 @@ Restart=always
 WantedBy=multi-user.target
 ----
 
-Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See following sections for additional environment variables like xref:deployment/general/general-info.adoc#accessing-ocis-via-the-webui[Accessing oCIS Via the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
+Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#accessing-ocis-via-the-webui[Accessing oCIS Via the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 
@@ -229,7 +229,7 @@ Now you can run oCIS as a systemd service. Start it with:
 sudo systemctl enable --now ocis
 ----
 
-With this setup, oCIS is restarted automatically if the host got rebooted.
+With this setup, oCIS is restarted automatically after a reboot.
 
 If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run:
 
