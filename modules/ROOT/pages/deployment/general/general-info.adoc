@@ -92,8 +92,9 @@ When an extension runs supervised, is killed and started again, the only way to 
 ----
 ocis run proxy --config-file=/path/proxy.yaml
 ----
-
 ====
+
+NOTE: This configuration file must contain *ALL* configuration details as no xref:configuration-of-ocis[configuration arithmetics] is applied. 
 
 List running extensions::
 [source,bash]
@@ -153,7 +154,7 @@ The expected locations are:
 . `/etc/ocis/`
 . `.config/`
 
-// check in beta 1 if this is accurate
+// fixme: this is according to willy going to be changed. There should a PR in ocis coming and we will get notified (hopefully). 
 
 You can define a nonstandard configuration file location on startup either with an:
 
@@ -233,14 +234,14 @@ log:
 
 == Accessing oCIS Via the WebUI
 
-You can easily access oCIS via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:login-with-demo-users-provided[].
+You can easily access oCIS via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:login-with-demo-users[].
 
-`OCIS_URL`::
+OCIS_URL::
 Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
 +
 NOTE: If you need to access oCIS running in a docker container, on a VM or a remote machine via a host name other than localhost, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
-`PROXY_HTTP_ADDR`::
+PROXY_HTTP_ADDR::
 When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
 
 // fixme: explain the proxy - but on a different page.
@@ -255,7 +256,7 @@ Certificates are necessary to secure browser access. oCIS can run with embedded 
 
 // https://owncloud.dev/ocis/deployment/ocis_individual_services/
 
-If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates, there is no need to use these certificates between the reverse proxy and oCIS again. Therefore set `OCIS_INSECURE=false` or remove it completely.
+When using a reverse proxy like Traefik and the reverse proxy manages the certificates, there is no need to use these certificates between the reverse proxy and oCIS again. Therefore set `OCIS_INSECURE=false` or remove it completely.
 
 === Embedded Self-Signed Certificates
 
@@ -277,7 +278,7 @@ In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the 
 
 ==== Certificates Signed by a Trusted CA
 
-If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command:
+If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command. Replace the certificates path and file names according to your needs:
 
 [source,console]
 ----
@@ -293,7 +294,7 @@ ocis server
 
 // fixme: needs checking
 
-With a fresh installation of oCIS, you can log in via the web interface at `\https://localhost:9200` using one of the demo users provided for testing purposes:
+With a fresh installation of oCIS, you can log in via the web interface at `\https://localhost:9200` (or the URL you defined) using one of the demo users provided for testing purposes:
 
 [width="70%",cols="30%,30%,60%,30%",options="header"]
 |===
@@ -328,3 +329,19 @@ With a fresh installation of oCIS, you can log in via the web interface at `\htt
 | user
 |===
 
+NOTE: You should remove these demo users in a productive environment.
+
+== Define the oCIS Data Path
+
+Because oCIS does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/index.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
+
+The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
+
+The following rules apply:
+
+* If you do NOT define this environment variable, the following applies:
+** The base path is by default the `home directory` of the user after performing a manual installation.
+** The base path is by default `/var/lib/oics` when using the docker installation.
+* The directory must exist and the user used for oCIS must have full access and permissions.
+
+NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
