@@ -340,4 +340,4 @@ The following rules apply:
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
 
-WARNING: The location used must be exclusively used by oCIS. Writing into this location from outside oCIS is strictly forbidden to avoid any inconsistencies or damages to the oCIS environment. 
+WARNING: The location used must be exclusively used by oCIS. Writing into this location not using oCIS is strictly discouraged to avoid any unexpected behaviour. 
