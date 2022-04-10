@@ -244,12 +244,3 @@ The logs of oCIS can be displayed by issuing:
 ----
 sudo journalctl -f -u ocis
 ----
-
-=== Traefik
-
-A reverse proxy is highly recommended for load balancing and security reasons. You'll also need it if you intend to run oCIS and an ownCloud 10 server in parallel before migrating. If you choose Traefik for your deployment, check out the {traefik-url}[documentation]. You'll see several options. In case you want to run it in a Docker container, consider using the version from the oCIS Docker stack.
-
-
-=== WOPI Server
-
-The Web Application Open Platform Interface (WOPI) protocol allows you to integrate online office software in oCIS, including Microsoft Office Online and Collabora Online. It can be installed with the package manager of your operating system and is also provided as a docker container.
