@@ -17,7 +17,7 @@ oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supe
 
 == Deciding the Startup Mode
 
-The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlaying system is used.  
+The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlying system is used.
 
 Starting oCIS using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
@@ -135,7 +135,7 @@ To fix this, start the runtime with `ocis server` first and redo the command.
 
 // taken from: https://owncloud.dev/ocis/config/
 
-oCIS uses a hierachical structure for its configuration, *where each element overwrites its precedent*. These are:
+oCIS uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
 
 . Environment variables
 . Extension configuration file
@@ -160,7 +160,7 @@ NOTE: Administrators must be aware of these sources and the order applied (the _
 
 The configuration files for oCIS are YAML-based (a human-friendly data serialization language).
 
-The filename to define a config has following namespace:
+The filename to define a config has the following namespace:
 
 [source,plaintext]
 ----
@@ -335,7 +335,7 @@ The following rules apply:
 
 * If you do NOT define this environment variable, the following applies:
 ** The base path is by default the `home directory` of the user after performing a manual installation.
-** The base path is by default `/var/lib/oics` when using the docker installation.
+** The base path is by default `/var/lib/ocis` when using the docker installation.
 * The directory must exist and the user used for oCIS must have full access and permissions.
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
