@@ -205,8 +205,6 @@ Request syncing changed files::
 When a file has been identified to be physically synced, the bandwidth requirements depend on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling of changed ETags!
 
 Calculation example::
-// fixme: check calculation
-+
 Consider 500 concurring syncing users, syncing with the default setting of every 30 sec, will create about ~3K PROPFIND requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
 
 Summary::
@@ -268,7 +266,6 @@ ____
 ____
 {what_is_apache_url}[Apache] In addition to being a "basic" web server and providing static and dynamic content to end-users, Apache httpd (as well as most other web servers) can also act as a reverse proxy server, also-known-as a "gateway" server.
 ____
-
 
 // fixme: describe the reason for the need
 // fixme: links to how to setup these things, maybe external links will work well too
