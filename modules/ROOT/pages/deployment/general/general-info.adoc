@@ -1,7 +1,7 @@
 = General Info
 :toc: right
 
-:description: This document covers general aspects of oCIS like start modes, extensions, configuration etc. for a common understanding.
+:description: This document covers general aspects of oCIS like start modes, extensions, important minimum configuration etc. for a common understanding.
 
 == Introduction
 
@@ -21,7 +21,7 @@ The following two mode types do not predefine a particular installation method l
 
 Starting oCIS using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
-* small productive environment or 
+* small productive environment (xref:availability_scaling/index.adoc#single-server[Single Server Setup]) or 
 * when you do testing and/or development
 
 Starting oCIS in unsupervised mode::
@@ -285,6 +285,7 @@ ocis server
 
 == Login With Demo Users
 
+// https://owncloud.dev/ocis/getting-started/index
 // fixme: https://github.com/owncloud/ocis/pull/3474 ([full-ci] set demo users to default off)
 
 With a fresh installation of oCIS, you can log in via the web interface at `\https://localhost:9200` (or the URL you defined) using one of the demo users provided for testing purposes:
@@ -338,3 +339,5 @@ The following rules apply:
 * The directory must exist and the user used for oCIS must have full access and permissions.
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
+
+WARNING: The location used must be exclusively used by oCIS. Writing into this location from outside oCIS is strictly forbidden to avoid any inconsistencies or damages to the oCIS environment. 

@@ -55,7 +55,7 @@ The availability of a system with ten components, each having three-nines availa
 ____
 In this quote, three-nines refers to 99.9%, while two-nines means 99%.
 
-=== Single Server
+=== Single Server Setup
 
 If you have oCIS running on the same physical or virtual server where its configuration and the user data is located, a hard- or software failure of any component might require much bigger efforts to bring back the instance to production. Unavailability and/or data loss is more likely to occur.
 
