@@ -9,7 +9,7 @@
 
 The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
 
-When using global options on startup, you can always use command line options or environment variables. Run `ocis --help` and see xref:starting-ocis-with-environment-variables[] for details.
+When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-ocis-with-environment-variables[] for details.
 
 == Embedded Supervisor (Runtime)
 
@@ -21,15 +21,15 @@ The following two mode types do not predefine a particular installation method l
 
 Starting oCIS using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
-* small productive environment (xref:availability_scaling/index.adoc#single-server[Single Server Setup]) or 
 * when you do testing and/or development
+* small productive environment (xref:availability_scaling/index.adoc#single-server-setup[Single Server Setup]) or 
 
 Starting oCIS in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/index.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
 
 == Start oCIS With All Predefined Extensions
 
-When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts on port 9250 (by default) and listens for commands regarding the lifecycle of the supervised extensions.
+When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised extensions.
 
 To list the started predefined extensions, type:
 
@@ -76,17 +76,19 @@ This will print an output like:
 
 === List Available Extensions
 
-Type `ocis --help` to get a list of available extensions.
+Type `ocis help` to get a list of available extensions.
 
 === Manage Instances of Extensions
 
 ==== oCIS Supervised Extensions
 
-You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an error will be thrown.
+You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an xref:default-runtime-error-response[error] will be thrown.
 
 [NOTE]
 ====
 When an extension runs supervised, is killed and started again, the only way to provide or overwrite configuration values will be through an *extension config file*. This is because the parent process has already started in its own environment with the configuration already loaded. See the example below:
+
+// fixme: the config option was available in 1.9 but all config options were killed somewhere in march 2022. now there is a pr to implement it again, see: https://github.com/owncloud/ocis/issues/3506
 
 [source,bash]
 ----
@@ -95,6 +97,8 @@ ocis run proxy --config-file=/path/proxy.yaml
 ====
 
 NOTE: This configuration file must contain *ALL* configuration details as no xref:configuration-of-ocis[configuration arithmetics] is applied. 
+
+// fixme: tell the reason, it uses the same PID...
 
 List running extensions::
 [source,bash]
@@ -124,6 +128,8 @@ Creating multiple instances of an extension is used for scaling. Note that you m
 
 If you have not started up `ocis server` but try to file a runtime command except `run` and `version`, a default error message like the following will be printed:
 
+// fixme: check the default port returned, see: https://github.com/owncloud/ocis/pull/3481 when it is available as release. imho it should be 9250, but I am not sure...
+
 [source,plaintext]
 ----
 Failed to connect to the runtime. Has the runtime been started and did you configure the right runtime address (localhost:9200)?
@@ -134,27 +140,26 @@ To fix this, start the runtime with `ocis server` first and redo the command.
 == Configuration of oCIS
 
 // taken from: https://owncloud.dev/ocis/config/
+// fixme: this is according to willy going to be changed. see: https://github.com/owncloud/ocis/pull/3480
 
-oCIS uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
+NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
-. Environment variables
-. Extension configuration file
-. oCIS configuration file
+. oCIS uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
++
+.. Environment variables
+.. Extension configuration file
+.. oCIS configuration file
 
-The expected locations are:
-
-. `$HOME/.ocis/config/`
-. `/etc/ocis/`
-. `.config/`
-
-// fixme: this is according to willy going to be changed. There should a PR in ocis coming and we will get notified (hopefully). 
-
-You can define a nonstandard configuration file location on startup either with an:
-
-* command option (`--config-file value`) or with an
-* environment variable (`OCIS_CONFIG_FILE`)
-
-NOTE: Administrators must be aware of these sources and the order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
+. The default locations for config files are:
++
+* For docker images +
+`/etc/ocis/`
+* For binary releases +
+`$HOME/.ocis/config/`
++
+NOTE: You can define a nonstandard configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`
++
+NOTE: When using a system user for the runtimes which has no login and therefore no home directory, you must specify the configuration file location, see the xref:deployment/manual/manual-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS] for more details.
 
 === Configuration File Naming
 
@@ -255,7 +260,7 @@ When using a reverse proxy like Traefik and the reverse proxy manages the certif
 
 In order to run oCIS with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
 
-[source,console]
+[source,bash]
 ----
 OCIS_INSECURE=true \
 PROXY_HTTP_ADDR=0.0.0.0:9200 \
@@ -273,7 +278,7 @@ In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the 
 
 If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command. Replace the certificates path and file names according to your needs:
 
-[source,console]
+[source,bash]
 ----
 OCIS_INSECURE=false \
 PROXY_HTTP_ADDR=0.0.0.0:9200 \
@@ -282,48 +287,6 @@ PROXY_TRANSPORT_TLS_KEY=./certs/your-host.key \
 PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
 ocis server
 ----
-
-== Login With Demo Users
-
-// https://owncloud.dev/ocis/getting-started/index
-// fixme: https://github.com/owncloud/ocis/pull/3474 ([full-ci] set demo users to default off)
-
-With a fresh installation of oCIS, you can log in via the web interface at `\https://localhost:9200` (or the URL you defined) using one of the demo users provided for testing purposes:
-
-[width="70%",cols="30%,30%,60%,30%",options="header"]
-|===
-| Username
-| Password
-| email
-| Role
-
-| admin
-| admin
-| \admin@example.org
-| admin
-
-| einstein
-| relativity
-| \einstein@example.org
-| user
-
-| marie
-| radioactivity
-| \marie@example.org
-| user
-
-| moss
-| vista
-| \moss@example.org
-| admin
-
-| richard
-| superfluidity
-| \richard@example.org
-| user
-|===
-
-NOTE: You should remove these demo users in a productive environment.
 
 == Define the oCIS Data Path
 
@@ -341,3 +304,89 @@ The following rules apply:
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
 
 WARNING: The location used must be exclusively used by oCIS. Writing into this location not using oCIS is strictly discouraged to avoid any unexpected behaviour. 
+
+== Demo Users and Groups
+
+=== Create Demo Users and Groups
+
+// https://owncloud.dev/ocis/getting-started/index
+// https://owncloud.dev/ocis/getting-started/demo-users/
+// fixme: with the new upcoming LibreIDE, things are changing - needs revision
+
+WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive_.
+
+To let oCIS create these demo users and groups for you, start the _runtime_ one time with:
+
+// fixme: the admin user is not part of the demo users but currently created by this process. when the new LibreIDM is in place, a new bootstrap process will be implemented checking for an admin user precense and creates one if not - but this is outside the demo user stuff ! - therefor we need to remove the admin user most likely here (and readd it "somewhere" else)... see: https://github.com/owncloud/ocis/pull/3507
+
+[source,bash]
+----
+IDM_CREATE_DEMO_USERS=true \
+ocis server
+----
+
+[caption=]
+.Demo users and groups created by the above command
+[width="80%",cols="30%,30%,45%,25%,40%",options="header"]
+|===
+| Username
+| Password
+| Email
+| Role
+| Groups
+
+| admin
+| admin
+| \admin@example.org
+| admin
+| users
+
+| einstein
+| relativity
+| \einstein@example.org
+| user
+| users, +
+philosophy-haters, +
+physics-lovers, +
+sailing-lovers, +
+violin-haters
+
+| marie
+| radioactivity
+| \marie@example.org
+| user
+| users, +
+physics-lovers, +
+polonium-lovers, +
+radium-lovers
+
+| moss
+| vista
+| \moss@example.org
+| admin
+| users
+
+| richard
+| superfluidity
+| \richard@example.org
+| user
+| users, +
+philosophy-haters, +
+physics-lovers, +
+quantum-lovers
+
+| katherine
+| gemini
+| \katherine@example.org
+| space admin
+| users, +
+sailing-lovers, +
+physics-lovers, +
+quantum-lovers
+|===
+
+You can now login with one of the users created using the `OCIS_URL` in you browser like `\https://localhost:9200`. 
+
+=== Manage Users and Groups
+
+If you have enabled demo users and groups and you want to manage or delete them, use the web UI, e.g. `\https://localhost:9200`.
