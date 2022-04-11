@@ -159,7 +159,7 @@ NOTE: Administrators must be aware of the sources, the location and order applie
 +
 NOTE: You can define a nonstandard configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`
 +
-NOTE: When using a system user for the runtimes which has no login and therefore no home directory, you must specify the configuration file location, see the xref:deployment/manual/manual-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS] for more details.
+NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/manual/manual-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS], you _must_ specify a configuration file location.
 
 === Configuration File Naming
 
