@@ -297,7 +297,7 @@ The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
 The following rules apply:
 
 * If you do NOT define this environment variable, the following applies:
-** The base path is by default the `home directory` of the user after performing a manual installation.
+** The base path is by default `$HOME/.ocis/` after performing a manual installation.
 ** The base path is by default `/var/lib/ocis` when using the docker installation.
 * The directory must exist and the user used for oCIS must have full access and permissions.
 
