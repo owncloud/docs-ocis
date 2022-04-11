@@ -2,7 +2,7 @@
 :toc: right
 :toclevels: 2
 
-:downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/
+:downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/?sort=time&order=desc
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
@@ -16,7 +16,7 @@ Installing oCIS manually works well if you want to quickly test oCIS without per
 
 == Installation
 
-* To get the binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`
+* To get the stable binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`
 +
 To download use:
 +
@@ -36,14 +36,14 @@ Check the version installed:
 +
 [source,bash]
 ----
-ocis --version
+ocis version
 ----
 +
 The output looks like this:
 +
 [source,plaintext,subs="attributes+"]
 ----
-ocis version {actual-ocis-version}
+ocis version {ocis-version}
 ----
 
 // fixme: recommended directory possibly to be adjusted when we actually have a recommended or standard location.
@@ -68,7 +68,7 @@ or
 
 [source,bash]
 ----
-ocis --help
+ocis help
 ----
 
 == Start and Stop oCIS
@@ -89,7 +89,7 @@ Note that this will bind `ocis` to the shell you are running. If you want to det
 ocis server & disown -h
 ----
 
-The same mechanism is true to start or instantinate extensions like:
+The same mechanism is true to start or instantinate extensions which are not started as part of the runtime like:
 
 [source,bash]
 ----
@@ -151,11 +151,11 @@ This may give an output like the following:
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 +
-To terminate the `ocis proxy` service, type:
+To terminate the `ocis proxy` service type the following command, where `sudo` can be necessary depending on the permissions of the logged in user. Replace the PID according the output from above:
 +
 [source,bash]
 ----
-kill -15 221706
+sudo kill -15 221706
 ----
 
 === Setting up systemd for oCIS
