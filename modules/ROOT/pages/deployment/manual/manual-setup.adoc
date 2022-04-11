@@ -151,7 +151,7 @@ This may give an output like the following:
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 +
-To terminate the `ocis proxy` service type the following command, where `sudo` can be necessary depending on the permissions the logged on user has. Replace the PID according the output from above:
+To terminate the `ocis proxy` service type the following command, where `sudo` can be necessary depending on the permissions of the logged in user. Replace the PID according the output from above:
 +
 [source,bash]
 ----
