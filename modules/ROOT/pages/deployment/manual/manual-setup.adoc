@@ -89,14 +89,14 @@ Note that this will bind `ocis` to the shell you are running. If you want to det
 ocis server & disown -h
 ----
 
-The same mechanism is true to start or instantinate extensions which are not started as part of the runtime like:
+The same mechanism is true to start or instantinate extensions which are *not started as part of the runtime* like:
 
 [source,bash]
 ----
 ocis web & disown -h
 ----
 
-Note that instantination of runtime extensions is not possible, for more details see: xref:general/general-info.adoc#manage-instances-of-extensions[Manage Instances of Extensions]
+NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:general/general-info.adoc#manage-instances-of-extensions[Manage Instances of Extensions]
 
 === List Running oCIS Processes
 
@@ -151,7 +151,7 @@ This may give an output like the following:
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 +
-To terminate the `ocis proxy` service type the following command, where `sudo` can be necessary depending on the permissions of the logged in user. Replace the PID according the output from above:
+To terminate the `ocis proxy` service type the following command, where `sudo` may not be necessary depending on the permissions of the logged in user. Replace the PID according the output from above:
 +
 [source,bash]
 ----
@@ -160,7 +160,7 @@ sudo kill -15 221706
 
 === Setting up systemd for oCIS
 
-To run the oCIS runtime as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
+To run the *oCIS runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
 
 [source,bash]
 ----
