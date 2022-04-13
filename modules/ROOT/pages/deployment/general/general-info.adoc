@@ -74,7 +74,7 @@ This will print an output like:
 
 == Managing Extensions
 
-Extensions are microservices which can be started, stopped or instantinated. Because there is a difference between extensions which are part of the runtime and extensions outside the runtime, an in-depth documentation as been added to explain some background. Please read carefully to avoid unwanted behaviour. For details see the xref:deployment/extensions/extensions.adoc[Extensions] documentation.
+Extensions are microservices which can be started, stopped or instantiated. Because there is a difference between extensions which are part of the runtime and extensions outside the runtime, an in-depth documentation as been added to explain some background. Please read carefully to avoid unwanted behavior. For details see the xref:deployment/extensions/extensions.adoc[Extensions] documentation.
 
 === List Available Extensions
 
@@ -98,9 +98,10 @@ ocis run proxy --config-file=/path/proxy.yaml
 ----
 ====
 
-NOTE: This configuration file must contain *ALL* configuration details for this extensions, see the xref:configuration-of-ocis[configuration arithmetics] for more details. 
+NOTE: This configuration file must contain *ALL* configuration details for this extension. See the xref:configuration-of-ocis[Configuration Arithmetic] for more details. 
 
 // fixme: tell the reason, it uses the same PID...
+// Because its part of the ocis process. Added a little above.
 
 List running extensions::
 [source,bash]
@@ -159,7 +160,7 @@ NOTE: Administrators must be aware of the sources, the location and order applie
 * For binary releases +
 `$HOME/.ocis/config/`
 +
-NOTE: You can define a deviating from default configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`
+NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`.
 +
 NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/manual/manual-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS], you _must_ specify a configuration file location.
 
