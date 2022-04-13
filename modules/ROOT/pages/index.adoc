@@ -13,10 +13,10 @@
 
 === Target Audience
 
-This documentation addresses administrators and technical oriented management based on their duties as:
+This documentation addresses administrators and technically-oriented management:
 
 * Responsible that services are up and running for users.
-* Responsible that the IT infrastructure is inline with the companies complicane regulations.
+* Responsible that the IT infrastructure is in line with the organization's compliance regulations.
 * The role as technical advisor / technical buyer.
 
 === ownCloud Infinite Scale Key Benefits
