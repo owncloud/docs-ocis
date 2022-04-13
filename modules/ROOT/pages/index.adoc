@@ -11,6 +11,14 @@
 
 {description}
 
+=== Target Audience
+
+This documentation addresses administrators and technically-oriented management:
+
+* Responsible that services are up and running for users.
+* Responsible that the IT infrastructure is in line with the organization's compliance regulations.
+* The role as technical advisor / technical buyer.
+
 === ownCloud Infinite Scale Key Benefits
 
 The oCIS data platform is designed for multi-storage access, is cloud-native (microservices) and provides unified data access.
