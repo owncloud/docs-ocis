@@ -1,0 +1,84 @@
+= Extensions
+:toc: right
+
+:description: This document describes how concurrencies are handled with go/ocis, how this impacts instantination of extensions and how configuration on restarting a runtime extension works.
+
+== Introduction
+
+{description}
+
+== Instantination of Extensions
+
+When you have an extension, the extension will get connected by a user or process. Due to the nature of 
+image:deployment/extensions/go_logo_blue.svg[width=40], the programming language used for oCIS, each connection will create a thread which will be released when the connection ends. This means, that as long you have ressources like CPU and memory, there will be as many threads created by extensions as necessary and freed accordingly. All extensions started on the server share the same resource pool.
+
+The image below illustrates the following, where the extensions used are just an example. It could be one extension or many extensions running concurrently: 
+
+* As long you have resosources available, the running extensions will create and release threads automatically.
+* There is no need to instantinate an extension on the same server to balance load.
+* If you increase the ressource pool on the server, you can:
+** have more connections for existing extensions.
+** run additional but *different* extensions.
+* If the ressource pool gets to its limits, you can create additional instances of extensions on a *different* server.
+* There are only a view exceptions like storage connectors as they will have a different configuration for each type of storage.
+
+These statements are true when using the runtime aswell when running extensions independent of the runtime.
+
+image::deployment/extensions/concurrence.drawio.svg[width=600]
+
+== Restarting a Runtime Extension
+
+You can stop or restart a runtime extension, but some things are important to understand. These are:
+
+* You can only kill and start a runtime extension.
+* You can not instantinate a runtime extension, an error will occur.
+* Special rules apply to restarted runtime extensions with respect to their configuration.
+* All runtime extensions share the same PID of `ocis server`.
+* Runtime extensions share the same PID while non runtime extensions have their own PID.
+
+Note that in the examples described, only the webdav extension is used, but the process is valid for all extensions available.
+
+The description in the example may sound complex, but isnt. The ruleset is straight forward. The images below helps to get it in one view.
+
+Example 1::
+a. You start the oCIS runtime with `ocis server`
++
+--
+. The configuration file `/etc/ocis/ocis.yaml` is read.
+. The configuration file `/etc/ocis/webdav.yaml` is read AND applied.
+. The environment variables are taken, applied and may overwrite already existing configuration elements. See section xref:deployment/general/general-info.adoc#configuration-of-ocis[Configuration of oCIS] about the order it got applied (config arithmetics).
+--
++
+All extensions have started, share the same PID and have a defined config. Typing `ocis list` shows all active runtime extensions.
++
+b. By command, the webdav extension is killed with `ocis kill webdav`.
++
+Listing the active runtime extensions with `ocis list` shows that webdav is no longer running.
++
+c. The webdav extension gets restarted with `ocis run webdav`.
++
+Note the envoronment variable `webdav=setting2` +
+and the command line option `--config-file=webdav.yaml`
++
+[arabic,start=4]
+. *Following config rules apply to configure the webdav runtime extension:*
++
+--
+... The _oics configuration_ and the _environment variables_ are taken from the _runtime_ (1 and 3).
+... The configuration file for the extension from the runtime (2) is NOT used.
+... Environment variables from the command `ocis run` (4) are NOT used. Generally, you can omit them.
+... The config file defined as command line option (4) is taken and the config arithmetics is applied for a final config for the webdav extension.
+--
++
+When monitoring running PID's, the webdav extension does not show up as it is part of the ocis server PID.
+
+WARNING: If you have started ocis server with a config file for an extension, you must define it in the command line option when restarting. If you omit it when restarting, the extension will be configured partially leading to unexpected behaviour.
+
+This image gives you a graphical represeantation about the ruleset described above.
+
+image::deployment/extensions/runtime_c1.drawio.svg[width=600]
+
+Example 2::
+The same rules apply like in the example using one server, when using another server from where the kill and run commands to manage an extensions are set. Note that the config file origins from server 2.
+ 
+image::deployment/extensions/runtime_c1_c2.drawio.svg[width=600]
