@@ -1,0 +1,73 @@
+= Audit Service Configuration
+:toc: right
+
+// harvested from https://owncloud.dev/extensions/audit/configuration/
+// some descriptions still missing
+// pre-beta1 2022-04-14
+
+The audit service is configured via the following environment variables:
+
+
+[cols="30%,15%,15%,40%",options="header",]
+|===
+| Name
+| Type
+| Default
+| Description
+
+| AUDIT_DEBUG_ADDR
+| string
+|
+|
+
+| AUDIT_DEBUG_TOKEN
+| string
+|
+|
+
+| AUDIT_DEBUG_PPROF
+| boolean
+| false
+|
+
+| AUDIT_DEBUG_ZPAGES
+| boolean
+| false
+|
+
+| AUDIT_EVENTS_ENDPOINT
+| string
+| 127.0.0.1:9233
+| address of the streaming service
+
+| AUDIT_EVENTS_CLUSTER
+| string
+| ocis-cluster
+| clusterID of the streaming service, mandatory when using nats
+
+| AUDIT_EVENTS_GROUP
+| string
+| audit
+| customer group of the service, one group will only get one copy of an event
+
+| AUDIT_LOG_TO_CONSOLE
+| boolean
+| true
+| logs to stdout if true
+
+| AUDIT_LOG_TO_FILE
+| boolean
+| false
+| logs to file if true
+
+| AUDIT_FILEPATH
+| string
+|
+| path to the log file, mandatory if AUDIT_LOG_TO_FILE=true
+
+| AUDIT_FORMAT
+| string
+| json
+| log format, using json is advised
+|===
+
