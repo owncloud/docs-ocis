@@ -1,4 +1,4 @@
-== Manual Setup
+= Manual Setup
 :toc: right
 :toclevels: 2
 
@@ -158,7 +158,7 @@ To terminate the `ocis proxy` service type the following command, where `sudo` m
 sudo kill -15 221706
 ----
 
-=== Setting up systemd for oCIS
+== Setting up systemd for oCIS
 
 To run the *oCIS runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
 
