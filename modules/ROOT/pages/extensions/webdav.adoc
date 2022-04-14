@@ -1,8 +1,16 @@
 = WebDAV Service Configuration
 
+:description: The oCIS WebDAV extension provides an essential service for collaboration on the web.
+
+== Introduction
+
+{description}
+
 // harvested from https://owncloud.dev/extensions/audit/configuration/
-// all descriptions still missing
+// fixme: all descriptions still missing, and a better description is needed
 // pre-beta1 2022-04-14
+
+== Environment Variables
 
 The WebDAV service is configured via the following environment variables:
 
@@ -59,6 +67,7 @@ The WebDAV service is configured via the following environment variables:
 |
 |===
 
+== YAML Configuration
 
 An example YAML config file looks like this:
 

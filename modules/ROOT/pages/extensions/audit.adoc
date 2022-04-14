@@ -2,8 +2,18 @@
 :toc: right
 
 // harvested from https://owncloud.dev/extensions/audit/configuration/
-// some descriptions still missing
+// fixme: some descriptions still missing
 // pre-beta1 2022-04-14
+
+:description: The audit service allows for easy monitoring of your oCIS server.
+
+// fixme: more to be added when we can actually see it.
+
+== Introduction
+
+{description}
+
+== Configuration
 
 The audit service is configured via the following environment variables:
 
