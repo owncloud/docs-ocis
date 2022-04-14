@@ -45,7 +45,6 @@ This will print an output like:
 +------------------------+
 |       EXTENSION        |
 +------------------------+
-| accounts               |
 | glauth                 |
 | graph                  |
 | graph-explorer         |
