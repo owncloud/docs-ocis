@@ -26,12 +26,12 @@ The audit service is configured via the following environment variables:
 |
 
 | AUDIT_DEBUG_PPROF
-| boolean
+| bool
 | false
 |
 
 | AUDIT_DEBUG_ZPAGES
-| boolean
+| bool
 | false
 |
 
@@ -51,12 +51,12 @@ The audit service is configured via the following environment variables:
 | customer group of the service, one group will only get one copy of an event
 
 | AUDIT_LOG_TO_CONSOLE
-| boolean
+| bool
 | true
 | logs to stdout if true
 
 | AUDIT_LOG_TO_FILE
-| boolean
+| bool
 | false
 | logs to file if true
 
