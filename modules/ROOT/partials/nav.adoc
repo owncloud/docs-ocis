@@ -11,6 +11,7 @@
 *** xref:deployment/nfs.adoc[Network File System Deployment]
 *** xref:extensions/index.adoc[Extensions]
 **** xref:extensions/audit.adoc[Audit Service Configuration]
+**** xref:extensions/webdav.adoc[WebDAV Service Configuration]
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
 ** xref:configuration/index.adoc[Configuration]
 *** xref:configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
