@@ -1,23 +1,127 @@
-== Setup with Docker
+= Setup with Docker
 :toc: right
-:toclevels: 2
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
-:traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
+:install-docker-url: https://docs.docker.com/engine/install/#server
+:install-d-compose-url: https://docs.docker.com/compose/install/
+:docker-cli-url: https://docs.docker.com/engine/reference/commandline/run/
 
-Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. To fetch and run oCIS in a Docker container, make sure the following packages are installed:
+:swarm-v-kub-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
+
+:description: Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start an image with only a few commands. 
+
+== Introduction
+
+{description}
+
+== Docker Prerequisites
+
+To fetch and run oCIS in a Docker container, make sure the following packages are installed:
 
 * docker,
 * docker-compose,
 * optionally kubernetes for more sophisticated container management.
 
-Now download and start oCIS with the following commands:
+=== Check if You Have Docker Installed
 
-[source,console]
+Use the following command to check if `docker` is installed on your system:
+
+[source,bash]
 ----
-docker pull owncloud/ocis
-docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
+which docker
 ----
+
+If Docker is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install docker first.
+
+Use the following command to check if `docker-compose` is installed on your system:
+
+[source,bash]
+----
+which docker-compose
+----
+
+
+=== Install Docker and Docker-Compose
+
+On most Linux distributions you can simply install Docker and Docker-Compose via the package manager.
+
+Alternatively, install docker depending on your OS from the Docker site. See {install-docker-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
+
+
+== Download the oCIS Container
+
+// fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade.
+
+* To download the latest oCIS container, run the following command:
++
+[source,bash]
+----
+sudo docker pull owncloud/ocis
+----
+
+* Check your oCIS image with:
++
+[source,bash]
+----
+sudo docker images
+----
++
+[caption=]
+.Example output
+[source,plaintext]
+----
+REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
+owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
+----
+
+* Check you oCIS version with (note to have `jq` installed):
++
+[source,bash]
+----
+sudo docker inspect owncloud/ocis:latest | \
+   jq '.[] | .Config.Labels."org.opencontainers.image.version"'
+----
++
+[caption=]
+.Example output
+[source,plaintext]
+----
+latest
+----
+
+== Run the Docker Container
+
+To run the docker container simply type:
+
+[source,bash]
+----
+sudo docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
+----
+
+See the {docker-cli-url}[docker command line options] for details. 
+
+The following command line options are quite helpful to know:
+
+`-e` Set environment variables::
+Use this to hand over only a view environment variables to the run command.
+
+`--env-file` Read in a file of environment variables::
+When you have more environment variables to hand over, put them all in a file and hand them over with this command line option. Preferably use `etc/ocis` for the location. See xref:deployment/general/general-info.html#configuration-rules[Configuration Rules] for more details.
+
+`-i` Keep STDIN open even if not attached::
+This keeps STDIN open to the container.
+
+`-t` Allocate a pseudo-TTY::
+Allocate a virtual terminal session within the container.
+
+`-p` Publish a container's port(s) to the host::
+Defines the port mapping from the host to the container
+Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
+
+`--rm` Automatically remove the container when it exits::
+Tell the docker daemon to clean up the container and remove the file system after the container exits.
+
+== whatever
 
 // this should probably be a docker-compose command
 
