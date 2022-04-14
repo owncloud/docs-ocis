@@ -173,7 +173,7 @@ Then copy the content of the systemd file below into the editor and save it.
 +
 [NOTE]
 ====
-This user can be a system user. The following example will create a system user and group named _ocisadmin_ with no home directory, no login shell, and no password. Depending on your OS type:
+This user can be a system user. The following example will create a system user and group named _ocisadmin_ with no home directory, no login shell and no password. Depending on your OS type:
 
 [source,bash]
 ----
