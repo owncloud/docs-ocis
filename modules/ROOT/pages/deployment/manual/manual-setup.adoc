@@ -96,7 +96,7 @@ The same mechanism is true to start or instantinate extensions which are *not st
 ocis web & disown -h
 ----
 
-NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:general/general-info.adoc#manage-instances-of-extensions[Manage Instances of Extensions]
+NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
 
 === List Running oCIS Processes
 
@@ -120,7 +120,7 @@ Depending what you want to stop, differnt commands need to be applied.
 If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
 
 Stopping an extension from the runtime::
-Note that the ocis runtime (`ocis server`) needs to be active or a default error message will be returned, see xref:general/general-info.adoc#default-runtime-error-response[Default Runtime Error Response]
+Note that the ocis runtime (`ocis server`) needs to be active or a default error message will be returned, see xref:deployment/general/general-info.adoc#default-runtime-error-response[Default Runtime Error Response]
 +
 [source,bash]
 ----
@@ -202,7 +202,7 @@ Restart=always
 WantedBy=multi-user.target
 ----
 
-Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#accessing-ocis-via-the-webui[Accessing oCIS Via the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
+Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 
