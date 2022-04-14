@@ -124,17 +124,15 @@ ocis run [extension name]
 
 At any time, you can create unsupervised instances of an extension with `ocis [extension name]`, for example `ocis proxy`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classical OS methods or e.g. via Kubernetes.
 
-Creating multiple instances of an extension is used for scaling. Note that you may need configuration for and access to the extension instances like with a load balancer when you scale.
+Note that you need configuration for and access to the extension instances like with a load balancer when you scale.
 
 == Default Runtime Error Response
 
 If you have not started up `ocis server` but try to file a runtime command except `run` and `version`, a default error message like the following will be printed:
 
-// fixme: check the default port returned, see: https://github.com/owncloud/ocis/pull/3481 when it is available as release. imho it should be 9250, but I am not sure...
-
 [source,plaintext]
 ----
-Failed to connect to the runtime. Has the runtime been started and did you configure the right runtime address (localhost:9200)?
+Failed to connect to the runtime. Has the runtime been started and did you configure the right runtime address (localhost:9250)?
 ----
 
 To fix this, start the runtime with `ocis server` first and redo the command.
@@ -217,7 +215,7 @@ log:
   file: /var/tmp/ocis_output.log
 ----
 
-NOTE: In case of an extension overwriting its shared logging config received from the main ocis.yaml file, you *MUST* specify all values.
+NOTE: In case of an extension overwriting its shared logging config received from the main ocis.yaml file, you must specify *all* values.
 
 ==== Log Config Keys
 
@@ -299,8 +297,8 @@ The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
 The following rules apply:
 
 * If you do NOT define this environment variable, the following applies:
-** The base path is by default `$HOME/.ocis/` after performing a manual installation.
-** The base path is by default `/var/lib/ocis` when using the docker installation.
+** The base path is by default `$HOME/.ocis/` after performing a _manual installation_.
+** The base path is by default `/var/lib/ocis` when using the _docker installation_.
 * The directory must exist and the user used for oCIS must have full access and permissions.
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
@@ -330,7 +328,7 @@ When you have started oCIS for the first time, an admin user will be created wit
 | users
 |===
 
-You can login the webinterface with this admin user and change relevant data accoring your needs. As an example to reach out the webinterface use `\https://localhost:9200`.
+Login to the webinterface with this admin user and change relevant data according your needs or create new users. As an example to reach out the webinterface use `\https://localhost:9200`.
 
 === Demo Users and Groups
 
