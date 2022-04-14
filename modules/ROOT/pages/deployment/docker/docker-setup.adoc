@@ -91,34 +91,43 @@ latest
 
 == Run the Docker Container
 
+When you run the docker container, you must specify at minimum the `OCIS_URL` as environment variable. This is necessary because `localhost`, which is the default, cant be used as it points to a location inside the container and not to the host, for details see: xref:deployment/general/general-info.html#configurations-to-access-the-webui[Configurations to Access the WebUI]
+
+For the example below, replace `<your-hostname>` with the hostname or IP address of your server.
+ 
 To run the docker container simply type:
 
 [source,bash]
 ----
-sudo docker run --rm -ti -p 9200:9200 -e OCIS_INSECURE=true owncloud/ocis
+sudo docker run --rm -ti \
+    -p 9200:9200 \
+    -e OCIS_INSECURE=true \
+    -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
+    -e OCIS_URL=https://<your-hostname>:9200 \
+    owncloud/ocis
 ----
 
 See the {docker-cli-url}[docker command line options] for details. 
 
 The following command line options are quite helpful to know:
 
-`-e` Set environment variables::
+-e: Set environment variables::
 Use this to hand over only a view environment variables to the run command.
 
-`--env-file` Read in a file of environment variables::
+--env-file: Read in a file of environment variables::
 When you have more environment variables to hand over, put them all in a file and hand them over with this command line option. Preferably use `etc/ocis` for the location. See xref:deployment/general/general-info.html#configuration-rules[Configuration Rules] for more details.
 
-`-i` Keep STDIN open even if not attached::
+-i: Keep STDIN open even if not attached::
 This keeps STDIN open to the container.
 
-`-t` Allocate a pseudo-TTY::
+-t: Allocate a pseudo-TTY::
 Allocate a virtual terminal session within the container.
 
-`-p` Publish a container's port(s) to the host::
+-p: Publish a container's port(s) to the host::
 Defines the port mapping from the host to the container
 Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
 
-`--rm` Automatically remove the container when it exits::
+--rm: Automatically remove the container when it exits::
 Tell the docker daemon to clean up the container and remove the file system after the container exits.
 
 == whatever
