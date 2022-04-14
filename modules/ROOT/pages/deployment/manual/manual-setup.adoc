@@ -93,7 +93,7 @@ The same mechanism is true to start or instantinate extensions which are *not st
 
 [source,bash]
 ----
-ocis web & disown -h
+ocis web server & disown -h
 ----
 
 NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
@@ -171,7 +171,16 @@ Then copy the content of the systemd file below into the editor and save it.
 
 * The user `ocisadmin` is just a placeholder for any user to run oCIS, the user must exist or be created first.
 +
-NOTE: This user can be a system user without e.g. having a home directory.
+[NOTE]
+====
+This user can be a system user. The following example will create a system user and group named _ocisadmin_ with no home directory, no login shell and no password. Depending on your OS type:
+
+[source,bash]
+----
+sudo useradd --system --no-create-home --shell=/sbin/nologin ocisadmin
+----
+====
++
 * We strongly advise *against* using the user `root` for this purpose.
 * Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
 ** The directory `/etc/ocis/` must exist and the `ocisadmin` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values to your needs:
