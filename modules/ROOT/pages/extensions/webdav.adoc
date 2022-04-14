@@ -1,0 +1,105 @@
+= WebDAV Service Configuration
+
+// harvested from https://owncloud.dev/extensions/audit/configuration/
+// all descriptions still missing
+// pre-beta1 2022-04-14
+
+The WebDAV service is configured via the following environment variables:
+
+[cols="30%,15%,15%,40%",options="header",]
+|===
+| Name
+| Type
+| Default
+| Description
+
+| WEBDAV_DEBUG_ADDR
+| string
+| 127.0.0.1:9119
+|
+
+| WEBDAV_DEBUG_TOKEN
+| string
+|
+|
+
+| WEBDAV_DEBUG_PPROF
+| bool
+| false
+|
+
+| WEBDAV_DEBUG_ZPAGES
+| bool
+| false
+|
+
+| WEBDAV_HTTP_ADDR
+| string
+| https://127.0.0.1:9200
+|
+
+| WEBDAV_HTTP_ROOT
+| string
+| /
+|
+
+| OCIS_URL;OCIS_PUBLIC_URL
+| string
+| https://127.0.0.1:9200
+|
+
+| STORAGE_WEBDAV_NAMESPACE
+| string
+| /users/{{.Id.OpaqueId}}
+|
+
+| REVA_GATEWAY
+| string
+| 127.0.0.1:9142
+|
+|===
+
+
+An example YAML config file looks like this:
+
+[source,plaintext]
+----
+tracing:
+  enabled: false
+  type: ""
+  endpoint: ""
+  collector: ""
+log:
+  level: ""
+  pretty: false
+  color: false
+  file: ""
+debug:
+  addr: 127.0.0.1:9119
+  token: ""
+  pprof: false
+  zpages: false
+http:
+  addr: 127.0.0.1:9115
+  root: /
+  cors:
+    allowed_origins:
+    - '*'
+    allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+    allowed_headers:
+    - Authorization
+    - Origin
+    - Content-Type
+    - Accept
+    - X-Requested-With
+    allow_credentials: true
+ocis_public_url: https://127.0.0.1:9200
+webdav_namespace: /users/{{.Id.OpaqueId}}
+reva_gateway: 127.0.0.1:9142
+----
