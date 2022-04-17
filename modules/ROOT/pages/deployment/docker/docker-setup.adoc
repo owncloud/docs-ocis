@@ -40,19 +40,19 @@ Use the following command to check if `docker-compose` is installed on your syst
 which docker-compose
 ----
 
-
 === Install Docker and Docker-Compose
 
 On most Linux distributions you can simply install Docker and Docker-Compose via the package manager.
 
 Alternatively, install docker depending on your OS from the Docker site. See {install-docker-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 
-
-== Download the oCIS Container
+== Download the oCIS Image
 
 // fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade.
 
-* To download the latest oCIS container, run the following command:
+To give some terminology guidance, images are frozen immutable snapshots of live containers while containers are running (or stopped) instances of an image.
+
+* To download the latest oCIS image, run the following command:
 +
 [source,bash]
 ----
@@ -74,7 +74,7 @@ REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
 owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
 ----
 
-* Check you oCIS version with (note to have `jq` installed):
+* Check you oCIS version with following command, note that you neet to have `jq` installed:
 +
 [source,bash]
 ----
@@ -89,9 +89,34 @@ sudo docker inspect owncloud/ocis:latest | \
 latest
 ----
 
-== Run the Docker Container
+== Remove an oCIS Image
 
-When you run the docker container, you must specify at minimum the `OCIS_URL` as environment variable. This is necessary because `localhost`, which is the default, cant be used as it points to a location inside the container and not to the host, for details see: xref:deployment/general/general-info.html#configurations-to-access-the-webui[Configurations to Access the WebUI]
+If you want to remove an oCIS image, run the following command:
+
+[source,bash]
+----
+sudo docker images
+----
+
+[caption=]
+.Example output
+[source,bash]
+----
+REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
+owncloud/ocis   latest    22c455afc445   46 hours ago   98.3MB
+----
+
+Replace <image-id> with the ID you want to remove from the above printout:
+[source,bash]
+----
+sudo docker rmi <image-id>
+----
+
+== Start and Stop oCIS
+
+=== Start the oCIS Runtime
+
+When you run the oCIS docker container, you _must_ specify at minimum the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
 For the example below, replace `<your-hostname>` with the hostname or IP address of your server.
  
@@ -99,7 +124,9 @@ To run the docker container simply type:
 
 [source,bash]
 ----
-sudo docker run --rm -ti \
+sudo docker run \
+    --name ocis_runtime
+    --rm -ti \
     -p 9200:9200 \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
@@ -107,15 +134,12 @@ sudo docker run --rm -ti \
     owncloud/ocis
 ----
 
-See the {docker-cli-url}[docker command line options] for details. 
-
-The following command line options are quite helpful to know:
+You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for other basic environment variables.
+ 
+The following {docker-cli-url}[docker command line options] are quite helpful to know:
 
 -e: Set environment variables::
 Use this to hand over only a view environment variables to the run command.
-
---env-file: Read in a file of environment variables::
-When you have more environment variables to hand over, put them all in a file and hand them over with this command line option. Preferably use `etc/ocis` for the location. See xref:deployment/general/general-info.html#configuration-rules[Configuration Rules] for more details.
 
 -i: Keep STDIN open even if not attached::
 This keeps STDIN open to the container.
@@ -130,23 +154,8 @@ Use the port mapping which is necessary if you want to access the dockerized oCI
 --rm: Automatically remove the container when it exits::
 Tell the docker daemon to clean up the container and remove the file system after the container exits.
 
-== whatever
+--env-file: Read in a file of environment variables::
+When you have more environment variables to hand over, put them all in a file and use this command line option. Preferably have `etc/ocis` for the location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
 
-// this should probably be a docker-compose command
-
-Port 9200 on localhost will be used for oCIS in this basic setup with Docker. The environment variable OCIS_INSECURE=true is necessary whenever you’re using oCIS with self-signed certificates.
-
-For your convenience, we provide a stack of docker containers prepared for use with oCIS. Example configurations are provided but need adjustments for your environment. You also need to decide which components to use. We certainly recommend Traefik as reverse proxy and load balancer.
-
-=== Traefik
-
-=== Keycloak
-
-=== LDAP
-
-=== WOPI Server
-
-=== S3 Storage
-
-=== Kubernetes
-
+--name: Assign a name to the container::
+By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving container a meaningful name helps identifying them more easily.
