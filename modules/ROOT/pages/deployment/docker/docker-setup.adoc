@@ -125,7 +125,7 @@ To run the docker container, simply type:
 [source,bash]
 ----
 sudo docker run \
-    --name ocis_runtime
+    --name ocis_runtime \
     --rm -ti \
     -p 9200:9200 \
     -e OCIS_INSECURE=true \
@@ -134,7 +134,7 @@ sudo docker run \
     owncloud/ocis
 ----
 
-You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for other basic environment variables.
+You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for other basic environment variable.
  
 The following {docker-cli-url}[docker command-line options] are quite helpful to know:
 
