@@ -50,7 +50,7 @@ Alternatively, install docker depending on your OS from the Docker site. See {in
 
 // fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade.
 
-To give some terminology guidance, images are frozen immutable snapshots of live containers while containers are running (or stopped) instances of an image.
+To give some terminology guidance, images are unchangeable snapshots of live containers while containers are running (or stopped) instances of an image.
 
 * To download the latest oCIS image, run the following command:
 +
@@ -74,7 +74,7 @@ REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
 owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
 ----
 
-* Check you oCIS version with following command, note that you neet to have `jq` installed:
+* Check you oCIS version with the following command. Note that you need to have `jq` installed:
 +
 [source,bash]
 ----
@@ -116,11 +116,11 @@ sudo docker rmi <image-id>
 
 === Start the oCIS Runtime
 
-When you run the oCIS docker container, you _must_ specify at minimum the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
+When you run the oCIS docker container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
-For the example below, replace `<your-hostname>` with the hostname or IP address of your server.
- 
-To run the docker container simply type:
+In the example below, replace `<your-hostname>` with the host name or IP address of your server.
+
+To run the docker container, simply type:
 
 [source,bash]
 ----
@@ -136,10 +136,10 @@ sudo docker run \
 
 You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for other basic environment variables.
  
-The following {docker-cli-url}[docker command line options] are quite helpful to know:
+The following {docker-cli-url}[docker command-line options] are quite helpful to know:
 
 -e: Set environment variables::
-Use this to hand over only a view environment variables to the run command.
+Use this to hand over only a few environment variables to the run command.
 
 -i: Keep STDIN open even if not attached::
 This keeps STDIN open to the container.
@@ -148,14 +148,14 @@ This keeps STDIN open to the container.
 Allocate a virtual terminal session within the container.
 
 -p: Publish a container's port(s) to the host::
-Defines the port mapping from the host to the container
+Defines the port mapping from the host to the container.
 Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
 
 --rm: Automatically remove the container when it exits::
 Tell the docker daemon to clean up the container and remove the file system after the container exits.
 
 --env-file: Read in a file of environment variables::
-When you have more environment variables to hand over, put them all in a file and use this command line option. Preferably have `etc/ocis` for the location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
+If you have more environment variables to hand over, put them all in a file and use this command-line option. Preferably have `/etc/ocis` as location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
 
 --name: Assign a name to the container::
-By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving container a meaningful name helps identifying them more easily.
+By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
