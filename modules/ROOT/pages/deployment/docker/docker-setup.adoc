@@ -100,7 +100,7 @@ sudo docker images
 
 [caption=]
 .Example output
-[source,bash]
+[source,plaintext]
 ----
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 owncloud/ocis   latest    22c455afc445   46 hours ago   98.3MB
@@ -126,7 +126,8 @@ To run the docker container, simply type:
 ----
 sudo docker run \
     --name ocis_runtime \
-    --rm -ti \
+    --rm \
+    -it \
     -p 9200:9200 \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
@@ -159,3 +160,46 @@ If you have more environment variables to hand over, put them all in a file and 
 
 --name: Assign a name to the container::
 By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
+
+=== Start the Container Detached
+
+Note that the docker run command will bind the container to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following docker run commandline option:
+
+-d or --detach: Run container in background and print container ID::
+The docker container runs in the background of your terminal. It does not receive input or display output.
+
+=== List Running Containers
+
+To list all _running_ containers type:
+
+[source,bash]
+----
+docker ps
+----
+
+[caption=]
+.Example output
+[source,plaintext,options="nowrap"]
+----
+CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+a0e4db3e91e8   owncloud/ocis   "/usr/bin/ocis server"   8 seconds ago   Up 6 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   ocis_runtime
+----
+
+=== Stop a Running Container
+
+To stop a runnig detached container, you first need the container ID which you will get with the above command. Then type the following command and replace <container-id> with the ID of the container you want to stop:
+
+[source,bash]
+----
+docker stop <container-id>
+----
+
+=== Print Logs From Detached Container
+
+The `docker logs` command shows information logged by a running container which is useful if you have detached it. To show the logs and follow log output type the following and replace the <container-id> accordingly:
+
+[source,bash]
+----
+docker logs -f <container-id>
+----
+
