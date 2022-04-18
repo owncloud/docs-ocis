@@ -8,6 +8,7 @@
 :docker-logs-url: https://docs.docker.com/engine/reference/commandline/logs/
 :docker-stop-url: https://docs.docker.com/engine/reference/commandline/stop/
 :docker-ps-url: https://docs.docker.com/engine/reference/commandline/ps/
+:docker-restart-url: https://docs.docker.com/engine/reference/commandline/restart/
 
 :swarm-v-kub-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 
@@ -200,7 +201,7 @@ docker stop <container-id>
 
 === Restarting a Container
 
-To restart a container, type the following and replace the <container-id> accordingly:
+To {docker-restart-url}[restart] a container, type the following and replace the <container-id> accordingly:
 
 [source,bash]
 ----
