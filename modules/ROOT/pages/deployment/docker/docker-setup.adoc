@@ -100,7 +100,7 @@ sudo docker images
 
 [caption=]
 .Example output
-[source,bash]
+[source,plaintext]
 ----
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 owncloud/ocis   latest    22c455afc445   46 hours ago   98.3MB
@@ -112,9 +112,7 @@ Replace <image-id> with the ID you want to remove from the above printout:
 sudo docker rmi <image-id>
 ----
 
-== Start and Stop oCIS
-
-=== Start the oCIS Runtime
+== Start the oCIS Runtime
 
 When you run the oCIS docker container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
@@ -125,8 +123,9 @@ To run the docker container, simply type:
 [source,bash]
 ----
 sudo docker run \
-    --name ocis_runtime
-    --rm -ti \
+    --name ocis_runtime \
+    --rm \
+    -it \
     -p 9200:9200 \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
@@ -134,8 +133,10 @@ sudo docker run \
     owncloud/ocis
 ----
 
-You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for other basic environment variables.
- 
+You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for another important basic environment variable.
+
+WARNING: With docker you can run containers multiple times concurrently. With oCIS you have to define different ports and data paths for each of the containers you run to avoid any unexpected behaviour. 
+
 The following {docker-cli-url}[docker command-line options] are quite helpful to know:
 
 -e: Set environment variables::
@@ -148,8 +149,7 @@ This keeps STDIN open to the container.
 Allocate a virtual terminal session within the container.
 
 -p: Publish a container's port(s) to the host::
-Defines the port mapping from the host to the container.
-Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
+Defines the port mapping `<hostPort>:<containerPort>`. Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
 
 --rm: Automatically remove the container when it exits::
 Tell the docker daemon to clean up the container and remove the file system after the container exits.
@@ -159,3 +159,48 @@ If you have more environment variables to hand over, put them all in a file and 
 
 --name: Assign a name to the container::
 By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
+
+== Common Useful Docker Commands
+
+=== Start the Container Detached
+
+Note that the docker run command will bind the container to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following docker run commandline option:
+
+-d or --detach: Run container in background and print container ID::
+The docker container runs in the background of your terminal. It does not receive input or display output.
+
+=== List Running Containers
+
+To list all _running_ containers type:
+
+[source,bash]
+----
+docker ps
+----
+
+[caption=]
+.Example output
+[source,plaintext,options="nowrap"]
+----
+CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+a0e4db3e91e8   owncloud/ocis   "/usr/bin/ocis server"   8 seconds ago   Up 6 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   ocis_runtime
+----
+
+=== Stop a Running Container
+
+To stop a runnig detached container, you first need the container ID which you will get with the above command. Then type the following command and replace <container-id> with the ID of the container you want to stop:
+
+[source,bash]
+----
+docker stop <container-id>
+----
+
+=== Print Logs From Detached Container
+
+The `docker logs` command shows information logged by a running container which is useful if you have detached it. To show the logs and follow log output type the following and replace the <container-id> accordingly:
+
+[source,bash]
+----
+docker logs -f <container-id>
+----
+
