@@ -5,6 +5,9 @@
 :install-docker-url: https://docs.docker.com/engine/install/#server
 :install-d-compose-url: https://docs.docker.com/compose/install/
 :docker-cli-url: https://docs.docker.com/engine/reference/commandline/run/
+:docker-logs-url: https://docs.docker.com/engine/reference/commandline/logs/
+:docker-stop-url: https://docs.docker.com/engine/reference/commandline/stop/
+:docker-ps-url: https://docs.docker.com/engine/reference/commandline/ps/
 
 :swarm-v-kub-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 
@@ -171,7 +174,7 @@ The docker container runs in the background of your terminal. It does not receiv
 
 === List Running Containers
 
-To list all _running_ containers type:
+To {docker-ps-url}[list] all _running_ containers type:
 
 [source,bash]
 ----
@@ -188,19 +191,27 @@ a0e4db3e91e8   owncloud/ocis   "/usr/bin/ocis server"   8 seconds ago   Up 6 sec
 
 === Stop a Running Container
 
-To stop a runnig detached container, you first need the container ID which you will get with the above command. Then type the following command and replace <container-id> with the ID of the container you want to stop:
+To {docker-stop-url}[stop] a runnig detached container, you first need the container ID which you will get with the above command. Then type the following command and replace <container-id> with the ID of the container you want to stop:
 
 [source,bash]
 ----
 docker stop <container-id>
 ----
 
+=== Restarting a Container
+
+To restart a container, type the following and replace the <container-id> accordingly:
+
+[source,bash]
+----
+docker restart <container-id>
+----
+
 === Print Logs From Detached Container
 
-The `docker logs` command shows information logged by a running container which is useful if you have detached it. To show the logs and follow log output type the following and replace the <container-id> accordingly:
+The {docker-logs-url}[docker logs] command shows information logged by a running container which is useful if you have detached it. To show the logs and follow log output, type the following and replace the <container-id> accordingly:
 
 [source,bash]
 ----
 docker logs -f <container-id>
 ----
-
