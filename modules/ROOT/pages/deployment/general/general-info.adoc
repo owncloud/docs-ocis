@@ -250,12 +250,6 @@ When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If
 
 Certificates are necessary to secure browser access. oCIS can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell oCIS which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
 
-=== Using a Reverse Proxy
-
-// https://owncloud.dev/ocis/deployment/ocis_individual_services/
-
-When using a reverse proxy like Traefik and the reverse proxy manages the certificates, there is no need to use these certificates between the reverse proxy and oCIS again. Therefore set `OCIS_INSECURE=false` or remove it completely.
-
 === Embedded Self-Signed Certificates
 
 In order to run oCIS with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
@@ -411,3 +405,9 @@ You can now login with one of the demo users created using the `OCIS_URL` in you
 === Manage Users and Groups
 
 If you have enabled demo users and groups and you want to manage or delete them, use the web UI, e.g. `\https://localhost:9200`.
+
+== Using a Reverse Proxy
+
+// https://owncloud.dev/ocis/deployment/ocis_individual_services/
+
+When using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and oCIS again. You can therefore set `OCIS_INSECURE=false` or remove it completely.
