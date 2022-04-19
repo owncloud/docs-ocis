@@ -2,13 +2,20 @@
 :toc: right
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
-:install-docker-url: https://docs.docker.com/engine/install/#server
+:install-docker-server-url: https://docs.docker.com/engine/install/#server
+:install-docker-desktop-url: https://docs.docker.com/engine/install/#desktop
 :install-d-compose-url: https://docs.docker.com/compose/install/
 :docker-cli-url: https://docs.docker.com/engine/reference/commandline/run/
 :docker-logs-url: https://docs.docker.com/engine/reference/commandline/logs/
 :docker-stop-url: https://docs.docker.com/engine/reference/commandline/stop/
 :docker-ps-url: https://docs.docker.com/engine/reference/commandline/ps/
 :docker-restart-url: https://docs.docker.com/engine/reference/commandline/restart/
+:docker-multi-url: https://docs.docker.com/get-started/07_multi_container/
+:docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
+:compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
+:docker-desktop-url: https://docs.docker.com/desktop/
+:docker-dashboard-url: https://docs.docker.com/desktop/dashboard/
+:portainer-url: https://www.portainer.io
 
 :swarm-v-kub-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 
@@ -35,7 +42,7 @@ Use the following command to check if `docker` is installed on your system:
 which docker
 ----
 
-If Docker is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install docker first.
+If Docker is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker first.
 
 Use the following command to check if `docker-compose` is installed on your system:
 
@@ -46,9 +53,11 @@ which docker-compose
 
 === Install Docker and Docker-Compose
 
-On most Linux distributions you can simply install Docker and Docker-Compose via the package manager.
+* On most Linux distributions you can simply install Docker and Docker-Compose via the package manager.
++
+Alternatively, install Docker depending on your OS from the Docker site. See {install-docker-server-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 
-Alternatively, install docker depending on your OS from the Docker site. See {install-docker-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
+* When using Windows or macOS, you have to install {docker-desktop-url}[Docker Desktop] which includes the Docker Engine, the Docker CLI client, Docker Compose, {docker-dashboard-url}[Docker Dashboard] and other tools.
 
 == Image Management
 
@@ -129,11 +138,11 @@ sudo docker rmi <image-id>
 
 == Start the oCIS Runtime
 
-When you run the oCIS docker container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
+When you run the oCIS Docker container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
 In the example below, replace `<your-hostname>` with the host name or IP address of your server.
 
-To run the docker container, simply type:
+To run the Docker container, simply type:
 
 [source,bash]
 ----
@@ -152,7 +161,7 @@ You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-
 
 WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS container concurrenty. In such a case you have to define different ports and data paths for each of the containers you run to avoid any unexpected behaviour.
 
-The following {docker-cli-url}[docker command-line options] are quite helpful to know:
+The following {docker-cli-url}[Docker command-line options] are quite helpful to know:
 
 -e: Set environment variables::
 Use this to hand over only a few environment variables to the run command.
@@ -167,16 +176,16 @@ Allocate a virtual terminal session within the container.
 Defines the port mapping `<hostPort>:<containerPort>`. Use the port mapping which is necessary if you want to access the dockerized oCIS web user interface.
 
 --rm: Automatically remove the container when it exits::
-Tell the docker daemon to clean up the container and remove the file system after the container exits.
+Tell the Docker daemon to clean up the container and remove the file system after the container exits.
 
 --env-file: Read in a file of environment variables::
 If you have more environment variables to hand over, put them all in a file and use this command-line option. Preferably have `/etc/ocis` as location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
 
 --name: Assign a name to the container::
-By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
+By default, containers created with _docker run_ are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
 
 --restart: Restart policy to apply when a container exits::
-See the details in the docker run documentation for available options. Consider `always` as a good starting point.
+See the details in the _docker run_ documentation for available options. Consider `always` as a good starting point.
 
 == Execute oCIS Commands
 
@@ -193,14 +202,14 @@ To exit the containers shell, either type kbd:[exit] or kbd:[CTRL+D].
 
 // fixme: after a call with @cdegen, it is currently not clear how to restart a runtime extension properly as the extension needs an extension yaml file (see --config-file) and the question is - where is the location of this file - it cant be inside the container!
 
-== Common Useful Docker Commands
+== Useful Docker Commands
 
 === Start the Container Detached
 
-Note that the docker run command will bind the container to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following docker run commandline option:
+Note that the _docker run_ command will bind the container to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following _docker run_ commandline option:
 
 -d or --detach: Run container in background and print container ID::
-The docker container runs in the background of your terminal. It does not receive input or display output.
+The Docker container runs in the background of your terminal. It does not receive input or display output.
 
 === List Running Containers
 
@@ -230,7 +239,7 @@ docker stop <container-id>
 
 === Restarting a Container
 
-{docker-restart-url}[Restarting a docker container] does an equivalent of `docker stop` and `docker start`. Note the that the same parameters are used when the container has been started with the _run_ command. To restart a container, type the following and replace the <container-id> accordingly:
+{docker-restart-url}[Restarting a Docker container] does an equivalent of `docker stop` and `docker start`. Note the that the same parameters are used when the container has been started with the _run_ command. To restart a container, type the following and replace the <container-id> accordingly:
 
 [source,bash]
 ----
@@ -243,7 +252,7 @@ To autostart oCIS when the server reboots, some steps need to be taken.
 
 ==== Autostart the Docker Service
 
-Check if the docker service is set to be automatically started on boot:
+Check if the Docker service is set to be automatically started on boot:
 
 [source,bash]
 ----
@@ -284,7 +293,7 @@ Which will have an output like:
 
 ==== Autostart the Container
 
-To start the container automatically when the docker service has started or the container exits because of an error, add the `--restart=always` command line option to the docker run command. You can replace `always` with other options suitable to your environment. If you want that the container no longer autostarts, you have to xref:stop-a-running-container[stop] him manually first.
+To start the container automatically when the Docker service has started or the container exits because of an error, add the `--restart=always` command line option to the _docker run_ command. You can replace `always` with other options suitable to your environment. If you want that the container no longer autostarts, you have to xref:stop-a-running-container[stop] him manually first.
 
 === Print Logs From Detached Container
 
@@ -294,3 +303,25 @@ The {docker-logs-url}[docker logs] command shows information logged by a running
 ----
 docker logs -f <container-id>
 ----
+
+== Enhanced Usage
+
+=== Multi Container Environment
+
+Container run in isolation and don’t know anything about other processes or containers on the same machine. If containers are on the same network, they can talk to each other. See the {docker-multi-url}[Multi Container Apps] documentation to read more about this topic.
+
+In a nutshell, you have to create a Docker network and reference this network in the all the containers that should be able to talk to each other.
+
+=== Docker Compose
+
+Similar when using _docker run_ and handover command line parameters for a single container, you define a `docker-compose.yml` yaml file which defines all of the environment for each container in one file. This is the next step of multi container environments. When the configuration is done, start the application stack with `docker-compose up -d`. For more details see {docker-compose-url}[Docker Compose].
+
+=== Example Compose Files
+
+ownCloud provides some {compose-examples-url}[example docker compose] files as starting point and guidance to your own setup. Change the data according your needs. Check the oCIS version when using as template for productive environments.
+
+== GUI for Docker
+
+* Docker on Linux does not have a dashboard by default, you have to use available tools like {portainer-url}[Portainer] or others which need manual installation.
+
+* {docker-desktop-url}[Docker Desktop] which is available for Windows and macOS includes the {docker-dashboard-url}[Docker Dashboard] without the need of additional installations.
