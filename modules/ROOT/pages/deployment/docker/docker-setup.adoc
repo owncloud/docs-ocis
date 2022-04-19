@@ -50,7 +50,9 @@ On most Linux distributions you can simply install Docker and Docker-Compose via
 
 Alternatively, install docker depending on your OS from the Docker site. See {install-docker-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 
-== Download the oCIS Image
+== Image Management
+
+=== Download the oCIS Image
 
 // fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade.
 
@@ -93,7 +95,16 @@ sudo docker inspect owncloud/ocis:latest | \
 latest
 ----
 
-== Remove an oCIS Image
+=== Update an Image
+
+First check the current version of the image used with the command above and compare it with the versions available on {docker-ocis-url}[Docker Hub]. When a new image is available use these are the steps to upgrade the image, for detailed commands see the corresponding sections:
+
+* xref:stop-a-running-container[Stop] the running oCIS container
+* xref:remove-an-ocis-image[Remove] the actual image
+* xref:download-the-ocis-image[Download] the desired new image
+* xref:start-the-ocis-runtime[Start] the oCIS runtime
+
+=== Remove an oCIS Image
 
 If you want to remove an oCIS image, run the following command:
 
@@ -139,7 +150,7 @@ sudo docker run \
 
 You may also see xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for another important basic environment variable.
 
-WARNING: With docker you can run containers multiple times concurrently. With oCIS you have to define different ports and data paths for each of the containers you run to avoid any unexpected behaviour. 
+WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS container concurrenty. In such a case you have to define different ports and data paths for each of the containers you run to avoid any unexpected behaviour.
 
 The following {docker-cli-url}[docker command-line options] are quite helpful to know:
 
@@ -163,6 +174,24 @@ If you have more environment variables to hand over, put them all in a file and 
 
 --name: Assign a name to the container::
 By default, containers created with docker run are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
+
+--restart: Restart policy to apply when a container exits::
+See the details in the docker run documentation for available options. Consider `always` as a good starting point.
+
+== Execute oCIS Commands
+
+To execute oCIS commands, you have to enter the shell of the running container. To do so xref:list-running-containers[list the running containers] first and type the following command replacing the <container-id> accordingly:
+
+[source,bash]
+----
+docker exec -it <container-id> sh
+----
+
+You can now use commands like `ocis --help` or others to  xref:deployment/general/general-info.adoc#managing-extensions[manage your runtime extensions].
+
+To exit the containers shell, either type kbd:[exit] or kbd:[CTRL+D].
+
+// fixme: after a call with @cdegen, it is currently not clear how to restart a runtime extension properly as the extension needs an extension yaml file (see --config-file) and the question is - where is the location of this file - it cant be inside the container!
 
 == Common Useful Docker Commands
 
@@ -201,12 +230,61 @@ docker stop <container-id>
 
 === Restarting a Container
 
-To {docker-restart-url}[restart] a container, type the following and replace the <container-id> accordingly:
+{docker-restart-url}[Restarting a docker container] does an equivalent of `docker stop` and `docker start`. Note the that the same parameters are used when the container has been started with the _run_ command. To restart a container, type the following and replace the <container-id> accordingly:
 
 [source,bash]
 ----
 docker restart <container-id>
 ----
+
+=== Autostart oCIS Runtime on Boot
+
+To autostart oCIS when the server reboots, some steps need to be taken.
+
+==== Autostart the Docker Service
+
+Check if the docker service is set to be automatically started on boot:
+
+[source,bash]
+----
+systemctl is-enabled docker
+----
+
+* If the output is `enabled`, you can proceed with the section to autostart the container.
+
+* If the output is `disabled`, follow the next steps to enable it:
++
+[source,bash]
+----
+sudo systemctl enable --now docker
+----
++
+This will create an output like:
++
+[source,plaintext,options="nowrap"]
+----
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+----
++
+Then check if the service has started with:
++
+[source,bash]
+----
+sudo systemctl status docker
+----
++
+Which will have an output like:
++
+[source,plaintext,options="nowrap"]
+----
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     ...
+----
+
+==== Autostart the Container
+
+To start the container automatically when the docker service has started or the container exits because of an error, add the `--restart=always` command line option to the docker run command. You can replace `always` with other options suitable to your environment. If you want that the container no longer autostarts, you have to xref:stop-a-running-container[stop] him manually first.
 
 === Print Logs From Detached Container
 
