@@ -16,8 +16,10 @@
 :docker-desktop-url: https://docs.docker.com/desktop/
 :docker-dashboard-url: https://docs.docker.com/desktop/dashboard/
 :portainer-url: https://www.portainer.io
-
-:swarm-v-kub-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
+:docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
+:kubernetes-url: https://kubernetes.io
+:swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
+:swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 
 :description: Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start an image with only a few commands. 
 
@@ -319,6 +321,17 @@ Similar when using _docker run_ and handover command line parameters for a singl
 === Example Compose Files
 
 ownCloud provides some {compose-examples-url}[example docker compose] files as starting point and guidance to your own setup. Change the data according your needs. Check the oCIS version when using as template for productive environments.
+
+=== Container Orchestration
+
+There are many container orchestration tools like {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
+
+Container orchestration tools are necessary to meet the requirements described in xref:availability_scaling/#container[Availability and Scalability].
+
+The pages +
+{swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and +
+{swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
+can give a brief overview of their purpose, advantages and disadvantages of the both tools.
 
 == GUI for Docker
 
