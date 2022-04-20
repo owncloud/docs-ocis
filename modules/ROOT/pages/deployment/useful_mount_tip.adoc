@@ -1,0 +1,110 @@
+= Start a Service After a Resource is Mounted
+:toc: right
+
+:iscsi_initiator-url: https://ubuntu.com/server/docs/service-iscsi
+:overriding-vendor-settings-url: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
+
+== Introduction
+
+If you have network resources, such as NFS or iSCSI based mounts, and you want to make sure that another service only starts _after_ the resource is mounted, then consider the following example setup when configuring your system.
+
+The example below is based on an NFS mount which you want to be available _before_ the service with <name.service> starts. The same procedure can be used for iSCSI. For details setting up an iSCSI mount see the {iscsi_initiator-url}[Ubuntu iSCSI Initiator] guide.
+
+== Example Setup
+
+In general, the name in <name.service> could be any valid service like `docker` or others.
+
+* Add `_netdev` to the list of NFS mount point options in `/etc/fstab`.
++
+--
+This option ensures, that the mount happens _after_ the network is up:
+
+[source,console]
+----
+resource:foreign_path local_path nfs (<your options>),_netdev
+----
+--
+
+* Make sure that all mounts in `/etc/fstab` are mounted by running:
++
+--
+[source,bash]
+----
+sudo mount -a
+----
+--
+
+* Run the following command to list mounts which must be up first:
++
+--
+[source,bash]
+----
+systemctl list-units | grep -nP "\.mount"
+----
+
+You should see lines printed to the console. Look for the mount you want to be up in the command's output.
+
+[source,console]
+----
+<folder.mount>
+  loaded active mounted <local_path>
+----
+where `<folder.mount>` and `<local_path>` are examples!
+--
+
+* Edit the service you want to change:
++
+--
+[source,bash]
+----
+sudo systemctl edit <name>.service
+----
+
+Add the following directive in the editor opened, using your chosen `folder.mount` from above:
+
+[source,text]
+----
+[Unit]
+After=folder.mount
+----
+
+You can add more than one dependency if needed by separating them with spaces. This procedure keeps `<name>.service` in its original state but makes it possible to override the current setup with new parameters. This is necessary, because on updates, the original service data will be overwritten. It automatically creates a directory in `/etc/systemd/system`, named `<name>.service.d`, and a file in that directory called `override.conf`. In the example above, the parameter is added to the existing list of parameters of the `After` directive.
+
+For more details please read section {overriding-vendor-settings-url}[Example 2. Overriding vendor settings]
+
+Please keep the following points in mind, regarding if `<name>.service` is linked or not:
+
+** If the file is linked from `/lib/systemd/system`, it is for packaged unit files. They are overwritten when Systemd (or whatever package provides them) is upgraded.
+
+** If the file originates in `/etc/systemd/system`, it is for your own and customised unit files. Unit files you place in here override the package-provided file and will not be replaced on upgrade.
+
+It is recommended to keep things simple and future-proof by creating an override file via `systemctl edit`.
+--
+
+* Run the following command to apply your changes:
++
+--
+[source,bash]
+----
+sudo systemctl daemon-reload
+----
+--
+
+* Check if `<name>.service` has been properly added:
++
+--
+[source,bash]
+----
+sudo systemctl show <name>.service | grep "After="
+----
+`folder.mount` should be part of the parameter list.
+--
+
+* Restart your service by invoking:
++
+--
+[source,bash]
+----
+sudo system <name> restart
+----
+--
