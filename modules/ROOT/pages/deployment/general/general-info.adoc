@@ -7,25 +7,25 @@
 
 {description}
 
-The example commands shown need to be adjusted depending on whether you are using the manual installation or a docker environment. See the xref:deployment/manual/manual-setup.adoc[Manual Setup] and the xref:deployment/docker/docker-setup.adoc[Docker Setup] for more details.  
+The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
 When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-ocis-with-environment-variables[] for details.
 
 == Embedded Supervisor (Runtime)
 
-oCIS has an xref:architecture/index.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+oCIS has an xref:architecture/architecture.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
-The following two mode types do not predefine a particular installation method like the manual or docker installation. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlying system is used.
+The following two mode types do not predefine a particular installation method like the manual or container setup. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlying system is used.
 
 Starting oCIS using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * when you do testing and/or development
-* small productive environment (xref:availability_scaling/index.adoc#single-server-setup[Single Server Setup]) or 
+* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]) or 
 
 Starting oCIS in unsupervised mode::
-This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/index.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
+This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
 
 == Start oCIS With All Predefined Extensions
 
@@ -152,14 +152,15 @@ NOTE: Administrators must be aware of the sources, the location and order applie
 
 . The default locations for config files are:
 +
-* For docker images +
+* For container images +
 `/etc/ocis/`
++
 * For binary releases +
 `$HOME/.ocis/config/`
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`.
 +
-NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/manual/manual-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS], you _must_ specify a configuration file location.
+NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS], you _must_ specify a configuration file location.
 
 === Configuration File Naming
 
@@ -237,7 +238,7 @@ You can easily access oCIS via ownCloud Web with minimal configuration needs. Wi
 OCIS_URL::
 Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
 +
-NOTE: If you need to access oCIS running in a docker container, on a VM or a remote machine via a host name other than localhost, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
+NOTE: If you need to access oCIS running on a VM or a remote machine via a host name other than localhost or in a container, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
 PROXY_HTTP_ADDR::
 When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
@@ -284,15 +285,15 @@ ocis server
 
 == Define the oCIS Data Path
 
-Because oCIS does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/index.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
+Because oCIS does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
 The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
 
 The following rules apply:
 
 * If you do NOT define this environment variable, the following applies:
-** The base path is by default `$HOME/.ocis/` after performing a _manual installation_.
-** The base path is by default `/var/lib/ocis` inside the container when using the _docker installation_.
+** The base path is by default `$HOME/.ocis/` after performing a _manual setup_.
+** The base path is by default `/var/lib/ocis` inside the container when using the _container setup_.
 * The directory must exist and the user used for oCIS must have full access and permissions.
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!

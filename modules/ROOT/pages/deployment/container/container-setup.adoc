@@ -1,4 +1,4 @@
-= Setup with Docker
+= Container Setup
 :toc: right
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
@@ -25,11 +25,13 @@
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
 
-:description: Docker images for oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start an image with only a few commands. 
+:description: To have a container based setup, container images for oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start such an image with only a few commands. 
 
 == Introduction
 
 {description}
+
+This description mainly focuses on Docker which you can take as template or starting point when using other container managing software products.
 
 == Docker Prerequisites
 
@@ -65,8 +67,6 @@ Alternatively, install Docker depending on your OS from the Docker site. See {in
 
 * When using macOS, you have to install {docker-desktop-url}[Docker Desktop] which includes the Docker Engine, the Docker CLI client, Docker Compose, {docker-dashboard-url}[Docker Dashboard] and other tools.
 
-* For Windows, oCIS Docker images are not available, but might be in the future.
-
 == Image Management
 
 === Download the oCIS Image
@@ -75,7 +75,7 @@ Alternatively, install Docker depending on your OS from the Docker site. See {in
 
 To give some terminology guidance, images are unchangeable snapshots of live containers, while containers are running (or stopped) instances of an image.
 
-* To download the latest oCIS image, run the following command. Note that this command will download the correct image suitable for your OS if available:
+* To download the latest oCIS image, run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, oCIS Docker images are not available, but might be in the future:
 +
 [source,bash]
 ----
@@ -148,7 +148,7 @@ sudo docker rmi <image-id>
 
 == Start the oCIS Runtime
 
-When you run the oCIS Docker container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
+When you run the oCIS container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
 In the example below, replace `<your-hostname>` with the host name or IP address of your server.
 
@@ -169,7 +169,7 @@ sudo docker run \
 
 TIP: Be aware when starting the container, that the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS datapath] is by default _inside_ the container at `/var/lib/ocis` and therefore not persistent. All your data will be lost when the container stops. If you want to make the content of the oCIS datapath persistent, you need to either mount a {docker-mount-url}[Docker volume] (`--mount`) or use a {docker-bindmount-url}[bind-mount] (`--volume, -v`). For details see the Docker command line options below.
 
-WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS runtime container concurrently. In such a case, you have to define different ports and data paths for each of the runtime containers you run to avoid any unexpected behaviour.
+WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS runtime container concurrently. In such a case, you have to define different ports and data paths for each of the runtime containers to avoid any unexpected behaviour.
 
 The following {docker-cli-url}[Docker command-line options] are quite helpful to know:
 
@@ -203,7 +203,7 @@ See the details in the _docker run_ documentation for available options. Conside
 --volume, -v: Bind mount a volume::
 {docker-bindmount-url}[Bind mounts] are dependent on the directory structure and OS of your server. Use this type to mount a local path from your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses in the example the default data path.
 +
-NOTE: The filesystem at your OS mount point must be a xref:prerequisites/index.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
+NOTE: The filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
 +
 WARNING: macOS can not use bind mounts as it does not support extended attributes. Use a Docker volume for persistent data instead.
 
@@ -313,7 +313,7 @@ This should display an output like:
 
 ==== Dependent Docker Service Startup
 
-If you want to ensure that you have e.g. a necessary NFS mount point guaranteed up and running _before_ the Docker service and the Container starts up, see xref:deployment/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
+When using bind mounts and if you want to ensure that you have e.g. a necessary NFS mount point guaranteed up and running _before_ the Docker service and the Container starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
 
 NOTE: This step can be an important measure, because if the container starts up but the mount point needed is not available, you may be in an undefined oCIS operating state.
 

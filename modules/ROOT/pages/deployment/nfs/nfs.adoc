@@ -27,7 +27,7 @@ NOTE: This guide only covers the NFS client side where ownCloud runs. Follow the
 
 == NFS Prerequisites
 
-See the xref:prerequisites/index.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for important details.
+See the xref:prerequisites/prerequisites.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for important details.
 
 == General Performance Considerations
 
@@ -40,7 +40,7 @@ Any tuning considerations, beside mounting options, should therefore be attempte
 
 To use NFS for oCIS, you must use *NFSv4* for various reasons. 
 
-* Most importantly, starting with NFSv4, *Extended Attributes* can be provided by the NFS server, _if implemented_. See the xref:prerequisites/index.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for more details.
+* Most importantly, starting with NFSv4, *Extended Attributes* can be provided by the NFS server, _if implemented_. See the xref:prerequisites/prerequisites.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for more details.
 * *Improved Security:* It {nfs-strong-security-architecture-url}[mandates a strong security architecture]. It does not require {rpc-statd-url}[rpc.statd] or {lockd-url}[lockd]. As a result, it only uses port 2049.
 * *Improved Reliability:* It uses TCP by default.
 * *Improved Performance:* It uses multi-component messages, which reduce network traffic. It is capable of using a 32KB page size, compared to the default, 1024 bytes.

@@ -1,4 +1,4 @@
-= Manual Setup
+= Binary Setup
 :toc: right
 :toclevels: 2
 
@@ -12,7 +12,7 @@
 
 {description}
 
-Installing oCIS manually works well if you want to quickly test oCIS without performing additional tasks like Docker preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
+Installing the oCIS binary manually works well if you want to quickly test oCIS without performing additional tasks like a Container preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
 
 == Installation
 
@@ -264,6 +264,6 @@ sudo journalctl -f -u ocis
 
 === Dependent oCIS Service Startup
 
-If you want to ensure that you have e.g. a necessary NFS mount point guaranteed up and running _before_ the oCIS service starts up, see xref:deployment/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
+If you want to ensure that you have e.g. a necessary NFS mount point guaranteed up and running _before_ the oCIS service starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
 
 NOTE: This step can be an important measure, because if the oCIS service starts up but the mount point needed is not available, you may be in an undefined oCIS operating state.

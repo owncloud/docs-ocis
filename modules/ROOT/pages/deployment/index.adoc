@@ -8,10 +8,10 @@
 
 {description}
 
-* If you only want to play around and see what oCIS has to offer, we suggest the quick and easy xref:deployment/manual/manual-setup.adoc[Manual Setup] section.
+* If you only want to play around and see what oCIS has to offer, we suggest the quick and easy xref:deployment/binary/binary-setup.adoc[Binary Setup] section.
 
-* In case you have already decided on a Docker instance with one or more containers, checkout the xref:deployment/docker/docker-setup.adoc[Setup with Docker] section.
+* In case you have already decided on a Docker instance with one or more containers, checkout the xref:deployment/container/container-setup.adoc[Container Setup] section.
 
-* xref:deployment/security.adoc[Securing oCIS] should be a primary concern after you've set up your server.
+* xref:deployment/security/security.adoc[Securing oCIS] should be a primary concern after you've set up your server.
 
-* The next steps will likely be mounting a xref:deployment/nfs.adoc[Network File System] and managing xref:extensions/index.adoc[Extensions].
+* The next steps will likely be mounting a xref:deployment/nfs/nfs.adoc[Network File System] and managing xref:extensions/index.adoc[Extensions].

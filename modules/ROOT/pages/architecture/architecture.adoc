@@ -64,7 +64,7 @@ A storage spaces registry then allows listing the capabilities of storage spaces
 
 For detailed information on the implementation of spaces, check out the https://owncloud.dev/extensions/storage/spaces/[Developer Guide].
 
-Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/index.adoc#ram-considerations[RAM Considerations]
+Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/prerequisites.adoc#ram-considerations[RAM Considerations]
 
 ==== Federated Storage
 
