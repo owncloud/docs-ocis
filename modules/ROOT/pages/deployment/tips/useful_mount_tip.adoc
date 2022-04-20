@@ -6,7 +6,7 @@
 
 == Introduction
 
-If you have network resources, such as NFS or iSCSI based mounts, and you want to make sure that another service only starts _after_ the resource is mounted, then consider the following example setup when configuring your system.
+If you have network resources, such as NFS or iSCSI-based mounts, and you want to make sure that another service only starts _after_ the resource is mounted, then consider the following example setup when configuring your system.
 
 The example below is based on an NFS mount which you want to be available _before_ the service with <name.service> starts. The same procedure can be used for iSCSI. For details setting up an iSCSI mount see the {iscsi_initiator-url}[Ubuntu iSCSI Initiator] guide.
 
@@ -17,7 +17,7 @@ In general, the name in <name.service> could be any valid service like `docker` 
 * Add `_netdev` to the list of NFS mount point options in `/etc/fstab`.
 +
 --
-This option ensures, that the mount happens _after_ the network is up:
+This option ensures that the mount happens _after_ the network is up:
 
 [source,console]
 ----
@@ -42,14 +42,14 @@ sudo mount -a
 systemctl list-units | grep -nP "\.mount"
 ----
 
-You should see lines printed to the console. Look for the mount you want to be up in the command's output.
+You should see lines printed to the console. Look for the mount you want to be up.
 
 [source,console]
 ----
 <folder.mount>
   loaded active mounted <local_path>
 ----
-where `<folder.mount>` and `<local_path>` are examples!
+where `<folder.mount>` and `<local_path>` are examples.
 --
 
 * Edit the service you want to change:
@@ -60,7 +60,7 @@ where `<folder.mount>` and `<local_path>` are examples!
 sudo systemctl edit <name>.service
 ----
 
-Add the following directive in the editor opened, using your chosen `folder.mount` from above:
+An editor opens. Add the following directive, using your chosen `folder.mount` from above:
 
 [source,text]
 ----
@@ -68,15 +68,15 @@ Add the following directive in the editor opened, using your chosen `folder.moun
 After=folder.mount
 ----
 
-You can add more than one dependency if needed by separating them with spaces. This procedure keeps `<name>.service` in its original state but makes it possible to override the current setup with new parameters. This is necessary, because on updates, the original service data will be overwritten. It automatically creates a directory in `/etc/systemd/system`, named `<name>.service.d`, and a file in that directory called `override.conf`. In the example above, the parameter is added to the existing list of parameters of the `After` directive.
+If needed, you can add more than one dependency by separating them with spaces. This procedure keeps `<name>.service` in its original state but makes it possible to override the current setup with new parameters. This is necessary because during updates the original service data will be overwritten. It automatically creates a directory in `/etc/systemd/system` named `<name>.service.d` and a file in that directory called `override.conf`. In the example above, the parameter is added to the existing list of parameters of the `After` directive.
 
-For more details please read section {overriding-vendor-settings-url}[Example 2. Overriding vendor settings]
+For more details read section {overriding-vendor-settings-url}[Example 2. Overriding vendor settings].
 
-Please keep the following points in mind, regarding if `<name>.service` is linked or not:
+Keep the following points in mind with regard to whether `<name>.service` is linked or not:
 
 ** If the file is linked from `/lib/systemd/system`, it is for packaged unit files. They are overwritten when Systemd (or whatever package provides them) is upgraded.
 
-** If the file originates in `/etc/systemd/system`, it is for your own and customised unit files. Unit files you place in here override the package-provided file and will not be replaced on upgrade.
+** If the file originates in `/etc/systemd/system`, it is for your own, possibly customized unit files. Unit files you place in here override the package-provided files and will not be replaced during an upgrade.
 
 It is recommended to keep things simple and future-proof by creating an override file via `systemctl edit`.
 --
