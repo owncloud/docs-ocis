@@ -25,13 +25,13 @@
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
 
-:description: To have a container based setup, container images for oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start such an image with only a few commands. 
+:description: Images for a container-based setup of oCIS are available on {docker-ocis-url}[Docker Hub]. You can easily download and start such an image with only a few commands. 
 
 == Introduction
 
 {description}
 
-This description mainly focuses on Docker which you can take as template or starting point when using other container managing software products.
+This description mainly focuses on Docker which you can take as template or starting point if your using different container managing software products.
 
 == Docker Prerequisites
 
@@ -61,7 +61,7 @@ which docker-compose
 
 === Install Docker and Docker-Compose
 
-* On most Linux distributions you can simply install Docker and Docker-Compose via the package manager.
+* On most Linux distributions you can simply install Docker and Docker-Compose via the package manager, usually Kubernetes as well.
 +
 Alternatively, install Docker depending on your OS from the Docker site. See {install-docker-server-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 
@@ -167,9 +167,9 @@ sudo docker run \
     owncloud/ocis
 ----
 
-TIP: Be aware when starting the container, that the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS datapath] is by default _inside_ the container at `/var/lib/ocis` and therefore not persistent. All your data will be lost when the container stops. If you want to make the content of the oCIS datapath persistent, you need to either mount a {docker-mount-url}[Docker volume] (`--mount`) or use a {docker-bindmount-url}[bind-mount] (`--volume, -v`). For details see the Docker command line options below.
+TIP: Be aware that, when starting the container, the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS data path] is by default _inside_ the container at `/var/lib/ocis` and therefore not persistent. All your data will be lost when the container stops. If you want to make the content of the oCIS data path persistent, you need to either mount a {docker-mount-url}[Docker volume] (`--mount`) or use a {docker-bindmount-url}[bind-mount] (`--volume, -v`). For details see the Docker command-line options below.
 
-WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS runtime container concurrently. In such a case, you have to define different ports and data paths for each of the runtime containers to avoid any unexpected behaviour.
+WARNING: While this is not used in production and for testing purposes only, you could run more than one oCIS runtime container concurrently. In such a case, you have to define different ports and data paths for each of the runtime containers to avoid unexpected behavior.
 
 The following {docker-cli-url}[Docker command-line options] are quite helpful to know:
 
@@ -198,14 +198,14 @@ By default, containers created with _docker run_ are given a random name like `s
 See the details in the _docker run_ documentation for available options. Consider `always` as a good starting point.
 
 --mount: Attach a filesystem mount to the container::
-{docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See the {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note to mount the volume with `target=/var/lib/ocis` which uses in the example the default data path.
+{docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note that in the example the volume is mounted with `target=/var/lib/ocis` which is the default data path.
 
 --volume, -v: Bind mount a volume::
-{docker-bindmount-url}[Bind mounts] are dependent on the directory structure and OS of your server. Use this type to mount a local path from your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses in the example the default data path.
+{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses the default data path.
 +
 NOTE: The filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
 +
-WARNING: macOS can not use bind mounts as it does not support extended attributes. Use a Docker volume for persistent data instead.
+WARNING: macOS cannot use bind mounts as it does not support extended attributes. Use a Docker volume for persistent data instead.
 
 == Execute oCIS Commands
 
@@ -313,9 +313,9 @@ This should display an output like:
 
 ==== Dependent Docker Service Startup
 
-When using bind mounts and if you want to ensure that you have e.g. a necessary NFS mount point guaranteed up and running _before_ the Docker service and the Container starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
+If you are using bind mounts and want to ensure that you have e.g. a necessary NFS mount point up and running _before_ the Docker service and the container starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
 
-NOTE: This step can be an important measure, because if the container starts up but the mount point needed is not available, you may be in an undefined oCIS operating state.
+NOTE: This step can be an important measure, because if the container starts up but the necessary mount point is not available, you may be in an undefined oCIS operating state.
 
 ==== Autostart the Container
 
