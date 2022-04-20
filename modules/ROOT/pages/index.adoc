@@ -45,19 +45,19 @@ video::{ocis_youtube_short_url}[youtube]
 
 === Architecture and Concepts
 
-To learn more about oCIS, check out the xref:architecture/index.adoc[Architecture and Concepts] section first. This information may help deciding which environment is optimal for your use case and which hardware fits your needs best.
+To learn more about oCIS, check out the xref:architecture/architecture.adoc[Architecture and Concepts] section first. This information may help deciding which environment is optimal for your use case and which hardware fits your needs best.
 
 === Availability and Scalability
 
-With knowledge about architecture and concepts, look at the different xref:availability_scaling/index.adoc[Availability and Scalability] options to define the environment oCIS should run on.
+With knowledge about architecture and concepts, look at the different xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] options to define the environment oCIS should run on.
 
 === Prerequisites
 
-With oCIS, not much is needed to run your ownCloud server the way you want. Check out the details in the xref:prerequisites/index.adoc[Prerequisites] section. We strongly recommend to make up your mind about availability and scalability first.
+With oCIS, not much is needed to run your ownCloud server the way you want. Check out the details in the xref:prerequisites/prerequisites.adoc[Prerequisites] section. We strongly recommend to make up your mind about availability and scalability first.
 
 === Deployment
 
-oCIS can be deployed via docker or you can run it manually installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
+oCIS can be deployed via container or you can run the binary installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
 
 === Configuration
 

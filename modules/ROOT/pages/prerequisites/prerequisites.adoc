@@ -25,7 +25,7 @@
 
 Note that oCIS is based on a highly dynamic interoperable _microservices_ concept, although it is delivered as a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
 
-The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/index.adoc[Architecture and Concepts] and xref:availability_scaling/index.adoc[Availability and Scalability] first.
+The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/architecture.adoc[Architecture and Concepts] and xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] first.
 
 == Hardware
 
@@ -82,7 +82,7 @@ oCIS-dependent::
 * The number of concurrent clients accessing oCIS
 * Computation processes like calculating thumbnails from files or images
 
-While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy oCIS before you get started. Consider re-reading the xref:availability_scaling/index.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
+While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy oCIS before you get started. Consider re-reading the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
 
 ==== Keeping Things in Memory
 
