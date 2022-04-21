@@ -227,7 +227,7 @@ To exit the container's shell, either type kbd:[exit] or kbd:[CTRL+D].
 
 Note that the _docker run_ command will bind the container to the shell you are using. If you want to detach it so it won't be stopped when the shell is closed or gets disconnected (SIGHUP), use the following _docker run_ command-line option:
 
--d or --detach: Run container in background and print container ID::
+-d, --detach: Run container in background and print container ID::
 The Docker container runs in the background of your terminal. It does not receive input or display output.
 
 === List Running Containers
