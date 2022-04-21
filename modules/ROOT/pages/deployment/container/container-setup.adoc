@@ -31,15 +31,14 @@
 
 {description}
 
-This description mainly focuses on Docker which you can take as template or starting point if your using different container managing software products.
+This description mainly focuses on Docker which you can take as template or starting point if you are using different container managing software products.
 
 == Docker Prerequisites
 
 To fetch and run oCIS in a Docker container, make sure the following packages are installed:
 
 * docker,
-* docker-compose,
-* optionally kubernetes for more sophisticated container management.
+* docker-compose
 
 === Check if You Have Docker Installed
 
@@ -198,14 +197,14 @@ By default, containers created with _docker run_ are given a random name like `s
 See the details in the _docker run_ documentation for available options. Consider `always` as a good starting point.
 
 --mount: Attach a filesystem mount to the container::
-{docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note that in the example the volume is mounted with `target=/var/lib/ocis` which is the default data path.
+{docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note the volume mount target path `target=/var/lib/ocis` which uses the default oCIS data path if not otherwise defined.
 
 --volume, -v: Bind mount a volume::
-{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses the default data path.
+{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses the default oCIS data path if not otherwise defined.
 +
 NOTE: The filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
 +
-WARNING: macOS cannot use bind mounts as it does not support extended attributes. Use a Docker volume for persistent data instead.
+WARNING: macOS cannot use bind mounts, as Docker Desktop for macOS does currently not fully support extended attributes. Use a Docker volume for persistent data instead.
 
 == Execute oCIS Commands
 
@@ -228,7 +227,7 @@ To exit the container's shell, either type kbd:[exit] or kbd:[CTRL+D].
 
 Note that the _docker run_ command will bind the container to the shell you are using. If you want to detach it so it won't be stopped when the shell is closed or gets disconnected (SIGHUP), use the following _docker run_ command-line option:
 
--d or --detach: Run container in background and print container ID::
+-d, --detach: Run container in background and print container ID::
 The Docker container runs in the background of your terminal. It does not receive input or display output.
 
 === List Running Containers
@@ -357,6 +356,8 @@ The pages +
 {swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
 can give a brief overview of their purpose, advantages and disadvantages of both tools.
 
+// fixme: there should be a link instead the next line to the upcoming kuberetes documentation
+ 
 For Kubernetes, there are already {helm-charts-ocis-url}[Helm Charts] available that can be used and adjusted.
 
 == GUI for Docker
