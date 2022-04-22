@@ -3,31 +3,31 @@
 // harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
 
 :toc: right
-:why-k8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
-:eli5-k8s-url: https://dev.to/miguelmota/comment/filh
-:wunderlich-k8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
+:why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
+:eli5-K8s-url: https://dev.to/miguelmota/comment/filh
+:wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
 :12factor-url: https://12factor.net/
 :ocis-example-helm-url: https://github.com/owncloud/ocis-charts/blob/d8735e3222d2050504303851d3461909c86fcc89/ocis/values.yaml
-:minikube-url: https://minikube.sigs.k8s.io/docs/
-:minikube-start-url: https://minikube.sigs.k8s.io/docs/start/
+:minikube-url: https://minikube.sigs.K8s.io/docs/
+:minikube-start-url: https://minikube.sigs.K8s.io/docs/start/
 :kubectl-url: https://kubernetes.io/docs/tasks/tools/
 :helm-url: https://helm.sh/
 :helm-guide-url: https://helm.sh/docs/intro/install/
 :charts-repo-url: https://helm.sh/docs/topics/chart_repository/
 :ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
-:minikube-kubectl-url: https://minikube.sigs.k8s.io/docs/handbook/kubectl/
+:minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 
-:description: Kubernetes (k8s) is an open-source plattform for managing containers that run applications to ensure that there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind.
+:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications to ensure that there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind.
 
 == Introduction
 
 {description}
 
-For more information on Kubernetes (k8s) features check out {why-k8s-url}[Why you need Kubernetes and what it can do].
+For more information on Kubernetes (K8s) features check out {why-K8s-url}[Why you need Kubernetes and what it can do].
 
-If that is too abstract, there is an {eli5-k8s-url}[ELI5 writeup].
+If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
 
-We also recommend Marcel Wunderlich's {wunderlich-k8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
+We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
 
 == ownCloud Infinite Scale and Kubernetes
 
@@ -41,10 +41,10 @@ Minikube::
 {minikube-url}[Minikube] lets you run a Kubernetes cluster locally. It is the most approachable way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
 
 kubectl::
-{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a k8s cluster. It supports multiple contexts for as many clusters as you have access to.
+{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to.
 
 Helm Charts::
-{helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write pods, deployments or any other k8s resource declaration.
+{helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write pods, deployments or any other K8s resource declaration.
 
 == Deploying minikube
 
@@ -116,7 +116,7 @@ git clone https://github.com/owncloud/ocis-charts.git /var/tmp/ocis-charts
 +
 [source,bash]
 ----
-cd /var/tmp/ocis-charts/ocis
+cd /var/tmp/ocis-charts/charts/ocis
 ----
 
 . Install the package:
@@ -126,7 +126,7 @@ cd /var/tmp/ocis-charts/ocis
 helm install ocis .
 ----
 
-. Verify the application is running in the cluster with: `kubectl get pods`
+. Verify the application is running in the cluster with: `kubectl get pods`, possibly with a preceeding minikube, if you didn't install kubectl: `minikube kubectl get pods`
 +
 [source,bash]
 ----
