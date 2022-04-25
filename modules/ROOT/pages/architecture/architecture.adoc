@@ -8,6 +8,8 @@
 :reva-url: https://reva.link/
 :oidc-url: https://openid.net/connect/
 :webdav-url: http://webdav.org/
+:etag-url: https://en.wikipedia.org/wiki/HTTP_ETag
+:cs3-url: https://www.cs3community.org
 
 :description: This page gives you an overview of the architecture and the concepts behind ownCloud Infinite Scale. oCIS was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
@@ -41,7 +43,6 @@ Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.d
 
 image:architecture/ocis_c4m_system_landscape.svg[]
 
-
 *THIS PART IS NOT FINISHED AND NEEDS MORE CONTENT - THE DETAILS OF THE C4 MODEL ARE URGENTLY NEEDED. WHEN DONE, THE IMAGE BELOW CAN BE REMOVED. PLEASE DOWNLOAD THE C4MODEL FILE, REFINE IT AND CREATE A PR WITH THE CHANGES. WE WILL USE THE CHANGES  TO CREATE THE .svg IMAGES AND ADD THEM VIA THE DESCRIBED PROCESS (see the file).*
 
 // harvested from https://owncloud.dev/ocis/
@@ -60,7 +61,7 @@ image:architecture/architecture-overview.drawio.svg[]
 
 A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It is identified by a `storage space id`, but no ownership is needed. Spaces can have users or groups, a quota, permissions etc. assigned. They may serve different purposes and have different workflows enabled like anti-virus scanning. Examples for spaces would be every user’s personal storage space, project or group storage spaces including shares and reshares.
 
-A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root ETag, upload workflow steps...
+A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root {etag-url}[ETag], upload workflow steps...
 
 For detailed information on the implementation of spaces, check out the https://owncloud.dev/extensions/storage/spaces/[Developer Guide].
 
@@ -116,7 +117,7 @@ While the https://github.com/asim/go-micro[go-micro] framework provides abstract
 
 ==== REVA
 
-A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the CS3 services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
+A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the {cs3-url}[CS3] services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
 
 ==== Protocol-Driven Development
 

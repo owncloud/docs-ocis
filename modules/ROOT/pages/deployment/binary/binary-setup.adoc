@@ -177,26 +177,28 @@ sudo systemctl edit ocis.service
 
 Then copy the content of the systemd file below into the editor and save it.
 
-* The user `ocisadmin` is just a placeholder for any user to run oCIS, the user must exist or be created first.
+// info: we use the user ocis as example in the same way as users are created for apache, nginx mysql etc
+
+* The user `ocis` is just a placeholder for any user to run oCIS, the user must exist or be created first.
 +
 [NOTE]
 ====
-This user can be a system user. The following example will create a system user and group named _ocisadmin_ with no home directory, no login shell and no password. Depending on your OS type:
+This user can be a system user. The following example will create a system user and group named _ocis_ with no home directory, no login shell and no password. Depending on your OS type:
 
 [source,bash]
 ----
-sudo useradd --system --no-create-home --shell=/sbin/nologin ocisadmin
+sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
 ====
 +
 * We strongly advise *against* using the user `root` for this purpose.
 * Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
-** The directory `/etc/ocis/` must exist and the `ocisadmin` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values to your needs:
+** The directory `/etc/ocis/` must exist and `ocis` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values according to your needs:
 +
 [source,bash]
 ----
 sudo mkdir -p /etc/ocis
-sudo chown -R ocisadmin /etc/ocis
+sudo chown -R ocis /etc/ocis
 sudo chmod 0570 /etc/ocis
 ----
 
@@ -209,8 +211,8 @@ Description=OCIS server
 
 [Service]
 Type=simple
-User=ocisadmin
-Group=ocisadmin
+User=ocis
+Group=ocis
 EnvironmentFile=/etc/ocis/ocis.env
 ExecStart=ocis server
 Restart=always

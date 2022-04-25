@@ -38,6 +38,7 @@ The minimum hardware requirements depend on the usage scenario you have in mind 
 // fixme: info of architectures came from willy, also see: 
 // https://download.owncloud.com/ocis/ocis/1.18.0/
 // https://hub.docker.com/r/owncloud/ocis/tags
+// fixme: do we still want to have 386?
 
 The following table shows the tested and supported hardware architecture matrix::
 [width="65%",cols="50%,50%",options="header"]
@@ -55,8 +56,7 @@ The following table shows the tested and supported hardware architecture matrix:
 | AMD64, ARM, ARM64
 
 | Darwin (MacOS)
-| AMD64, ARM64, +
-M1 (ARM64 compatible)
+| AMD64, ARM64, M1 (ARM64)
 |===
 
 Note when referencing software builds for a particular architecture, *ARM* stands for ARM32(v6/v7) and *ARM64* stands for ARM64(v8).
