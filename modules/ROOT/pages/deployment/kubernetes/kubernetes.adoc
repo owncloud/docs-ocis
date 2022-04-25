@@ -7,6 +7,7 @@
 :eli5-K8s-url: https://dev.to/miguelmota/comment/filh
 :wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
 :12factor-url: https://12factor.net/
+:K8s-setup-url: https://kubernetes.io/docs/setup/
 :ocis-example-helm-url: https://github.com/owncloud/ocis-charts/blob/d8735e3222d2050504303851d3461909c86fcc89/ocis/values.yaml
 :minikube-url: https://minikube.sigs.K8s.io/docs/
 :minikube-start-url: https://minikube.sigs.K8s.io/docs/start/
@@ -17,7 +18,7 @@
 :ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 
-:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications to ensure that there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind.
+:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of oCIS on a Kubernetes cluster.
 
 == Introduction
 
@@ -31,17 +32,18 @@ We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on
 
 == ownCloud Infinite Scale and Kubernetes
 
-Designing oCIS, we kept the scenario of running on Kubernetes in mind. We followed the {12factor-url}[Twelve-Factor App] principles regarding configuration, with almost every aspect of oCIS being modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
+oCIS follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of oCIS is modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
 
-// fixme: add link to Helm section
+== Requirements
 
-Very useful tools are:
+For efficient use of oCIS with Kubernetes, you either need to install {K8s-setup-url}[Kubernetes] directly or {minikube-url}[minikube]. Since a full-fledged Kubernetes setup is far beyond the scope of this documentation, we
+assume you have already a Kubernetes cluster running or you want to experiment with minikube.
 
-Minikube::
-{minikube-url}[Minikube] lets you run a Kubernetes cluster locally. It is the most approachable way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
+minikube::
+{minikube-url}[minikube] lets you run a single-node Kubernetes cluster locally. It is the most approachable way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
 
 kubectl::
-{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to.
+{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to. minikube also provides kubectl wrapped as `minikube kubectcl`.
 
 Helm Charts::
 {helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write pods, deployments or any other K8s resource declaration.
@@ -54,7 +56,6 @@ Verify your installation is correct:
 
 [source,bash]
 ----
-~/code/owncloud/ocis-charts
 ❯ minikube status
 minikube
 type: Control Plane
@@ -68,39 +69,37 @@ Next, start the cluster:
 
 [source,bash]
 ----
-~/code/owncloud/ocis-charts
 ❯ minikube start
-minikube v1.23.0 on Darwin 11.4
-Using the docker driver based on existing profile
-Starting control plane node minikube in cluster minikube
-Pulling base image ...
-Restarting existing docker container for "minikube" ...
-Preparing Kubernetes v1.22.1 on Docker 20.10.8 ...
-Verifying Kubernetes components...
-Using image gcr.io/k8s-minikube/storage-provisioner:v5
-Enabled addons: storage-provisioner, default-storageclass
-Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+ minikube v1.25.2 on Ubuntu 20.04
+ Using the docker driver based on existing profile
+ Starting control plane node minikube in cluster minikube
+ Pulling base image ...
+ Restarting existing docker container for "minikube" ...
+ Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
+ ▪ kubelet.housekeeping-interval=5m
+ Verifying Kubernetes components...
+ ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+ Enabled addons: storage-provisioner, default-storageclass
+ kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
+ Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ----
 
-Here, we are using the Docker driver on Mac.
-
-// fixme: change to Linux?
 
 == Using Helm Charts with oCIS
 
 === Installing Helm
 
-To install helm, refer to the official guide {helm-guide-url}[Installing Helm].
+To install Helm, refer to the official guide {helm-guide-url}[Installing Helm].
 
-The easiest way to run the entire package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner working of Kubernetes or its resources, as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
+The easiest way to run the entire oCIS package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner workings of Kubernetes or its resources as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
 
-To host charts, one can create a {charts-repo-url}[charts repository], but this is beyond the scope of this documentation.
+To host charts, one can create a {charts-repo-url}[charts repository], but this is also beyond the scope of this documentation.
 
 === Requirements
 
 * minikube up and running.
-* `kubectl` installed. By default you should be able to access the {minikube-kubectl-url}[minikube cluster]. If you chose not to install `kubectl`, minikube wraps `kubectl` as `minikube kubectl`.
-* helm cli installed.
+* `kubectl` installed. minikube wraps `kubectl` as `minikube kubectl`. By default you should be able to access the minikube cluster.
+* Helm cli installed.
 * git installed.
 
 === Setup
@@ -126,27 +125,41 @@ cd /var/tmp/ocis-charts/charts/ocis
 helm install ocis .
 ----
 
-. Verify the application is running in the cluster with: `kubectl get pods`, possibly with a preceeding minikube, if you didn't install kubectl: `minikube kubectl get pods`
+. Verify the application is running in the cluster with:
 +
 [source,bash]
 ----
->kubectl get pods
+>minikube kubectl get pods
 NAME                          READY   STATUS    RESTARTS         AGE
-glauth-5fb678b9cb-zs5qh       1/1     Running   3 (10m ago)      3h33m
-ocis-proxy-848f988687-g7fmb   1/1     Running   2 (10m ago)      130m
-ocs-6bb8896dd6-t4bkx          1/1     Running   3 (10m ago)      3h33m
-settings-6bf77f978d-27rdf     1/1     Running   3 (10m ago)      3h33m
-storages-6b45f9c4-2j696       10/10   Running   23 (4m43s ago)   112m
-store-cf79db94d-hvb7z         1/1     Running   3 (10m ago)      3h33m
-web-8685fdd574-tmkfb          1/1     Running   2 (10m ago)      157m
-webdav-f8d4dd7c6-vv4n7        1/1     Running   3 (10m ago)      3h33m
+glauth-55d7b5878c-25qnt                  1/1     Running   1 (2d23h ago)   2d23h
+graph-859855c94d-l5xgt                   1/1     Running   2 (9m21s ago)   2d23h
+idp-7759f4c6b9-l25t4                     1/1     Running   1 (2d23h ago)   2d23h
+nats-6857bc5f8f-5s597                    1/1     Running   1 (2d23h ago)   2d23h
+ocs-8454747c4b-wxwms                     1/1     Running   2 (9m21s ago)   2d23h
+proxy-79df886fb4-njr9p                   1/1     Running   2 (9m23s ago)   2d23h
+settings-79597cb89d-ttvmm                1/1     Running   2 (9m23s ago)   2d23h
+storage-authbasic-6c4ccd4dc6-rwlhx       1/1     Running   1 (2d23h ago)   2d23h
+storage-authbearer-6f79cd5cc6-ldz7h      1/1     Running   1 (2d23h ago)   2d23h
+storage-authmachine-7cf95d8d89-qsxnj     1/1     Running   1 (2d23h ago)   2d23h
+storage-frontend-64d44f8f66-vnndm        1/1     Running   1 (2d23h ago)   2d23h
+storage-gateway-668b47f76f-2tvj2         1/1     Running   1 (2d23h ago)   2d23h
+storage-groupprovider-7475b4dddf-wj2g7   1/1     Running   1 (2d23h ago)   2d23h
+storage-metadata-74f6b5f489-rbsp4        1/1     Running   2 (9m19s ago)   2d23h
+storage-publiclink-f497dd5dd-flrw5       1/1     Running   1 (2d23h ago)   2d23h
+storage-shares-69d8b67d6b-rhq98          1/1     Running   1 (2d23h ago)   2d23h
+storage-sharing-5567d9b7f-978bf          1/1     Running   1 (2d23h ago)   2d23h
+storage-userprovider-59d87db58f-h7lpd    1/1     Running   1 (2d23h ago)   2d23h
+storage-users-7989b5df8-78hwc            1/1     Running   1 (2d23h ago)   2d23h
+store-6b878df78c-7cdlb                   1/1     Running   1 (2d23h ago)   2d23h
+thumbnails-7d5799b64b-wj9dx              1/1     Running   1 (2d23h ago)   2d23h
+web-967b76f6c-rgq9h                      1/1     Running   1 (2d23h ago)   2d23h
+webdav-9c494b5c-6r8r6                    1/1     Running   2 (9m21s ago)   2d23h
 ----
 
 . Expose the proxy as a service to the host:
 +
 [source,bash]
 ----
-~/code/owncloud/ocis-charts
 ❯ minikube service proxy-service --url
  Starting tunnel for service proxy-service.
 |-----------|---------------|-------------|------------------------|
@@ -155,7 +168,6 @@ webdav-f8d4dd7c6-vv4n7        1/1     Running   3 (10m ago)      3h33m
 | default   | proxy-service |             | http://127.0.0.1:63633 |
 |-----------|---------------|-------------|------------------------|
 http://127.0.0.1:63633
-! Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ----
 
 . Attempt a `PROPFIND` WebDAV request to the storage:
@@ -194,6 +206,8 @@ If all is correctly setup, you should get a response like the following:
 ----
 
 The above setup works because the proxy is configured to run using basic authentication. To access the WebUI, you need an external identity provider.
+
+TIP: With the command `minikube dashboard` you start the monitoring dashboard for your cluster in a browser. With `minikube stop` you're shutting down the minikube node.
 
 // fixme: refer to section ext. identity provider when it's done.
 // omitting https://owncloud.dev/ocis/deployment/kubernetes/#setting-up-an-external-identity-provider since the info should go into a separate section with more content.
