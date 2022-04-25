@@ -2,9 +2,12 @@
 :toc: macro
 :toclevels: 2
 
-image::root/beta-badge-1.svg[width=300]
-image::root/beta-badge-2.svg[width=300]
-image::root/beta-tools.svg[width=300]
+// fixme: post beta phase, we have to remove this and fix the toc back to toc right
+
+image::root/beta-badge-1.svg[width=200]
+
+{empty}
+{empty}
 
 :ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
 :ocis_youtube_short_url: C4a4q9IGyFQ
