@@ -1,4 +1,6 @@
 = Introduction to ownCloud Infinite Scale
+
+Like oCIS, this documentation is still in a beta state. We hope to provide the most crucial information but are not done yet. Forgive us if there are still mistakes or information is missing. Feel free to report issues and we'll take care of them as soon as possible. Or you want to fix them yourself? We'd appreciate that even more.
 :toc: macro
 :toclevels: 2
 
