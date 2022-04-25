@@ -335,7 +335,7 @@ Login to the webinterface with this admin user and change relevant data accordin
 
 WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
 
-To let oCIS create these demo users and groups for you, start the _runtime_ one time with:
+To let oCIS create these demo users and groups for you, start the _runtime_ once with:
 
 // fixme: the admin user is not part of the demo users but currently created by this process. when the new LibreIDM is in place, a new bootstrap process will be implemented checking for an admin user precense and creates one if not - but this is outside the demo user stuff ! - therefor we need to remove the admin user most likely here (and readd it "somewhere" else)... see: https://github.com/owncloud/ocis/pull/3507
 

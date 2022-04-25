@@ -193,7 +193,7 @@ sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 +
 * We strongly advise *against* using the user `root` for this purpose.
 * Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
-** The directory `/etc/ocis/` must exist and the `ocis` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values to your needs:
+** The directory `/etc/ocis/` must exist and `ocis` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values according to your needs:
 +
 [source,bash]
 ----

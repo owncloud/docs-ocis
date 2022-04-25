@@ -42,7 +42,7 @@ To fetch and run oCIS in a Docker container, make sure the following packages ar
 
 === Check if You Have Docker Installed
 
-* Note that when checking existence with the `which` command below, you could also get links with the queried names pointing to a different program. Post running a check via `which`, also try to execute the queried command and look if the output printed comes from docker like:
+* Note that when checking if software is installed on your system with the `which` command below, you might be shown links containing the queried names but pointing to a different program. After running a check via `which`, also try to execute the queried command and look if the output printed comes from docker like in the following example:
 +
 [source,plaintext]
 ----
