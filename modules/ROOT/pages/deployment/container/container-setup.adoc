@@ -42,17 +42,26 @@ To fetch and run oCIS in a Docker container, make sure the following packages ar
 
 === Check if You Have Docker Installed
 
-Use the following command to check if `docker` is installed on your system:
+* Note that when checking existence with the `which` command below, you could also get links with the queried names pointing to a different program. Post running a check via `which`, also try to execute the queried command and look if the output printed comes from docker like:
++
+[source,plaintext]
+----
+Usage:  docker [OPTIONS] COMMAND
+or
+Usage:  docker compose [OPTIONS] COMMAND
+----
 
+* Use the following command to check if `docker` is installed on your system:
++
 [source,bash]
 ----
 which docker
 ----
-
++
 If Docker is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker first.
 
-Use the following command to check if `docker-compose` is installed on your system:
-
+* Use the following command to check if `docker-compose` is installed on your system:
++
 [source,bash]
 ----
 which docker-compose

@@ -333,7 +333,7 @@ Login to the webinterface with this admin user and change relevant data accordin
 // https://owncloud.dev/ocis/getting-started/demo-users/
 // fixme: with the new upcoming LibreIDE, things are changing - needs revision
 
-WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive_.
+WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
 
 To let oCIS create these demo users and groups for you, start the _runtime_ one time with:
 

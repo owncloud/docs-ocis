@@ -20,7 +20,6 @@
 *** xref:configuration/email-config.adoc[Mail Server Configuration]
 *** xref:configuration/storage.adoc[Storage Configuration]
 *** xref:configuration/office-integrations.adoc[Integrating Office Applications]
-*** xref:configuration/license-keys.adoc[License Keys]
 *** xref:configuration/roles-permissions.adoc[Roles & Permissions]
 ** xref:maintenance/index.adoc[Maintenance]
 
