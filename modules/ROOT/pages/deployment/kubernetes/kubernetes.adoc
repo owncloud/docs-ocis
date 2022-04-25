@@ -18,7 +18,7 @@
 :ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 
-:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications to ensure that there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of oCIS on a Kubernetes cluster.
+:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of oCIS on a Kubernetes cluster.
 
 == Introduction
 
@@ -37,7 +37,7 @@ oCIS follows the {12factor-url}[Twelve-Factor App] principles regarding configur
 == Requirements
 
 For efficient use of oCIS with Kubernetes, you either need to install {K8s-setup-url}[Kubernetes] directly or {minikube-url}[minikube]. Since a full-fledged Kubernetes setup is far beyond the scope of this documentation, we
-assume you have already a Kubernetes cluster running or experiment with minikube.
+assume you have already a Kubernetes cluster running or you want to experiment with minikube.
 
 minikube::
 {minikube-url}[minikube] lets you run a single-node Kubernetes cluster locally. It is the most approachable way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
@@ -91,14 +91,14 @@ Next, start the cluster:
 
 To install Helm, refer to the official guide {helm-guide-url}[Installing Helm].
 
-The easiest way to run the entire package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner workings of Kubernetes or its resources, as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
+The easiest way to run the entire oCIS package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner workings of Kubernetes or its resources as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
 
 To host charts, one can create a {charts-repo-url}[charts repository], but this is also beyond the scope of this documentation.
 
 === Requirements
 
 * minikube up and running.
-* `kubectl` installed. minikube wraps `kubectl` as `minikube kubectl`. By default you should be able to access the {minikube-kubectl-url}[minikube cluster].
+* `kubectl` installed. minikube wraps `kubectl` as `minikube kubectl`. By default you should be able to access the minikube cluster.
 * Helm cli installed.
 * git installed.
 
@@ -206,6 +206,8 @@ If all is correctly setup, you should get a response like the following:
 ----
 
 The above setup works because the proxy is configured to run using basic authentication. To access the WebUI, you need an external identity provider.
+
+TIP: With the command `minikube dashboard` you start the monitoring dashboard for your cluster in a browser. With `minikube stop` you're shutting down the minikube node.
 
 // fixme: refer to section ext. identity provider when it's done.
 // omitting https://owncloud.dev/ocis/deployment/kubernetes/#setting-up-an-external-identity-provider since the info should go into a separate section with more content.
