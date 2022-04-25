@@ -1,0 +1,200 @@
+= Kubernetes and Helm Charts
+
+// harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
+
+:toc: right
+:why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
+:eli5-K8s-url: https://dev.to/miguelmota/comment/filh
+:wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
+:12factor-url: https://12factor.net/
+:ocis-example-helm-url: https://github.com/owncloud/ocis-charts/blob/d8735e3222d2050504303851d3461909c86fcc89/ocis/values.yaml
+:minikube-url: https://minikube.sigs.K8s.io/docs/
+:minikube-start-url: https://minikube.sigs.K8s.io/docs/start/
+:kubectl-url: https://kubernetes.io/docs/tasks/tools/
+:helm-url: https://helm.sh/
+:helm-guide-url: https://helm.sh/docs/intro/install/
+:charts-repo-url: https://helm.sh/docs/topics/chart_repository/
+:ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
+:minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
+
+:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications to ensure that there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind.
+
+== Introduction
+
+{description}
+
+For more information on Kubernetes (K8s) features check out {why-K8s-url}[Why you need Kubernetes and what it can do].
+
+If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
+
+We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
+
+== ownCloud Infinite Scale and Kubernetes
+
+Designing oCIS, we kept the scenario of running on Kubernetes in mind. We followed the {12factor-url}[Twelve-Factor App] principles regarding configuration, with almost every aspect of oCIS being modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
+
+// fixme: add link to Helm section
+
+Very useful tools are:
+
+Minikube::
+{minikube-url}[Minikube] lets you run a Kubernetes cluster locally. It is the most approachable way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
+
+kubectl::
+{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to.
+
+Helm Charts::
+{helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write pods, deployments or any other K8s resource declaration.
+
+== Deploying minikube
+
+Follow the {minikube-start-url}[official instructions] on how to set up minikube for your specific OS.
+
+Verify your installation is correct:
+
+[source,bash]
+----
+~/code/owncloud/ocis-charts
+❯ minikube status
+minikube
+type: Control Plane
+host: Stopped
+kubelet: Stopped
+apiserver: Stopped
+kubeconfig: Stopped
+----
+
+Next, start the cluster:
+
+[source,bash]
+----
+~/code/owncloud/ocis-charts
+❯ minikube start
+minikube v1.23.0 on Darwin 11.4
+Using the docker driver based on existing profile
+Starting control plane node minikube in cluster minikube
+Pulling base image ...
+Restarting existing docker container for "minikube" ...
+Preparing Kubernetes v1.22.1 on Docker 20.10.8 ...
+Verifying Kubernetes components...
+Using image gcr.io/k8s-minikube/storage-provisioner:v5
+Enabled addons: storage-provisioner, default-storageclass
+Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+----
+
+Here, we are using the Docker driver on Mac.
+
+// fixme: change to Linux?
+
+== Using Helm Charts with oCIS
+
+=== Installing Helm
+
+To install helm, refer to the official guide {helm-guide-url}[Installing Helm].
+
+The easiest way to run the entire package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner working of Kubernetes or its resources, as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
+
+To host charts, one can create a {charts-repo-url}[charts repository], but this is beyond the scope of this documentation.
+
+=== Requirements
+
+* minikube up and running.
+* `kubectl` installed. By default you should be able to access the {minikube-kubectl-url}[minikube cluster]. If you chose not to install `kubectl`, minikube wraps `kubectl` as `minikube kubectl`.
+* helm cli installed.
+* git installed.
+
+=== Setup
+
+. Clone the charts:
++
+[source,bash]
+----
+git clone https://github.com/owncloud/ocis-charts.git /var/tmp/ocis-charts
+----
+
+. Change directory into the charts' root:
++
+[source,bash]
+----
+cd /var/tmp/ocis-charts/charts/ocis
+----
+
+. Install the package:
++
+[source,bash]
+----
+helm install ocis .
+----
+
+. Verify the application is running in the cluster with: `kubectl get pods`, possibly with a preceeding minikube, if you didn't install kubectl: `minikube kubectl get pods`
++
+[source,bash]
+----
+>kubectl get pods
+NAME                          READY   STATUS    RESTARTS         AGE
+glauth-5fb678b9cb-zs5qh       1/1     Running   3 (10m ago)      3h33m
+ocis-proxy-848f988687-g7fmb   1/1     Running   2 (10m ago)      130m
+ocs-6bb8896dd6-t4bkx          1/1     Running   3 (10m ago)      3h33m
+settings-6bf77f978d-27rdf     1/1     Running   3 (10m ago)      3h33m
+storages-6b45f9c4-2j696       10/10   Running   23 (4m43s ago)   112m
+store-cf79db94d-hvb7z         1/1     Running   3 (10m ago)      3h33m
+web-8685fdd574-tmkfb          1/1     Running   2 (10m ago)      157m
+webdav-f8d4dd7c6-vv4n7        1/1     Running   3 (10m ago)      3h33m
+----
+
+. Expose the proxy as a service to the host:
++
+[source,bash]
+----
+~/code/owncloud/ocis-charts
+❯ minikube service proxy-service --url
+ Starting tunnel for service proxy-service.
+|-----------|---------------|-------------|------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |          URL           |
+|-----------|---------------|-------------|------------------------|
+| default   | proxy-service |             | http://127.0.0.1:63633 |
+|-----------|---------------|-------------|------------------------|
+http://127.0.0.1:63633
+! Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+----
+
+. Attempt a `PROPFIND` WebDAV request to the storage:
++
+[source,bash]
+----
+curl -v -k -u einstein:relativity -H "depth: 0" -X PROPFIND https://127.0.0.1:63633/remote.php/dav/files/ | xmllint --format -
+----
+
+If all is correctly setup, you should get a response like the following:
+
+[source,plaintext]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns">
+  <d:response>
+    <d:href>/remote.php/dav/files/einstein/</d:href>
+    <d:propstat>
+      <d:prop>
+        <oc:id>MTI4NGQyMzgtYWE5Mi00MmNlLWJkYzQtMGIwMDAwMDA5MTU3OjZlMWIyMjdmLWZmYTQtNDU4Ny1iNjQ5LWE1YjBlYzFkMTNmYw==</oc:id>
+        <oc:fileid>MTI4NGQyMzgtYWE5Mi00MmNlLWJkYzQtMGIwMDAwMDA5MTU3OjZlMWIyMjdmLWZmYTQtNDU4Ny1iNjQ5LWE1YjBlYzFkMTNmYw==</oc:fileid>
+        <d:getetag>"92cc7f069c8496ee2ce33ad4f29de763"</d:getetag>
+        <oc:permissions>WCKDNVR</oc:permissions>
+        <d:resourcetype>
+          <d:collection/>
+        </d:resourcetype>
+        <d:getcontenttype>httpd/unix-directory</d:getcontenttype>
+        <oc:size>4096</oc:size>
+        <d:getlastmodified>Tue, 14 Sep 2021 12:45:29 +0000</d:getlastmodified>
+        <oc:favorite>0</oc:favorite>
+      </d:prop>
+      <d:status>HTTP/1.1 200 OK</d:status>
+    </d:propstat>
+  </d:response>
+</d:multistatus>
+----
+
+The above setup works because the proxy is configured to run using basic authentication. To access the WebUI, you need an external identity provider.
+
+// fixme: refer to section ext. identity provider when it's done.
+// omitting https://owncloud.dev/ocis/deployment/kubernetes/#setting-up-an-external-identity-provider since the info should go into a separate section with more content.
+
