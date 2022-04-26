@@ -1,6 +1,0 @@
-== Extensions
-
-ownCloud Infinite Space comes with a growing number of extensions.
-
-// Which are available at GA?
-
