@@ -1,8 +1,9 @@
 = Kubernetes and Helm Charts
+:toc: right
 
 // harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
 
-:toc: right
+
 :why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
 :eli5-K8s-url: https://dev.to/miguelmota/comment/filh
 :wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
@@ -17,6 +18,7 @@
 :charts-repo-url: https://helm.sh/docs/topics/chart_repository/
 :ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
+:kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
 
 :description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of oCIS on a Kubernetes cluster.
 
@@ -29,6 +31,8 @@ For more information on Kubernetes (K8s) features check out {why-K8s-url}[Why yo
 If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
 
 We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
+
+Also see the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] in our _Availability and Scalability_ guide.
 
 == ownCloud Infinite Scale and Kubernetes
 
@@ -46,7 +50,7 @@ kubectl::
 {kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to. minikube also provides kubectl wrapped as `minikube kubectcl`.
 
 Helm Charts::
-{helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write pods, deployments or any other K8s resource declaration.
+{helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write {kubernetes-pod-url}[pods], deployments or any other K8s resource declaration.
 
 == Deploying minikube
 
@@ -56,7 +60,11 @@ Verify your installation is correct:
 
 [source,bash]
 ----
-❯ minikube status
+minikube status
+----
+
+[source,plaintext]
+----
 minikube
 type: Control Plane
 host: Stopped
@@ -69,21 +77,24 @@ Next, start the cluster:
 
 [source,bash]
 ----
-❯ minikube start
- minikube v1.25.2 on Ubuntu 20.04
- Using the docker driver based on existing profile
- Starting control plane node minikube in cluster minikube
- Pulling base image ...
- Restarting existing docker container for "minikube" ...
- Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
- ▪ kubelet.housekeeping-interval=5m
- Verifying Kubernetes components...
- ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
- Enabled addons: storage-provisioner, default-storageclass
- kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
- Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+minikube start
 ----
 
+[source,plaintext]
+----
+minikube v1.25.2 on Ubuntu 20.04
+Using the docker driver based on existing profile
+Starting control plane node minikube in cluster minikube
+Pulling base image ...
+Restarting existing docker container for "minikube" ...
+Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
+▪ kubelet.housekeeping-interval=5m
+Verifying Kubernetes components...
+▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+Enabled addons: storage-provisioner, default-storageclass
+kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
+Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+----
 
 == Using Helm Charts with oCIS
 
@@ -129,8 +140,12 @@ helm install ocis .
 +
 [source,bash]
 ----
->minikube kubectl get pods
-NAME                          READY   STATUS    RESTARTS         AGE
+minikube kubectl get pods
+----
++
+[source,plaintext]
+----
+NAME                                     READY   STATUS    RESTARTS        AGE
 glauth-55d7b5878c-25qnt                  1/1     Running   1 (2d23h ago)   2d23h
 graph-859855c94d-l5xgt                   1/1     Running   2 (9m21s ago)   2d23h
 idp-7759f4c6b9-l25t4                     1/1     Running   1 (2d23h ago)   2d23h
@@ -160,25 +175,30 @@ webdav-9c494b5c-6r8r6                    1/1     Running   2 (9m21s ago)   2d23h
 +
 [source,bash]
 ----
-❯ minikube service proxy-service --url
+minikube service proxy-service --url
+----
++
+[source,plaintext]
+----
  Starting tunnel for service proxy-service.
 |-----------|---------------|-------------|------------------------|
 | NAMESPACE |     NAME      | TARGET PORT |          URL           |
 |-----------|---------------|-------------|------------------------|
 | default   | proxy-service |             | http://127.0.0.1:63633 |
 |-----------|---------------|-------------|------------------------|
-http://127.0.0.1:63633
 ----
 
-. Attempt a `PROPFIND` WebDAV request to the storage:
+. Attempt a `PROPFIND` WebDAV request to the storage. Note this example uses one of the demo users as described in xref:deployment/general/general-info.adoc#create-demo-users-and-groups[Create Demo Users and Groups]:
 +
 [source,bash]
 ----
-curl -v -k -u einstein:relativity -H "depth: 0" -X PROPFIND https://127.0.0.1:63633/remote.php/dav/files/ | xmllint --format -
+curl -v -k -u einstein:relativity -H "depth: 0" -X \
+    PROPFIND https://127.0.0.1:63633/remote.php/dav/files/ | \
+    xmllint --format -
 ----
-
++
 If all is correctly setup, you should get a response like the following:
-
++
 [source,plaintext]
 ----
 <?xml version="1.0" encoding="utf-8"?>
@@ -204,7 +224,7 @@ If all is correctly setup, you should get a response like the following:
   </d:response>
 </d:multistatus>
 ----
-
++
 The above setup works because the proxy is configured to run using basic authentication. To access the WebUI, you need an external identity provider.
 
 TIP: With the command `minikube dashboard` you start the monitoring dashboard for your cluster in a browser. With `minikube stop` you're shutting down the minikube node.
