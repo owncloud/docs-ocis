@@ -7,4 +7,4 @@
 
 For more details see xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
 
-There are for each extension descriptions and configuration details available.  
+For each extension there are descriptions and configuration details available.  
