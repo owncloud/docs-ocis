@@ -79,7 +79,9 @@ Alternatively, install Docker depending on your OS from the Docker site. See {in
 
 === Download the oCIS Image
 
-// fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade.
+// fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be anncounced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade. see: https://github.com/owncloud/ocis/issues/3578 [Proposal] Use stable tag for most recent stable release of ocis
+
+// fixme: have other and more default registries (locations where you can download containers), means we have to add a url-prefix to define where to download, see: https://github.com/owncloud/ocis/issues/3577 [Proposal] Parallel pushing to multiple registries
 
 To give some terminology guidance, images are unchangeable snapshots of live containers, while containers are running (or stopped) instances of an image.
 
