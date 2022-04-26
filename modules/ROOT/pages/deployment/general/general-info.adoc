@@ -126,6 +126,10 @@ At any time, you can create unsupervised instances of an extension with `ocis [e
 
 Note that you need configuration for and access to the extension instances like with a load balancer when you scale.
 
+=== Configuring Extensions
+
+To configure extensions, see the section xref:deployment/extensions/extensions.adoc[Extensions] in the _Deployment_ documentation.
+
 == Default Runtime Error Response
 
 If you have not started up `ocis server` but try to file a runtime command except `run` and `version`, a default error message like the following will be printed:
