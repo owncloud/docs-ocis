@@ -2,15 +2,15 @@
 :toc:right
 :downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/
 
-:description: This quick up and running guide provides brief copy and paste commands to have an oCIS instance ready for hands on. Consider reading the documentation for details necessary when you dive down and plan to go productive.
+:description: This quick up and running guide provides brief copy and paste commands to have an oCIS instance ready for hands on use. Read the documentation for details necessary when you dive down and plan to deploy into production.
 
 == Introduction
 
 {description}
 
-Using this guide will setup a minimal configured environment up and running but can by nature not go into the depth. Note that the binary used is based on `linux-arm-64bit`.
+Using this guide will get a minimal configured environment up and running but can by nature not go into depth. Note that the binary used is based on `linux-arm-64bit`.
 
-We recommend reading the xref:deployment/index.adoc[Deployment] section of the documentation as next step for more information on setup and configuration possibilities.
+We recommend reading the xref:deployment/index.adoc[Deployment] section of the documentation as the next step for more information on setup and configuration possibilities.
  
 == Setup
 
