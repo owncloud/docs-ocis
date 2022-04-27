@@ -1,6 +1,5 @@
 = Deployment
 :toc: right
-:toclevels: 1
 
 :description: There are several deployment options for ownCloud Infinite Scale (oCIS) available. Consider which one serves your purposes best. Generally speaking, you can decide between using Docker containers or manually set up a regular server.
 
@@ -8,10 +7,12 @@
 
 {description}
 
+* The section xref:general/general-info.adoc[General Info] summarizes general and important information which is not dependent on the type how you install oCIS. Any setup refers to this general information as prerequisit knowledge without explicit reference.
+
 * If you only want to play around and see what oCIS has to offer, we suggest the quick and easy xref:deployment/binary/binary-setup.adoc[Binary Setup] section.
 
-* In case you have already decided on a Docker instance with one or more containers, checkout the xref:deployment/container/container-setup.adoc[Container Setup] section.
-
-* xref:deployment/security/security.adoc[Securing oCIS] should be a primary concern after you've set up your server.
+* In case you have already decided on a container instance with one or more containers, checkout the xref:deployment/container/container-setup.adoc[Container Setup] section.
 
 * The next steps will likely be mounting a xref:deployment/nfs/nfs.adoc[Network File System] and managing xref:extensions/index.adoc[Extensions].
+
+* xref:deployment/security/security.adoc[Securing oCIS] should be a primary concern after you've set up your server.
