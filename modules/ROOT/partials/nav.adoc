@@ -1,4 +1,5 @@
 * xref:index.adoc[Introduction]
+** xref:quickguide/quickguide.adoc[Quick Guide]
 * ownCloud Infinite Scale 
 ** xref:architecture/architecture.adoc[Architecture and Concepts]
 ** xref:availability_scaling/availability_scaling.adoc[Availability and Scalability]
