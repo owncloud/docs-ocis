@@ -3,8 +3,24 @@
 
 :description: Extensions are microservices and core components of oCIS. Each extension serves a particular task and can be configured independently. Extensions started with the runtime share the runtime management while extensions running outside the runtime are managed on their own but connect to each other when necessary.
 
+Note that extensions are under development and their service, the environment variables and configuration may change.
+
+image::root/beta-badge-1.svg[width=200]
+
+{empty} +
+
 {description}
 
-For more details see xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
+For more details see xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions].
 
-For each extension there are descriptions and configuration details available.  
+There are descriptions and configuration details for each extension available.
+
+[TIP]
+====
+You may see in the tables describing the environment variables that there are two environment variables in the same row configuring the same duty. In case, the following rule applies:
+
+* The first environment variable is used on a global scope. If set, it will be used in all extension where applicable.
+* The second environment variable overwrites the first one, but ONLY for the particular extension.
+
+Taking the `webdav` extension as example, you want to set the `OCIS_URL` as generic value, but for webdav, you want to use a different URL defined with `OCIS_PUBLIC_URL`.
+====
