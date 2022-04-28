@@ -1,4 +1,5 @@
-= WebDAV Service Configuration
+= WebDAV Extension Configuration
+:toc: right
 
 :description: The oCIS WebDAV extension provides an essential service for collaboration on the web.
 
@@ -6,109 +7,19 @@
 
 {description}
 
-// harvested from https://owncloud.dev/extensions/audit/configuration/
-// fixme: all descriptions still missing, and a better description is needed
-// pre-beta1 2022-04-14
+// fixme: source description is still missing, and a better description is needed
 
-== Environment Variables
+== Configuration
 
-The WebDAV service is configured via the following environment variables:
+=== Environment Variables
 
-[cols="30%,15%,15%,40%",options="header",]
-|===
-| Name
-| Type
-| Default
-| Description
+The `webdav` extension is configured via the following environment variables:
 
-| WEBDAV_DEBUG_ADDR
-| string
-| 127.0.0.1:9119
-|
+include::partial$extension_tables/webdav_configvars.adoc[]
 
-| WEBDAV_DEBUG_TOKEN
-| string
-|
-|
+=== YAML Example
 
-| WEBDAV_DEBUG_PPROF
-| bool
-| false
-|
-
-| WEBDAV_DEBUG_ZPAGES
-| bool
-| false
-|
-
-| WEBDAV_HTTP_ADDR
-| string
-| https://127.0.0.1:9200
-|
-
-| WEBDAV_HTTP_ROOT
-| string
-| /
-|
-
-| OCIS_URL;OCIS_PUBLIC_URL
-| string
-| https://127.0.0.1:9200
-|
-
-| STORAGE_WEBDAV_NAMESPACE
-| string
-| /users/{{.Id.OpaqueId}}
-|
-
-| REVA_GATEWAY
-| string
-| 127.0.0.1:9142
-|
-|===
-
-== YAML Configuration
-
-An example YAML config file looks like this:
-
-[source,plaintext]
+[source,yaml]
 ----
-tracing:
-  enabled: false
-  type: ""
-  endpoint: ""
-  collector: ""
-log:
-  level: ""
-  pretty: false
-  color: false
-  file: ""
-debug:
-  addr: 127.0.0.1:9119
-  token: ""
-  pprof: false
-  zpages: false
-http:
-  addr: 127.0.0.1:9115
-  root: /
-  cors:
-    allowed_origins:
-    - '*'
-    allowed_methods:
-    - GET
-    - POST
-    - PUT
-    - PATCH
-    - DELETE
-    - OPTIONS
-    allowed_headers:
-    - Authorization
-    - Origin
-    - Content-Type
-    - Accept
-    - X-Requested-With
-    allow_credentials: true
-ocis_public_url: https://127.0.0.1:9200
-webdav_namespace: /users/{{.Id.OpaqueId}}
-reva_gateway: 127.0.0.1:9142
+include::{ocis-ext-includes}webdav-config-example.yaml[]
 ----
