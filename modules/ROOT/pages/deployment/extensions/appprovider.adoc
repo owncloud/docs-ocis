@@ -1,0 +1,26 @@
+= App Provider Extension Configuration
+:toc: right
+
+:description: App providers represent apps, if the app is not able to register itself. Currently there is only the CS3org WOPI server app provider.
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+// fixme: currently found at: https://owncloud.dev/extensions/storage/apps/#app-provider-capability
+
+== Configuration
+
+=== Environment Variables
+
+The `appprovider` extension is configured via the following environment variables:
+
+include::partial$extension_tables/appprovider_configvars.adoc[]
+
+=== YAML Example
+
+[source,yaml]
+----
+include::{ocis-ext-includes}appprovider-config-example.yaml[]
+----

@@ -12,6 +12,7 @@
 *** xref:deployment/security/security.adoc[Securing oCIS]
 *** xref:deployment/nfs/nfs.adoc[Network File System Deployment]
 *** xref:deployment/extensions/extensions.adoc[Extensions]
+**** xref:deployment/extensions/appprovider.adoc[App Provider]
 **** xref:deployment/extensions/audit.adoc[Audit]
 **** xref:deployment/extensions/webdav.adoc[WebDAV]
 *** xref:deployment/configuration/index.adoc[Configuration]
