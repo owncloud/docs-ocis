@@ -1,0 +1,29 @@
+= Auth Basic Extension Configuration
+:toc: right
+
+:description: The oCIS Auth Basic extension provides basic authentication for those clients who cannot handle OIDC. This are rare cases and is usually not necessary.
+
+== Introduction
+
+{description}
+
+// based on a chat with the dev team (willy, ralf). usecase would be to access via macos/finder via webdav folders on oics, or any client that cannot handle oidc.
+
+To enable `auth-basic`, you first must set `PROXY_ENABLE_BASIC_AUTH` to `true`.
+
+// fixme: source description is still missing, and a better description is needed
+
+== Configuration
+
+=== Environment Variables
+
+The `auth-basic` extension is configured via the following environment variables:
+
+include::partial$extension_tables/auth-basic_configvars.adoc[]
+
+=== YAML Example
+
+[source,yaml]
+----
+include::{ocis-ext-includes}auth-basic-config-example.yaml[]
+----
