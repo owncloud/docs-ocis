@@ -17,6 +17,7 @@
 **** xref:deployment/extensions/auth-basic.adoc[Auth Basic]
 **** xref:deployment/extensions/auth-bearer.adoc[Auth Bearer]
 **** xref:deployment/extensions/auth-machine.adoc[Auth Machine]
+**** xref:deployment/extensions/frontend.adoc[Frontend]
 **** xref:deployment/extensions/webdav.adoc[WebDAV]
 *** xref:deployment/configuration/index.adoc[Configuration]
 **** xref:deployment/configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
