@@ -1,0 +1,25 @@
+= Group Extension Configuration
+:toc: right
+
+:description: The oCIS Group extension provides ...
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+== Configuration
+
+=== Environment Variables
+
+The `group` extension is configured via the following environment variables:
+
+include::partial$extension_tables/group_configvars.adoc[]
+
+=== YAML Example
+
+[source,yaml]
+----
+include::{ocis-ext-includes}group-config-example.yaml[]
+----
