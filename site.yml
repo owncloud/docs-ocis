@@ -34,6 +34,7 @@ asciidoc:
     experimental: ''
 #   common
     docs-base-url: 'https://doc.owncloud.com'
+    oc-complete-base-url: 'https://download.owncloud.com/server/stable'
     oc-contact-url: 'https://owncloud.com/contact/'
     oc-help-url: 'https://owncloud.com/docs-guides/'
     oc-marketplace-url: 'https://marketplace.owncloud.com'
