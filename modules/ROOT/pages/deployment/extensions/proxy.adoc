@@ -1,0 +1,25 @@
+= Proxy Extension Configuration
+:toc: right
+
+:description: The oCIS Proxy extension provides a proxy service that routes requests to the correct extensions
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+== Configuration
+
+=== Environment Variables
+
+The `proxy` extension is configured via the following environment variables:
+
+include::partial$extension_tables/proxy_configvars.adoc[]
+
+=== YAML Example
+
+[source,yaml]
+----
+include::{ocis-ext-includes}proxy-config-example.yaml[]
+----
