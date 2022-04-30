@@ -41,9 +41,9 @@ ____
 
 Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[oCIS C4 Model] raw description file.
 
-image::architecture/c4-ocis-system-context.svg[]
+image::architecture/c4-ocis-system-context.svg[oCIS System Context, width=500]
 
-image::architecture/c4-ocis-system-container.svg[]
+image::architecture/c4-ocis-system-container.svg[oCIS Container View]
 
 == Concepts
 
