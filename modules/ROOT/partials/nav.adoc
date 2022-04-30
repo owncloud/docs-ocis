@@ -27,6 +27,7 @@
 **** xref:deployment/extensions/notifications.adoc[Notification]
 **** xref:deployment/extensions/ocdav.adoc[OCDAV]
 **** xref:deployment/extensions/ocs.adoc[OCS]
+**** xref:deployment/extensions/proxy.adoc[Proxy]
 **** xref:deployment/extensions/webdav.adoc[WebDAV]
 *** xref:deployment/configuration/index.adoc[Configuration]
 **** xref:deployment/configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
