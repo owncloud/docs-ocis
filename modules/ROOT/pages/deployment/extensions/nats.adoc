@@ -1,0 +1,25 @@
+= NATS Extension Configuration
+:toc: right
+
+:description: The oCIS NATS extension provides ...
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+== Configuration
+
+=== Environment Variables
+
+The `nats` extension is configured via the following environment variables:
+
+include::partial$extension_tables/nats_configvars.adoc[]
+
+=== YAML Example
+
+[source,yaml]
+----
+include::{ocis-ext-includes}nats-config-example.yaml[]
+----
