@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="605px" preserveAspectRatio="none" style="width:692px;height:605px;background:#FFFFFF;" version="1.1" viewBox="0 0 692 605" width="692px" zoomAndPan="magnify"><defs/><g><rect height="26.2969" style="stroke:#00000000;stroke-width:1.0;fill:none;" width="345" x="166.75" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="335" x="171.75" y="22.9951">ownCloud Infinite Scale - System Context</text><!--MD5=[9eecb807d8a7c1ba44cb916f191401d3]
+entity Guest--><g id="elem_Guest"><ellipse cx="94" cy="70.8807" fill="#08427B" rx="27.5838" ry="27.5838" style="stroke:#052E56;stroke-width:0.5;"/><rect fill="#08427B" height="99.1563" rx="27.5838" ry="27.5838" style="stroke:#052E56;stroke-width:0.5;" width="174" x="7" y="98.4645"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="54" x="67" y="123.316">Guest</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="44" x="72" y="136.3717">[Person]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="92" y="151.7252"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="150" x="17" y="168.0221">A person outside the</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="68" y="184.319">system</text></g><!--MD5=[fee662a292a0353a69bd162820bae93b]
+entity User--><g id="elem_User"><ellipse cx="326" cy="78.65" fill="#08427B" rx="28.3532" ry="28.3532" style="stroke:#052E56;stroke-width:0.5;"/><rect fill="#08427B" height="82.8594" rx="28.3532" ry="28.3532" style="stroke:#052E56;stroke-width:0.5;" width="220" x="216" y="107.0032"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="41" x="305.5" y="131.8548">User</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="44" x="304" y="144.9104">[Person]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="324" y="160.2639"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="200" x="226" y="176.5608">A user known to the system</text></g><!--MD5=[97ab183161fd5d1db7fba7485cf76add]
+entity Admin--><g id="elem_Admin"><ellipse cx="579" cy="78.826" fill="#08427B" rx="28.0291" ry="28.0291" style="stroke:#052E56;stroke-width:0.5;"/><rect fill="#08427B" height="82.8594" rx="28.0291" ry="28.0291" style="stroke:#052E56;stroke-width:0.5;" width="215" x="471.5" y="106.8551"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="56" x="551" y="131.7067">Admin</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="44" x="557" y="144.7623">[Person]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="577" y="160.1158"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="195" x="481.5" y="176.4127">Manages the oCIS platform</text></g><!--MD5=[894fa59ba753e5b1befff7855ba16942]
+entity IdentityManagement--><g id="elem_IdentityManagement"><rect fill="#999999" height="99.1563" rx="2.5" ry="2.5" style="stroke:#6B6B6B;stroke-width:0.5;" width="220" x="92" y="500.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="195" x="104.5" y="525.1484">Identity Management</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="152.5" y="538.2041">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="200" y="553.5576"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196" x="102" y="569.8545">Manages and authenticates</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="183.5" y="586.1514">users</text></g><!--MD5=[e4395c1108a62ae36494ecc4154e8335]
+entity StorageSystem--><g id="elem_StorageSystem"><rect fill="#999999" height="99.1563" rx="2.5" ry="2.5" style="stroke:#6B6B6B;stroke-width:0.5;" width="206" x="347" y="500.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="147" x="376.5" y="525.1484">Storage System</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="400.5" y="538.2041">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="448" y="553.5576"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="357" y="569.8545">POSIX, NFS, CephFS, EOS,</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="374" y="586.1514">Google, FTP, Cloud ...</text></g><!--MD5=[6deabba9d3412f88af86c1a17c2b78c5]
+entity ownCloudInfiniteScale--><g id="elem_ownCloudInfiniteScale"><rect fill="#1168BD" height="101.4844" rx="2.5" ry="2.5" style="stroke:#0B4884;stroke-width:0.5;" width="186" x="233" y="293.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="160" x="243" y="318.1484">ownCloud Infinite</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="48" x="302" y="336.7734">Scale</text><text fill="#FFFFFF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="276.5" y="349.8291">[Software System]</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="324" y="365.1826"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101" x="275.5" y="381.4795">Data Platform</text></g><!--MD5=[f02c08b6cafe658e1c83fb41fee06e88]
+link User to ownCloudInfiniteScale--><g id="link_User_ownCloudInfiniteScale"><path d="M326,190.4699 C326,221.9079 326,258.5749 326,288.0559 " fill="none" id="User-to-ownCloudInfiniteScale" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="326,293.0979,330,284.0979,326,288.0979,322,284.0979,326,293.0979" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="93" x="327" y="243.0791">Syncs and shares</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="62" x="344" y="254.7197">spaces with</text></g><!--MD5=[22e10146a961a49c4b7c718b17306fea]
+link Guest to ownCloudInfiniteScale--><g id="link_Guest_ownCloudInfiniteScale"><path d="M156.707,197.6379 C176.13,219.6859 198.18,243.2019 220,263.2969 C229.871,272.3879 240.748,281.4629 251.659,290.0589 " fill="none" id="Guest-to-ownCloudInfiniteScale" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="255.679,293.2029,251.0535,284.5078,251.7403,290.1228,246.1253,290.8097,255.679,293.2029" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="93" x="221" y="237.5791">Syncs and shares</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="92" x="221.5" y="249.2197">shared resources</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="22" x="258" y="260.8604">with</text></g><!--MD5=[e68729614234b3f274b23179f5626e3b]
+link Admin to ownCloudInfiniteScale--><g id="link_Admin_ownCloudInfiniteScale"><path d="M511.485,189.9419 C487.061,213.8459 458.871,240.3959 432,263.2969 C421.553,272.2009 410.217,281.2729 398.974,289.9519 " fill="none" id="Admin-to-ownCloudInfiniteScale" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="394.838,293.1299,404.4118,290.8186,398.8029,290.0837,399.5379,284.4748,394.838,293.1299" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="51" x="471" y="249.0791">manages</text></g><!--MD5=[ec2c5ac46281146d4efb6ebf006e4a86]
+link ownCloudInfiniteScale to IdentityManagement--><g id="link_ownCloudInfiniteScale_IdentityManagement"><path d="M295.825,394.4399 C277.24,425.0159 253.42,464.2029 234.432,495.4409 " fill="none" id="ownCloudInfiniteScale-to-IdentityManagement" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="231.667,499.9905,239.7597,494.3773,234.264,495.7178,232.9235,490.2221,231.667,499.9905" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="99" x="277.5" y="434.5791">Authenticates and</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="82" x="284.5" y="446.2197">manages users</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="22" x="316" y="457.8604">with</text><text fill="#707070" font-family="sans-serif" font-size="8" lengthAdjust="spacing" textLength="100" x="277" y="467.6445">[OpenId Connect, LDAP]</text></g><!--MD5=[6472ef9c982b372fedf4f251a3337c13]
+link ownCloudInfiniteScale to StorageSystem--><g id="link_ownCloudInfiniteScale_StorageSystem"><path d="M365.433,394.3379 C372.583,404.0619 379.747,414.3389 386,424.2969 C400.177,446.8749 413.955,472.9639 425.074,495.4089 " fill="none" id="ownCloudInfiniteScale-to-StorageSystem" style="stroke:#707070;stroke-width:2.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#707070" points="427.405,500.1405,427.0156,490.2993,425.1953,495.6553,419.8393,493.8349,427.405,500.1405" style="stroke:#707070;stroke-width:2.0;"/><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="88" x="412" y="440.0791">Manages access</text><text fill="#707070" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="11" x="452" y="451.7197">to</text><text fill="#707070" font-family="sans-serif" font-size="8" lengthAdjust="spacing" textLength="85" x="415" y="461.5039">[POSIX, SMB, S3, ...]</text></g><!--MD5=[95ae2e8ecb3570456668b8e67cbc531c]
+@startuml
+title ownCloud Infinite Scale - System Context
+
+top to bottom direction
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam person<<Admin>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam person<<Guest>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<IdentityManagement>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+}
+skinparam rectangle<<StorageSystem>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+}
+skinparam person<<User>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+}
+skinparam rectangle<<ownCloudInfiniteScale>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+}
+
+person "==Guest\n<size:10>[Person]</size>\n\nA person outside the system" <<Guest>> as Guest
+person "==User\n<size:10>[Person]</size>\n\nA user known to the system" <<User>> as User
+person "==Admin\n<size:10>[Person]</size>\n\nManages the oCIS platform" <<Admin>> as Admin
+rectangle "==Identity Management\n<size:10>[Software System]</size>\n\nManages and authenticates users" <<IdentityManagement>> as IdentityManagement
+rectangle "==Storage System\n<size:10>[Software System]</size>\n\nPOSIX, NFS, CephFS, EOS, Google, FTP, Cloud ..." <<StorageSystem>> as StorageSystem
+rectangle "==ownCloud Infinite Scale\n<size:10>[Software System]</size>\n\nData Platform" <<ownCloudInfiniteScale>> as ownCloudInfiniteScale
+
+User .[#707070,thickness=2].> ownCloudInfiniteScale : "<color:#707070>Syncs and shares spaces with"
+Guest .[#707070,thickness=2].> ownCloudInfiniteScale : "<color:#707070>Syncs and shares shared resources with"
+Admin .[#707070,thickness=2].> ownCloudInfiniteScale : "<color:#707070>manages"
+ownCloudInfiniteScale .[#707070,thickness=2].> IdentityManagement : "<color:#707070>Authenticates and manages users with\n<color:#707070><size:8>[OpenId Connect, LDAP]</size>"
+ownCloudInfiniteScale .[#707070,thickness=2].> StorageSystem : "<color:#707070>Manages access to\n<color:#707070><size:8>[POSIX, SMB, S3, ...]</size>"
+@enduml
+
+PlantUML version 1.2022.4beta2(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

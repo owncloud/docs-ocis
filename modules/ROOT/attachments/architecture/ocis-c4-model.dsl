@@ -13,7 +13,7 @@ workspace "ownCloud Infinite Scale" "The oCIS C4 Model" {
 	model {
 		guest = person "Guest" "A person outside the system"
 		user = person "User" "A user known to the system"
-		admin = person "Admin" "Manages the EFSS platform"
+		admin = person "Admin" "Manages the oCIS platform"
 		idm = softwareSystem "Identity Management" "Manages and authenticates users" "Existing System"
 		storage = softwareSystem "Storage System" "POSIX, NFS, CephFS, EOS, Google, FTP, Cloud ..." "Existing System"
 		ocis = softwareSystem "ownCloud Infinite Scale" "Data Platform" {

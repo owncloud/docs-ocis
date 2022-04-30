@@ -41,15 +41,9 @@ ____
 
 Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[oCIS C4 Model] raw description file.
 
-image:architecture/ocis_c4m_system_landscape.svg[]
+image::architecture/c4-ocis-system-context.svg[]
 
-*THIS PART IS NOT FINISHED AND NEEDS MORE CONTENT - THE DETAILS OF THE C4 MODEL ARE URGENTLY NEEDED. WHEN DONE, THE IMAGE BELOW CAN BE REMOVED. PLEASE DOWNLOAD THE C4MODEL FILE, REFINE IT AND CREATE A PR WITH THE CHANGES. WE WILL USE THE CHANGES  TO CREATE THE .svg IMAGES AND ADD THEM VIA THE DESCRIBED PROCESS (see the file).*
-
-// harvested from https://owncloud.dev/ocis/
-
-Running the command `ocis server` will start the following services, which can be scaled and deployed on a single node or in a cloud native environment.
-
-image:architecture/architecture-overview.drawio.svg[]
+image::architecture/c4-ocis-system-container.svg[]
 
 == Concepts
 
