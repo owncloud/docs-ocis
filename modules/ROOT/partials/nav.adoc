@@ -36,6 +36,6 @@
 **** xref:cdeployment/onfiguration/storage.adoc[Storage Configuration]
 **** xref:deployment/configuration/office-integrations.adoc[Integrating Office Applications]
 **** xref:deployment/configuration/roles-permissions.adoc[Roles & Permissions]
-** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
-** xref:maintenance/index.adoc[Maintenance]
+//** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
+//** xref:maintenance/index.adoc[Maintenance]
 
