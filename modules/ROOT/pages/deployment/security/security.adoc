@@ -61,7 +61,7 @@ You can list all existing users with `ocis accounts list`:
 +--------------------------------------+------------------------+----------------------+----------------+
 ----
 
-TIP: The generation of demo users only happens if run the initial setup with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`. If you don't use this variable, only the user Admin is created plus the system users for IDP and Reva IOP.
+TIP: The generation of demo users only happens if run the initial setup with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`, see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created plus internal necessary users.
 
 After you have added an additional user with admin privileges, delete the demo users in ownCloud Web or use the command `ocis accounts remove <ID>`.
 
