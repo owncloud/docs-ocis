@@ -26,7 +26,7 @@ One more secret is used for machine auth, so that external applications can auth
 
 === Delete Demo Users
 
-oCIS offers to install five demo users for our customers to play around with before they start a serious rollout:
+oCIS offers to install demo users for our customers to play around with before they start a serious rollout:
 
 [source,console]
 ----
