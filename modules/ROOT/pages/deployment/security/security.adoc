@@ -26,7 +26,7 @@ One more secret is used for machine auth, so that external applications can auth
 
 === Delete Demo Users
 
-oCIS ships with five demo users for our customers to play around with before they start a serious rollout:
+oCIS offers to install demo users for our customers to play around with before they start a serious rollout:
 
 [source,console]
 ----
@@ -41,7 +41,7 @@ oCIS ships with five demo users for our customers to play around with before the
 +----------+---------------+----------------------+-------+
 ----
 
-On a production system, these default users should go, but only after you have created a new account for your self and assigned the administrator role to it.
+On a production system, these demo users should go, but only after you have created a new account for yourself and assigned the administrator role to it.
 
 You can list all existing users with `ocis accounts list`:
 
@@ -61,9 +61,9 @@ You can list all existing users with `ocis accounts list`:
 +--------------------------------------+------------------------+----------------------+----------------+
 ----
 
-TIP: To prevent the generation of demo users, run the initial setup with an additional environment variable: `ACCOUNTS_DEMO_USERS_AND_GROUPS=false ./bin/ocis server`. In this case, only the user Admin is created plus the system users for IDP and Reva IOP.
+TIP: The generation of demo users only happens if run the initial setup with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`, see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created plus internal necessary users.
 
 After you have added an additional user with admin privileges, delete the demo users in ownCloud Web or use the command `ocis accounts remove <ID>`.
 
-CAUTION: Do not delete any of the system users but change their default secrets instead.
+CAUTION: Do not delete any of the system users. Change their default secrets instead.
 
