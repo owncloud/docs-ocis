@@ -306,7 +306,7 @@ WARNING: The location must exclusively be used by oCIS. Writing into this locati
 
 == Default Users and Groups
 
-Default users and groups are only created when you have started oCIS for the very first time, either via the runtime or if you start the xref:deployment/extensions/idm.adoc[IDM extension] outside the runtime. The same is true for demo users and groups which need an environment variable to be set _on first startup_ to get created.
+Default users and groups are only created when you start oCIS for the very first time, either via the runtime or by starting the xref:deployment/extensions/idm.adoc[IDM extension] outside the runtime. The same is true for demo users and groups which need an environment variable to be set _on first startup_ to get created.
 
 NOTE: If you have not declared demo user creation on first startup, you can for the time being only empty the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS base directory] which resets the system. Then you can start from scratch and enable demo user creation.
 
@@ -314,7 +314,7 @@ NOTE: If you have not declared demo user creation on first startup, you can for 
 
 === Admin User
 
-An admin user will be created with following credentials:
+An admin user will be created with the following credentials:
 
 [caption=]
 .Admin user and group created on first ocis start
