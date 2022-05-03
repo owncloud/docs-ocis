@@ -105,7 +105,7 @@ include::partial$deployment/ocis_init.adoc[]
 
 ==== Recurring Start of oCIS
 
-Post first time initializing oCIS, you can start the oCIS runtime which includes embedded extension. See the sections xref:deployment/general/general-info.adoc#starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for basic environment variables.
+After initializing oCIS for the first time, you can start the oCIS runtime which includes embedded extensions. See the sections xref:deployment/general/general-info.adoc#starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for basic environment variables.
 
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
