@@ -1,0 +1,12 @@
+[source,plaintext]
+----
+Do want to configure oCIS with certificate checking disabled?
+ This is not recommended for public instances! [yes | no = default]
+
+=========================================
+ generated OCIS Config
+=========================================
+ configpath : /etc/ocis/ocis-config/ocis.yaml
+ user       : admin
+ password   : <removed for documentation>
+----
