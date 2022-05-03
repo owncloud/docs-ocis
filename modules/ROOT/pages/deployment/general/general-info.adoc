@@ -306,19 +306,19 @@ WARNING: The location must exclusively be used by oCIS. Writing into this locati
 
 == Default Users and Groups
 
-Default users and groups are only created when you start oCIS for the very first time, either via the runtime or by starting the xref:deployment/extensions/idm.adoc[IDM extension] outside the runtime. The same is true for demo users and groups which need an environment variable to be set _on first startup_ to get created.
+Default users and groups are only created when you start oCIS for the _very first time_, either via the runtime or by starting the xref:deployment/extensions/idm.adoc[IDM extension] outside the runtime. The same is true for demo users and groups which need an environment variable to be set _on first startup_ to get created.
 
-NOTE: If you have not declared demo user creation on first startup, you can for the time being only empty the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS base directory] which resets the system. Then you can start from scratch and enable demo user creation.
+NOTE: If you have not declared demo user creation on first startup, you can for the time being only empty the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS base directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
 
 // fixme: the current implementation of the bootstrap creates the admin user and if set the demo users and adds them to the idm/boltdb file, see the idm extension. BUT if you have started ocis without demo user creation, you cant let ocis create them POST first start... https://github.com/owncloud/ocis/issues/3593 
 
 === Admin User
 
-An admin user will be created with the following credentials:
+An admin user will be created when running the `ocis init` command with the following credentials:
 
 [caption=]
 .Admin user and group created on first ocis start
-[width="90%",cols="30%,30%,45%,25%,50%",options="header"]
+[width="100%",cols="25%,70%,45%,25%,25%",options="header"]
 |===
 | Username
 | Password
@@ -327,7 +327,7 @@ An admin user will be created with the following credentials:
 | Group
 
 | admin
-| admin
+| Printed by the output of `ocis init`
 | \admin@example.org
 | admin
 | users
@@ -344,7 +344,7 @@ Login to the webinterface with this admin user and change relevant data accordin
 
 WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
 
-To let oCIS create these demo users and groups for you, start the _runtime_ once with:
+To let oCIS create these demo users and groups for you, start the _runtime_ the very first time with:
 
 [source,bash]
 ----

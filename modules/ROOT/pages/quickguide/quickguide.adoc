@@ -8,7 +8,7 @@
 
 {description}
 
-Using this guide will get a minimal configured environment up and running but can by nature not go into depth. Note that the binary used is based on `linux-arm-64bit`.
+Using this guide will get a minimal configured environment including demo users up and running but can by nature not go into depth. Note that the binary used is based on `linux-arm-64bit`.
 
 We recommend reading the xref:deployment/index.adoc[Deployment] section of the documentation as the next step for more information on setup and configuration possibilities.
  
@@ -28,7 +28,13 @@ sudo chmod +x /usr/bin/ocis
 
 [source,bash]
 ----
+ocis init
+----
+
+[source,bash]
+----
 OCIS_INSECURE=true \
+IDM_CREATE_DEMO_USERS=true \
 PROXY_HTTP_ADDR=0.0.0.0:9200 \
 OCIS_URL=https://localhost:9200 \
 ocis server

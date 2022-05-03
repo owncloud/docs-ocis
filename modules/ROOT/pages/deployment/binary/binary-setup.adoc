@@ -1,6 +1,6 @@
 = Binary Setup
 :toc: right
-:toclevels: 2
+:toclevels: 3
 
 :downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/?sort=time&order=desc
 :systemd-url: https://systemd.io/
@@ -13,6 +13,10 @@
 {description}
 
 Installing the oCIS binary manually works well if you want to quickly test oCIS without performing additional tasks like a container preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
+
+== Prerequisite
+
+NOTE: oCIS by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone.
 
 == Installation
 
@@ -79,7 +83,29 @@ When you have configured and started the oCIS _runtime_ either xref:starting-oci
 
 === Starting oCIS
 
-Post installing oCIS, you can start the oCIS runtime which includes available extension as follows. See the sections xref:deployment/general/general-info.adoc#starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for basic environment variables.
+oCIS is started in two steps:
+
+* A first time start to initiate the system and
+* a recurring start after initialization.
+
+Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system.
+
+==== First Time Start
+
+oCIS needs a first time initialization to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. The default location for config files is, if not otherwise defined `$HOME/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize oCIS.
+
+[source,bash]
+----
+ocis init
+----
+
+On success, you will see a message like:
+ 
+include::partial$deployment/ocis_init.adoc[]
+
+==== Recurring Start of oCIS
+
+After initializing oCIS for the first time, you can start the oCIS runtime which includes embedded extensions. See the sections xref:deployment/general/general-info.adoc#starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for basic environment variables.
 
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
