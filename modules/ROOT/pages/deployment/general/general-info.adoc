@@ -156,7 +156,7 @@ NOTE: Administrators must be aware of the sources, the location and order applie
 
 . The default locations for config files are:
 +
-* For container images +
+* For container images (inside the container) +
 `/etc/ocis/`
 +
 * For binary releases +
