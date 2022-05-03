@@ -78,7 +78,7 @@ Alternatively, install Docker depending on your OS from the Docker site. See {in
 
 === Check the Docker Group Membership
 
-Running a docker container without root privileges (`sudo`), requires the user to be a member of the docker group.
+Running a Docker container without root privileges (`sudo`), requires the user to be a member of the docker group.
 
 First check if the docker group is already created and you are member of this group:
 
@@ -92,7 +92,7 @@ cat /etc/group | grep docker
 docker:x:998:<your-user-name>
 ----
 
-If the group does not exist or you are not member of, continue with {docker-post-url}[Post-installation steps for Linux] to create the group respectively add your user to the group.
+If the group does not exist or you are not a member, continue with {docker-post-url}[Post-installation steps for Linux] to create the group and add your user to it.
 
 == Image Management
 
@@ -177,21 +177,21 @@ sudo docker rmi <image-id>
 
 == Start the oCIS Runtime
 
-The start of oCIS is made in two steps:
+oCIS is started in two steps:
 
 * A first time start to initiate the system and
-* A recurring start post initialisation.
+* a recurring start after initialization.
 
-Note the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when inizializing the system.
+Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system.
 
 === Preperation
 
-In the examples shown, bind mounts with following folders are used to keep data persistent, located in your home directory. Change the locations according your needs:
+In the examples shown below, bind mounts with the following folders are used to keep data persistent and located in your home directory. Change the locations according your needs:
  
-* For the config the folder `~/ocis/ocis-config`
-* For the data the folder `~/ocis/ocis-data`
+* For the config we use the folder `~/ocis/ocis-config`.
+* For data we use the folder `~/ocis/ocis-data`.
 
-The oCIS container runs internally with the default user and group ID of 1000. To check this type:
+The oCIS container runs internally with the default user and group ID of 1000. To check this, type:
 
 [source,bash]
 ----
@@ -202,9 +202,9 @@ sudo docker inspect owncloud/ocis | less | grep -i user | sort -u
 "User": "1000",
 ----
 
-For the folders above, following rules apply:
+For the folders above, the following rules apply:
 
-* Because _bind-mounts_ used below create paths if they do not extist with the root user and group, the container user can not write into them. To overcome this issue, you have to create both folders upfront manually to avoid a permission denied problem. To do so type:
+* Because _bind-mounts_ (used in the example below) create paths if they do not exist with the root user and group, the container user cannot write into them. To overcome this issue, you have to create both folders upfront manually to avoid a permission denied problem. To do so, type:
 +
 --
 [source,bash]
@@ -217,19 +217,19 @@ mkdir -p ~/ocis/ocis-data
 ----
 --
 
-* The user you have logged in with must have the default user and group ID of 1000 to match the container user and group ID. If this does not match, you must take care that the container user can write into the created paths. As an example to do so type:
+* The user you have logged in with must have the default user and group ID of 1000 to match the container user and group ID. If this does not match, you must take care that the container user can write into the created paths. You can do this for example with the command:
 +
 --
 [source,bash]
 ----
 sudo chown -Rfv 1000:1000 ocis/
 ----
-In case, you now need to access the content of the `ocis` folder with root previledges or with a user matching the ID's.
+In this case, you need to access the content of the `ocis` folder with root privileges or with a user matching the owner ID.
 --
 
 === First Time Start
 
-oCIS needs a first time initialisation which will setup your enviroment. You will get questions asked and a default `ocis.yaml` file will be generated which you further can configure. Note that if you do not define a host directory like with a bind mount as target location, the initial setup will get lost because the container ends post executing the command. ownCloud therefore recommends either using bind mounts or docker volumes to make the initial setup, changes and your data persistent.
+oCIS needs a first time initialization to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. Note that if you do not define a host directory with a bind mount as target location, the initial setup will get lost because the container ends after executing the command. ownCloud therefore recommends either using bind mounts or Docker volumes to make the initial setup, further changes and your data persistent.
 
 [source,bash]
 ----
@@ -271,11 +271,11 @@ WARNING: While this is not used in production and for testing purposes only, you
 
 === Delete a Setup
 
-If you want to delete your setup, which is _both_ the configuration and the data, just delete the `ocis-config` and the `ocis-data` folder and restart the process from this chapter.
+If you want to delete your setup, which is _both_ the configuration and the data, just delete the `ocis-config` and the `ocis-data` folder and restart the process described in this chapter.
 
 == Execute oCIS Commands
 
-To execute oCIS commands, you have to enter the shell of the running container. To do so xref:list-running-containers[list the running containers] first and type the following command replacing the <container-id> accordingly:
+To execute oCIS commands, you have to enter the shell of the running container. To do so, xref:list-running-containers[list the running containers] first and type the following command replacing the <container-id> accordingly:
 
 [source,bash]
 ----
@@ -308,7 +308,7 @@ Defines the port mapping `<hostPort>:<containerPort>`. Use the port mapping if y
 Tell the Docker daemon to clean up the container and remove the file system after the container exits.
 
 --env-file: Read in a file of environment variables::
-If you have more environment variables to hand over, put them all in a file and use this command-line option. Preferably have `/etc/ocis` at your host as location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
+If you have more environment variables to hand over, put them all in a file and use this command-line option. Preferably use `/etc/ocis` on your host as location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
 
 --name: Assign a name to the container::
 By default, containers created with _docker run_ are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
@@ -320,7 +320,7 @@ See the details in the _docker run_ documentation for available options. Conside
 {docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note the volume mount target path `target=/var/lib/ocis` which uses the default oCIS data path if not otherwise defined. Note that the directory on the host must already exist, it will not be created. 
 
 --volume, -v: Bind mount a volume::
-{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis` which uses the default oCIS data path if not otherwise defined. If the bind-mount points to a directory that does not yet exist on the host, the directory will be created automatically - using the user the docker _service_ runs with, usually the root user.
+{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis`, which uses the default oCIS data path if not otherwise defined. If the bind-mount points to a directory that does not yet exist on the host, the directory will be created automatically using the user the docker _service_ runs with, usually the root user.
 +
 NOTE: The filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
 +
