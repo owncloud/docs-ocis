@@ -7,7 +7,7 @@ image::root/beta-badge-1.svg[width=200]
 
 {empty} +
 
-Note that extensions are under development. Their service, the environment variables and configuration may change.
+Note that extensions are under development. Their service, environment variables and configuration may change.
 
 {empty} +
 
@@ -39,7 +39,7 @@ Extension name vs. environment variable name::
 +
 [TIP]
 ====
-Environment variable names are always upper case and words are connected with an underscore. They start with with the name of the extension. If the extension name has more than one word, which are connected with a dash, the dash is replaced by an underscore. This info is useful when you search for environment variables based on the extension name.
+Environment variable names are always upper case and words are connected with an underscore. They start with the name of the extension. If the extension name is more than one word and the words are connected with a dash, the dash is replaced by an underscore. This info is useful when you search for environment variables based on the extension name.
 
 Example: `auth-basic` -> `AUTH_BASIC_XXX`
 ====
