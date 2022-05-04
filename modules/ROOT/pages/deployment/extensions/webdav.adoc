@@ -1,6 +1,8 @@
 = WebDAV Extension Configuration
 :toc: right
 
+:ext_name: webdav
+
 :description: The oCIS WebDAV extension provides an essential service for collaboration on the web.
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `webdav` extension is configured via the following environment variables:
-
-include::partial$extension_tables/webdav_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}webdav-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

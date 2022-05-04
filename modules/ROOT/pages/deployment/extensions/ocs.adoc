@@ -1,6 +1,8 @@
 = OCS Extension Configuration
 :toc: right
 
+:ext_name: ocs
+
 :description: The oCIS OCS extension provides ...
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `ocs` extension is configured via the following environment variables:
-
-include::partial$extension_tables/ocs_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}ocs-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

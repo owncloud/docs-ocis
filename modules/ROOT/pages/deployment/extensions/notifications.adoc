@@ -1,5 +1,7 @@
-= Notification Extension Configuration
+= Notifications Extension Configuration
 :toc: right
+
+:ext_name: notifications
 
 :description: The oCIS Notification extension provides ...
 
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `notification` extension is configured via the following environment variables:
-
-include::partial$extension_tables/notifications_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}notifications-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

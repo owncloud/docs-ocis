@@ -1,9 +1,9 @@
-= OCDAV Extension Configuration
+= Sharing Extension Configuration
 :toc: right
 
-:ext_name: ocdav
+:ext_name: sharing
 
-:description: The oCIS OCDAV extension provides ...
+:description: The oCIS Sharing extension provides ...
 
 == Introduction
 

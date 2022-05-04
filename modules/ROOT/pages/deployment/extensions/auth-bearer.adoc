@@ -1,6 +1,8 @@
 = Auth Bearer Extension Configuration
 :toc: right
 
+:ext_name: auth-bearer
+
 :description: The oCIS Auth Bearer extension provides ...
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `auth-bearer` extension is configured via the following environment variables:
-
-include::partial$extension_tables/auth-bearer_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}auth-bearer-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

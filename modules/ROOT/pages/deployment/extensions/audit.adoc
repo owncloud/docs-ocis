@@ -1,6 +1,8 @@
 = Audit Extension Configuration
 :toc: right
 
+:ext_name: audit
+
 :description: The audit service allows for easy monitoring of your oCIS server.
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `audit` extension is configured via the following environment variables:
-
-include::partial$extension_tables/audit_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}audit-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]
