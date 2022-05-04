@@ -1,13 +1,19 @@
 = Extensions
-:toc: right
+:toc: macro
 
 :description: Extensions are microservices and core components of oCIS. Each extension serves a particular task and can be configured independently. Extensions started with the runtime share the runtime management while extensions running outside the runtime are managed on their own but connect to each other when necessary.
-
-Note that extensions are under development and their service, the environment variables and configuration may change.
 
 image::root/beta-badge-1.svg[width=200]
 
 {empty} +
+
+Note that extensions are under development. Their service, environment variables and configuration may change.
+
+{empty} +
+
+toc::[]
+
+== Introduction
 
 {description}
 
@@ -15,6 +21,10 @@ For more details see xref:deployment/general/general-info.adoc#managing-extensio
 
 There are descriptions and configuration details for each extension available.
 
+== General Information
+
+Multiple environment variables for the same purpose::
++
 [TIP]
 ====
 You may see in the tables describing the environment variables that there are two environment variables in the same row configuring the same task. In such a case, the following rule applies:
@@ -23,4 +33,13 @@ You may see in the tables describing the environment variables that there are tw
 * The second environment variable overwrites the first one, but ONLY for the one particular extension.
 
 Taking the `webdav` extension as an example, you want to set the `OCIS_URL` as a generic value, but for webdav, you want to use a different URL defined with `OCIS_PUBLIC_URL`.
+====
+
+Extension name vs. environment variable name::
++
+[TIP]
+====
+Environment variable names are always upper case and words are connected with an underscore. They start with the name of the extension. If the extension name is more than one word and the words are connected with a dash, the dash is replaced by an underscore. This info is useful when you search for environment variables based on the extension name.
+
+Example: `auth-basic` -> `AUTH_BASIC_XXX`
 ====
