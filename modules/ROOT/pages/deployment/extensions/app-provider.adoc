@@ -14,13 +14,13 @@
 
 === Environment Variables
 
-The `appprovider` extension is configured via the following environment variables:
+The `app-provider` extension is configured via the following environment variables:
 
-include::partial$extension_tables/appprovider_configvars.adoc[]
+include::partial$extension_tables/app-provider_configvars.adoc[]
 
 === YAML Example
 
 [source,yaml]
 ----
-include::{ocis-ext-includes}appprovider-config-example.yaml[]
+include::{ocis-ext-includes}app-provider-config-example.yaml[]
 ----
