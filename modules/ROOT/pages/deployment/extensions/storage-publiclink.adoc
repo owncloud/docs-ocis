@@ -1,9 +1,9 @@
-= OCDAV Extension Configuration
+= Storage-Publiclink Extension Configuration
 :toc: right
 
-:ext_name: ocdav
+:ext_name: storage-publiclink
 
-:description: The oCIS OCDAV extension provides ...
+:description: The oCIS Storage-Publiclink extension provides ...
 
 == Introduction
 

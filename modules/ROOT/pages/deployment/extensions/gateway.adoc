@@ -1,6 +1,8 @@
 = Gateway Extension Configuration
 :toc: right
 
+:ext_name: gateway
+
 :description: The oCIS Frontend extension provides ...
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `gateway` extension is configured via the following environment variables:
-
-include::partial$extension_tables/gateway_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}gateway-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

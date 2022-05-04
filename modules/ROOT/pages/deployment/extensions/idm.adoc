@@ -1,6 +1,8 @@
 = IDM Extension Configuration
 :toc: right
 
+:ext_name: idm
+
 :description: The oCIS IDM extension provides a minimal LDAP Service for oCIS. It is started as part of the the runtime and serves as a central place for storing user and group information.
 
 == Introduction
@@ -69,15 +71,4 @@ LDAPTLS_REQCERT=never \
 
 == Configuration
 
-=== Environment Variables
-
-The `idm` extension is configured via the following environment variables:
-
-include::partial$extension_tables/idm_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}idm-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]

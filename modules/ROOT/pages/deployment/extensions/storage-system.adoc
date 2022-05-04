@@ -1,9 +1,9 @@
-= OCDAV Extension Configuration
+= Storage-System Extension Configuration
 :toc: right
 
-:ext_name: ocdav
+:ext_name: storage-system
 
-:description: The oCIS OCDAV extension provides ...
+:description: The oCIS Storage-System extension provides ...
 
 == Introduction
 

@@ -1,9 +1,9 @@
-= OCDAV Extension Configuration
+= Thumbnails Extension Configuration
 :toc: right
 
-:ext_name: ocdav
+:ext_name: thumbnails
 
-:description: The oCIS OCDAV extension provides ...
+:description: The oCIS Thumbnails extension provides ...
 
 == Introduction
 

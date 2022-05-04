@@ -1,6 +1,8 @@
 = Graph Extension Configuration
 :toc: right
 
+:ext_name: graph
+
 :description: The oCIS Graph extension provides a simple graph world API which can be used by clients or other extensions.
 
 == Introduction
@@ -11,15 +13,4 @@
 
 == Configuration
 
-=== Environment Variables
-
-The `graph` extension is configured via the following environment variables:
-
-include::partial$extension_tables/graph_configvars.adoc[]
-
-=== YAML Example
-
-[source,yaml]
-----
-include::{ocis-ext-includes}graph-config-example.yaml[]
-----
+include::partial$deployment/extensions/env-and-yaml.adoc[]
