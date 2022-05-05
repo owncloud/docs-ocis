@@ -1,7 +1,7 @@
-= User Configuration
+= Users Configuration
 :toc: right
 
-:ext_name: user
+:ext_name: users
 
 :description: The oCIS User extension provides ...
 
@@ -10,6 +10,8 @@
 {description}
 
 // fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/extensions/beta-statement.adoc[]
 
 == Configuration
 

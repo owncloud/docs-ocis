@@ -3,11 +3,7 @@
 
 :description: Extensions are microservices and core components of oCIS. Each extension serves a particular task and can be configured independently. Extensions started with the runtime share the runtime management while extensions running outside the runtime are managed on their own but connect to each other when necessary.
 
-image::root/beta-badge-1.svg[width=200]
-
-{empty} +
-
-Note that extensions are under development. Their service, environment variables and configuration may change.
+include::partial$deployment/extensions/beta-statement.adoc[]
 
 {empty} +
 

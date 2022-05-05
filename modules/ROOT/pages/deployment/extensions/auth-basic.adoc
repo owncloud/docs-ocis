@@ -13,6 +13,8 @@
 
 To enable `auth-basic`, you first must set `PROXY_ENABLE_BASIC_AUTH` to `true`.
 
+include::partial$deployment/extensions/beta-statement.adoc[]
+
 // fixme: source description is still missing, and a better description is needed
 
 == Configuration
