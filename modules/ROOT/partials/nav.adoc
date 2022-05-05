@@ -21,7 +21,7 @@
 **** xref:deployment/extensions/gateway.adoc[Gateway]
 **** xref:deployment/extensions/graph-explorer.adoc[Graph Explorer]
 **** xref:deployment/extensions/graph.adoc[Graph]
-**** xref:deployment/extensions/group.adoc[Group]
+**** xref:deployment/extensions/groups.adoc[Groups]
 **** xref:deployment/extensions/idm.adoc[IDM]
 **** xref:deployment/extensions/nats.adoc[NATS]
 **** xref:deployment/extensions/notifications.adoc[Notification]
@@ -37,7 +37,7 @@
 **** xref:deployment/extensions/storage-users.adoc[Storage-Users]
 **** xref:deployment/extensions/store.adoc[Store]
 **** xref:deployment/extensions/thumbnails.adoc[Thumbnails]
-**** xref:deployment/extensions/user.adoc[User]
+**** xref:deployment/extensions/users.adoc[Users]
 **** xref:deployment/extensions/web.adoc[Web]
 **** xref:deployment/extensions/webdav.adoc[WebDAV]
 

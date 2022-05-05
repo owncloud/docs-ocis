@@ -1,7 +1,7 @@
-= Group Extension Configuration
+= Groups Extension Configuration
 :toc: right
 
-:ext_name: group
+:ext_name: groups
 
 :description: The oCIS Group extension provides ...
 
@@ -10,6 +10,8 @@
 {description}
 
 // fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/extensions/beta-statement.adoc[]
 
 == Configuration
 
