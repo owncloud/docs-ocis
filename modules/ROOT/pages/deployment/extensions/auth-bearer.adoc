@@ -3,7 +3,7 @@
 
 :ext_name: auth-bearer
 
-:description: The oCIS Auth Bearer extension provides ...
+:description: The oCIS Auth Bearer extension authenticates OpenID Connect bearer tokens.
 
 == Introduction
 
