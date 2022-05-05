@@ -1,6 +1,7 @@
 = Introduction to ownCloud Infinite Scale
 :toc: macro
 :toclevels: 2
+:github-url: https://github.com/owncloud/docs-ocis/issues
 
 // fixme: post beta phase, we have to remove this and fix the toc back to toc right
 
@@ -8,7 +9,7 @@ image::root/beta-badge-1.svg[width=200]
 
 {empty} +
 
-Like oCIS, this documentation is still in a beta state. We hope to provide the most crucial information but are not done yet. Forgive us if there are mistakes or information is missing. Feel free to report issues and we'll take care of them as soon as possible. Or you want to fix them yourself? We'd appreciate that even more.
+Like ownCloud Infinite Scale (oCIS), this documentation is still in a beta state. We hope to provide the most crucial information but are not done yet. Forgive us if there are mistakes or information is missing. Feel free to report issues and we'll take care of them as soon as possible on {github-url}[github] You want to fix them yourself? We'd appreciate that even more.
 
 {empty} +
 
@@ -27,9 +28,9 @@ toc::[]
 
 This documentation addresses administrators and technically-oriented management:
 
-* Responsible that services are up and running for users.
-* Responsible that the IT infrastructure is in line with the organization's compliance regulations.
-* The role as technical advisor / technical buyer.
+* people responsible that services are up and running for users,
+* people responsible that the IT infrastructure is in line with the organization's compliance regulations,
+* technical advisors and technical buyers.
 
 === ownCloud Infinite Scale Key Benefits
 
@@ -71,6 +72,7 @@ With oCIS, not much is needed to run your ownCloud server the way you want. Chec
 
 oCIS can be deployed via container or you can run the binary installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
 
+////
 === Configuration
 
 xref:configuration/index.adoc[Configuration] of oCIS is quite different to what you're used to and has never been easier. It works with environment variables and optional configuration files for you to create depending on your specific needs. The settings in configuration files can always be overruled by setting the respective environment variables manually on the command line.
@@ -82,3 +84,4 @@ Since the integrity and sovereignty of your data is the really important thing w
 == Upgrading from ownCloud 10
 
 If you already have an ownCloud 10 server running, you'll find the xref:migration/index.adoc[Migration] section most interesting.
+////
