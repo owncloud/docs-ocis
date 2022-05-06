@@ -2,7 +2,7 @@
 :toc: right
 :toclevels: 2
 
-:description: Like ownCloud server, oCIS distinguishes between regular users and the admin user with extended configuration and administration priviledges. However, with the new spaces concept, regular users can have different roles with different permissions for individual spaces.
+:description: Like ownCloud server, Infinite Scale distinguishes between regular users and the admin user with extended configuration and administration priviledges. However, with the new spaces concept, regular users can have different roles with different permissions for individual spaces.
 
 == Introduction
 
@@ -45,7 +45,7 @@ The creator of a space becomes manager and can delegate this role to another mem
 
 === Admin
 
-The _admin_ user is created during the setup of on oCIS instance. Check out the ownCloud Web section of the documention for details on all configuration options for admins.
+The _admin_ user is created during the setup of on Infinite Scale instance. Check out the ownCloud Web section of the documention for details on all configuration options for admins.
 
 With regard to spaces, roles and permissions, the admin user can create a new space and is then automatically assigned the manager role. After inviting more members to a space, the manager role can be delegated to another person. If an admin then downgrades his or her role to editor or viewer, this role can only be changes by the manager. The admin has no special priveledges with regard to spaces.
 

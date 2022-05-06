@@ -3,7 +3,7 @@
 
 :ext_name: storage-publiclink
 
-:description: The oCIS Storage-Publiclink extension provides ...
+:description: The Infinite Scale Storage-Publiclink extension provides ...
 
 == Introduction
 

@@ -108,14 +108,14 @@ To give some terminology guidance, images are unchangeable snapshots of live con
 +
 [source,bash]
 ----
-sudo docker pull owncloud/ocis
+docker pull owncloud/ocis
 ----
 
 * Check your Infinite Scale image with:
 +
 [source,bash]
 ----
-sudo docker images
+docker images
 ----
 +
 [caption=]
@@ -130,7 +130,7 @@ owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
 +
 [source,bash]
 ----
-sudo docker inspect owncloud/ocis:latest | \
+docker inspect owncloud/ocis:latest | \
    jq '.[] | .Config.Labels."org.opencontainers.image.version"'
 ----
 +
@@ -158,7 +158,7 @@ If you want to remove an Infinite Scale image, run the following command:
 
 [source,bash]
 ----
-sudo docker images
+docker images
 ----
 
 [caption=]
@@ -172,7 +172,7 @@ owncloud/ocis   latest    22c455afc445   46 hours ago   98.3MB
 Replace <image-id> with the ID you want to remove from the above printout:
 [source,bash]
 ----
-sudo docker rmi <image-id>
+docker rmi -f <image-id>
 ----
 
 == Start the Infinite Scale Runtime
@@ -195,7 +195,7 @@ The Infinite Scale container runs internally with the default user and group ID 
 
 [source,bash]
 ----
-sudo docker inspect owncloud/ocis | less | grep -i user | sort -u
+docker inspect owncloud/ocis | less | grep -i user | sort -u
 ----
 [source,plaintext]
 ----
@@ -252,7 +252,7 @@ To run the Docker container, simply type:
 
 [source,bash]
 ----
-sudo docker run \
+docker run \
     --name ocis_runtime \
     --rm \
     -it \
@@ -380,7 +380,7 @@ Check if the Docker service is set to be automatically started on boot:
 
 [source,bash]
 ----
-systemctl is-enabled docker
+sudo systemctl is-enabled docker
 ----
 
 * If the output is `enabled`, you can proceed with the section to autostart the container.
@@ -442,7 +442,28 @@ Containers run in isolation and don’t know anything about other processes or c
 
 In a nutshell, you have to create a Docker network and reference this network in all the containers that should be able to talk to each other.
 
-=== Docker Compose
+== GUI for Docker
+
+* Docker on Linux does not have a dashboard by default, you have to use available tools like {portainer-url}[Portainer] or others which need manual installation.
+
+* {docker-desktop-url}[Docker Desktop], which is available for macOS, includes the {docker-dashboard-url}[Docker Dashboard] without the need for additional installations.
+
+== Container Orchestration
+
+There are many container orchestration tools like {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
+
+Container orchestration tools are necessary to meet the requirements described in xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability].
+
+The pages +
+{swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and +
+{swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
+can give a brief overview of their purpose, advantages and disadvantages of both tools.
+
+// fixme: there should be a link instead of the next line to the upcoming Kubernetes documentation
+ 
+For Kubernetes, there are already {helm-charts-ocis-url}[Helm Charts] available that can be used and adjusted.
+
+== Docker Compose
 
 Similar to when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the environment variables for each container in one file. This is the next step of multi-container environments.
 
@@ -539,23 +560,4 @@ When you're done with the configuration, save the file and start the application
 
 Check out the other container stacks on GitHub as well and adjust them to your needs.
 
-=== Container Orchestration
-
-There are many container orchestration tools like {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
-
-Container orchestration tools are necessary to meet the requirements described in xref:availability_scaling/#container[Availability and Scalability].
-
-The pages +
-{swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and +
-{swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
-can give a brief overview of their purpose, advantages and disadvantages of both tools.
-
-// fixme: there should be a link instead of the next line to the upcoming Kubernetes documentation
- 
-For Kubernetes, there are already {helm-charts-ocis-url}[Helm Charts] available that can be used and adjusted.
-
-== GUI for Docker
-
-* Docker on Linux does not have a dashboard by default, you have to use available tools like {portainer-url}[Portainer] or others which need manual installation.
-
-* {docker-desktop-url}[Docker Desktop], which is available for macOS, includes the {docker-dashboard-url}[Docker Dashboard] without the need for additional installations.
+ownCloud provides some {compose-examples-url}[example docker compose] files as a starting point and guidance for your own setup. Change the data according your needs. Check the Infinite Scale version when using a template for production environments.

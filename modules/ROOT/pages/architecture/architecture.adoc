@@ -11,13 +11,13 @@
 :etag-url: https://en.wikipedia.org/wiki/HTTP_ETag
 :cs3-url: https://www.cs3community.org
 
-:description: This page gives you an overview of the architecture and the concepts behind ownCloud Infinite Scale. oCIS was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
+:description: This page gives you an overview of the architecture and the concepts behind ownCloud Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
 == Introduction
 
 {description}
 
-These topics have always been kept in mind during the development of oCIS:
+These topics have always been kept in mind during the development of Infinite Scale:
 
 * data platform
 * unified data access 
@@ -26,24 +26,24 @@ These topics have always been kept in mind during the development of oCIS:
 
 == Architecture Overview
 
-Looking at the image below, you see that the state of classic file sharing is not sufficient for today's requirements and the trend clearly heads toward services around data and metadata. Iron-cast structures do not allow for additional value that could be created out of data and metadata. Services available to clients like end users or management have to be able to follow different and dynamic requirements. This is the basis of the oCIS architecture. 
+Looking at the image below, you see that the state of classic file sharing is not sufficient for today's requirements and the trend clearly heads toward services around data and metadata. Iron-cast structures do not allow for additional value that could be created out of data and metadata. Services available to clients like end users or management have to be able to follow different and dynamic requirements. This is the basis of the Infinite Scale architecture. 
 
 image::architecture/ocis_data_platform.svg[width=750]
 
 === C4 Model
 
-We use the C4 model to visualise the software architecture of oCIS.
+We use the C4 model to visualise the software architecture of Infinite Scale.
 
 [quote, '(C) Wikipedia {c4-model-url}[C4 Model]']
 ____
 The C4 model is a lean graphical notation technique for modelling the architecture of software systems. It is based on a structural decomposition of a system into containers and components and relies on existing modelling techniques such as the Unified Modelling Language (UML) or Entity Relation Diagrams (ERD) for the more detailed decomposition of the architectural building blocks.
 ____
 
-Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[oCIS C4 Model] raw description file.
+Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[Infinite Scale C4 Model] raw description file.
 
-image::architecture/c4-ocis-system-context.svg[oCIS System Context, width=500]
+image::architecture/c4-ocis-system-context.svg[Infinite Scale System Context, width=500]
 
-image::architecture/c4-ocis-system-container.svg[oCIS Container View]
+image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View]
 
 == Concepts
 
@@ -63,7 +63,7 @@ Spaces have a small memory footprint and are therefore very effective. For detai
 
 ==== Federated Storage
 
-To create a truly federated storage architecture, oCIS breaks down the ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
+To create a truly federated storage architecture, Infinite Scale breaks down the ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
 
 The diagram below shows the core concepts of the new architecture:
 
@@ -73,15 +73,15 @@ The diagram below shows the core concepts of the new architecture:
 
 * Storage spaces represent a collection of files and folders. A user's personal files are contained in a storage space. A group or project drive is a storage space. Even incoming shares are treated and implemented as storage spaces, each with properties like owners, permissions, quota and type.
 
-* Storage providers can hold multiple storage spaces. On an oCIS instance, there might be a dedicated storage provider responsible for users' personal storage spaces. There might be multiple storage providers, either to shard the load, provide different levels of redundancy or support custom workflows. Or there might be just one, hosting all types of storage spaces.
+* Storage providers can hold multiple storage spaces. On an Infinite Scale instance, there might be a dedicated storage provider responsible for users' personal storage spaces. There might be multiple storage providers, either to shard the load, provide different levels of redundancy or support custom workflows. Or there might be just one, hosting all types of storage spaces.
 
 image:architecture/idea.drawio.svg[]
 
 For example, *Einstein* wants to share something with *Marie*, who has an account at a _different_ identity provider and uses a different storage space registry. OpenID Connect (OIDC) is used for authentication.
 
-* *Einstein* opens `\https://cloud.zurich.test`. His browser loads oCIS Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `\https://idp.zurich.test`, authenticate and get redirected back to `\https://cloud.zurich.test`.
+* *Einstein* opens `\https://cloud.zurich.test`. His browser loads Infinite Scale Web and presents a login form that uses OpenID Connect Discovery to look up the OIDC issuer. For `einstein@zurich.test`, he will end up at `\https://idp.zurich.test`, authenticate and get redirected back to `\https://cloud.zurich.test`.
 
-* Now, oCIS Web will use a similar discovery to look up the storage space registry for the account based on the email address (or username). He will discover that `\https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
+* Now, Infinite Scale Web will use a similar discovery to look up the storage space registry for the account based on the email address (or username). He will discover that `\https://cloud.zurich.test` is also his storage registry which the Web UI will use to load the list of storage spaces available to him.
 
 * After locating a folder that *Einstein* wants to share with *Marie*, he enters her email address `marie@paris.test` in the sharing dialog to grant her the editor role. This, in effect, creates a new storage space that is registered with the storage space registry at `\https://cloud.zurich.test`.
 
@@ -91,28 +91,28 @@ For example, *Einstein* wants to share something with *Marie*, who has an accoun
 
 * If `\https://cloud.zurich.test` trusts her OpenID Connect identity provider `\https://idp.paris.test`, she can log in.
 
-* This time, the storage space registry discovery will come up with `\https://cloud.paris.test` though. Since that registry is different than the registry tied to `\https://cloud.zurich.test`, oCIS Web can look up the storage space `716199a6-00c0-4fec-93d2-7e00150b1c84` and register the WebDAV URL `\https:/cloud.zurich.test/dav/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path` in Marie`s storage space registry at `\https://cloud.paris.test`.
+* This time, the storage space registry discovery will come up with `\https://cloud.paris.test` though. Since that registry is different than the registry tied to `\https://cloud.zurich.test`, Infinite Scale Web can look up the storage space `716199a6-00c0-4fec-93d2-7e00150b1c84` and register the WebDAV URL `\https:/cloud.zurich.test/dav/spaces/716199a6-00c0-4fec-93d2-7e00150b1c84/a/rel/path` in Marie`s storage space registry at `\https://cloud.paris.test`.
 
 * When *Marie* accepts that share, her clients will be able to sync the new storage space at `\https://cloud.zurich.test`.
 
 === Runtime Concepts
 
-==== oCIS Microservice Runtime
+==== Infinite Scale Microservice Runtime
 
-oCIS runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, oCIS will start all built-in oCIS extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
+Infinite Scale runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, Infinite Scale will start all built-in Infinite Scale extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
 
-==== oCIS Extensions
+==== Infinite Scale Extensions
 
-Every oCIS extension uses https://github.com/owncloud/ocis/tree/master/ocis-pkg[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with oCIS. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the oCIS runtime to the individual extensions.
+Every Infinite Scale extension uses https://github.com/owncloud/ocis/tree/master/ocis-pkg[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with Infinite Scale. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the Infinite Scale runtime to the individual extensions.
 
 ==== Go-Micro
 
-While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For oCIS we decided to use a more admin-friendly runtime: You can download a single binary and start the contained oCIS extensions with a single command: `ocis server`. This also makes packaging easier.
+While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download a single binary and start the contained Infinite Scale extensions with a single command: `ocis server`. This also makes packaging easier.
 
 ==== REVA
 
-A lot of embedded services in oCIS are built on {reva-url}[REVA] runtime. We decided to bundle some of the {cs3-url}[CS3] services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
+A lot of embedded services in Infinite Scale are built on {reva-url}[REVA] runtime. We decided to bundle some of the {cs3-url}[CS3] services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
 
 ==== Protocol-Driven Development
 
-Interacting with oCIS involves a multitude af APIs. The server and all clients rely on {oidc-url}[OpenID Connect] for authentication. The embedded LibreGraph Connect can be replaced with any other OpenID Connect Identity Provider. Clients use the {webdav-url}[WebDAV]-based https://github.com/cernbox/smashbox/blob/master/protocol/protocol.md[ownCloud sync protocol] to manage files and folders, Open Collaboration Services (OCS) to manage shares and https://tus.io/protocols/resumable-upload.html[TUS] to upload files in a resumable way. On the server side, REVA is the reference implementation of the https://github.com/cs3org/cs3apis[CS3APIS], which are defined using protocol buffers. By embedding Go-lang LDAP Authentication (GLAuth), oCIS provides a read-only LDAP interface to make accounts, including guests, available to firewalls and other systems.
+Interacting with Infinite Scale involves a multitude af APIs. The server and all clients rely on {oidc-url}[OpenID Connect] for authentication. The embedded LibreGraph Connect can be replaced with any other OpenID Connect Identity Provider. Clients use the {webdav-url}[WebDAV]-based https://github.com/cernbox/smashbox/blob/master/protocol/protocol.md[ownCloud sync protocol] to manage files and folders, Open Collaboration Services (OCS) to manage shares and https://tus.io/protocols/resumable-upload.html[TUS] to upload files in a resumable way. On the server side, REVA is the reference implementation of the https://github.com/cs3org/cs3apis[CS3APIS], which are defined using protocol buffers. By embedding Go-lang LDAP Authentication (GLAuth), Infinite Scale provides a read-only LDAP interface to make accounts, including guests, available to firewalls and other systems.

@@ -2,7 +2,7 @@
 :toc:right
 :downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/
 
-:description: This quick guide provides copy and paste commands to have an oCIS instance up and running within minutes for hands on use. Read the documentation for details before you dive down and plan to deploy into production.
+:description: This quick guide provides copy and paste commands to have an Infinite Scale instance up and running within minutes for hands on use. Read the documentation for details before you dive down and plan to deploy into production.
 
 == Introduction
 
@@ -40,4 +40,4 @@ OCIS_URL=https://localhost:9200 \
 ocis server
 ----
 
-After installing and starting oCIS, you can access the web UI via `\https://localhost:9200`.
+After installing and starting Infinite Scale, you can access the web UI via `\https://localhost:9200`.

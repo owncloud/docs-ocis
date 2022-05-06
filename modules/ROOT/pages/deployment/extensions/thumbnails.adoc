@@ -3,7 +3,7 @@
 
 :ext_name: thumbnails
 
-:description: The oCIS Thumbnails extension provides ...
+:description: The Infinite Scale Thumbnails extension provides ...
 
 == Introduction
 

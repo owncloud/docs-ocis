@@ -1,7 +1,7 @@
 = General Info
 :toc: right
 
-:description: This document covers general aspects of oCIS like start modes, extensions, important minimum configuration etc. for a common understanding.
+:description: This document covers general aspects of Infinite Scale like start modes, extensions, important minimum configuration etc. for a common understanding.
 
 == Introduction
 
@@ -9,25 +9,25 @@
 
 The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
-When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-ocis-with-environment-variables[] for details.
+When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-infinite-scale-with-environment-variables[] for details.
 
 == Embedded Supervisor (Runtime)
 
-oCIS has an xref:architecture/architecture.adoc#ocis-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
 The following two mode types do not predefine a particular installation method like the manual or container setup. When using Kubernetes, the embedded supervisor is not necessary, the supervisor of the underlying system is used.
 
-Starting oCIS using the embedded supervisor::
+Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * when you do testing and/or development
 * small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]) or 
 
-Starting oCIS in unsupervised mode::
-This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run oCIS with its extensions.
+Starting Infinite Scale in unsupervised mode::
+This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its extensions.
 
-== Start oCIS With All Predefined Extensions
+== Start Infinite Scale With All Predefined Extensions
 
 When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised extensions.
 
@@ -42,33 +42,39 @@ This will print an output like:
 
 [source,plaintext]
 ----
-+------------------------+
-|       EXTENSION        |
-+------------------------+
-| glauth                 |
-| graph                  |
-| graph-explorer         |
-| idp                    |
-| ocs                    |
-| onlyoffice             |
-| proxy                  |
-| settings               |
-| storage-authbasic      |
-| storage-authbearer     |
-| storage-frontend       |
-| storage-gateway        |
-| storage-groupsprovider |
-| storage-home           |
-| storage-metadata       |
-| storage-public-link    |
-| storage-sharing        |
-| storage-users          |
-| storage-users-provider |
-| store                  |
-| thumbnails             |
-| web                    |
-| webdav                 |
-+------------------------+
++--------------------+
+|     EXTENSION      |
++--------------------+
+| app-provider       |
+| app-registry       |
+| auth-basic         |
+| auth-bearer        |
+| auth-machine       |
+| frontend           |
+| gateway            |
+| graph              |
+| graph-explorer     |
+| groups             |
+| idm                |
+| idp                |
+| nats               |
+| notifications      |
+| ocdav              |
+| ocs                |
+| proxy              |
+| search             |
+| settings           |
+| sharing            |
+| storage-publiclink |
+| storage-shares     |
+| storage-system     |
+| storage-users      |
+| store              |
+| thumbnails         |
+| users              |
+| web                |
+| webdav             |
++--------------------+
 ----
 
 == Managing Extensions
@@ -81,7 +87,7 @@ Type `ocis help` to get a list of available extensions.
 
 === Manage Instances of Extensions
 
-==== oCIS Supervised Extensions
+==== Infinite Scale Supervised Extensions
 
 You can start, list or kill available extensions in supervised mode with the `ocis` command. _These extensions share the same PID_. To manage supervised extensions, you need to run `ocis server` first or an xref:default-runtime-error-response[error] will be thrown.
 
@@ -97,7 +103,7 @@ ocis run proxy --config-file=/path/proxy.yaml
 ----
 ====
 
-NOTE: This configuration file must contain *ALL* configuration details for this extension. See the xref:configuration-of-ocis[Configuration Arithmetic] for more details. 
+NOTE: This configuration file must contain *ALL* configuration details for this extension. See the xref:configuration-rules[Configuration Arithmetic] for more details. 
 
 // fixme: tell the reason, it uses the same PID...
 // Because its part of the ocis process. Added a little above.
@@ -148,11 +154,11 @@ To fix this, start the runtime with `ocis server` first and redo the command.
 
 NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
-. oCIS uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
+. Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
 +
 .. Environment variables
 .. Extension configuration file
-.. oCIS configuration file
+.. Infinite Scale configuration file
 
 . The default locations for config files are:
 +
@@ -164,11 +170,11 @@ NOTE: Administrators must be aware of the sources, the location and order applie
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`.
 +
-NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-ocis[Setting up systemd for oCIS], you _must_ specify a configuration file location.
+NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you _must_ specify a configuration file location.
 
 === Configuration File Naming
 
-The configuration files for oCIS are YAML-based (a human-friendly data serialization language).
+The configuration files for Infinite Scale are YAML-based (a human-friendly data serialization language).
 
 The filename to define a config has the following namespace:
 
@@ -186,9 +192,9 @@ You can list the possible extension names by typing:
 ocis list
 ----
 
-=== Starting oCIS With Environment Variables
+=== Starting Infinite Scale With Environment Variables
 
-You can use environment variables to define or overwrite config parameters which will be used when starting oCIS like:
+You can use environment variables to define or overwrite config parameters which will be used when starting Infinite Scale like:
 
 [source,bash]
 ----
@@ -204,7 +210,7 @@ PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
 
-Remember the note in xref:ocis-supervised-extensions[] when killing/restarting extensions in supervised mode.
+Remember the note in xref:infinite-scale-supervised-extensions[] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
@@ -237,12 +243,12 @@ log:
 
 == Configurations to Access the WebUI
 
-You can easily access oCIS via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:demo-users-and-groups[].
+You can easily access Infinite Scale via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:demo-users-and-groups[].
 
 OCIS_URL::
 Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
 +
-NOTE: If you need to access oCIS running on a VM or a remote machine via a host name other than localhost or in a container, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
+NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
 PROXY_HTTP_ADDR::
 When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
@@ -253,11 +259,11 @@ When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If
 
 // https://owncloud.dev/ocis/deployment/basic-remote-setup/
 
-Certificates are necessary to secure browser access. oCIS can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell oCIS which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+Certificates are necessary to secure browser access. Infinite Scale can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell Infinite Scale which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
 
 === Embedded Self-Signed Certificates
 
-In order to run oCIS with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
+In order to run Infinite Scale with automatically generated and self-signed certificates, set `OCIS_INSECURE=true`.
 
 [source,bash]
 ----
@@ -275,7 +281,7 @@ In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the 
 
 ==== Certificates Signed by a Trusted CA
 
-If you have your own certificates already in place, make oCIS use them by adding the following environment variables to the command. Replace the certificates path and file names according to your needs:
+If you have your own certificates already in place, make Infinite Scale use them by adding the following environment variables to the command. Replace the certificates path and file names according to your needs:
 
 [source,bash]
 ----
@@ -287,9 +293,9 @@ PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
 ocis server
 ----
 
-== Define the oCIS Data Path
+== Define the Infinite Scale Data Path
 
-Because oCIS does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
+Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
 The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
 
@@ -298,17 +304,17 @@ The following rules apply:
 * If you do NOT define this environment variable, the following applies:
 ** The base path is by default `$HOME/.ocis/` after performing a _manual setup_.
 ** The base path is by default `/var/lib/ocis` inside the container when using the _container setup_.
-* The directory must exist and the user used for oCIS must have full access and permissions.
+* The directory must exist and the user used for Infinite Scale must have full access and permissions.
 
-NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for oCIS, because a system user has no logon and therefore no home directory!
+NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
 
-WARNING: The location must exclusively be used by oCIS. Writing into this location not using oCIS is strictly discouraged to avoid any unexpected behaviour. 
+WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
 
 == Default Users and Groups
 
-Default users and groups are only created when you start oCIS for the _very first time_, either via the runtime or by starting the xref:deployment/extensions/idm.adoc[IDM extension] outside the runtime. The same is true for demo users and groups which need an environment variable to be set _on first startup_ to get created.
+Default users and groups are only created when you initialize Infinite Scale as first task. The same is true for demo users and groups which need an environment variable to be set _on initializing Infinite Scale_ to get created.
 
-NOTE: If you have not declared demo user creation on first startup, you can for the time being only empty the xref:deployment/general/general-info.adoc#define-the-ocis-data-path[oCIS base directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
+NOTE: If you have not declared demo user creation during initializing, you can for the time being only empty the xref:define-the-infinite-scale-data-path[Infinite Scale base directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
 
 // fixme: the current implementation of the bootstrap creates the admin user and if set the demo users and adds them to the idm/boltdb file, see the idm extension. BUT if you have started ocis without demo user creation, you cant let ocis create them POST first start... https://github.com/owncloud/ocis/issues/3593 
 
@@ -342,9 +348,9 @@ Login to the webinterface with this admin user and change relevant data accordin
 // https://owncloud.dev/ocis/getting-started/index
 // https://owncloud.dev/ocis/getting-started/demo-users/
 
-WARNING: You can let oCIS create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
+WARNING: You can let Infinite Scale create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
 
-To let oCIS create these demo users and groups for you, start the _runtime_ the very first time with:
+To let Infinite Scale create these demo users and groups for you, start the _runtime_ the very first time with:
 
 [source,bash]
 ----
@@ -416,4 +422,4 @@ If you have enabled demo users and groups and you want to manage or delete them,
 
 // https://owncloud.dev/ocis/deployment/ocis_individual_services/
 
-When using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and oCIS again. You can therefore set `OCIS_INSECURE=false` or remove it completely.
+When using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and Infinite Scale again. You can therefore set `OCIS_INSECURE=false` or remove it completely.

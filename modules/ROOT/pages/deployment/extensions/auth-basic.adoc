@@ -3,7 +3,7 @@
 
 :ext_name: auth-basic
 
-:description: The oCIS Auth Basic extension provides basic authentication for those clients who cannot handle OIDC. This are rare cases and is usually not necessary.
+:description: The Infinite Scale Auth Basic extension provides basic authentication for those clients who cannot handle OIDC. This are rare cases and is usually not necessary.
 
 == Introduction
 

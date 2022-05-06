@@ -3,7 +3,7 @@
 
 :ext_name: auth-machine
 
-:description: The oCIS Auth Machine extension provides ...
+:description: The Infinite Scale Auth Machine extension provides ...
 
 == Introduction
 

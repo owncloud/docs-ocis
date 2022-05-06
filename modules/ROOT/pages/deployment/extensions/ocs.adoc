@@ -3,7 +3,7 @@
 
 :ext_name: ocs
 
-:description: The oCIS OCS extension provides ...
+:description: The Infinite Scale OCS extension provides ...
 
 == Introduction
 

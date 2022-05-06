@@ -3,7 +3,7 @@
 
 :ext_name: web
 
-:description: The oCIS Web extension provides ...
+:description: The Infinite Scale Web extension provides ...
 
 == Introduction
 

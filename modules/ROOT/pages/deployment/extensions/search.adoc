@@ -3,7 +3,7 @@
 
 :ext_name: search
 
-:description: The oCIS Search extension provides a ...
+:description: The Infinite Scale Search extension provides a ...
 
 == Introduction
 

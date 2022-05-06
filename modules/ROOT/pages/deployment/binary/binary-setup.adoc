@@ -6,17 +6,17 @@
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-:description: oCIS can either be downloaded from ownCloud or installed via the package manger of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
+:description: Infinite Scale can either be downloaded from ownCloud or installed via the package manger of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
 == Introduction
 
 {description}
 
-Installing the oCIS binary manually works well if you want to quickly test oCIS without performing additional tasks like a container preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability/index.adoc[Availability and Scalability] documentation for impacts. 
+Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks like a container preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] documentation for impacts. 
 
 == Prerequisite
 
-NOTE: oCIS by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone.
+NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone.
 
 == Installation
 
@@ -52,7 +52,7 @@ ocis version {ocis-version}
 
 // fixme: recommended directory possibly to be adjusted when we actually have a recommended or standard location.
 
-* To install oCIS via the package manager of your Linux system, use the package manager commands to search for ocis and install it accordingly.
+* To install Infinite Scale via the package manager of your Linux system, use the package manager commands to search for ocis and install it accordingly.
 +
 [NOTE]
 ====
@@ -75,15 +75,15 @@ or
 ocis help
 ----
 
-== Accessing the oCIS Runtime
+== Accessing the Infinite Scale Runtime
 
-When you have configured and started the oCIS _runtime_ either xref:starting-ocis[manually] or via xref:setting-up-systemd-for-ocis[systemd] as described below, you can access it via a browser using `localhost:9200` or whatever URL and port you have defined.
+When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `localhost:9200` or whatever URL and port you have defined.
 
-== Start and Stop oCIS
+== Start and Stop Infinite Scale
 
-=== Starting oCIS
+=== Starting Infinite Scale
 
-oCIS is started in two steps:
+Infinite Scale is started in two steps:
 
 * A first time start to initiate the system and
 * a recurring start after initialization.
@@ -92,7 +92,7 @@ Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[
 
 ==== First Time Start
 
-oCIS needs a first time initialization to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. The default location for config files is, if not otherwise defined `$HOME/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize oCIS.
+Infinite Scale needs a first time initialization to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. The default location for config files is, if not otherwise defined `$HOME/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize Infinite Scale.
 
 [source,bash]
 ----
@@ -103,13 +103,13 @@ On success, you will see a message like:
  
 include::partial$deployment/ocis_init.adoc[]
 
-==== Recurring Start of oCIS
+==== Recurring Start of Infinite Scale
 
-After initializing oCIS for the first time, you can start the oCIS runtime which includes embedded extensions. See the sections xref:deployment/general/general-info.adoc#starting-ocis-with-environment-variables[Starting oCIS With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path] for basic environment variables.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded extensions. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path] for basic environment variables.
 
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
-To start the oCIS runtime type:
+To start the Infinite Scale runtime type:
 
 [source,bash]
 ----
@@ -132,7 +132,7 @@ ocis web server & disown -h
 
 NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
 
-=== List Running oCIS Processes
+=== List Running Infinite Scale Processes
 
 To list all running ocis processes type:
 
@@ -147,7 +147,7 @@ ps ax | grep ocis | grep -v grep
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 
-=== Stopping oCIS
+=== Stopping Infinite Scale
 
 Depending what you want to stop, differnt commands need to be applied.
 
@@ -192,9 +192,9 @@ To terminate the `ocis proxy` service type the following command, where `sudo` m
 sudo kill -15 221706
 ----
 
-== Setting up systemd for oCIS
+== Setting up systemd for Infinite Scale
 
-To run the *oCIS runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
+To run the *Infinite Scale runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
 
 [source,bash]
 ----
@@ -205,7 +205,7 @@ Then copy the content of the systemd file below into the editor and save it.
 
 // info: we use the user ocis as example in the same way as users are created for apache, nginx mysql etc
 
-* The user `ocis` is just a placeholder for any user to run oCIS, the user must exist or be created first.
+* The user `ocis` is just a placeholder for any user to run Infinite Scale, the user must exist or be created first.
 +
 [NOTE]
 ====
@@ -247,7 +247,7 @@ Restart=always
 WantedBy=multi-user.target
 ----
 
-Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-ocis-data-path[Define the oCIS Data Path].
+Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 
@@ -267,31 +267,31 @@ Run the following command to apply your changes:
 sudo systemctl daemon-reload
 ----
 
-Now you can run oCIS as a systemd service. Start it with:
+Now you can run Infinite Scale as a systemd service. Start it with:
 
 [source,bash]
 ----
 sudo systemctl enable --now ocis
 ----
 
-With this setup, oCIS is restarted automatically after a reboot.
+With this setup, Infinite Scale is restarted automatically after a reboot.
 
-If you need to restart oCIS because of configuration changes in `/etc/ocis/ocis.env`, run:
+If you need to restart Infinite Scale because of configuration changes in `/etc/ocis/ocis.env`, run:
 
 [source,bash]
 ----
 sudo systemctl restart ocis
 ----
 
-The logs of oCIS can be displayed by issuing:
+The logs of Infinite Scale can be displayed by issuing:
 
 [source,bash]
 ----
 sudo journalctl -f -u ocis
 ----
 
-=== Dependent oCIS Service Startup
+=== Dependent Infinite Scale Service Startup
 
-If you want to ensure that you have e.g. a necessary NFS mount point up and running _before_ the oCIS service starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
+If you want to ensure that you have e.g. a necessary NFS mount point up and running _before_ the Infinite Scale service starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
 
-NOTE: This step can be an important measure, because if the oCIS service starts up but the necessary mount point is not available, you may be in an undefined oCIS operating state.
+NOTE: This step can be an important measure, because if the Infinite Scale service starts up but the necessary mount point is not available, you may be in an undefined Infinite Scale operating state.

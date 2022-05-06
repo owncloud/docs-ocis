@@ -3,7 +3,6 @@
 
 // harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
 
-
 :why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
 :eli5-K8s-url: https://dev.to/miguelmota/comment/filh
 :wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
@@ -20,7 +19,7 @@
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 :kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
 
-:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (oCIS) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of oCIS on a Kubernetes cluster.
+:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (Infinite Scale) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
 
 == Introduction
 
@@ -34,13 +33,13 @@ We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on
 
 Also see the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] in our _Availability and Scalability_ guide.
 
-== ownCloud Infinite Scale and Kubernetes
+== Infinite Scale and Kubernetes
 
-oCIS follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of oCIS is modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
+Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
 
 == Requirements
 
-For efficient use of oCIS with Kubernetes, you either need to install {K8s-setup-url}[Kubernetes] directly or {minikube-url}[minikube]. Since a full-fledged Kubernetes setup is far beyond the scope of this documentation, we
+For efficient use of Infinite Scale with Kubernetes, you either need to install {K8s-setup-url}[Kubernetes] directly or {minikube-url}[minikube]. Since a full-fledged Kubernetes setup is far beyond the scope of this documentation, we
 assume you have already a Kubernetes cluster running or you want to experiment with minikube.
 
 minikube::
@@ -96,13 +95,13 @@ kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
 Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ----
 
-== Using Helm Charts with oCIS
+== Using Helm Charts with Infinite Scale
 
 === Installing Helm
 
 To install Helm, refer to the official guide {helm-guide-url}[Installing Helm].
 
-The easiest way to run the entire oCIS package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner workings of Kubernetes or its resources as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
+The easiest way to run the entire Infinite Scale package is by using the available {ocis-helm-charts-url}[charts]. It is not the purpose of this guide to explain the inner workings of Kubernetes or its resources as Helm builds an abstraction on top of it, letting you interact with a refined interface that roughly translates to "helm install" and "helm uninstall".
 
 To host charts, one can create a {charts-repo-url}[charts repository], but this is also beyond the scope of this documentation.
 

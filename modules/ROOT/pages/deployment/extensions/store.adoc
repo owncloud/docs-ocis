@@ -3,7 +3,7 @@
 
 :ext_name: store
 
-:description: The oCIS Store extension provides ...
+:description: The Infinite Scale Store extension provides ...
 
 == Introduction
 

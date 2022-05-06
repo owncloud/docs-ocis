@@ -3,7 +3,7 @@
 
 :ext_name: sharing
 
-:description: The oCIS Sharing extension provides ...
+:description: The Infinite Scale Sharing extension provides ...
 
 == Introduction
 

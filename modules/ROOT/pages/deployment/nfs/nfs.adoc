@@ -17,7 +17,7 @@
 :rpc-statd-url: https://linux.die.net/man/8/rpc.statd
 :innodb_flush_method-url: https://mariadb.com/kb/en/library/innodb-system-variables/#innodb_flush_method
 
-:description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for oCIS.
+:description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for Infinite Scale.
 
 == Introduction
 
@@ -38,7 +38,7 @@ Any tuning considerations, beside mounting options, should therefore be attempte
 
 == NFSv4 Overview
 
-To use NFS for oCIS, you must use *NFSv4* for various reasons. 
+To use NFS for Infinite Scale, you must use *NFSv4* for various reasons. 
 
 * Most importantly, starting with NFSv4, *Extended Attributes* can be provided by the NFS server, _if implemented_. See the xref:prerequisites/prerequisites.adoc#nfs_notes_prerequisites[NFS Notes] in the prerequisites documentation for more details.
 * *Improved Security:* It {nfs-strong-security-architecture-url}[mandates a strong security architecture]. It does not require {rpc-statd-url}[rpc.statd] or {lockd-url}[lockd]. As a result, it only uses port 2049.

@@ -3,7 +3,7 @@
 
 :ext_name: ocdav
 
-:description: The oCIS OCDAV extension provides ...
+:description: The Infinite Scale OCDAV extension provides ...
 
 == Introduction
 
