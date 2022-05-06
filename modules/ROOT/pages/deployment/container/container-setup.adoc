@@ -480,7 +480,7 @@ In this example, you'll need three domains set up. For experimenting with a loca
 127.0.0.1 keycloak.owncloud.test
 ----
 
-Download the `ocis_keycloak` files from GitHub into your project directory. Open the file .env in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
+Download the `ocis_keycloak` files from GitHub into your project directory. Open the file `.env` file in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
 
 [source,plaintext]
 ----
@@ -495,38 +495,51 @@ DEMO_USERS=false
 ### Traefik settings ###
 # Serve Traefik dashboard. Defaults to "false".
 TRAEFIK_DASHBOARD=
+
 # Domain of Traefik, where you can find the dashboard. Defaults to "traefik.owncloud.test"
 TRAEFIK_DOMAIN=
+
 # Basic authentication for the dashboard. Defaults to user "admin" and password "admin"
 TRAEFIK_BASIC_AUTH_USERS=
+
 # Email address for obtaining LetsEncrypt certificates, needs only be changed if this is a public facing server
 TRAEFIK_ACME_MAIL=
 
 ### oCIS settings ###
 # oCIS version. Defaults to "latest"
 OCIS_DOCKER_TAG=
+
 # Domain of oCIS, where you can find the frontend. Defaults to "ocis.owncloud.test"
 OCIS_DOMAIN=
+
 # owncloud Web openid connect client id. Defaults to "web"
 OCIS_OIDC_CLIENT_ID=
+
 # IDP LDAP bind password. Must be changed in order to have a secure oCIS. Defaults to "idp".
 IDP_LDAP_BIND_PASSWORD=
+
 # Storage LDAP bind password. Must be changed in order to have a secure oCIS. Defaults to "reva".
 STORAGE_LDAP_BIND_PASSWORD=
+
 # JWT secret which is used for the storage provider. Must be changed in order to have a secure oCIS. Defaults to "Pive-Fumkiu4"
 OCIS_JWT_SECRET=
+
 # JWT secret which is used for uploads to create transfer tokens. Must be changed in order to have a secure oCIS. Defaults to "replace-me-with-a-transfer-secret"
 STORAGE_TRANSFER_SECRET=
+
 # Machine auth api key secret. Must be changed in order to have a secure oCIS. Defaults to "change-me-please"
 OCIS_MACHINE_AUTH_API_KEY=
 
 ### Keycloak ###
 # Domain of Keycloak, where you can find the management and authentication frontend. Defaults to "keycloak.owncloud.test"
 KEYCLOAK_DOMAIN=
+
 # Realm which to be used with oCIS. Defaults to "oCIS"
 KEYCLOAK_REALM=
+
 # Admin user login name. Defaults to "admin"
 KEYCLOAK_ADMIN_USER=
+
 # Admin user login password. Defaults to "admin"
 KEYCLOAK_ADMIN_PASSWORD=
 
@@ -546,13 +559,13 @@ Traefik will issue certificates with LetsEncrypt and therefore you must set an e
 
 By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
 
-Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. OCIS_DOMAIN=ocis.owncloud.test.
+Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. `OCIS_DOMAIN=ocis.owncloud.test`.
 
 If you want to change the OIDC client ID of the ownCloud Web frontend, specify the name with `OCIS_OIDC_CLIENT_ID=`.
 
-Set your domain for the Keycloak administration panel and authentication endpoints with `KEYCLOAK_DOMAIN=`, e.g. KEYCLOAK_DOMAIN=keycloak.owncloud.test.
+Set your domain for the Keycloak administration panel and authentication endpoints with `KEYCLOAK_DOMAIN=`, e.g. `KEYCLOAK_DOMAIN=keycloak.owncloud.test`.
 
-Changing the used Keycloak realm can be done by setting `KEYCLOAK_REALM=`. This defaults to the Infinite Scale realm KEYCLOAK_REALM=oCIS. The Infinite Scale realm will be automatically imported on startup and includes our demo users.
+Changing the used Keycloak realm can be done by setting `KEYCLOAK_REALM=`. This defaults to the Infinite Scale realm `KEYCLOAK_REALM=oCIS`. The Infinite Scale realm will be automatically imported on startup and includes our demo users.
 
 You should secure your Keycloak admin account by setting `KEYCLOAK_ADMIN_USER=` and `KEYCLOAK_ADMIN_PASSWORD=` to values other than `admin`.
 
