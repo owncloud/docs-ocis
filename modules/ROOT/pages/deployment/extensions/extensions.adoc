@@ -1,7 +1,7 @@
 = Extensions
 :toc: macro
 
-:description: Extensions are microservices and core components of oCIS. Each extension serves a particular task and can be configured independently. Extensions started with the runtime share the runtime management while extensions running outside the runtime are managed on their own but connect to each other when necessary.
+:description: Extensions are microservices and core components of Infinite Scale. Each extension serves a particular task and can be configured independently. Extensions started with the runtime share the runtime management while extensions running outside the runtime are managed on their own but connect to each other when necessary.
 
 include::partial$deployment/extensions/beta-statement.adoc[]
 
@@ -44,5 +44,5 @@ Default values containing curly brackets::
 +
 [TIP]
 ====
-When looking into the table showing the environment variables of an extension, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid default values.
+In the table showing the environment variables of an extension, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid default values.
 ====
