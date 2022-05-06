@@ -39,3 +39,10 @@ Environment variable names are always upper case and words are connected with an
 
 Example: `auth-basic` -> `AUTH_BASIC_XXX`
 ====
+
+Default values containing curly brackets::
++
+[TIP]
+====
+When looking into the table showing the environment variables of an extension, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid default values.
+====
