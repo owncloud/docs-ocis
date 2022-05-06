@@ -3,7 +3,7 @@
 
 :ext_name: storage-shares
 
-:description: The oCIS Storage-Shares extension provides ...
+:description: The Infinite Scale Storage-Shares extension provides ...
 
 == Introduction
 

@@ -3,7 +3,7 @@
 
 :ext_name: graph
 
-:description: The oCIS Graph extension provides a simple graph world API which can be used by clients or other extensions.
+:description: The Infinite Scale Graph extension provides a simple graph world API which can be used by clients or other extensions.
 
 == Introduction
 

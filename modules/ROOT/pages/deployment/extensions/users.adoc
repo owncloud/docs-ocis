@@ -3,7 +3,7 @@
 
 :ext_name: users
 
-:description: The oCIS User extension provides ...
+:description: The Infinite Scale User extension provides ...
 
 == Introduction
 

@@ -3,7 +3,7 @@
 
 :ext_name: groups
 
-:description: The oCIS Group extension provides ...
+:description: The Infinite Scale Group extension provides ...
 
 == Introduction
 

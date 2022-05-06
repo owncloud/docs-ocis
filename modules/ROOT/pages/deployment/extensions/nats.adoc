@@ -3,7 +3,7 @@
 
 :ext_name: nats
 
-:description: The oCIS NATS extension provides ...
+:description: The Infinite Scale NATS extension provides ...
 
 == Introduction
 

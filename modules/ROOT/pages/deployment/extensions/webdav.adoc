@@ -3,7 +3,7 @@
 
 :ext_name: webdav
 
-:description: The oCIS WebDAV extension provides an essential service for collaboration on the web.
+:description: The Infinite Scale WebDAV extension provides an essential service for collaboration on the web.
 
 == Introduction
 

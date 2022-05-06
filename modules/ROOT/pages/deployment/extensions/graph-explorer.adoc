@@ -3,7 +3,7 @@
 
 :ext_name: graph-explorer
 
-:description: The oCIS Graph Explorer extension provides ...
+:description: The Infinite Scale Graph Explorer extension provides ...
 
 == Introduction
 

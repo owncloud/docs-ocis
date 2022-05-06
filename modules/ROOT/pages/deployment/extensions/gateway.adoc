@@ -3,7 +3,7 @@
 
 :ext_name: gateway
 
-:description: The oCIS Frontend extension provides ...
+:description: The Infinite Scale Frontend extension provides ...
 
 == Introduction
 

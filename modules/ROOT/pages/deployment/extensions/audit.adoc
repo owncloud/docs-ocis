@@ -3,7 +3,7 @@
 
 :ext_name: audit
 
-:description: The audit service allows for easy monitoring of your oCIS server.
+:description: The audit service allows for easy monitoring of your Infinite Scale server.
 
 == Introduction
 

@@ -1,6 +1,6 @@
 [source,plaintext]
 ----
-Do you want to configure oCIS with certificate checking disabled?
+Do you want to configure Infinite Scale with certificate checking disabled?
  This is not recommended for public instances! [yes | no = default]
 
 =========================================

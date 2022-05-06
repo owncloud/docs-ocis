@@ -3,7 +3,7 @@
 
 :ext_name: notifications
 
-:description: The oCIS Notification extension provides ...
+:description: The Infinite Scale Notification extension provides ...
 
 == Introduction
 

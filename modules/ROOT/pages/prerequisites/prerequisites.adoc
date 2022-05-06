@@ -17,19 +17,19 @@
 :apache_rev_url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 :what_is_apache_url: https://www.apache.org/
 
-:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate oCIS successfully.
+:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate Infinite Scale successfully.
 
 == Introduction
 
 {description}
 
-Note that oCIS is based on a highly dynamic interoperable _microservices_ concept, although it is delivered as a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
+Note that Infinite Scale is based on a highly dynamic interoperable _microservices_ concept, although it is delivered as a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
 
 The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/architecture.adoc[Architecture and Concepts] and xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] first.
 
 == Hardware
 
-The minimum hardware requirements depend on the usage scenario you have in mind for your oCIS instance. You need at least hardware that runs a Linux based operating system, preferably 64bit.
+The minimum hardware requirements depend on the usage scenario you have in mind for your Infinite Scale instance. You need at least hardware that runs a Linux based operating system, preferably 64bit.
 
 * For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
 * For more intense testing purposes, the recommended start hardware is a multi-core processor with at least 4GB of RAM.
@@ -76,25 +76,25 @@ OS-dependent::
 * Needs for the OS
 * Classic inode/block caching for storage back ends
 
-oCIS-dependent::
+Infinite Scale-dependent::
 * Keeping the `stat info` in memory (`stat cache`)
 * Keeping static assets like for the web frontend
-* The number of concurrent clients accessing oCIS
+* The number of concurrent clients accessing Infinite Scale
 * Computation processes like calculating thumbnails from files or images
 
-While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy oCIS before you get started. Consider re-reading the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
+While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy Infinite Scale before you get started. Consider re-reading the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
 
 ==== Keeping Things in Memory
 
-oCIS has the concept of _spaces_ where a space contains files and folders, is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
+Infinite Scale has the concept of _spaces_ where a space contains files and folders, is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
 
 Each space provides a virtual root and occupies at least one metadata block at its root. A metadata block will contain at minimum one inode, and can contain dependent of the inode size multiple inodes.
 
 Whenever a file or folder below the root of the tree changes its content or metadata, and inode changes and the change is propagated to the spaces root to indicate it. A new stat info is created and cached and ETags get recalculated if requested based on the stat info. To let a client detect changes, the discovery phase starts at the spaces root to check for changed ETags since the last discovery going forward in the tree based on changed ETags.
 
-oCIS also has an internal process to identify when changes to files or folders happen to create a new stat info which is the base to calculate ETags.
+Infinite Scale also has an internal process to identify when changes to files or folders happen to create a new stat info which is the base to calculate ETags.
 
-The number of spaces one oCIS instance can handle can be huge without re-accessing the storage back end, limited only by the server's memory. If you chose a distributed deployment, there is no limit in spaces at all.
+The number of spaces one Infinite Scale instance can handle can be huge without re-accessing the storage back end, limited only by the server's memory. If you chose a distributed deployment, there is no limit in spaces at all.
 
 Here are some numbers based on the ext4 filesystem, see xref:filesystems-and-shared-storage[Filesystems and Shared Storage] for different values:
 
@@ -104,10 +104,10 @@ Here are some numbers based on the ext4 filesystem, see xref:filesystems-and-sha
 * The blocksize that is cached by the OS is 4K.
 * A block therefore can contain max 16 inodes.
 * A spaces root needs at least one inode which results in occupying at least one 4k block.
-* The `stat info` managed and cached by oCIS per space is 1K.
+* The `stat info` managed and cached by Infinite Scale per space is 1K.
 * The size of an ETag is 40 bytes.
 
-The benefit of keeping the inode/stat/block in memory is easily explained. All clients accessing oCIS poll for ETag changes. If the base infos are kept in memory, the response time minimizes.
+The benefit of keeping the inode/stat/block in memory is easily explained. All clients accessing Infinite Scale poll for ETag changes. If the base infos are kept in memory, the response time minimizes.
 
 ==== Calculation example:
 
@@ -146,8 +146,8 @@ Summary (caching view only)::
 ====
 The above table can be interpreted as follows:
 
-* The memory needed for keeping the root inode is based on the number of spaces created (oCIS relevant) and the blocksize (filesystem dependent).
-* The memory needed for caching stat info is directly related to the number spaces (oCIS relevant).
+* The memory needed for keeping the root inode is based on the number of spaces created (Infinite Scale relevant) and the blocksize (filesystem dependent).
+* The memory needed for caching stat info is directly related to the number spaces (Infinite Scale relevant).
 ====
 
 Consideration Summary::
@@ -166,7 +166,7 @@ Consideration Summary::
 Storing metadata in memory is important with respect to access and synchronization performance.
 
 Backend Check::
-oCIS has a notification process when a change occcurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
+Infinite Scale has a notification process when a change occcurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
 
 Client Check::
 Usually, every connected client polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
@@ -177,7 +177,7 @@ This makes it clear why RAM can be an essential performance factor for client ac
 
 The bandwidth requirements and limitations are based on the following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from the Internet are not part of this description but can be derived from the LAN point of view:
 
-Clients, which are accessing oCIS, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
+Clients, which are accessing Infinite Scale, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
 
 // fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
 
@@ -212,7 +212,7 @@ Summary::
 ====
 As you can see above, the bandwidth requirements depend on:
 
-* The number of concurrent clients accessing oCIS
+* The number of concurrent clients accessing Infinite Scale
 * The number of spaces to be synced
 * The dynamics of changes
 * The relative location of a change
@@ -223,7 +223,7 @@ The quantity of files and folders in total has only an impact on the first, but 
 
 == Virtualization
 
-Depending on the usecase, you can run oCIS on:
+Depending on the usecase, you can run Infinite Scale on:
 
 * No virtualization, bare metal
 * Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
@@ -231,7 +231,7 @@ Depending on the usecase, you can run oCIS on:
 
 == Supported Operating Systems
 
-For _best performance_, _stability_, _support_, and _full functionality_ we officially support oCIS running on the following Linux distributions:
+For _best performance_, _stability_, _support_, and _full functionality_ we officially support Infinite Scale running on the following Linux distributions:
 
 * Debian 10 and 11
 * Fedora 32 and 33
@@ -249,7 +249,7 @@ It is strongly recommend to use a reverse proxy for:
 . high availability.
 
 
-The oCIS documentation will use *traefik* for examples, but you can use NGINX, Apache or others too. All three products provide either a binary or docker file to download.
+The Infinite Scale documentation will use *traefik* for examples, but you can use NGINX, Apache or others too. All three products provide either a binary or docker file to download.
 
 [quote, '(C) {traefik_github_url}[Traefik Labs, The Cloud Native Application Proxy]']
 ____
@@ -272,14 +272,14 @@ ____
 
 == Filesystems and Shared Storage
 
-oCIS currently supports two different internal filesystem drivers which are `ocisfs` and `s3ng`.
+Infinite Scale currently supports two different internal filesystem drivers which are `ocisfs` and `s3ng`.
 
 * When the `ocisfs` driver is used, data and metadata must be on a POSIX-compliant filesystem.
 * When the `s3ng` driver is used, data resides on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. This is necessary for performance reasons.
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
-The currently supported oCIS POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
+The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
 
 Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
 

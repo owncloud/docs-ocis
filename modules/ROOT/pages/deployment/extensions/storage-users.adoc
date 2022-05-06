@@ -3,7 +3,7 @@
 
 :ext_name: storage-users
 
-:description: The oCIS Storage-Users extension provides ...
+:description: The Infinite Scale Storage-Users extension provides ...
 
 == Introduction
 

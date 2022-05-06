@@ -11,7 +11,7 @@ Configuration can either be done via environment variables or in configuration f
 === Overview Configuration Files
 
 
-If you have a systemd service configured for oCIS, you have your environment file defined in `/etc/systemd/system/ocis.service`, likely `/etc/ocis/ocis.env`.
+If you have a systemd service configured for Infinite Scale, you have your environment file defined in `/etc/systemd/system/ocis.service`, likely `/etc/ocis/ocis.env`.
 
 // $HOME/.ocis/config/
 

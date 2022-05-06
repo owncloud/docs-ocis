@@ -3,7 +3,7 @@
 
 :ext_name: settings
 
-:description: The oCIS Settings extension provides ...
+:description: The Infinite Scale Settings extension provides ...
 
 == Introduction
 

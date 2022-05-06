@@ -3,7 +3,7 @@
 
 :ext_name: storage-system
 
-:description: The oCIS Storage-System extension provides ...
+:description: The Infinite Scale Storage-System extension provides ...
 
 == Introduction
 
