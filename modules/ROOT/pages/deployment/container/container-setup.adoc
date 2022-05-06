@@ -480,7 +480,7 @@ In this example, you'll need three domains set up. For experimenting with a loca
 127.0.0.1 keycloak.owncloud.test
 ----
 
-Download the `ocis_keycloak` files from GitHub into your project directory. Open the file `.env` file in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
+Download the `ocis_keycloak` files from GitHub into your project directory. Open the `.env` file in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
 
 [source,plaintext]
 ----
