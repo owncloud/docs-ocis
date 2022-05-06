@@ -85,3 +85,5 @@ Since the integrity and sovereignty of your data is the really important thing w
 
 If you already have an ownCloud 10 server running, you'll find the xref:migration/index.adoc[Migration] section most interesting.
 ////
+
+NOTE: In configuration variables and comments, you'll often come accross the word oCIS or ocis, short for "ownCloud Infinite Scale", while the product is simply called Infinite Scale.
