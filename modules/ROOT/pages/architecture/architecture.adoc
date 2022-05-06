@@ -28,7 +28,7 @@ These topics have always been kept in mind during the development of Infinite Sc
 
 Looking at the image below, you see that the state of classic file sharing is not sufficient for today's requirements and the trend clearly heads toward services around data and metadata. Iron-cast structures do not allow for additional value that could be created out of data and metadata. Services available to clients like end users or management have to be able to follow different and dynamic requirements. This is the basis of the Infinite Scale architecture. 
 
-image::architecture/ocis_data_platform.svg[width=750]
+image::architecture/infinite_scale_data_platform.svg[width=750]
 
 === C4 Model
 
@@ -39,7 +39,7 @@ ____
 The C4 model is a lean graphical notation technique for modelling the architecture of software systems. It is based on a structural decomposition of a system into containers and components and relies on existing modelling techniques such as the Unified Modelling Language (UML) or Entity Relation Diagrams (ERD) for the more detailed decomposition of the architectural building blocks.
 ____
 
-Use this link to download the link:{attachmentsdir}/architecture/ocis-c4-model.dsl[Infinite Scale C4 Model] raw description file.
+Use this link to download the link:{attachmentsdir}/architecture/infinite-scale-c4-model.dsl[Infinite Scale C4 Model] raw description file.
 
 image::architecture/c4-ocis-system-context.svg[Infinite Scale System Context, width=500]
 
