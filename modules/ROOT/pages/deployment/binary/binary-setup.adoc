@@ -72,7 +72,7 @@ or
 
 [source,bash]
 ----
-ocis help
+ocis --help
 ----
 
 == Accessing the Infinite Scale Runtime

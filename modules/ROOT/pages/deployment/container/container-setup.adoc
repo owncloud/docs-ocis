@@ -133,9 +133,9 @@ latest
 First check the current version of the image used with the command above and compare it with the versions available on {docker-ocis-url}[Docker Hub]. When a new image is available use these steps to upgrade the image:
 
 * xref:stop-a-running-container[Stop] the running Infinite Scale container
-* xref:remove-an-ocis-image[Remove] the actual image
-* xref:download-the-ocis-image[Download] the desired new image
-* xref:start-the-ocis-runtime[Start] the Infinite Scale runtime
+* xref:remove-an-infinite-scale-image[Remove] the actual image
+* xref:download-the-infinite-scale-image[Download] the desired new image
+* xref:start-the-infinite-scale-runtime[Start] the Infinite Scale runtime
 
 For detailed commands see the corresponding sections.
 
@@ -252,7 +252,7 @@ docker run \
     owncloud/ocis
 ----
 
-To access Infinite Scale, open your browser and type `\https://<your-hostname>:9200`.
+To access Infinite Scale, open your browser and type `\https://<your-hostname>:9200`
 
 WARNING: While this is not used in production and for testing purposes only, you could run more than one Infinite Scale runtime container concurrently. In such a case, you have to define different ports and data paths for each of the runtime containers to avoid unexpected behavior.
 

@@ -1,0 +1,68 @@
+= Extension Rules
+:toc: right
+
+:description: This document describes how concurrencies are handled with go/Infinite Scale, how this impacts instantiation of extensions and how configuration of an extension works.
+
+== Introduction
+
+{description}
+
+== Instantiation of Extensions
+
+Extensions get connected by a user or process. Due to the nature of 
+image:deployment/extensions/go_logo_blue.svg[width=40], the programming language used for Infinite Scale, each connection will create a thread which will be terminated when the connection ends. This means that as long as you have sufficient resources regarding CPU and memory, there will be as many threads created by extensions as necessary and terminated accordingly. All extensions started on the server share the same resource pool.
+
+In the image below the extensions used are just examples. It could be one extension or many extensions running concurrently. The image illustrates the following: 
+
+* As long you have resources available, the running extensions will create and terminate threads automatically.
+* There is no need to instantiate an extension on the same server to balance load.
+* If you increase the resource pool on the server, you can:
+** have more connections for existing extensions,
+** run additional but *different* extensions.
+* If the resource pool reaches its limits, you can create additional instances of extensions on a *different* server.
+* There are only a few exceptions like storage connectors as they will have a different configuration for each type of storage.
+
+These statements are true when using the runtime as well as when running extensions independent of the runtime.
+
+image::deployment/extensions/concurrence.drawio.svg[width=600]
+
+== Runtime Extensions
+
+* With the command `ocis server`, all extensions are started with the runtime and share the same PID. If you want to exclude extensions from starting with the runtime, you must define with an environment variable all extension to be started. Those not named will _not_ be started:
++
+[source,bash]
+----
+OCIS_RUN_EXTENSIONS=settings,storage-system, \
+    graph,graph-explorer,idp,ocs,store,thumbnails, \
+    web,webdav,frontend,gateway,users, groups, \
+    auth-basic,auth-bearer,storage-authmachine, \
+    storage-users,storage-shares,storage-publiclink, \
+    app-provider,sharing,proxy,ocdav \
+    ocis server
+----
++
+This is useful if you want to try starting an extension outside the runtime, e.g. when testing orchestration.
+
+* Runtime extension rules
+** You cannot instantiate a runtime extension
+** All runtime extensions are a part of the `ocis server` process and therefore share the same process ID (PID).
+** Runtime extensions share the same PID while nonruntime extensions have their own PID.
+
+== Configuration Rules
+
+Note that in the examples described, only the webdav extension is used, but the process is valid for all extensions available.
+
+Example::
+You start the Infinite Scale runtime with `ocis server`
++
+--
+. The configuration file `/etc/ocis/ocis.yaml` is read.
+. The configuration file `/etc/ocis/webdav.yaml` is read AND applied.
+. The environment variables are read and applied. These can overwrite already existing configuration elements. See section xref:deployment/general/general-info.adoc#configuration-of-infinite-scale[Configuration of Infinite Scale] about the order in which different configurations get applied (config arithmetics).
+--
++
+All extensions have started, share the same PID and have a defined config. Typing `ocis list` shows all active runtime extensions.
+
+This image gives you a graphical representation of the rule set described above.
+
+image::deployment/extensions/runtime_c1.drawio.svg[width=600]
