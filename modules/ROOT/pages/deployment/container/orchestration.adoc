@@ -1,8 +1,15 @@
-= Kubernetes and Helm Charts
+= Container Orchestration
 :toc: right
 
-// harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
-
+:docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
+:docker-hub-url: https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated
+:compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
+:docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
+:kubernetes-url: https://kubernetes.io
+:swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
+:swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
+:helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
+:ht-pwd-url: https://htpasswdgenerator.de/
 :why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
 :eli5-K8s-url: https://dev.to/miguelmota/comment/filh
 :wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
@@ -15,29 +22,101 @@
 :helm-url: https://helm.sh/
 :helm-guide-url: https://helm.sh/docs/intro/install/
 :charts-repo-url: https://helm.sh/docs/topics/chart_repository/
-:ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 :kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
 
-:description: Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (Infinite Scale) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
+:description: There are many container orchestration tools suitable for Infinite Scale, e.g. {docker-compose-url}[Docker-Compose], {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
 
 == Introduction
 
 {description}
 
-For more information on Kubernetes (K8s) features check out {why-K8s-url}[Why you need Kubernetes and what it can do].
+Container orchestration tools are necessary to meet the requirements described in xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability].
 
-If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
+The pages +
+{swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and +
+{swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
+can give a brief overview of their purpose, advantages and disadvantages of both tools.
+
+In this section, we provide guidelines for using Infinite Scale with Docker-Compose and Kubernetes. For Kubernetes, there are already {helm-charts-ocis-url}[Helm Charts] available that can be used and adjusted.
+
+== Docker Compose
+
+Similar to when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the environment variables for each container in one file. This is the next step of multi-container environments.
+
+Check if the package docker-compose is installed (in addition to docker):
++
+[source,bash]
+----
+which docker-compose
+----
++
+If Docker-Compose is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker-Compose first. On most Linux distributions, you can simply use the package manager to do so.
+
+
+Create a project directory, e.g. `ocis-compose`. Depending on your deployment intentions, pick configurations from our {compose-examples-url}[example docker compose] files or a complete stack.
+
+These are bundles of containers. For example, https://owncloud.dev/ocis/deployment/ocis_keycloak/[ocis_keycloak] delivers Keycloak and Infinite Scale, running behind Traefik as reverse proxy. Traefik generates self-signed certificates for a local setup or obtains valid SSL certificates for a server setup. Keycloak acts as Identity Provider (IDP) and comes with a PostgreSQL database. In total, this stack consists of four containers.
+
+In this example, you'll need three domains set up. For experimenting with a local setup, you may want to simply add them to your `/etc/hosts` file.
+
+[source,plaintext]
+----
+127.0.0.1 ocis.owncloud.test
+127.0.0.1 traefik.owncloud.test
+127.0.0.1 keycloak.owncloud.test
+----
+
+Download the `ocis_keycloak` files from GitHub into your project directory. Open the `.env` file in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
+
+[source,yaml]
+----
+include::https://raw.githubusercontent.com/owncloud/ocis/master/deployments/examples/ocis_keycloak/docker-compose.yml[]
+----
+
+If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
+
+If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD=true`. Default is `false` and therefore the dashboard is not active. If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, e.g. `TRAEFIK_DOMAIN=traefik.owncloud.test`.
+
+The Traefik dashboard is secured by basic auth. Default credentials are the user `admin` with the password admin. To set your own credentials, generate a htpasswd, e.g. by using an {ht-pwd-url}[online tool] or a command-line tool.
+
+Traefik will issue certificates with LetsEncrypt and therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
+
+By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on {docker-hub-url}[Docker Hub].
+
+Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. `OCIS_DOMAIN=ocis.owncloud.test`.
+
+If you want to change the OIDC client ID of the ownCloud Web frontend, specify the name with `OCIS_OIDC_CLIENT_ID=`.
+
+Set your domain for the Keycloak administration panel and authentication endpoints with `KEYCLOAK_DOMAIN=`, e.g. `KEYCLOAK_DOMAIN=keycloak.owncloud.test`.
+
+Changing the used Keycloak realm can be done by setting `KEYCLOAK_REALM=`. This defaults to the Infinite Scale realm `KEYCLOAK_REALM=oCIS`. The Infinite Scale realm will be automatically imported on startup and includes our demo users.
+
+You should secure your Keycloak admin account by setting `KEYCLOAK_ADMIN_USER=` and `KEYCLOAK_ADMIN_PASSWORD=` to values other than `admin`.
+
+When you're done with the configuration, save the file and start the application stack from the project directory with `docker-compose up -d`. For more details see {docker-compose-url}[Docker Compose].
+
+Check out the other container stacks on GitHub as well and adjust them to your needs.
+
+ownCloud provides some {compose-examples-url}[example docker compose] files as a starting point and guidance for your own setup. Change the data according your needs. Check the Infinite Scale version when using a template for production environments.
+
+
+== Kubernetes and Helm Charts
+
+// harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
+
+
+Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (Infinite Scale) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
+
+For more information on Kubernetes (K8s) features, check out {why-K8s-url}[Why you need Kubernetes and what it can do]. If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
 
 We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
 
 Also see the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] in our _Availability and Scalability_ guide.
 
-== Infinite Scale and Kubernetes
-
 Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
 
-== Requirements
+=== Requirements
 
 For efficient use of Infinite Scale with Kubernetes, you either need to install {K8s-setup-url}[Kubernetes] directly or {minikube-url}[minikube]. Since a full-fledged Kubernetes setup is far beyond the scope of this documentation, we
 assume you have already a Kubernetes cluster running or you want to experiment with minikube.
@@ -51,7 +130,7 @@ kubectl::
 Helm Charts::
 {helm-url}[Helm] is the equivalent of a package manager for Kubernetes. It can be described as a layer on top of how you would write {kubernetes-pod-url}[pods], deployments or any other K8s resource declaration.
 
-== Deploying minikube
+=== Deploying minikube
 
 Follow the {minikube-start-url}[official instructions] on how to set up minikube for your specific OS.
 
@@ -95,9 +174,9 @@ kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
 Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ----
 
-== Using Helm Charts with Infinite Scale
+=== Using Helm Charts with Infinite Scale
 
-=== Installing Helm
+==== Installing Helm
 
 To install Helm, refer to the official guide {helm-guide-url}[Installing Helm].
 
@@ -105,14 +184,14 @@ The easiest way to run the entire Infinite Scale package is by using the availab
 
 To host charts, one can create a {charts-repo-url}[charts repository], but this is also beyond the scope of this documentation.
 
-=== Requirements
+==== Requirements
 
 * minikube up and running.
 * `kubectl` installed. minikube wraps `kubectl` as `minikube kubectl`. By default you should be able to access the minikube cluster.
 * Helm cli installed.
 * git installed.
 
-=== Setup
+==== Setup
 
 . Clone the charts:
 +
