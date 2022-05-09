@@ -1,7 +1,7 @@
 = Securing Infinite Scale
 :toc: right
 
-:description: As any system being accessible via the web, Infinite Scale also needs to be secured via classical methods on the front end side you know best for your environment. In addition, demo users which can be created on initialisation should be removed before going productive.
+:description: As any system being accessible via the web, Infinite Scale also needs to be secured via classical methods on the front-end side. You know best what's necessary for your environment. However, demo users which can be created on initialization should definitely be removed before going productive.
 
 == Introduction
 
@@ -11,7 +11,7 @@
 
 Infinite Scale can be initialized with demo users for our customers to play around before you start a serious rollout. These demo users should be deleted post testing for security reasons.
 
-NOTE: The generation of demo users only happens if run the initial setup (`ocis init`) with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`, see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created.
+NOTE: The generation of demo users only happens if you run the initial setup (`ocis init`) with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`. For more information see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created.
 
 The demo users which are listed below can be deleted via the webUI.
 
