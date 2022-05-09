@@ -2,12 +2,14 @@
 :toc: right
 
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
+:docker-hub-url: https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated
 :compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
 :kubernetes-url: https://kubernetes.io
 :swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
+:ht-pwd-url: https://htpasswdgenerator.de/
 :why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
 :eli5-K8s-url: https://dev.to/miguelmota/comment/filh
 :wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
@@ -69,18 +71,18 @@ Download the `ocis_keycloak` files from GitHub into your project directory. Open
 
 [source,yaml]
 ----
-include::https://raw.githubusercontent.com/owncloud/ocis/master/deployments/examples/ocis_keycloak/docker-compose.yml
+include::https://raw.githubusercontent.com/owncloud/ocis/master/deployments/examples/ocis_keycloak/docker-compose.yml[]
 ----
 
 If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
 
 If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD=true`. Default is `false` and therefore the dashboard is not active. If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, e.g. `TRAEFIK_DOMAIN=traefik.owncloud.test`.
 
-The Traefik dashboard is secured by basic auth. Default credentials are the user `admin` with the password admin. To set your own credentials, generate a htpasswd, e.g. by using an https://htpasswdgenerator.de/[online tool] or a command-line tool.
+The Traefik dashboard is secured by basic auth. Default credentials are the user `admin` with the password admin. To set your own credentials, generate a htpasswd, e.g. by using an {ht-pwd-url}[online tool] or a command-line tool.
 
 Traefik will issue certificates with LetsEncrypt and therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
 
-By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
+By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on {docker-hub-url}[Docker Hub].
 
 Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. `OCIS_DOMAIN=ocis.owncloud.test`.
 
