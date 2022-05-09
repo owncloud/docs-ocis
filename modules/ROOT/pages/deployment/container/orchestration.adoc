@@ -24,6 +24,7 @@
 :charts-repo-url: https://helm.sh/docs/topics/chart_repository/
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 :kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
+:ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 
 :description: There are many container orchestration tools suitable for Infinite Scale, e.g. {docker-compose-url}[Docker-Compose], {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
 
