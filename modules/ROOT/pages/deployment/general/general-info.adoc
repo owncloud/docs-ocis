@@ -85,7 +85,7 @@ Extensions are microservices which can be started, stopped or instantiated. An x
 
 Just type `ocis` to get a list of commands and available extensions.
 
-When typing `ocis <extension-name> --help`, you will get detailed help with respect to the extension named.
+When typing `ocis <extension-name> --help`, you will get detailed help regarding the specified extension.
 
 === Manage Instances of Extensions
 
@@ -109,7 +109,7 @@ ocis list
 
 ==== Unsupervised Extensions
 
-At any time, you can create unsupervised instances of an extension with `ocis [extension-name] server`, for example `ocis proxy server`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classical OS methods or e.g. via Kubernetes.
+At any time, you can create unsupervised instances of an extension with `ocis [extension-name] server`, for example `ocis proxy server`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classic OS methods or e.g. via Kubernetes.
 
 Note that you need configuration for and access to the extension instances like with a load balancer when you scale.
 

@@ -10,9 +10,9 @@
 == Instantiation of Extensions
 
 Extensions get connected by a user or process. Due to the nature of 
-image:deployment/extensions/go_logo_blue.svg[width=40], the programming language used for Infinite Scale, each connection will create a thread which will be terminated when the connection ends. This means that as long you have sufficient resources regarding CPU and memory, there will be as many threads created by extensions as necessary and terminated accordingly. All extensions started on the server share the same resource pool.
+image:deployment/extensions/go_logo_blue.svg[width=40], the programming language used for Infinite Scale, each connection will create a thread which will be terminated when the connection ends. This means that as long as you have sufficient resources regarding CPU and memory, there will be as many threads created by extensions as necessary and terminated accordingly. All extensions started on the server share the same resource pool.
 
-The image below illustrates the following, where the extensions used are just examples. It could be one extension or many extensions running concurrently: 
+In the image below the extensions used are just examples. It could be one extension or many extensions running concurrently. The image illustrates the following: 
 
 * As long you have resources available, the running extensions will create and terminate threads automatically.
 * There is no need to instantiate an extension on the same server to balance load.
@@ -41,11 +41,11 @@ OCIS_RUN_EXTENSIONS=settings,storage-system, \
     ocis server
 ----
 +
-This is useful if you want to try starting an extension outside the runtime when e.g. testing orchestration.
+This is useful if you want to try starting an extension outside the runtime, e.g. when testing orchestration.
 
 * Runtime extension rules
 ** You cannot instantiate a runtime extension
-** All runtime extensions are a part of the `ocis server` process and therefore share the same PID.
+** All runtime extensions are a part of the `ocis server` process and therefore share the same process ID (PID).
 ** Runtime extensions share the same PID while nonruntime extensions have their own PID.
 
 == Configuration Rules
