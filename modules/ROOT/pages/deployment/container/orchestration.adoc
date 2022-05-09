@@ -46,16 +46,15 @@ In this section, we provide guidelines for using Infinite Scale with Docker-Comp
 Similar to when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the environment variables for each container in one file. This is the next step of multi-container environments.
 
 Check if the package docker-compose is installed (in addition to docker):
-+
+
 [source,bash]
 ----
 which docker-compose
 ----
-+
+
 If Docker-Compose is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker-Compose first. On most Linux distributions, you can simply use the package manager to do so.
 
-
-Create a project directory, e.g. `ocis-compose`. Depending on your deployment intentions, pick configurations from our {compose-examples-url}[example docker compose] files or a complete stack.
+Create a project directory, e.g. `ocis-compose` in your home directory. Depending on your deployment intentions, pick configurations from our {compose-examples-url}[example docker compose] files or a complete stack.
 
 These are bundles of containers. For example, https://owncloud.dev/ocis/deployment/ocis_keycloak/[ocis_keycloak] delivers Keycloak and Infinite Scale, running behind Traefik as reverse proxy. Traefik generates self-signed certificates for a local setup or obtains valid SSL certificates for a server setup. Keycloak acts as Identity Provider (IDP) and comes with a PostgreSQL database. In total, this stack consists of four containers.
 
