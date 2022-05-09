@@ -15,9 +15,7 @@
 :docker-bindmount-url: https://docs.docker.com/storage/bind-mounts/
 :docker-restart-url: https://docs.docker.com/engine/reference/commandline/restart/
 :docker-multi-url: https://docs.docker.com/get-started/07_multi_container/
-:docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
-:compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
-:docker-desktop-url: https://docs.docker.com/desktop/
+::docker-desktop-url: https://docs.docker.com/desktop/
 :docker-dashboard-url: https://docs.docker.com/desktop/dashboard/
 :portainer-url: https://www.portainer.io
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
@@ -36,12 +34,7 @@ This description mainly focuses on Docker which you can take as template or star
 
 == Docker Prerequisites
 
-To fetch and run Infinite Scale in a Docker container, make sure the following packages are installed:
-
-* docker,
-* docker-compose
-
-=== Check if You Have Docker Installed
+To fetch and run Infinite Scale in a Docker container, make sure the package docker is installed.
 
 * Note that when checking if software is installed on your system with the `which` command below, you might be shown links containing the queried names but pointing to a different program. After running a check via `which`, also try to execute the queried command and look if the output printed comes from docker like in the following example:
 +
@@ -61,16 +54,10 @@ which docker
 +
 If Docker is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker first.
 
-* Use the following command to check if `docker-compose` is installed on your system:
-+
-[source,bash]
-----
-which docker-compose
-----
 
-=== Install Docker and Docker-Compose
+=== Install Docker
 
-* On most Linux distributions you can simply install Docker and Docker-Compose via the package manager, usually Kubernetes as well.
+* On most Linux distributions, you can simply install Docker via the package manager. For later use, you might want to install Docker-Compose as well.
 +
 Alternatively, install Docker depending on your OS from the Docker site. See {install-docker-server-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 
@@ -80,7 +67,7 @@ Alternatively, install Docker depending on your OS from the Docker site. See {in
 
 Running a Docker container without root privileges (`sudo`), requires the user to be a member of the docker group.
 
-First check if the docker group is already created and you are member of this group:
+First, check if the docker group is already created and you are member of this group:
 
 [source,bash]
 ----
@@ -434,9 +421,7 @@ The {docker-logs-url}[docker logs] command shows information logged by a running
 docker logs -f <container-id>
 ----
 
-== Enhanced Usage
-
-=== Multi-Container Environment
+== Multi-Container Environment
 
 Containers run in isolation and don’t know anything about other processes or containers on the same machine. If containers are on the same network, they can talk to each other. See the {docker-multi-url}[Multi Container Apps] documentation to read more about this topic.
 
@@ -448,129 +433,3 @@ In a nutshell, you have to create a Docker network and reference this network in
 
 * {docker-desktop-url}[Docker Desktop], which is available for macOS, includes the {docker-dashboard-url}[Docker Dashboard] without the need for additional installations.
 
-== Container Orchestration
-
-There are many container orchestration tools like {docker-swarm-url}[Docker Swarm] and {kubernetes-url}[Kubernetes].
-
-Container orchestration tools are necessary to meet the requirements described in xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability].
-
-The pages +
-{swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and +
-{swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms] +
-can give a brief overview of their purpose, advantages and disadvantages of both tools.
-
-// fixme: there should be a link instead of the next line to the upcoming Kubernetes documentation
- 
-For Kubernetes, there are already {helm-charts-ocis-url}[Helm Charts] available that can be used and adjusted.
-
-== Docker Compose
-
-Similar to when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the environment variables for each container in one file. This is the next step of multi-container environments.
-
-Create a project directory, e.g. `ocis-compose`. Depending on your deployment intentions, pick configurations from our {compose-examples-url}[example docker compose] files or a complete stack.
-
-These are bundles of containers. For example, https://owncloud.dev/ocis/deployment/ocis_keycloak/[ocis_keycloak] delivers Keycloak and Infinite Scale, running behind Traefik as reverse proxy. Traefik generates self-signed certificates for a local setup or obtains valid SSL certificates for a server setup. Keycloak acts as Identity Provider (IDP) and comes with a PostgreSQL database. In total, this stack consists of four containers.
-
-In this example, you'll need three domains set up. For experimenting with a local setup, you may want to simply add them to your `/etc/hosts` file.
-
-[source,plaintext]
-----
-127.0.0.1 ocis.owncloud.test
-127.0.0.1 traefik.owncloud.test
-127.0.0.1 keycloak.owncloud.test
-----
-
-Download the `ocis_keycloak` files from GitHub into your project directory. Open the `.env` file in a text editor and adjust the environment variables according to your wishes. The default configuration looks like this:
-
-[source,plaintext]
-----
-# If you're on a internet facing server please comment out following line.
-# It skips certificate validation for various parts of oCIS and is needed if you use self signed certificates.
-INSECURE=true
-
-# The demo users should not be created on a production instance
-# because their passwords are public
-DEMO_USERS=false
-
-### Traefik settings ###
-# Serve Traefik dashboard. Defaults to "false".
-TRAEFIK_DASHBOARD=
-
-# Domain of Traefik, where you can find the dashboard. Defaults to "traefik.owncloud.test"
-TRAEFIK_DOMAIN=
-
-# Basic authentication for the dashboard. Defaults to user "admin" and password "admin"
-TRAEFIK_BASIC_AUTH_USERS=
-
-# Email address for obtaining LetsEncrypt certificates, needs only be changed if this is a public facing server
-TRAEFIK_ACME_MAIL=
-
-### oCIS settings ###
-# oCIS version. Defaults to "latest"
-OCIS_DOCKER_TAG=
-
-# Domain of oCIS, where you can find the frontend. Defaults to "ocis.owncloud.test"
-OCIS_DOMAIN=
-
-# owncloud Web openid connect client id. Defaults to "web"
-OCIS_OIDC_CLIENT_ID=
-
-# IDP LDAP bind password. Must be changed in order to have a secure oCIS. Defaults to "idp".
-IDP_LDAP_BIND_PASSWORD=
-
-# Storage LDAP bind password. Must be changed in order to have a secure oCIS. Defaults to "reva".
-STORAGE_LDAP_BIND_PASSWORD=
-
-# JWT secret which is used for the storage provider. Must be changed in order to have a secure oCIS. Defaults to "Pive-Fumkiu4"
-OCIS_JWT_SECRET=
-
-# JWT secret which is used for uploads to create transfer tokens. Must be changed in order to have a secure oCIS. Defaults to "replace-me-with-a-transfer-secret"
-STORAGE_TRANSFER_SECRET=
-
-# Machine auth api key secret. Must be changed in order to have a secure oCIS. Defaults to "change-me-please"
-OCIS_MACHINE_AUTH_API_KEY=
-
-### Keycloak ###
-# Domain of Keycloak, where you can find the management and authentication frontend. Defaults to "keycloak.owncloud.test"
-KEYCLOAK_DOMAIN=
-
-# Realm which to be used with oCIS. Defaults to "oCIS"
-KEYCLOAK_REALM=
-
-# Admin user login name. Defaults to "admin"
-KEYCLOAK_ADMIN_USER=
-
-# Admin user login password. Defaults to "admin"
-KEYCLOAK_ADMIN_PASSWORD=
-
-# If you want to use debugging and tracing with this stack,
-# you need uncomment following line. Please see documentation at
-# https://owncloud.dev/ocis/deployment/monitoring-tracing/
-#COMPOSE_FILE=docker-compose.yml:monitoring_tracing/docker-compose-additions.yml
-----
-
-If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
-
-If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD=true`. Default is `false` and therefore the dashboard is not active. If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, e.g. `TRAEFIK_DOMAIN=traefik.owncloud.test`.
-
-The Traefik dashboard is secured by basic auth. Default credentials are the user `admin` with the password admin. To set your own credentials, generate a htpasswd, e.g. by using an https://htpasswdgenerator.de/[online tool] or a command line tool.
-
-Traefik will issue certificates with LetsEncrypt and therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
-
-By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
-
-Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. `OCIS_DOMAIN=ocis.owncloud.test`.
-
-If you want to change the OIDC client ID of the ownCloud Web frontend, specify the name with `OCIS_OIDC_CLIENT_ID=`.
-
-Set your domain for the Keycloak administration panel and authentication endpoints with `KEYCLOAK_DOMAIN=`, e.g. `KEYCLOAK_DOMAIN=keycloak.owncloud.test`.
-
-Changing the used Keycloak realm can be done by setting `KEYCLOAK_REALM=`. This defaults to the Infinite Scale realm `KEYCLOAK_REALM=oCIS`. The Infinite Scale realm will be automatically imported on startup and includes our demo users.
-
-You should secure your Keycloak admin account by setting `KEYCLOAK_ADMIN_USER=` and `KEYCLOAK_ADMIN_PASSWORD=` to values other than `admin`.
-
-When you're done with the configuration, save the file and start the application stack from the project directory with `docker-compose up -d`. For more details see {docker-compose-url}[Docker Compose].
-
-Check out the other container stacks on GitHub as well and adjust them to your needs.
-
-ownCloud provides some {compose-examples-url}[example docker compose] files as a starting point and guidance for your own setup. Change the data according your needs. Check the Infinite Scale version when using a template for production environments.

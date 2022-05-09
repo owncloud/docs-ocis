@@ -8,7 +8,7 @@
 *** xref:deployment/general/general-info.adoc[General Info]
 *** xref:deployment/binary/binary-setup.adoc[Binary Setup]
 *** xref:deployment/container/container-setup.adoc[Container Setup]
-// *** xref:deployment/kubernetes/kubernetes.adoc[Kubernetes and Helm Charts]
+// *** xref:deployment/container/container-setup.adoc[Container Orchestration]
 *** xref:deployment/security/security.adoc[Securing oCIS]
 *** xref:deployment/nfs/nfs.adoc[Network File System Deployment]
 *** xref:deployment/extensions/extensions.adoc[Extensions]
