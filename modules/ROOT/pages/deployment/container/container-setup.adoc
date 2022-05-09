@@ -15,7 +15,7 @@
 :docker-bindmount-url: https://docs.docker.com/storage/bind-mounts/
 :docker-restart-url: https://docs.docker.com/engine/reference/commandline/restart/
 :docker-multi-url: https://docs.docker.com/get-started/07_multi_container/
-::docker-desktop-url: https://docs.docker.com/desktop/
+:docker-desktop-url: https://docs.docker.com/desktop/
 :docker-dashboard-url: https://docs.docker.com/desktop/dashboard/
 :portainer-url: https://www.portainer.io
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
