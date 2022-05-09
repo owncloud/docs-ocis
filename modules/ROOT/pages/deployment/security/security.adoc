@@ -1,7 +1,7 @@
 = Securing Infinite Scale
 :toc: right
 
-:description: Infinite Scale can be initialized with demo users that should be deleted for security reasons.
+:description: As any system being accessible via the web, Infinite Scale also needs to be secured via classical methods on the front end side you know best for your environment. In addition, demo users which can be created on initialisation should be removed before going productive.
 
 == Introduction
 
@@ -9,20 +9,10 @@
 
 == Delete Demo Users
 
-Infinite Scale offers to install demo users for our customers to play around with before they start a serious rollout:
+Infinite Scale can be initialized with demo users for our customers to play around before you start a serious rollout. These demo users should be deleted post testing for security reasons.
 
-[source,plaintext]
-----
-+----------+---------------+----------------------+-------+
-| username | password      | email                | role  |
-+----------+---------------+----------------------+------ +
-| einstein | relativity    | einstein@example.org | user  |
-| marie    | radioactivity | marie@example.org    | user  |
-| moss     | vista         | moss@example.org     | admin |
-| richard  | superfluidity | richard@example.org  | user  |
-+----------+---------------+----------------------+-------+
-----
+NOTE: The generation of demo users only happens if run the initial setup (`ocis init`) with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`, see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created.
 
-On a production system, these demo users should go.
+The demo users which are listed below can be deleted via the webUI.
 
-TIP: The generation of demo users only happens if run the initial setup with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`, see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created plus internal necessary users.
+include::partial$deployment/demo_user_table.adoc[]

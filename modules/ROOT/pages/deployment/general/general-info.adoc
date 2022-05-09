@@ -348,7 +348,7 @@ Login to the webinterface with this admin user and change relevant data accordin
 // https://owncloud.dev/ocis/getting-started/index
 // https://owncloud.dev/ocis/getting-started/demo-users/
 
-WARNING: You can let Infinite Scale create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_.
+WARNING: You can let Infinite Scale create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_, for details see xref:deployment/security/security.adoc[Securing Infinite Scale].
 
 To let Infinite Scale create these demo users and groups for you, start the _runtime_ the very first time with:
 
@@ -358,59 +358,7 @@ IDM_CREATE_DEMO_USERS=true \
 ocis server
 ----
 
-[caption=]
-.Demo users and groups created by the above command
-[width="90%",cols="30%,30%,45%,25%,50%",options="header"]
-|===
-| Username
-| Password
-| Email
-| Role
-| Groups
-
-| einstein
-| relativity
-| \einstein@example.org
-| user
-| users, +
-philosophy-haters, +
-physics-lovers, +
-sailing-lovers, +
-violin-haters
-
-| marie
-| radioactivity
-| \marie@example.org
-| user
-| users, +
-physics-lovers, +
-polonium-lovers, +
-radium-lovers
-
-| moss
-| vista
-| \moss@example.org
-| admin
-| users
-
-| richard
-| superfluidity
-| \richard@example.org
-| user
-| users, +
-philosophy-haters, +
-physics-lovers, +
-quantum-lovers
-
-| katherine
-| gemini
-| \katherine@example.org
-| space admin
-| users, +
-sailing-lovers, +
-physics-lovers, +
-quantum-lovers
-|===
+include::partial$deployment/demo_user_table.adoc[]
 
 You can now login with one of the demo users created using the `OCIS_URL` in you browser like `\https://localhost:9200`. 
 
