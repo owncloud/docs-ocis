@@ -2,5 +2,5 @@
 :toc: right
 :toclevels: 1
 
-In this section you find all about the configuration of ownCloud Infinite Space as well as information on how to set up the most relevant components.
+In this section you find all about the configuration of Infinite Scale as well as information on how to set up the most relevant components.
 

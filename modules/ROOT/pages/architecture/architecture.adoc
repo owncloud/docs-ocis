@@ -1,4 +1,4 @@
-= Architecture and Concepts of ownCloud Infinite Scale
+= Architecture and Concepts of Infinite Scale
 :toc: right
 :toclevels: 4
 
@@ -11,7 +11,7 @@
 :etag-url: https://en.wikipedia.org/wiki/HTTP_ETag
 :cs3-url: https://www.cs3community.org
 
-:description: This page gives you an overview of the architecture and the concepts behind ownCloud Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
+:description: This page gives you an overview of the architecture and the concepts behind Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
 == Introduction
 

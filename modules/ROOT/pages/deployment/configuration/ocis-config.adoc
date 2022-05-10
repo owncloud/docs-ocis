@@ -1,8 +1,8 @@
-== Configuration of ownCloud Infinite Space
+== Configuration of Infinite Scale
 :toc: right
 :toclevels: 1
 
-The configuration of ownCloud Infinite Scale is simple yet powerful and extremely flexible. If you have downloaded the binary from ownCloud directly instead of installing it via the package manager of your Linux operating system, copy or move the file to `/usr/bin/ocis` and make it executable with the command: `chmod +x /usr/bin/ocis`.
+The configuration of Infinite Scale is simple yet powerful and extremely flexible. If you have downloaded the binary from ownCloud directly instead of installing it via the package manager of your Linux operating system, copy or move the file to `/usr/bin/ocis` and make it executable with the command: `chmod +x /usr/bin/ocis`.
 
 Enter `ocis help` and you'll see all available options for the command.
 
