@@ -60,7 +60,7 @@ Create a project directory, like `ocis-compose` in your home directory to have a
 
 // harvested from https://owncloud.dev/ocis/deployment/kubernetes/ 2022-04-21
 
-Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. ownCloud Infinite Scale (Infinite Scale) was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
+Kubernetes (K8s) is an open-source plattform for managing containers that run applications. It ensures there is no downtime and an optimal usage of resources. It offers a framework in which to run distributed systems. Infinite Scale was designed with Kubernetes in mind. Therefore we provide Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
 
 For more information on Kubernetes (K8s) features, check out {why-K8s-url}[Why you need Kubernetes and what it can do]. If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
 

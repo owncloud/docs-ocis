@@ -1,4 +1,4 @@
-= Migrating from ownCloud 10 to ownCloud Infinite Scale
+= Migrating from ownCloud 10 to Infinite Scale
 :toc: right
 :toclevels: 1
 
@@ -26,7 +26,7 @@ NOTE: Legacy clients relying on Basic auth or app passwords need to be migrated 
 
 While OpenID Connect providers will send an `iss` and `sub` claim that relying parties (services like Infinite Scale or ownCloud 10) can use to identify users, we recommend introducing a dedicated, globally unique, persistent, non-reassignable user identifier like a UUID for every user. This `ownclouduuid` should be sent as an additional claim to save additional lookups on the server side. It will become the user id in Infinite Scale, e.g. when searching for recipients, the `ownclouduuid` will be used to persist permissions with the share manager. It serves a different purpose than the ownCloud 10 username, which is used to log in. Using UUIDs we can not only mitigate username collisions when merging multiple instances but also allow renaming users after the migration to Infinite Scale has been completed.
 
-== Use ownCloud Infinite Space internally
+== Use Infinite Scale internally
 
 Before letting Infinite Scale handle end user requests, make it available in the internal network first. By subsequently adding services, you can add functionality and verify the services work as intended.
 
