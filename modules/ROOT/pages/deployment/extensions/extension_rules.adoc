@@ -65,4 +65,4 @@ All extensions have started, share the same PID and have a defined config. Typin
 
 This image gives you a graphical representation of the rule set described above.
 
-image::deployment/extensions/runtime_c1.drawio.svg[width=600]
+image::deployment/extensions/runtime_c1.drawio.svg[width=400]
