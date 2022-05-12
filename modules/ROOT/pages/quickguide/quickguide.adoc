@@ -1,6 +1,5 @@
 = Quick Guide
 :toc:right
-:downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/
 
 :description: This quick guide provides copy and paste commands to have an Infinite Scale instance up and running within minutes for hands on use. Read the documentation for details before you dive down and plan to deploy into production.
 
@@ -18,7 +17,7 @@ Open a shell and copy/paste the following commands:
 
 [source,bash,subs="attributes+"]
 ----
-sudo wget -O /usr/bin/ocis {downloadpage_ocis_url}{ocis-version}/ocis-{ocis-version}-linux-arm64
+sudo wget -O /usr/bin/ocis {ocis-downloadpage-url}{ocis-version}/ocis-{ocis-version}-linux-arm64
 ----
 
 [source,bash]

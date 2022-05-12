@@ -2,7 +2,6 @@
 :toc: right
 :toclevels: 3
 
-:downloadpage_ocis_url: https://download.owncloud.com/ocis/ocis/stable/?sort=time&order=desc
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
@@ -20,7 +19,7 @@ NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `ava
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {downloadpage_ocis_url}[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `/usr/bin/`
 +
 To download use:
 +
