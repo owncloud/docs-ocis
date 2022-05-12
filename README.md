@@ -1,8 +1,8 @@
-# oCis Documentation
+# Infinite Scale Documentation
 
 ## Building the Docs
 
-The oCis documentation is not built independently. Instead, it is built together with the [server documentation](https://github.com/owncloud/docs/). However, you can build a local copy of the oCis documentation to preview changes you are making.
+The Infinite Scale documentation is not built independently. Instead, it is built together with the [main documentation](https://github.com/owncloud/docs/). However, you can build a local copy of the Infinite Scale documentation to preview changes you are making.
 
 Whenever a Pull Request of this repo gets merged, it automatically triggers a full docs build.
 
@@ -26,7 +26,7 @@ yarn install
 ```
 to setup all necessary dependencies.
 
-## Building the oCis Documentation
+## Building the Infinite Scale Documentation
 
 Run the following command to build the client documentation locally
 
@@ -48,8 +48,8 @@ See the the [following section](https://github.com/owncloud/docs#target-branch-a
 
 ## Branching Workflow
 
-Please refer to the [Branching Workflow for the oCis Documentation](https://github.com/owncloud/docs-ocis/blob/master/docs/the-branching-workflow.md) or more information.
+Please refer to the [Branching Workflow for the Infinite Scale Documentation](https://github.com/owncloud/docs-ocis/blob/master/docs/the-branching-workflow.md) or more information.
 
-## Create a New Version Branch for the oCis Documentation
+## Create a New Version Branch for the Infinite Scale Documentation
 
-Please refer to [Create a New Version Branch for the oCis Documentation](https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md) for more information.
+Please refer to [Create a New Version Branch for the Infinite Scale Documentation](https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md) for more information.
