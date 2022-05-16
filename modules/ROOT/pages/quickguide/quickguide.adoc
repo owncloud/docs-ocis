@@ -7,7 +7,7 @@
 
 {description}
 
-Using this guide will get a minimal configured environment including demo users up and running but can by nature not go into depth. Note that the binary used is based on `linux-arm-64bit`.
+Using this guide will get a minimal configured environment including demo users up and running but can by nature not go into depth. Note that the binary used is based on `linux-amd-64bit`.
 
 We recommend reading the xref:deployment/index.adoc[Deployment] section of the documentation as the next step for more information on setup and configuration possibilities.
  
