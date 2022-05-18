@@ -1,0 +1,18 @@
+= App-Registry Extension Configuration
+:toc: right
+
+:ext_name: app-registry
+
+:description: The Infinite Scale Group extension provides ...
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/extensions/beta-statement.adoc[]
+
+== Configuration
+
+include::partial$deployment/extensions/env-and-yaml.adoc[]
