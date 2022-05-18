@@ -60,7 +60,7 @@ If Docker-Compose is installed, you'll be informed. If not, you may get no outpu
 apt-cache policy docker-compose
 ----
 
-If the output shows a version like 2.x you can use the packag manager to install docker-compose like:
+If the output shows a version like 2.x you can use the package manager to install docker-compose like:
 
 [source,bash]
 ----
