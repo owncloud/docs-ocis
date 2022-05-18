@@ -53,14 +53,14 @@ Check if the package docker-compose is installed (in addition to docker):
 which docker-compose
 ----
 
-If Docker-Compose is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker-Compose first. On most Linux distributions, you can simply use the package manager to do so. Note that in many cases, this will install a 1.x version (python based) while a 2.x version (go based) is preferred. To check which version would be installed with the package manager, simply type:
+If Docker-Compose is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install Docker-Compose first. On most Linux distributions, you can simply use the package manager to do so. Note that in many cases, this will install a 1.x version (python-based) while a 2.x version (go-based) is preferred. To check which version would be installed with the package manager, simply type:
 
 [source,bash]
 ----
 apt-cache policy docker-compose
 ----
 
-If the output shows a version like 2.x you can use the package manager to install docker-compose like:
+If the output shows a version like 2.x, you can use the package manager to install docker-compose, for example with the following command on Debian-based distributions:
 
 [source,bash]
 ----
