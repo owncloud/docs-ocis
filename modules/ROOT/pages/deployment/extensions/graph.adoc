@@ -13,6 +13,14 @@
 
 include::partial$deployment/extensions/beta-statement.adoc[]
 
+== Sequence Diagram
+
+The following image gives an overview when a client request to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy extension to the graph extension.
+
+// referencing: https://github.com/owncloud/ocis/pull/3816 ([docs-only] add client protocol overview)
+
+image::deployment/extensions/graph/mermaid-graph.svg[width=600]
+
 == Configuration
 
 include::partial$deployment/extensions/env-and-yaml.adoc[]

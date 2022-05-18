@@ -39,4 +39,4 @@ OCIS_URL=https://localhost:9200 \
 ocis server
 ----
 
-After installing and starting Infinite Scale, you can access the web UI via `\https://localhost:9200`.
+After installing and starting Infinite Scale, you can access the web UI via `\https://localhost:9200`
