@@ -3,7 +3,7 @@
 
 :ext_name: idp
 
-:description: The Infinite Scale Group extension provides ...
+:description: The Infinite Scale IDP extension provides ...
 
 == Introduction
 

@@ -3,7 +3,7 @@
 
 :ext_name: app-registry
 
-:description: The Infinite Scale Group extension provides ...
+:description: The Infinite Scale App-Registry extension provides ...
 
 == Introduction
 
