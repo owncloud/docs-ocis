@@ -49,7 +49,7 @@ In the table showing the environment variables of an extension, the _Default Val
 
 == Used Port Ranges
 
-Following port ranges are used by extensions:
+The following port ranges are used by extensions:
 
 [width="65%",cols="~,~",options="header"]
 |===
