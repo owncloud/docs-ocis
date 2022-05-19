@@ -44,5 +44,55 @@ Default values containing curly brackets::
 +
 [TIP]
 ====
-In the table showing the environment variables of an extension, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid default values.
+In the table showing the environment variables of an extension, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid defaults.
 ====
+
+== Used Port Ranges
+
+The following port ranges are used by extensions:
+
+[width="65%",cols="~,~",options="header"]
+|===
+| Port Range
+| Service
+
+| 9000-9010  | https://owncloud.dev/ocis/[reserved for Infinite Scale]
+| 9100-9104  | xref:/deployment/extensions/web.adoc[web]
+| 9105-9109  | https://github.com/owncloud/ocis-hello[hello]
+| 9110-9114  | xref:/deployment/extensions/ocs.adoc[ocs]
+| 9115-9119  | xref:/deployment/extensions/webdav.adoc[webdav]
+| 9120-9124  | xref:/deployment/extensions/graph.adoc[graph]
+| 9125-9129  | FREE (formerly used by glauth)
+| 9130-9134  | xref:/deployment/extensions/idp.adoc[idp]
+| 9135-9139  | xref:/deployment/extensions/graph-explorer.adoc[graph-explorer]
+| 9140-9141  | xref:/deployment/extensions/frontend.adoc[frontend]
+| 9142-9143  | xref:/deployment/extensions/gateway.adoc[gateway]
+| 9144-9145  | xref:/deployment/extensions/users.adoc[users]
+| 9146-9147  | xref:/deployment/extensions/auth-basic.adoc[auth-basic]
+| 9148-9149  | xref:/deployment/extensions/auth-bearer.adoc[auth-bearer]
+| 9150-9153  | xref:/deployment/extensions/sharing.adoc[sharing]
+| 9154-9156  | xref:/deployment/extensions/storage-shares.adoc[storage-shares]
+| 9157-9159  | xref:/deployment/extensions/storage-users.adoc[storage-users]
+| 9160-9162  | xref:/deployment/extensions/groups.adoc[groups]
+| 9163       | xref:/deployment/extensions/ocdav.adoc[ocdav]
+| 9164       | xref:/deployment/extensions/groups.adoc[groups]
+| 9165       | xref:/deployment/extensions/app-provider.adoc[app-provider]
+| 9166-9169  | xref:/deployment/extensions/auth-machine.adoc[auth-machine]
+| 9170-9174  | xref:/deployment/extensions/notifications.adoc[notifications]
+| 9175-9179  | xref:/deployment/extensions/storage-publiclink.adoc[storage-publiclink]
+| 9180-9184  | FREE (formerly used by accounts)
+| 9185-9189  | xref:/deployment/extensions/thumbnails.adoc[thumbnails]
+| 9190-9194  | xref:/deployment/extensions/settings.adoc[settings]
+| 9195-9199  | FREE
+| 9200-9204  | xref:/deployment/extensions/proxy.adoc[proxy]
+| 9205-9209  | xref:/deployment/extensions/proxy.adoc[proxy]
+| 9210-9214  | FREE
+| 9215-9219  | xref:/deployment/extensions/storage-system.adoc[storage-system]
+| 9220-9224  | xref:/deployment/extensions/search.adoc[search]
+| 9225-9229  | FREE
+| 9230-9234  | xref:/deployment/extensions/nats.adoc[nats]
+| 9235-9239  | xref:/deployment/extensions/idm.adoc[idm]
+| 9240-9244  | xref:/deployment/extensions/app-registry.adoc[app-registry]
+| 9245-9249  | FREE
+| 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
+|===
