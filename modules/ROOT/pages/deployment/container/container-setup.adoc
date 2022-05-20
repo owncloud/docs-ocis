@@ -221,7 +221,7 @@ Infinite Scale needs a first time initialization to set up the environment. You 
 [source,bash]
 ----
 docker run --rm -it \
-    -v ~/ocis/ocis-config:/etc/ocis \
+    --mount type=bind,source=~/ocis/ocis-config,target=/etc/ocis \
     owncloud/ocis init
 ----
 
@@ -244,8 +244,8 @@ docker run \
     --rm \
     -it \
     -p 9200:9200 \
-    -v ~/ocis/ocis-config:/etc/ocis \
-    -v ~/ocis/ocis-data:/var/lib/ocis \
+    --mount type=bind,source=~/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=~/ocis/ocis-data,target=/var/lib/ocis \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
     -e OCIS_URL=https://<your-hostname>:9200 \
@@ -304,14 +304,15 @@ By default, containers created with _docker run_ are given a random name like `s
 See the details in the _docker run_ documentation for available options. Consider `always` as a good starting point.
 
 --mount: Attach a filesystem mount to the container::
-{docker-mount-url}[Docker volumes] are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note the volume mount target path `target=/var/lib/ocis` which uses the default Infinite Scale data path if not otherwise defined. Note that the directory on the host must already exist, it will not be created. 
+--
+* {docker-mount-url}[Docker volumes] (`--type=volume`) are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note the volume mount target path `target=/var/lib/ocis` which uses the default Infinite Scale data path if not otherwise defined. Note that the directory on the host must already exist, it will not be created by docker. 
 
---volume, -v: Bind mount a volume::
-{docker-bindmount-url}[Bind mounts] depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis`, which uses the default Infinite Scale data path if not otherwise defined. If the bind-mount points to a directory that does not yet exist on the host, the directory will be created automatically using the user the docker _service_ runs with, usually the root user.
-+
-NOTE: The filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
+* {docker-bindmount-url}[Bind mounts] (`--type=bind`) depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis`, which uses the default Infinite Scale data path if not otherwise defined. You should always create the source directories upfront because of correct permissions (see: xref:preperation[Preperation]), despite the fact that bind-mounts create directories that do not yet exist on the host. In such a case, the directory will be created automatically using the user the _docker service_ runs with, usually the root user, making the source path inaccessible to the user inside the docker container.
 +
 WARNING: macOS cannot use bind mounts, as Docker Desktop for macOS does currently not fully support extended attributes. Use a Docker volume for persistent data instead.
+
+NOTE: In general, a filesystem at your OS mount point must be a xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[supported filesystem] which supports extended attributes.
+--
 
 == Useful Docker Commands
 
