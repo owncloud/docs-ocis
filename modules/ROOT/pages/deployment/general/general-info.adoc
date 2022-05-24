@@ -284,23 +284,23 @@ WARNING: The location must exclusively be used by Infinite Scale. Writing into t
 
 == Initialize Infinite Scale
 
-To prepare Infinite Scale to have a base for further configuration and for recurring starts, you have to initalize it first. To do so, run:
+To prepare Infinite Scale for further configuration and recurring starts, you have to initialize it first. To do so, run:
 
 [source,bash]
 ----
 ocis init
 ----
 
-You can add command line parameters. To see which one are available type:
+You can add command line parameters. To see which ones are available, type:
 
 [source,bash]
 ----
 ocis init --help
 ----
 
-Command line parameters are benificial if you e.g. want to handover all necessary parameters without getting to any questionaire or when you want to define the admin password by yourself not getting a random one.
+Command line parameters are beneficial if you e.g. want to hand over all necessary parameters without getting to any questionnaire or if you want to define the admin password yourself not getting a random one assigned.
 
-IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_, part of openID Connect) will be overwritten.
+IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present, will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_ part of openID Connect) will be overwritten.
 
 To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
 
