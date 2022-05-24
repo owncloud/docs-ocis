@@ -216,7 +216,7 @@ In this case, you need to access the content of the `ocis` folder with root priv
 
 === First Time Start
 
-Infinite Scale needs a first time initialization to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. Note that if you do not define a host directory with a bind mount as target location, the initial setup will get lost because the container ends after executing the command. ownCloud therefore recommends either using bind mounts or Docker volumes to make the initial setup, further changes and your data persistent.
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. Note that if you do not define a host directory with a bind mount as target location, the initial setup will get lost because the container ends after executing the command. ownCloud therefore recommends either using bind mounts or Docker volumes to make the initial setup, further changes and your data persistent.
 
 [source,bash]
 ----
@@ -228,6 +228,18 @@ docker run --rm -it \
 On success, you will see a message like:
  
 include::partial$deployment/ocis_init.adoc[]
+
+[NOTE]
+====
+If you get an error message like the following:
+
+[source,plaintext]
+----
+Could not create config: config in /etc/ocis/ocis-config/ocis.yaml already exists
+----
+
+you already have created a configuration once. As you cannot overwrite the existing configuration, you must delete the old configuration first to proceed. For more details see: xref:deployment/general/general-info.adoc#initialize-infinite-scale[Initialize Infinite Scale]
+====
 
 === Recurring Start of Infinite Scale
 

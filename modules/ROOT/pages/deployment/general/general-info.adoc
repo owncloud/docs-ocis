@@ -7,6 +7,8 @@
 
 {description}
 
+We highly recommend to read this document first before you start setting up your system.
+
 The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
 When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-infinite-scale-with-environment-variables[] for details.
@@ -280,6 +282,28 @@ NOTE: You must set this environment variable to a valid path when using the manu
 
 WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
 
+== Initialize Infinite Scale
+
+To prepare Infinite Scale to have a base for further configuration and for recurring starts, you have to initalize it first. To do so, run:
+
+[source,bash]
+----
+ocis init
+----
+
+You can add command line parameters. To see which one are available type:
+
+[source,bash]
+----
+ocis init --help
+----
+
+Command line parameters are benificial if you e.g. want to handover all necessary parameters without getting to any questionaire or when you want to define the admin password by yourself not getting a random one.
+
+IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_, part of openID Connect) will be overwritten.
+
+To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
+
 == Default Users and Groups
 
 Default users and groups are only created when you initialize Infinite Scale as first task. The same is true for demo users and groups which need an environment variable to be set _on initializing Infinite Scale_ to get created.
@@ -325,7 +349,7 @@ To let Infinite Scale create these demo users and groups for you, start the _run
 [source,bash]
 ----
 IDM_CREATE_DEMO_USERS=true \
-ocis server
+ocis init
 ----
 
 include::partial$deployment/demo_user_table.adoc[]
