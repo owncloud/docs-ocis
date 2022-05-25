@@ -5,6 +5,15 @@
 
 :description: The Infinite Scale OCDAV extension provides ...
 
+// references https://github.com/owncloud/ocis/pull/3864 ([docs-only] add PROPFIND sequence diagram examples)
+// also see: https://owncloud.dev/architecture/protocol-changes/ 
+
+image::deployment/extensions/ocdav/mermaid-ocdav-1.svg[width=600]
+image::deployment/extensions/ocdav/mermaid-ocdav-2.svg[width=600]
+image::deployment/extensions/ocdav/mermaid-ocdav-3.svg[width=600]
+image::deployment/extensions/ocdav/mermaid-ocdav-4.svg[width=600]
+image::deployment/extensions/ocdav/mermaid-ocdav-5.svg[width=600]
+
 == Introduction
 
 {description}
