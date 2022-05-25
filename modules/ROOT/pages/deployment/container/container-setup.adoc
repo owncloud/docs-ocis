@@ -117,8 +117,8 @@ owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
 +
 [source,bash]
 ----
-docker inspect owncloud/ocis:latest | \
-   jq '.[] | .Config.Labels."org.opencontainers.image.version"'
+docker inspect owncloud/ocis:latest \
+   -f '{{index .Config.Labels "org.opencontainers.image.version"}}'
 ----
 +
 [caption=]
@@ -182,11 +182,11 @@ The Infinite Scale container runs internally with the default user and group ID 
 
 [source,bash]
 ----
-docker inspect owncloud/ocis | less | grep -i user | sort -u
+docker inspect owncloud/ocis -f '{{.ContainerConfig.User}}'
 ----
 [source,plaintext]
 ----
-"User": "1000",
+1000
 ----
 
 For the folders above, the following rules apply:
