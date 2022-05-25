@@ -113,7 +113,7 @@ REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
 owncloud/ocis   latest    fc4151802141   9 hours ago   98.3MB
 ----
 
-* Check your Infinite Scale version with the following command. Note that you need to have `jq` installed:
+* Check your Infinite Scale version with the following command.
 +
 [source,bash]
 ----
