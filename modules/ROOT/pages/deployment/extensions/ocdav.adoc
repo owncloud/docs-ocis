@@ -14,7 +14,7 @@
 
 {description}
 
-{cs3-url}[CS3] (Cloud Storage Services for Synchronization and Sharing) is based on {grpc-url}[GRPC] (open source high performance Remote Procedure Call (RPC) framework) which uses a binary coded versionable payload protocol with much higher efficiency when it comes to parsing compared to a classical xml payload.
+{cs3-url}[CS3] (Cloud Storage Services for Synchronization and Sharing) is based on {grpc-url}[GRPC] (open source high performance Remote Procedure Call (RPC) framework) which uses a binary-coded versionable payload protocol with much higher efficiency when it comes to parsing compared to a classical XML payload.
 
 // fixme: source description is still missing, and a better description is needed
 
@@ -31,13 +31,13 @@ A PROPFIND finds its way to a storage provider like this. While this is a simpli
 
 image::deployment/extensions/ocdav/mermaid-ocdav-1.svg[width=600]
 
-=== Proxy Based User Routing
+=== Proxy-based User Routing
 
 The Infinite Scale proxy authenticates requests an can forward requests to different backends, depending on the logged in user or cookies. For example multiple ocdav services can be configured to shard users based on username or affiliation.
 
 image::deployment/extensions/ocdav/mermaid-ocdav-2.svg[width=600]
 
-=== Gateway Based Path or Storage Provider Id Based Routing
+=== Gateway-based Path or Storage Provider ID-based Routing
 
 The reva gateway acts as a facade to multiple storage providers that can be configured with the storage registry.
 
@@ -45,15 +45,15 @@ image::deployment/extensions/ocdav/mermaid-ocdav-3.svg[width=600]
 
 === PROPFIND Request Against Old Webdav Endpoints
 
-Old `/dav/files/\{username}` endpoint with username and a path relative to the users home.
+Old `/dav/files/\{username}` endpoint with username and a path relative to the user's home.
 
-To route a PROPFIND request against the old webdav endpoints like `/dav/files/username`, ocdav first has to build a CS3 namespace prefix, eg. `/users/{{.Id.OpaqueId}}` to the users home.
+To route a PROPFIND request against the old webdav endpoints like `/dav/files/username`, ocdav first has to build a CS3 namespace prefix, eg. `/users/{{.Id.OpaqueId}}` to the user's home.
 
 image::deployment/extensions/ocdav/mermaid-ocdav-4.svg[width=600]
 
 === Handling Legacy Global Namespace Webdav Endpoints
 
-The reason Infinite Scale uses a path based lookup instead of looking up the current users home using the user id and a space type filter is, because there are deployments that use a global namespace at the legacy `/webdav` endpoint. To support these use cases, the gateway allows looking up spaces using their mount path.
+The reason Infinite Scale uses a path-based lookup instead of looking up the current user's home using the user ID and a space type filter is, because there are deployments that use a global namespace at the legacy `/webdav` endpoint. To support these use cases, the gateway allows looking up spaces using their mount path.
 
 image::deployment/extensions/ocdav/mermaid-ocdav-5.svg[width=600]
 
