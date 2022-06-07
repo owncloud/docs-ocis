@@ -22,6 +22,9 @@ include::partial$deployment/extensions/beta-statement.adoc[]
 
 == Sequence Diagram
 
+// https://github.com/owncloud/ocis/pull/3864
+// https://owncloud.dev/architecture/protocol-changes/
+ 
 === General View
 
 A PROPFIND finds its way to a storage provider like this. While this is a simplification to get an understanding of what needs to go where, there are several places where sharding can happen.
