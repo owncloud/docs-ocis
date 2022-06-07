@@ -283,8 +283,6 @@ Other drivers can be used too like for the Ceph or EOS filesystem, but no suppor
 
 The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
 
-Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
-
 [caption=]
 .Local Filesystems
 [width="60%",cols="30%,70%",options="header"]
@@ -306,7 +304,7 @@ Note the support for a Windows compatible filesystem like Samba will be availabl
 |===
 
 [caption=]
-.Shared Filesystems
+.Remote Filesystems
 [width="80%",cols="26%,90%",options="header"]
 |===
 | Name
@@ -315,6 +313,37 @@ Note the support for a Windows compatible filesystem like Samba will be availabl
 | {nfs_url}[NFS]
 | The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
 |===
+
+Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
+
+All POSIX-compliant supported filesystems, local or remote, must support extended attributes. You can check this with following commands, change to a location in the mounted filesystem you want to check before:
+
+[source,bash]
+----
+touch foo.txt && attr -s mix -V bar foo.txt
+----
+
+[source,plaintext]
+----
+Attribute "mix" set to a 3 byte value for foo.txt:
+bar
+----
+
+[source,bash]
+----
+attr -g mix foo.txt
+----
+
+[source,plaintext]
+----
+Attribute "mix" had a 3 byte value for foo.txt:
+bar
+----
+
+[source,bash]
+----
+rm foo.txt
+----
 
 [[nfs_notes_prerequisites]]
 NFS Notes::
