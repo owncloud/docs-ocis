@@ -324,14 +324,14 @@ NFS Notes::
 When using NFS, you have to take care that the NFS server *AND* the NFS client provides `Extended Attributes`.
 
 NFS Storage Based on Linux Servers::
-Most easiest, when using a kernel version 5.9 or higher, extended attributes for NFS server and NFS client are part of the system. To check, run the command:
+When using a kernel version 5.9 or higher, extended attributes for NFS server and NFS client are part of the system. To check, run the command:
 +
 [source,bash]
 ----
 uname -r
 ----
 +
-On the system providing NFS server AND on the NFS client and check the displayed version number.
+On the system providing the NFS server AND on the NFS client check the displayed version number.
 
 NFS Client::
 If you have an NFS server capable of extended attributes but you are unsure if your client accessing the server supports it, check the *nfs-utils* or *nfs-common* package version of your NFS client with the command:
