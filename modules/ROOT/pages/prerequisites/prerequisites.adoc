@@ -9,6 +9,8 @@
 :ceph_url: https://docs.ceph.com/en/latest/start/intro/
 :ceph_ram_url: https://docs.ceph.com/en/latest/start/hardware-recommendations/#ram
 :nfs_url: https://en.wikipedia.org/wiki/Network_File_System
+:nfs-utils-url: https://mirrors.edge.kernel.org/pub/linux/utils/nfs-utils/
+:ubuntu-nfs-url: https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=nfs-common&searchon=names
 
 :what_is_nginx_url: https://www.nginx.com/resources/glossary/nginx/
 :nginx_url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
@@ -281,8 +283,6 @@ Other drivers can be used too like for the Ceph or EOS filesystem, but no suppor
 
 The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
 
-Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
-
 [caption=]
 .Local Filesystems
 [width="60%",cols="30%,70%",options="header"]
@@ -304,7 +304,7 @@ Note the support for a Windows compatible filesystem like Samba will be availabl
 |===
 
 [caption=]
-.Shared Filesystems
+.Remote Filesystems
 [width="80%",cols="26%,90%",options="header"]
 |===
 | Name
@@ -314,20 +314,68 @@ Note the support for a Windows compatible filesystem like Samba will be availabl
 | The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
 |===
 
+Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
+
+All POSIX-compliant supported filesystems, local or remote, must support extended attributes. You can check this with following commands, change to a location in the mounted filesystem you want to check before:
+
+[source,bash]
+----
+touch foo.txt && attr -s mix -V bar foo.txt
+----
+
+[source,plaintext]
+----
+Attribute "mix" set to a 3 byte value for foo.txt:
+bar
+----
+
+[source,bash]
+----
+attr -g mix foo.txt
+----
+
+[source,plaintext]
+----
+Attribute "mix" had a 3 byte value for foo.txt:
+bar
+----
+
+[source,bash]
+----
+rm foo.txt
+----
+
 [[nfs_notes_prerequisites]]
 NFS Notes::
 +
 [NOTE]
 ====
-When using NFS, you have to take care that the NFS server provides `Extended Attributes`.
+When using NFS, you have to take care that the NFS server *AND* the NFS client provides `Extended Attributes`.
 
-NFS storage based on Linux servers::
-Extended attributes are supported by NFS starting with kernel version 5.9, therefore the NFS server has to run on a system with kernel 5.9 or higher. To check, run the command `uname -a` on the NFS server and compare the displayed version number.
+NFS Storage Based on Linux Servers::
+When using a kernel version 5.9 or higher, extended attributes for NFS server and NFS client are part of the system. To check, run the command:
++
+[source,bash]
+----
+uname -r
+----
++
+On the system providing the NFS server AND on the NFS client check the displayed version number.
 
-NFS servers provided from storage vendors::
+NFS Client::
+If you have an NFS server capable of extended attributes but you are unsure if your client accessing the server supports it, check the *nfs-utils* or *nfs-common* package version of your NFS client with the command:
++
+[source,bash]
+----
+mount.nfs -V
+----
++
+You need at minimum version 2.6.2. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
+
+NFS Servers Provided from Storage Vendors::
 A certification matrix will be provided when available.
 
-NFS version::
+NFS Protocol Version::
 Note that if the kernel or the storage system supports extended attributes, you have to use *NFSv4* in order to use it.
 ====
 
