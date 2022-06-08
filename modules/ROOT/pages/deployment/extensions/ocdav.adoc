@@ -27,13 +27,13 @@ include::partial$deployment/extensions/beta-statement.adoc[]
  
 === General View
 
-A PROPFIND finds its way to a storage provider like in the image shown below. While this is a simplification to get an understanding of what needs to go where, there are several places where sharing can happen.
+A PROPFIND finds its way to a storage provider like in the image shown below. While this is a simplification to get an understanding of what needs to go where, there are several places where sharding (splitting and distributing) can happen.
 
 image::deployment/extensions/ocdav/mermaid-ocdav-1.svg[width=600]
 
 === Proxy-based User Routing
 
-The Infinite Scale proxy authenticates requests and can forward requests to different backends, depending on the logged in user or cookies. For example, multiple `ocdav` services can be configured to share users, based on username or affiliation.
+The Infinite Scale proxy authenticates requests and can forward requests to different backends, depending on the logged in user or cookies. For example, multiple `ocdav` services can be configured to shard users, based on username or affiliation.
 
 image::deployment/extensions/ocdav/mermaid-ocdav-2.svg[width=600]
 
