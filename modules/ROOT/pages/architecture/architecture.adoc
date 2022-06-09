@@ -10,6 +10,7 @@
 :webdav-url: http://webdav.org/
 :etag-url: https://en.wikipedia.org/wiki/HTTP_ETag
 :cs3-url: https://www.cs3community.org
+:grpc-url: https://grpc.io/about/
 
 :description: This page gives you an overview of the architecture and the concepts behind Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
@@ -109,9 +110,11 @@ Every Infinite Scale extension uses https://github.com/owncloud/ocis/tree/master
 
 While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download a single binary and start the contained Infinite Scale extensions with a single command: `ocis server`. This also makes packaging easier.
 
-==== REVA
+==== REVA and CS3
 
-A lot of embedded services in Infinite Scale are built on {reva-url}[REVA] runtime. We decided to bundle some of the {cs3-url}[CS3] services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
+A lot of embedded services in Infinite Scale are built on the {reva-url}[REVA] runtime. Reva is the {cs3-url}[CS3 API] reference implementation. We decided to bundle some of the CS3 services to logically group them. A home storage provider, which is dealing with metadata, and the corresponding data provider, which is dealing with uploads and downloads, are one example. The frontend with the oc-flavoured WebDAV, OCS handlers and a data gateway are another.
+
+CS3 (Cloud Storage Services for Synchronization and Sharing) is based on {grpc-url}[GRPC] (open source high performance Remote Procedure Call (RPC) framework) which uses a binary-coded versionable payload protocol with much higher efficiency when it comes to parsing compared to a classical XML payload.
 
 ==== Protocol-Driven Development
 
