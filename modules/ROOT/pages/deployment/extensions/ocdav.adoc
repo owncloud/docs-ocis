@@ -1,7 +1,5 @@
 = OCDAV Extension Configuration
 :toc: right
-:grpc-url: https://grpc.io/about/
-:cs3-url: http://www.cs3community.org
 
 :ext_name: ocdav
 
@@ -12,11 +10,7 @@
 
 == Introduction
 
-{description}
-
-{cs3-url}[CS3] (Cloud Storage Services for Synchronization and Sharing) is based on {grpc-url}[GRPC] (open source high performance Remote Procedure Call (RPC) framework) which uses a binary-coded versionable payload protocol with much higher efficiency when it comes to parsing compared to a classical XML payload.
-
-// fixme: source description is still missing, and a better description is needed
+{description} For more details on CS3 see the xref:architecture/architecture.adoc#reva-and-cs3[REVA and CS3] description in the Architecture and Concepts section.
 
 include::partial$deployment/extensions/beta-statement.adoc[]
 
