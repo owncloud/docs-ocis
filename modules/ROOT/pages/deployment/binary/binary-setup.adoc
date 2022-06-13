@@ -164,20 +164,13 @@ Depending what you want to stop, differnt commands need to be applied.
 
 If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
 
-Stopping an extension from the runtime::
-Note that the ocis runtime (`ocis server`) needs to be active or a default error message will be returned, see xref:deployment/general/general-info.adoc#default-runtime-error-response[Default Runtime Error Response]
-+
-[source,bash]
-----
-ocis kill [extension name]
-----
-
 Stopping the complete runtime with all its running extensions::
 Depending on the user you started `ocis` and with which user you are currently logged in, you may need to use `sudo` for proper permissions.
 + 
 [source,bash]
 ----
-ps ax | grep "ocis server" | grep -v grep | awk '{ print $1 }' | xargs kill -15
+ps ax | grep "ocis server" | grep -v grep | \
+   awk '{ print $1 }' | xargs kill -15
 ----
 
 Stopping a particular ocis PID::
