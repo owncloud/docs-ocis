@@ -93,7 +93,7 @@ When typing `ocis <extension-name> --help`, you will get detailed help regarding
 
 ==== Infinite Scale Supervised Extensions
 
-You can start all available extensions in supervised mode with the command below. Note that the extensions started with the runtime share the same PID.
+In supervised mode, all extensions are started with one command as you can see below in the example when using the binary setup. Note that the extensions started with the runtime share the same PID.
 
 Start the Infinite Scale Runtime::
 
@@ -108,6 +108,9 @@ List running extensions::
 ----
 ocis list
 ----
+
+Stopping the Infinite Scale Runtime::
+In supervised mode, you have to stop the `ocis server` which also stops all extensions. See xref:deployment/binary/binary-setup.adoc#stopping-infinite-scale[Stopping Infinite Scale] for more details.
 
 ==== Unsupervised Extensions
 
@@ -181,8 +184,6 @@ PROXY_HTTP_ADDR=localhost:5555 \
 PROXY_DEBUG_ADDR=localhost:6666 \
 ocis server
 ----
-
-Remember the note in xref:infinite-scale-supervised-extensions[] when killing/restarting extensions in supervised mode.
 
 === Globally Shared Logging Values
 
