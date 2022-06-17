@@ -1,0 +1,18 @@
+= OCS Service Configuration
+:toc: right
+
+:ext_name: ocs
+
+:description: The Infinite Scale OCS service provides ...
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]

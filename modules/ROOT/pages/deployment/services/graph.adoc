@@ -1,0 +1,26 @@
+= Graph Service Configuration
+:toc: right
+
+:ext_name: graph
+
+:description: The Infinite Scale Graph service provides a simple graph world API which can be used by clients or other services or extensions.
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+== Sequence Diagram
+
+The following image gives an overview when a client request to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy service to the graph service.
+
+// referencing: https://github.com/owncloud/ocis/pull/3816 ([docs-only] add client protocol overview)
+
+image::deployment/services/graph/mermaid-graph.svg[width=600]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]

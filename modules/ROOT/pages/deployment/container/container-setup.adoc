@@ -281,11 +281,11 @@ To execute Infinite Scale commands, you have to enter the shell of the running c
 docker exec -it <container-id> sh
 ----
 
-You can now use commands like `ocis --help` or others to  xref:deployment/general/general-info.adoc#managing-extensions[manage your runtime extensions].
+You can now use commands like `ocis --help` or others to  xref:deployment/general/general-info.adoc#managing-services[manage your runtime services].
 
 To exit the container's shell, either type kbd:[exit] or kbd:[CTRL+D].
 
-// fixme: after a call with @cdegen, it is currently not clear how to restart a runtime extension properly as the extension needs an extension yaml file (see --config-file) and the question is - where is the location of this file - it cant be inside the container!
+// fixme: after a call with @cdegen, it is currently not clear how to restart a runtime service properly as the service needs a service yaml file (see --config-file) and the question is - where is the location of this file - it cant be inside the container!
 
 == Useful Docker Parameters
 

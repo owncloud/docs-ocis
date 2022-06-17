@@ -4,13 +4,15 @@
 
 :c4-model-url: https://en.wikipedia.org/wiki/C4_model
 :suture-url: https://github.com/thejerf/suture
-:go-micro-url: https://github.com/asim/go-micro/blob/master/registry/registry.go
+:go-micro-registry-url: https://github.com/asim/go-micro/blob/master/registry/registry.go
 :reva-url: https://reva.link/
 :oidc-url: https://openid.net/connect/
 :webdav-url: http://webdav.org/
 :etag-url: https://en.wikipedia.org/wiki/HTTP_ETag
 :cs3-url: https://www.cs3community.org
 :grpc-url: https://grpc.io/about/
+:ocis-pkg-url: https://github.com/owncloud/ocis/tree/master/ocis-pkg
+:go-micro-url: https://github.com/asim/go-micro
 
 :description: This page gives you an overview of the architecture and the concepts behind Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
@@ -100,15 +102,15 @@ For example, *Einstein* wants to share something with *Marie*, who has an accoun
 
 ==== Infinite Scale Microservice Runtime
 
-Infinite Scale runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, Infinite Scale will start all built-in Infinite Scale extensions in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
+Infinite Scale runtime allows us to dynamically manage services running in a single process. We use {suture-url}[suture] to create a supervisor tree that starts each service in a dedicated Go routine. By default, Infinite Scale will start all built-in Infinite Scale services in a single process. Individual services can be moved to other nodes to scale out and meet specific performance requirements. A {go-micro-registry-url}[go-micro-based] registry allows services in multiple nodes to form a distributed microservice architecture.
 
-==== Infinite Scale Extensions
+==== Infinite Scale Services
 
-Every Infinite Scale extension uses https://github.com/owncloud/ocis/tree/master/ocis-pkg[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with Infinite Scale. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the Infinite Scale runtime to the individual extensions.
+Every Infinite Scale service uses {ocis-pkg-url}[ocis-pkg], which implements the go-micro interfaces for servers to register and clients to look up nodes with a service registry. We are following the 12-factor methodology with Infinite Scale. The uniformity of services also allows us to use the same mechanism for commands, logging and configuration. Configurations are forwarded from the Infinite Scale runtime to the individual services.
 
 ==== Go-Micro
 
-While the https://github.com/asim/go-micro[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download a single binary and start the contained Infinite Scale extensions with a single command: `ocis server`. This also makes packaging easier.
+While the {go-micro-url}[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download a single binary and start the contained Infinite Scale services with a single command: `ocis server`. This also makes packaging easier.
 
 ==== REVA and CS3
 

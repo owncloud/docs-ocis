@@ -1,0 +1,22 @@
+= Auth Basic Service Configuration
+:toc: right
+
+:ext_name: auth-basic
+
+:description: The Infinite Scale Auth Basic service provides basic authentication for those clients who cannot handle OIDC. This are rare cases and is usually not necessary.
+
+== Introduction
+
+{description}
+
+// based on a chat with the dev team (willy, ralf). usecase would be to access via macos/finder via webdav folders on oics, or any client that cannot handle oidc.
+
+To enable `auth-basic`, you first must set `PROXY_ENABLE_BASIC_AUTH` to `true`.
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+// fixme: source description is still missing, and a better description is needed
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]

@@ -1,7 +1,7 @@
 = General Info
 :toc: right
 
-:description: This document covers general aspects of Infinite Scale like start modes, extensions, important minimum configuration etc. for a common understanding.
+:description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
 
 == Introduction
 
@@ -15,7 +15,7 @@ When using global options on startup, you can always use command line options or
 
 == Embedded Supervisor (Runtime)
 
-Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that an extension will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that a service will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
@@ -27,13 +27,13 @@ This mode can be used when scaling is not the primary focus and can be the case 
 * small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]) or 
 
 Starting Infinite Scale in unsupervised mode::
-This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its extensions.
+This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
 
-== Start Infinite Scale With All Predefined Extensions
+== Start Infinite Scale With All Predefined Services
 
-When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined extensions automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised extensions.
+When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
 
-To list the started predefined extensions, type:
+To list the started predefined servcies, type:
 
 [source,bash]
 ----
@@ -45,7 +45,7 @@ This will print an output like:
 [source,plaintext]
 ----
 +--------------------+
-|     EXTENSION      |
+|      SERVICE       |
 +--------------------+
 | app-provider       |
 | app-registry       |
@@ -79,21 +79,21 @@ This will print an output like:
 +--------------------+
 ----
 
-== Managing Extensions
+== Managing Services
 
-Extensions are microservices which can be started, stopped or instantiated. An xref:deployment/extensions/extension_rules.adoc[Extension Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each extension see the xref:deployment/extensions/extensions.adoc[Extensions] documentation.
+Services are built as microservices which can be started, stopped or instantiated. An xref:deployment/services/services_rules.adoc[Services Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
 
-=== List Available Extensions
+=== List Available Services
 
-Just type `ocis` to get a list of commands and available extensions.
+Just type `ocis` to get a list of commands and available services.
 
-When typing `ocis <extension-name> --help`, you will get detailed help regarding the specified extension.
+When typing `ocis <service-name> --help`, you will get detailed help regarding the specified service.
 
-=== Manage Instances of Extensions
+=== Manage Instances of Services
 
-==== Infinite Scale Supervised Extensions
+==== Infinite Scale Supervised Services
 
-In supervised mode, all extensions are started with one command as you can see below in the example when using the binary setup. Note that the extensions started with the runtime share the same PID.
+In supervised mode, all services are started with one command as you can see below in the example when using the binary setup. Note that the services started with the runtime share the same PID.
 
 Start the Infinite Scale Runtime::
 
@@ -102,7 +102,7 @@ Start the Infinite Scale Runtime::
 ocis server
 ----
 
-List running extensions::
+List running services::
 
 [source,bash]
 ----
@@ -110,29 +110,28 @@ ocis list
 ----
 
 Stopping the Infinite Scale Runtime::
-In supervised mode, you have to stop the `ocis server` which also stops all extensions. See xref:deployment/binary/binary-setup.adoc#stopping-infinite-scale[Stopping Infinite Scale] for more details.
+In supervised mode, you have to stop the `ocis server` which also stops all services. See xref:deployment/binary/binary-setup.adoc#stopping-infinite-scale[Stopping Infinite Scale] for more details.
 
-==== Unsupervised Extensions
+==== Unsupervised Services
 
-At any time, you can create unsupervised instances of an extension with `ocis [extension-name] server`, for example `ocis proxy server`. _These extensions are independent of extensions in supervised mode and have their own PID_. The Instances are managed with classic OS methods or e.g. via Kubernetes.
+At any time, you can create unsupervised instances of a service with `ocis [service-name] server`, for example `ocis proxy server`. _These services are independent of services in supervised mode and have their own PID_. The Instances are managed with classic OS methods or e.g. via Kubernetes.
 
-Note that you need configuration for and access to the extension instances like with a load balancer when you scale.
+Note that you need configuration for and access to the service instances like with a load balancer when you scale.
 
-=== Configuring Extensions
+=== Configuring Services
 
-To configure extensions, see the section xref:deployment/extensions/extensions.adoc[Extensions] in the _Deployment_ documentation.
+To configure services, see the section xref:deployment/services/services.adoc[Services] in the _Deployment_ documentation.
 
 == Configuration Rules
 
 // taken from: https://owncloud.dev/ocis/config/
-// fixme: this is according to willy going to be changed. see: https://github.com/owncloud/ocis/pull/3480
 
 NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
 . Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
 +
 .. Environment variables
-.. Extension configuration file
+.. Services configuration file
 .. Infinite Scale configuration file
 
 . The default locations for config files are:
@@ -157,10 +156,10 @@ The filename to define a config has the following namespace:
 ----
 ocis.yaml
  or
-[extension name].yaml
+[services name].yaml
 ----
 
-You can list the possible extension names by typing:
+You can list the possible services names by typing:
 
 [source,bash]
 ----
@@ -199,7 +198,7 @@ log:
   file: /var/tmp/ocis_output.log
 ----
 
-NOTE: In case of an extension overwriting its shared logging config received from the main ocis.yaml file, you must specify *all* values.
+NOTE: In case of a service overwriting its shared logging config received from the main ocis.yaml file, you must specify *all* values.
 
 ==== Log Config Keys
 
@@ -219,7 +218,7 @@ log:
 You can easily access Infinite Scale via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:demo-users-and-groups[].
 
 OCIS_URL::
-Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other extension environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
+Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
 +
 NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
@@ -311,7 +310,7 @@ Default users and groups are only created when you initialize Infinite Scale as 
 
 NOTE: If you have not declared demo user creation during initializing, you can for the time being only empty the xref:define-the-infinite-scale-data-path[Infinite Scale base directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
 
-// fixme: the current implementation of the bootstrap creates the admin user and if set the demo users and adds them to the idm/boltdb file, see the idm extension. BUT if you have started ocis without demo user creation, you cant let ocis create them POST first start... https://github.com/owncloud/ocis/issues/3593 
+// fixme: the current implementation of the bootstrap creates the admin user and if set the demo users and adds them to the idm/boltdb file, see the idm service. BUT if you have started ocis without demo user creation, you cant let ocis create them POST first start... https://github.com/owncloud/ocis/issues/3593 
 
 === Admin User
 
