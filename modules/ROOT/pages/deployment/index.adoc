@@ -7,12 +7,12 @@
 
 {description}
 
-* The section xref:general/general-info.adoc[General Info] summarizes general and important information which is not dependent on the way that you install Infinite Scale. Any setup refers to this general information as prerequisite knowledge.
+* The section xref:deployment/general/general-info.adoc[General Info] summarizes general and important information which is not dependent on the way that you install Infinite Scale. Any setup refers to this general information as prerequisite knowledge.
 
 * If you only want to play around and see what Infinite Scale has to offer, we suggest the quick and easy xref:deployment/binary/binary-setup.adoc[Binary Setup] section.
 
 * If you have already decided on a container instance with one or more containers, checkout the xref:deployment/container/container-setup.adoc[Container Setup] section.
 
-* The next steps will likely be mounting a xref:deployment/nfs/nfs.adoc[Network File System] and managing xref:extensions/index.adoc[Extensions].
+* The next steps will likely be mounting a xref:deployment/nfs/nfs.adoc[Network File System] and managing xref:deployment/services/services.adoc[Services].
 
 * xref:deployment/security/security.adoc[Securing Infinite Scale] should be a primary concern after you've set up your server.

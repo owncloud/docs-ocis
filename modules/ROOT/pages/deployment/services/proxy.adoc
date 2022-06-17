@@ -1,0 +1,18 @@
+= Proxy Service Configuration
+:toc: right
+
+:ext_name: proxy
+
+:description: The Infinite Scale Proxy service acts as an API Gateway and routes requests to the correct target service. It also provides standard proxy services. 
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]

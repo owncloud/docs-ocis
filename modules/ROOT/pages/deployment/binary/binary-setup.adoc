@@ -116,7 +116,7 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 ==== Recurring Start of Infinite Scale
 
-After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded extensions. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path] for basic environment variables.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path] for basic environment variables.
 
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
@@ -134,14 +134,14 @@ Note that this will bind `ocis` to the shell you are running. If you want to det
 ocis server & disown -h
 ----
 
-The same mechanism is true to start or instantinate extensions which are *not started as part of the runtime* like:
+The same mechanism is true to start or instantinate services which are *not started as part of the runtime* like:
 
 [source,bash]
 ----
 ocis web server & disown -h
 ----
 
-NOTE: Instantination of runtime extensions will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-extensions[Managing Extensions]
+NOTE: Instantination of runtime services will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-services[Managing Services]
 
 === List Running Infinite Scale Processes
 
@@ -164,7 +164,7 @@ Depending what you want to stop, differnt commands need to be applied.
 
 If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
 
-Stopping the complete runtime with all its running extensions::
+Stopping the complete runtime with all its running services::
 Depending on the user you started `ocis` and with which user you are currently logged in, you may need to use `sudo` for proper permissions.
 + 
 [source,bash]

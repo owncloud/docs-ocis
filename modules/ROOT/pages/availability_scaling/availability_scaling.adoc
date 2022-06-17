@@ -66,7 +66,7 @@ While such a setup may suffice for small environments or testing purposes, the e
 
 ==== Separating User Data
 
-The first consideration in terms of availability, flexibility and scalability should be where to store user data. It is **highly recommended** to physically separate user data from the Infinite Scale instance and store them on a shared filesystem. See the xref:prerequisites/prerequisites.adoc#filesystems-and-external-storage[Filesystems and Shared Storage] section for supported types. 
+The first consideration in terms of availability, flexibility and scalability should be where to store user data. It is **highly recommended** to physically separate user data from the Infinite Scale instance and store them on a shared filesystem. See the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] section for supported types. 
 
 Separating the compute from the storage part may sound contrary with respect to the report about availability referenced above. Storage systems contribute with a static high availability number to the overall systems availability. This is because compute environments are more dynamic and storage environments are more static.
 
@@ -90,7 +90,7 @@ High Availability with its flavors active-active / active-passive layout or clus
 Summary::
 As there are many different ways to implement a required scenario, ownCloud support _cannot_ give advice for a particular solution that fits your needs but may be able to help you get the required Infinite Scale component ready to run.
 +
-For availability, storing user files is by nature mandatory to be on xref:prerequisites/prerequisites.adoc#filesystems-and-external-storage[shared storage] to be accessible by the nodes and/or services.
+For availability, storing user files is by nature mandatory to be on xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[shared storage] to be accessible by the nodes and/or services.
 
 ==== Classic High Availability
 
