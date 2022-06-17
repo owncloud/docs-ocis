@@ -33,7 +33,7 @@ This mode is used when _availability, scaling and the adjustment to dynamically 
 
 When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
 
-To list the started predefined servcies, type:
+To list the started predefined services, type:
 
 [source,bash]
 ----
