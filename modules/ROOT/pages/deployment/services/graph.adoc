@@ -15,7 +15,7 @@ include::partial$deployment/services/beta-statement.adoc[]
 
 == Sequence Diagram
 
-The following image gives an overview when a client request to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy service to the graph service.
+The following image gives an overview of the scenario when a client requests to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy service to the graph service.
 
 // referencing: https://github.com/owncloud/ocis/pull/3816 ([docs-only] add client protocol overview)
 

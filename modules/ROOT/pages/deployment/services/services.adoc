@@ -1,7 +1,7 @@
 = Services
 :toc: macro
 
-:description: The Infinite Scale platform consists of micro services interconnecting to each other. Each service serves a particular task and can be configured independently. Services started with the runtime share the runtime management while services running outside the runtime are managed on their own but connect to each other when necessary.
+:description: The Infinite Scale platform consists of microservices interconnecting with each other. Each service performs a particular task and can be configured independently. Services started with the runtime share the runtime management while services running outside the runtime are managed on their own but connect to each other when necessary.
 
 include::partial$deployment/services/beta-statement.adoc[]
 

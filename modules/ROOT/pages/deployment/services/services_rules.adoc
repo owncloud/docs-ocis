@@ -14,7 +14,7 @@ image:deployment/services/go_logo_blue.svg[width=40], the programming language u
 
 In the image below, the services used are just examples. It could be one service or many services running concurrently. The image illustrates the following: 
 
-* As long you have resources available, the running service will create and terminate threads automatically.
+* As long as you have resources available, the running service will create and terminate threads automatically.
 * There is no need to instantiate a service on the same server to balance load.
 * If you increase the resource pool on the server, you can:
 ** have more connections for existing services,
@@ -53,7 +53,7 @@ This is useful if you want to try starting a service outside the runtime, e.g. w
 Note that in the examples described, only the webdav service is used, but the process is valid for all services available.
 
 Example::
-You start the Infinite Scale runtime with `ocis server`
+You start the Infinite Scale runtime with `ocis server`.
 +
 --
 . The configuration file `/etc/ocis/ocis.yaml` is read.
