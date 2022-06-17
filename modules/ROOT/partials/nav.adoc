@@ -49,7 +49,7 @@
 **** xref:deployment/configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
 **** xref:deployment/configuration/external-user-management.adoc[Management of External Users]
 **** xref:deployment/configuration/email-config.adoc[Mail Server Configuration]
-**** xref:cdeployment/onfiguration/storage.adoc[Storage Configuration]
+**** xref:cdeployment/configuration/storage.adoc[Storage Configuration]
 **** xref:deployment/configuration/office-integrations.adoc[Integrating Office Applications]
 **** xref:deployment/configuration/roles-permissions.adoc[Roles & Permissions]
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]

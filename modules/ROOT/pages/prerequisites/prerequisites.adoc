@@ -154,11 +154,11 @@ The above table can be interpreted as follows:
 
 Consideration Summary::
 * Using 4GB of RAM is a good starting point.
-* Regulary check the quantity of spaces a servers must handle.
+* Regularly check the quantity of spaces a servers must handle.
 * Getting a VFS cache hit/miss ratio is hard. Keep an eye on Kernel `iostat` which measures raw io. When it starts increasing and all RAM has been used as buffer cache, you may need to increase the amount of available RAM or redistribute services.
 * When using a distributed deployment, it is much easier to scale and re-distribute dynamic loads accordingly.
 
-// fixme: where to tune in case the os (vfs_cache_pressure ?) or is this not needes/wanted
+// fixme: where to tune in case the os (vfs_cache_pressure ?) or is this not needed/wanted
 // fixme: see https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that
 // fixme: https://manhart.blog/2020/04/linux-leistungsverbesserungen/
 // fixme: personal note: reducing vfs_cache_pressure from 100 to 20 improved the "real" component by 40% up to 90%!
@@ -168,7 +168,7 @@ Consideration Summary::
 Storing metadata in memory is important with respect to access and synchronization performance.
 
 Backend Check::
-Infinite Scale has a notification process when a change occcurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
+Infinite Scale has a notification process when a change occurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
 
 Client Check::
 Usually, every connected client polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
@@ -281,7 +281,7 @@ Infinite Scale currently supports two different internal filesystem drivers whic
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
-The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the caclulation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
+The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
 
 [caption=]
 .Local Filesystems

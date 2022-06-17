@@ -39,7 +39,7 @@ The Infinite Scale data platform is designed for multi-storage access, is cloud-
 The key benefits are::
 
 * Integration of distributed data sources into one cloud data ecosystem.
-* A unifed data access layer across all data.
+* A unified data access layer across all data.
 * Combination of on-premises and cloud-operated environments into one user experience.
 * No need for PHP or a database.
 * High performance, flexibility and scalability.
@@ -86,4 +86,4 @@ Since the integrity and sovereignty of your data is the really important thing w
 If you already have an ownCloud 10 server running, you'll find the xref:migration/index.adoc[Migration] section most interesting.
 ////
 
-NOTE: In configuration variables and comments, you'll often come accross the word oCIS or ocis, short for "ownCloud Infinite Scale", while the product is simply called Infinite Scale.
+NOTE: In configuration variables and comments, you'll often come across the word oCIS or ocis, short for "ownCloud Infinite Scale", while the product is simply called Infinite Scale.

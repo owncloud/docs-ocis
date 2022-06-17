@@ -5,7 +5,7 @@
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-:description: Infinite Scale can either be downloaded from ownCloud or installed via the package manger of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
+:description: Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
 == Introduction
 
@@ -55,7 +55,7 @@ ocis version {ocis-version}
 +
 [NOTE]
 ====
-Package manager installation is in preperation and will be available soon.
+Package manager installation is in preparation and will be available soon.
 ====
 
 == Getting Command Line Help
@@ -127,21 +127,21 @@ To start the Infinite Scale runtime type:
 ocis server
 ----
 
-Note that this will bind `ocis` to the shell you are running. If you want to detatch it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
+Note that this will bind `ocis` to the shell you are running. If you want to detach it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
 
 [source,bash]
 ----
 ocis server & disown -h
 ----
 
-The same mechanism is true to start or instantinate services which are *not started as part of the runtime* like:
+The same mechanism is true to start or instantiate services which are *not started as part of the runtime* like:
 
 [source,bash]
 ----
 ocis web server & disown -h
 ----
 
-NOTE: Instantination of runtime services will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-services[Managing Services]
+NOTE: Instantiation of runtime services will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-services[Managing Services]
 
 === List Running Infinite Scale Processes
 
@@ -160,7 +160,7 @@ ps ax | grep ocis | grep -v grep
 
 === Stopping Infinite Scale
 
-Depending what you want to stop, differnt commands need to be applied.
+Depending on what you want to stop, different commands need to be applied.
 
 If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
 
@@ -189,7 +189,7 @@ This may give an output like the following:
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 +
-To terminate the `ocis proxy` service type the following command, where `sudo` may not be necessary depending on the permissions of the logged in user. Replace the PID according the output from above:
+To terminate the `ocis proxy` service type the following command, where `sudo` may not be necessary depending on the permissions of the logged-in user. Replace the PID according the output from above:
 +
 [source,bash]
 ----
