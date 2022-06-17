@@ -107,7 +107,7 @@ Default value is _hard_. For business-critical NFS exports, ownCloud recommends 
 
 Default value is 3. This option can be tuned when using option _soft_.
 
-==== timeo
+==== timeout
 
 Default value is 600 (60 seconds). This option can be tuned when using option _soft_.
 

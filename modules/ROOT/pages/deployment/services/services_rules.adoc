@@ -46,7 +46,7 @@ This is useful if you want to try starting a service outside the runtime, e.g. w
 * Runtime services rules
 ** You cannot instantiate a runtime service
 ** All runtime services are a part of the `ocis server` process and therefore share the same process ID (PID).
-** Runtime services share the same PID while nonruntime services have their own PID.
+** Runtime services share the same PID while non-runtime services have their own PID.
 
 == Configuration Rules
 
