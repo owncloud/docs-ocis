@@ -3,7 +3,7 @@
 
 :ext_name: webdav
 
-:description: The Infinite Scale WebDAV service provides an essential service for collaboration on the web.
+:description: The Infinite Scale WebDAV service provides preview (thumbnails) endpoints on the WebDAV API and therefore extends the main WebDAV API provided by the OCDAV service.
 
 == Introduction
 
