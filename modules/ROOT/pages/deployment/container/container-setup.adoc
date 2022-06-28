@@ -175,8 +175,8 @@ Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[
 
 In the examples shown below, bind mounts with the following folders are used to keep data persistent and located in your home directory. Change the locations according your needs:
  
-* For the config we use the folder `~/ocis/ocis-config`.
-* For data we use the folder `~/ocis/ocis-data`.
+* For the config we use the folder `$PWD/ocis/ocis-config`.
+* For data we use the folder `$PWD/ocis/ocis-data`.
 
 The Infinite Scale container runs internally with the default user and group ID of 1000. To check this, type:
 
@@ -184,6 +184,7 @@ The Infinite Scale container runs internally with the default user and group ID 
 ----
 docker inspect owncloud/ocis -f '{{.ContainerConfig.User}}'
 ----
+
 [source,plaintext]
 ----
 1000
@@ -196,11 +197,11 @@ For the folders above, the following rules apply:
 --
 [source,bash]
 ----
-mkdir -p ~/ocis/ocis-config
+mkdir -p $PWD/ocis/ocis-config
 ----
 [source,bash]
 ----
-mkdir -p ~/ocis/ocis-data
+mkdir -p $PWD/ocis/ocis-data
 ----
 --
 
@@ -209,7 +210,7 @@ mkdir -p ~/ocis/ocis-data
 --
 [source,bash]
 ----
-sudo chown -Rfv 1000:1000 ocis/
+sudo chown -Rfv 1000:1000 $PWD/ocis/
 ----
 In this case, you need to access the content of the `ocis` folder with root privileges or with a user matching the owner ID.
 --
@@ -221,7 +222,7 @@ Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infi
 [source,bash]
 ----
 docker run --rm -it \
-    --mount type=bind,source=~/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
     owncloud/ocis init
 ----
 
@@ -256,8 +257,8 @@ docker run \
     --rm \
     -it \
     -p 9200:9200 \
-    --mount type=bind,source=~/ocis/ocis-config,target=/etc/ocis \
-    --mount type=bind,source=~/ocis/ocis-data,target=/var/lib/ocis \
+    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$PWD/ocis/ocis-data,target=/var/lib/ocis \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
     -e OCIS_URL=https://<your-hostname>:9200 \
@@ -317,7 +318,10 @@ See the details in the _docker run_ documentation for available options. Conside
 
 --mount: Attach a filesystem mount to the container::
 --
-* {docker-mount-url}[Docker volumes] (`--type=volume`) are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example. Note the volume mount target path `target=/var/lib/ocis` which uses the default Infinite Scale data path if not otherwise defined. Note that the directory on the host must already exist, it will not be created by docker. 
+* {docker-mount-url}[Docker volumes] (`--type=volume`) are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example.
+** Note the volume mount target path `target=/var/lib/ocis` which uses the default Infinite Scale data path if not otherwise defined.
+** Note that the directory on the host must already exist, it will not be created by docker.
+** Note the use of `$PWD/ocis/...` for the paths when using the users home directory. When using `~/ocis/...`, you will get an error like `mount path must be absolute`.
 
 * {docker-bindmount-url}[Bind mounts] (`--type=bind`) depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis`, which uses the default Infinite Scale data path if not otherwise defined. You should always create the source directories upfront because of correct permissions (see: xref:preparation[Preparation]), despite the fact that bind-mounts create directories that do not yet exist on the host. In such a case, the directory will be created automatically using the user the _docker service_ runs with, usually the root user, making the source path inaccessible to the user inside the docker container.
 +
