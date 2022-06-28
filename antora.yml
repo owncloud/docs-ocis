@@ -7,4 +7,4 @@ nav:
 
 asciidoc:
   attributes:
-    ocis-services-includes: 'https://raw.githubusercontent.com/owncloud/ocis/docs/extensions/_includes/'
+    ocis-services-includes: 'https://raw.githubusercontent.com/owncloud/ocis/docs/services/_includes/'
