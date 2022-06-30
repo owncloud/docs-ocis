@@ -3,7 +3,7 @@
 
 :ext_name: ocs
 
-:description: The Infinite Scale OCS service provides ...
+:description: The Infinite Scale OCS service provides the OCS API which is required by some ownCloud clients.
 
 == Introduction
 

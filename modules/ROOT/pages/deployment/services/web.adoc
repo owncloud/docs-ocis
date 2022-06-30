@@ -3,7 +3,7 @@
 
 :ext_name: web
 
-:description: The Infinite Scale Web service provides ...
+:description: The Web service embeds xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] to provide a UI for ownCloud Infinite Scale.
 
 == Introduction
 
