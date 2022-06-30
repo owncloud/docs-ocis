@@ -11,10 +11,8 @@ content:
     - HEAD
   # the docs-xxx are just present for the test build to satisfy used references
   # the real build is made in the docs repo using correct values
+  # note that by including docs-server, also docs-webui gets included via docs-server
   - url: https://github.com/owncloud/docs-server.git
-    branches:
-    - master
-  - url: https://github.com/owncloud/docs-webui.git
     branches:
     - master
 
