@@ -48,11 +48,11 @@ In the table showing the environment variables of a service, the _Default Value_
 ====
 
 Note on paths for binary vs. container installations::
-If a service offers path customisation like the `IDM_LDAPS_CERT` (see the xref:deployment/services/idm.adoc[IDM] documentation), the path set references to the environment used. This means, when using the binary installation, the path is based on the host filesystem, while when using a container installation, the path references a target inside the container.
+If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:deployment/services/idm.adoc[IDM] documentation), the path set references the environment used. This means, when using the binary installation, the path is based on the host filesystem. When using a container installation, the path references a target inside the container.
 +
 [NOTE]
 ====
-When using a container and you want or need to keep the data generated or provided persistent, you need to provide host filesystem access to the container path used which you can do with mounts or volumes.
+When using a container and you want or need to keep all data persistent, you need to provide host filesystem access to the container, which you can do with mounts or volumes.
 ====
 
 == Used Port Ranges
