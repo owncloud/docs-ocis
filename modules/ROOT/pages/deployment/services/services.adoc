@@ -44,7 +44,15 @@ Default values containing curly brackets::
 +
 [TIP]
 ====
-In the table showing the variables of a service, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid defaults.
+In the table showing the environment variables of a service, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid defaults.
+====
+
+Note on paths for binary vs. container installations::
+If a service offers path customisation like the `IDM_LDAPS_CERT` (see the xref:deployment/services/idm.adoc[IDM] documentation), the path set references to the environment used. This means, when using the binary installation, the path is based on the host filesystem, while when using a container installation, the path references a target inside the container.
++
+[NOTE]
+====
+When using a container and you want or need to keep the data generated or provided persistent, you need to provide host filesystem access to the container path used which you can do with mounts or volumes.
 ====
 
 == Used Port Ranges
