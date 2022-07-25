@@ -49,7 +49,7 @@ OCIS_EXCLUDE_RUN_SERVICES=auth-basic,storage-publiclink \
     ocis server
 ----
 +
-NOTE: This environment variable has no effect when `OCIS_RUN_SERVICES` is set, only one cn abe used.
+NOTE: This environment variable has no effect when `OCIS_RUN_SERVICES` is set, only one can be used.
 
 * Runtime services rules
 ** You cannot instantiate a runtime service
