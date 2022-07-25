@@ -28,7 +28,7 @@ image::deployment/services/concurrence.drawio.svg[width=600]
 
 == Runtime Services
 
-* With the command `ocis server`, all services are started with the runtime and share the same PID. If you do not want to start all services available, you have two choices, both using envirnment variables, useful if you want to try starting a set of services outside the runtime, e.g. when testing orchestration:
+* With the command `ocis server`, all services are started with the runtime and share the same PID. If you do not want to start all services available, you have two choices, both using environment variables, useful if you want to try starting a set of services outside the runtime, e.g. when testing orchestration:
 ** With `OCIS_RUN_SERVICES` you define all services you _want to start_ and leave out all you dont want to start:
 +
 [source,bash]
