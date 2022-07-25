@@ -30,7 +30,7 @@ radium-lovers
 | moss
 | vista
 | \moss@example.org
-| admin
+| space admin
 | users
 
 | richard
