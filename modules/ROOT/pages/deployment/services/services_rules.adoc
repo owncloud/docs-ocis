@@ -28,7 +28,8 @@ image::deployment/services/concurrence.drawio.svg[width=600]
 
 == Runtime Services
 
-* With the command `ocis server`, all services are started with the runtime and share the same PID. If you want to exclude services from starting with the runtime, you must define with an environment variable all services to be started. Those not named will _not_ be started:
+* With the command `ocis server`, all services are started with the runtime and share the same PID. If you do not want to start all services available, you have two choices, both using environment variables, useful if you want to try starting a set of services outside the runtime, e.g. when testing orchestration:
+** With `OCIS_RUN_SERVICES` you define all services you _want to start_ and leave out all you dont want to start:
 +
 [source,bash]
 ----
@@ -40,8 +41,15 @@ OCIS_RUN_SERVICES=settings,storage-system, \
     app-provider,sharing,proxy,ocdav \
     ocis server
 ----
+** With `OCIS_EXCLUDE_RUN_SERVICES` you define all services you _do not want_ to start, out of all available services which would normally be started:
 +
-This is useful if you want to try starting a service outside the runtime, e.g. when testing orchestration.
+[source,bash]
+----
+OCIS_EXCLUDE_RUN_SERVICES=auth-basic,storage-publiclink \
+    ocis server
+----
++
+NOTE: This environment variable has no effect when `OCIS_RUN_SERVICES` is set, only one can be used.
 
 * Runtime services rules
 ** You cannot instantiate a runtime service
