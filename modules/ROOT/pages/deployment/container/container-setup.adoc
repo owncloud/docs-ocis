@@ -57,7 +57,7 @@ If Docker is installed, you'll be informed. If not, you may get no output at all
 
 === Install Docker
 
-* On most Linux distributions, you can simply install Docker via the package manager. For later use, you might want to install xref:deployment/container/orchestration.adoc[Docker-Compose] as well.
+* On most Linux distributions, you can simply install Docker via the package manager. For later use, you might want to install xref:deployment/container/orchestration/orchestration.adoc[Docker-Compose] as well.
 +
 Alternatively, install Docker depending on your OS from the Docker site. See {install-docker-server-url}[Install Docker Engine] and {install-d-compose-url}[Install Docker Compose] for details.
 

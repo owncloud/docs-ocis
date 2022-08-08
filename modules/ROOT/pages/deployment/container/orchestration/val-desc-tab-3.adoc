@@ -1,0 +1,18 @@
+= values.yaml Description
+
+== Chart Version: {tab_3_tab_text}
+
+////
+Note that this page is created because when the contents of the included table is big, the tab size would be too high and not comfortable to read.
+
+The source content comes from github.
+
+If there are xref's, these are resolved via an attribute defined in antora.yml
+
+This is an adoc table that gets included, not a yaml file.
+
+{ocis-charts-raw-url}{tab_3}{values-desc-versions-url}
+////
+
+
+include::{ocis-charts-raw-url}{tab_3}{values-desc-versions-url}[]

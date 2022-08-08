@@ -1,0 +1,552 @@
+= Container Orchestration
+:toc: right
+:toclevels: 3
+
+:docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
+:docker-compose-install-url: https://docs.docker.com/compose/install/
+:docker-hub-url: https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated
+:compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
+:docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
+:kubernetes-url: https://kubernetes.io
+:swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
+:swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
+
+:helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
+
+:ocis_individual_services-url: https://github.com/owncloud/ocis/tree/master/deployments/examples/ocis_individual_services
+:ht-pwd-url: https://htpasswdgenerator.de/
+
+:why-K8s-url: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do
+:eli5-K8s-url: https://dev.to/miguelmota/comment/filh
+:wunderlich-K8s-url: http://deaddy.net/introduction-to-kubernetes-pt-1.html
+
+:12factor-url: https://12factor.net/
+:K8s-setup-url: https://kubernetes.io/docs/setup/
+:helm-install-url: https://helm.sh/docs/intro/install/
+
+:minikube-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/
+:minikube-start-url: https://minikube.sigs.K8s.io/docs/start/
+:kubeadm-url: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+:kubectl-url: https://kubernetes.io/docs/tasks/tools/
+:helm-url: https://helm.sh/
+:helm-guide-url: https://helm.sh/docs/intro/install/
+:ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
+
+:minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
+:kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
+
+// note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
+
+:description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
+
+== Introduction
+
+{description} Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
+
+The pages
+
+* {swarm-v-kub-1-url}[Docker Swarm vs Kubernetes: how to choose a container orchestration tool] and
+* {swarm-v-kub-2-url}[Kubernetes Vs. Docker Swarm: A Comparison of Containerization Platforms]
+
+give a brief overview of features and characteristics of both tools.
+
+Note for Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that can be used and adjusted.
+
+== Docker Compose
+
+Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one file. This is the next step when having multi-container environments.
+
+=== Prerequisites
+
+Check if the package `docker-compose` is installed in addition to docker:
+
+[source,bash]
+----
+which docker-compose
+----
+
+If `docker-compose` is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install `docker-compose` first. On most Linux distributions, you can simply use the package manager to do so. Note that in many cases, this will install a 1.x version (python-based) while a 2.x version (go-based) is preferred. To check which version would be installed with the package manager, simply type:
+
+[source,bash]
+----
+sudo apt-cache policy docker-compose
+----
+
+If the output shows a version like 2.x, you can use the package manager to install docker-compose, like with the following command on Debian-based distributions:
+
+[source,bash]
+----
+sudo apt install docker-compose
+----
+
+If the output shows a version like 1.25.0-1, follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version.
+
+When done, create a project directory, like `ocis-compose` in your home directory to have a common location for your Infinite Scale compose files.
+
+=== Docker Compose Example
+
+See the {ocis_individual_services-url}[ocis individual services] example which configures services individually using docker-compose, to get a first impression how this can be done. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
+
+== Kubernetes and Helm
+
+=== Kubernetes
+
+{kubernetes-url}[Kubernetes] (abbreviated as K8s) is an open-source platform for governing clusters of containerized application services. Kubernetes automates the vital aspects of container lifecycle management, including scaling, replication, monitoring, and scheduling. It offers a framework for distributed systems. Infinite Scale was designed with Kubernetes in mind. Therefore ownCloud provides Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
+
+////
+For more information on Kubernetes (K8s) features, check out {why-K8s-url}[Why you need Kubernetes and what it can do]. If that is too abstract, there is an {eli5-K8s-url}[ELI5 writeup].
+
+We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
+////
+
+See the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] description in our _Availability and Scalability_ guide for reasons for using Kubernetes.
+
+Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables.
+
+When designing your Kubernetes cluster, you have two major approaches available which are `minikube` and `kubeadm`.
+
+minikube::
+{minikube-url}[minikube] lets you run a _single-node Kubernetes cluster locally_. It is a good way to test a deployment. It requires no extra configuration on any cloud platform as everything runs on your local machine.
+
+kubeadm::
+{kubeadm-url}[kubeadm] _requires at least two nodes_ and builds a minimum viable, production-ready Kubernetes cluster, using best practices. It also allows the container runtime to be chosen, though it has Docker by default.
+
+A tool to note: kubectl::
+{kubectl-url}[kubectl] is the command-line tool for Kubernetes. It allows users to run commands against a K8s cluster. It supports multiple contexts for as many clusters as you have access to. _minikube_ also provides kubectl wrapped as `minikube kubectcl`.
+
+Pods::
+A {kubernetes-pod-url}[Pod] is a Kubernetes abstraction that represents a group of one or more application containers such as Docker and some shared resources for those containers.
+
+=== Helm
+
+{helm-url}[Helm] is a Kubernetes deployment tool for automating creation, packaging, configuration, and deployment of applications and services to Kubernetes clusters. Comparing Kubernetes as the operating system, Helm would be the package manager. Helm automates the maintenance of YAML manifests for Kubernetes objects. This is done by packaging information into charts -- therefore Helm Charts -- and advertising them to a Kubernetes cluster. The image below shows the interaction of Helm v3 with Kubernetes.
+
+image::deployment/container/what-is-helm.drawio.svg[Interaction of Helm v3 with Kubernetes, width=400]
+
+=== Prerequisites
+
+Installing Kubernetes::
+Depending on if you want to go for a single or multi node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube if examples are shown.
+
+Installing Helm::
+Follow the {helm-install-url}[Helm Installing Documentation] post installation and setup of Kubernetes. Verify your installation is correct by typing:
++
+--
+[source,bash]
+----
+minikube status
+----
+
+[source,plaintext]
+----
+minikube
+type: Control Plane
+host: Stopped
+kubelet: Stopped
+apiserver: Stopped
+kubeconfig: Stopped
+----
+--
+
+== Using Helm Charts with Infinite Scale
+
+NOTE: The Helm chart is still in an experimental phase and has not yet been published on a Helm chart repository. For your convenience, ownCloud provides a {ocis-helm-charts-url}[ocis-charts] git repository.
+
+NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will documented beside the development version.
+
+Note that the `values.yaml` file provided by ownCloud uses generic configuration. You can customise this provided configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
+
+=== Supported Infinite Scale Versions
+
+////
+
+when a new Helm chart version is published on the github repo, we need to adapt following settings:
+
+* in `antora.yml`: check, set and name the attributes for the tab attributes accordingly
+  the `tag_x` value needs to match the tag set in the referenced git repo!
+  the `tag_x_tab_text` values will be used as printout text which can be different from `tag_x`.
+* in `modules/ROOT/examples/deployment/container/orchestration` check/adapt the contents of the files
+* only change the secrets attribute if
+  - the orchestration.adoc page gets relocated or
+  - the section header changes (like for renaming)
+
+Note that you do not need to manipulate any other files as they are included from source (here/git) automagically
+
+////
+
+See the following table to match the Helm chart versions vs. Ininite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
+
+// this table needs manual update on the "works" rows when a new Helm chart release is published
+
+[width="65%",cols="~,~",options="header"]
+|===
+| Helm Chart Version
+| Works with Ininite Scale Versions
+
+| {tab_1_tab_text}
+| 2.0.0-beta.4 - 2.0.0-beta.5
+
+ifdef::use_tab_2[]
+| {tab_2_tab_text}
+| 2.0.0-beta.6 - 2.0.0-beta.7
+endif::[]
+
+ifdef::use_tab_3[]
+| {tab_3_tab_text}
+| 2.0.0-beta.8 - 2.0.0-beta.9
+endif::[]
+|===
+
+=== Get the Chart
+
+As the Helm chart has currently not been published to a Helm repository, you need to clone ownClouds Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
+
+// note that the sources for the include are are on github.
+
+* Check the supported Kubernetes versions before you download the chart.
++
+Note the `~` represents all patch releases for that particular version:
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+include::{ocis-charts-raw-url}{tab_1}{kube-versions-url}[]
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+include::{ocis-charts-raw-url}{tab_2}{kube-versions-url}[]
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+include::{ocis-charts-raw-url}{tab_3}{kube-versions-url}[]
+--
+endif::[]
+====
+
+=== Deploy the Chart
+
+// note that the sources for values and description are are on github.
+
+:t1_text: Helm chart with default configurations.
+:t2_text: Description for the values.yaml file.
+
+* Deploy the chart with the deployment name `ocis`, use any name as desired. To do so, run the following command from the root of the cloned repository:
++
+[source,bash]
+----
+helm install ocis ./charts/ocis
+----
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/values-tab-1.adoc[values.yaml,window=_blank]
+| {t1_text}
+
+| xref:deployment/container/orchestration/val-desc-tab-1.adoc[Values Description,window=_blank]
+| {t2_text}
+|===
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/values-tab-2.adoc[values.yaml,window=_blank]
+| {t1_text}
+
+| xref:deployment/container/orchestration/val-desc-tab-2.adoc[Values Description,window=_blank]
+| {t2_text}
+|===
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/values-tab-3.adoc[values.yaml,window=_blank]
+| {t1_text}
+
+| xref:deployment/container/orchestration/val-desc-tab-3.adoc[Values Description,window=_blank]
+| {t2_text}
+|===
+--
+endif::[]
+====
+
+=== Start minikube
+
+. Start your minikube cluster:
++
+[source,bash]
+----
+minikube start
+----
+
+. Enable the minikube ingress plugin, which is like a reverse proxy for your cluster:
++
+[source,bash]
+----
+minikube addons enable ingress
+----
+
+=== Customise the Generic Setup
+
+In all examples, adapt the settings according your needs.
+
+==== Set Your Own Default Values
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* Create your own local `values.yaml` file which overwrites parts of the provided one with the following contents:
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/values-overwrite-tab-1.yaml[]
+----
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/values-overwrite-tab-2.yaml[]
+----
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[]
+----
+--
+endif::[]
+====
+
+==== Configure email Notification
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* If the key `features.emailNotifications` is set to true, the SMTP email server secret needs to be configured:
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/email-notification-tab-1.yaml[]
+----
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/email-notification-tab-2.yaml[]
+----
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/email-notification-tab-3.yaml[]
+----
+--
+endif::[]
+====
+
+==== Define Secrets
+
+Infinite Scale requires some secrets to work. It was decided not to create them automagically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+
+These reasons add up and as a result, the responsibility for these secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+:t_text: Secrets file containing all relevant secrets configurations.
+
+* The following example shows what secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/secrets-tab-1.adoc[secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/secrets-tab-2.adoc[secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/secrets-tab-3.adoc[secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+====
+
+===== Apply Secrets
+
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+
+. To apply secrets by command, save the content as `secrets.yaml` and use the following command, add a path to the secrets file if necessary:
++
+[source,bash]
+----
+minikube kubectl apply -f secrets.yaml
+----
+
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+
+==== NGINX Ingress Example
+
+This is an example with NGINX ingress and certificate issued by cert-manager. To make this work you need to have NGINX ingress and cert-manager installed in your cluster.
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* Defining NGINX ingress and cert-manager.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/nginx-ingress-tab-1.yaml[]
+----
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/nginx-ingress-tab-2.yaml[]
+----
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/nginx-ingress-tab-3.yaml[]
+----
+--
+endif::[]
+====
+
+==== Apply Chart Changes
+
+* Install the changes provided via your own `values.yaml` file:
++
+[source,bash]
+----
+helm install ocis ./charts/ocis --values values.yaml
+----
+
+==== Define Chart Access 
+
+. Get the minikube IP address:
++
+[source,bash]
+----
+minikube ip
+----
+
+. Add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS addon. An example line for the `/etc/hosts` file could look like this:
++
+[source,plaintext]
+----
+192.168.49.2 ocis.kube.owncloud.test
+----
+
+=== Access Infinite Scale in Your Browser
+
+After you have customized your setup, use the following URL to access Infinite Scale in your browser:
+
+[source,plaintext]
+----
+https://ocis.kube.owncloud.test
+----
+
+=== Uninstalling the Chart
+
+To uninstall/delete the `ocis` deployment:
+
+[source,bash]
+----
+helm delete ocis
+----
+
+This command removes all the Kubernetes components associated with the chart and deletes the deployment.
+
+=== Upgrading an Existing Release to a New Major Version
+
+A major chart version change (like v1.2.3 -> v2.0.0) indicates that there is an incompatible breaking change which needs manual actions.
