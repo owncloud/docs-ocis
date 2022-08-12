@@ -184,16 +184,16 @@ See the following table to match the Helm chart versions vs. Ininite Scale relea
 | Works with Ininite Scale Versions
 
 | {tab_1_tab_text}
-| 2.0.0-beta.4 - 2.0.0-beta.5
+| 2.0.0-beta.6
 
 ifdef::use_tab_2[]
 | {tab_2_tab_text}
-| 2.0.0-beta.6 - 2.0.0-beta.7
+| 2.0.0-beta.7 - 2.0.0-beta.8
 endif::[]
 
 ifdef::use_tab_3[]
 | {tab_3_tab_text}
-| 2.0.0-beta.8 - 2.0.0-beta.9
+| 2.0.0-beta.9 - 2.0.0-beta.10
 endif::[]
 |===
 
@@ -359,7 +359,7 @@ endif::[]
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* If the key `features.emailNotifications` is set to true, the SMTP email server secret needs to be configured:
+* If the key `features.emailNotifications` is set to `true`, the SMTP email server secret needs to be configured:
 +
 [tabs]
 ====
@@ -458,6 +458,144 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 [source,bash]
 ----
 minikube kubectl apply -f secrets.yaml
+----
+
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+
+==== Builtin User Management Secrets
+
+If you're using the builtin user management with setting `features.externalUserManagement.enabled` set to `false`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+
+These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+:t_text: Secrets file for the builtin user management.
+
+* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-1.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-2.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-3.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+====
+
+===== Apply Builtin User Management Secrets
+
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+
+. To apply secrets by command, save the content as `user-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
++
+[source,bash]
+----
+minikube kubectl apply -f builtin-user-mgmt-secrets.yaml
+----
+
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+
+==== External User Management Secrets
+
+If you're using external user management with setting `features.externalUserManagement.enabled` set to `true`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+
+These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+:t_text: Secrets file for the external user management.
+
+* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-1.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-2.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[width="100%",cols="~,~",options="header"]
+|===
+| File
+| Descripton
+
+| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-3.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+====
+
+===== Apply External User Management Secrets
+
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+
+. To apply secrets by command, save the content as `user-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
++
+[source,bash]
+----
+minikube kubectl apply -f external-user-mgmt-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.

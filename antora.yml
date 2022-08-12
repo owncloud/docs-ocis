@@ -15,7 +15,7 @@ asciidoc:
     tab_1: master
     tab_2: tab_2
     tab_3: tab_3
-    tab_1_tab_text: master
+    tab_1_tab_text: 0.0.0
     tab_2_tab_text: 0.1.0
     tab_3_tab_text: 0.2.0
     use_tab_2:  # set to any value if tab 2 should be shown
