@@ -1,0 +1,22 @@
+= values.yaml
+
+== Chart Version: {tab_3_tab_text}
+
+////
+Note that this page is created because when the contents of the included yaml is big, the tab size would be too high and not comfortable to read.
+
+The source content comes from github.
+
+If there are xref's, these are resolved via an attribute defined in antora.yml
+ 
+{ocis-charts-raw-url}{tab_3}{values-versions-url}
+
+We need to allow substitution of attributes first, then macros
+////
+
+Note, to improve readbility, syntax highlighting is used. A drawback is that, links in comments are not clickable. See the xref:deployment/container/orchestration/val-desc-tab-3.adoc[Values Description] page where the links can be clicked.
+
+[source,yaml,subs="attributes+,+macros"]
+----
+include::{ocis-charts-raw-url}{tab_3}{values-versions-url}[]
+----

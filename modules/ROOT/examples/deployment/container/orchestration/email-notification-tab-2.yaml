@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: notifications-smtp-secret
+type: Opaque
+data:
+  # Sender of emails that will be sent. Example: noreply@owncloud.test
+  smtp-sender: XXXXXXXXXXXXX
+  # SMTP host to connect to. Example: smtp.owncloud.test
+  smtp-host: XXXXXXXXXXXXX
+  # Port of the SMTP host to connect to. Example: 1025
+  smtp-port: 1025
+  # Password of the SMTP host to connect to.
+  smtp-password: XXXXXXXXXXXXX
