@@ -154,25 +154,9 @@ NOTE: The Helm chart is still in an experimental phase and has not yet been publ
 
 NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will documented beside the development version.
 
-Note that the `values.yaml` file provided by ownCloud uses generic configuration. You can customise this provided configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
+Note that the `values.yaml` file provided by ownCloud uses generic configuration. You can customise this provided configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name of `values.yaml` follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
 
 === Supported Infinite Scale Versions
-
-////
-
-when a new Helm chart version is published on the github repo, we need to adapt following settings:
-
-* in `antora.yml`: check, set and name the attributes for the tab attributes accordingly
-  the `tag_x` value needs to match the tag set in the referenced git repo!
-  the `tag_x_tab_text` values will be used as printout text which can be different from `tag_x`.
-* in `modules/ROOT/examples/deployment/container/orchestration` check/adapt the contents of the files
-* only change the secrets attribute if
-  - the orchestration.adoc page gets relocated or
-  - the section header changes (like for renaming)
-
-Note that you do not need to manipulate any other files as they are included from source (here/git) automagically
-
-////
 
 See the following table to match the Helm chart versions vs. Ininite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
 
@@ -201,7 +185,7 @@ endif::[]
 
 As the Helm chart has currently not been published to a Helm repository, you need to clone ownClouds Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
 
-// note that the sources for the include are are on github.
+// note the sources for the include are are on github.
 
 * Check the supported Kubernetes versions before you download the chart.
 +
@@ -232,7 +216,7 @@ endif::[]
 
 === Deploy the Chart
 
-// note that the sources for values and description are are on github.
+// note the sources for values and description are are on github.
 
 :t1_text: Helm chart with default configurations.
 :t2_text: Description for the values.yaml file.
@@ -321,7 +305,7 @@ In all examples, adapt the settings according your needs.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* Create your own local `values.yaml` file which overwrites parts of the provided one with the following contents:
+* Create your _own local_ `values.yaml` file which will overwrite parts of the provided one with the following contents:
 +
 [tabs]
 ====
@@ -393,29 +377,29 @@ include::example$deployment/container/orchestration/email-notification-tab-3.yam
 endif::[]
 ====
 
-==== Define Secrets
+==== Define Generic Secrets
 
-Infinite Scale requires some secrets to work. It was decided not to create them automagically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+Infinite Scale requires some generic secrets to work. It was decided not to create them automagically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+These reasons add up and as a result, the responsibility for these generic secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-:t_text: Secrets file containing all relevant secrets configurations.
+:t_text: Secrets file containing all relevant generic secrets configurations.
 
-* The following example shows what secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows how generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
 {tab_1_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="30%,70%",options="header"]
 |===
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/secrets-tab-1.adoc[secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/generic-secrets-tab-1.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -423,12 +407,12 @@ ifdef::use_tab_2[]
 {tab_2_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="30%,70%",options="header"]
 |===
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/secrets-tab-2.adoc[secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/generic-secrets-tab-2.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -437,49 +421,49 @@ ifdef::use_tab_3[]
 {tab_3_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="30%,70%",options="header"]
 |===
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/secrets-tab-3.adoc[secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/generic-secrets-tab-3.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
 endif::[]
 ====
 
-===== Apply Secrets
+===== Apply Generic Secrets
 
 Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
 
-. To apply secrets by command, save the content as `secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `generic-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
 +
 [source,bash]
 ----
-minikube kubectl apply -f secrets.yaml
+minikube kubectl apply -f generic-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
 
 ==== Builtin User Management Secrets
 
-If you're using the builtin user management with setting `features.externalUserManagement.enabled` set to `false`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using the builtin user management by setting `features.externalUserManagement.enabled` set to `false`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
 :t_text: Secrets file for the builtin user management.
 
-* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows how user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
 {tab_1_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -492,7 +476,7 @@ ifdef::use_tab_2[]
 {tab_2_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -506,7 +490,7 @@ ifdef::use_tab_3[]
 {tab_3_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -522,7 +506,7 @@ endif::[]
 
 Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
 
-. To apply secrets by command, save the content as `user-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `builtin-user-mgmt-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
 +
 [source,bash]
 ----
@@ -533,22 +517,22 @@ minikube kubectl apply -f builtin-user-mgmt-secrets.yaml
 
 ==== External User Management Secrets
 
-If you're using external user management with setting `features.externalUserManagement.enabled` set to `true`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using external user management by setting `features.externalUserManagement.enabled` set to `true`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use the security relevant data is provided by ownCloud via examples.
+These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
 :t_text: Secrets file for the external user management.
 
-* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows how external user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
 {tab_1_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -561,7 +545,7 @@ ifdef::use_tab_2[]
 {tab_2_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -575,7 +559,7 @@ ifdef::use_tab_3[]
 {tab_3_tab_text}::
 +
 --
-[width="100%",cols="~,~",options="header"]
+[width="100%",cols="60%,60%",options="header"]
 |===
 | File
 | Descripton
@@ -591,7 +575,7 @@ endif::[]
 
 Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
 
-. To apply secrets by command, save the content as `user-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `external-user-mgmt-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
 +
 [source,bash]
 ----
@@ -641,8 +625,8 @@ endif::[]
 ====
 
 ==== Apply Chart Changes
-
-* Install the changes provided via your own `values.yaml` file:
+   
+* Install all changes defined in the _own_ `values.yaml` file:
 +
 [source,bash]
 ----
@@ -651,14 +635,14 @@ helm install ocis ./charts/ocis --values values.yaml
 
 ==== Define Chart Access 
 
-. Get the minikube IP address:
+. Get, respectively check the minikube IP address:
 +
 [source,bash]
 ----
 minikube ip
 ----
 
-. Add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS addon. An example line for the `/etc/hosts` file could look like this:
+. If not already done, add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS addon. An example line for the `/etc/hosts` file could look like this:
 +
 [source,plaintext]
 ----
