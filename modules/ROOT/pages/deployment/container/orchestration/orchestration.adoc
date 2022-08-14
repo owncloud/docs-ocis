@@ -387,7 +387,7 @@ These reasons add up and as a result, the responsibility for these generic secre
 
 :t_text: Secrets file containing all relevant generic secrets configurations.
 
-* The following example shows how generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -456,7 +456,7 @@ These reasons add up and as a result, the responsibility for these user manageme
 
 :t_text: Secrets file for the builtin user management.
 
-* The following example shows how user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -525,7 +525,7 @@ These reasons add up and as a result, the responsibility for these user manageme
 
 :t_text: Secrets file for the external user management.
 
-* The following example shows how external user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what external user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -635,7 +635,7 @@ helm install ocis ./charts/ocis --values values.yaml
 
 ==== Define Chart Access 
 
-. Get, respectively check the minikube IP address:
+. Get, and check, the minikube IP address:
 +
 [source,bash]
 ----
