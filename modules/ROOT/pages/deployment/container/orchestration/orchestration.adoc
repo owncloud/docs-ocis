@@ -185,7 +185,7 @@ endif::[]
 
 As the Helm chart has currently not been published to a Helm repository, you need to clone ownClouds Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
 
-// note the sources for the include are are on github.
+// note the sources for the include are are on github at ocis-charts.
 
 * Check the supported Kubernetes versions before you download the chart.
 +
@@ -216,7 +216,7 @@ endif::[]
 
 === Deploy the Chart
 
-// note the sources for values and description are are on github.
+// note the sources for values and description are are on github at ocis-charts.
 
 :t1_text: Helm chart with default configurations.
 :t2_text: Description for the values.yaml file.
@@ -238,10 +238,10 @@ helm install ocis ./charts/ocis
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/values-tab-1.adoc[values.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/values-tab-1.adoc[values.yaml,window=_blank]
 | {t1_text}
 
-| xref:deployment/container/orchestration/val-desc-tab-1.adoc[Values Description,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/val-desc-tab-1.adoc[Values Description,window=_blank]
 | {t2_text}
 |===
 --
@@ -254,10 +254,10 @@ ifdef::use_tab_2[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/values-tab-2.adoc[values.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/values-tab-2.adoc[values.yaml,window=_blank]
 | {t1_text}
 
-| xref:deployment/container/orchestration/val-desc-tab-2.adoc[Values Description,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/val-desc-tab-2.adoc[Values Description,window=_blank]
 | {t2_text}
 |===
 --
@@ -271,10 +271,10 @@ ifdef::use_tab_3[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/values-tab-3.adoc[values.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/values-tab-3.adoc[values.yaml,window=_blank]
 | {t1_text}
 
-| xref:deployment/container/orchestration/val-desc-tab-3.adoc[Values Description,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/val-desc-tab-3.adoc[Values Description,window=_blank]
 | {t2_text}
 |===
 --
@@ -399,7 +399,7 @@ These reasons add up and as a result, the responsibility for these generic secre
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/generic-secrets-tab-1.adoc[generic-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-1.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -412,7 +412,7 @@ ifdef::use_tab_2[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/generic-secrets-tab-2.adoc[generic-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-2.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -426,7 +426,7 @@ ifdef::use_tab_3[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/generic-secrets-tab-3.adoc[generic-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-3.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -468,7 +468,7 @@ These reasons add up and as a result, the responsibility for these user manageme
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-1.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-1.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -481,7 +481,7 @@ ifdef::use_tab_2[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-2.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-2.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -495,7 +495,7 @@ ifdef::use_tab_3[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/builtin-user-mgmt-secrets-tab-3.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-3.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -537,7 +537,7 @@ These reasons add up and as a result, the responsibility for these user manageme
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-1.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-1.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -550,7 +550,7 @@ ifdef::use_tab_2[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-2.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-2.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
@@ -564,7 +564,7 @@ ifdef::use_tab_3[]
 | File
 | Descripton
 
-| xref:deployment/container/orchestration/external-user-mgmt-secrets-tab-3.adoc[external-user-mgmt-secrets.yaml,window=_blank]
+| xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-3.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
 |===
 --
