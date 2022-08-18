@@ -15,7 +15,7 @@ When using global options on startup, you can always use command line options or
 
 == Embedded Supervisor (Runtime)
 
-Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime und reducing the memory footprint. In addition, this supervisor takes care that a service will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime and reducing the memory footprint. In addition, this supervisor takes care that a service will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
 
 == Deciding the Startup Mode
 
