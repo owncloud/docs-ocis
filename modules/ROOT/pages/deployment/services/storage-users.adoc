@@ -18,13 +18,13 @@ include::partial$deployment/services/beta-statement.adoc[]
 
 // referencing: [oCIS FS] clean up aborted uploads https://github.com/owncloud/ocis/issues/2622
 
-When using Infinite Scale as user storage, a directory named `storage/users/uploads` can be found in the Infinite Scale data folder. This is an intermediate directory based on {tus-url}[TUS] which is an open protocol for resumable uploads. Each upload consists of a _blob_ and a _blob.info_ file. Note that the term _blob_ is just a placeholder for the ease of explanation.
+When using Infinite Scale as user storage, a directory named `storage/users/uploads` can be found in the Infinite Scale data folder. This is an intermediate directory based on {tus-url}[TUS] which is an open protocol for resumable uploads. Each upload consists of a _blob_ and a _blob.info_ file. Note that the term _blob_ is just a placeholder.
 
 * **If an upload succeeds**, the _blob_ file will be moved to the target and the _blob.info_ file will be deleted.
 
 * **In case of incomplete uploads**, the _blob_ and _blob.info_ files will continue to recieve data until either the upload succeeds in time or the upload expires based on the `STORAGE_USERS_UPLOAD_EXPIRATION` variable, see the table below for details.
 
-* **In case of expired uploads**, the _blob_ and _blob.info_ files will _not_ be removed automatically and a lot of data can pile up eating up storage space over time.
+* **In case of expired uploads**, the _blob_ and _blob.info_ files will _not_ be removed automatically. Thus a lot of data can pile up over time wasting storage space.
 
 {empty}
 
