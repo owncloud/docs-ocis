@@ -364,4 +364,8 @@ If you have enabled demo users and groups and you want to manage or delete them,
 
 // https://owncloud.dev/ocis/deployment/ocis_individual_services/
 
-When using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and Infinite Scale again. You can therefore set `OCIS_INSECURE=false` or remove it completely.
+When using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and Infinite Scale again. You can therefore set `OCIS_INSECURE=false` or remove it completely. Also see: xref:handling-certificates[Handling Certificates].
+
+== Manage Unfinished Uploads
+
+See xref:deployment/services/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] at the _Storage Users_ service for details. 
