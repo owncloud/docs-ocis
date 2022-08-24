@@ -14,7 +14,7 @@ If there are xref's, these are resolved via an attribute defined in antora.yml
 We need to allow substitution of attributes first, then macros
 ////
 
-Note, to improve readbility, syntax highlighting is used. A drawback is that links in comments are not clickable. See the xref:deployment/container/orchestration/val-desc-tab-1.adoc[Values Description] page where the links can be clicked.
+Note, to improve readbility, syntax highlighting is used. A drawback is that links in comments are not clickable. See the xref:deployment/container/orchestration/tab-pages/val-desc-tab-1.adoc[Values Description] page where the links can be clicked.
 
 [source,yaml,subs="attributes+,+macros"]
 ----
