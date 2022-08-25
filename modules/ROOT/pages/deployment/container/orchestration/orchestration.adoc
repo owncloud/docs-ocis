@@ -50,7 +50,7 @@ The pages
 
 give a brief overview of features and characteristics of both tools.
 
-Note for Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that can be used and adjusted.
+For Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that can be used and adjusted.
 
 == Docker Compose
 
@@ -99,7 +99,7 @@ For more information on Kubernetes (K8s) features, check out {why-K8s-url}[Why y
 We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
 ////
 
-See the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] description in our _Availability and Scalability_ guide for reasons for using Kubernetes.
+See the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] description in the _Availability and Scalability_ section for reasons to use Kubernetes.
 
 Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables.
 
@@ -119,14 +119,14 @@ A {kubernetes-pod-url}[Pod] is a Kubernetes abstraction that represents a group 
 
 === Helm
 
-{helm-url}[Helm] is a Kubernetes deployment tool for automating creation, packaging, configuration, and deployment of applications and services to Kubernetes clusters. Comparing Kubernetes as the operating system, Helm would be the package manager. Helm automates the maintenance of YAML manifests for Kubernetes objects. This is done by packaging information into charts -- therefore Helm Charts -- and advertising them to a Kubernetes cluster. The image below shows the interaction of Helm v3 with Kubernetes.
+{helm-url}[Helm] is a Kubernetes deployment tool for automating creation, packaging, configuration and deployment of applications and services to Kubernetes clusters. Comparing Kubernetes to the operating system, Helm would be the package manager. Helm automates the maintenance of YAML manifests for Kubernetes objects. This is done by packaging information into charts -- therefore Helm Charts -- and advertising them to a Kubernetes cluster. The image below shows the interaction of Helm v3 with Kubernetes.
 
 image::deployment/container/what-is-helm.drawio.svg[Interaction of Helm v3 with Kubernetes, width=400]
 
 === Prerequisites
 
 Installing Kubernetes::
-Depending on if you want to go for a single or multi node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube if examples are shown.
+Depending on whether you want to go for a single or multi-node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube in the examples.
 
 Installing Helm::
 Follow the {helm-install-url}[Helm Installing Documentation] post installation and setup of Kubernetes. Verify your installation is correct by typing:
@@ -150,15 +150,15 @@ kubeconfig: Stopped
 
 == Using Helm Charts with Infinite Scale
 
-NOTE: The Helm chart is still in an experimental phase and has not yet been published on a Helm chart repository. For your convenience, ownCloud provides a {ocis-helm-charts-url}[ocis-charts] git repository.
+NOTE: The Helm chart is still in an experimental phase and has not yet been published on a Helm chart repository. For your convenience, ownCloud provides an {ocis-helm-charts-url}[ocis-charts] git repository.
 
-NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will documented beside the development version.
+NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will be documented beside the development version.
 
-Note that the `values.yaml` file provided by ownCloud uses generic configuration. You can customise this provided configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name of `values.yaml` follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
+The `values.yaml` file provided by ownCloud uses generic configuration. You can customize this configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name of `values.yaml` follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
 
 === Supported Infinite Scale Versions
 
-See the following table to match the Helm chart versions vs. Ininite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
+See the following table to match the Helm chart versions with Infinite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
 
 // this table needs manual update on the "works" rows when a new Helm chart release is published
 
@@ -183,13 +183,13 @@ endif::[]
 
 === Get the Chart
 
-As the Helm chart has currently not been published to a Helm repository, you need to clone ownClouds Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
+As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
 
-// note the sources for the include are are on github at ocis-charts.
+// note the sources for the include are on github at ocis-charts.
 
 * Check the supported Kubernetes versions before you download the chart.
 +
-Note the `~` represents all patch releases for that particular version:
+The `~` represents all patch releases for that particular version:
 +
 [tabs]
 ====
@@ -219,7 +219,7 @@ endif::[]
 // note the sources for values and description are are on github at ocis-charts.
 
 :t1_text: Helm chart with default configurations.
-:t2_text: Description for the values.yaml file.
+:t2_text: Description of the values.yaml file.
 
 * Deploy the chart with the deployment name `ocis`, use any name as desired. To do so, run the following command from the root of the cloned repository:
 +
@@ -290,14 +290,14 @@ endif::[]
 minikube start
 ----
 
-. Enable the minikube ingress plugin, which is like a reverse proxy for your cluster:
+. Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
 +
 [source,bash]
 ----
 minikube addons enable ingress
 ----
 
-=== Customise the Generic Setup
+=== Customize the Generic Setup
 
 In all examples, adapt the settings according your needs.
 
@@ -305,7 +305,7 @@ In all examples, adapt the settings according your needs.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* Create your _own local_ `values.yaml` file which will overwrite parts of the provided one with the following contents:
+* Create your _own local_ `values.yaml` file which will overwrite parts of the provided one with the following content:
 +
 [tabs]
 ====
@@ -339,7 +339,7 @@ include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[
 endif::[]
 ====
 
-==== Configure email Notification
+==== Configure Email Notification
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -379,9 +379,9 @@ endif::[]
 
 ==== Define Generic Secrets
 
-Infinite Scale requires some generic secrets to work. It was decided not to create them automagically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+Infinite Scale requires some generic secrets to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these generic secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
+For these reasons, ownCloud cannot take responsibility for these generic secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -435,22 +435,22 @@ endif::[]
 
 ===== Apply Generic Secrets
 
-Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
-. To apply secrets by command, save the content as `generic-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `generic-secrets.yaml` and use the following command with a path to the secrets file added if necessary:
 +
 [source,bash]
 ----
 minikube kubectl apply -f generic-secrets.yaml
 ----
 
-. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
-==== Builtin User Management Secrets
+==== Built-in User Management Secrets
 
-If you're using the builtin user management by setting `features.externalUserManagement.enabled` set to `false`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should have an expiration date and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
+As the operator of Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -502,24 +502,24 @@ ifdef::use_tab_3[]
 endif::[]
 ====
 
-===== Apply Builtin User Management Secrets
+===== Apply Built-in User Management Secrets
 
-Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
-. To apply secrets by command, save the content as `builtin-user-mgmt-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `builtin-user-mgmt-secrets.yaml` and use the following command (adding the path to the secrets file if necessary):
 +
 [source,bash]
 ----
 minikube kubectl apply -f builtin-user-mgmt-secrets.yaml
 ----
 
-. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
 ==== External User Management Secrets
 
-If you're using external user management by setting `features.externalUserManagement.enabled` set to `true`, you need to set these secrets. Certificates are also required which should have an expiry and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
 
-These reasons add up and as a result, the responsibility for these user management secrets and their lifecycle is handed over to the operator who uses the Helm Charts. Any information necessary to use this security relevant data is provided by ownCloud via examples.
+If you're using Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -573,20 +573,20 @@ endif::[]
 
 ===== Apply External User Management Secrets
 
-Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according your environment:
+Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
-. To apply secrets by command, save the content as `external-user-mgmt-secrets.yaml` and use the following command, add a path to the secrets file if necessary:
+. To apply secrets by command, save the content as `external-user-mgmt-secrets.yaml` and use the following command (adding a path to the secrets file if necessary):
 +
 [source,bash]
 ----
 minikube kubectl apply -f external-user-mgmt-secrets.yaml
 ----
 
-. To apply secrets via your own `values.yaml`, add the content at `extraResources`, proper yaml formatting is necessary.
+. To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
 ==== NGINX Ingress Example
 
-This is an example with NGINX ingress and certificate issued by cert-manager. To make this work you need to have NGINX ingress and cert-manager installed in your cluster.
+This is an example with NGINX ingress and certificate issued by cert-manager. To make this work, you need to have NGINX ingress and cert-manager installed in your cluster.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -626,7 +626,7 @@ endif::[]
 
 ==== Apply Chart Changes
    
-* Install all changes defined in the _own_ `values.yaml` file:
+* Install all changes defined in your _own_ `values.yaml` file:
 +
 [source,bash]
 ----
@@ -635,14 +635,14 @@ helm install ocis ./charts/ocis --values values.yaml
 
 ==== Define Chart Access 
 
-. Get, and check, the minikube IP address:
+. Get and check the minikube IP address:
 +
 [source,bash]
 ----
 minikube ip
 ----
 
-. If not already done, add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS addon. An example line for the `/etc/hosts` file could look like this:
+. If not already done, add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS add-on. An example line for the `/etc/hosts` file could look like this:
 +
 [source,plaintext]
 ----
@@ -651,7 +651,7 @@ minikube ip
 
 === Access Infinite Scale in Your Browser
 
-After you have customized your setup, use the following URL to access Infinite Scale in your browser:
+After you have customized your setup, use the following URL to access Infinite Scale with your browser:
 
 [source,plaintext]
 ----
@@ -660,7 +660,7 @@ https://ocis.kube.owncloud.test
 
 === Uninstalling the Chart
 
-To uninstall/delete the `ocis` deployment:
+To uninstall/delete the `ocis` deployment, use the following command:
 
 [source,bash]
 ----
