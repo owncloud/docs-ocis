@@ -11,8 +11,7 @@ content:
     - HEAD
   # the docs-xxx are just present for the test build to satisfy used references
   # the real build is made in the docs repo using correct values
-  # note that by including docs-server, also docs-webui gets included via docs-server
-  - url: https://github.com/owncloud/docs-server.git
+  - url: https://github.com/owncloud/docs-webui.git
     branches:
     - master
 
@@ -47,8 +46,8 @@ asciidoc:
 #   server
     # note that the version attributes just need to be present and have next as key
     # as they are just here for the test build
-    latest-server-version: 'next'
-    previous-server-version: 'next'
+    latest-server-version: '10.10'
+    previous-server-version: '10.9'
     latest-server-download-version: 'next'
     current-server-version: 'next'
     oc-changelog-url: 'https://owncloud.com/changelog/server/'
