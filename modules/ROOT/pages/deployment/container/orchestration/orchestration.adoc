@@ -183,7 +183,7 @@ endif::[]
 
 === Get the Chart
 
-As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].  
+As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
 
 // note the sources for the include are on github at ocis-charts.
 
@@ -343,7 +343,7 @@ endif::[]
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* If the key `features.emailNotifications` is set to `true`, the SMTP email server secret needs to be configured:
+* If the key `features.emailNotifications.enable` is set to `true`, the SMTP email server secret needs to be configured:
 +
 [tabs]
 ====
@@ -625,7 +625,7 @@ endif::[]
 ====
 
 ==== Apply Chart Changes
-   
+
 * Install all changes defined in your _own_ `values.yaml` file:
 +
 [source,bash]
@@ -633,7 +633,7 @@ endif::[]
 helm install ocis ./charts/ocis --values values.yaml
 ----
 
-==== Define Chart Access 
+==== Define Chart Access
 
 . Get and check the minikube IP address:
 +
