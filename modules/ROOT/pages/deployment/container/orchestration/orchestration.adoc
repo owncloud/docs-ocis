@@ -168,16 +168,16 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | Works with Ininite Scale Versions
 
 | {tab_1_tab_text}
-| 2.0.0-beta.6
+| 2.0.0-beta.8
 
 ifdef::use_tab_2[]
 | {tab_2_tab_text}
-| 2.0.0-beta.7 - 2.0.0-beta.8
+| 2.0.0-beta.9 - 2.0.0-beta.10
 endif::[]
 
 ifdef::use_tab_3[]
 | {tab_3_tab_text}
-| 2.0.0-beta.9 - 2.0.0-beta.10
+| 2.0.0-beta.11 - 2.0.0-beta.12
 endif::[]
 |===
 
