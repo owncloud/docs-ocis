@@ -1,0 +1,31 @@
+= The ocis init Command
+:toc: right
+:description: When setting up ocis, the ocis init command can be used for basic configuration but is generally not suitable for all environments. This document describes the details. 
+
+== Introduction
+
+{description}
+
+== When to Use
+
+In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initialises ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
+
+* When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
+
+* When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialisation step if an `ocis.yaml` config file was found.
+
+* When using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] like with Docker Compose or Kubernetes - Helm Charts, the `ocis init` command *MUST NOT* be used and all configuration parameters must be handed over either via environment variables and/or via the Helm Chart / yaml files. Use the provided Helm Charts as your configuration base and in case derive to Docker Compose.
+
+== When to Not Use
+
+Whenever there is a change in the existing configuration, independent if `ocis init` was run before, `ocis init` will:
+
+* *fail* if it finds an existing `ocis.yaml` file.
+* *not update* any existing configuration.
+* overwrite an existing configuration when using the `--force-overwrite` command option - *which is intended for developers only*. For details see the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command.
+
+== How to Apply Changes
+
+* When there are changes post running `ocis init` - if applicapable, these changes must be applied via environment variables and/or yaml files to take effect.
+
+* To see which configurations are available, see the xref:deployment/services/services.adoc[services] descriptions.
