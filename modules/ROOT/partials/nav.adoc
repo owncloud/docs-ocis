@@ -6,6 +6,7 @@
 ** xref:prerequisites/prerequisites.adoc[Prerequisites]
 ** xref:deployment/index.adoc[Deployment]
 *** xref:deployment/general/general-info.adoc[General Info]
+*** xref:deployment/general/ocis-init.adoc[The ocis init Command]
 *** xref:deployment/binary/binary-setup.adoc[Binary Setup]
 *** xref:deployment/container/container-setup.adoc[Container Setup]
 *** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
