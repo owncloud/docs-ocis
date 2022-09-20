@@ -1,6 +1,6 @@
 = The ocis init Command
 :toc: right
-:description: When setting up ocis, the ocis init command can be used for basic configuration but is generally not suitable for all environments. This document describes the details. 
+:description: When setting up Infinite Scale, the ocis init command can be used for basic configuration but is not suitable for all environments. This document describes the details. 
 
 == Introduction
 
@@ -8,17 +8,17 @@
 
 == When to Use
 
-In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initialises ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
+In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initializes ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
 
 * When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
 
-* When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialisation step if an `ocis.yaml` config file was found.
+* When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialization step if an `ocis.yaml` config file was found.
 
-* When using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] like with Docker Compose or Kubernetes - Helm Charts, the `ocis init` command *MUST NOT* be used and all configuration parameters must be handed over either via environment variables and/or via the Helm Chart / yaml files. Use the provided Helm Charts as your configuration base and adjust for Docker Compose as needed.
+* When using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] like with Docker Compose or Kubernetes with Helm Charts, the `ocis init` command *MUST NOT* be used and all configuration parameters must be handed over either via environment variables and/or via the Helm Chart / yaml files. Use the provided Helm Charts as your configuration base and adjust for Docker Compose as needed.
 
-== When to Not Use
+== When Not to Use
 
-Whenever there is a change in the existing configuration, independent of if `ocis init` was run before, `ocis init` will:
+Whenever there is a change in the existing configuration, independent of whether `ocis init` was run before, `ocis init` will:
 
 * *fail* if it finds an existing `ocis.yaml` file.
 * *not update* any existing configuration.
@@ -26,6 +26,6 @@ Whenever there is a change in the existing configuration, independent of if `oci
 
 == How to Apply Changes
 
-* When there are changes needed post running `ocis init`, these changes must be applied via environment variables and/or yaml files to take effect.
+* If changes are necessary after running `ocis init`, these changes must be applied via environment variables and/or yaml files to take effect.
 
 * To see which configurations are available, see the xref:deployment/services/services.adoc[services] descriptions.
