@@ -389,3 +389,19 @@ Ceph Notes::
 
 * Note that you cannot access the same files in CephFS and Ceph-S3. Ceph allows exposing commodity hardware as either blockstorage (RBD), S3 or CephFS. It is not possible to write a file via S3 and then read it via CephFS.
 ====
+
+== Compatible Clients
+
+At the time of release, users will be able to enjoy the spaces feature of Infinite Scale only with ownCloud Web, but of course, the existing mobile clients and the desktop client will work just like with ownCloud server when connected to Infinite Scale if used in their most recent versions:
+
+* Desktop app version 2.11
+* iOS app version 11.10
+* Android app version 2.21
+
+Spaces will work with the upcoming client versions:
+
+* Desktop app 3.0
+* iOS app 12.0
+* Android app 3.0
+
+Pre-release versions for Desktop and iOS are already available here:
