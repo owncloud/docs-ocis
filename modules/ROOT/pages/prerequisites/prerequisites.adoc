@@ -392,13 +392,13 @@ Ceph Notes::
 
 == Compatible Clients
 
-The current mobile clients and the desktop client work just like with ownCloud server when connected to Infinite Scale if used in their most current versions:
+The mobile clients and the desktop client work just like with ownCloud server when connected to Infinite Scale if used in their current versions:
 
 * Desktop app version 2.11
 * iOS app version 11.10
 * Android app version 2.21
 
-During the beta phase only the new ownCloud Web interface offers spaces. These will work with the upcoming client versions:
+At the moment, only the new ownCloud Web interface offers spaces. These will work with the upcoming client versions:
 
 * Desktop app 3.0
 * iOS app 12.0
