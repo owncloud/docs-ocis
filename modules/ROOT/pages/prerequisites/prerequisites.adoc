@@ -392,17 +392,16 @@ Ceph Notes::
 
 == Compatible Clients
 
-At the time of release, users will be able to enjoy the spaces feature of Infinite Scale only with ownCloud Web, but of course, the existing mobile clients and the desktop client will work just like with ownCloud server when connected to Infinite Scale if used in their most recent versions:
+The current mobile clients and the desktop client work just like with ownCloud server when connected to Infinite Scale if used in their most current versions:
 
 * Desktop app version 2.11
 * iOS app version 11.10
 * Android app version 2.21
 
-Spaces will work with the upcoming client versions:
+During the beta phase only the new ownCloud Web interface offers spaces. These will work with the upcoming client versions:
 
 * Desktop app 3.0
 * iOS app 12.0
-* Android app 3.0
 
 Pre-release versions for https://github.com/owncloud/client/releases?q=v3.&expanded=true[Desktop] and https://owncloud.com/beta-testing/#ios[iOS] are already available for testing.
 
