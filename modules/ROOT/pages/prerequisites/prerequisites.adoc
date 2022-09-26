@@ -392,7 +392,7 @@ Ceph Notes::
 
 == Compatible Clients
 
-The mobile clients and the desktop client work just like with ownCloud server when connected to Infinite Scale if used in their current versions. This means that users can access and synchronize their home folder and recieved shares, but not spaces:
+The mobile clients and the desktop client work just like with ownCloud server when connected to Infinite Scale if used in their current versions. This means that users can access and synchronize their home folder and received shares, but spaces are not available. Supported versions are:
 
 * Desktop app version 2.11
 * iOS app version 11.10
