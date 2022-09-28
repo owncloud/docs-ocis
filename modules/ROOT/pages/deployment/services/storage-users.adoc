@@ -62,7 +62,7 @@ Incomplete uploads:
 Command to clear expired uploads::
 [source,bash]
 ----
-ocis storage-users uploads clear
+ocis storage-users uploads clean
 ----
 [source,plaintext]
 ----
