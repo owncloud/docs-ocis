@@ -30,6 +30,7 @@
 :kubectl-url: https://kubernetes.io/docs/tasks/tools/
 :helm-url: https://helm.sh/
 :helm-guide-url: https://helm.sh/docs/intro/install/
+:cert-manager-url: https://cert-manager.io/docs/installation/helm/
 :ocis-helm-charts-url: https://github.com/owncloud/ocis-charts
 
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
@@ -126,25 +127,22 @@ image::deployment/container/what-is-helm.drawio.svg[Interaction of Helm v3 with 
 === Prerequisites
 
 Installing Kubernetes::
-Depending on whether you want to go for a single or multi-node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube in the examples.
-
-Installing Helm::
-Follow the {helm-install-url}[Helm Installing Documentation] post installation and setup of Kubernetes. Verify your installation is correct by typing:
+Depending on whether you want to go for a single or multi-node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube in the examples. Verify your installation by typing:
 +
 --
 [source,bash]
 ----
-minikube status
+minikube version
 ----
+--
 
-[source,plaintext]
+Installing Helm::
+Follow the {helm-install-url}[Helm Installing Documentation] post installation and setup of Kubernetes. Verify your installation by typing:
++
+--
+[source,bash]
 ----
-minikube
-type: Control Plane
-host: Stopped
-kubelet: Stopped
-apiserver: Stopped
-kubeconfig: Stopped
+helm version
 ----
 --
 
@@ -214,6 +212,22 @@ include::{ocis-charts-raw-url}{tab_3}{kube-versions-url}[]
 endif::[]
 ====
 
+=== Start minikube
+
+. Start your minikube cluster with the latest supported K8s version:
++
+[source,bash]
+----
+minikube start --kubernetes-version=v1.24.6
+----
+
+. Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
++
+[source,bash]
+----
+minikube addons enable ingress
+----
+
 === Deploy the Chart
 
 // note the sources for values and description are are on github at ocis-charts.
@@ -280,22 +294,6 @@ ifdef::use_tab_3[]
 --
 endif::[]
 ====
-
-=== Start minikube
-
-. Start your minikube cluster:
-+
-[source,bash]
-----
-minikube start
-----
-
-. Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
-+
-[source,bash]
-----
-minikube addons enable ingress
-----
 
 === Customize the Generic Setup
 
@@ -441,7 +439,7 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 +
 [source,bash]
 ----
-minikube kubectl apply -f generic-secrets.yaml
+minikube kubectl -- apply -f generic-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
@@ -510,7 +508,7 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 +
 [source,bash]
 ----
-minikube kubectl apply -f builtin-user-mgmt-secrets.yaml
+minikube kubectl -- apply -f builtin-user-mgmt-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
@@ -579,14 +577,14 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 +
 [source,bash]
 ----
-minikube kubectl apply -f external-user-mgmt-secrets.yaml
+minikube kubectl -- apply -f external-user-mgmt-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
 ==== NGINX Ingress Example
 
-This is an example with NGINX ingress and certificate issued by cert-manager. To make this work, you need to have NGINX ingress and cert-manager installed in your cluster.
+This is an example with NGINX ingress and certificate issued by cert-manager. To make this work, you need to have NGINX ingress and {cert-manager-url}[cert-manager] installed in your cluster.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
@@ -626,11 +624,18 @@ endif::[]
 
 ==== Apply Chart Changes
 
-* Install all changes defined in your _own_ `values.yaml` file:
+* Apply all changes defined in your _own_ `values.yaml` file:
 +
 [source,bash]
 ----
-helm install ocis ./charts/ocis --values values.yaml
+helm upgrade ocis ./charts/ocis --values values.yaml
+----
+
+* Ensure that all the pods are running:
++
+[source,bash]
+----
+minikube kubectl -- get pods
 ----
 
 ==== Define Chart Access
