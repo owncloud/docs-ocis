@@ -15,7 +15,7 @@ Infinite Scale uses a microservices architecture. But instead of handling author
 
 === Reverse Proxy
 
-A reverse proxy in front of the API gateway allows to implement further protection mechanisms like request rate limiting or blocking requests from sources which seem to be doing malicious actions like DoS or Slowloris attacks.
+A reverse proxy in front of the API gateway allows implementing further protection mechanisms like request rate limiting or blocking requests from sources which seem to be doing malicious actions like DoS or Slowloris attacks.
 
 === Monitoring (Tracing, Log Aggregation)
 
@@ -29,7 +29,7 @@ Infinite Scale does not rely on a proprietary user management, instead it uses O
 
 === Role System
 
-Infinite Scale provides a flexible role system, which allows to customize the permissions of roles or to define custom roles in the system. This way, permissions for certain roles can be restricted to the absolute minimum.
+Infinite Scale provides a flexible role system, which allows the permissions of roles to be customized or custom roles to be defined in the system. This way, permissions for certain roles can be restricted to the absolute minimum.
 
 === Extension System
 
@@ -47,7 +47,7 @@ The fact that Golang is statically typed helps reduce the amount of logic errors
 
 === Vuejs
 
-The web client xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] of Infinite Scale is implement with Vue.js. This supports securely displaying user input since everything displayed is being escaped by default.
+The web client xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] of Infinite Scale is implemented with Vue.js. This supports securely displaying user input since everything displayed is being escaped by default.
 
 == Developmental Aspects
 
@@ -64,5 +64,5 @@ When any security issues have been fixed, ownCloud makes sure to release a patch
 ownCloud follows development best practices which include:
 
 * All code is being reviewed by multiple people.
-* The code is statically analyzed by various tools to find bugs or security issues in an early stage.
+* The code is statically analyzed by various tools to find bugs or security issues at an early stage.
 * Development makes use of defensive development patterns like input validation and proper error handling.
