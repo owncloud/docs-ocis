@@ -373,7 +373,7 @@ If you have an NFS server capable of extended attributes but you are unsure if y
 mount.nfs -V
 ----
 +
-You need at minimum version 2.6.1. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
+You need at minimum NFS version 2.6.1. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
 
 NFS Servers Provided from Storage Vendors::
 A certification matrix will be provided when available.
