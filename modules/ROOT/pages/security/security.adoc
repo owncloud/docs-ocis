@@ -11,7 +11,7 @@
 
 === API Gateway
 
-Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, we have implemented an API gateway (the xref:deployment/services/proxy.adoc[proxy service]) to handle these tasks. All requests have to go through this gateway. This has the nice effect that all other services can be hidden behind a firewall, which reduces the vulnerability to attacks dramatically.
+Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, we have implemented an API gateway (the xref:deployment/services/proxy.adoc[proxy service]) to handle these tasks. All requests have to go through this gateway. This has the nice effect that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
 
 === Reverse Proxy
 
