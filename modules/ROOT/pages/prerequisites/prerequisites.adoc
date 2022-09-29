@@ -319,7 +319,7 @@ The currently supported Infinite Scale POSIX-compliant file systems are the foll
 
 Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
 
-All POSIX-compliant supported filesystems, local or remote, must support extended attributes. You can check this with following commands, change to a location in the mounted filesystem you want to check before:
+All POSIX-compliant supported filesystems, local or remote, must support extended attributes. You can check this with the following commands, change to a location in the mounted filesystem you want to check before:
 
 [source,bash]
 ----
@@ -356,7 +356,7 @@ NFS Notes::
 When using NFS, you have to take care that the NFS server *AND* the NFS client provides `Extended Attributes`.
 
 NFS Storage Based on Linux Servers::
-When using a kernel version 5.9 or higher, extended attributes for NFS server and NFS client are part of the system. To check, run the command:
+When using a kernel version 5.9 or higher, extended attributes for the NFS server and the NFS client are part of the system. To check, run the command:
 +
 [source,bash]
 ----
@@ -373,7 +373,7 @@ If you have an NFS server capable of extended attributes but you are unsure if y
 mount.nfs -V
 ----
 +
-You need at minimum version 2.6.2. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
+You need at minimum version 2.6.1. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
 
 NFS Servers Provided from Storage Vendors::
 A certification matrix will be provided when available.
@@ -407,4 +407,5 @@ At the moment, only the new ownCloud Web interface offers spaces. Spaces will be
 * iOS app 12.0
 
 Pre-release versions for https://owncloud.com/beta-testing/#desktop-beta[Desktop] and https://owncloud.com/beta-testing/#ios[iOS] are already available for testing.
+
 
