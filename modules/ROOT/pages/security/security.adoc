@@ -1,0 +1,68 @@
+= Security Aspects of Infinite Scale
+:toc: right
+
+:description: This document gives you an overview of the different security measures of Infinite Scale.
+
+== Introduction
+
+{description}
+
+== Operational aspects
+
+=== API Gateway
+
+Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, we have implemented an API gateway (the xref:deployment/services/proxy.adoc[proxy service]) to handle these tasks. All requests have to go through this gateway. This has the nice effect that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
+
+=== Reverse Proxy
+
+A reverse proxy in front of the API gateway allows implementing further protection mechanisms like request rate limiting or blocking requests from sources which seem to be doing malicious actions like DoS or Slowloris attacks.
+
+=== Monitoring (Tracing, Log Aggregation)
+
+All Infinite Scale services support request tracing. This means, you can monitor the path a request takes and which services are involved, etc. In addition to that, all logs can be aggregated by common software like graylog, splunk, etc. This not only helps with administrating the services, but can also aid to detect malicious behavior by analyzing the logs or traces.
+
+=== OpenID Connect
+
+Infinite Scale does not rely on a proprietary user management, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, e.g., Active Directory or any LDAP server.
+
+== Technological Aspects
+
+=== Role System
+
+Infinite Scale provides a flexible role system, which allows the permissions of roles to be customized or custom roles to be defined in the system. This way, permissions for certain roles can be restricted to the absolute minimum.
+
+=== Extension System
+
+Compared to the apps/extensions in ownCloud 10, the Infinite Scale extensions/services are more secure because they are developed and deployed as standalone services. They communicate via APIs with the core services and therefore can only use specific interfaces instead of having direct access to storages and data. A single malicious extension cannot corrupt the whole system.
+
+=== File-based storage
+
+Infinite Scale is designed to work without a database. This means fewer services are required, which reduces potential vulnerabilities.
+
+=== Golang
+
+Developing Infinite Scale from scratch, we decided to switch from PHP to Golang. This eliminates a bunch of security risks that come with PHP, like _Remote File Inclusion_, _Local File Inclusion_ and others. Golang also has a good file system API so that it's easy to protect against directory traversal issues.
+
+The fact that Golang is statically typed helps reduce the amount of logic errors.
+
+=== Vuejs
+
+The web client xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] of Infinite Scale is implemented with Vue.js. This supports securely displaying user input since everything displayed is being escaped by default.
+
+== Developmental Aspects
+
+=== Dependency Monitoring
+
+Development has processes in place to automatically monitor the dependencies in the projects used. This helps to detect vulnerable dependencies at an early stage and enables patching as soon as possible.
+
+=== Process for Patches
+
+When any security issues have been fixed, ownCloud makes sure to release a patched version as soon as possible and notifies customers via several communication channels like the security advisories on our website, via E-mail or the {oc-central-url}[Community Forum] web page.
+
+=== Development Best Practices
+
+ownCloud follows development best practices which include:
+
+* All code is being reviewed by multiple people.
+* The code is statically analyzed by various tools to find bugs or security issues at an early stage.
+* Development makes use of defensive development patterns like input validation and proper error handling.

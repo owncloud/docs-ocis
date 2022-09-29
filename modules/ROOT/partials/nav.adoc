@@ -3,6 +3,7 @@
 * Infinite Scale 
 ** xref:architecture/architecture.adoc[Architecture and Concepts]
 ** xref:availability_scaling/availability_scaling.adoc[Availability and Scalability]
+** xref:security/security.adoc[Security Aspects]
 ** xref:prerequisites/prerequisites.adoc[Prerequisites]
 ** xref:deployment/index.adoc[Deployment]
 *** xref:deployment/general/general-info.adoc[General Info]
