@@ -23,7 +23,6 @@
 **** xref:deployment/services/frontend.adoc[Frontend]
 **** xref:deployment/services/gateway.adoc[Gateway]
 **** xref:deployment/services/graph.adoc[Graph]
-**** xref:deployment/services/graph-explorer.adoc[Graph Explorer]
 **** xref:deployment/services/groups.adoc[Groups]
 **** xref:deployment/services/idm.adoc[IDM]
 **** xref:deployment/services/idp.adoc[IDP]
