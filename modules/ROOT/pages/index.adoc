@@ -78,7 +78,6 @@ NOTE: We highly recommend reading the xref:deployment/general/general-info.adoc[
 
 Configuration of Infinite Scale might be quite different to what you are used to but it's very simple. It works with environment variables and optional configuration files for you to create depending on your specific needs. The settings in configuration files can always be overruled by setting the respective environment variables manually on the command line.
 
-Some xref:configuration/index.adoc[examples] with explanations provide guidance.
 
 ////
 
