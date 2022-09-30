@@ -43,16 +43,11 @@
 **** xref:deployment/services/users.adoc[Users]
 **** xref:deployment/services/web.adoc[Web]
 **** xref:deployment/services/webdav.adoc[WebDAV]
+* Configuration Examples
+** xref:configuration/office-integration.adoc[Office Integration]
 // *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 
 ////
-*** xref:deployment/configuration/index.adoc[Configuration]
-**** xref:deployment/configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
-**** xref:deployment/configuration/external-user-management.adoc[Management of External Users]
-**** xref:deployment/configuration/email-config.adoc[Mail Server Configuration]
-**** xref:cdeployment/configuration/storage.adoc[Storage Configuration]
-**** xref:deployment/configuration/office-integrations.adoc[Integrating Office Applications]
-**** xref:deployment/configuration/roles-permissions.adoc[Roles & Permissions]
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
 ** xref:maintenance/index.adoc[Maintenance]
 ////
