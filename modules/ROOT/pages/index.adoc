@@ -72,6 +72,8 @@ With Infinite Scale, not much is needed to run your ownCloud server the way you 
 
 Infinite Scale can be deployed via container or you can run the binary installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
 
+NOTE: We highly recommend reading the xref:deployment/general/general-info.adoc[General Info] document first before starting to plan or deploy Infinite Scale. This document contains important topics relevant for all deployments.
+
 ////
 === Configuration
 
