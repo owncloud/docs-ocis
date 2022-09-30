@@ -1,11 +1,11 @@
-== Integrating Office Applications
+= Integrating Office Applications
 :toc: right
-:toclevels: 1
+
 :description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
 
 // harvested from https://owncloud.dev/ocis/deployment/ocis_wopi/
 
-=== Overview
+== Introduction
 
 {description}
 
@@ -15,7 +15,7 @@ The docker stack consists of several containers. One of them is Traefik, a proxy
 
 Three Infinite Scale app driver containers register Collabora and ONLYOFFICE at the app registry. Then there is the WOPI server plus Collabora and OnlyOffice.
 
-=== Requirements
+== Requirements
 
 You need a Linux server with docker and docker-compose installed.
 
@@ -29,7 +29,7 @@ Then you need to set up the following domains pointing to your server:
 
 This docker stack can also be run locally. One downside is that Traefik can not obtain valid SSL certificates and therefore will create self-signed ones. This means that your browser will show security warnings. Another downside is that you cannot point DNS entries to your localhost. So you have to add static host entries to your system.
 
-On Linux and macOS you can add them to your /etc/hosts file and on Windows to C:\Windows\System32\Drivers\etc\hosts file like this:
+On Linux and macOS you can add them to your `/etc/hosts` file and on Windows to `C:\Windows\System32\Drivers\etc\hosts` file like this:
 
 [source,plaintext]
 ----
@@ -40,7 +40,7 @@ On Linux and macOS you can add them to your /etc/hosts file and on Windows to C:
 127.0.0.1 wopiserver.owncloud.test
 ----
 
-=== Installation
+== Installation
 
 // TODO: point to released docker containsers with GA
 
@@ -64,7 +64,7 @@ cd ocis/deployments/examples/ocis_wopi
 
 For some hints on what to take into consideration, check below the default `.env` file listed here:
 
-[source,plaintext]
+[source,yaml]
 ----
 # If you're on a internet facing server please comment out following line.
 # It skips certificate validation for various parts of oCIS and is needed if you use self signed certificates.
@@ -125,7 +125,7 @@ The Traefik dashboard is secured by Basic Auth. Default credentials are the user
 
 Traefik will issue certificates with LetsEncrypt. Therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
 
-By default Infinite Scale will be started in the latest version. If you want to run a specific version of Infinite Scale, set the version to OCIS_DOCKER_TAG=. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
+By default Infinite Scale will be started in the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
 
 Set your domain for the Infinite Scale web frontend in `OCIS_DOMAIN=`, for example `OCIS_DOMAIN=ocis.owncloud.test`.
 
@@ -144,7 +144,7 @@ If you want to use the Collabora admin panel, you need to set the username and p
 Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
 
 . Save the file and start the Docker stack:
-
++
 [source,bash]
 ----
 docker-compose up -d
