@@ -11,7 +11,7 @@
 
 === API Gateway
 
-Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, we have implemented an API gateway (the xref:deployment/services/proxy.adoc[proxy service]) to handle these tasks. All requests have to go through this gateway. This has the nice effect that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
+Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, an API gateway (the xref:deployment/services/proxy.adoc[proxy service]) to handle these tasks has been implemented. All requests have to go through this gateway. This has the positive effect, that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
 
 === Reverse Proxy
 
@@ -23,7 +23,7 @@ All Infinite Scale services support request tracing. This means, you can monitor
 
 === OpenID Connect
 
-Infinite Scale does not rely on a proprietary user management, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, e.g., Active Directory or any LDAP server.
+Infinite Scale does not rely on a proprietary user management, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, like Active Directory or any LDAP server.
 
 == Technological Aspects
 
@@ -33,7 +33,7 @@ Infinite Scale provides a flexible role system, which allows the permissions of 
 
 === Extension System
 
-Compared to the apps/extensions in ownCloud 10, the Infinite Scale extensions/services are more secure because they are developed and deployed as standalone services. They communicate via APIs with the core services and therefore can only use specific interfaces instead of having direct access to storages and data. A single malicious extension cannot corrupt the whole system.
+Compared to the apps/extensions in ownCloud 10, the Infinite Scale extensions/services are more secure because they are developed and deployed as standalone services. They communicate via APIs with the core services and therefore can only use specific interfaces instead of having direct access to storages and data. A single  extension which behaves incorrectly cannot corrupt the whole system.
 
 === File-based storage
 
@@ -41,7 +41,7 @@ Infinite Scale is designed to work without a database. This means fewer services
 
 === Golang
 
-Developing Infinite Scale from scratch, we decided to switch from PHP to Golang. This eliminates a bunch of security risks that come with PHP, like _Remote File Inclusion_, _Local File Inclusion_ and others. Golang also has a good file system API so that it's easy to protect against directory traversal issues.
+Developing Infinite Scale from scratch, ownCloud decided to switch from PHP to Golang. This eliminates a bunch of security risks that come with PHP, like _Remote File Inclusion_, _Local File Inclusion_ and others. Golang also has a good file system API easing to protect against directory traversal issues.
 
 The fact that Golang is statically typed helps reduce the amount of logic errors.
 
@@ -65,4 +65,4 @@ ownCloud follows development best practices which include:
 
 * All code is being reviewed by multiple people.
 * The code is statically analyzed by various tools to find bugs or security issues at an early stage.
-* Development makes use of defensive development patterns like input validation and proper error handling.
+* Make use of defensive development patterns like input validation and proper error handling.
