@@ -166,6 +166,28 @@ You can list the possible services names by typing:
 ocis list
 ----
 
+== Initialize Infinite Scale
+
+Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. Post reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
+
+[source,bash]
+----
+ocis init
+----
+
+You can add command line parameters. To see which ones are available, type:
+
+[source,bash]
+----
+ocis init --help
+----
+
+Command line parameters are beneficial if you e.g. want to hand over all necessary parameters without getting to any questionnaire or if you want to define the admin password yourself not getting a random one assigned.
+
+IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present, will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_ part of openID Connect) will be overwritten.
+
+To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
+
 === Starting Infinite Scale With Environment Variables
 
 You can use environment variables to define or overwrite config parameters which will be used when starting Infinite Scale like:
@@ -281,28 +303,6 @@ The following rules apply:
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
 
 WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
-
-== Initialize Infinite Scale
-
-Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. Post reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
-
-[source,bash]
-----
-ocis init
-----
-
-You can add command line parameters. To see which ones are available, type:
-
-[source,bash]
-----
-ocis init --help
-----
-
-Command line parameters are beneficial if you e.g. want to hand over all necessary parameters without getting to any questionnaire or if you want to define the admin password yourself not getting a random one assigned.
-
-IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present, will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_ part of openID Connect) will be overwritten.
-
-To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
 
 == Default Users and Groups
 
