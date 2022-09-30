@@ -168,7 +168,7 @@ ocis list
 
 == Initialize Infinite Scale
 
-Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. Post reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
+Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
 
 [source,bash]
 ----
