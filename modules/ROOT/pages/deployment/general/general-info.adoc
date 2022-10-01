@@ -308,7 +308,7 @@ WARNING: The location must exclusively be used by Infinite Scale. Writing into t
 ====
 Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
 
-* The total space consumed by all Spaces, even if there are individual quotas set for Spaces, exeeds the available disk space.
+* The total space consumed by all Spaces, even if there are individual quotas set for Spaces, exceeds the available disk space.
 * When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target Space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target Space if the target Space quota is not exceeded.
 * Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
 ====
