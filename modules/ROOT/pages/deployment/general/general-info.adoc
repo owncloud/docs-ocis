@@ -7,7 +7,7 @@
 
 {description}
 
-IMPORTANT: We highly recommend to read this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting just to give things a try - which is totally ok, you will quickly identify that you may have to cycle with a restart from scratch before the setup meets your requirements.
+IMPORTANT: We highly recommend to read this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting to just give things a try - which is totally ok, you will quickly realize that you may have to start again from scratch before the setup meets your requirements.
 
 The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
@@ -24,7 +24,7 @@ The following two mode types do not predefine a particular installation method l
 Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * testing and/or development environment, or
-* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup])
+* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]).
 
 Starting Infinite Scale in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
@@ -118,13 +118,13 @@ The default locations for _config_ files are:
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
 +
-NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the senario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
 
 === Base Data Directory
 
-The base directory is important, because other services use this directory as base path if service dependent variables are not explicitly defined. Define them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
+The base directory is important, because other services use this directory as base path if service dependent variables are not explicitly defined. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
-For the time being, following services have settings where the base directory is used if not manually defined in the service:
+For the time being, the following services have settings where the base directory is used if not manually defined in the service:
 
 * xref:deployment/services/nats.adoc[NATS_NATS_STORE_DIR]
 * xref:deployment/services/search.adoc[SEARCH_DATA_PATH]
@@ -146,7 +146,7 @@ The default locations for the _base_ directory are:
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
 the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
 +
-NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a base directory location.
+NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a base directory location.
 
 == Initialize Infinite Scale
 
@@ -185,7 +185,7 @@ The following rules apply:
 
 NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
 
-WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
+WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
 
 [IMPORTANT]
 ====
