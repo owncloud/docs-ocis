@@ -7,7 +7,7 @@
 
 {description}
 
-We highly recommend to read this document first before you start setting up your system.
+IMPORTANT: We highly recommend to read this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting just to give things a try - which is totally ok, you will quickly identify that you may have to cycle with a restart from scratch before the setup meets your requirements.
 
 The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
@@ -15,7 +15,7 @@ When using global options on startup, you can always use command line options or
 
 == Embedded Supervisor (Runtime)
 
-Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime and reducing the memory footprint. In addition, this supervisor takes care that a service will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed.
+Infinite Scale has an xref:architecture/architecture.adoc#infinite-scale-microservice-runtime[embedded supervisor] for managing the runtime and reducing the memory footprint. In addition, this supervisor takes care that a service will be restarted automatically if it fails. When using an external supervisor like systemd, Kubernetes or others, the embedded supervisor is not needed, the services are managed by the external supervisor.
 
 == Deciding the Startup Mode
 
@@ -23,61 +23,11 @@ The following two mode types do not predefine a particular installation method l
 
 Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
-* when you do testing and/or development
-* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]) or 
+* testing and/or development environment, or
+* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup])
 
 Starting Infinite Scale in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
-
-== Start Infinite Scale With All Predefined Services
-
-When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
-
-To list the started predefined services, type:
-
-[source,bash]
-----
-ocis list
-----
-
-This will print an output like:
-
-[source,plaintext]
-----
-+--------------------+
-|      SERVICE       |
-+--------------------+
-| app-provider       |
-| app-registry       |
-| auth-basic         |
-| auth-bearer        |
-| auth-machine       |
-| frontend           |
-| gateway            |
-| graph              |
-| graph-explorer     |
-| groups             |
-| idm                |
-| idp                |
-| nats               |
-| notifications      |
-| ocdav              |
-| ocs                |
-| proxy              |
-| search             |
-| settings           |
-| sharing            |
-| storage-publiclink |
-| storage-shares     |
-| storage-system     |
-| storage-users      |
-| store              |
-| thumbnails         |
-| users              |
-| web                |
-| webdav             |
-+--------------------+
-----
 
 == Managing Services
 
@@ -128,23 +78,11 @@ To configure services, see the section xref:deployment/services/services.adoc[Se
 
 NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
-. Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
+* Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
 +
 .. Environment variables
 .. Services configuration file
 .. Infinite Scale configuration file
-
-. The default locations for config files are:
-+
-* For container images (inside the container) +
-`/etc/ocis/`
-+
-* For binary releases +
-`$HOME/.ocis/config/`
-+
-NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_FILE`.
-+
-NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you _must_ specify a configuration file location.
 
 === Configuration File Naming
 
@@ -165,6 +103,50 @@ You can list the possible services names by typing:
 ----
 ocis list
 ----
+
+== Default Paths
+
+=== Configuration Directory
+
+The default locations for _config_ files are:
+
+* For container images (inside the container) +
+`/etc/ocis/`
++
+* For binary releases +
+`$HOME/.ocis/config/`
++
+NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
++
+NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+
+=== Base Data Directory
+
+The base directory is important, because other services use this directory as base path if service dependent variables are not explicitly defined. Define them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
+
+For the time being, following services have settings where the base directory is used if not manually defined in the service:
+
+* xref:deployment/services/nats.adoc[NATS_NATS_STORE_DIR]
+* xref:deployment/services/search.adoc[SEARCH_DATA_PATH]
+* xref:deployment/services/settings.adoc[SETTINGS_DATA_PATH]
+* xref:deployment/services/store.adoc[STORE_DATA_PATH]
+* xref:deployment/services/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
+* xref:deployment/services/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
+* xref:deployment/services/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR]
+* xref:deployment/services/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT]
+
+The default locations for the _base_ directory are:
+
+* For container images (inside the container) +
+`/var/lib/ocis`
++
+* For binary releases +
+`$HOME/.ocis/`
++
+NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
+the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
++
+NOTE: When using a system user for the runtime which has no login and therefore no home directory like when used xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a base directory location.
 
 == Initialize Infinite Scale
 
@@ -187,6 +169,81 @@ Command line parameters are beneficial if you e.g. want to hand over all necessa
 IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present, will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_ part of openID Connect) will be overwritten.
 
 To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
+
+== Define the Infinite Scale Data Path
+
+Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
+
+The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
+
+The following rules apply:
+
+* If you do NOT define this environment variable, the following applies:
+** The base path is by default `$HOME/.ocis/` after performing a _manual setup_.
+** The base path is by default `/var/lib/ocis` inside the container when using the _container setup_.
+* The directory must exist and the user used for Infinite Scale must have full access and permissions.
+
+NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
+
+WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
+
+[IMPORTANT]
+====
+Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
+
+* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
+* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
+* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
+====
+
+== Start Infinite Scale With All Predefined Services
+
+When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
+
+To list the started predefined services, type:
+
+[source,bash]
+----
+ocis list
+----
+
+This will print an output like:
+
+[source,plaintext]
+----
++--------------------+
+|      SERVICE       |
++--------------------+
+| app-provider       |
+| app-registry       |
+| auth-basic         |
+| auth-bearer        |
+| auth-machine       |
+| frontend           |
+| gateway            |
+| graph              |
+| groups             |
+| idm                |
+| idp                |
+| nats               |
+| notifications      |
+| ocdav              |
+| ocs                |
+| proxy              |
+| search             |
+| settings           |
+| sharing            |
+| storage-publiclink |
+| storage-shares     |
+| storage-system     |
+| storage-users      |
+| store              |
+| thumbnails         |
+| users              |
+| web                |
+| webdav             |
++--------------------+
+----
 
 === Starting Infinite Scale With Environment Variables
 
@@ -286,32 +343,6 @@ PROXY_TRANSPORT_TLS_KEY=./certs/your-host.key \
 PROXY_TRANSPORT_TLS_CERT=./certs/your-host.crt \
 ocis server
 ----
-
-== Define the Infinite Scale Data Path
-
-Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
-
-The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
-
-The following rules apply:
-
-* If you do NOT define this environment variable, the following applies:
-** The base path is by default `$HOME/.ocis/` after performing a _manual setup_.
-** The base path is by default `/var/lib/ocis` inside the container when using the _container setup_.
-* The directory must exist and the user used for Infinite Scale must have full access and permissions.
-
-NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
-
-WARNING: The location must exclusively be used by Infinite Scale. Writing into this location not using Infinite Scale is strictly discouraged to avoid any unexpected behaviour. 
-
-[IMPORTANT]
-====
-Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
-
-* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
-* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
-* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
-====
 
 == Default Users and Groups
 

@@ -34,11 +34,11 @@
 **** xref:deployment/services/search.adoc[Search]
 **** xref:deployment/services/settings.adoc[Settings]
 **** xref:deployment/services/sharing.adoc[Sharing]
+**** xref:deployment/services/store.adoc[Store]
 **** xref:deployment/services/storage-publiclink.adoc[Storage-Publiclink]
 **** xref:deployment/services/storage-shares.adoc[Storage-Shares]
 **** xref:deployment/services/storage-system.adoc[Storage-System]
 **** xref:deployment/services/storage-users.adoc[Storage-Users]
-**** xref:deployment/services/store.adoc[Store]
 **** xref:deployment/services/thumbnails.adoc[Thumbnails]
 **** xref:deployment/services/users.adoc[Users]
 **** xref:deployment/services/web.adoc[Web]
@@ -46,11 +46,14 @@
 // *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 
 ////
+Note when enabling, we need to remove the underscore from the documents name!!!
+A leading underscore makes them invisible to the content catalogue and will therefore not be rendered 
+
 *** xref:deployment/configuration/index.adoc[Configuration]
 **** xref:deployment/configuration/ocis-config.adoc[Configuration of ownCloud Infinite Space]
 **** xref:deployment/configuration/external-user-management.adoc[Management of External Users]
 **** xref:deployment/configuration/email-config.adoc[Mail Server Configuration]
-**** xref:cdeployment/configuration/storage.adoc[Storage Configuration]
+**** xref:deployment/configuration/storage.adoc[Storage Configuration]
 **** xref:deployment/configuration/office-integrations.adoc[Integrating Office Applications]
 **** xref:deployment/configuration/roles-permissions.adoc[Roles & Permissions]
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
