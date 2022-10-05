@@ -1,0 +1,58 @@
+= Roles & Permissions
+:toc: right
+:toclevels: 2
+
+:description: Like ownCloud server, Infinite Scale distinguishes between regular users and the admin user with extended configuration and administration privileges. However, with the new spaces concept, regular users can have different roles with different permissions for individual spaces.
+
+== Introduction
+
+{description}
+
+== Available Roles and Permissions
+
+=== Viewer
+
+Users with the role _viewer_ for a certain space can only
+
+* read documents,
+* view images,
+* play videos, etc.,
+
+but not change anything.
+
+=== Editor
+
+_Editors_ of a space have additional permissions. They can:
+
+* modify documents and even delete them,
+* upload content to a space,
+* edit the space name,
+* edit the space description,
+* add or change the image for the space,
+* empty the trash bin of the space.
+
+=== Manager
+
+In addition to the viewer and editor permissions, the _manager_ can:
+
+* invite additional members,
+* edit the quota of a space,
+* change the roles of members, including those of other managers. A downgrade to viewer or editor is possible. 
+
+The creator of a space becomes manager and can delegate this role to another member.
+
+// Unclear if only Admin can create spaces or everyone.
+
+=== Admin
+
+The _admin_ user is created during the setup of on Infinite Scale instance. Check out the ownCloud Web section of the documentation for details on all configuration options for admins.
+
+With regard to spaces, roles and permissions, the admin user can create a new space and is then automatically assigned the manager role. After inviting more members to a space, the manager role can be delegated to another person. If an admin then downgrades his or her role to editor or viewer, this role can only be changes by the manager. The admin has no special privileges with regard to spaces.
+
+TIP: It's a good idea to have two users in the manager role, in case one of them can no longer take care of the space.
+
+// Likely there will be a way for admins to change the roles, but we don't know yet for sure and how it will work.
+
+== How to Map Roles and Permissions to Users?
+
+(integrated IDM, external IDM)
