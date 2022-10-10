@@ -1,4 +1,4 @@
-externalDomain: ocis.kube.owncloud.test
+externalDomain: ocis.owncloud.test
 
 ingress:
   enabled: true
@@ -7,7 +7,7 @@ ingress:
     cert-manager.io/issuer: 'ocis-certificate-issuer'
   tls:
     - hosts:
-        - ocis.kube.owncloud.test
+        - ocis.owncloud.test
       secretName: ocis-tls-certificate
 
 extraResources:
