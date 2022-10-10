@@ -628,7 +628,8 @@ endif::[]
 +
 [source,bash]
 ----
-helm upgrade --install --reset-values ocis ./charts/ocis --values values.yaml
+helm upgrade --install --reset-values \
+    ocis ./charts/ocis --values values.yaml
 ----
 
 * Ensure that all the pods are running:
