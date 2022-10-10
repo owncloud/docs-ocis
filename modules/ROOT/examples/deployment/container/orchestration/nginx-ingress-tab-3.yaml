@@ -1,29 +1,28 @@
 externalDomain: ocis.owncloud.test
 
-  ingress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/issuer: "ocis-certificate-issuer"
-    tls:
-      - hosts:
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/issuer: 'ocis-certificate-issuer'
+  tls:
+    - hosts:
         - ocis.owncloud.test
-        secretName: ocis-tls-certificate
+      secretName: ocis-tls-certificate
 
-  extraResources:
-    - |
-      apiVersion: cert-manager.io/v1
-      kind: Issuer
-      metadata:
-        name: ocis-certificate-issuer
-        namespace: ocis-namespace
-      spec:
-        acme:
-          server: https://acme-v02.api.letsencrypt.org/directory
-          email: test@example.test
-          privateKeySecretRef:
-            name: ocis-certificate-issuer
-          solvers:
-          - http01:
-              ingress:
-                class: nginx
+extraResources:
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: ocis-certificate-issuer
+    spec:
+      acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: test@example.test
+        privateKeySecretRef:
+          name: ocis-certificate-issuer
+        solvers:
+        - http01:
+            ingress:
+              class: nginx
