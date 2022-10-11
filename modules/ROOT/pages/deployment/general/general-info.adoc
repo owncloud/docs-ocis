@@ -412,7 +412,7 @@ See xref:deployment/services/storage-users.adoc#manage-unfinished-uploads[Manage
 
 == Reindex a Space for Search
 
-In rare cirumstances, it can happen that it is necessary to initiate reindexing manually for a given space or user. Though the search service handles exeption cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. Note that behaviour and options may change without special notice. 
+In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. Note that behavior and options may change without special notice. 
 
 [source,bash]
 ----
@@ -427,6 +427,6 @@ CATEGORY:
    index management
 
 OPTIONS:
-   --space value, -s value  the id of the space to travers and index the files of
+   --space value, -s value  the ID of the space to travers and index the files
    --user value, -u value   the username of the user that shall be used to access the files
 ----
