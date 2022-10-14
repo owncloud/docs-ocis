@@ -218,7 +218,7 @@ endif::[]
 +
 [source,bash]
 ----
-minikube start --kubernetes-version=v1.24.6
+minikube start --kubernetes-version=v1.25.0
 ----
 
 . Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
@@ -234,6 +234,8 @@ minikube addons enable ingress
 
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
+
+* Based on the Kubernetes version, you will find comments in `values.yaml` where content is Kubernetes version dependent. Search for comments with `Kubernetes` for details.
 
 * Deploy the chart with the deployment name `ocis`, use any name as desired. To do so, run the following command from the root of the cloned repository:
 +
