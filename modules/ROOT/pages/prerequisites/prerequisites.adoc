@@ -405,7 +405,8 @@ At the moment, only the new ownCloud Web interface offers spaces. Spaces will be
 
 * Desktop app 3.0
 * iOS app 12.0
+* Android app 3.0
 
-Pre-release versions for https://owncloud.com/beta-testing/#desktop-beta[Desktop] and https://owncloud.com/beta-testing/#ios[iOS] are already available for testing.
+Pre-release versions for https://owncloud.com/beta-testing/#desktop-beta[Desktop],  https://owncloud.com/beta-testing/#ios[iOS] and https://owncloud.com/beta-testing/#android[Android] are already available for testing.
 
 
