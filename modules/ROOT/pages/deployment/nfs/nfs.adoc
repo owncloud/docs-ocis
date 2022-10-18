@@ -121,7 +121,7 @@ ownCloud recommends using this option forcing the use of TCP as transport protoc
 
 ==== Tune the Read and Write Block Sizes
 
-The allowed block sizes are the packet chunk sizes that NFS uses when reading and writing data. The smaller the size, the greater the number of packets needed to transfer a file. Conversely, the larger the size, the fewer the number of packets that need to be sent to transfer a file. With NFS Version 3 and 4, you can set the `rsize` and `wsize` values as high as 65536 if the network transport protocol is TCP. The default value is 32768 and must be a multiple of 4096.
+The allowed block sizes are the packet chunk sizes that NFS uses when reading and writing data. The smaller the size, the greater the number of packets needed to transfer a file. Conversely, the larger the size, the fewer the number of packets that need to be sent to transfer a file. You can set the `rsize` and `wsize` values as high as 65536 if the network transport protocol is TCP. The default value is 32768 and must be a multiple of 4096.
 
 NOTE: Read and write size must be identical on the NFS server and client.
 
