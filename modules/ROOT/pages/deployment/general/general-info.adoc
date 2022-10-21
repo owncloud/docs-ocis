@@ -377,14 +377,14 @@ Login to the webinterface with this admin user and change relevant data accordin
 
 === Password Reset for the Admin User
 
-If you have forgotten the password for the admin user or want to change it, run following command. Note that the admin user must already exist:
+If you have forgotten the password for the admin user or want to change it, run the following command. Note that the admin user must already exist:
 
 [source,bash]
 ----
 ocis idm resetpassword
 ----
 
-Post running this command and entering a new password, the admin can relogin using the new password.
+After running this command and entering a new password, the admin can relogin using the new password.
 
 The password is written into the `ocis.yaml` file in section `idm:`.
 
