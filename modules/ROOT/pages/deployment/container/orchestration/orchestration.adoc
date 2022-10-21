@@ -90,6 +90,19 @@ See the {ocis_individual_services-url}[ocis individual services] example which c
 
 == Kubernetes and Helm
 
+The commands and examples are based on software from Kubernetes and Helm. For other software products or environments without claim to completeness like:
+
+* OpenShift
+* Rancher
+* K3s
+* AWS EKS
+* GCP GKE
+* Azure AKS
+
+you may need to adapt the commands and possibly the provided yaml files. As an example, OpenShift requires, if not otherwise defined, the container user and password ID to be a very high number. Check your software or environment for details and requirements.
+
+Note that this does not affect the supported Kubernetes versions. Any software or environment must match the version standards.
+
 === Kubernetes
 
 {kubernetes-url}[Kubernetes] (abbreviated as K8s) is an open-source platform for governing clusters of containerized application services. Kubernetes automates the vital aspects of container lifecycle management, including scaling, replication, monitoring, and scheduling. It offers a framework for distributed systems. Infinite Scale was designed with Kubernetes in mind. Therefore ownCloud provides Helm charts for a convenient deployment of Infinite Scale on a Kubernetes cluster.
