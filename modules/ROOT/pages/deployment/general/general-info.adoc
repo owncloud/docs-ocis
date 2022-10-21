@@ -375,6 +375,19 @@ An admin user will be created when running the `ocis init` command with the foll
 
 Login to the webinterface with this admin user and change relevant data according your needs or create new users. As an example to reach out the webinterface use `\https://localhost:9200`.
 
+=== Password Reset for the Admin User
+
+If you have forgotten the password for the admin user or want to change it, run the following command. Note that the admin user must already exist:
+
+[source,bash]
+----
+ocis idm resetpassword
+----
+
+After running this command and entering a new password, the admin can relogin using the new password.
+
+The password is written into the `ocis.yaml` file in section `idm:`.
+
 === Demo Users and Groups
 
 ==== Create Demo Users and Groups
