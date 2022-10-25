@@ -227,7 +227,9 @@ docker run --rm -it \
 ----
 
 On success, you will see a message like:
- 
+
+:init_path: /etc/ocis/ocis-config/ocis.yaml
+
 include::partial$deployment/ocis_init.adoc[]
 
 [NOTE]

@@ -99,7 +99,9 @@ ocis init
 ----
 
 On success, you will see a message like:
- 
+
+:init_path: pass:[<your-user>/.ocis/config/ocis.yaml]
+
 include::partial$deployment/ocis_init.adoc[]
 
 [NOTE]

@@ -1,4 +1,10 @@
-[source,plaintext]
+// define a default value if the variable was not defined
+
+ifndef::init_path[]
+:init_path: /etc/ocis/ocis-config/ocis.yaml
+endif::[]
+
+[source,plaintext,subs="attributes+"]
 ----
 Do you want to configure Infinite Scale with certificate checking disabled?
  This is not recommended for public instances! [yes | no = default]
@@ -6,7 +12,7 @@ Do you want to configure Infinite Scale with certificate checking disabled?
 =========================================
  generated OCIS Config
 =========================================
- configpath : /etc/ocis/ocis-config/ocis.yaml
+ configpath : {init_path}
  user       : admin
  password   : <removed for documentation>
 ----
