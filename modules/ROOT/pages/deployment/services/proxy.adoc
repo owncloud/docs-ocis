@@ -7,7 +7,7 @@
 
 == Introduction
 
-{description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limitting or intrusion prevention are **not** included in the proxy service and must be setup in front like with an external reverse proxy.
+{description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front like with an external reverse proxy.
 
 include::partial$deployment/services/beta-statement.adoc[]
 
@@ -26,9 +26,9 @@ The following request authentication schemes are implemented:
 
 == Recommendations for Production Deployments
 
-* The proxy service is the only service communicating to the outside and needs therefore usual protections against DDOS, Slow Loris or other attack vectors. All other services are not exposed to the outside, but also need protective measures when it comes to distributed setups like when using container orchestration over various physical servers.
+* The proxy service is the only service communicating to the outside and therefore needs the usual protection against DDOS, Slow Loris or other attack vectors. All other services are not exposed to the outside, but also need protective measures when it comes to distributed setups like when using container orchestration over various physical servers.
 
-* In a production deployment, you want to have basic authentication (`PROXY_ENABLE_BASIC_AUTH`) _disabled_ which is the default state. You also want to setup a firewall to only allow requests to the proxy service or the reverse proxy if you have one. Requests to the other services should be blocked by the firewall.
+* In a production deployment, you want to have basic authentication (`PROXY_ENABLE_BASIC_AUTH`) _disabled_ which is the default state. You should also set up a firewall to only allow requests to the proxy service or the reverse proxy if you have one. Requests to the other services should be blocked by the firewall.
 
 == Configuration
 
