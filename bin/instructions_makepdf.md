@@ -61,7 +61,7 @@ include::{module_base_path}index.adoc[leveloffset=+1]
 include::{module_base_path}installing.adoc[leveloffset=+1]
 ...
 ```
-and pipes this as source to the processor. You can define the how deep you want to render the table of contents with `:toclevels:`. The pdf file created locally is saved in the `pdf_web` directory with a naming defined by the script.
+and pipes this as source to the processor. You can define how deep you want to render the table of contents with `:toclevels:`. The pdf file created locally is saved in the `pdf_web` directory with a naming defined by the script.
 
 When using the debug mode `-d` of `makepdf` as described above, you see the files specified in the base document to use when generating a pdf.
 
