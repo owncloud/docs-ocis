@@ -7,7 +7,7 @@
 
 {description}
 
-IMPORTANT: We highly recommend to read this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting to just give things a try - which is totally ok, you will quickly realize that you may have to start again from scratch before the setup meets your requirements.
+IMPORTANT: We highly recommend reading this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting to just give things a try - which is totally ok, you will quickly realize that you may have to start again from scratch before the setup meets your requirements.
 
 The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
@@ -24,14 +24,14 @@ The following two mode types do not predefine a particular installation method l
 Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * testing and/or development environment, or
-* small productive environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]).
+* small production environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]).
 
 Starting Infinite Scale in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
 
 == Managing Services
 
-Services are built as microservices which can be started, stopped or instantiated. An xref:deployment/services/services_rules.adoc[Services Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
+Services are built as microservices which can be started, stopped or instantiated. xref:deployment/services/services_rules.adoc[Services Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
 
 === List Available Services
 
@@ -70,7 +70,7 @@ Note that you need configuration for and access to the service instances like wi
 
 === Configuring Services
 
-To configure services, see the section xref:deployment/services/services.adoc[Services] in the _Deployment_ documentation.
+To configure services, see the xref:deployment/services/services.adoc[Services] section in the _Deployment_ documentation.
 
 == Configuration Rules
 
@@ -118,11 +118,11 @@ The default locations for _config_ files are:
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
 +
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the senario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
 
 === Base Data Directory
 
-The base directory is important, because other services use this directory as base path if service dependent variables are not explicitly defined. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
+The base directory is important, because other services use this directory as the base path if service dependent variables are not explicitly defined. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
 For the time being, the following services have settings where the base directory is used if not manually defined in the service:
 
@@ -328,7 +328,7 @@ ocis server
 
 ==== Self-Signed Certificates
 
-In case your certificates are self-signed, set `OCIS_INSECURE=true` like in the example of embedded self-signed certificates above.
+If your certificates are self-signed, set `OCIS_INSECURE=true` like in the example of embedded self-signed certificates above.
 
 ==== Certificates Signed by a Trusted CA
 
@@ -395,7 +395,7 @@ The password is written into the `ocis.yaml` file in section `idm:`.
 // https://owncloud.dev/ocis/getting-started/index
 // https://owncloud.dev/ocis/getting-started/demo-users/
 
-WARNING: You can let Infinite Scale create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going productive or your system is exposed to the outside world_, for details see xref:deployment/security/security.adoc[Securing Infinite Scale].
+WARNING: You can let Infinite Scale create demo users and groups for testing purposes. Because these demo users and groups can be a significant security issue, _you should remove them before going into production or your system is exposed to the outside world_, for details see xref:deployment/security/security.adoc[Securing Infinite Scale].
 
 To let Infinite Scale create these demo users and groups for you, start the _runtime_ the very first time with:
 
@@ -429,7 +429,7 @@ See xref:deployment/services/storage-users.adoc#manage-unfinished-uploads[Manage
 
 == Reindex a Space for Search
 
-In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. Note that behavior and options may change without special notice. 
+In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. Note that behavior and options may change without special notice.
 
 [source,bash]
 ----

@@ -11,7 +11,7 @@
 
 {description}
 
-Because Infinite Scale is by design enabled to run as a distributed service and not a static monolithic service block, you can achieve availability _and_ scalability with well made decisions. Due to this design, decisions made can always be revised and adapted to new requirements.
+Because Infinite Scale is by design enabled to run as a distributed service and not a static monolithic service block, you can achieve availability _and_ scalability with well-made decisions. Due to this design, decisions made can always be revised and adapted to new requirements.
 
 == Terminology
 
@@ -88,7 +88,7 @@ High Availability with its flavors active-active / active-passive layout or clus
 // do not delete, dummy necessary to have the summary not part of the above list item - antora 2.3 bug
 
 Summary::
-As there are many different ways to implement a required scenario, ownCloud support _cannot_ give advice for a particular solution that fits your needs but may be able to help you get the required Infinite Scale component ready to run.
+As there are many ways to implement a required scenario, ownCloud support _cannot_ give advice for a particular solution that fits your needs but may be able to help you get the required Infinite Scale component ready to run.
 +
 For availability, storing user files is by nature mandatory to be on xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[shared storage] to be accessible by the nodes and/or services.
 
@@ -125,7 +125,7 @@ a| image::availability_scaling/scale_out.svg[width=300]
 What may sound simple with regard to a _service_, services can be a complex topic in reality as they may contain a lot of software components and their configuration building it. Adding more services or migrating a service can therefore be a challenging task adding complexity and can introduce sources of error.
 
 Summary::
-Scalability and availability are often aligned to each other and the decision how to achieve the goal set can be a complex task. This becomes even more true when dynamic load balancing comes into play. *Because services consist of many components to take care of, real dynamic adoption and dynamic migration may be hard to achieve*.
+Scalability and availability are often aligned to each other and the decision how to achieve the goal set can be a complex task. This becomes even more true when dynamic load balancing comes into play. *Because services consist of many components to take care of, real dynamic adaption and dynamic migration may be hard to achieve*.
 
 === Container
 
@@ -134,11 +134,11 @@ Using a container to encapsulate a service can dramatically ease migration or mu
 image::availability_scaling/containerized_applications.svg[width=300]
 
 Summary::
-Containers are independent of the underlying infrastructure. *Container are portable across clouds and OS distributions*.
+Containers are independent of the underlying infrastructure. *Containers are portable across clouds and OS distributions*.
 
 == Deployment Evolution 
 
-{what_is_kubernetes_url}[Kubernetes] is a software managing a cluster of Linux containers as a _single system_ which is a further evolution in achieving the goal of availability and scalability.
+{what_is_kubernetes_url}[Kubernetes] is software managing a cluster of Linux containers as a _single system_ which is a further evolution in achieving the goal of availability and scalability.
 
 image::availability_scaling/container_evolution.svg[width=800]
 

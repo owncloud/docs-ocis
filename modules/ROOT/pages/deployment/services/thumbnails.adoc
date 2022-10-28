@@ -39,7 +39,7 @@ The relevant environment variables defining file locations are:
 
 === Thumbnail Location
 
-It may be beneficial to define the location of the thumbnails to be other than the default (with system files). This is due the fact that storing thumbnails can consume a lot of space over time which not necessarily needs to reside on the same partition or mount or expensive drives.
+It may be beneficial to define the location of the thumbnails to be other than the default (with system files). This is due to the fact that storing thumbnails can consume a lot of space over time which not necessarily needs to reside on the same partition or mount or expensive drives.
 
 === Thumbnail Source File Types
 

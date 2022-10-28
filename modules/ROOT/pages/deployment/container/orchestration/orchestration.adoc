@@ -86,7 +86,7 @@ When done, create a project directory, like `ocis-compose` in your home director
 
 === Docker Compose Example
 
-See the {ocis_individual_services-url}[ocis individual services] example which configures services individually using docker-compose, to get a first impression how this can be done. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
+See the {ocis_individual_services-url}[ocis individual services] example which configures services individually using docker-compose, to get a first impression of how this can be done. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
 
 == Kubernetes and Helm
 
@@ -140,7 +140,7 @@ image::deployment/container/what-is-helm.drawio.svg[Interaction of Helm v3 with 
 === Prerequisites
 
 Installing Kubernetes::
-Depending on whether you want to go for a single or multi-node Kubernetes enviroment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube in the examples. Verify your installation by typing:
+Depending on whether you want to go for a single or multi-node Kubernetes environment, follow the {K8s-setup-url}[Kubernetes Installation Documentation] to do so. This documentation will use minikube in the examples. Verify your installation by typing:
 +
 --
 [source,bash]
@@ -150,7 +150,7 @@ minikube version
 --
 
 Installing Helm::
-Follow the {helm-install-url}[Helm Installing Documentation] post installation and setup of Kubernetes. Verify your installation by typing:
+Follow the {helm-install-url}[Helm Installation Documentation] post installation and setup of Kubernetes. Verify your installation by typing:
 +
 --
 [source,bash]
@@ -176,7 +176,7 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 [width="65%",cols="~,~",options="header"]
 |===
 | Helm Chart Version
-| Works with Ininite Scale Versions
+| Works with Infinite Scale Versions
 
 | {tab_1_tab_text}
 | 2.0.0-beta.8
@@ -196,7 +196,7 @@ endif::[]
 
 As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
 
-// note the sources for the include are on github at ocis-charts.
+// note the sources for the include are on GitHub at ocis-charts.
 
 * Check the supported Kubernetes versions before you download the chart.
 +
@@ -243,7 +243,7 @@ minikube addons enable ingress
 
 === Deploy the Chart
 
-// note the sources for values and description are are on github at ocis-charts.
+// note the sources for values and description are on GitHub at ocis-charts.
 
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
@@ -265,7 +265,7 @@ helm install ocis ./charts/ocis
 [width="100%",cols="~,~",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/values-tab-1.adoc[values.yaml,window=_blank]
 | {t1_text}
@@ -281,7 +281,7 @@ ifdef::use_tab_2[]
 [width="100%",cols="~,~",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/values-tab-2.adoc[values.yaml,window=_blank]
 | {t1_text}
@@ -298,7 +298,7 @@ ifdef::use_tab_3[]
 [width="100%",cols="~,~",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/values-tab-3.adoc[values.yaml,window=_blank]
 | {t1_text}
@@ -400,7 +400,7 @@ For these reasons, ownCloud cannot take responsibility for these generic secrets
 
 :t_text: Secrets file containing all relevant generic secrets configurations.
 
-* The following example shows what generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description of how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -410,7 +410,7 @@ For these reasons, ownCloud cannot take responsibility for these generic secrets
 [width="100%",cols="30%,70%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-1.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
@@ -423,7 +423,7 @@ ifdef::use_tab_2[]
 [width="100%",cols="30%,70%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-2.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
@@ -437,7 +437,7 @@ ifdef::use_tab_3[]
 [width="100%",cols="30%,70%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/generic-secrets-tab-3.adoc[generic-secrets.yaml,window=_blank]
 | {t_text}
@@ -469,7 +469,7 @@ As the operator of Helm Charts, you are responsible for these user management se
 
 :t_text: Secrets file for the builtin user management.
 
-* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description of how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -479,7 +479,7 @@ As the operator of Helm Charts, you are responsible for these user management se
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-1.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -492,7 +492,7 @@ ifdef::use_tab_2[]
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-2.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -506,7 +506,7 @@ ifdef::use_tab_3[]
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/builtin-user-mgmt-secrets-tab-3.adoc[builtin-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -538,7 +538,7 @@ If you're using Helm Charts, you are responsible for these user management secre
 
 :t_text: Secrets file for the external user management.
 
-* The following example shows what external user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description on how to generate it or find the right value.
+* The following example shows what external user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description of how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -548,7 +548,7 @@ If you're using Helm Charts, you are responsible for these user management secre
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-1.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -561,7 +561,7 @@ ifdef::use_tab_2[]
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-2.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -575,7 +575,7 @@ ifdef::use_tab_3[]
 [width="100%",cols="60%,60%",options="header"]
 |===
 | File
-| Descripton
+| Description
 
 | xref:deployment/container/orchestration/tab-pages/external-user-mgmt-secrets-tab-3.adoc[external-user-mgmt-secrets.yaml,window=_blank]
 | {t_text}
@@ -599,7 +599,7 @@ minikube kubectl -- apply -f external-user-mgmt-secrets.yaml
 
 ==== NGINX Ingress Example
 
-This is an example with NGINX ingress and certificate issued by cert-manager. To make this work, you need to have NGINX ingress and {cert-manager-url}[cert-manager] installed in your cluster.
+This is an example with NGINX ingress and certificates issued by cert-manager. To make this work, you need to have NGINX ingress and {cert-manager-url}[cert-manager] installed in your cluster.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 

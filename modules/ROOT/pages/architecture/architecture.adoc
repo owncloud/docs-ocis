@@ -56,7 +56,7 @@ image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View]
 
 ==== Spaces
 
-A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It is identified by a `storage space id`, but no ownership is needed. Spaces can have users or groups, a quota, permissions etc. assigned. They may serve different purposes and have different workflows enabled like anti-virus scanning. Examples for spaces would be every user’s personal storage space, project or group storage spaces including shares and reshares.
+A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It is identified by a `storage space id`, but no ownership is needed. Spaces can have users or groups, a quota, permissions etc. assigned. They may serve different purposes and have different workflows enabled like antivirus scanning. Examples for spaces would be every user’s personal storage space, project or group storage spaces including shares and reshares.
 
 A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root {etag-url}[ETag], upload workflow steps...
 

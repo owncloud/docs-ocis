@@ -251,7 +251,7 @@ You can expect to see output like the following:
 
 ==== Change Your MTU Value
 
-In case you need or want to change the MTU size, under Ubuntu eg. to 1280:
+In case you need or want to change the MTU size, under Ubuntu e.g. to 1280:
 
 * If {networkmanager-url}[NetworkManager] is managing all devices on the system, then you can use {nmtui-url}[nmtui] or {nmcli-url}[nmcli] to configure the MTU setting.
 * If NetworkManager is not managing all devices on the system, you can set the MTU to 1280 with Netplan, as in the following example.

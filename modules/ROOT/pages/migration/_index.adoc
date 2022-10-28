@@ -14,7 +14,7 @@ Introduce OpenID Connect, our primary authentication protocol. You can install t
 
 There are multiple products that can be used as an OpenID Connect IdP. LibreGraph Connect is embedded in Infinite Scale. Alternatives include Keycloak or Ping. Refer to the corresponding setup instructions for the product you intend to use.
 
-When OpenID Connect support is enabled verify that all clients can login:
+When OpenID Connect support is enabled verify that all clients can log in:
 
 * Classic Web UI
 * ownCloud Web
@@ -24,18 +24,18 @@ When OpenID Connect support is enabled verify that all clients can login:
 
 NOTE: Legacy clients relying on Basic auth or app passwords need to be migrated to OpenId Connect to work with Infinite Scale. For a transition period Basic auth in Infinite Scale can be enabled with `PROXY_ENABLE_BASIC_AUTH=true`, but we strongly recommend adopting OpenID Connect for other tools as well. 
 
-While OpenID Connect providers will send an `iss` and `sub` claim that relying parties (services like Infinite Scale or ownCloud 10) can use to identify users, we recommend introducing a dedicated, globally unique, persistent, non-reassignable user identifier like a UUID for every user. This `ownclouduuid` should be sent as an additional claim to save additional lookups on the server side. It will become the user id in Infinite Scale, e.g. when searching for recipients, the `ownclouduuid` will be used to persist permissions with the share manager. It serves a different purpose than the ownCloud 10 username, which is used to log in. Using UUIDs we can not only mitigate username collisions when merging multiple instances but also allow renaming users after the migration to Infinite Scale has been completed.
+While OpenID Connect providers will send an `iss` and `sub` claim that relying-parties (services like Infinite Scale or ownCloud 10) can use to identify users, we recommend introducing a dedicated, globally unique, persistent, non-reassignable user identifier like a UUID for every user. This `ownclouduuid` should be sent as an additional claim to save additional lookups on the server side. It will become the user id in Infinite Scale, e.g. when searching for recipients, the `ownclouduuid` will be used to persist permissions with the share manager. It serves a different purpose than the ownCloud 10 username, which is used to log in. Using UUIDs we can not only mitigate username collisions when merging multiple instances but also allow renaming users after the migration to Infinite Scale has been completed.
 
 == Use Infinite Scale internally
 
 Before letting Infinite Scale handle end user requests, make it available in the internal network first. By subsequently adding services, you can add functionality and verify the services work as intended.
 
-Start Infinite Scale backend and make read-only tests on existing data using the `owncloudsql` storage driver which will read (and write):
+Start the Infinite Scale backend and make read-only tests on existing data using the `owncloudsql` storage driver which will read (and write):
 
 * blobs from the same data directory layout as in ownCloud 10,
 * metadata from the ownCloud 10 database, i.e. the Infinite Scale share manager will read share information from the ownCloud database using an ownCloud driver.
 
-Deploy Infinite Scale storage provider with owncloudsql driver. Set `read_only: true` in the storage provider config and use the command line tool to list files using the CS3 API.
+Deploy the Infinite Scale storage provider with the owncloudsql driver. Set `read_only: true` in the storage provider config and use the command line tool to list files using the CS3 API.
 
 Multiple ownCloud instances can be merged into one Infinite Scale instance. To prevent a numeric ID collision, the file IDs will be prefixed with a new storage space ID which is used by Infinite Scale to route requests to the correct storage provider. See Stage 8 below.
 

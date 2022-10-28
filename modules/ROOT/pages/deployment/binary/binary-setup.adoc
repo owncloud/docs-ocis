@@ -84,14 +84,14 @@ When you have configured and started the Infinite Scale _runtime_ either xref:st
 
 Infinite Scale is started in two steps:
 
-* A first time start to initiate the system and
+* A first time start to initialize the system and
 * a recurring start after initialization.
 
 Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system.
 
 ==== First Time Start
 
-Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. The default location for config files is, if not otherwise defined `$HOME/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize Infinite Scale.
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `$HOME/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize Infinite Scale.
 
 [source,bash]
 ----
@@ -129,7 +129,7 @@ To start the Infinite Scale runtime type:
 ocis server
 ----
 
-Note that this will bind `ocis` to the shell you are running. If you want to detach it and avoid it gets stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
+Note that this will bind `ocis` to the shell you are running. If you want to detach it and avoid it being stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
 
 [source,bash]
 ----
@@ -164,10 +164,10 @@ ps ax | grep ocis | grep -v grep
 
 Depending on what you want to stop, different commands need to be applied.
 
-If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely ask a process to terminate. It shall terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
+If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
 
 Stopping the complete runtime with all its running services::
-Depending on the user you started `ocis` and with which user you are currently logged in, you may need to use `sudo` for proper permissions.
+Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for proper permissions.
 + 
 [source,bash]
 ----
@@ -209,7 +209,7 @@ sudo systemctl edit ocis.service
 
 Then copy the content of the systemd file below into the editor and save it.
 
-// info: we use the user ocis as example in the same way as users are created for apache, nginx mysql etc
+// info: we use the user ocis as an example in the same way as users are created for apache, nginx mysql etc
 
 * The user `ocis` is just a placeholder for any user to run Infinite Scale, the user must exist or be created first.
 +

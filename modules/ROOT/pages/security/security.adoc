@@ -19,11 +19,11 @@ A reverse proxy in front of the API gateway allows implementing further protecti
 
 === Monitoring (Tracing, Log Aggregation)
 
-All Infinite Scale services support request tracing. This means, you can monitor the path a request takes and which services are involved, etc. In addition to that, all logs can be aggregated by common software like graylog, splunk, etc. This not only helps with administrating the services, but can also aid to detect malicious behavior by analyzing the logs or traces.
+All Infinite Scale services support request tracing. This means, you can monitor the path a request takes and which services are involved, etc. In addition to that, all logs can be aggregated by common software like graylog, splunk, etc. This not only helps with administrating the services, but can also aid in detecting malicious behavior by analyzing the logs or traces.
 
 === OpenID Connect
 
-Infinite Scale does not rely on a proprietary user management, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, like Active Directory or any LDAP server.
+Infinite Scale does not rely on a proprietary user management system, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, like Active Directory or any LDAP server.
 
 == Technological Aspects
 
