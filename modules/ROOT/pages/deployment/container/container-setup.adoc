@@ -166,7 +166,7 @@ docker rmi -f <image-id>
 
 Infinite Scale is started in two steps:
 
-* A first time start to initiate the system and
+* A first time start to initialize the system and
 * a recurring start after initialization.
 
 Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system.
@@ -217,7 +217,7 @@ In this case, you need to access the content of the `ocis` folder with root priv
 
 === First Time Start
 
-Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as basis for a default `ocis.yaml` file to be generated. This file you can edit later. Note that if you do not define a host directory with a bind mount as target location, the initial setup will get lost because the container ends after executing the command. ownCloud therefore recommends either using bind mounts or Docker volumes to make the initial setup, further changes and your data persistent.
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. Note that if you do not define a host directory with a bind mount as target location, the initial setup will get lost because the container ends after executing the command. ownCloud therefore recommends either using bind mounts or Docker volumes to make the initial setup, further changes and your data persistent.
 
 [source,bash]
 ----
@@ -246,7 +246,7 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 === Recurring Start of Infinite Scale
 
-When you run the Infinite Scale container, you _must_ specify at least the `OCIS_URL` as environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
+When you run the Infinite Scale container, you _must_ specify at least the `OCIS_URL` as an environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
 
 In the example below, replace `<your-hostname>` with the host name or IP address of your server.
 
@@ -313,7 +313,7 @@ Tell the Docker daemon to clean up the container and remove the file system afte
 If you have more environment variables to hand over, put them all in a file and use this command-line option. Preferably use `/etc/ocis` on your host as location. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for more details.
 
 --name: Assign a name to the container::
-By default, containers created with _docker run_ are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps identifying them more easily.
+By default, containers created with _docker run_ are given a random name like `small_roentgen` which may not be suitable to identify their purpose properly. Giving containers a meaningful name helps to identify them more easily.
 
 --restart: Restart policy to apply when a container exits::
 See the details in the _docker run_ documentation for available options. Consider `always` as a good starting point.
@@ -412,7 +412,7 @@ Then check if the service has started with:
 sudo systemctl status docker
 ----
 +
-This should display an output like:
+This should display output like:
 +
 [source,plaintext,options="nowrap"]
 ----

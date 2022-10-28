@@ -42,11 +42,11 @@ On Linux and macOS you can add them to your `/etc/hosts` file and on Windows to 
 
 == Installation
 
-// TODO: point to released docker containsers with GA
+// TODO: point to released docker containers with GA
 
 Installing the Docker stack only requires a few steps:
 
-. Clone the Infinite Scale repository in it's latest version:
+. Clone the Infinite Scale repository in its latest version:
 
 [source,bash]
 ----
@@ -62,12 +62,12 @@ cd ocis/deployments/examples/ocis_wopi
 
 . Open the `.env` file in a text editor and adjust it according to your needs.
 
-For some hints on what to take into consideration, check below the default `.env` file listed here:
+For some hints on what to take into consideration, check the default `.env` file listed here:
 
 [source,yaml]
 ----
-# If you're on a internet facing server please comment out following line.
-# It skips certificate validation for various parts of oCIS and is needed if you use self signed certificates.
+# If you're on an internet facing server please comment out the following line.
+# It skips certificate validation for various parts of oCIS and is needed if you use self-signed certificates.
 INSECURE=true
 
 ### Traefik settings ###
@@ -96,7 +96,7 @@ DEMO_USERS=
 WOPISERVER_DOCKER_TAG=
 # cs3org wopi server domain. Defaults to "wopiserver.owncloud.test"
 WOPISERVER_DOMAIN=
-# JWT secret which is used for the documents to be request by the Wopi client from the cs3org Wopi server. Must be change in order to have a secure Wopi server. Defaults to "LoremIpsum567"
+# JWT secret which is used for the documents to be requested by the Wopi client from the cs3org Wopi server. Must be changed in order to have a secure Wopi server. Defaults to "LoremIpsum567"
 WOPI_JWT_SECRET=
 
 ### Collabora settings ###
@@ -112,7 +112,7 @@ COLLABORA_ADMIN_PASSWORD=
 ONLYOFFICE_DOMAIN=
 
 # If you want to use debugging and tracing with this stack,
-# you need uncomment following line. Please see documentation at
+# you need to uncomment the following line. Please see documentation at
 # https://owncloud.dev/ocis/deployment/monitoring-tracing/
 #COMPOSE_FILE=docker-compose.yml:monitoring_tracing/docker-compose-additions.yml
 ----
@@ -125,7 +125,7 @@ The Traefik dashboard is secured by Basic Auth. Default credentials are the user
 
 Traefik will issue certificates with LetsEncrypt. Therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
 
-By default Infinite Scale will be started in the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
+By default Infinite Scale will be started with the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
 
 Set your domain for the Infinite Scale web frontend in `OCIS_DOMAIN=`, for example `OCIS_DOMAIN=ocis.owncloud.test`.
 
@@ -150,4 +150,4 @@ Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
 docker-compose up -d
 ----
 
-. Enter your Infinite Scale domain in a browser and you're ready to log in and open office documents in the web client. It might take a few minutes for all services to become operational. Just keep reloading the pages from time to time.
+. Enter your Infinite Scale domain in a browser and you're ready to log in and open OpenOffice documents in the web client. It might take a few minutes for all services to become operational. Just keep reloading the pages from time to time.

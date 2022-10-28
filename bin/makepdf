@@ -40,7 +40,7 @@ PARTIALS_NAME="partials"
 
 DRY_RUN=false
 
-# get the todays date
+# get todays date
 RELEASE_DATE=$(date +'%B %d, %Y')
 
 # get the number of manuals

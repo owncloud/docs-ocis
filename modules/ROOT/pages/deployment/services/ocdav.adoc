@@ -27,7 +27,7 @@ image::deployment/services/ocdav/mermaid-ocdav-1.svg[width=600]
 
 === Proxy-based User Routing
 
-The Infinite Scale proxy authenticates requests and can forward requests to different backends, depending on the logged in user or cookies. For example, multiple `ocdav` services can be configured to shard users, based on username or affiliation.
+The Infinite Scale proxy authenticates requests and can forward requests to different backends, depending on the logged-in user or cookies. For example, multiple `ocdav` services can be configured to shard users, based on username or affiliation.
 
 image::deployment/services/ocdav/mermaid-ocdav-2.svg[width=600]
 
@@ -41,7 +41,7 @@ image::deployment/services/ocdav/mermaid-ocdav-3.svg[width=600]
 
 This is how the old endpoint with username and a path relative to the user's home looks like: `/dav/files/\{username}`
 
-To route a PROPFIND request against the old webdav endpoints like `/dav/files/username`, ocdav first has to build a CS3 namespace prefix, eg. `/users/{{.Id.OpaqueId}}` to the user's home.
+To route a PROPFIND request against the old webdav endpoints like `/dav/files/username`, ocdav first has to build a CS3 namespace prefix, e.g. `/users/{{.Id.OpaqueId}}` to the user's home.
 
 image::deployment/services/ocdav/mermaid-ocdav-4.svg[width=600]
 

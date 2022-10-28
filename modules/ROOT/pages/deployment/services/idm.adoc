@@ -3,7 +3,7 @@
 
 :ext_name: idm
 
-:description: The Infinite Scale IDM service provides a minimal LDAP Service for Infinite Scale. It is started as part of the the runtime and serves as a central place for storing user and group information.
+:description: The Infinite Scale IDM service provides a minimal LDAP Service for Infinite Scale. It is started as part of the runtime and serves as a central place for storing user and group information.
 
 == Introduction
 

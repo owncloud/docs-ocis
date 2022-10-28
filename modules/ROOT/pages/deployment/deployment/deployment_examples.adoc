@@ -82,7 +82,7 @@ The Traefik dashboard is secured by basic auth. Default credentials are the user
 
 Traefik will issue certificates with LetsEncrypt and therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
 
-By default Infinite Scale will be started in the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on {docker-hub-url}[Docker Hub].
+By default Infinite Scale will be started with the latest version. If you want to start a specific version set it with `OCIS_DOCKER_TAG=`. Available versions can be found on {docker-hub-url}[Docker Hub].
 
 Set your domain for the Infinite Scale frontend in `OCIS_DOMAIN=`, e.g. `OCIS_DOMAIN=ocis.owncloud.test`.
 
@@ -112,9 +112,9 @@ For more information on Kubernetes (K8s) features, check out {why-K8s-url}[Why y
 
 We also recommend Marcel Wunderlich's {wunderlich-K8s-url}[4 series articles] on Kubernetes, clarifying its declarative nature, deep-diving into ingress networking, storage and monitoring.
 
-Also see the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] in our _Availability and Scalability_ guide.
+Also see the xref:availability_scaling/availability_scaling.adoc#deployment-evolution [Deployment Evolution] section in our _Availability and Scalability_ guide.
 
-Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables. This comes in handy when you a look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
+Infinite Scale follows the {12factor-url}[Twelve-Factor App] principles regarding configuration, which means almost every aspect of Infinite Scale is modifiable via environment variables. This comes in handy when you look at how a helm chart's {ocis-example-helm-url}[list of values] looks like.
 
 === Requirements
 

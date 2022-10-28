@@ -34,7 +34,7 @@ The following sections are fundamental to understanding the general prerequisite
 The minimum hardware requirements depend on the usage scenario you have in mind for your Infinite Scale instance. You need at least hardware that runs a Linux based operating system, preferably 64bit.
 
 * For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
-* For more intense testing purposes, the recommended start hardware is a multi-core processor with at least 4GB of RAM.
+* For more intense testing purposes, the recommended start hardware is a multicore processor with at least 4GB of RAM.
 * For production environments, CPU and RAM are the main limiting factors. A clear guideline for CPUs can't be provided at this time since there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network-related factors.
 
 // fixme: info of architectures came from willy, also see: 
@@ -70,7 +70,7 @@ Note when referencing software builds for a particular architecture, *ARM* stand
 
 // fixme: how to read stat info (local and eg nfs)
 
-With regard to RAM, the question how much is needed can be answered with: it depends.
+With regard to RAM, the question of how much is needed can be answered with: it depends.
 
 RAM requirements depend a lot on the quantity of spaces, the tasks that will run concurrently and if they access the storage back end. You can split this into the following main parts:
 
@@ -90,9 +90,9 @@ While memory for computational processes depends heavily on the use case, which 
 
 Infinite Scale has the concept of _spaces_ where a space contains files and folders, is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
 
-Each space provides a virtual root and occupies at least one metadata block at its root. A metadata block will contain at minimum one inode, and can contain dependent of the inode size multiple inodes.
+Each space provides a virtual root and occupies at least one metadata block at its root. A metadata block will contain at minimum one inode, and can contain, dependent on the inode size, multiple inodes.
 
-Whenever a file or folder below the root of the tree changes its content or metadata, and inode changes and the change is propagated to the spaces root to indicate it. A new stat info is created and cached and ETags get recalculated if requested based on the stat info. To let a client detect changes, the discovery phase starts at the spaces root to check for changed ETags since the last discovery going forward in the tree based on changed ETags.
+Whenever a file or folder below the root of the tree changes its content or metadata, the inode changes and the change is propagated to the spaces root to indicate it. A new stat info is created and cached and ETags get recalculated if requested based on the stat info. To let a client detect changes, the discovery phase starts at the spaces root to check for changed ETags since the last discovery going forward in the tree based on changed ETags.
 
 Infinite Scale also has an internal process to identify when changes to files or folders happen to create a new stat info which is the base to calculate ETags.
 
@@ -149,12 +149,12 @@ Summary (caching view only)::
 The above table can be interpreted as follows:
 
 * The memory needed for keeping the root inode is based on the number of spaces created (Infinite Scale relevant) and the blocksize (filesystem dependent).
-* The memory needed for caching stat info is directly related to the number spaces (Infinite Scale relevant).
+* The memory needed for caching stat info is directly related to the number of spaces (Infinite Scale relevant).
 ====
 
 Consideration Summary::
 * Using 4GB of RAM is a good starting point.
-* Regularly check the quantity of spaces a servers must handle.
+* Regularly check the quantity of spaces that the server(s) must handle.
 * Getting a VFS cache hit/miss ratio is hard. Keep an eye on Kernel `iostat` which measures raw io. When it starts increasing and all RAM has been used as buffer cache, you may need to increase the amount of available RAM or redistribute services.
 * When using a distributed deployment, it is much easier to scale and re-distribute dynamic loads accordingly.
 
@@ -171,7 +171,7 @@ Backend Check::
 Infinite Scale has a notification process when a change occurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
 
 Client Check::
-Usually, every connected client polls his assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
+Usually, every connected client polls their assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
 
 This makes it clear why RAM can be an essential performance factor for client access and synchronization when more spaces are present.
 
@@ -181,7 +181,7 @@ The bandwidth requirements and limitations are based on the following background
 
 Clients, which are accessing Infinite Scale, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
 
-// fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the delimiting factor
+// fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the limiting factor
 
 Request for changed elements::
 To get the information about changes, the request always starts at the spaces root, looking for changed ETags, and follows only a path that has changed elements. Therefore PROPFIND requests and responses are used. A request has about 500 bytes and a response has roughly 800 bytes in size.
@@ -260,7 +260,7 @@ ____
 
 [quote, '(C) {nginx_url}[NGINX Reverse Proxy]']
 ____
-{what_is_nginx_url}[NGINX] NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.
+{what_is_nginx_url}[NGINX] is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.
 ____
 
 
@@ -284,7 +284,7 @@ NOTE: Ext4 limits the number of bytes that can be used for extended attribute na
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
-The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is on some filesystems definable and if applicable, is for informational purposes only:
+The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is definable on some filesystems and if applicable, is for informational purposes only:
 
 [caption=]
 .Local Filesystems

@@ -3,7 +3,7 @@
 
 :ext_name: auth-basic
 
-:description: The Infinite Scale Auth Basic service provides basic authentication for those clients who cannot handle OIDC. This are rare cases and is usually not necessary.
+:description: The Infinite Scale Auth Basic service provides basic authentication for those clients who cannot handle OIDC. This is a rare case and is usually not necessary.
 
 == Introduction
 
