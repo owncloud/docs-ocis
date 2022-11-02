@@ -3,15 +3,46 @@
 
 :ext_name: frontend
 
-:description: The Infinite Scale Frontend service provides ...
+:description: The frontend service translates various ownCloud related HTTP APIs to CS3 requests.
 
 == Introduction
 
 {description}
 
-// fixme: source description is still missing, and a better description is needed
-
 include::partial$deployment/services/beta-statement.adoc[]
+
+== Default Values
+
+* Frontend listens on port 9140 by default.
+
+== Endpoints Overview
+
+Currently, the frontend service handles requests for three functionalities, which are
+
+* xref:appprovider[appprovider], 
+* xref:archiver[archiver], 
+* xref:datagateway[datagateway] and 
+* xref:ocs[ocs].
+
+=== appprovider
+
+The appprovider endpoint, by default `/app`, forwards HTTP requests to the CS3 https://cs3org.github.io/cs3apis/#cs3.app.registry.v1beta1.RegistryAPI[App Registry API].
+
+=== archiver
+
+The archiver endpoint, by default `/archiver`, implements zip and tar download for collections of files. It will internally use the CS3 API to initiate downloads and then stream the individual files as part of a compressed file.
+
+=== datagateway
+
+The datagateway endpoint, by default `/data`, forwards file up- and download requests to the correct CS3 data provider. OCIS starts a dataprovider as part of the storage-* services. The routing happens based on the JWT that was created by a storage provider in response to an `InitiateFileDownload` or `InitiateFileUpload` request.
+
+=== ocs
+
+The ocs endpoint, by default `/ocs`, implements the ownCloud 10 Open Collaboration Services API by translating it into CS3 API requests. It can handle users, groups, capabilities and also implements the file sharing functionality on top of CS3. The `/ocs/v[12].php/cloud/user/signing-key` is currently handled by the dedicated xref:deployment/services/ocs.adoc[ocs] service.
+
+== Scalability
+
+While the frontend service does not persist any data, it does cache `Stat()` responses and user information. Therefore, multiple instances of this service can be spawned in a bigger deployment like when using container orchestration with Kubernetes, when configuring `FRONTEND_OCS_RESOURCE_INFO_CACHE_TYPE=redis` and the related config options.
 
 == Configuration
 
