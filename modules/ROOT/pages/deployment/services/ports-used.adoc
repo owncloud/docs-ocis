@@ -1,0 +1,64 @@
+= Ports Used
+:toc: macro
+
+:description: Infinite Scale uses ports for communication between services. This page provides an overview of default port ranges.
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+{empty} +
+
+toc::[]
+
+== Introduction
+
+{description}
+
+== Used Port Ranges
+
+The following port ranges are used by services:
+
+[width="65%",cols="~,~",options="header"]
+|===
+| Port Range
+| Service
+
+| 9000-9010  | https://owncloud.dev/ocis/[reserved for Infinite Scale]
+| 9100-9104  | xref:/deployment/services/web.adoc[web]
+| 9105-9109  | https://github.com/owncloud/ocis-hello[hello]
+| 9110-9114  | xref:/deployment/services/ocs.adoc[ocs]
+| 9115-9119  | xref:/deployment/services/webdav.adoc[webdav]
+| 9120-9124  | xref:/deployment/services/graph.adoc[graph]
+| 9125-9129  | FREE (formerly used by glauth)
+| 9130-9134  | xref:/deployment/services/idp.adoc[idp]
+| 9135-9139  | xref:/deployment/services/graph-explorer.adoc[graph-explorer]
+| 9140-9141  | xref:/deployment/services/frontend.adoc[frontend]
+| 9142-9143  | xref:/deployment/services/gateway.adoc[gateway]
+| 9144-9145  | xref:/deployment/services/users.adoc[users]
+| 9146-9147  | xref:/deployment/services/auth-basic.adoc[auth-basic]
+| 9148-9149  | xref:/deployment/services/auth-bearer.adoc[auth-bearer]
+| 9150-9153  | xref:/deployment/services/sharing.adoc[sharing]
+| 9154-9156  | xref:/deployment/services/storage-shares.adoc[storage-shares]
+| 9157-9159  | xref:/deployment/services/storage-users.adoc[storage-users]
+| 9160-9162  | xref:/deployment/services/groups.adoc[groups]
+| 9163       | xref:/deployment/services/ocdav.adoc[ocdav]
+| 9164       | xref:/deployment/services/groups.adoc[groups]
+| 9165       | xref:/deployment/services/app-provider.adoc[app-provider]
+| 9166-9169  | xref:/deployment/services/auth-machine.adoc[auth-machine]
+| 9170-9174  | xref:/deployment/services/notifications.adoc[notifications]
+| 9175-9179  | xref:/deployment/services/storage-publiclink.adoc[storage-publiclink]
+| 9180-9184  | FREE (formerly used by accounts)
+| 9185-9189  | xref:/deployment/services/thumbnails.adoc[thumbnails]
+| 9190-9194  | xref:/deployment/services/settings.adoc[settings]
+| 9195-9199  | FREE
+| 9200-9204  | xref:/deployment/services/proxy.adoc[proxy]
+| 9205-9209  | xref:/deployment/services/proxy.adoc[proxy]
+| 9210-9214  | FREE
+| 9215-9219  | xref:/deployment/services/storage-system.adoc[storage-system]
+| 9220-9224  | xref:/deployment/services/search.adoc[search]
+| 9225-9229  | FREE
+| 9230-9234  | xref:/deployment/services/nats.adoc[nats]
+| 9235-9239  | xref:/deployment/services/idm.adoc[idm]
+| 9240-9244  | xref:/deployment/services/app-registry.adoc[app-registry]
+| 9245-9249  | FREE
+| 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
+|===
