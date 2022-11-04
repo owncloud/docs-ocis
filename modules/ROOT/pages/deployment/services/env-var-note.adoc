@@ -19,7 +19,7 @@ Multiple environment variables for the same purpose::
 +
 [TIP]
 ====
-You may see in the tables describing the environment variables that there are two environment variables in the same row configuring the same task. In such a case, the following rule applies:
+In the tables describing the environment variables, you may occasionally see two environment variables in the same row configuring the same task. In such a case, the following rule applies:
 
 * The first environment variable is used on a global scale. If set, it will be used in all services where applicable.
 * The second environment variable overwrites the first one, but ONLY for the one particular service.
@@ -48,5 +48,5 @@ If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:d
 +
 [NOTE]
 ====
-When using a container and you want or need to keep all data persistent, you need to provide host filesystem access to the container, which you can do with mounts or volumes.
+If you're using a container and want or need to keep all data persistent, you need to provide host filesystem access to the container, which you can do with mounts or volumes.
 ====
