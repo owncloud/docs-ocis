@@ -126,14 +126,14 @@ The base directory is important, because other services use this directory as th
 
 For the time being, the following services have settings where the base directory is used if not manually defined in the service:
 
-* xref:deployment/services/nats.adoc[NATS_NATS_STORE_DIR]
-* xref:deployment/services/search.adoc[SEARCH_DATA_PATH]
-* xref:deployment/services/settings.adoc[SETTINGS_DATA_PATH]
-* xref:deployment/services/store.adoc[STORE_DATA_PATH]
-* xref:deployment/services/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
-* xref:deployment/services/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
-* xref:deployment/services/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR]
-* xref:deployment/services/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT]
+* xref:deployment/services/s-list/nats.adoc[NATS_NATS_STORE_DIR]
+* xref:deployment/services/s-list/search.adoc[SEARCH_DATA_PATH]
+* xref:deployment/services/s-list/settings.adoc[SETTINGS_DATA_PATH]
+* xref:deployment/services/s-list/store.adoc[STORE_DATA_PATH]
+* xref:deployment/services/s-list/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
+* xref:deployment/services/s-list/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
+* xref:deployment/services/s-list/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR]
+* xref:deployment/services/s-list/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT]
 
 The default locations for the _base_ directory are:
 
@@ -415,7 +415,7 @@ If you have enabled demo users and groups and you want to manage or delete them,
 
 == Default Ports
 
-See xref:deployment/services/services.adoc#used-port-ranges[Used Port Ranges] at the _Services_ description for details.
+See xref:deployment/services/ports-used.adoc[Used Port Ranges] at the _Services_ description for details.
 
 == Using a Reverse Proxy
 
@@ -425,7 +425,7 @@ If you are using a reverse proxy like Traefik and the reverse proxy manages the 
 
 == Manage Unfinished Uploads
 
-See xref:deployment/services/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] at the _Storage Users_ service for details. 
+See xref:deployment/services/s-list/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] at the _Storage Users_ service for details. 
 
 == Reindex a Space for Search
 

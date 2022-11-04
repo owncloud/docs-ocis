@@ -1,0 +1,52 @@
+= Notes for Environment Variables
+:toc: macro
+
+:description: Environment variables are key to configure Infinite Scale. To understand variables in a proper way, some notes are made.
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+{empty} +
+
+toc::[]
+
+== Introduction
+
+{description}
+
+== Reading Notes
+
+Multiple environment variables for the same purpose::
++
+[TIP]
+====
+In the tables describing the environment variables, you may occasionally see two environment variables in the same row configuring the same task. In such a case, the following rule applies:
+
+* The first environment variable is used on a global scale. If set, it will be used in all services where applicable.
+* The second environment variable overwrites the first one, but ONLY for the one particular service.
+
+Taking the `webdav` service as an example, you want to set the `OCIS_URL` as a generic value, but for webdav, you want to use a different URL defined with `OCIS_PUBLIC_URL`.
+====
+
+Service name vs. environment variable name::
++
+[TIP]
+====
+Environment variable names are always upper case and words are connected with an underscore. They start with the name of the service. If the service name is more than one word and the words are connected with a dash, the dash is replaced by an underscore. This info is useful when you search for environment variables based on the service name.
+
+Example: `auth-basic` -> `AUTH_BASIC_XXX`
+====
+
+Default values containing curly brackets::
++
+[TIP]
+====
+In the table showing the environment variables of a service, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid defaults.
+====
+
+Note on paths for binary vs. container installations::
+If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:deployment/services/s-list/idm.adoc[IDM] documentation), the path set references the environment used. This means, when using the binary installation, the path is based on the host filesystem. When using a container installation, the path references a target inside the container.
++
+[NOTE]
+====
+If you're using a container and want or need to keep all data persistent, you need to provide host filesystem access to the container, which you can do with mounts or volumes.
+====
