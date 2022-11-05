@@ -37,4 +37,4 @@ To correlate client requests with logged Infinite Scale activity `X-Request-ID` 
 
 === X-Request-ID
 
-It is a best practice for clients to send an `X-Request-ID` header with every request. This ID should be used when possible in the backend and should be added to the logging metadata.
+It is a best practice for clients to send an `X-Request-ID` header with every request. This ID should be used when possible in the backend and should be added to the logging metadata. Note that ownCloud Clients send an `X-Request-ID` header by default.
