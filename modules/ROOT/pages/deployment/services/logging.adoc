@@ -1,7 +1,7 @@
 = Logging
 :toc: right
 
-:description: Setting the proper log level is a way of filtering important information about the state of Infinite Scale. Depending what you are looking for, the log output will be more or less verbose.
+:description: Setting the proper log level is a way of filtering important information about the state of Infinite Scale. Depending on what you are looking for, the log output will be more or less verbose.
 
 == Introduction
 
@@ -9,7 +9,7 @@
 
 == Log Levels
 
-Following log levels are provided by Infinite Scale. You can set the log level on a global base using the environment variable `OCIS_LOG_LEVEL` which is valid for all services. There are also independent logging variables for each service which are then only valid for that service overwriting the setting of the global one. Using this method is beneficial when drilling down an issue for a particular service without changing the level for other services. The default setting is `OCIS_LOG_LEVEL=error` without setting a particular log level for a service.
+The following log levels are provided by Infinite Scale. You can set the log level on a global basis using the environment variable `OCIS_LOG_LEVEL` which is valid for all services. There are also independent logging variables for each service which are only valid for that service, overwriting the setting of the global one. Using this method is beneficial when drilling down an issue for a particular service without changing the level for other services. The default setting is `OCIS_LOG_LEVEL=error` without setting a particular log level for a service.
 
 === FATAL
 
@@ -17,7 +17,7 @@ FATAL means, that the application is about to stop a serious problem or corrupti
 
 === ERROR
 
-This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. ocis logs all kind of inter service communication errors on this level because these needs to be addressed.
+This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. Infinite Scale logs all kinds of inter-service-communication errors on this level because these needs to be addressed.
 
 === WARN
 
@@ -25,7 +25,7 @@ The WARN log level is used when ocis detects an unexpected failure during an ope
 
 === INFO
 
-Messages on this level are documenting the normal behavior of applications. They state what happened. These entries are purely informative to confirm that the application is working as desired. The info log level also enables the ocis xref:{s-path}/proxy.adoc[Proxy] to write a full access log.
+Messages on this level are documenting the normal behavior of applications. They state what happened. These entries are purely informative to confirm that the application is working as desired. The info log level also enables the Infinite Scale xref:{s-path}/proxy.adoc[Proxy] to write a full access log.
 
 === DEBUG
 
@@ -33,8 +33,8 @@ This log level provides diagnostic information in a detailed manner. It is verbo
 
 == Correlate Incoming Requests
 
-To correlate client requests with logged ocis activity `X-Request-ID` headers are used.
+To correlate client requests with logged Infinite Scale activity `X-Request-ID` headers are used.
 
 === X-Request-ID
 
-It is a best practise for clients to send an `X-Request-ID` header with every request. This ID should be used when possible in the backend and should be added to the logging metadata.
+It is a best practice for clients to send an `X-Request-ID` header with every request. This ID should be used when possible in the backend and should be added to the logging metadata.
