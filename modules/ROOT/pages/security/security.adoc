@@ -11,7 +11,7 @@
 
 === API Gateway
 
-Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, an API gateway (the xref:deployment/services/s-list/proxy.adoc[proxy service]) to handle these tasks has been implemented. All requests have to go through this gateway. This has the positive effect, that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
+Infinite Scale uses a microservices architecture. But instead of handling authorization and authentication in each service, an API gateway (the xref:{s-path}/proxy.adoc[proxy service]) to handle these tasks has been implemented. All requests have to go through this gateway. This has the positive effect, that all other services can be hidden behind a firewall, which reduces the attack surface dramatically.
 
 === Reverse Proxy
 
@@ -23,7 +23,7 @@ All Infinite Scale services support request tracing. This means, you can monitor
 
 === OpenID Connect
 
-Infinite Scale does not rely on a proprietary user management system, instead it uses OpenID Connect. For small instances or testing purposes, a xref:deployment/services/s-list/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:deployment/services/s-list/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, like Active Directory or any LDAP server.
+Infinite Scale does not rely on a proprietary user management system, instead it uses OpenID Connect. For small instances or testing purposes, a xref:{s-path}/idm.adoc[minimal LDAP Service named IDM] is included. For anything else, it is recommended that customers hook to their own OpenID Connect provider using the xref:{s-path}/idp.adoc[IDP service]. If you don't have an OpenID Connect provider available, use secure standard software like Keycloak to connect to the existing user management system, like Active Directory or any LDAP server.
 
 == Technological Aspects
 

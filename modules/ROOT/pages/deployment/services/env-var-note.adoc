@@ -1,13 +1,7 @@
 = Notes for Environment Variables
-:toc: macro
+:toc: right
 
 :description: Environment variables are key to configure Infinite Scale. To understand variables in a proper way, some notes are made.
-
-include::partial$deployment/services/beta-statement.adoc[]
-
-{empty} +
-
-toc::[]
 
 == Introduction
 
@@ -44,7 +38,7 @@ In the table showing the environment variables of a service, the _Default Value_
 ====
 
 Note on paths for binary vs. container installations::
-If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:deployment/services/s-list/idm.adoc[IDM] documentation), the path set references the environment used. This means, when using the binary installation, the path is based on the host filesystem. When using a container installation, the path references a target inside the container.
+If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:{s-path}/idm.adoc[IDM] documentation), the path set references the environment used. This means, when using the binary installation, the path is based on the host filesystem. When using a container installation, the path references a target inside the container.
 +
 [NOTE]
 ====

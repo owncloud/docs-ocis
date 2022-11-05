@@ -1,0 +1,40 @@
+= Logging
+:toc: right
+
+:description: Setting the proper log level is a way of filtering important information about the state of Infinite Scale. Depending what you are looking for, the log output will be more or less verbose.
+
+== Introduction
+
+{description}
+
+== Log Levels
+
+Following log levels are provided by Infinite Scale. You can set the log level on a global base using the environment variable `OCIS_LOG_LEVEL` which is valid for all services. There are also independent logging variables for each service which are then only valid for that service overwriting the setting of the global one. Using this method is beneficial when drilling down an issue for a particular service without changing the level for other services. The default setting is `OCIS_LOG_LEVEL=error` without setting a particular log level for a service.
+
+=== FATAL
+
+FATAL means, that the application is about to stop a serious problem or corruption from happening. This level of logging shows that the application’s situation is catastrophic, such that an important function is not working. For example the application is unable to connect to the data store due to config errors or not able to parse the config.
+
+=== ERROR
+
+This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. ocis logs all kind of inter service communication errors on this level because these needs to be addressed.
+
+=== WARN
+
+The WARN log level is used when ocis detects an unexpected failure during an operation. It is also used if some operations might be incomplete. It does not mean that the application has been harmed, the code should continue to work as usual. Admins should eventually check these warnings just in case the problem reoccurs.
+
+=== INFO
+
+Messages on this level are documenting the normal behavior of applications. They state what happened. These entries are purely informative to confirm that the application is working as desired. The info log level also enables the ocis xref:{s-path}/proxy.adoc[Proxy] to write a full access log.
+
+=== DEBUG
+
+This log level provides diagnostic information in a detailed manner. It is verbose and has more information than you would need when using the application. This log level is used to understand problems in the application and during reproduction of problems. This log level could put a very high load on the output device and is not recommended in production environments. You should consider enabling this level only on a single service or very few services to pinpoint issues or bugs.
+
+== Correlate Incoming Requests
+
+To correlate client requests with logged ocis activity `X-Request-ID` headers are used.
+
+=== X-Request-ID
+
+It is a best practise for clients to send an `X-Request-ID` header with every request. This ID should be used when possible in the backend and should be added to the logging metadata.
