@@ -17,7 +17,7 @@ FATAL means, that the application is about to stop a serious problem or corrupti
 
 === ERROR
 
-This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. Infinite Scale logs all kinds of inter-service-communication errors on this level because these needs to be addressed.
+This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. Infinite Scale logs all kinds of inter-service-communication errors on this level because these need to be addressed.
 
 === WARN
 
