@@ -25,3 +25,5 @@ asciidoc:
     kube-versions-url: /charts/ocis/docs/kube-versions.adoc
     values-versions-url: /charts/ocis/docs/values.adoc.yaml
     values-desc-versions-url: /charts/ocis/docs/values-desc-table.adoc
+    # used to define the include path for services without trailing /
+    s-path: deployment/services/s-list
