@@ -36,6 +36,8 @@
 :minikube-kubectl-url: https://minikube.sigs.K8s.io/docs/handbook/kubectl/
 :kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
 
+:prometheus-operator-url: https://github.com/prometheus-operator/prometheus-operator
+
 // note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
 
 :description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
@@ -347,6 +349,44 @@ ifdef::use_tab_3[]
 [source,yaml]
 ----
 include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[]
+----
+--
+endif::[]
+====
+
+==== Enable metrics with Prometheus
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* In order to scrape oCIS' metrics with Prometheus, you need to set up a ServiceMonitor. In order to apply the ServiceMonitor, you need to have Prometheus' CustomResourceDefinitions available, eg. by installing {prometheus-operator-url}[Prometheus Operator].
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/service-monitor-tab-1.yaml[]
+----
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/service-monitor-tab-2.yaml[]
+----
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/service-monitor-tab-3.yaml[]
 ----
 --
 endif::[]
