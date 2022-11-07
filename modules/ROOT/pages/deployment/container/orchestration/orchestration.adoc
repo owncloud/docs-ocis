@@ -352,7 +352,7 @@ include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[
 ----
 --
 endif::[]
-====
+==== Enable Metrics with Prometheus
 
 ==== Enable metrics with Prometheus
 
