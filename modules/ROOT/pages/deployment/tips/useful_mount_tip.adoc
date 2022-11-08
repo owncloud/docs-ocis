@@ -105,6 +105,6 @@ sudo systemctl show <name>.service | grep "After="
 --
 [source,bash]
 ----
-sudo system <name> restart
+sudo systemctl restart <name>
 ----
 --
