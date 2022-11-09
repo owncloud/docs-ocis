@@ -352,13 +352,13 @@ include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[
 ----
 --
 endif::[]
-==== Enable Metrics with Prometheus
+====
 
-==== Enable metrics with Prometheus
+==== Enable Metrics with Prometheus
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* In order to scrape oCIS' metrics with Prometheus, you need to set up a ServiceMonitor. In order to apply the ServiceMonitor, you need to have Prometheus' CustomResourceDefinitions available, eg. by installing {prometheus-operator-url}[Prometheus Operator].
+* In order to scrape oCIS' metrics with Prometheus, you need to set up a `ServiceMonitor`. In order to apply the ServiceMonitor, you need to have Prometheus' CustomResourceDefinitions available, e.g. by installing the {prometheus-operator-url}[Prometheus Operator].
 +
 [tabs]
 ====
