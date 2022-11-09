@@ -26,4 +26,6 @@ asciidoc:
     values-versions-url: /charts/ocis/docs/values.adoc.yaml
     values-desc-versions-url: /charts/ocis/docs/values-desc-table.adoc
     # used to define the include path for services without trailing /
+    # note that any change on this path needs also an adoption in 
+    # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: deployment/services/s-list
