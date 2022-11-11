@@ -11,7 +11,7 @@ If there are xref's, these are resolved via an attribute defined in antora.yml
 
 This is an adoc table that gets included, not a yaml file.
 
-{ocis-charts-raw-url}{tab_1}{values-desc-versions-url}
+{ocis-charts-raw-url}{helm_tab_1}{values-desc-versions-url}
 ////
 
-include::{ocis-charts-raw-url}{tab_1}{values-desc-versions-url}[]
+include::{ocis-charts-raw-url}{helm_tab_1}{values-desc-versions-url}[]

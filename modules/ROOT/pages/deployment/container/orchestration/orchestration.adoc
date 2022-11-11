@@ -59,7 +59,7 @@ For Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that
 
 Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.
 
-* Consider that when planning to run Infinite Scale via docker compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server but it is usually more when running the pure binary when it comes to ease of configuration and maintaining your environment.
+* Consider that when planning to run Infinite Scale via Docker Compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server and other limitations but it is usually more when running the pure binary when it comes to ease of configuration and maintaining your environment.
 
 * Use docker compose when planning an extended degree of freedom compared to the binary installation but not needing the full capabilities of Kubernetes and Helm.
 
@@ -90,9 +90,34 @@ If the output shows a version like 1.25.0-1, follow the {docker-compose-install-
 
 When done, create a project directory, like `ocis-compose` in your home directory to have a common location for your Infinite Scale compose files.
 
-=== Configuration Guideline
+=== Docker Compose Examples
 
-Manually adapt the examples provided for the Helm charts below to docker compose to configure the services properly. Also see the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
+* See the xref:deployment/services/services.adoc[services section] for details about available environment variables and yaml files.
+
+* See below for example service configurations using Docker Compose, to get a first impression of how this can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+{composer-raw-url}{compose_tab_1}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+{composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+{composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+--
+endif::[]
+====
 
 == Kubernetes and Helm
 
@@ -213,20 +238,20 @@ The `~` represents all patch releases for that particular version:
 {tab_1_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{tab_1}{kube-versions-url}[]
+include::{ocis-charts-raw-url}{helm_tab_1}{kube-versions-url}[]
 --
 ifdef::use_tab_2[]
 {tab_2_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{tab_2}{kube-versions-url}[]
+include::{ocis-charts-raw-url}{helm_tab_2}{kube-versions-url}[]
 --
 endif::[]
 ifdef::use_tab_3[]
 {tab_3_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{tab_3}{kube-versions-url}[]
+include::{ocis-charts-raw-url}{helm_tab_3}{kube-versions-url}[]
 --
 endif::[]
 ====
