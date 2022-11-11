@@ -57,7 +57,11 @@ For Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that
 
 == Docker Compose
 
-Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one file. This is the next step when having multi-container environments.
+Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.
+
+* Consider that when planning to run Infinite Scale via docker compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server but it is usually more when running the pure binary when it comes to ease of configuration and maintaining your environment.
+
+* Use docker compose when planning an extended degree of freedom compared to the binary installation but not needing the full capabilities of Kubernetes and Helm.
 
 === Prerequisites
 
@@ -86,9 +90,9 @@ If the output shows a version like 1.25.0-1, follow the {docker-compose-install-
 
 When done, create a project directory, like `ocis-compose` in your home directory to have a common location for your Infinite Scale compose files.
 
-=== Docker Compose Example
+=== Configuration Guideline
 
-See the {ocis_individual_services-url}[ocis individual services] example which configures services individually using docker-compose, to get a first impression of how this can be done. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
+Manually adapt the examples provided for the Helm charts below to docker compose to configure the services properly. Also see the xref:deployment/services/services.adoc[services section] for details of available environment variables and yaml files.
 
 == Kubernetes and Helm
 
