@@ -9,7 +9,7 @@ The source content comes from github.
 
 If there are xref's, these are resolved via an attribute defined in antora.yml
  
-{ocis-charts-raw-url}{tab_2}{values-versions-url
+{ocis-charts-raw-url}{helm_tab_2}{values-versions-url
 
 We need to allow substitution of attributes first, then macros
 ////
@@ -18,5 +18,5 @@ Note, to improve readbility, syntax highlighting is used. A drawback is that lin
 
 [source,yaml,subs="attributes+,+macros"]
 ----
-include::{ocis-charts-raw-url}{tab_2}{values-versions-url}[]
+include::{ocis-charts-raw-url}{helm_tab_2}{values-versions-url}[]
 ----

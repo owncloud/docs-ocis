@@ -7,25 +7,35 @@ nav:
 
 asciidoc:
   attributes:
+    # used to define the include path for services without trailing /
+    # note that any changes of this path also need adjustment in 
+    # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
+    s-path: deployment/services/s-list
+    #
     # used in deployment/services
     ocis-services-includes: 'https://raw.githubusercontent.com/owncloud/ocis/docs/services/_includes/'
+    #
     # used in orchestration.adoc
-    # tab_x will be used as part of the url accessing the raw content
-    # tab_x_tab_text will be used as tab text shown for tab_x
-    tab_1: master
-    tab_2: tab_2
-    tab_3: tab_3
+    # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts
+    helm_tab_1: master
+    helm_tab_2: tab_2
+    helm_tab_3: tab_3
+    # compose_tab_x will be used to assemble the url (tag) accessing the link for docker compose
+    compose_tab_1: master
+    compose_tab_2: tab_2
+    compose_tab_3: tab_3
+    # tab_x_tab_text will be used as tab text shown for tab_x, note we use the same tab texts for helm and compose
     tab_1_tab_text: 0.0.0
     tab_2_tab_text: 0.1.0
     tab_3_tab_text: 0.2.0
+    # define to use tabs, the first tab is always active
     use_tab_2:  # set to any value if tab 2 should be shown
     use_tab_3:  # set to any value if tab 3 should be shown
+    # set attributes defining path components which will be assembled in the document
     secrets: deployment/container/orchestration/orchestration.adoc#define-secrets
     ocis-charts-raw-url: https://raw.githubusercontent.com/owncloud/ocis-charts/
     kube-versions-url: /charts/ocis/docs/kube-versions.adoc
     values-versions-url: /charts/ocis/docs/values.adoc.yaml
     values-desc-versions-url: /charts/ocis/docs/values-desc-table.adoc
-    # used to define the include path for services without trailing /
-    # note that any changes of this path also need adjustment in 
-    # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
-    s-path: deployment/services/s-list
+    composer-raw-url: https://github.com/owncloud/ocis/tree/
+    composer-final-path: /deployments/examples
