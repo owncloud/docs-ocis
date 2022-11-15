@@ -5,7 +5,7 @@
 
 include::partial$deployment/services/beta-statement.adoc[]
 
-// remove the remark to get the toc rendered if there are mre than one headlines
+// remove the remark to get the toc rendered if there are more than one headlines
 // {empty} +
 
 // toc::[]

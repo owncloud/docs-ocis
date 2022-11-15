@@ -17,6 +17,7 @@
 **** General Information
 ***** xref:deployment/services/env-var-note.adoc[Environment Variable Notes]
 ***** xref:deployment/services/ports-used.adoc[Ports Used]
+***** xref:deployment/services/gateways.adoc[Gateways]
 ***** xref:deployment/services/logging.adoc[Logging]
 **** List of Services
 ***** xref:deployment/services/s-list/app-provider.adoc[App Provider]

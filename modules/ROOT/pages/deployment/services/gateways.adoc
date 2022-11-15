@@ -1,0 +1,28 @@
+= Gateways
+:toc: macro
+
+:description: There is more than one service providing gateway functionalities specific for particular tasks beside other tasks these services handle. The following explanation helps sorting things out.
+
+include::partial$deployment/services/beta-statement.adoc[]
+
+// remove the remark to get the toc rendered if there are more than one headlines
+// {empty} +
+
+// toc::[]
+
+== Introduction
+
+{description} The listing below focuses on the gateway and related functionalities of the mentioned services only.
+
+== Services Providing Gateways
+
+Proxy::
+The xref:{s-path}/proxy.adoc[proxy service] provides a general purpose HTTP API gateway and manages http related tasks like transport encryption, authentication and others. Note that the proxy service routes incoming http requests to other services.
++
+NOTE: The proxy service should be for security reasons the only service that is accessible from the outside.
+
+Frontend::
+The xref:{s-path}/frontend.adoc[frontend service] is a datagateway and provides a http up- and download API. It for example connects to the xref:{s-path}/storage-users.adoc[storage-users service] to manage up- and download activities based on requests via the proxy service.
+
+Gateway::
+The xref:{s-path}/gateway.adoc[gateway service] provides a CS3 API gateway for all gRPC requests.
