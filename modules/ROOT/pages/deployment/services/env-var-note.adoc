@@ -19,7 +19,7 @@ Example: `auth-basic` -> `AUTH_BASIC_XXX`
 ====
 
 Global scale environment variables::
-Environment variables starting with `OCIS_` are variables that have a global scope. This means, their setting is valid for all services, if not explicitly overwritten by a correspondent service varibale.
+Environment variables starting with `OCIS_` are variables that have a global scope. This means, their setting is valid for all services, if not explicitly overwritten by a corresponding service variable.
 
 Multiple environment variables for the same purpose::
 +
