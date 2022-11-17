@@ -1,7 +1,7 @@
 = Gateways
 :toc: macro
 
-:description: There is more than one service providing gateway functionalities. The following explanation helps sorting things out.
+:description: There is more than one service providing API gateway functionalities. The following explanation helps sorting things out.
 
 include::partial$deployment/services/beta-statement.adoc[]
 
@@ -12,9 +12,9 @@ include::partial$deployment/services/beta-statement.adoc[]
 
 == Introduction
 
-{description} The listing below focuses on the gateway and related functionalities of the mentioned services only.
+{description} The listing below focuses on API gateways and related functionalities of the mentioned services only.
 
-== Services Providing Gateways
+== Services Providing API Gateways
 
 Proxy::
 The xref:{s-path}/proxy.adoc[proxy service] is a general purpose HTTP API gateway and manages HTTP-related tasks like transport encryption, authentication and others. Note that the proxy service routes incoming HTTP requests to other services.
