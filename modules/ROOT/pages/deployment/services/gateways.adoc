@@ -1,7 +1,7 @@
 = Gateways
 :toc: macro
 
-:description: There is more than one service providing gateway functionalities specific to particular tasks beside other tasks these services handle. The following explanation helps sorting things out.
+:description: There is more than one service providing gateway functionalities. The following explanation helps sorting things out.
 
 include::partial$deployment/services/beta-statement.adoc[]
 
@@ -17,12 +17,12 @@ include::partial$deployment/services/beta-statement.adoc[]
 == Services Providing Gateways
 
 Proxy::
-The xref:{s-path}/proxy.adoc[proxy service] provides a general purpose HTTP API gateway and manages HTTP-related tasks like transport encryption, authentication and others. Note that the proxy service routes incoming HTTP requests to other services.
+The xref:{s-path}/proxy.adoc[proxy service] is a general purpose HTTP API gateway and manages HTTP-related tasks like transport encryption, authentication and others. Note that the proxy service routes incoming HTTP requests to other services.
 +
-NOTE: For security reasons, the proxy service should be the only service that is accessible from the outside.
+NOTE: All API endpoints that end users currently can use, are provided by the proxy. All other APIs and services need to be protected to not be accessible by end users and are only for service-to-service communication.
 
 Frontend::
-The xref:{s-path}/frontend.adoc[frontend service] is a data gateway and provides a HTTP up- and download API. For example, it connects to the xref:{s-path}/storage-users.adoc[storage-users service] to manage up- and download activities based on requests via the proxy service.
+The xref:{s-path}/frontend.adoc[frontend service] acts among other things as the API gateway for HTTP up- and download requests. It is responsible for forwarding up- and download requests to the correct storage service, for example the xref:{s-path}/storage-users.adoc[storage-users service].
 
 Gateway::
-The xref:{s-path}/gateway.adoc[gateway service] provides a CS3 API gateway for all gRPC requests.
+The xref:{s-path}/gateway.adoc[gateway service] provides a CS3 API gateway for gRPC requests to the CS3 backend.
