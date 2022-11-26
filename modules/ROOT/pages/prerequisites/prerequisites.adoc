@@ -49,19 +49,19 @@ The following table shows the tested and supported hardware architecture matrix:
 | Hardware Architecture
 
 | Linux on Bare Metal
-| 386, AMD64, ARM, ARM64
+| 386, AMD64, ARM64
 
 | Linux Hardware Virtualized
-| 386, AMD64, ARM, ARM64
+| 386, AMD64, ARM64
 
 | Linux Docker
-| AMD64, ARM, ARM64
+| AMD64, ARM64
 
 | Darwin (MacOS)
 | AMD64, ARM64, M1 (ARM64)
 |===
 
-Note when referencing software builds for a particular architecture, *ARM* stands for ARM32(v6/v7) and *ARM64* stands for ARM64(v8).
+Note when referencing software builds for a particular architecture, *ARM64* stands for ARM64(v8).
 
 === RAM Considerations
 
