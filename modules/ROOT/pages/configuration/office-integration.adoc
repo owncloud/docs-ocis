@@ -46,7 +46,7 @@ On Linux and macOS you can add them to your `/etc/hosts` file and on Windows to 
 
 // TODO: point to released docker containers with GA
 
-Installing the Docker stack only requires a few steps. Note to use the relevant tag in the URL for copying or switch to the relevant tag after cloning. Select a base folder of choice for the target location:
+Installing the Docker stack only requires a few steps. Take care to use the relevant tag in the URL for copying or switch to the relevant tag after cloning. Select a base folder of choice for the target location:
 
 . Get the deployment examples by either cloning or copying:
 
@@ -75,7 +75,7 @@ cd ocis/deployments/examples/ocis_wopi
 
 .. Or copy all files and folders from the {wopi_examples_url}[examples] location of github, replace `master` in the link with the tag you want to use before copying. For ease of reference, the directory where all content has been copied to is named `ocis_wopi`.
 +
-After copying all ressources is finished, change into the directory:
+After all resources have been copied, change into the directory:
 +
 [source,bash]
 ----
