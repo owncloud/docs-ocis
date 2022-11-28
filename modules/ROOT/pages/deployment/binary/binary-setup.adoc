@@ -25,14 +25,14 @@ To download use:
 +
 [source,bash]
 ----
-sudo wget -O /usr/bin/ocis <link>
+sudo wget -O /usr/local/bin/ocis <link>
 ----
 +
 Make the binary executable with:
 +
 [source,bash]
 ----
-sudo chmod +x /usr/bin/ocis
+sudo chmod +x /usr/local/bin/ocis
 ----
 +
 Check the version installed:
@@ -246,7 +246,7 @@ Type=simple
 User=ocis
 Group=ocis
 EnvironmentFile=/etc/ocis/ocis.env
-ExecStart=ocis server
+ExecStart=/usr/local/bin/ocis server
 Restart=always
 
 [Install]
