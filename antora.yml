@@ -13,6 +13,7 @@ asciidoc:
     s-path: deployment/services/s-list
     #
     # used in deployment/services
+    # note that we are using the 'docs' branch of the ocis repo, not the main branch!
     ocis-services-includes: 'https://raw.githubusercontent.com/owncloud/ocis/docs/services/_includes/'
     #
     # used in orchestration.adoc
