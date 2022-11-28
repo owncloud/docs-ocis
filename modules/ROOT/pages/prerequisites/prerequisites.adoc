@@ -37,11 +37,6 @@ The minimum hardware requirements depend on the usage scenario you have in mind 
 * For more intense testing purposes, the recommended start hardware is a multicore processor with at least 4GB of RAM.
 * For production environments, CPU and RAM are the main limiting factors. A clear guideline for CPUs can't be provided at this time since there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network-related factors.
 
-// fixme: info of architectures came from willy, also see: 
-// https://download.owncloud.com/ocis/ocis/1.18.0/
-// https://hub.docker.com/r/owncloud/ocis/tags
-// fixme: do we still want to have 386?
-
 The following table shows the tested and supported hardware architecture matrix::
 [width="65%",cols="50%,50%",options="header"]
 |===
