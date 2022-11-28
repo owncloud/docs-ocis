@@ -499,6 +499,75 @@ minikube kubectl -- apply -f generic-secrets.yaml
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
+==== Define Generic Configs
+
+Infinite Scale requires some generic configuration to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of configuration out of the box.
+
+For these reasons, ownCloud cannot take responsibility for these generic configuration. Any information necessary to use this application-relevant data is provided by ownCloud via examples.
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+:t_text: Configuration file containing all relevant generic configurations.
+
+* The following example shows what generic configuration need to look like and how they can be generated. The example assumes that the `configRefs` are not changed . Each config data entry holds a description of how to generate it or find the right value.
++
+[tabs]
+====
+{tab_1_tab_text}::
++
+--
+[width="100%",cols="30%,70%",options="header"]
+|===
+| File
+| Description
+
+| xref:deployment/container/orchestration/tab-pages/generic-configs-tab-1.adoc[generic-configs.yaml,window=_blank]
+| {t_text}
+|===
+--
+ifdef::use_tab_2[]
+{tab_2_tab_text}::
++
+--
+[width="100%",cols="30%,70%",options="header"]
+|===
+| File
+| Description
+
+| xref:deployment/container/orchestration/tab-pages/generic-configs-tab-2.adoc[generic-configs.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+ifdef::use_tab_3[]
+{tab_3_tab_text}::
++
+--
+[width="100%",cols="30%,70%",options="header"]
+|===
+| File
+| Description
+
+| xref:deployment/container/orchestration/tab-pages/generic-configs-tab-3.adoc[generic-configs.yaml,window=_blank]
+| {t_text}
+|===
+--
+endif::[]
+====
+
+===== Apply Generic Secrets
+
+Configs can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
+
+. To apply configs by command, save the content as `generic-configs.yaml` and use the following command with a path to the secrets file added if necessary:
++
+[source,bash]
+----
+minikube kubectl -- apply -f generic-configs.yaml
+----
+
+. To apply configs via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
+
 ==== Built-in User Management Secrets
 
 If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should have an expiration date and therefore need a certificate rotation from time to time, which is also not supported by Helm.

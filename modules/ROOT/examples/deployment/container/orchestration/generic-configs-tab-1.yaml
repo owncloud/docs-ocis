@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storage-users
+type: Opaque
+data:
+  # how to generate: create a UUIDv4
+  # example generation command: `cat /proc/sys/kernel/random/uuid`
+  storage-uuid: XXXXXXXXXXXXX
