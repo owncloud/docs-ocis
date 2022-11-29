@@ -501,7 +501,7 @@ minikube kubectl -- apply -f generic-secrets.yaml
 
 ==== Define Generic Configs
 
-Infinite Scale requires some generic configuration to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of configuration out of the box.
+Infinite Scale requires some generic configuration to work. It was decided not to create them automatically, because Helm does not support _on-off_ generation of configuration out of the box.
 
 For these reasons, ownCloud cannot take responsibility for these generic configuration. Any information necessary to use this application-relevant data is provided by ownCloud via examples.
 
