@@ -17,13 +17,13 @@ Open a shell and copy/paste the following commands:
 
 [source,bash,subs="attributes+"]
 ----
-sudo wget -O /usr/bin/ocis \
+sudo wget -O /usr/local/bin/ocis \
   {ocis-downloadpage-url}{ocis-version}/ocis-{ocis-version}-linux-amd64
 ----
 
 [source,bash]
 ----
-sudo chmod +x /usr/bin/ocis
+sudo chmod +x /usr/local/bin/ocis
 ----
 
 [source,bash]

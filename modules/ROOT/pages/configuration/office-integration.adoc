@@ -1,6 +1,8 @@
 = Integrating Office Applications
 :toc: right
 
+:wopi_examples_url: https://github.com/owncloud/ocis/tree/master/deployments/examples/ocis_wopi
+
 :description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
 
 // harvested from https://owncloud.dev/ocis/deployment/ocis_wopi/
@@ -44,25 +46,46 @@ On Linux and macOS you can add them to your `/etc/hosts` file and on Windows to 
 
 // TODO: point to released docker containers with GA
 
-Installing the Docker stack only requires a few steps:
+Installing the Docker stack only requires a few steps. Take care to use the relevant tag in the URL for copying or switch to the relevant tag after cloning. Select a base folder of choice for the target location:
 
-. Clone the Infinite Scale repository in its latest version:
+. Get the deployment examples by either cloning or copying:
 
+.. Clone the Infinite Scale repository :
++
 [source,bash]
 ----
 git clone https://github.com/owncloud/ocis.git
 ----
-
-. Go to the deployment example:
-
++
+Checkout the relevant tag, replace `<tag>` accordingly:
++
+[source,bash]
+----
+checkout tags/<tag> -b master
+----
++
+If wanted, create a local branch for any local configuration changes to easily keep track on updates when switching to an updated tag.
++
+Change into the `ocis_wopi/` directory:
++
 [source,bash]
 ----
 cd ocis/deployments/examples/ocis_wopi
 ----
 
-. Open the `.env` file in a text editor and adjust it according to your needs.
+.. Or copy all files and folders from the {wopi_examples_url}[examples] location of github, replace `master` in the link with the tag you want to use before copying. For ease of reference, the directory where all content has been copied to is named `ocis_wopi`.
++
+After all resources have been copied, change into the directory:
++
+[source,bash]
+----
+cd ocis_wopi
+----
 
-For some hints on what to take into consideration, check the default `.env` file listed here:
+. Open the `.env` file in a text editor and adjust it according to your needs.
++
+--
+For some hints on what to take into consideration, check the example `.env` file listed here:
 
 [source,yaml]
 ----
@@ -117,31 +140,32 @@ ONLYOFFICE_DOMAIN=
 #COMPOSE_FILE=docker-compose.yml:monitoring_tracing/docker-compose-additions.yml
 ----
 
-If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
+* If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
 
-If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD` to `true` (default is `false` and therefore not active). If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, for example `TRAEFIK_DOMAIN=traefik.owncloud.test`.
+* If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD` to `true` (default is `false` and therefore not active). If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, for example `TRAEFIK_DOMAIN=traefik.owncloud.test`.
 
-The Traefik dashboard is secured by Basic Auth. Default credentials are the user `admin` with the password `admin`. To set your own credentials, generate a htpasswd (e.g. by using an https://htpasswdgenerator.de/[online tool] or a CLI tool).
+* The Traefik dashboard is secured by Basic Auth. Default credentials are the user `admin` with the password `admin`. To set your own credentials, generate a htpasswd (e.g. by using an https://htpasswdgenerator.de/[online tool] or a CLI tool).
 
-Traefik will issue certificates with LetsEncrypt. Therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
+* Traefik will issue certificates with LetsEncrypt. Therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
 
-By default Infinite Scale will be started with the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
+* By default Infinite Scale will be started with the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
 
-Set your domain for the Infinite Scale web frontend in `OCIS_DOMAIN=`, for example `OCIS_DOMAIN=ocis.owncloud.test`.
+* Set your domain for the Infinite Scale web frontend in `OCIS_DOMAIN=`, for example `OCIS_DOMAIN=ocis.owncloud.test`.
 
-Set the initial admin user password in `ADMIN_PASSWORD=`. It defaults to `admin`.
+* Set the initial admin user password in `ADMIN_PASSWORD=`. It defaults to `admin`.
 
-By default, the CS3Org WOPI server will also be started in the `latest` version. If you want to start a different version, you can set the `WOPISERVER_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/cs3org/wopiserver/tags?page=1&ordering=last_updated[Docker Hub].
+* By default, the CS3Org WOPI server will also be started in the `latest` version. If you want to start a different version, you can set the `WOPISERVER_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/cs3org/wopiserver/tags?page=1&ordering=last_updated[Docker Hub].
 
-Set your domain for the CS3Org WOPI server in `WOPISERVER_DOMAIN=`, where all office suites can download the files via the WOPI protocol.
+* Set your domain for the CS3Org WOPI server in `WOPISERVER_DOMAIN=`, where all office suites can download the files via the WOPI protocol.
 
-You also must override the default WOPI JWT secret for a secure setup. Do this done by setting `WOPI_JWT_SECRET` to a long and random string.
+* You also must override the default WOPI JWT secret for a secure setup. Do this done by setting `WOPI_JWT_SECRET` to a long and random string.
 
-To set up Collabora, you need to specify the domain of Collabora in `COLLABORA_DOMAIN=`.
+* To set up Collabora, you need to specify the domain of Collabora in `COLLABORA_DOMAIN=`.
 
-If you want to use the Collabora admin panel, you need to set the username and password for the administrator in `COLLABORA_ADMIN_USER=` and `COLLABORA_ADMIN_PASSWORD=`.
+* If you want to use the Collabora admin panel, you need to set the username and password for the administrator in `COLLABORA_ADMIN_USER=` and `COLLABORA_ADMIN_PASSWORD=`.
 
-Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
+*Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
+--
 
 . Save the file and start the Docker stack:
 +

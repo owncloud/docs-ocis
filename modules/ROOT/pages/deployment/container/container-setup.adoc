@@ -355,7 +355,7 @@ docker ps
 [source,plaintext,options="nowrap"]
 ----
 CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                       NAMES
-a0e4db3e91e8   owncloud/ocis   "/usr/bin/ocis server"   8 seconds ago   Up 6 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   ocis_runtime
+a0e4db3e91e8   owncloud/ocis   "/usr/local/bin/ocis server"   8 seconds ago   Up 6 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   ocis_runtime
 ----
 
 === Stop a Running Container

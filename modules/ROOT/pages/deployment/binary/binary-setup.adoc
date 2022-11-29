@@ -25,14 +25,14 @@ To download use:
 +
 [source,bash]
 ----
-sudo wget -O /usr/bin/ocis <link>
+sudo wget -O /usr/local/bin/ocis <link>
 ----
 +
 Make the binary executable with:
 +
 [source,bash]
 ----
-sudo chmod +x /usr/bin/ocis
+sudo chmod +x /usr/local/bin/ocis
 ----
 +
 Check the version installed:
@@ -204,7 +204,7 @@ To run the *Infinite Scale runtime* as a {systemd-url}[systemd] service, create 
 
 [source,bash]
 ----
-sudo systemctl edit ocis.service
+sudo systemctl edit --force --full ocis.service
 ----
 
 Then copy the content of the systemd file below into the editor and save it.
@@ -246,7 +246,7 @@ Type=simple
 User=ocis
 Group=ocis
 EnvironmentFile=/etc/ocis/ocis.env
-ExecStart=ocis server
+ExecStart=/usr/local/bin/ocis server
 Restart=always
 
 [Install]
