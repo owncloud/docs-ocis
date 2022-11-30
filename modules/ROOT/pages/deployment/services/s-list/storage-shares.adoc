@@ -3,15 +3,13 @@
 
 :ext_name: storage-shares
 
-:description: The Infinite Scale Storage-Shares service provides ...
+:description: The Infinite Scale Storage-Shares
 
 == Introduction
 
 {description}
 
 // fixme: source description is still missing, and a better description is needed
-
-include::partial$deployment/services/beta-statement.adoc[]
 
 == Configuration
 

@@ -9,8 +9,6 @@
 
 {description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front like with an external reverse proxy.
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Default Values
 
 * The proxy listens on port 9200 by default.

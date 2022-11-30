@@ -34,8 +34,6 @@ Certificate files can also be set via global variables starting with `OCIS_`, fo
 
 Note that using TLS is highly recommended for production environments, especially when using container orchestration with Kubernetes.
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

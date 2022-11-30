@@ -13,8 +13,8 @@ ROOT_NAME="ROOT"
 NAV_FILENAME="nav.adoc"
 PARTIALS_NAME="partials"
 # https://docs.antora.org/antora/2.3/page/resource-id/#id-coordinates
-FAMILY='{partialsdir}'
-#FAMILY="partial$"
+#FAMILY='{partialsdir}'
+FAMILY="partial$"
 MANUAL_NAME=
 MANUAL_POSTFIX="_manual"
 PARTIAL_FILES=()

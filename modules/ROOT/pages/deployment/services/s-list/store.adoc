@@ -3,15 +3,13 @@
 
 :ext_name: store
 
-:description: The Infinite Scale Store service provides ...
+:description: The Infinite Scale Store service
 
 == Introduction
 
 {description}
 
 // fixme: source description is still missing, and a better description is needed
-
-include::partial$deployment/services/beta-statement.adoc[]
 
 == Configuration
 

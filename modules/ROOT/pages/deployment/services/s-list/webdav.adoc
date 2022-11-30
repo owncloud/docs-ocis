@@ -9,8 +9,6 @@
 
 {description}
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Default Values
 
 * WebDav listens on port 9115 by default.

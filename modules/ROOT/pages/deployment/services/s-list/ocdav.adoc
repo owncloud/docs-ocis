@@ -12,8 +12,6 @@
 
 {description} For more details on CS3 see the xref:architecture/architecture.adoc#reva-and-cs3[REVA and CS3] description in the Architecture and Concepts section.
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Sequence Diagram
 
 // https://github.com/owncloud/ocis/pull/3864

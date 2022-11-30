@@ -12,8 +12,6 @@
 // fixme: source description is still missing, and a better description is needed
 // fixme: currently found at: https://owncloud.dev/extensions/storage/apps/#app-provider-capability
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

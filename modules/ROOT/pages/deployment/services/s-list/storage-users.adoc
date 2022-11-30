@@ -4,15 +4,13 @@
 
 :ext_name: storage-users
 
-:description: The Infinite Scale Storage-Users service provides ...
+:description: The Infinite Scale Storage-Users service
 
 == Introduction
 
 {description}
 
 // fixme: source description is still missing, and a better description is needed
-
-include::partial$deployment/services/beta-statement.adoc[]
 
 == Manage Unfinished Uploads
 

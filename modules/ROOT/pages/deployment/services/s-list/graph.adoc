@@ -11,8 +11,6 @@
 
 // fixme: source description is still missing, and a better description is needed
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Sequence Diagram
 
 The following image gives an overview of the scenario when a client requests to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy service to the graph service.

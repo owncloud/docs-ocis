@@ -85,13 +85,13 @@ If the group does not exist or you are not a member, continue with {docker-post-
 
 === Download the Infinite Scale Image
 
-// fixme: things are gonna change: after a call with mbarz and cdegen it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be announced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade. see: https://github.com/owncloud/ocis/issues/3578 [Proposal] Use stable tag for most recent stable release of ocis
+// fixme: things are gonna change: after a call with mbarz and crichter it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be announced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade. see: https://github.com/owncloud/ocis/issues/3578 [Proposal] Use stable tag for most recent stable release of ocis
 
 // fixme: have other and more default registries (locations where you can download containers), means we have to add a url-prefix to define where to download, see: https://github.com/owncloud/ocis/issues/3577 [Proposal] Parallel pushing to multiple registries
 
 To give some terminology guidance, images are unchangeable snapshots of live containers, while containers are running (or stopped) instances of an image.
 
-* To download the _latest_ Infinite Scale image, run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available, but might be in the future. The _latest_ tag always reflects the current master branch:
+* To download the {docker-ocis-url}[latest Infinite Scale image], run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available, but might be in the future. If not explicitly declared otherwise, the _latest_ tag is implicitely used and always reflects the current master branch. Consider using a stable release when planning ocis for production:
 +
 [source,bash]
 ----
@@ -130,7 +130,9 @@ latest
 
 === Update an Image
 
-First check the current version of the image used with the command above and compare it with the versions available on {docker-ocis-url}[Docker Hub]. When a new image is available use these steps to upgrade the image:
+First check the current version of the image used with the command above and compare it with the versions available on {docker-ocis-url}[Docker Hub]. When a new image is available use these steps to upgrade the image.
+
+NOTE: Read the ocis release notes before upgrading to avoid missing notes about possible breaking changes.
 
 * xref:stop-a-running-container[Stop] the running Infinite Scale container
 * xref:remove-an-infinite-scale-image[Remove] the actual image

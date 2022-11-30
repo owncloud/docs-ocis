@@ -1,13 +1,7 @@
 = Ports Used
-:toc: macro
+:toc: right
 
 :description: Infinite Scale uses ports for communication between services. This page provides an overview of default port ranges.
-
-include::partial$deployment/services/beta-statement.adoc[]
-
-{empty} +
-
-toc::[]
 
 == Introduction
 

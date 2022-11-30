@@ -3,15 +3,13 @@
 
 :ext_name: search
 
-:description: The Infinite Scale Search services provides a ...
+:description: The Infinite Scale Search service
 
 == Introduction
 
 {description}
 
 // fixme: source description is still missing, and a better description is needed
-
-include::partial$deployment/services/beta-statement.adoc[]
 
 == Configuration
 

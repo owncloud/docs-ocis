@@ -1,24 +1,12 @@
 = Introduction to Infinite Scale
-:toc: macro
+:toc: right
 :toclevels: 2
 :github-url: https://github.com/owncloud/docs-ocis/issues
-
-// fixme: post beta phase, we have to remove this and fix the toc back to toc right
-
-image::root/beta-badge-1.svg[width=200]
-
-{empty} +
-
-Like Infinite Scale, this documentation is still in a beta state. We hope to provide the most crucial information but are not done yet. Forgive us if there are mistakes or information is missing. Feel free to report issues and we'll take care of them as soon as possible on {github-url}[github] You want to fix them yourself? We'd appreciate that even more.
-
-{empty} +
 
 :ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
 :ocis_youtube_short_url: C4a4q9IGyFQ
 
 :description: Welcome to the Infinite Scale documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics, on installation and administrative tasks for Infinite Scale.
-
-toc::[]
 
 == Introduction
 
