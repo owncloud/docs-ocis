@@ -210,11 +210,11 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | Works with Infinite Scale Versions
 
 | {tab_1_tab_text}
-| 2.0.0-beta.8
+| 2.0.0
 
 ifdef::use_tab_2[]
 | {tab_2_tab_text}
-| 2.0.0-beta.9 - 2.0.0-beta.10
+| 2.0.0
 endif::[]
 
 ifdef::use_tab_3[]
