@@ -9,8 +9,6 @@
 
 {description}
 
-include::partial$deployment/services/beta-statement.adoc[]
-
 == Default Values
 
 * Frontend listens on port 9140 by default.

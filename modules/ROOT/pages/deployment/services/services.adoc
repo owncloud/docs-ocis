@@ -1,14 +1,7 @@
 = Services
-:toc: macro
+:toc: right
 
 :description: The Infinite Scale platform consists of microservices interconnecting with each other. Each service performs a particular task and can be configured independently.
-
-include::partial$deployment/services/beta-statement.adoc[]
-
-// remove the remark to get the toc rendered if there are more than one headlines
-// {empty} +
-
-// toc::[]
 
 == Introduction
 

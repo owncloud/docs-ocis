@@ -2,11 +2,76 @@
 
 The `{ext_name}` extension is configured via the following environment variables:
 
-include::{ocis-services-includes}/adoc/{ext_name}_configvars.adoc[]
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
+
+// note the comment blocks are in preperation for creating tabs similar we have this for helm in container orchestration 
+
+////
+
+[tabs]
+====
+{service_tab_1_tab_text}::
++
+--
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
+--
+ifdef::use_tab_2[]
+{service_tab_2_tab_text}::
++
+--
+include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
+--
+endif::[]
+ifdef::use_tab_3[]
+{service_tab_3_tab_text}::
++
+--
+include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
+--
+endif::[]
+====
+
+////
 
 === YAML Example
 
 [source,yaml]
 ----
-include::{ocis-services-includes}{ext_name}-config-example.yaml[]
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
+
+////
+
+[tabs]
+====
+{service_tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{ext_name}-config-example.yaml[]
+----
+--
+ifdef::use_tab_2[]
+{service_tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}{ext_name}-config-example.yaml[]
+----
+--
+endif::[]
+ifdef::use_tab_3[]
+{service_tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{ext_name}-config-example.yaml[]
+----
+--
+endif::[]
+====
+
+////

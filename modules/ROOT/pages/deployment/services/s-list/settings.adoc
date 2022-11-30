@@ -3,15 +3,13 @@
 
 :ext_name: settings
 
-:description: The Infinite Scale Settings service provides ...
+:description: The Infinite Scale Settings service
 
 == Introduction
 
 {description}
 
 // fixme: source description is still missing, and a better description is needed
-
-include::partial$deployment/services/beta-statement.adoc[]
 
 == Configuration
 
