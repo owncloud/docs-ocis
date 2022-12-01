@@ -584,7 +584,7 @@ ifdef::use_tab_3[]
 endif::[]
 ====
 
-===== Apply Generic Secrets
+===== Apply Generic Configs
 
 Configs can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
