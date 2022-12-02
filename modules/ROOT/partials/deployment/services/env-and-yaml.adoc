@@ -2,12 +2,6 @@
 
 The `{ext_name}` extension is configured via the following environment variables:
 
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
-
-// note the comment blocks are in preperation for creating tabs similar we have this for helm in container orchestration 
-
-////
-
 [tabs]
 ====
 {service_tab_1_tab_text}::
@@ -31,16 +25,7 @@ include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{e
 endif::[]
 ====
 
-////
-
 === YAML Example
-
-[source,yaml]
-----
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{ext_name}-config-example.yaml[]
-----
-
-////
 
 [tabs]
 ====
@@ -74,4 +59,3 @@ include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{ext_na
 endif::[]
 ====
 
-////
