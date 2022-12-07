@@ -275,7 +275,7 @@ Infinite Scale currently supports two different internal filesystem drivers whic
 +
 NOTE: Ext4 limits the number of bytes that can be used for extended attribute names and their values to the size of a single block (by default 4k). This reduces the number of shares for a single file or folder to roughly 20-30, as grants have to share the available space with other metadata.
 
-* When the `s3ng` driver is used, data resides on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. This is necessary for performance reasons. When listing extended attributes of an object, the result is currently limited to 64kB. Assuming a 20 byte uuid, a grant has ~40 bytes, which would limit the number of extended attributes to ~1630 entries or ~1600 shares. With further development, this limitation may be removed.
+* When the `s3ng` driver is used, data resides on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several oCIS instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFSv4 for storing this metadata. This is necessary for performance reasons. When listing extended attributes of an object, the result is currently limited to 64kB. Assuming a 20 byte uuid, a grant has ~40 bytes, which would limit the number of extended attributes to ~1630 entries or ~1600 shares. With further development, this limitation may be removed.
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
