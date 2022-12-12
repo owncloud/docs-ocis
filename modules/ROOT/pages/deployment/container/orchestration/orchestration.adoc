@@ -135,6 +135,8 @@ Note that github will not let you download a single directory easily. You can ge
 git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
 ----
 
+// https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
+
 * Using an external page providing you the folder to download as zip file like:
 +
 [source,plaintext,subs="attributes+"]
