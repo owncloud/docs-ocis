@@ -21,7 +21,7 @@ asciidoc:
     service_tab_2: docs-stable-2.0
     service_tab_3: tab_3
     # service_tab_x_tab_text will be used as tab text shown for tab_x
-    # note that we are refering via the 'service_tab_x' branch to the ocis repo, not the master branch!
+    # note that we are referring via the 'service_tab_x' branch to the ocis repo, not the master branch!
     service_tab_1_tab_text: latest
     service_tab_2_tab_text: 2.0.0
     service_tab_3_tab_text: 2.1.0
