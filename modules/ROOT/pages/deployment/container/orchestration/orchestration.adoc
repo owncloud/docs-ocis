@@ -10,8 +10,8 @@
 :kubernetes-url: https://kubernetes.io
 :swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
-
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
+:download-gh-directory-url: https://download-directory.github.io
 
 :ocis_individual_services-url: https://github.com/owncloud/ocis/tree/master/deployments/examples/ocis_individual_services
 :ht-pwd-url: https://htpasswdgenerator.de/
@@ -102,12 +102,16 @@ When done, create a project directory, like `ocis-compose` in your home director
 +
 --
 {composer-raw-url}{compose_tab_1}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_1}`
 --
 ifdef::use_tab_2[]
 {compose_tab_2_tab_text}::
 +
 --
 {composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_2}`
 --
 endif::[]
 ifdef::use_tab_3[]
@@ -115,9 +119,31 @@ ifdef::use_tab_3[]
 +
 --
 {composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_3}`
 --
 endif::[]
 ====
++
+--
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space, replace the version accordingly:
+
+* Using a shallow git clone which minimizes the required clone space like:
++
+[source,bash,subs="attributes+"]
+----
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
+----
+
+// https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
+
+* Using an external page providing you the folder to download as zip file like:
++
+[source,plaintext,subs="attributes+"]
+----
+{download-gh-directory-url}?url={composer-raw-url}{compose_tab_2}{composer-final-path}
+----
+--
 
 == Kubernetes and Helm
 
