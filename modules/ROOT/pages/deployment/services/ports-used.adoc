@@ -24,7 +24,7 @@ The following port ranges are used by services:
 | 9120-9124  | xref:{s-path}/graph.adoc[graph]
 | 9125-9129  | FREE (formerly used by glauth)
 | 9130-9134  | xref:{s-path}/idp.adoc[idp]
-| 9135-9139  | xref:{s-path}/graph-explorer.adoc[graph-explorer]
+| 9135-9139  | FREE
 | 9140-9141  | xref:{s-path}/frontend.adoc[frontend]
 | 9142-9143  | xref:{s-path}/gateway.adoc[gateway]
 | 9144-9145  | xref:{s-path}/users.adoc[users]

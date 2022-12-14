@@ -3,7 +3,7 @@
 
 :ext_name: webdav
 
-:description: The webdav service, like the xref:deployment/services/ocdav.adoc[ocdav] service, provides a HTTP API following the webdav protocol. It receives HTTP calls from requestors like clients and issues gRPC calls to other services executing these requests. After the called service has finished the request, the webdav service will render their responses in `xml` and sends them back to the requestor.
+:description: The webdav service, like the xref:deployment/services/s-list/ocdav.adoc[ocdav] service, provides a HTTP API following the webdav protocol. It receives HTTP calls from requestors like clients and issues gRPC calls to other services executing these requests. After the called service has finished the request, the webdav service will render their responses in `xml` and sends them back to the requestor.
 
 == Introduction
 
@@ -21,13 +21,13 @@ Currently, the webdav service handles request for two functionalities, which are
 
 The webdav service provides various `GET` endpoints to get the thumbnails of a file in authenticated and unauthenticated contexts. It also provides thumbnails for spaces on different endpoints. 
 
-See the xref:deployment/services/thumbnails.adoc[thumbnails] service for more information about thumbnails.
+See the xref:deployment/services/s-list/thumbnails.adoc[thumbnails] service for more information about thumbnails.
 
 === Search Service
 
 The webdav service provides access to the search functionality. It offers multiple `REPORT` endpoints for getting search results. 
 
-See the xref:deployment/services/search.adoc[search] service for more details about the search functionality. 
+See the xref:deployment/services/s-list/search.adoc[search] service for more details about the search functionality. 
 
 == Scalability
 
