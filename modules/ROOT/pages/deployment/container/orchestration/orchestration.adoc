@@ -485,6 +485,10 @@ include::example$deployment/container/orchestration/email-notification-tab-3.yam
 endif::[]
 ====
 
+// this is an additional anchor for yaml files that get included and reference to this section which was renamed
+
+[[define-secrets]]
+
 ==== Define Generic Secrets
 
 Infinite Scale requires some generic secrets to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.

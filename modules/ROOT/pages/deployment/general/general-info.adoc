@@ -31,7 +31,7 @@ This mode is used when _availability, scaling and the adjustment to dynamically 
 
 == Managing Services
 
-Services are built as microservices which can be started, stopped or instantiated. xref:deployment/services/services_rules.adoc[Services Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
+Services are built as microservices which can be started, stopped or instantiated. xref:deployment/services/s-list/services_rules.adoc[Services Rules] documentation as been added to explain some background. Please read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
 
 === List Available Services
 
