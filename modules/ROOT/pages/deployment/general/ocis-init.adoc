@@ -14,7 +14,7 @@ In general, the xref:deployment/general/general-info.adoc#initialize-infinite-sc
 
 When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
 
-* Following command line parameters or their equivalent environment variables can be defined to configure the `ocis init` command. When using environment variables the following structure is used, multiple variables are allowed:
+* The following command line parameters or their equivalent environment variables can be defined to configure the `ocis init` command. When using environment variables the following structure is used; multiple variables are allowed:
 +
 [source,bash]
 ----
@@ -32,7 +32,7 @@ When running `ocis init`, a random admin password will be printed to the shell f
 * `--insecure` +
 `OCIS_INSECURE`, value=true|false
 +
-This allows to use transport security, but disables certificate verification. Useful with self signed certificates to avoid certificate warnings. If set, the value will also be written to the config file. In such a case, when calling `ocis server`, it is not necessary to set the environment variable again on each start.
+This allows to use transport security, but disables certificate verification. Useful with self-signed certificates to avoid certificate warnings. If set, the value will also be written to the config file. In such a case, when calling `ocis server`, it is not necessary to set the environment variable again with each start.
 
 * `--config-path` +
 `OCIS_CONFIG_DIR`, value=absolute_path
