@@ -6,25 +6,59 @@
 
 {description}
 
-== When to Use
+== Deployments
 
 In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initializes ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
 
-* When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
-+
---
-When running `ocis init`, a random admin password will be printed to the shell for first login. Though the password can be changed afterwards in the UI, it is possible to define it right from the start when initializing, the password below is just an example:
+=== Binary Setup
 
+When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
+
+* The following command line parameters or their equivalent environment variables can be defined to configure the `ocis init` command. When using environment variables the following structure is used; multiple variables are allowed:
++
 [source,bash]
 ----
-IDM_ADMIN_PASSWORD=jvQN4XW2q&bjPAj7 \
+<variable1>=<value1> \
+<variable2>=<value2> \
+...
 ocis init
 ----
+
+* `--admin-password` or `--ap` +
+`ADMIN_PASSWORD` or `IDM_ADMIN_PASSWORD`, value=password
++
+When running `ocis init`, a random admin password will be printed to the shell for first login. Though the password can be changed afterwards in the UI, it is possible to define it right from the start when initializing.
+
+* `--insecure` +
+`OCIS_INSECURE`, value=true|false
++
+This allows to use transport security, but disables certificate verification. Useful with self-signed certificates to avoid certificate warnings. If set, the value will also be written to the config file. In such a case, when calling `ocis server`, it is not necessary to set the environment variable again with each start.
+
+* `--config-path` +
+`OCIS_CONFIG_DIR`, value=absolute_path
++
+--
+Manually set the xref:deployment/general/general-info.adoc#configuration-directory[config directory] to deviate from the default.
+
+NOTE: If using this setting, the environment variable MUST be used when starting `ocis server`.
 --
 
-* When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialization step if an `ocis.yaml` config file was found.
+* `--force-overwrite` or `-f` +
+`OCIS_FORCE_CONFIG_OVERWRITE`, value=true|false
++
+--
+If you already have run `ocis init` and a config has been defined, a consecutive run will cause a warning that a config already exists. Use this if you want to create a new configuration.
 
-* When using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] like with Docker Compose or Kubernetes with Helm Charts, the `ocis init` command *MUST NOT* be used and all configuration parameters must be handed over either via environment variables and/or via the Helm Chart / yaml files. Use the provided Helm Charts as your configuration base and adjust for Docker Compose as needed.
+WARNING: When setting this environment variable, the existing configuration will get overwritten and the existing installation and its data is no longer accessible. *The use is intended for development purposes only*.
+--
+
+=== Container Setup
+
+When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialization step if an `ocis.yaml` config file was found.
+
+=== Container Orchestration
+ 
+When using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] like with Docker Compose or Kubernetes with Helm Charts, the `ocis init` command *MUST NOT* be used and all configuration parameters must be handed over either via environment variables and/or via the Helm Chart / yaml files. Use the provided Helm Charts as your configuration base and adjust for Docker Compose as needed.
 
 == When Not to Use
 
@@ -32,10 +66,10 @@ Whenever there is a change in the existing configuration, independent of whether
 
 * *fail* if it finds an existing `ocis.yaml` file.
 * *not update* any existing configuration.
-* overwrite an existing configuration when using the `--force-overwrite` command option - *which is intended for developers only*. For details see the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command.
+* overwrite an existing configuration when using the `--force-overwrite` command option - *which is intended for development purposes only*. For a brief overview see the   xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] description in the General Information documentation.
 
 == How to Apply Changes
 
-* If changes are necessary after running `ocis init`, these changes must be applied via environment variables and/or yaml files to take effect.
+* If changes are necessary *after* running `ocis init`, these changes must be applied via environment variables and/or yaml files to take effect.
 
 * To see which configurations are available, see the xref:deployment/services/services.adoc[services] descriptions.
