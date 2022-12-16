@@ -11,6 +11,16 @@
 In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initializes ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
 
 * When using the xref:deployment/binary/binary-setup.adoc[Binary Setup], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
++
+--
+When running `ocis init`, a random admin password will be printed to the shell for first login. Though the password can be changed afterwards in the UI, it is possible to define it right from the start when initializing, the password below is just an example:
+
+[source,bash]
+----
+IDM_ADMIN_PASSWORD=jvQN4XW2q&bjPAj7 \
+ocis init
+----
+--
 
 * When using the xref:deployment/container/container-setup.adoc[Container Setup], the command *runs automatically* when starting the container and no configuration file can be found. It skips the initialization step if an `ocis.yaml` config file was found.
 
