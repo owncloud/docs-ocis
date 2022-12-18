@@ -217,6 +217,10 @@ Adapt the config to use the newly generated certificates and add the required pr
 
 include::partial$deployment/nginx_example.adoc[]
 
+Add the following in the SSL definition above if SSL security should be hardned:
+
+include::partial$deployment/nginx_harden_ssl.adoc[]
+
 Reload nginx again:
 
 [source,bash]
