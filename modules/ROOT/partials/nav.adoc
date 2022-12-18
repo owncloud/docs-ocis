@@ -53,6 +53,8 @@
 * Configuration Examples
 ** xref:configuration/office-integration.adoc[Office Integration]
 // *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
+* Deployment Examples
+** xref:examples/small-scale.adoc[Small-Scale with systemd]
 
 ////
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]

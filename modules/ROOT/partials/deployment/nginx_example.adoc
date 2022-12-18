@@ -1,0 +1,36 @@
+[source,nginx,subs="attributes+"]
+----
+server {
+        listen 80 ;
+        listen [::]:80 ;
+        server_name {ocis_url};
+
+        # location to redirect to https
+        location / {
+            # add port if deviates via OCIS_URL
+            return 301 https://$server_name$request_uri;
+        }
+}
+
+server {
+        server_name {ocis_url};
+
+        # default 443 but can deviate if set in OCIS_URL
+        listen [::]:443 ssl ipv6only=on;
+        listen 443 ssl;
+
+        # certificates managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/ocis.example.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/ocis.example.com/privkey.pem;
+
+        # options and dhparams managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+        location / {
+            proxy_pass http://localhost:{ocis_port};
+            proxy_set_header Host $host;
+            client_max_body_size 0;
+        }
+}
+----

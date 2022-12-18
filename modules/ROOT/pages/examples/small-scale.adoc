@@ -1,0 +1,227 @@
+= Small-Scale Deployment with systemd 
+:toc: right
+:toclevels: 3
+
+:systemd-url: https://systemd.io/
+:nginx-url: https://www.nginx.com/
+:xattr-url: https://en.wikipedia.org/wiki/Extended_file_attributes
+:certbot-url: https://certbot.eff.org
+
+:ocis_bin: /usr/local/bin
+:ocis_env: /etc/ocis
+:ocis_data: /var/lib/ocis
+:ocis_url: ocis.example.com
+:ocis_port: 9200
+
+:description: This guide describes the installation of a small-scale instance of Infinite Scale as a systemd service.
+
+== Introduction
+
+{description}
+
+Note that this guide expects that prerequisites are met and required software other than ocis is installed and preconfigured. There is no in detailed explanation but if possible links added for more information.
+
+This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
+
+== Requirements
+
+* A filesystem supporting {xattr-url}[extended attributes], for a list see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites].
+
+* {systemd-url}[systemd]
+* A HTTP reverse proxy, the example is using {nginx-url}[nginx]
+* {certbot-url}[Certbot] + the nginx plugin
+
+== Excluded Tasks
+
+There are a few steps that are recommended but not covered in this guide:
+
+* Automate the Let's Encrypt certificate renewal via cron jobs
+* Install and set up a firewall
+
+== Used Settings
+
+The following settings were used in this guide. You can change this according your needs:
+
+* The Infinite Scale binary location: `{ocis_bin}` (OS default)
+* The Infinite Scale configuration directory: `{ocis_env}`
+* The Infinite Scale data directory: `{ocis_data}`
+* The URL accessing Infinte Scale: `{ocis_url}` +
+Note that this URL must resolve to the server running this installation.
+* The port accessing Infinite Scale: {ocis_port} (default)
+
+== Install and Prepare Infinite Scale
+
+=== Install and configure the Infinite Scale Binary
+
+Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file.
+
+[source,bash,subs="attributes+"]
+----
+sudo wget -O {ocis_bin}/ocis <file_url>
+----
+
+Make the binary executable with:
+
+[source,bash,subs="attributes+"]
+----
+sudo chmod +x {ocis_bin}/ocis
+----
+
+Check the version installed:
+
+[source,bash]
+----
+ocis version
+----
+
+The output looks like this:
+
+[source,plaintext,subs="attributes+"]
+----
+ocis version {ocis-version}
+----
+
+=== Create a Service User
+
+Create an OS user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to login, has no shell and no home directory.
+
+[source,bash]
+----
+sudo useradd --system --no-create-home --shell=/sbin/nologin
+----
+
+=== Infinite Scale Data Directory
+
+Create the ocis data directory. All system data will be stored here including all files uploaded by the users.
+
+[source,bash,subs="attributes+"]
+----
+sudo mkdir -p {ocis_data}
+----
+
+Make the service user `ocis` the owner of the data directory.
+
+[source,bash,subs="attributes+"]
+----
+sudo chown ocis:ocis {ocis_data}
+----
+
+=== Infinte Scale Configuration File
+
+Create a directory and config file necessary for ocis. For security reasons, this user should have restricted permissions for this directory:
+
+[source,bash,subs="attributes+"]
+----
+sudo mkdir -p {ocis_env}
+----
+
+[source,bash,subs="attributes+"]
+----
+sudo touch {ocis_env}/ocis.env
+----
+
+[source,bash,subs="attributes+"]
+----
+sudo chown -R ocis:ocis {ocis_env}
+----
+
+Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Info] section for more information about the environment variables used. 
+
+[source,bash,subs="attributes+"]
+----
+sudo vi {ocis_env}/ocis.env
+----
+
+[source,plaintext,subs="attributes+"]
+----
+OCIS_URL=https://{ocis_url}
+PROXY_HTTP_ADDR=0.0.0.0:{ocis_port}
+PROXY_TLS=false
+OCIS_INSECURE=false
+
+OCIS_LOG_LEVEL=warn
+
+OCIS_CONFIG_DIR={ocis_env}
+OCIS_BASE_DATA_PATH={ocis_data}
+----
+
+`PROXY_TLS` is set to `false` because xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS termination] will be done by nginx.
+
+Generate the initial Infinite Scale configuration file, also see xref:deployment/general/ocis-init.adoc[The ocis init Command]:
+
+[source,bash,subs="attributes+"]
+----
+sudo -u ocis ocis init --config-path {ocis_env}
+----
+
+You will be asked if you want to configure Ininite Scale with certificate checking disabled. You can safely answer `yes`. Infinite Scale is composed of several microservices which encrypt the communication between them with TLS. By answering with `yes` the communication is still encrypted but client and server certificates aren't checked for validity. Usually this is good enough. For an extra secure deployment, an validatable TLS certificate can be provided, certificate checking can then be enabled.
+
+NOTE: The command when run successful will show you the initial admin user's password. Write it down somewhere safe so that you can log in when the setup is complete. The password can be changed in the UI later on or be reset if forgotten via xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
+This command will create the configuration file `{ocis_env}/ocis.yaml`.
+
+IMPORTANT: Do NOT delete the  `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
+
+== Setup the systemd Service
+
+include::partial$deployment/systemd.adoc[]
+
+include::partial$deployment/dependent_startup.adoc[leveloffset=+2]
+
+== Nginx as Reverse Proxy
+
+Always run a configuration test when updating your nginx configuration with:
+
+[source,bash]
+----
+sudo nginx -t
+----
+
+=== Prepare for certbot
+
+To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` to `/etc/nginx/sites-available` with the following content:
+
+[source,nginx,subs="attributes+"]
+----
+server {
+        listen 80 ;
+        listen [::]:80 ;
+        server_name {ocis_url};
+}
+----
+
+Activate the new nginx config and reload nginx:
+
+[source,bash]
+----
+sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
+----
+
+[source,bash]
+----
+sudo systemctl reload nginx
+----
+
+=== Issuing a Certificate via certbot
+
+Run `certbot` to issue the TLS certificates:
+
+[source,bash,subs="attributes+"]
+----
+sudo certbot --nginx -d {ocis_url}
+----
+
+=== Finalize the nginx Configuration
+
+Adapt the config to use the newly generated certificates and add the required proxy configuration. The full config should look like this:
+
+include::partial$deployment/nginx_example.adoc[]
+
+Reload nginx again:
+
+[source,bash]
+----
+sudo systemctl reload nginx
+----
+
+Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned from the `ocis init` command.
