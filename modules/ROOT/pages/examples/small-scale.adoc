@@ -6,6 +6,7 @@
 :nginx-url: https://www.nginx.com/
 :xattr-url: https://en.wikipedia.org/wiki/Extended_file_attributes
 :certbot-url: https://certbot.eff.org
+:ssl-labs-url: https://www.ssllabs.com/ssltest/
 
 :ocis_bin: /usr/local/bin
 :ocis_env: /etc/ocis
@@ -229,3 +230,5 @@ sudo systemctl reload nginx
 ----
 
 Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned by the `ocis init` command.
+
+If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
