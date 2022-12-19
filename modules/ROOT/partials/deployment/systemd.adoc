@@ -1,4 +1,4 @@
-To run the *Infinite Scale runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
+To run the *Infinite Scale runtime* as a {systemd-url}[systemd,window=_blank] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
 
 [source,bash]
 ----
