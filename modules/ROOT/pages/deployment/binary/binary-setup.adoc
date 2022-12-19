@@ -214,7 +214,7 @@ In your operating system, create a user and group who will run the ocis service 
 
 [source,bash]
 ----
-sudo useradd --system --no-create-home --shell=/sbin/nologin
+sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
 
 * We strongly advise *against* using the user `root` for this purpose.

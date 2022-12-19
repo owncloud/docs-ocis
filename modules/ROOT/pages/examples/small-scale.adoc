@@ -45,7 +45,7 @@ The following settings were used in this guide. You can change this according yo
 * The Infinite Scale binary location: `{ocis_bin}` (OS default)
 * The Infinite Scale configuration directory: `{ocis_env}`
 * The Infinite Scale data directory: `{ocis_data}`
-* The URL accessing Infinte Scale: `{ocis_url}` +
+* The URL accessing Infinite Scale: `{ocis_url}` +
 Note that this URL must resolve to the server running this installation.
 * The internal port accessing Infinite Scale: {ocis_port} (default)
 
@@ -87,7 +87,7 @@ In your operating system, create a user and group who will run the ocis service 
 
 [source,bash]
 ----
-sudo useradd --system --no-create-home --shell=/sbin/nologin
+sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
 
 === Infinite Scale Data Directory
