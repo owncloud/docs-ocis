@@ -5,39 +5,47 @@
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
-:description: Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
+:ocis_bin: /usr/local/bin
+:ocis_env: /etc/ocis
+:ocis_data: /var/lib/ocis
+:ocis_url: ocis.example.com
+:ocis_port: 9200
+
+:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks
 
 == Introduction
 
-{description}
+This description gives a brief overview and can be used as basic template running the ocis binary, including an example of how to configure systemd. It does not cover extended deployment tasks
 
-Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks like a container preparation or Kubernetes deployment. Of course you can use it for production in your environment, too. See the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] documentation for impacts. 
+{description} like a container preparation, Kubernetes deployment or using a reverse proxy. Of course you can use it for production in your environment, too. See the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] documentation for impacts. 
+
+Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Packages will be available soon. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
 == Prerequisite
 
-NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone.
+NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `/usr/local/bin/`
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
 +
 To download use:
 +
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-sudo wget -O /usr/local/bin/ocis <file_url>
+sudo wget -O {ocis_bin}/ocis <file_url>
 ----
 +
 Make the binary executable with:
 +
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-sudo chmod +x /usr/local/bin/ocis
+sudo chmod +x {ocis_bin}/ocis
 ----
 +
 Check the version installed:
 +
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
 ocis version
 ----
@@ -76,7 +84,7 @@ ocis --help
 
 == Accessing the Infinite Scale Runtime
 
-When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `localhost:9200` or whatever URL and port you have defined.
+When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `localhost:{ocis_port}` or whatever URL and port you have defined.
 
 == Start and Stop Infinite Scale
 
@@ -200,104 +208,40 @@ sudo kill -15 221706
 
 == Setting up systemd for Infinite Scale
 
-To run the *Infinite Scale runtime* as a {systemd-url}[systemd] service, create the file `/etc/systemd/system/ocis.service` with the content provided below. The easiest way to do this is with the following command:
+=== Create a Service User
 
-[source,bash]
-----
-sudo systemctl edit --force --full ocis.service
-----
-
-Then copy the content of the systemd file below into the editor and save it.
-
-// info: we use the user ocis as an example in the same way as users are created for apache, nginx mysql etc
-
-* The user `ocis` is just a placeholder for any user to run Infinite Scale, the user must exist or be created first.
-+
-[NOTE]
-====
-This user can be a system user. The following example will create a system user and group named _ocis_ with no home directory, no login shell and no password. Depending on your OS type:
+In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
 
 [source,bash]
 ----
 sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
-====
-+
+
 * We strongly advise *against* using the user `root` for this purpose.
-* Placing the environment file in `/etc/ocis/` is only a suggestion, but a good one.
-** The directory `/etc/ocis/` must exist and `ocis` must be able to read it. For security reasons, this user should have restricted permissions. Create and set permissions, adjust the values according to your needs:
+* Placing the environment file in `{ocis_env}` is only a suggestion, but a good one.
+** The directory `ocis_env` must exist and the user `ocis` must be able to read it.
 +
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-sudo mkdir -p /etc/ocis
-sudo chown -R ocis /etc/ocis
-sudo chmod 0570 /etc/ocis
-----
-
-[caption=]
-.systemd file
-[source,plaintext]
-----
-[Unit]
-Description=OCIS server
-
-[Service]
-Type=simple
-User=ocis
-Group=ocis
-EnvironmentFile=/etc/ocis/ocis.env
-ExecStart=/usr/local/bin/ocis server
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
+sudo mkdir -p {ocis_env}
+sudo chown -R ocis:ocis {ocis_env}
 ----
 
-Now create the file `/etc/ocis/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
+Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 
-[source,plaintext]
+[source,plaintext,subs="attributes+"]
 ----
 OCIS_INSECURE=true
-OCIS_URL=https://localhost:9200
-PROXY_HTTP_ADDR=0.0.0.0:9200
+OCIS_URL=https://localhost:{ocis_port}
+PROXY_HTTP_ADDR=0.0.0.0:{ocis_port}
 
 OCIS_LOG_LEVEL=error
 ----
 
-Run the following command to apply your changes:
+=== Setup systemd Service
 
-[source,bash]
-----
-sudo systemctl daemon-reload
-----
+include::partial$deployment/systemd.adoc[]
 
-Now you can run Infinite Scale as a systemd service. Start it with:
-
-[source,bash]
-----
-sudo systemctl enable --now ocis
-----
-
-With this setup, Infinite Scale is restarted automatically after a reboot.
-
-If you need to restart Infinite Scale because of configuration changes in `/etc/ocis/ocis.env`, run:
-
-[source,bash]
-----
-sudo systemctl restart ocis
-----
-
-The logs of Infinite Scale can be displayed by issuing:
-
-[source,bash]
-----
-sudo journalctl -f -u ocis
-----
-
-=== Dependent Infinite Scale Service Startup
-
-If you want to ensure that you have e.g. a necessary NFS mount point up and running _before_ the Infinite Scale service starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
-
-NOTE: This step can be an important measure, because if the Infinite Scale service starts up but the necessary mount point is not available, you may be in an undefined Infinite Scale operating state.
+include::partial$deployment/dependent_startup.adoc[leveloffset=+2]

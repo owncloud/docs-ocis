@@ -1,0 +1,14 @@
+[source,nginx]
+----
+        ssl_buffer_size 4000;
+        ssl_session_tickets on;
+        ssl_session_cache shared:SSL:10m;
+
+        # restrict ciphers
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !SHA1 !SHA256 !SHA384 !RC4 !aNULL !eNULL !Medium !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !SEED";
+
+        # use multiple curves.
+        ssl_ecdh_curve secp521r1:secp384r1;
+----
