@@ -221,11 +221,17 @@ sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 * Placing the environment file in `{ocis_env}` is only a suggestion, but a good one.
 ** The directory `ocis_env` must exist and the user `ocis` must be able to read it.
 +
+--
 [source,bash,subs="attributes+"]
 ----
 sudo mkdir -p {ocis_env}
+----
+
+[source,bash,subs="attributes+"]
+----
 sudo chown -R ocis:ocis {ocis_env}
 ----
+--
 
 Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
 

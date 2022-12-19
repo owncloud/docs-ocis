@@ -20,8 +20,8 @@ server {
         listen 443 ssl;
 
         # certificates managed by Certbot
-        ssl_certificate /etc/letsencrypt/live/ocis.example.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/ocis.example.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/{ocis_url}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/{ocis_url}/privkey.pem;
 
         # options and dhparams managed by Certbot
         include /etc/letsencrypt/options-ssl-nginx.conf;
