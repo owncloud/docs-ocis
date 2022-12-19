@@ -107,7 +107,7 @@ Make the service user `ocis` the owner of the data directory.
 sudo chown ocis:ocis {ocis_data}
 ----
 
-=== Infinte Scale Configuration File
+=== Infinite Scale Configuration File
 
 Create a directory and config file necessary for ocis. For security reasons, this user should have restricted permissions for this directory:
 
