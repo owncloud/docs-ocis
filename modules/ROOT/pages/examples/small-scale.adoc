@@ -19,7 +19,7 @@
 
 {description}
 
-Note that this guide expects that prerequisites are met and required software other than ocis is installed and preconfigured. There is no in detailed explanation but if possible links added for more information.
+Note that this guide expects that prerequisites are met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
 
 This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
 
@@ -47,7 +47,7 @@ The following settings were used in this guide. You can change this according yo
 * The Infinite Scale data directory: `{ocis_data}`
 * The URL accessing Infinte Scale: `{ocis_url}` +
 Note that this URL must resolve to the server running this installation.
-* The port accessing Infinite Scale: {ocis_port} (default)
+* The internal port accessing Infinite Scale: {ocis_port} (default)
 
 == Install and Prepare Infinite Scale
 
@@ -83,7 +83,7 @@ ocis version {ocis-version}
 
 === Create a Service User
 
-Create an OS user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to login, has no shell and no home directory.
+In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
 
 [source,bash]
 ----
@@ -154,9 +154,9 @@ Generate the initial Infinite Scale configuration file, also see xref:deployment
 sudo -u ocis ocis init --config-path {ocis_env}
 ----
 
-You will be asked if you want to configure Ininite Scale with certificate checking disabled. You can safely answer `yes`. Infinite Scale is composed of several microservices which encrypt the communication between them with TLS. By answering with `yes` the communication is still encrypted but client and server certificates aren't checked for validity. Usually this is good enough. For an extra secure deployment, an validatable TLS certificate can be provided, certificate checking can then be enabled.
+You will be asked if you want to configure Ininite Scale with certificate checking disabled. You can safely answer `yes`. Infinite Scale is composed of several microservices which encrypt the communication between them with TLS. By answering with `yes` the communication is still encrypted but client and server certificates aren't checked for validity. Usually this is good enough. For an extra secure deployment, provide a verifiable TLS certificate and enable certificate checking.
 
-NOTE: The command when run successful will show you the initial admin user's password. Write it down somewhere safe so that you can log in when the setup is complete. The password can be changed in the UI later on or be reset if forgotten via xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+NOTE: The command when run successfully will show you the initial admin user's password. Write it down somewhere safe so that you can log in when the setup is complete. The password can be changed in the UI later on or be reset if forgotten via xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
 
 This command will create the configuration file `{ocis_env}/ocis.yaml`.
 
@@ -179,7 +179,7 @@ sudo nginx -t
 
 === Prepare for certbot
 
-To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` to `/etc/nginx/sites-available` with the following content:
+To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/nginx/sites-available` with the following content:
 
 [source,nginx,subs="attributes+"]
 ----
@@ -217,7 +217,7 @@ Adapt the config to use the newly generated certificates and add the required pr
 
 include::partial$deployment/nginx_example.adoc[]
 
-Add the following in the SSL definition above if SSL security should be hardned:
+Add the following in the SSL definition above if SSL security should be hardened:
 
 include::partial$deployment/nginx_harden_ssl.adoc[]
 
@@ -228,4 +228,4 @@ Reload nginx again:
 sudo systemctl reload nginx
 ----
 
-Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned from the `ocis init` command.
+Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned by the `ocis init` command.

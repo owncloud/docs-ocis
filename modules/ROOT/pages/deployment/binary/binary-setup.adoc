@@ -15,19 +15,19 @@
 
 == Introduction
 
-This description gives a brief overview and can be used as basic template running the ocis binary including an example how to configure systemd. It does not cover extended deployment tasks.
+This description gives a brief overview and can be used as basic template running the ocis binary, including an example of how to configure systemd. It does not cover extended deployment tasks
 
 {description} like a container preparation, Kubernetes deployment or using a reverse proxy. Of course you can use it for production in your environment, too. See the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] documentation for impacts. 
 
-Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system which will be available soon. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
+Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Packages will be available soon. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
 == Prerequisite
 
-NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone.
+NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
 +
 To download use:
 +
@@ -210,7 +210,7 @@ sudo kill -15 221706
 
 === Create a Service User
 
-Create an OS user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to login, has no shell and no home directory.
+In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
 
 [source,bash]
 ----
@@ -227,7 +227,7 @@ sudo mkdir -p {ocis_env}
 sudo chown -R ocis:ocis {ocis_env}
 ----
 
-Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for additional environment variables like xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
+Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 
