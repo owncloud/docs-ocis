@@ -22,8 +22,8 @@
     SSLProxyCheckPeerName off
     SSLProxyCheckPeerExpire off
 
-    ProxyPass / https://127.0.0.1:{ocis_port}/
-    ProxyPassReverse / https://127.0.0.1:{ocis_port}/
+    ProxyPass / https://localhost:{ocis_port}/
+    ProxyPassReverse / https://localhost:{ocis_port}/
 
     #important, otherwise 400 errors from idp
     ProxyPreserveHost on
