@@ -286,7 +286,7 @@ Reload Apache:
 
 [source,bash]
 ----
-sudo systemctl reload nginx
+sudo systemctl reload apache2
 ----
 
 See the linked documentation how to enable the {apache_http2_url}[http2,window=_blank] protocol for Apache.
