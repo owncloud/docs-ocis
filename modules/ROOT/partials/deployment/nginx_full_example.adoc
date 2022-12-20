@@ -3,6 +3,7 @@
 server {
         listen 80 ;
         listen [::]:80 ;
+
         server_name {ocis_url};
 
         # location to redirect to https
@@ -13,11 +14,11 @@ server {
 }
 
 server {
-        server_name {ocis_url};
-
         # default 443 but can deviate if set in OCIS_URL
-        listen [::]:443 ssl ipv6only=on;
-        listen 443 ssl;
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+
+        server_name {ocis_url};
 
         # certificates managed by Certbot
         ssl_certificate /etc/letsencrypt/live/{ocis_url}/fullchain.pem;

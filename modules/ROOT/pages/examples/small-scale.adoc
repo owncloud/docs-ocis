@@ -4,9 +4,12 @@
 
 :systemd-url: https://systemd.io/
 :nginx-url: https://www.nginx.com/
+:apache-url: https://www.apache.org
 :xattr-url: https://en.wikipedia.org/wiki/Extended_file_attributes
 :certbot-url: https://certbot.eff.org
+:certbot-options-url: https://eff-certbot.readthedocs.io/en/stable/using.html#id36
 :ssl-labs-url: https://www.ssllabs.com/ssltest/
+:apache_http2_url: https://httpd.apache.org/docs/2.4/howto/http2.html
 
 :ocis_bin: /usr/local/bin
 :ocis_env: /etc/ocis
@@ -26,11 +29,18 @@ This guide was tested on a Debian 11 (bullseye) host but should work on any othe
 
 == Requirements
 
-* A filesystem supporting {xattr-url}[extended attributes], for a list see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites].
+* A filesystem supporting {xattr-url}[extended attributes,window=_blank], for a list see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
 
 * {systemd-url}[systemd]
-* A HTTP reverse proxy, the example is using {nginx-url}[nginx]
-* {certbot-url}[Certbot] + the nginx plugin
+* A HTTP reverse proxy, there are examples using {nginx-url}[nginx,window=_blank] and {apache-url}[Apache,window=_blank]
+* {certbot-url}[Certbot,window=_blank] + the nginx or Apache plugin
++
+[NOTE]
+====
+* For certbot, there are many {certbot-options-url}[command line options,window=_blank] available supporting common tasks like increasing security measures or automatic redirection, the example commands are limited to the minimum issuing a certificate. This includes that configuration files and security measures need to be applied manually.
+* With respect to security, some of the measures are shown in examples but not all possibilities are covered.
+* If using certbot command line options, files may be split by port and content can differ, though the result when combined is the same.
+====
 
 == Excluded Tasks
 
@@ -178,18 +188,11 @@ Always run a configuration test when updating your nginx configuration with:
 sudo nginx -t
 ----
 
-=== Prepare for certbot
+=== Prepare nginx for certbot
 
 To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/nginx/sites-available` with the following content:
 
-[source,nginx,subs="attributes+"]
-----
-server {
-        listen 80 ;
-        listen [::]:80 ;
-        server_name {ocis_url};
-}
-----
+include::partial$deployment/nginx_80_example.adoc[]
 
 Activate the new nginx config and reload nginx:
 
@@ -203,7 +206,7 @@ sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
 sudo systemctl reload nginx
 ----
 
-=== Issuing a Certificate via certbot
+=== Issuing a Certificate via certbot for nginx
 
 Run `certbot` to issue the TLS certificates:
 
@@ -214,11 +217,11 @@ sudo certbot --nginx -d {ocis_url}
 
 === Finalize the nginx Configuration
 
-Adapt the config to use the newly generated certificates and add the required proxy configuration. The full config should look like this:
+Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
 
-include::partial$deployment/nginx_example.adoc[]
+include::partial$deployment/nginx_full_example.adoc[]
 
-Add the following in the SSL definition above if SSL security should be hardened / improved:
+Add the following to the SSL definition above if SSL security should be hardened / improved:
 
 include::partial$deployment/nginx_harden_ssl.adoc[]
 
@@ -229,6 +232,65 @@ Reload nginx again:
 sudo systemctl reload nginx
 ----
 
+If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
+
 Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned by the `ocis init` command.
 
+== Apache as Reverse Proxy
+
+Always run a configuration test when updating your Apache configuration with:
+
+[source,bash]
+----
+sudo apachectl configtest
+----
+
+=== Prepare Apache for certbot
+
+To set up Apache as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/apache2/sites-available` with the following content:
+
+include::partial$deployment/apache_80_example.adoc[]
+
+Activate the new Apache config and reload Apache:
+
+[source,bash]
+----
+sudo ln -s /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
+----
+
+[source,bash]
+----
+sudo systemctl reload apache2
+----
+
+=== Issuing a Certificate via certbot for Apache
+
+Run `certbot` to issue the TLS certificates:
+
+[source,bash,subs="attributes+"]
+----
+sudo certbot --apache -d {ocis_url}
+----
+
+=== Finalize the Apache Configuration
+
+Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
+
+include::partial$deployment/apache_full_example.adoc[]
+
+Add the following to the SSL definition above if SSL security should be hardened / improved:
+
+include::partial$deployment/apache_harden_ssl.adoc[]
+
+Reload Apache:
+
+[source,bash]
+----
+sudo systemctl reload apache2
+----
+
+See the linked documentation how to enable the {apache_http2_url}[http2,window=_blank] protocol for Apache.
+
 If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
+
+Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned by the `ocis init` command.
