@@ -29,7 +29,7 @@ server {
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
         location / {
-            proxy_pass http://127.0.0.1:{ocis_port};
+            proxy_pass http://localhost:{ocis_port};
             proxy_set_header Host $host;
             client_max_body_size 0;
         }

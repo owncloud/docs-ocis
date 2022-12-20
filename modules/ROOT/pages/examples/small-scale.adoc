@@ -282,7 +282,7 @@ Add the following to the SSL definition above if SSL security should be hardened
 
 include::partial$deployment/apache_harden_ssl.adoc[]
 
-Reload nginx again:
+Reload Apache:
 
 [source,bash]
 ----
