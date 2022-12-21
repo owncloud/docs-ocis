@@ -16,7 +16,7 @@ Though the majority of services can be scaled by starting them multiple times, t
 
 * The xref:{s-path}/search.adoc[Search service] cannot be started multiple times. The use in HA or scaled installations is therefore limited.
 
-* The xref:{s-path}/idm.adoc[IDM service] cannot be started multiple times and should not be used in HA / scaled installations, but replaced instead by an LDAP server that supports HA / scaling. Even if no HA / scaling is needed, the IDM service is only supported for a limited amount of users. Consider the limitation up to approximately 200 users.
+* The xref:{s-path}/idm.adoc[IDM service] cannot be started multiple times and should not be used in HA / scaled installations, but replaced instead by an LDAP server that supports HA / scaling. If no LDAP server is available or no HA / scaling is needed, the IDM service can still be used in production environments but does by nature not cover all capabilities a professional LDAP server provides.
 
 * The xref:{s-path}/idp.adoc[IDP service] cannot be started multiple times and should not be used in HA / scaled installations, but instead replaced by an OIDC provider that supports HA / scaling. The IDP service has a bare minimum feature set. For example, cannot easily revoke single sessions.
 
