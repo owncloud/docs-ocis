@@ -1,0 +1,25 @@
+= Deployment Considerations
+:toc: right
+
+:nats-clustering-url: https://docs.nats.io/running-a-nats-service/configuration/clustering
+:nats-helm-url: https://docs.nats.io/running-a-nats-service/nats-kubernetes/helm-chart
+
+:description: When using container orchestration, some considerations should be taken into account when deploying services with respect to scaling.
+
+== Introduction
+
+{description}
+
+== Scaling of Services
+
+Though the majority of services can be scaled by starting them multiple times, this is not always possible for some of them mostly due to technical limitations when targeting High Availability or scaled installations.
+
+* The xref:{s-path}/search.adoc[Search service] cannot be started multiple times. The use in HA or scaled installations is therefore limited.
+
+* The xref:{s-path}/idm.adoc[IDM service] cannot be started multiple times and should not be used in HA / scaled installations, but replaced instead by an LDAP server that supports HA / scaling. If no LDAP server is available or no HA / scaling is needed, the IDM service can still be used in production environments but does by nature not cover all capabilities a professional LDAP server provides.
+
+* The xref:{s-path}/idp.adoc[IDP service] cannot be started multiple times and should not be used in HA / scaled installations, but instead replaced by an OIDC provider that supports HA / scaling. The IDP service has a bare minimum feature set. For example, cannot easily revoke single sessions.
+
+* The xref:{s-path}/store.adoc[Store service] cannot be started multiple times. ownCloud is looking for ways of removing or making the store service able to scale.
+
+* The xref:{s-path}/nats.adoc[NATS service] cannot be started multiple times and should not be used in HA or scaled installations. Instead it must be replaced by a NATS installation that is HA / scaled enabled. For details see the https://nats.io pages: {nats-clustering-url}[NATS Server Clustering] and {nats-helm-url}[Deploying NATS with Helm] documentation.
