@@ -1,6 +1,6 @@
 === Environment Variables
 
-The `{ext_name}` extension is configured via the following environment variables:
+The `{ext_name}` service is configured via the following environment variables:
 
 [tabs]
 ====
@@ -9,6 +9,9 @@ The `{ext_name}` extension is configured via the following environment variables
 --
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
+// disable printing the second tab if not allowed (eg. if service is fresh created)
+// set this if required in the calling page!
+ifndef::no_second_tab[]
 ifdef::use_tab_2[]
 {service_tab_2_tab_text}::
 +
@@ -16,12 +19,17 @@ ifdef::use_tab_2[]
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
 endif::[]
+// disable printing the third tab if not allowed (eg. if service is fresh created)
+// set this if required in the calling page!
+ifndef::no_third_tab[]
 ifdef::use_tab_3[]
 {service_tab_3_tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
+endif::[]
+endif::[]
 endif::[]
 ====
 
@@ -37,6 +45,9 @@ endif::[]
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
 --
+// disable printing the second tab if not allowed (eg. if service is fresh created)
+// set this if required in the calling page!
+ifndef::no_second_tab[]
 ifdef::use_tab_2[]
 {service_tab_2_tab_text}::
 +
@@ -47,6 +58,9 @@ include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}{ext_na
 ----
 --
 endif::[]
+// disable printing the third tab if not allowed (eg. if service is fresh created)
+// set this if required in the calling page!
+ifndef::no_third_tab[]
 ifdef::use_tab_3[]
 {service_tab_3_tab_text}::
 +
@@ -56,6 +70,8 @@ ifdef::use_tab_3[]
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
 --
+endif::[]
+endif::[]
 endif::[]
 ====
 
