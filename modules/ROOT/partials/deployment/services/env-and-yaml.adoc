@@ -1,6 +1,19 @@
+// the attribute ext_name (mandatory) and no_yaml (not mandatory) will be handed over by the calling page.
+// if no_yaml is set, it will exclude rendering yaml files because it does not exist.
+
+// print a dependent explanation line
+// no_yaml is not set = standard extension,
+// no_yaml is set = special scope envvars
+ 
+ifndef::no_yaml[]
 === Environment Variables
 
 The `{ext_name}` service is configured via the following environment variables:
+endif::[]
+
+ifdef::no_yaml[]
+The `{ext_name}` variables are defined in the following way:
+endif::[]
 
 [tabs]
 ====
@@ -32,6 +45,8 @@ endif::[]
 endif::[]
 endif::[]
 ====
+
+ifndef::no_yaml[]
 
 === YAML Example
 
@@ -75,3 +90,4 @@ endif::[]
 endif::[]
 ====
 
+endif::[]
