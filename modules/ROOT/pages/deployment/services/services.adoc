@@ -11,4 +11,6 @@ For more details see xref:deployment/general/general-info.adoc#managing-services
 
 There are descriptions and configuration details for each service available.
 
+When a service gets added to Infinite Scale, a page describing the service is added but the configuration will only show up for those releases where the service is available.
+
 Also see the supporting documents describing various topics around services.

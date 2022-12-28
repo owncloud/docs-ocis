@@ -38,6 +38,7 @@
 ***** xref:deployment/services/s-list/notifications.adoc[Notification]
 ***** xref:deployment/services/s-list/ocdav.adoc[OCDAV]
 ***** xref:deployment/services/s-list/ocs.adoc[OCS]
+***** xref:deployment/services/s-list/postprocessing.adoc[Postprocessing]
 ***** xref:deployment/services/s-list/proxy.adoc[Proxy]
 ***** xref:deployment/services/s-list/search.adoc[Search]
 ***** xref:deployment/services/s-list/settings.adoc[Settings]
