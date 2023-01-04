@@ -1,0 +1,19 @@
+////
+Note that this page is created because when the contents of the included yaml is big, the content size would be too high and not comfortable to read.
+
+The source content comes from github.
+
+Note that you cant create a attribute on the fly and handover to the include macro
+
+We need to allow substitution of attributes first, then macros
+////
+
+:noindex:
+
+[caption=]
+.Source: link:{composer-raw-url}{compose_tab_2}{composer-final-path}/ocis_wopi/config/ocis/app-registry.yaml[]
+{empty}
+[source,yaml]
+----
+include::{composer-raw-url}{compose_tab_2}{composer-final-path}/ocis_wopi/config/ocis/app-registry.yaml[]
+----

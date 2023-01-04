@@ -5,7 +5,6 @@
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
 :docker-hub-url: https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated
-:compose-examples-url: https://github.com/owncloud/ocis/tree/master/deployments/examples
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
 :kubernetes-url: https://kubernetes.io
 :swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
@@ -101,7 +100,7 @@ When done, create a project directory, like `ocis-compose` in your home director
 {compose_tab_1_tab_text}::
 +
 --
-{composer-raw-url}{compose_tab_1}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+{composer-url}{compose_tab_1}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_1}`
 --
@@ -109,7 +108,7 @@ ifdef::use_tab_2[]
 {compose_tab_2_tab_text}::
 +
 --
-{composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+{composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_2}`
 --
@@ -118,7 +117,7 @@ ifdef::use_tab_3[]
 {compose_tab_3_tab_text}::
 +
 --
-{composer-raw-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
+{composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_3}`
 --
@@ -141,7 +140,7 @@ git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
 +
 [source,plaintext,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-raw-url}{compose_tab_2}{composer-final-path}
+{download-gh-directory-url}?url={composer-url}{compose_tab_2}{composer-final-path}
 ----
 --
 

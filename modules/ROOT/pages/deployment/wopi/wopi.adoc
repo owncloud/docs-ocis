@@ -1,0 +1,90 @@
+= Office Applications Using WOPI
+:toc: right
+:wopi_subdir: /ocis_wopi
+:download-gh-directory-url: https://download-directory.github.io
+
+:description: Infinite Scale uses the WOPI protocol to integrate office applications. This document describes the general flow and basic settings used.
+
+== Introduction
+
+{description} For more details on possible configuration values see the xref:conf-examples/office-integration.adoc[Office Integration] document at the configuration examples. 
+
+For the time being, the supported office applications are:
+
+* Collabora
+* OnlyOffice
+
+== General Information
+
+Infinite Scale can be configured to use office applications via a browser in an iframe. Depending on the use case and among other things, administrators can:
+
+* provide multiple applications from different vendors in parallel,
+* define which icons are used for which applications,
+* define which app is preferred to open a file.
+
+Configured applications can be selected by users when opening a document via the WebUI. The list of available applications to open a file show an icon and its app name.
+
+Office applications are :
+
+* provided via the xref:{s-path}/app-provider.adoc[App-Provider Service] because they are not able to register themself, see the xref:#wopi-coniguration-examples[docker-copmpose.yml] file. 
+
+* configured for use with the WebUI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. Here, default office apps and their appearance in the list of available apps in the webUI are defined. For more information see the xref:#wopi-coniguration-examples[app-registry.yaml] file.
+
+== WOPI Overview
+
+The image below shows the WOPI integration in an overview to get a better understanding of which general components are involved and which basic settings need to be set. It also shows where parts of an URL are defined, how an URL is assembled, and which component is using which part of the URL. Note that only a few configuration options are shown in the image to get the relationships right.
+
+image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
+
+== WOPI Coniguration Examples
+
+* See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office-integration.adoc[Office Integration] document for an in depth explanation.
++
+[tabs]
+====
+{compose_tab_1_tab_text}::
++
+--
+{composer-url}{compose_tab_1}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_1}`
+--
+ifdef::use_tab_2[]
+{compose_tab_2_tab_text}::
++
+--
+{composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_2}`
+--
+endif::[]
+ifdef::use_tab_3[]
+{compose_tab_3_tab_text}::
++
+--
+{composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_3}`
+--
+endif::[]
+====
++
+--
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. Replace the version accordingly:
+
+* Using a shallow git clone which minimizes the required clone space like:
++
+[source,bash,subs="attributes+"]
+----
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
+----
+
+// https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
+
+* Using an external page providing you the folder to download as zip file like:
++
+[source,plaintext,subs="attributes+"]
+----
+{download-gh-directory-url}?url={composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}
+----
+--
