@@ -6,8 +6,6 @@
 
 :description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
 
-// harvested from https://owncloud.dev/ocis/deployment/ocis_wopi/
-
 == Introduction
 
 {description}
@@ -108,9 +106,11 @@ For some hints on what to take into consideration, check the notes listed here:
 
 . Though no changes are needed, adapt the xref:conf-examples/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the webUI with the names of available office applications to open. This can be changed if required.
 
+. For Microsoft Office 365, adapt the xref:conf-examples/ext-files/wopiserver.adoc[wopiserver.conf.dist,window=_blank] file by adding the correct proxy URL. For more details about the background and how to obtain this URL see xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications using WOPI,window=_blank].
+
 == Start the Docker Stack
 
-[start=4]
+[start=5]
 . When the changed files have been saved, start the Docker stack with:
 +
 [source,docker]
