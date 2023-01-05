@@ -11,6 +11,7 @@
 *** xref:deployment/binary/binary-setup.adoc[Binary Setup]
 *** xref:deployment/container/container-setup.adoc[Container Setup]
 *** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
+*** xref:deployment/wopi/wopi.adoc[Office Applications using WOPI]
 *** xref:deployment/security/security.adoc[Securing oCIS]
 *** xref:deployment/nfs/nfs.adoc[Network File System Deployment]
 *** xref:deployment/services/services.adoc[Services]
@@ -54,10 +55,10 @@
 ***** xref:deployment/services/s-list/web.adoc[Web]
 ***** xref:deployment/services/s-list/webdav.adoc[WebDAV]
 * Configuration Examples
-** xref:configuration/office-integration.adoc[Office Integration]
+** xref:conf-examples/office-integration.adoc[Office Integration]
 // *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 * Deployment Examples
-** xref:examples/small-scale.adoc[Small-Scale with systemd]
+** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
 
 ////
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]

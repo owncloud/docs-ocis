@@ -1,4 +1,5 @@
 = generic-configs.yaml 
+:noindex:
 
 == Chart Version: {helm_tab_1_tab_text}
 

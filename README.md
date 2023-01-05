@@ -42,6 +42,8 @@ Assuming that there are no build errors, the next thing to do is to view the res
 yarn serve
 ```
 
+When a *staging* build was created and pushed to the [staging site](https://doc.staging.owncloud.com), you can share the preview of the build. Note that staging is accessible via ownCloud SSO only.
+
 ## Target Branch and Backporting
 
 See the [following section](https://github.com/owncloud/docs#target-branch-and-backporting) as the same rules and notes apply.

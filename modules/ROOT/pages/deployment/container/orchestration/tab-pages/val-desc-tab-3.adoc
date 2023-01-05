@@ -1,4 +1,5 @@
 = values.yaml Description
+:noindex:
 
 == Chart Version: {helm_tab_3_tab_text}
 
