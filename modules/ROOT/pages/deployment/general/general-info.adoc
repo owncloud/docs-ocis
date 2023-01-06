@@ -1,5 +1,6 @@
 = General Info
 :toc: right
+:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
 
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
 
@@ -450,4 +451,32 @@ CATEGORY:
 OPTIONS:
    --space value, -s value  the ID of the space to travers and index the files
    --user value, -u value   the username of the user that shall be used to access the files
+----
+
+== S3 Bucket Policy
+
+With S3 bucket policies, you can configure and secure access to objects in your buckets, see
+{aws-bucket-policy-url}[Using bucket policies]. The following S3 bucket policies are a requirement when connecting to an S3 bucket, replace the bucket name accordingly. When using an S3 bucket you have to set the storage driver to `s3ng`. Also see the xref:deployment/container/orchestration/orchestration.adoc#deploy-the-chart[Deploy the Chart] section in the `Container Orchestration` documentation and the xref:{s-path}/storage-users.adoc[STORAGE_USERS_DRIVER] configuration value.
+
+{empty}
+[source,yaml]
+----
+# The S3NG driver needs an existing S3 bucket with following permissions:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListObjectsInBucket",
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": ["arn:aws:s3:::bucket-name"]
+        },
+        {
+            "Sid": "AllObjectActions",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": ["arn:aws:s3:::bucket-name/*"]
+        }
+    ]
+}
 ----
