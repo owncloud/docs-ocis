@@ -55,7 +55,7 @@ give a brief overview of features and characteristics of both tools.
 
 For Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that can be used and adjusted.
 
-NOTE: The following documentation serves as a starting point so that you can help yourself with your container orchestration setup for Infinite Scale. ownCloud Professional Services currently does not provide support for container orchestration. Please {oc-contact-url}[contact us] if you are interested in receiving Professional Services for container orchestration.
+NOTE: The following documentation serves as a starting point so you have some guidance for your container orchestration setup of Infinite Scale. ownCloud Professional Services currently do not provide support for container orchestration. Please {oc-contact-url}[contact us] if you are interested in assistance with container orchestration.
 
 == Docker Compose
 
