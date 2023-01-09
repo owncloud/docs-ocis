@@ -1,4 +1,7 @@
 = Container Orchestration
+
+NOTE: The following documentation serves as a starting point so that you can help yourself with your container orchestration setup for Infinite Scale. ownCloud Professional Services currently don't provide support for container orchestration. Please {contact-us-url}[contact us] if you are interested in receiving Professional Services for container orchestration.
+
 :toc: right
 :toclevels: 3
 
@@ -36,6 +39,7 @@
 :kubernetes-pod-url: https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/
 
 :prometheus-operator-url: https://github.com/prometheus-operator/prometheus-operator
+:contact-us-url: https://owncloud.com/contact-us/
 
 // note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
 
