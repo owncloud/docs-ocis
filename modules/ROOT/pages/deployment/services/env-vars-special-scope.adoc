@@ -17,6 +17,10 @@ Examples:
 
 == Extended Environment Variables
 
+// note that if a description of an extended envvar is missing, you need to fix this in:
+// https://github.com/owncloud/ocis/blob/master/docs/helpers/extended_vars.yaml
+// see the readme.md file in that folder
+ 
 :ext_name: extended
 
 include::partial$deployment/services/env-and-yaml.adoc[]
