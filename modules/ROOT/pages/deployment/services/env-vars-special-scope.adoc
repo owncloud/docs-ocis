@@ -4,7 +4,7 @@
 // there is only an adoc table to include but no yaml file. this is only when using special scope envvars.
 :no_yaml: true
 
-:description: Some environment variables have an extended or global scope. Variables with extended scope do not directly configure services but function underneath. Variables with a global scope can configure more than one service.
+:description: Some environment variables have an extended or global scope. Variables with extended scope do not directly configure services but functions underneath. Variables with a global scope can configure more than one service.
 
 == Introduction
 
@@ -12,7 +12,7 @@
 
 Examples:
 
-// * The global environment variable `OCIS_LOG_LEVEL` is available in multiple services.
+* The global environment variable `OCIS_LOG_LEVEL` is available in multiple services.
 * The extended environment variable `OCIS_CONFIG_DIR` can be used with `ocis init`.
 
 == Extended Environment Variables
@@ -21,11 +21,8 @@ Examples:
 
 include::partial$deployment/services/env-and-yaml.adoc[]
 
-// prepared but not available for now
-////
 == Global Environment Variables
 
 :ext_name: global
 
 include::partial$deployment/services/env-and-yaml.adoc[]
-////
