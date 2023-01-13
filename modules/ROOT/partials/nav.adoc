@@ -63,4 +63,10 @@
 ////
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
 ** xref:maintenance/index.adoc[Maintenance]
+./deployment/configuration/_index.adoc
+./deployment/configuration/_office-integrations.adoc
+./deployment/configuration/_ocis-config.adoc
+./deployment/configuration/_storage.adoc
+./deployment/configuration/_external-user-management.adoc
+./deployment/configuration/_email-config.adoc
 ////

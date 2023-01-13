@@ -1,0 +1,128 @@
+= Roles and Permissions
+:toc: right
+
+:description: With Infinite Scale, roles and permissions are different when it comes to the system, spaces and sharing. The implementation of this concept provides security and openness for upcoming and extended features.
+
+== Introduction
+
+{description}  
+
+== General Info
+
+[NOTE]
+====
+* To avoid confusing the role `User` with the account of a user who gets a role assigned, capitalization is used. When using `User`, the system role is meant, while `user` refers to the account.
+
+* Roles and permissions in this document refer to users but *not* in the context of sharing.
+====
+
+=== Role Handling
+
+Infinite Scale distinguishes between global system roles and access roles for spaces. With global system roles, Infinite Scale grants permissions for the handling and lifecycle of tasks and spaces, where these permissions are *not* connected to access space content or further managing the space. The only exception occurs, when a space is created. Then the creator is also granted the Manager role for the space, which can be and usually is delegated.
+
+While system roles are stored with the user as meta data, space roles are stored as extended attributes in the space.
+
+Currently, ownCloud web does not provide all capabilities available in the backend as not everything has been fully developed so far. Therefore you will see some restrictions to protect the system and to avoid confusing users.
+
+Examples where the front-end web interface currently provides limited features to users although the system has more capabilities:
+
+* Admins, Space Admins and Users do not have full configuration and management options via the web interface.
+* Admins and Space Admins can currently only view and manage spaces they are members of.
+* Users can't create spaces or set quotas for spaces they manage.
+
+Over time, the web interface will be updated to provide capabilities in the best and most user-friendly way.
+
+=== Permission Granularity
+
+Compared to ownCloud Server where e.g. the administrator has more or less full access to everything, Infinite Scale refines roles with assigned permission types and particular permissions for each type on a much more detailed level. This is not only true for system roles but also for space roles.
+
+=== Security
+
+With role and permission separation (system/spaces/sharing), the overall security is greatly increased and security standards like *separating tasks and data access by design* are addressed.
+
+== System Roles and Permissions
+
+Currently there are four predefined system roles with fixed permissions. Via these roles, permissions are only granted to a particular user and not all users. Concatenating roles is currently not supported.
+
+Consider that these roles and permissions are provided by the system via APIs, which means you can call them via your own code or `curl`. 
+
+Read the image below the following way::
+* A Role gets one or more permission types assigned.
+* Each permission type grants individual rights relevant for that role.
+* Roles are assigned to users.
+
+// the empty macro is necessary to have more distance between text and image
+ 
+{empty} +
+
+// the table references following ocis code where roles and permissions a re defined: https://github.com/owncloud/ocis/blob/master/services/settings/pkg/store/defaults/defaults.go
+
+image::deployment/general/roles-and-permissions-matrix.svg[width=550]
+
+=== System Role Details
+
+In general with regards to spaces, the following applies:
+
+* Spaces can always be deleted by space managers - with the exception of the `Delete Home Space` permission, which is only assigned to the Admin since this should only happen when a user account gets deleted.
+* Managing a space means creating or deleting a space, setting quotas, delegating the right to manage space members and space member roles, but not having access to the content of the space except when being a member of the space.
+* When creating a space, the creator is automatically in the delegatable Manager role for this space. For details see xref:space-roles-and-permissions[Space Roles and Permissions].
+
+Admin::
+The `Admin` role provides full control of all permission types with one exception, which is `Self Management`. This permission type is excluded to avoid that the last remaining admin accidentally reduces their own role to a lower one making the system unmanageable. As long as there is more than one admin, roles can be set via the `Role Management` permission.
+
+Space Admin::
+The `Space Admin` role allows you to create spaces, set quotas and delegating the right to manage space members and space member roles.
+
+User::
+If you have the `User` role assigned, you can manage your own account and change the language.
+
+Guest::
+Users with the `Guest` role assigned can only change their language.
+
+== Space Roles and Permissions
+
+// https://github.com/owncloud/web/blob/3ad8561a1c7ac5ea4f1b30397569f4b9c18166f7/packages/web-pkg/src/services/permissionManager.ts
+
+When it comes to permissions for a space, three roles are available:
+
+* Manager
+* Editor
+* Viewer
+
+Note that the creator of a space becomes manager automatically, can add other users and delegate his Manager role to one or more space members.
+
+The following table describes the space roles and their permissions. Note that permissions are added the higher the role gets.
+
+[width=60,cols=".^30%,100%",options="header",]
+|===
+| Role
+| Permissions
+
+| Viewer
+a| * read documents,
+* view images,
+* play videos,
+* get info about the space.
+
+| Editor
+a| * modify documents and even delete them,
+* upload content to a space,
+* edit the space name,
+* edit the space description,
+* add or change the image for the space,
+* empty the trash bin of the space.
+
+| Manager
+a| * invite additional members,
+* share a space,
+* deactivate and activate a space ^(1)^,
+* delete a space
+* change the roles of members, +
+including those of other managers. A downgrade to viewer or editor is possible. 
+|===
+
+(1) ... With deactivating, a space Manager can disable any access to a space including sharing and syncing. This can be used to keep data in a frozen state before finally deleting it later on. To regain full access including sharing and syncing, a deactivated space can be activated again.
+
+=== Special Cases
+
+When a space has only one user with the Manager role, it may happen that the space becomes unmanaged, possibly because the user with that role leaves the company or suffers serious health issues. To solve this problem, you must incorporate that user at your _external_ IDP side and delegate the Manager role to another space member after login.
