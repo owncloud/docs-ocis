@@ -1,6 +1,8 @@
 = Office Applications Using WOPI
 :toc: right
 :wopi_subdir: /ocis_wopi
+:office-online-server-url: https://docs.microsoft.com/de-de/officeonlineserver/deploy-office-online-server
+:office365-url: https://products.office.com/en-us/business/office
 :download-gh-directory-url: https://download-directory.github.io
 :wopi-wiki-url: https://en.wikipedia.org/wiki/Web_Application_Open_Platform_Interface
 :wopi-ms-url: https://learn.microsoft.com/en-us/openspecs/office_protocols/ms-wopi/6a8bb410-68ad-47e4-9dc3-6cf29c6b046b
@@ -37,14 +39,22 @@ Office applications are:
 [[special-ms-note]]
 Special note on Microsoft Office::
 --
-Microsoft distinguishes between two approaches running an office web application farm:
+Microsoft distinguishes between two approaches running an office web application farm where you either need:
 
-* Office Online Server running locally and
-* Office 365 using the Microsoft cloud
-
-While with Office Online Server required Microsoft licenses are handled locally, Office 365 has no information about a valid licensing. To properly handle licensing for Office 365, a mutually trusted proxy is used where communication between parties can only run via this proxy. The URL has to be added to the WOPI server settings. Note that you will get a working URL from ownCloud Support after you supply a written declaration that your company has an eligible Microsoft Business contract.
+- an {office-online-server-url}[Office Online Server] locally installed, or 
+- an active {office365-url}[Microsoft 365] subscription including the data provided by ownCloud, see xref:procedure-using-microsoft-365[Procedure using Microsoft 365].
 --
 
+== Procedure using Microsoft 365
+
+Apart from licensing, when using Microsoft 365, the following procedure applies, contact {oc-support-url}[ownCloud Support] for more details:
+
+* Customers provide ownCloud with:
+** a written statement about their Microsoft 365 entitlement.
+** the URL of their ownCloud instance. Only users coming from this URL will be able to use Microsoft 365.
+* ownCloud provides customers with a required proxy URL to be used in the settings, see below.
+** Among other things, the proxy checks if users originate from the given ownCloud Instance URL.
+* When users open an office document via the ownCloud instance and Office 365 for the web is loaded, Microsoft checks if these users are already signed in via a Microsoft 365 business account. If users are not yet signed in, they will be prompted to sign in.
 
 == WOPI Overview
 
