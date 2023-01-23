@@ -18,7 +18,7 @@ For details on supported filesystems, see: xref:prerequisites/prerequisites.adoc
 
 Depending on how this data is stored, backup strategies and tasks will differ (see the sections below).
 
-You have to fully stop the Infinite Scale instance to create a consistent state necessary for performing the backup. In the following scenarios, this state of consistency is a prerequisite for all upcoming tasks. To avoid redundant information, this explanation will not be repeated every time. When the backup is finished, Infinite Scale can be started again.
+You have to fully stop the Infinite Scale instance to create a consistent state necessary for performing the backup. In the following scenarios, this state of consistency is a prerequisite for all upcoming tasks. To avoid redundancy this step will not be repeated every time. When the backup is finished, Infinite Scale can be started again.
 
 Note that creating a backup may only take a view seconds if the underlying filesystem of your storage provides snapshot capabilities. After taking the necessary snapshots, the Infinite Scale instance can be started again. To prevent data loss in case of hardware failure, we recommend copying the snapshots to a secondary storage.
 
