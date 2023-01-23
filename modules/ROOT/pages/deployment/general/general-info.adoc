@@ -107,6 +107,8 @@ ocis list
 
 == Default Paths
 
+As you will read below, the config directory and the base directory for storing metadata must be located on POSIX filesystems. Consider for the ease of backup and restore, to keep both directories on the same filesystem.
+
 === Configuration Directory
 
 The default locations for _config_ files, which have to be on a POSIX storage, without the need setting them explicitely are:
