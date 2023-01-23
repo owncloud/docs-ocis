@@ -111,7 +111,7 @@ As you will read below, the config directory and the base directory for storing 
 
 === Configuration Directory
 
-The default locations for _config_ files, which have to be on a POSIX storage, without the need setting them explicitely are:
+The default locations (no need to set them explicitly) for _config_ files, which have to be on a POSIX storage, are:
 
 * For container images (inside the container) +
 `/etc/ocis/`
@@ -125,16 +125,16 @@ NOTE: When using a system user for the runtime, which has no login and therefore
 
 === Base Data Directory
 
-The base directory contains, dependent on how the system is setup, not only the metadata but also the user data, see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
+Depending on the system setup, the base directory contains not only the metadata but also the user data. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
 * When only using a supported POSIX filesystem, user data and metadata are stored on that filesystem.  
-* When using S3 and POSIX, user data is stored as blob on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-user-data[Using S3 for User Data]
+* When using S3 and POSIX, user data is stored as blob on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-user-data[Using S3 for User Data].
 
 The base directory is important, because services need this directory for writing data. Some services can overwrite that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
-The base path has default locations, see below, if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
+The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
 
-The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. Following services can overwrite the base path for that service if necessary.
+The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
 
 * xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]
 * xref:{s-path}/search.adoc[SEARCH_DATA_PATH]
@@ -169,7 +169,7 @@ When using S3 for storing user data, metadata must reside on POSIX using the bas
 
 Configuring the xref:{s-path}/storage-users.adoc[Storage-Users] service is necessary to define the usage of POSIX and S3 storage for Infinite Scale.
 
-Following environment variables are necessary to be configured for the use with S3, see the Storage-Users service for details:
+The following environment variables are need to be configured for the use with S3 (see the Storage-Users service for details):
 
 [source, yaml]
 ----
