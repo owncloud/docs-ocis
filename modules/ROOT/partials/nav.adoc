@@ -55,7 +55,6 @@
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
 * Maintenance
-// ** xref:maintenance/index.adoc[Maintenance]
 ** Backup and Restore
 *** xref:maintenance/backup.adoc[Backup]
 // *** Restore

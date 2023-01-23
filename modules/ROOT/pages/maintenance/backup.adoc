@@ -30,13 +30,13 @@ Keep in mind that you always have to back up all three data sets consistently:
 * metadata ^1^
 * user data ^1^
 
-(1) ... For POSIX-only environments, the location for user data and metadata is currently the same. When using S3, the location differs.
+(1) ... For POSIX-only setups, the location for user data and metadata is currently the same. When using S3, the location differs.
 
-== Pure POSIX Environment
+== Pure POSIX Setup
 
 If all data - configuration, user data and metadata - are stored on POSIX-compliant filesystems, create a consistent state and back up the data sets. This is easiest if you have only one filesystem for all of them. If you have different filesystems for the config and user/metadata, you need to do this task for each of them.
 
-== Distributed Environment
+== Distributed Setup
 
 If data is distributed with configuration and metadata stored on POSIX-compliant filesystems and user data stored as blob on S3, create a consistent state and back up:
 
