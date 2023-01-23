@@ -54,13 +54,18 @@
 **** xref:deployment/services/s-list/users.adoc[Users]
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
+* Maintenance
+// ** xref:maintenance/index.adoc[Maintenance]
+** Backup and Restore
+*** xref:maintenance/backup.adoc[Backup]
+// *** Restore
 * Configuration Examples
 ** xref:conf-examples/office-integration.adoc[Office Integration]
-// *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 * Deployment Examples
 ** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
+// *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 
 ////
+* Migration
 ** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
-** xref:maintenance/index.adoc[Maintenance]
 ////

@@ -1,0 +1,44 @@
+= Backup
+:toc: right
+
+:description: Making a backup of Infinite Scale is an important task that should be done on a regular basis.
+
+== Introduction
+
+{description} This ensures that in case of issues, data can be restored from a backup.
+
+== General Considerations
+
+Infinite Scale can run in two different setups when it comes to storing data.
+
+* All data, means configuration, user data, and metadata is stored on POSIX compliant filesystems.
+* User data is stored as blob on an S3 compliant storage and configuration respectively metadata is stored on POSIX
+
+For details on supported filesystems see: xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage]
+
+Depending on how this data is stored, backup strategies and tasks will differ, see the sections below.
+
+For the time being, you have to fully stop the Infinite Scale instance to create a consistant state necessary for taking the backup. In the scenarious shown, this consistancy state is a prerequisite for all upcoming tasks and the way to it is not explicit mentioned anymore. When the backup has finished, the Infinite Scale instance can be started again.
+
+Note that taking a backup can be a task taking only a view seconds if the underlaying filesystem respectively storage is able to provide snapshot capabilities. After taking the necessary snapshots, the Infinite Scale instance can be started again. Based on the snapshots, any physical copy of data to a secondary storage can run independently by a follow up task.
+
+See the xref:deployment/general/general-info.adoc#default-paths[Default Paths] how locations are, respectively can be defined.
+
+Keep in mind, that you always have to backup all three data sets consistantly which are:
+
+* config data
+* metadata ^1^
+* user data ^1^
+
+(1) ... For POSIX only environments, the location for user data and metadata is currently the same. When using S3, the location differs.
+
+== Pure POSIX Environment
+
+When all data, means configuration, user data and metadata are stored on POSIX compliant filesystems, create a consistancy state and backup the data sets. This is most easiest if you have onyl one filesystem for all of them. If you have different filesystems for the config and user/metadata, you need to do this task for each of them.
+
+== Distributed Environment
+
+When data is distributed, means configuration and metadata is stored on POSIX compliant filesystems and user data is stored as blob on S3, create a consistancy state and backup:
+
+* the configuration and metadata,
+* the S3 bucked according the rules and possibilities of the S3 provider.
