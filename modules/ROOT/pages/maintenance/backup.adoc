@@ -9,7 +9,7 @@
 
 == General Considerations
 
-Infinite Scale can run in two different setups when it comes to storing data.
+Infinite Scale can run in two different setups when it comes to storing data:
 
 * All data, meaning configuration, user data and metadata, is stored on POSIX-compliant filesystems.
 * User data is stored as blob on an S3-compliant storage while configuration and metadata are stored on POSIX.
