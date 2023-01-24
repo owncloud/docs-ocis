@@ -28,7 +28,7 @@ When it comes to restoring data, keep in mind that you always have to restore al
 
 Valid for all restore procedures:
 
-* first check the basic configuration of Infinite Scale inside the backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
+* first check the basic configuration of Infinite Scale from the backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
 * Infinite Scale must be in stopped state.
 
 NOTE: It is not possible to restore a backup from one type of setup to another. A restore can only be made to the same kind of setup.
