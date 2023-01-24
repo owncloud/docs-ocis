@@ -12,7 +12,7 @@
 Same as described in the xref:maintenance/backup.adoc#general-considerations[backup documentation], Infinite Scale can run in two different setups when it comes to storing data:
 
 * All data, meaning configuration, user data and metadata, is stored on POSIX-compliant filesystems.
-* User data is stored as blob on an S3-compliant storage while configuration and metadata are stored on POSIX.
+* User data is stored as blobs on an S3-compliant storage while configuration and metadata are stored on POSIX.
 
 See the linked backup documentation for more details.
 
@@ -26,10 +26,10 @@ When it comes to restoring data, keep in mind that you always have to restore al
 
 Valid for all restore procedures:
 
-* first check the basic configuration from the Infinite Scale backup to prepare the neccessary volumes/mount points/directories if not present,
+* first check the basic configuration on the Infinite Scale backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
 * Infinite Scale must be in stopped state.
 
-NOTE: It is not possible to restore a backup from one setup to another. A restore can only be made having the same type of setup.
+NOTE: It is not possible to restore a backup from one type of setup to another. A restore can only be made to the same kind of setup.
 
 == Pure POSIX Setup
 
@@ -47,4 +47,4 @@ From the backup, restore:
 * the configuration and metadata to the POSIX locations
 * the user data to the S3 bucket according to the rules, possibilities and methods of the S3 provider.
 
-When done you can start your Infinite Scale instance as usual.
+When done, you can start your Infinite Scale instance as usual.
