@@ -57,7 +57,7 @@
 * Maintenance
 ** Backup and Restore
 *** xref:maintenance/backup.adoc[Backup]
-// *** Restore
+*** xref:maintenance/restore.adoc[Restore]
 * Configuration Examples
 ** xref:conf-examples/office-integration.adoc[Office Integration]
 * Deployment Examples
