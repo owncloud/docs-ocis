@@ -7,6 +7,8 @@
 
 {description}
 
+Though no restore strategies are covered, reading this document can add valuable information when creating a backup and restore strategy.
+
 == General Considerations
 
 Same as described in the xref:maintenance/backup.adoc#general-considerations[backup documentation], Infinite Scale can run in two different setups when it comes to storing data:
@@ -26,10 +28,12 @@ When it comes to restoring data, keep in mind that you always have to restore al
 
 Valid for all restore procedures:
 
-* first check the basic configuration on the Infinite Scale backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
+* first check the basic configuration of Infinite Scale inside the backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
 * Infinite Scale must be in stopped state.
 
 NOTE: It is not possible to restore a backup from one type of setup to another. A restore can only be made to the same kind of setup.
+
+As a rule of thumb, consider also to restore the Infinite Scale binary respectively the container backed up. This avoids difficulties after restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
 
 == Pure POSIX Setup
 
