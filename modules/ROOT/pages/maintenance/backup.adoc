@@ -34,7 +34,7 @@ Keep in mind that you always have to back up all three data sets consistently:
 
 (1) ... For POSIX-only setups, the location for user data and metadata is currently the same. When using S3, the location differs.
 
-As a rule of thumb, consider also to backup the Infinite Scale binary respectively the container used. This avoids difficulties when restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
+As a rule of thumb, consider also to backup the Infinite Scale binary or the container used. This avoids difficulties when restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
 
 == Pure POSIX Setup
 
