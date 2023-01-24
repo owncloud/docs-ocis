@@ -1,0 +1,50 @@
+= Restore
+:toc: right
+
+:description: Restoring from an Infinite Scale backup can be a task bringing the instance back to production after a major incident occurs.
+
+== Introduction
+
+{description}
+
+== General Considerations
+
+Same as described in the xref:maintenance/backup.adoc#general-considerations[backup documentation], Infinite Scale can run in two different setups when it comes to storing data:
+
+* All data, meaning configuration, user data and metadata, is stored on POSIX-compliant filesystems.
+* User data is stored as blobs on an S3-compliant storage while configuration and metadata are stored on POSIX.
+
+See the linked backup documentation for more details.
+
+When it comes to restoring data, keep in mind that you always have to restore all three data sets consistently:
+
+* config data
+* metadata ^1^
+* user data ^1^
+
+(1) ... For POSIX-only environments, the location for user data and metadata is currently the same. When using S3, the location differs.
+
+Valid for all restore procedures:
+
+* first check the basic configuration on the Infinite Scale backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
+* Infinite Scale must be in stopped state.
+
+NOTE: It is not possible to restore a backup from one type of setup to another. A restore can only be made to the same kind of setup.
+
+== Pure POSIX Setup
+
+From the backup, restore:
+
+* config data
+* user data and metadata
+
+to their prepared locations. When done, you can start your Infinite Scale instance as usual.
+
+== Distributed Setup
+
+From the backup, restore:
+
+* the configuration and metadata to the POSIX locations
+* the user data to the S3 bucket according to the rules, possibilities and methods of the S3 provider.
+
+When done, you can start your Infinite Scale instance as usual.
