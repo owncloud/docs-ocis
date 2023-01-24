@@ -128,7 +128,7 @@ NOTE: When using a system user for the runtime, which has no login and therefore
 Depending on the system setup, the base directory contains not only the metadata but also the user data. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
 * When only using a supported POSIX filesystem, user data and metadata are stored on that filesystem.  
-* When using S3 and POSIX, user data is stored as blob on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-user-data[Using S3 for User Data].
+* When using S3 and POSIX, user data is stored as blobs on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-user-data[Using S3 for User Data].
 
 The base directory is important, because services need this directory for writing data. Some services can overwrite that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
