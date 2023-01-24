@@ -12,7 +12,7 @@
 Infinite Scale can run in two different setups when it comes to storing data:
 
 * All data, meaning configuration, user data and metadata, is stored on POSIX-compliant filesystems.
-* User data is stored as blob on an S3-compliant storage while configuration and metadata are stored on POSIX.
+* User data is stored as blobs on an S3-compliant storage while configuration and metadata are stored on POSIX.
 
 For details on supported filesystems, see: xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
@@ -20,7 +20,7 @@ Depending on how this data is stored, backup strategies and tasks will differ (s
 
 You have to fully stop the Infinite Scale instance to create a consistent state necessary for performing the backup. In the following scenarios, this state of consistency is a prerequisite for all upcoming tasks. To avoid redundancy this step will not be repeated every time. When the backup is finished, Infinite Scale can be started again.
 
-Note that creating a backup may only take a view seconds if the underlying filesystem of your storage provides snapshot capabilities. After taking the necessary snapshots, the Infinite Scale instance can be started again. To prevent data loss in case of hardware failure, we recommend copying the snapshots to a secondary storage.
+Note that creating a backup may only take a few seconds if the underlying filesystem of your storage provides snapshot capabilities. After taking the necessary snapshots, the Infinite Scale instance can be started again. To prevent data loss in case of hardware failure, we recommend copying the snapshots to a secondary storage.
 
 See the xref:deployment/general/general-info.adoc#default-paths[Default Paths] for more information on where data is saved and how different locations can be defined.
 
@@ -38,7 +38,7 @@ If all data - configuration, user data and metadata - are stored on POSIX-compli
 
 == Distributed Setup
 
-If data is distributed with configuration and metadata stored on POSIX-compliant filesystems and user data stored as blob on S3, create a consistent state and back up:
+If data is distributed with configuration and metadata stored on POSIX-compliant filesystems and user data stored as blobs on S3, create a consistent state and back up:
 
 * the configuration and metadata,
 * the S3 bucket according to the rules and possibilities of the S3 provider.
