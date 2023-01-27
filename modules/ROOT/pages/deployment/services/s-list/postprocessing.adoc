@@ -50,7 +50,7 @@ By using the envvar `POSTPROCESSING_STEPS`, custom postprocessing steps can be a
 
 === Prerequisites
 
-For using custom postprocessing steps you need a custom service listening to the configured event system (see General Prerequisites)
+For using custom postprocessing steps, you need a custom service listening to the configured event system, see xref:general-prerequisites[General Prerequisites]
 
 === Workflow
 
