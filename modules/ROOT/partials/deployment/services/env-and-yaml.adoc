@@ -4,7 +4,14 @@
 // print a dependent explanation line
 // no_yaml is not set = standard extension,
 // no_yaml is set = special scope envvars
+
+// the following included file just has an attribute necessary for rendering deprecations
+// this is necessary as attributes that are defined INSIDE a tabset will not get recognized,
+// attributes need to be defined OUTSIDE the tabset definition. example content:
+// :show-deprecation: true
  
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
+
 ifndef::no_yaml[]
 === Environment Variables
 

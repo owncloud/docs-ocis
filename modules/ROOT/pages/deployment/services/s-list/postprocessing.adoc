@@ -16,9 +16,9 @@
 
 == General Prerequisites
 
-To use the postprocessing service, an event system needs to be configured for all services. By default, `ocis` ships with a preconfigured `nats` service.
+To use the post-processing service, an event system needs to be configured for all services. By default, Infinite Scale ships with a preconfigured `nats` service.
 
-== Postprocessing Functionality
+== Post-Processing Functionality
 
 The storageprovider service (xref:{s-path}/storage-users.adoc[storage-users]) can be configured to initiate asynchronous postprocessing by setting the `STORAGE_USERS_OCIS_ASYNC_UPLOADS` environment variable to `true`. If this is the case, postprocessing will get initiated _after_ uploading a file and all bytes have been received.
 
@@ -32,17 +32,31 @@ When all postprocessing steps have completed successfully, the file will be made
 
 When postprocessing has been enabled, configuring any postprocessing step will require the requested services to be enabled and pre-configured. For example, to use the `virusscan` step, one needs to have an enabled and configured `antivirus` service. 
 
-== Postprocessing Steps
+== Post-Processing Steps
 
-As of now, `ocis` allows two different postprocessing steps to be enabled via an environment variable.
+The post-processing service is individually configurable. This is achieved by allowing a list of post-processing steps to be performed in order of their appearance in the `POSTPROCESSING_STEPS` envvar. This envvar expects a comma-separated list of steps that will be executed. Currently known steps to the system are `virusscan` and `delay`. Custom steps can be added but need an existing target for processing.
 
 === Virus Scanning
 
-To enable virus scanning as a postprocessing step after uploading a file, the environment variable  `POSTPROCESSING_VIRUSSCAN` needs to be set to `true`. As a result, each uploaded file gets virus scanned as part of the postprocessing steps. Note that the `antivirus` service is required to be enabled and configured for this to work.
+To enable virus scanning as a post-processing step after uploading a file, the environment variable `POSTPROCESSING_STEPS` needs to contain the word `virusscan` at one location in the list of steps. As a result, each uploaded file gets virus-scanned as part of the post-processing steps. Note that the `antivirus service` must be enabled and configured for this to work.
 
 === Delay
 
-Though this is for development purposes only and NOT RECOMMENDED on production systems, setting the environment variable `POSTPROCESSING_DELAY` to a duration not equal to zero will add a delay step with the configured amount of time. ocis will continue postprocessing the file after the configured delay.
+Though this is for development purposes only and NOT RECOMMENDED on production systems, setting the environment variable `POSTPROCESSING_DELAY` to a duration not equal to zero will add a delay step with the configured amount of time. Infinite Scale will continue post-processing the file after the configured delay. Use the enviroment variable `POSTPROCESSING_STEPS` and the keyword `delay` if you have multiple post-processing steps and want to define their order. If `POSTPROCESSING_DELAY` is set but the keyword `delay` is not contained in `POSTPROCESSING_STEPS`, it will be executed as the last post-processing step without being listed as the last one. In this case, a log entry will be written on service startup to notify the admin about the situation. That log entry can be avoided by adding the keyword `delay` to `POSTPROCESSING_STEPS`.
+
+== Custom Post-Processing Steps
+
+By using the envvar `POSTPROCESSING_STEPS`, custom post-processing steps can be added. Any word can be used as step name but be careful not to conflict with existing keywords like `virusscan` and `delay`. In addition, if a keyword is misspelled or the corresponding service does either not exist or does not follow the necessary event communication, the post-processing service will wait forever to get the required response to proceed and therefore does not continue with any other processing.
+
+=== Prerequisites
+
+To use custom post-processing steps, you need a custom service listening to the configured event system. For more information, see xref:general-prerequisites[General Prerequisites].
+
+=== Workflow
+
+When setting a custom post-processing step (eg. "customstep") the post-processing service will eventually send an event during post-processing. The event will be of the type StartPostprocessingStep with its field StepToStart set to "customstep". When the custom service receives this event, it can safely execute its actions. The post-processing service will wait until it has finished its work. The event contains further information (like filename, executing user, size, ...) and required tokens respectively URLs to download the file in case byte inspection is necessary.
+
+Once the custom service has finished its work, it should send an event of the type `PostprocessingFinished` via the configured event system. This event needs to contain a `FinishedStep` field set to "customstep". It also must contain the outcome of the step, which can be one of `delete` (abort post-processing, delete the file), `abort` (abort post-processing, keep the file) and `continue` (continue post-processing, this is the success case).
 
 == Configuration
 
