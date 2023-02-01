@@ -84,7 +84,7 @@ ocis --help
 
 == Accessing the Infinite Scale Runtime
 
-When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `localhost:{ocis_port}` or whatever URL and port you have defined.
+When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `https://localhost:{ocis_port}` or whatever URL and port you have defined.
 
 == Start and Stop Infinite Scale
 
