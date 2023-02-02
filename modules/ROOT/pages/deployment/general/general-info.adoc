@@ -109,7 +109,7 @@ ocis list
 
 As you will read below, the config directory and the base directory for storing metadata must be located on POSIX filesystems. Consider for the ease of backup and restore, to keep both directories on the same filesystem.
 
-Note that the term _blob_ is used for file data the user uploads while _metatdata_ refers to all data that describes the blob.
+Note that the term _blob_ is used for file data the user uploads, while _metatdata_ refers to all data that describes the blob.
 
 [width="100%",cols="30%,70%",options="header"]
 |===
@@ -152,8 +152,8 @@ NOTE: When using a system user for the runtime, which has no login and therefore
 
 Depending on the system setup, the base directory contains not only the metadata but also blobs. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
-* When only using a supported POSIX filesystem, blobs and metadata is stored on POSIX.  
-* When using S3 and POSIX, blobs are stored on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
+* When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
+* When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
 The base directory is important, because services need this directory for writing data. Some services can overwrite that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
