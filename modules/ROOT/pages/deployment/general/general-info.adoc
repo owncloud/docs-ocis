@@ -109,6 +109,31 @@ ocis list
 
 As you will read below, the config directory and the base directory for storing metadata must be located on POSIX filesystems. Consider for the ease of backup and restore, to keep both directories on the same filesystem.
 
+Note that the term _blob_ is used for file data the user uploads, while _metatdata_ refers to all data that describes the blob.
+
+[width="100%",cols="30%,70%",options="header"]
+|===
+| Environment variable
+| Description
+
+a| xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[OCIS_CONFIG_DIR]
+| Path to config files.
+
+a| xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[OCIS_BASE_DATA_PATH]
+| Path to system relevant data.
+
+a| xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
+a| Path to blobs and metadata if POSIX is used. +
+Derives from `OCIS_BASE_DATA_PATH` if not set otherwise. +
+Used if `STORAGE_USERS_DRIVER` is set to `ocis`
+
+a| xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
+a| Path to metadata if S3 is used. +
+Derives from `OCIS_BASE_DATA_PATH` if not set otherwise. +
+Used if `STORAGE_USERS_DRIVER` is set to `s3ng`. +
+See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
+|===
+
 === Configuration Directory
 
 The default locations (no need to set them explicitly) for _config_ files, which have to be on a POSIX storage, are:
@@ -125,10 +150,10 @@ NOTE: When using a system user for the runtime, which has no login and therefore
 
 === Base Data Directory
 
-Depending on the system setup, the base directory contains not only the metadata but also the user data. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
+Depending on the system setup, the base directory contains not only the metadata but also blobs. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
-* When only using a supported POSIX filesystem, user data and metadata are stored on that filesystem.  
-* When using S3 and POSIX, user data is stored as blobs on S3 while metadata is stored on POSIX. Also see xref:using-s3-for-user-data[Using S3 for User Data].
+* When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
+* When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
 The base directory is important, because services need this directory for writing data. Some services can overwrite that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
 
@@ -163,7 +188,7 @@ the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory 
 NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a base directory location.
 --
 
-=== Using S3 for User Data
+=== Using S3 for Blobs
 
 When using S3 for storing user data, metadata must reside on POSIX using the base directory as path. For more details see the section xref:base-data-directory[Base Data Directory] above.
 
@@ -175,6 +200,8 @@ The following environment variables are need to be configured for the use with S
 ----
 # activate s3ng storage driver
 STORAGE_USERS_DRIVER: s3ng
+# Path to metadata stored on POSIX
+STORAGE_USERS_S3NG_ROOT:
 # keep system data on ocis storage
 STORAGE_SYSTEM_DRIVER: ocis
 

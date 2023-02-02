@@ -13,8 +13,8 @@ Though no backup strategies are covered, reading this document can add valuable 
 
 Infinite Scale can run in two different setups when it comes to storing data:
 
-* All data, meaning configuration, user data and metadata, is stored on POSIX-compliant filesystems.
-* User data is stored as blobs on an S3-compliant storage while configuration and metadata are stored on POSIX.
+* All data, meaning configuration, blobs and metadata, is stored on POSIX-compliant filesystems.
+* Blobs are stored on an S3-compliant storage while configuration and metadata are stored on POSIX.
 
 For details on supported filesystems, see: xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
@@ -30,19 +30,19 @@ Keep in mind that you always have to back up all three data sets consistently:
 
 * config data
 * metadata ^1^
-* user data ^1^
+* blobs ^1^
 
-(1) ... For POSIX-only setups, the location for user data and metadata is currently the same. When using S3, the location differs.
+(1) ... For POSIX-only setups, the location for blobs and metadata is currently the same. When using S3, the location differs.
 
 As a rule of thumb, consider also to backup the Infinite Scale binary or the container used. This avoids difficulties when restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
 
 == Pure POSIX Setup
 
-If all data - configuration, user data and metadata - are stored on POSIX-compliant filesystems, create a consistent state and back up the data sets. This is easiest if you have only one filesystem for all of them. If you have different filesystems for the config and user/metadata, you need to do this task for each of them.
+If all data - configuration, blobs and metadata - are stored on POSIX-compliant filesystems, create a consistent state and back up the data sets. This is easiest if you have only one filesystem for all of them. If you have different filesystems for the config and blobs/metadata, you need to do this task for each of them.
 
 == Distributed Setup
 
-If data is distributed with configuration and metadata stored on POSIX-compliant filesystems and user data stored as blobs on S3, create a consistent state and back up:
+If data is distributed with configuration and metadata stored on POSIX-compliant filesystems and blobs are stored on S3, create a consistent state and back up:
 
 * the configuration and metadata,
 * the S3 bucket according to the rules and possibilities of the S3 provider.
