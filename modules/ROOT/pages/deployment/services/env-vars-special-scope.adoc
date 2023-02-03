@@ -22,11 +22,13 @@ Examples:
 // see the readme.md file in that folder
  
 :ext_name: extended
+:no_deprecation: true
 
 include::partial$deployment/services/env-and-yaml.adoc[]
 
 == Global Environment Variables
 
 :ext_name: global
+:no_deprecation: true
 
 include::partial$deployment/services/env-and-yaml.adoc[]
