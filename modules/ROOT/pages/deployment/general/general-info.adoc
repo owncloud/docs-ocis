@@ -26,9 +26,11 @@ Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * testing and/or development environment, or
 * small production environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]).
+* See: xref:deployment/binary/binary-setup.adoc[Binary Setup] and xref:deployment/container/container-setup.adoc[Container Setup] for more details.
 
 Starting Infinite Scale in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
+* See: xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] for more details.
 
 == Managing Services
 
