@@ -33,13 +33,13 @@ namely `BIND`, `SEARCH`, `ADD`, `MODIFY` and `DELETE`.
 * The BaseDN of the LDAP tree is `o=libregraph-idm`.
 * IDM gives LDAP write permissions to a single user +
 (DN: `uid=libregraph,ou=sysusers,o=libregraph-idm`). Any other authenticated user has read-only access.
-* IDM stores its data in a `boltdb` file `idm/ocis.boltdb` inside the Infinite Scale xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[base data directory].
+* IDM stores its data in a `boltdb` file `idm/ocis.boltdb` inside the Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
 
 == Configuration Hints
 
 === TLS Server Certificates
 
-By default, IDM generates a self-signed certificate and key on first startup to be able to provide TLS-protected services. The certificate is stored in `idm/ldap.crt` inside the Infinite Scale xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[base data directory]. The key is in `idm/ldap.key` in the same directory. You can use a custom server certificate by setting the `IDM_LDAPS_CERT` and `IDM_LDAPS_KEY`.
+By default, IDM generates a self-signed certificate and key on first startup to be able to provide TLS-protected services. The certificate is stored in `idm/ldap.crt` inside the Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory]. The key is in `idm/ldap.key` in the same directory. You can use a custom server certificate by setting the `IDM_LDAPS_CERT` and `IDM_LDAPS_KEY`.
 
 === Default and Demo Users
 
