@@ -97,7 +97,7 @@ The filename to define a config has the following namespace:
 ----
 ocis.yaml
  or
-[services name].yaml
+[service name].yaml
 ----
 
 You can list the possible services names by typing:
@@ -263,6 +263,8 @@ Consider using a separate partition or an external filesystem like NFS for the d
 * The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
 * When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
 * Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
+* The index data stored for the search service was located on the same root path and filled up the filesystem. 
+
 ====
 
 == Start Infinite Scale With All Predefined Services

@@ -21,6 +21,8 @@ This description gives a brief overview and can be used as basic template runnin
 
 Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Packages will be available soon. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
+IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Info] as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
+
 == Prerequisite
 
 NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
