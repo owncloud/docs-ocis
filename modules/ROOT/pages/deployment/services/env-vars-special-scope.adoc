@@ -4,16 +4,44 @@
 // there is only an adoc table to include but no yaml file. this is only when using special scope envvars.
 :no_yaml: true
 
-:description: Some environment variables have an extended or global scope. Variables with extended scope do not directly configure services but functions underneath. Variables with a global scope can configure more than one service.
+:description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment menthod only.
 
 == Introduction
 
-{description}
+{description} Variables with an extended scope do not directly configure services but functions underneath. Variables with a global scope can configure more than one service.
 
 Examples:
 
 * The global environment variable `OCIS_LOG_LEVEL` is available in multiple services.
 * The extended environment variable `OCIS_CONFIG_DIR` can be used with `ocis init`.
+* The special environment variable `OCIS_RUN_SERVICES` is only available with a binary deployment.
+
+== Special Environment Variables
+
+// these envvars cant be gathered automatically and must be maintained manually.
+// their source is in: https://github.com/owncloud/ocis/blob/master/ocis-pkg/config/config.go
+// at 'type Runtime struct'
+
+The following environment variables are only available with the xref:deployment/binary/binary-setup.adoc[Binary Setup] and do not have any dependency to a release:
+
+[tabs]
+====
+all releases::
++
+--
+[width="100%",cols="30%,70%",options="header",]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all services except of the ones listed. Has no effect when OCIS_RUN_SERVICES is set.
+|===
+--
+====
 
 == Extended Environment Variables
 
