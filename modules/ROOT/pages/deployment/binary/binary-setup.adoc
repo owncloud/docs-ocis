@@ -130,6 +130,8 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for basic environment variables.
 
+NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See: xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
+
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
 To start the Infinite Scale runtime type:
@@ -145,15 +147,6 @@ Note that this will bind `ocis` to the shell you are running. If you want to det
 ----
 ocis server & disown -h
 ----
-
-The same mechanism is true to start or instantiate services which are *not started as part of the runtime* like:
-
-[source,bash]
-----
-ocis web server & disown -h
-----
-
-NOTE: Instantiation of runtime services will cause errors, for more details see: xref:deployment/general/general-info.adoc#managing-services[Managing Services]
 
 === List Running Infinite Scale Processes
 
