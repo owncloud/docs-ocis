@@ -38,7 +38,7 @@ all releases::
 | A comma-separated list of service names. Will start only the listed services.
 
 | `OCIS_EXCLUDE_RUN_SERVICES`
-| A comma-separated list of service names. Will start all services except of the ones listed. Has no effect when OCIS_RUN_SERVICES is set.
+| A comma-separated list of service names. Will start all services except for the ones listed. Has no effect when OCIS_RUN_SERVICES is set.
 |===
 --
 ====
