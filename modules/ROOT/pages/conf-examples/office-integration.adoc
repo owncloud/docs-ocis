@@ -28,7 +28,7 @@ Note that it is not mandatory to use and configure both example office applicati
 
 With focus on the office container, ONLYOFFICE provides a link with some guidance for hardware requirements depending on concurrent active users when using their community edition and docker. See {onlyoffice_hw_url}[ONLYOFFICE Docs Community Edition for Docker system requirements] for more details. This information gives estimates without any guarantees.
 
-== Requirements
+== General Requirements
 
 You need a Linux server with docker and docker-compose installed.
 
