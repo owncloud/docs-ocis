@@ -21,6 +21,8 @@ This description gives a brief overview and can be used as basic template runnin
 
 Infinite Scale can either be downloaded from ownCloud or installed via the package manager of your Linux system. Packages will be available soon. Use the way you prefer, but keep in mind that the download version is updated more frequently than the package manager version.
 
+IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Info] as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
+
 == Prerequisite
 
 NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
@@ -126,7 +128,7 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 ==== Recurring Start of Infinite Scale
 
-After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path] for basic environment variables.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for basic environment variables.
 
 The example commands shown below have no environment variables or command line options for ease of reading, add them according your needs.
 
@@ -233,7 +235,7 @@ sudo chown -R ocis:ocis {ocis_env}
 ----
 --
 
-Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#define-the-infinite-scale-data-path[Define the Infinite Scale Data Path].
+Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 

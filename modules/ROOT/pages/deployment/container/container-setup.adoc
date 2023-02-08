@@ -32,6 +32,8 @@
 
 This description mainly focuses on Docker which you can take as template or starting point if you are using different container managing software products.
 
+IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Info] as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
+
 == Docker Prerequisites
 
 To fetch and run Infinite Scale in a Docker container, make sure the package docker is installed.

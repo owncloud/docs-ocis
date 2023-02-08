@@ -54,6 +54,8 @@ give a brief overview of features and characteristics of both tools.
 
 For Kubernetes, ownCloud provides basic {helm-charts-ocis-url}[Helm Charts] that can be used and adjusted.
 
+IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Info] as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
+
 == Docker Compose
 
 Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.

@@ -1,4 +1,4 @@
-= General Info
+= General Information
 :toc: right
 :aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
 
@@ -97,7 +97,7 @@ The filename to define a config has the following namespace:
 ----
 ocis.yaml
  or
-[services name].yaml
+[service name].yaml
 ----
 
 You can list the possible services names by typing:
@@ -152,12 +152,12 @@ NOTE: When using a system user for the runtime, which has no login and therefore
 
 === Base Data Directory
 
-Depending on the system setup, the base directory contains not only the metadata but also blobs. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
+Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. Depending on the system setup, the base directory contains not only the metadata but also blobs. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
 * When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
-The base directory is important, because services need this directory for writing data. Some services can overwrite that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup.
+The base directory is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
 
 The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
 
@@ -187,7 +187,19 @@ The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the ba
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
 the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
 +
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a base directory location.
+NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
++
+WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
++
+[IMPORTANT]
+====
+Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
+
+* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
+* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
+* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
+* The index data stored for the xref:{s-path}/search.adoc[search service] is located on the same root path and filled up the filesystem. 
+====
 --
 
 === Using S3 for Blobs
@@ -215,7 +227,7 @@ STORAGE_USERS_S3NG_SECRET_KEY:
 STORAGE_USERS_S3NG_BUCKET:
 ----
 
-Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples].
+Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] for more details.
 
 == Initialize Infinite Scale
 
@@ -238,32 +250,6 @@ Command line parameters are beneficial if you e.g. want to hand over all necessa
 IMPORTANT: The command line option `--force-overwrite` is only intended for developer usage. If you set this option, your config will be overwritten, your data, if any is present, will persist, but it will not be accessible anymore. This is, among other things, because the issuer (short _iss_ part of openID Connect) will be overwritten.
 
 To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
-
-== Define the Infinite Scale Data Path
-
-Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. This location is also used for storing user-generated data and must be a supported filesystem as described in xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
-
-The environment variable used to define this path is `OCIS_BASE_DATA_PATH`.
-
-The following rules apply:
-
-* If you do NOT define this environment variable, the following applies:
-** The base path is by default `$HOME/.ocis/` after performing a _manual setup_.
-** The base path is by default `/var/lib/ocis` inside the container when using the _container setup_.
-* The directory must exist and the user used for Infinite Scale must have full access and permissions.
-
-NOTE: You must set this environment variable to a valid path when using the manual installation having a system user for Infinite Scale, because a system user has no logon and therefore no home directory!
-
-WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
-
-[IMPORTANT]
-====
-Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
-
-* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
-* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
-* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
-====
 
 == Start Infinite Scale With All Predefined Services
 
@@ -417,7 +403,7 @@ ocis server
 
 Default users and groups are only created when you initialize Infinite Scale as first task. The same is true for demo users and groups which need an environment variable to be set _on initializing Infinite Scale_ to get created.
 
-NOTE: If you have not declared demo user creation during initializing, you can for the time being only empty the xref:define-the-infinite-scale-data-path[Infinite Scale base directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
+NOTE: If you have not declared demo user creation during initializing, you can for the time being only empty the xref:base-data-directory[Base Data Directory] and remove the xref:configuration-rules[ocis.yaml] file which resets the system. Then you can start from scratch and enable demo user creation.
 
 // fixme: the current implementation of the bootstrap creates the admin user and if set the demo users and adds them to the idm/boltdb file, see the idm service. BUT if you have started ocis without demo user creation, you cant let ocis create them POST first start... https://github.com/owncloud/ocis/issues/3593 
 
