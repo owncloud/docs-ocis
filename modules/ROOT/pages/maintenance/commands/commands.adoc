@@ -7,6 +7,16 @@
 
 {description}
 
+[NOTE]
+====
+* Calling a service in the examples is made via the single binary.
+* Generic call: +
+`ocis <service name> arguments options`.
+* This changes if services would be available as executable on their own, then it would be: +
+`<service name> arguments options`. +
+This could happen if services are developed which are not shipped as part of the single binary.
+====
+
 == Manage Expired Uploads
 
 Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularily. See the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] section at the _Storage Users_ service for details.
