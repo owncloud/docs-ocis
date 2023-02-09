@@ -56,8 +56,9 @@
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
 * Maintenance
 ** Backup and Restore
-*** xref:maintenance/backup.adoc[Backup]
-*** xref:maintenance/restore.adoc[Restore]
+*** xref:maintenance/b-r/backup.adoc[Backup]
+*** xref:maintenance/b-r/restore.adoc[Restore]
+** xref:maintenance/commands/commands.adoc[Maintenance Commands]
 * Configuration Examples
 ** xref:conf-examples/office-integration.adoc[Office Integration]
 * Deployment Examples

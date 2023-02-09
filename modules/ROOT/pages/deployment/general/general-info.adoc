@@ -157,10 +157,13 @@ Because Infinite Scale does not use a database for storing information like user
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
 * When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
+.Path for Systemdata
 The base directory is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
 
+.Default Location
 The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
 
+.Services that can Deviate the Base Data Path
 The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
 
 * xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]
@@ -482,30 +485,9 @@ See xref:deployment/services/logging.adoc[Logging] at the _Services_ description
 
 If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and Infinite Scale again. You can therefore set `OCIS_INSECURE=false` or remove it completely. Also see: xref:handling-certificates[Handling Certificates].
 
-== Manage Unfinished Uploads
+== Maintenance Commands
 
-See xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] at the _Storage Users_ service for details. 
-
-== Reindex a Space for Search
-
-In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. Note that behavior and options may change without special notice.
-
-[source,bash]
-----
-ocis search index
-NAME:
-   ocis search index - index the files for one one more users
-
-USAGE:
-   ocis search index [command options] [arguments...]
-
-CATEGORY:
-   index management
-
-OPTIONS:
-   --space value, -s value  the ID of the space to travers and index the files
-   --user value, -u value   the username of the user that shall be used to access the files
-----
+There are multiple commands available to maintain the Infinite Scale instance. See the xref:maintenance/commands/commands.adoc[Maintenance Commands] document for more details.
 
 == S3 Bucket Policy
 
