@@ -157,13 +157,13 @@ Because Infinite Scale does not use a database for storing information like user
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
 * When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
-.Path for Systemdata
+.Path for System Data
 The base directory is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
 
 .Default Location
 The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
 
-.Services that can Deviate from the Base Data Path
+.Services That Can Deviate from the Base Data Path
 The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
 
 * xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]

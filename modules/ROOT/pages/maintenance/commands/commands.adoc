@@ -1,7 +1,7 @@
 = Maintenance Commands
 :toc: right
 
-:description: There are commands availabe to maintain the Infinite Scale instance. This document gives an overview of the available commands and links to the related service where they are implemented for more details.
+:description: There are commands availabe to maintain the Infinite Scale instance. This document gives an overview of the available commands and links to the related services where they are implemented for more details.
 
 == Introduction
 
@@ -23,4 +23,4 @@ Compared to unfinished uploads which are handled by the system, managing expired
 
 == Reindex a Space for Search
 
-In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. The following command should *only* be run on explicit request and supervision of ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-a-space[Manually Trigger Re-Indexing a Space] section at the _Search_ service for details.
+In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-a-space[Manually Trigger Re-Indexing a Space] section at the _Search_ service for details.
