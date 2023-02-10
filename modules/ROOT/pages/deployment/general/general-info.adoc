@@ -163,7 +163,7 @@ The base directory is the root for many services which automatically add a subdi
 .Default Location
 The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
 
-.Services that can Deviate the Base Data Path
+.Services that can Deviate from the Base Data Path
 The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
 
 * xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]
