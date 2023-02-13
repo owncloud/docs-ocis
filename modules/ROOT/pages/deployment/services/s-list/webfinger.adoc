@@ -36,7 +36,7 @@ Here, the `resource` takes the instance domain URI, but an `acct:` URI works as 
 
 == Authenticated Instance Discovery
 
-When using OpenID connect to authenticate requests, clients can look up the owncloud instances a user has access to.
+When using OpenID Connect to authenticate requests, clients can look up the ownCloud instances a user has access to.
 
 *   Authentication is necessary to prevent leaking information about existing users.
 *   Basic auth is _not_ supported.
@@ -63,7 +63,7 @@ The default configuration will simply return the `OCIS_URL` and direct clients t
 }
 ----
 
-== Configure Different Instances Based on OpenidConnect UserInfo Claims
+== Configure Different Instances Based on OpenID Connect User Info Claims
 
 A more complex example for configuring different instances could look like this:
 
