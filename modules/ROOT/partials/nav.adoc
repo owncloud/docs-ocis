@@ -54,6 +54,7 @@
 **** xref:deployment/services/s-list/users.adoc[Users]
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
+**** xref:deployment/services/s-list/webfinger.adoc[Webfinger]
 * Maintenance
 ** Backup and Restore
 *** xref:maintenance/b-r/backup.adoc[Backup]
