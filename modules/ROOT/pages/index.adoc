@@ -49,6 +49,8 @@ video::{ocis_youtube_short_url}[youtube]
 
 == Brief Overview
 
+NOTE: In configuration variables and comments, you'll often come across the word oCIS or ocis, short for "ownCloud Infinite Scale", while the product is simply called Infinite Scale.
+
 === Architecture and Concepts
 
 To learn more about Infinite Scale, check out the xref:architecture/architecture.adoc[Architecture and Concepts] section first. This information may help deciding which environment is optimal for your use case and which hardware fits your needs best.
@@ -77,6 +79,9 @@ NOTE: In configuration variables and comments, you'll often come across the word
 
 You can try Infinite Scale before you install it locally to get hands-on experience and a feeling for how things work and integrate. Our development provides several instances with different setups to test. The instances are reset on a regular basis. See our https://owncloud.dev/ocis/deployment/continuous_deployment/[Continuous Deployment,window=_blank] page for more details.
 
+== End-User License Agreement (EULA)
+
+ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual link:{attachmentsdir}/introduction/oCIS_EULA_11052022_final.pdf[EULA, window=_blank] for details.
 
 ////
 
