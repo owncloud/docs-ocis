@@ -63,7 +63,7 @@ The default configuration will simply return the `OCIS_URL` and direct clients t
 }
 ----
 
-== Configure Different Instances Based on OpenID Connect User Info Claims
+== Configure Different Instances Based on OpenID Connect UserInfo Claims
 
 A more complex example for configuring different instances could look like this:
 
