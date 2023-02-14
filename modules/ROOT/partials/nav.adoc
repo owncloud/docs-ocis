@@ -61,7 +61,7 @@
 *** xref:maintenance/b-r/restore.adoc[Restore]
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
 * Configuration Examples
-** xref:conf-examples/office-integration.adoc[Office Integration]
+** xref:conf-examples/office/office-integration.adoc[Office Integration]
 * Deployment Examples
 ** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
 // *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]

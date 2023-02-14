@@ -4,6 +4,7 @@
 :traefik_url: https://traefik.io/traefik/
 :wopiserver_url: https://hub.docker.com/r/cs3org/wopiserver/tags?page=1&ordering=last_updated
 :onlyoffice_hw_url: https://helpcenter.onlyoffice.com/installation/docs-community-sys-reqs-docker.aspx
+:page-aliases: conf-examples/office-integration.adoc
 
 :description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
 
@@ -72,10 +73,10 @@ cd ocis_wopi
 
 == Configuration
 
-The configuration uses a xref:conf-examples/ext-files/docker-compose.adoc[docker-compose,window=_blank] file with an environment variable file for ease of handling. This docker-compose file defines which additional containers are needed and how the containers are configured.
+The configuration uses a xref:conf-examples/office/ext-files/docker-compose.adoc[docker-compose,window=_blank] file with an environment variable file for ease of handling. This docker-compose file defines which additional containers are needed and how the containers are configured.
 
 [start=2]
-. Firstly, the xref:conf-examples/ext-files/env.adoc[environment definition file,window=_blank] needs to be adapted. This file defines many basic settings in one location. Open it in a text editor and adjust it according to your needs.
+. Firstly, the xref:conf-examples/office/ext-files/env.adoc[environment definition file,window=_blank] needs to be adapted. This file defines many basic settings in one location. Open it in a text editor and adjust it according to your needs.
 +
 --
 For some hints on what to take into consideration, check the notes listed here:
@@ -109,9 +110,9 @@ For some hints on what to take into consideration, check the notes listed here:
 * Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
 --
 
-. Though no changes are needed, adapt the xref:conf-examples/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the webUI with the names of available office applications to open. This can be changed if required.
+. Though no changes are needed, adapt the xref:conf-examples/office/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the webUI with the names of available office applications to open. This can be changed if required.
 
-. For Microsoft Office 365, adapt the xref:conf-examples/ext-files/wopiserver.adoc[wopiserver.conf.dist,window=_blank] file by adding the correct proxy URL. For more details about the background and how to obtain this URL see xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications using WOPI,window=_blank].
+. For Microsoft Office 365, adapt the xref:conf-examples/office/ext-files/wopiserver.adoc[wopiserver.conf.dist,window=_blank] file by adding the correct proxy URL. For more details about the background and how to obtain this URL see xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications using WOPI,window=_blank].
 
 == Start the Docker Stack
 
@@ -125,7 +126,7 @@ docker-compose up -d
 
 == Access Infinite Scale
 
-[start=5]
+[start=6]
 . Enter your Infinite Scale domain in a browser and you're ready to log in and open office documents in the web client. It might take a few minutes for all services to become operational because the containers need to download first. Just keep reloading the pages from time to time or run:
 +
 --
