@@ -11,7 +11,7 @@
 
 == Introduction
 
-{description} For more details on possible configuration values see the xref:conf-examples/office-integration.adoc[Office Integration] document at the configuration examples. More information about the WOPI protocol can be found on {wopi-wiki-url}[Wikipedia,window=_blank] or {wopi-ms-url}[Microsoft,window=_blank].
+{description} For more details on possible configuration values see the xref:conf-examples/office/office-integration.adoc[Office Integration] document at the configuration examples. More information about the WOPI protocol can be found on {wopi-wiki-url}[Wikipedia,window=_blank] or {wopi-ms-url}[Microsoft,window=_blank].
 
 For the time being, the supported office applications are:
 
@@ -64,7 +64,7 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
 
 == WOPI Coniguration Examples
 
-* See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office-integration.adoc[Office Integration] document for an in depth explanation.
+* See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office/office-integration.adoc[Office Integration] document for an in depth explanation.
 +
 [tabs]
 ====
