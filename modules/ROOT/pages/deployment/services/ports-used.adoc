@@ -1,6 +1,5 @@
 = Ports Used
 :toc: right
-
 :description: Infinite Scale uses ports for communication between services. This page provides an overview of default port ranges.
 
 == Introduction

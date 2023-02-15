@@ -1,9 +1,8 @@
 = Auth Machine Service Configuration
 :toc: right
+:description: The Infinite Scale Auth Machine service
 
 :ext_name: auth-machine
-
-:description: The Infinite Scale Auth Machine service
 
 == Introduction
 

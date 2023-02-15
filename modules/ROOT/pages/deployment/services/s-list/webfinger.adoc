@@ -1,5 +1,6 @@
 = Webfinger Service Configuration
 :toc: right
+:description: The Infinite Scale webfinger service provides an RFC7033 WebFinger lookup of ownCloud instances relevant for a given user account.
 :webfinger-url: https://en.wikipedia.org/wiki/WebFinger
 
 :ext_name: webfinger
@@ -8,8 +9,6 @@
 
 :no_second_tab: true
 :no_third_tab: true
-
-:description: The Infinite Scale webfinger service provides an RFC7033 WebFinger lookup of ownCloud instances relevant for a given user account.
 
 == Introduction
 

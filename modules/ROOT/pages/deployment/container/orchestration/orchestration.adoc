@@ -1,6 +1,7 @@
 = Container Orchestration
 :toc: right
 :toclevels: 3
+:description: This document provides guidelines for container orchestration tools suitable for Infinite Scale.
 
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
@@ -39,11 +40,11 @@
 
 // note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
 
-:description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
-
 == Introduction
 
-{description} Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
+{description}  These are {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
+
+Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
 
 The pages
 

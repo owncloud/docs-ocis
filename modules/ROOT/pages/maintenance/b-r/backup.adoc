@@ -1,6 +1,5 @@
 = Backup
 :toc: right
-
 :description: Making a backup of the Infinite Scale instance is an important task that should be done on a regular basis.
 
 == Introduction

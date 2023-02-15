@@ -1,8 +1,7 @@
 = General Information
 :toc: right
-:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
-
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
+:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
 
 == Introduction
 

@@ -1,6 +1,7 @@
 = Binary Setup
 :toc: right
 :toclevels: 3
+:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks
 
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
@@ -10,8 +11,6 @@
 :ocis_data: /var/lib/ocis
 :ocis_url: ocis.example.com
 :ocis_port: 9200
-
-:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks
 
 == Introduction
 

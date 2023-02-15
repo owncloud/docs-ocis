@@ -1,10 +1,9 @@
 = Storage-Users Service Configuration
 :toc: right
 :tus-url: https://tus.io
+:description: The Infinite Scale Storage-Users service
 
 :ext_name: storage-users
-
-:description: The Infinite Scale Storage-Users service
 
 == Introduction
 

@@ -1,6 +1,7 @@
 = Architecture and Concepts of Infinite Scale
 :toc: right
 :toclevels: 4
+:description: This page gives you an overview of the architecture and the concepts behind Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
 :c4-model-url: https://en.wikipedia.org/wiki/C4_model
 :suture-url: https://github.com/thejerf/suture
@@ -13,8 +14,6 @@
 :grpc-url: https://grpc.io/about/
 :ocis-pkg-url: https://github.com/owncloud/ocis/tree/master/ocis-pkg
 :go-micro-url: https://github.com/asim/go-micro
-
-:description: This page gives you an overview of the architecture and the concepts behind Infinite Scale. Infinite Scale was designed from the beginning as a data platform providing tools to integrate, organize, share and govern data and metadata.
 
 == Introduction
 

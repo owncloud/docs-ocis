@@ -1,9 +1,8 @@
 = Notifications Service Configuration
 :toc: right
+:description: The notification service is responsible for sending emails to users informing them about events that happened.
 
 :ext_name: notifications
-
-:description: The notification service is responsible for sending emails to users informing them about events that happened.
 
 == Introduction
 

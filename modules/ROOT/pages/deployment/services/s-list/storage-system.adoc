@@ -1,9 +1,8 @@
 = Storage-System Service Configuration
 :toc: right
+:description: The Infinite Scale Storage-System service
 
 :ext_name: storage-system
-
-:description: The Infinite Scale Storage-System
 
 == Introduction
 

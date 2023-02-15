@@ -1,9 +1,8 @@
 = IDP Service Configuration
 :toc: right
+:description: The Infinite Scale IDP service
 
 :ext_name: idp
-
-:description: The Infinite Scale IDP service
 
 == Introduction
 

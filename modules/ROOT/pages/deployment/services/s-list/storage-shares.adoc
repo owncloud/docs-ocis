@@ -1,9 +1,8 @@
 = Storage-Shares Service Configuration
 :toc: right
+:description: The Infinite Scale Storage-Shares service
 
 :ext_name: storage-shares
-
-:description: The Infinite Scale Storage-Shares
 
 == Introduction
 

@@ -1,10 +1,9 @@
 = Search Service Configuration
 :toc: right
 :tika-version: 2.6.0
+:description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
 
 :ext_name: search
-
-:description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
 
 == Introduction
 

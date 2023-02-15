@@ -1,5 +1,6 @@
 = Postprocessing Service Configuration
 :toc: right
+:description: The Infinite Scale postprocessing service handles the coordination of asynchronous post-processing steps.
 
 :ext_name: postprocessing
 
@@ -7,8 +8,6 @@
 
 :no_second_tab: true
 :no_third_tab: true
-
-:description: The Infinite Scale postprocessing service handles the coordination of asynchronous post-processing steps.
 
 == Introduction
 
