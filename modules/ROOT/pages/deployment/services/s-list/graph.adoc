@@ -10,7 +10,7 @@
 
 // fixme: source description is still missing, and a better description is needed
 
-== Manually Filtering
+== Manual Filters
 
 Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` to refine results.
 
