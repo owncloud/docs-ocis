@@ -1,15 +1,20 @@
 = Web Service Configuration
 :toc: right
+:description: The web service embeds and serves the static files for the Infinite Scale Web Client.
 
 :ext_name: web
 
-:description: The Web service embeds xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] to provide a UI for ownCloud Infinite Scale.
-
 == Introduction
 
-{description}
+{description} See the xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] description for more details.
 
-// fixme: source description is still missing, and a better description is needed
+Note that clients will respond with a connection error if the web service is not available.
+
+The web service also provides a minimal API for branding functionality like changing the logo shown.
+
+== Custom Compiled Web Assets
+
+If you want to use your custom compiled web client assets instead of the embedded ones, then you can do that by setting the `WEB_ASSET_PATH` variable to point to your compiled files. See https://owncloud.dev/clients/web/getting-started/[ownCloud Web / Getting Started] and https://owncloud.dev/clients/web/backend-ocis/[ownCloud Web / Setup with oCIS] in the developer documentation for more details.
 
 == Configuration
 
