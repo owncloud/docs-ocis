@@ -64,7 +64,6 @@
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 * Deployment Examples
 ** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
-// *** xref:deployment/deployment/deployment_examples.adoc[Deployment Examples]
 
 ////
 * Migration

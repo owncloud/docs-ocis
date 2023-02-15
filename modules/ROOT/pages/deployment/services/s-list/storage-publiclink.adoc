@@ -1,9 +1,8 @@
 = Storage-Publiclink Service Configuration
 :toc: right
+:description: The Infinite Scale Storage-Publiclink service
 
 :ext_name: storage-publiclink
-
-:description: The Infinite Scale Storage-Publiclink
 
 == Introduction
 

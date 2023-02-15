@@ -1,9 +1,8 @@
 = Settings Service Configuration
 :toc: right
+:description: The Infinite Scale Settings service
 
 :ext_name: settings
-
-:description: The Infinite Scale Settings service
 
 == Introduction
 

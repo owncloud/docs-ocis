@@ -1,9 +1,8 @@
 = Store Service Configuration
 :toc: right
+:description: The Infinite Scale Store service
 
 :ext_name: store
-
-:description: The Infinite Scale Store service
 
 == Introduction
 

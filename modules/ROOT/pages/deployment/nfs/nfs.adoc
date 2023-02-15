@@ -1,6 +1,7 @@
 = Network File System (NFS) Deployment Recommendations
 :toc: right
 :toclevels: 2
+:description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for Infinite Scale.
 
 :ea-ietf-url: https://datatracker.ietf.org/doc/html/rfc8276
 :autofs-url: https://help.ubuntu.com/community/Autofs
@@ -16,8 +17,6 @@
 :nmtui-url: https://manpages.ubuntu.com/manpages/focal/man1/nmtui.1.html
 :rpc-statd-url: https://linux.die.net/man/8/rpc.statd
 :innodb_flush_method-url: https://mariadb.com/kb/en/library/innodb-system-variables/#innodb_flush_method
-
-:description: ownCloud recommends using NFS for any scenario when accessing Unix-based remote servers or storages other than local storage. It has solid performance and is very stable. This guide covers the official ownCloud NFS (Network File System) deployment recommendations for Infinite Scale.
 
 == Introduction
 

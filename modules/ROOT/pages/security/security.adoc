@@ -1,6 +1,5 @@
 = Security Aspects of Infinite Scale
 :toc: right
-
 :description: This document gives you an overview of the different security measures of Infinite Scale.
 
 == Introduction

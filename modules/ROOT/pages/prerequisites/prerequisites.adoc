@@ -1,6 +1,7 @@
 = Prerequisites
 :toc: right
 :toclevels: 2
+:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate Infinite Scale successfully.
 
 :ext4_url: https://en.wikipedia.org/wiki/Ext4
 :btrfs_url: https://en.wikipedia.org/wiki/Btrfs
@@ -18,8 +19,6 @@
 :traefik_github_url: https://github.com/traefik/traefik#readme
 :apache_rev_url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 :what_is_apache_url: https://www.apache.org/
-
-:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate Infinite Scale successfully.
 
 == Introduction
 

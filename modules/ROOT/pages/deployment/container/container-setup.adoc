@@ -1,5 +1,6 @@
 = Container Setup
 :toc: right
+:description: Images for a container-based setup of Infinite Scale are available on Docker Hub. You can easily download and start such an image with only a few commands. 
 
 :docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
 :install-docker-server-url: https://docs.docker.com/engine/install/#server
@@ -24,11 +25,9 @@
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
 
-:description: Images for a container-based setup of Infinite Scale are available on {docker-ocis-url}[Docker Hub]. You can easily download and start such an image with only a few commands. 
-
 == Introduction
 
-{description}
+{description} See the latest or stable images from {docker-ocis-url}[Docker Hub].
 
 This description mainly focuses on Docker which you can take as template or starting point if you are using different container managing software products.
 

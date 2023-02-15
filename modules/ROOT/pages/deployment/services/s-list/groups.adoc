@@ -1,9 +1,8 @@
 = Groups Service Configuration
 :toc: right
+:description: The Infinite Scale Group service
 
 :ext_name: groups
-
-:description: The Infinite Scale Group service provides
 
 == Introduction
 

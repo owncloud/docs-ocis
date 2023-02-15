@@ -1,9 +1,8 @@
 = App Provider Service Configuration
 :toc: right
+:description: App providers represent apps, if the app is not able to register itself. Currently there is only the CS3org WOPI server app provider.
 
 :ext_name: app-provider
-
-:description: App providers represent apps, if the app is not able to register itself. Currently there is only the CS3org WOPI server app provider.
 
 == Introduction
 

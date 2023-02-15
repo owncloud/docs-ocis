@@ -1,9 +1,8 @@
 = Proxy Service Configuration
 :toc: right
+:description: The proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
 
 :ext_name: proxy
-
-:description: The proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
 
 == Introduction
 

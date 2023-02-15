@@ -1,6 +1,5 @@
 = Restore
 :toc: right
-
 :description: Restoring from an Infinite Scale backup can be a task bringing the instance back to production after a major incident occurs.
 
 == Introduction

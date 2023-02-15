@@ -1,6 +1,7 @@
 = Small-Scale Deployment with systemd 
 :toc: right
 :toclevels: 3
+:description: This guide describes the installation of a small-scale instance of Infinite Scale as a systemd service.
 
 :systemd-url: https://systemd.io/
 :nginx-url: https://www.nginx.com/
@@ -16,8 +17,6 @@
 :ocis_data: /var/lib/ocis
 :ocis_url: ocis.example.com
 :ocis_port: 9200
-
-:description: This guide describes the installation of a small-scale instance of Infinite Scale as a systemd service.
 
 == Introduction
 

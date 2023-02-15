@@ -1,12 +1,12 @@
 = Introduction to Infinite Scale
 :toc: right
 :toclevels: 2
+:description: Welcome to the Infinite Scale documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics, on installation and administrative tasks for Infinite Scale.
+
 :github-url: https://github.com/owncloud/docs-ocis/issues
 
 :ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
 :ocis_youtube_short_url: C4a4q9IGyFQ
-
-:description: Welcome to the Infinite Scale documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics, on installation and administrative tasks for Infinite Scale.
 
 == Introduction
 

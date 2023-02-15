@@ -1,6 +1,5 @@
 = Logging
 :toc: right
-
 :description: Setting the proper log level is a way of filtering important information about the state of Infinite Scale. Depending on what you are looking for, the log output will be more or less verbose.
 
 == Introduction
