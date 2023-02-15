@@ -10,6 +10,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Manually Filtering
+
+Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` to refine results.
+
 == Sequence Diagram
 
 The following image gives an overview of the scenario when a client requests to list available spaces the user has access to. To do so, the client is directed with his request automatically via the proxy service to the graph service.
