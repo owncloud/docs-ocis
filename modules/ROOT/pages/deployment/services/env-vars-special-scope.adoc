@@ -1,6 +1,6 @@
 = Environment Variables with Special Scopes
 :toc: right
-:description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment menthod only.
+:description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment method only.
 
 // there is only an adoc table to include but no yaml file. this is only when using special scope envvars.
 :no_yaml: true

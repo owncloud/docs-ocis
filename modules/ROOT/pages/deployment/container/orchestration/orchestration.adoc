@@ -1,7 +1,7 @@
 = Container Orchestration
 :toc: right
 :toclevels: 3
-:description: This documents provides guidelines for container orchestration tools suitable for Infinite Scale.
+:description: This document provides guidelines for container orchestration tools suitable for Infinite Scale.
 
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
