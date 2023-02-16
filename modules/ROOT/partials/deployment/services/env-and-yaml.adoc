@@ -63,6 +63,9 @@ ifndef::no_yaml[]
 
 === YAML Example
 
+Note that the filename shown below is by purpose. +
+If you want to use it with your own configuration, you must name it `{ext_name}.yaml`
+
 [tabs]
 ====
 {service_tab_1_tab_text}::
