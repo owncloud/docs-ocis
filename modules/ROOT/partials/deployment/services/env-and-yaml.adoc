@@ -64,7 +64,7 @@ ifndef::no_yaml[]
 === YAML Example
 
 Note that the filename shown below has been chosen on purpose. +
-If you want to use it with your own configuration, you must name it `{ext_name}.yaml`
+See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
 
 [tabs]
 ====

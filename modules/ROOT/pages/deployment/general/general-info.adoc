@@ -99,6 +99,8 @@ ocis.yaml
 [service name].yaml
 ----
 
+When using `ocis.yaml` and you configure a service, the topic for the service configuration must be the service name.
+
 You can list the possible services names by typing:
 
 [source,bash]
