@@ -1,0 +1,123 @@
+= Configuring Search
+:toc: right
+:toclevels: 3
+:description: This document gives some guidance and notes about how to configure the search service.
+
+:tika-version: 2.7.0
+:configure-tika-url: https://tika.apache.org/{tika-version}/configuring.html
+
+== Introduction
+
+{description} Using search is a good way to find documents based on varios criterias. The search service will return results for documents the searcher is eligable to access. Read the description of the xref:{s-path}/search.adoc[search service] for more details.
+
+You can use basic search functionality without any configuration as it is preconfigured when using the default binary or container/orchestration deployment.
+
+== Index Data
+
+With basic search, only metadata is indexed. Content can be searched when configuring Tika as content extraction engine.
+
+* *Metadata:* all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
+* *Content:* all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
+
+Depending on the configuration, space requirements can differ. 
+
+Indexing is a non-blocking operation. It is triggered by various events (see xref:{s-path}/search.adoc#state-changes-which-trigger-indexing[State Changes which Trigger Indexing]) and does not prevent file access by users. While indexing metadata is more or less instantanious, extracting and indexing content can take some time depending on the setup and size of the document.
+
+== General Considerations
+
+=== Space Requirements
+
+There is no definitive answer how much space needs to be provided for storing the index or how it can be calculated. The only valid answer to that question is - it depends and and you need to monitor it. Note that monitoring is not part of this document.
+
+Here are some notes to give some guidance:
+
+* Extracting and indexing metadata consumes only little space compared to a content index, though it can be significant in an environment with a lot of data and limited filesystem space.
+* When extracting and indexing content, the range for the consumed index can be - as rule of thumb - between 50-200% of saved documents containing text. Being conservative and taking a value of 150%, having 3TB of documents where text based data can be extracted, would require up to 4.5TB - only for the content index.
+
+IMPORTANT: Having the index on the default location unmonitored, filling up the filesystem by the index can happen silently and make Infinite Scale unresponsive. As the OS, Infinite Scale and its data share the same filesystem, recovery can be a task taking considerable downtime.
+
+=== Index Location and Scaling
+
+* The location of the search index can be customized and should be on a fast backend.
+* Consider own hardware for the search service if responsetime is critical for your environment, as xref:deployment/services/deployment-considerations.adoc#scaling-of-services[scaling] is currently not possibe for the search service.
+** Content extraction can consume considerable CPU and memory ressources and naturally competes with all other services if running on the same hardware. It has to extract every document and index it before it is available for searching.
+* The search index can be manually relocated and search reconfigured to use the new path.
+
+=== Reloacting the Index
+
+If it becomes necessary to relocate the index, you need to:
+
+* Shut down the Infinite Scale instance. +
+This is necessary to avoid changes that miss to trigger an index update.
+* Move the contents referenced via `SEARCH_ENGINE_BLEVE_DATA_PATH` to a new location.
+* Define the new location in `SEARCH_ENGINE_BLEVE_DATA_PATH`.
+* Restart the Infinite Scale instance.
+* Update your xref:maintenance/b-r/backup.adoc[backup]/xref:maintenance/b-r/restore.adoc[restore] plan and setup accordingly.
+
+=== Index Maintenance
+
+==== Recreating an Index
+
+It can happen that an index needs to be recreated. Currently this can only be done on a per space basis. Use the following command for this task:
+
+[source,bash]
+----
+ocis search index --space $SPACE_ID --user $USER_ID
+----
+
+Note that not names but IDs are necessary and that the specified user ID needs access to the space to be indexed.
+ 
+== Content Extraction and Indexing
+
+To search for content, a content extraction engine needs to be installed and configured. Infinite scale currently supports https://tika.apache.org[Apache Tika - a content analysis toolkit] to extract content.
+
+=== Tika Extractor
+
+Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled xref:https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform. The xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) is based on the container as it is ready to use.
+
+==== Prerequisites
+
+The following describes how to make Tika availabe for your environment.
+
+===== Container Based
+
+Check that you have xref:deployment/container/container-setup.adoc#docker-prerequisites[docker] and xref:deployment/container/container-setup.adoc#docker-prerequisites[docker compose] respectively a xref:deployment/container/orchestration/orchestration.adoc[container orchestration] installed.
+
+To see if the Tika container runs on your architecture, type:
+
+[source,bash]
+----
+docker run -d --name=tika --restart=always apache/tika
+----
+
+If you do not get a startup error message and accessing the container via `\http://your-server:9998` returns:
+
+image::conf-examples/search/tika-welcome-screen.png[Tika welcome screen, width=400]
+
+you can use the container. Finally, you can keep the image when planning to use a container based setup but remove the test container with `docker stop <ID>` and `docker rm <ID>` where ID is the container ID of Tika.
+
+===== Manual Based
+
+If using the container does not work in your environment, you need to use the server installation of Tika which requires at least Java version 8 installed, check with `java -version` and install java if required. After downloading the https://tika.apache.org/download.html[Tika server .jar] file, you can start the server with:
+
+[source,bash,subs="attributes+"]
+----
+java -jar tika-server-standard-{tika-version}.jar
+----
+
+It is then accessible via `\http://your-server:9998`. Check that the Tika server is automatically started like when using systemd - which is not covered here though you can take xref:depl-examples/small-scale.adoc#setup-the-systemd-service[Setup the systemd Service] from the _Small-Scale Deployment with systemd_ as setup reference.
+
+==== Configure Search using the Tika Extractor
+
+As prerequisite, Tika needs to be accessible via `\http://your-server:9998` either using the manual installation or via docker. You can decide to let Tika run on an own or on the same server where the search service runs. The following configuration assumes that all Infinite Scale services including the search service and Tika run on the same hardware.
+
+These configuration parameters need to be set for the use of Tika:
+ 
+* `SEARCH_EXTRACTOR_TYPE=tika`
+* `SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://your-server:9998`
+
+The parameters can either be set via environment variables or as part of a `yaml` configuration file. Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) for an example using container orchestration which also downloads the necessary Tika image.
+
+==== Configuring Tika
+
+Though in the majority of cases not necessary, components of Tika can be configured if required by providing an xml file with necessary data. For more information see {configure-tika-url}[Configuring Tika] on their web page.
