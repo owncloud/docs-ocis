@@ -30,6 +30,7 @@
 **** xref:deployment/services/s-list/auth-basic.adoc[Auth Basic]
 **** xref:deployment/services/s-list/auth-bearer.adoc[Auth Bearer]
 **** xref:deployment/services/s-list/auth-machine.adoc[Auth Machine]
+**** xref:deployment/services/s-list/eventhistory.adoc[Eventhistory]
 **** xref:deployment/services/s-list/frontend.adoc[Frontend]
 **** xref:deployment/services/s-list/gateway.adoc[Gateway]
 **** xref:deployment/services/s-list/graph.adoc[Graph]
