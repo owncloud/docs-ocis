@@ -32,7 +32,7 @@ Keep in mind that you always have to back up all data sets consistently:
 * metadata ^2^
 * blobs ^2^
 
-(1) ... System data has, if not otherwise defined, a common root path which is the same root path as for metadata. Individual paths can be defined for particular services though. See the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for more details. Also see the xref:conf-examples/search/configure-search.adoc[search configuration example]. If the search index does not get backuped, it needs to be recreated.
+(1) ... System data has, if not otherwise defined, a common root path which is the same root path as for metadata. Individual paths can be defined for particular services though. See the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for more details. Also see the xref:conf-examples/search/configure-search.adoc[search configuration example]. If the search index does not get backed up, it needs to be recreated.
 
 {empty}
 
