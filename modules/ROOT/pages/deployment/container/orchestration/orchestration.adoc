@@ -493,7 +493,7 @@ endif::[]
 
 ==== Define Generic Secrets
 
-Infinite Scale requires some generic secrets to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+Infinite Scale requires some generic secrets to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 For these reasons, ownCloud cannot take responsibility for these generic secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
@@ -562,7 +562,7 @@ minikube kubectl -- apply -f generic-secrets.yaml
 
 ==== Define Generic Configs
 
-Infinite Scale requires some generic configuration to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of configuration out of the box.
+Infinite Scale requires some generic configuration to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet.
 
 For these reasons, ownCloud cannot take responsibility for these generic configuration. Any information necessary to use this application-relevant data is provided by ownCloud via examples.
 
@@ -631,7 +631,7 @@ minikube kubectl -- apply -f generic-configs.yaml
 
 ==== Built-in User Management Secrets
 
-If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should have an expiration date and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 As the operator of Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
@@ -700,7 +700,7 @@ minikube kubectl -- apply -f builtin-user-mgmt-secrets.yaml
 
 ==== External User Management Secrets
 
-If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 If you're using Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
