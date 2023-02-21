@@ -62,6 +62,7 @@
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
 * Configuration Examples
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
+** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
 ** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
 
