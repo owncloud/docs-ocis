@@ -58,4 +58,6 @@ include::partial$deployment/services/env-and-yaml.adoc[]
 :ext_name: global
 :no_deprecation: true
 
+Note that the descriptions of these environment variables may differ dependent on the service context.
+
 include::partial$deployment/services/env-and-yaml.adoc[]
