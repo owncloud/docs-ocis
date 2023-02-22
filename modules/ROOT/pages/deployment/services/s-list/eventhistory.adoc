@@ -25,7 +25,7 @@ The `eventhistory` services consumes all events from the configured event sytem.
 
 The `eventhistory` service stores each consumed event via the configured store in `EVENTHISTORY_STORE_TYPE`. Possible stores are:
 
-[width=85%,cols="15%,90%",options=header]
+[width=100%,cols="15%,85%",options=header]
 |===
 | Store Type
 | Description
