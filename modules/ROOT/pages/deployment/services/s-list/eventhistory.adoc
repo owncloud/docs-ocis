@@ -1,6 +1,6 @@
 = Eventhistory Service Configuration
 :toc: right
-:description: The Infinite Scale eventhistory service consumes all events from the configured event system like NATS, stores them and allows other services to retrieve them via an eventid.
+:description: The Infinite Scale eventhistory service consumes all events from the configured event system like NATS, stores them and allows other services to retrieve them via an event ID.
 
 :ext_name: eventhistory
 
@@ -36,17 +36,17 @@ The `eventhistory` service stores each consumed event via the configured store i
 | `ocmem`
 | Advanced in-memory store allowing max size.
 
-| `redis`
-| Stores data in a configured redis cluster.
+| `Redis`
+| Stores data in a configured Redis cluster.
 
 | `etcd`
 | Stores data in a configured etcd cluster.
 
 | `nats-js`
-| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[nats jetstream].
+| Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 
 | `noop`
-| Stores nothing. Useful for testing. Not recommended in productive enviroments.
+| Stores nothing. Useful for testing. Not recommended in productive environments.
 |===
 
 1. Note that in-memory stores are by nature not reboot persistent.
@@ -56,7 +56,7 @@ The `eventhistory` service stores each consumed event via the configured store i
 
 == Retrieving
 
-Other services can call the `eventhistory` service via a grpc call to retrieve events. The request must contain the eventid that should be retrieved.
+Other services can call the `eventhistory` service via a gRPC call to retrieve events. The request must contain the event ID that should be retrieved.
 
 == Configuration
 
