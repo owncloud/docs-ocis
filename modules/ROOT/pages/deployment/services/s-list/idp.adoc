@@ -1,6 +1,6 @@
 = IDP Service Configuration
 :toc: right
-:description: The Infinite Scale IDP service
+:description: The Infinite Scale IDP service provides a builtin minimal OpenID Connect provider.
 
 :ext_name: idp
 
@@ -8,7 +8,9 @@
 
 {description}
 
-// fixme: source description is still missing, and a better description is needed
+The IPD service is mainly targeted for smaller installations. The recommandation for larger setups is to replace IDP with and external OpenID Connect Provider. See the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_keycloak) for more details.
+
+By default, the IDP service is configured to use the infinite Scale xref:{s-path}/idm.adoc[IDM service] as its LDAP backend for looking up and authenticating users. Other backends like an external LDAP server can be configured via a set of enviroment variables, for details see below.
 
 == Configuration
 
