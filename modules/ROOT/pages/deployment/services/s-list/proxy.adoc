@@ -21,6 +21,17 @@ The following request authentication schemes are implemented:
 -   Signed URL
 -   Public Share Token
 
+== Automatic Quota Assignments
+
+It is possible to automatically assign a specific quota to new users depending on their role. To do this, you need to configure a mapping between roles defined by their ID and the quota in bytes. The assignment can only be done via a `yaml` configuration and not via environment variables. See the following `proxy.yaml` config snippet for a configuration example.
+
+[source,yaml]
+----
+role_quotas:
+    <role ID1>: <quota1>
+    <role ID2>: <quota2>
+----
+
 == Recommendations for Production Deployments
 
 * The proxy service is the only service communicating to the outside and therefore needs the usual protection against DDOS, Slow Loris or other attack vectors. All other services are not exposed to the outside, but also need protective measures when it comes to distributed setups like when using container orchestration over various physical servers.
