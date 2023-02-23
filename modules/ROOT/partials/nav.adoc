@@ -52,6 +52,7 @@
 **** xref:deployment/services/s-list/storage-system.adoc[Storage-System]
 **** xref:deployment/services/s-list/storage-users.adoc[Storage-Users]
 **** xref:deployment/services/s-list/thumbnails.adoc[Thumbnails]
+**** xref:deployment/services/s-list/userlog.adoc[Userlog]
 **** xref:deployment/services/s-list/users.adoc[Users]
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
