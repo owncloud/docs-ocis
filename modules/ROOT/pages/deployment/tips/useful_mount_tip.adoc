@@ -1,12 +1,13 @@
 = Start a Service After a Resource is Mounted
 :toc: right
+:description: If you have network resources, such as NFS or iSCSI-based mounts, and you want to make sure that another service only starts after the resource is mounted, then consider the following example setup when configuring your system.
 
 :iscsi_initiator-url: https://ubuntu.com/server/docs/service-iscsi
 :overriding-vendor-settings-url: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
 
 == Introduction
 
-If you have network resources, such as NFS or iSCSI-based mounts, and you want to make sure that another service only starts _after_ the resource is mounted, then consider the following example setup when configuring your system.
+{description}
 
 The example below is based on an NFS mount which you want to be available _before_ the service with <name.service> starts. The same procedure can be used for iSCSI. For details setting up an iSCSI mount see the {iscsi_initiator-url}[Ubuntu iSCSI Initiator] guide.
 

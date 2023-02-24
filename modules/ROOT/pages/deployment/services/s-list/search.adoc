@@ -1,10 +1,10 @@
 = Search Service Configuration
 :toc: right
-:tika-version: 2.6.0
+:description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
+
+:tika-version: 2.7.0
 
 :ext_name: search
-
-:description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
 
 == Introduction
 
@@ -50,8 +50,8 @@ This extractor is the most simple one and just uses the resource information pro
 
 === Tika Extractor
 
-This extractor is more advanced compared to the [Basic extractor](#basic-extractor). The main difference is that this extractor is able to search file contents.
-However, https://tika.apache.org/[Apache Tika] is required for this task. Read the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide on how to install and run Tika or use a ready to run https://hub.docker.com/r/apache/tika[Tika container].
+This extractor is more advanced compared to the xref:basic-extractor[Basic extractor]. The main difference is that this extractor is able to provide file contents for the index.
+Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled xref:https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform.
 
 As soon as Tika is installed and accessible, the search service must be configured for the use with Tika. The following settings must be set:
 

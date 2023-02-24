@@ -1,6 +1,5 @@
 = Quick Guide
 :toc:right
-
 :description: This quick guide provides copy and paste commands to have an Infinite Scale instance up and running within minutes for hands on use. Read the documentation for details before you dive down and plan to deploy into production.
 
 == Introduction

@@ -1,10 +1,9 @@
 = Environment Variables with Special Scopes
 :toc: right
+:description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment method only.
 
 // there is only an adoc table to include but no yaml file. this is only when using special scope envvars.
 :no_yaml: true
-
-:description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment menthod only.
 
 == Introduction
 
@@ -58,5 +57,7 @@ include::partial$deployment/services/env-and-yaml.adoc[]
 
 :ext_name: global
 :no_deprecation: true
+
+Note that the descriptions of these environment variables may differ depending on the service context.
 
 include::partial$deployment/services/env-and-yaml.adoc[]

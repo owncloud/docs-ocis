@@ -1,9 +1,8 @@
 = Proxy Service Configuration
 :toc: right
+:description: The proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
 
 :ext_name: proxy
-
-:description: The proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
 
 == Introduction
 
@@ -21,6 +20,17 @@ The following request authentication schemes are implemented:
 -   OpenID Connect
 -   Signed URL
 -   Public Share Token
+
+== Automatic Quota Assignments
+
+It is possible to automatically assign a specific quota to new users depending on their role. To do this, you need to configure a mapping between roles defined by their ID and the quota in bytes. The assignment can only be done via a `yaml` configuration and not via environment variables. See the following `proxy.yaml` config snippet for a configuration example.
+
+[source,yaml]
+----
+role_quotas:
+    <role ID1>: <quota1>
+    <role ID2>: <quota2>
+----
 
 == Recommendations for Production Deployments
 

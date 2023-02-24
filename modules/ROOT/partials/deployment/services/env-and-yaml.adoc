@@ -63,6 +63,9 @@ ifndef::no_yaml[]
 
 === YAML Example
 
+Note that the filename shown below has been chosen on purpose. +
+See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+
 [tabs]
 ====
 {service_tab_1_tab_text}::

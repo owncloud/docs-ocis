@@ -1,6 +1,7 @@
 = Container Orchestration
 :toc: right
 :toclevels: 3
+:description: This document provides guidelines for container orchestration tools suitable for Infinite Scale.
 
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
@@ -40,11 +41,11 @@
 
 // note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
 
-:description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
-
 == Introduction
 
-{description} Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
+{description}  These are {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
+
+Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
 
 The pages
 
@@ -481,7 +482,7 @@ endif::[]
 
 ==== Define Generic Secrets
 
-Infinite Scale requires some generic secrets to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of secrets out of the box. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+Infinite Scale requires some generic secrets to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 For these reasons, ownCloud cannot take responsibility for these generic secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
@@ -550,7 +551,7 @@ minikube kubectl -- apply -f generic-secrets.yaml
 
 ==== Define Generic Configs
 
-Infinite Scale requires some generic configuration to work. It was decided not to create them automatically, because Helm does not support _one-off_ generation of configuration out of the box.
+Infinite Scale requires some generic configuration to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet.
 
 For these reasons, ownCloud cannot take responsibility for these generic configuration. Any information necessary to use this application-relevant data is provided by ownCloud via examples.
 
@@ -619,7 +620,7 @@ minikube kubectl -- apply -f generic-configs.yaml
 
 ==== Built-in User Management Secrets
 
-If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should have an expiration date and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 As the operator of Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
@@ -688,7 +689,7 @@ minikube kubectl -- apply -f builtin-user-mgmt-secrets.yaml
 
 ==== External User Management Secrets
 
-If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, which is also not supported by Helm.
+If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 If you're using Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 

@@ -1,9 +1,8 @@
 = Audit Service Configuration
 :toc: right
+:description: The audit service logs all events of the system as an audit log. Per default, it will be logged to standard out, but can also be configured to a file output.
 
 :ext_name: audit
-
-:description: The audit service logs all events of the system as an audit log. Per default, it will be logged to standard out, but can also be configured to a file output.
 
 == Introduction
 

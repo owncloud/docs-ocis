@@ -1,6 +1,5 @@
 = Maintenance Commands
 :toc: right
-
 :description: There are commands availabe to maintain the Infinite Scale instance. This document gives an overview of the available commands and links to the related services where they are implemented for more details.
 
 == Introduction
@@ -20,6 +19,10 @@ This could happen if services are developed which are not shipped as part of the
 == Manage Expired Uploads
 
 Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularly. See the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] section at the _Storage Users_ service for details.
+
+== Purge Expired Space Trash-Bin Items
+
+This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc##purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items] section at the _Storage Users_ service for details.
 
 == Reindex a Space for Search
 

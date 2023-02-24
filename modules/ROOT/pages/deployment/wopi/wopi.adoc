@@ -1,5 +1,7 @@
 = Office Applications Using WOPI
 :toc: right
+:description: Infinite Scale uses the WOPI protocol to integrate office applications. This document describes the general flow and basic settings used.
+
 :wopi_subdir: /ocis_wopi
 :office-online-server-url: https://docs.microsoft.com/de-de/officeonlineserver/deploy-office-online-server
 :office365-url: https://products.office.com/en-us/business/office
@@ -7,11 +9,9 @@
 :wopi-wiki-url: https://en.wikipedia.org/wiki/Web_Application_Open_Platform_Interface
 :wopi-ms-url: https://learn.microsoft.com/en-us/openspecs/office_protocols/ms-wopi/6a8bb410-68ad-47e4-9dc3-6cf29c6b046b
 
-:description: Infinite Scale uses the WOPI protocol to integrate office applications. This document describes the general flow and basic settings used.
-
 == Introduction
 
-{description} For more details on possible configuration values see the xref:conf-examples/office-integration.adoc[Office Integration] document at the configuration examples. More information about the WOPI protocol can be found on {wopi-wiki-url}[Wikipedia,window=_blank] or {wopi-ms-url}[Microsoft,window=_blank].
+{description} For more details on possible configuration values see the xref:conf-examples/office/office-integration.adoc[Office Integration] document at the configuration examples. More information about the WOPI protocol can be found on {wopi-wiki-url}[Wikipedia,window=_blank] or {wopi-ms-url}[Microsoft,window=_blank].
 
 For the time being, the supported office applications are:
 
@@ -64,7 +64,7 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
 
 == WOPI Coniguration Examples
 
-* See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office-integration.adoc[Office Integration] document for an in depth explanation.
+* See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office/office-integration.adoc[Office Integration] document for an in depth explanation.
 +
 [tabs]
 ====

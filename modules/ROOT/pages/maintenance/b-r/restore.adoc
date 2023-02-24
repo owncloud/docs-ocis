@@ -1,6 +1,5 @@
 = Restore
 :toc: right
-
 :description: Restoring from an Infinite Scale backup can be a task bringing the instance back to production after a major incident occurs.
 
 == Introduction
@@ -25,7 +24,10 @@ When it comes to restoring data, keep in mind that you always have to restore al
 * metadata ^2^
 * blobs ^2^
 
-(1) ... System data has, if not otherwise defined, a common root path which is the same root path as for metadata. Individual paths can be defined for particular services though. See the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for more details. +
+(1) ... System data has, if not otherwise defined, a common root path which is the same root path as for metadata. Individual paths can be defined for particular services though. See the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for more details. Also see the xref:conf-examples/search/configure-search.adoc[search configuration example]. If the search index does not get restored, it needs to be recreated.
+
+{empty}
+
 (2) ... For POSIX-only environments, the location for blobs and metadata is the same. When using S3, the location differs.
 
 Valid for all restore procedures:

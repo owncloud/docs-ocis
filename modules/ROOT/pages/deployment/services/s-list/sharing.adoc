@@ -1,9 +1,8 @@
 = Sharing Service Configuration
 :toc: right
+:description: The Infinite Scale Sharing service
 
 :ext_name: sharing
-
-:description: The Infinite Scale Sharing
 
 == Introduction
 

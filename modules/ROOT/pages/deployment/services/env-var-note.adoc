@@ -1,6 +1,5 @@
 = Notes for Environment Variables
 :toc: right
-
 :description: Environment variables are key to configure Infinite Scale. To understand variables in a proper way, some notes are made.
 
 == Introduction
