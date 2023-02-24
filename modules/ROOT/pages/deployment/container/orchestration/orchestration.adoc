@@ -1,9 +1,11 @@
 = Container Orchestration
 :toc: right
 :toclevels: 3
+:description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
 
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
+:docker-compose-evolution: https://docs.docker.com/compose/compose-v2/
 :docker-hub-url: https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
 :kubernetes-url: https://kubernetes.io
@@ -39,8 +41,6 @@
 
 // note the attributes `tab_xxx` definition needed for the tab definitions are in antora.yaml
 
-:description: In this section, we provide guidelines for container orchestration tools suitable for Infinite Scale like {docker-compose-url}[Docker-Compose] and {kubernetes-url}[Kubernetes]. Other container orchestration tools like {docker-swarm-url}[Docker Swarm] can be derived from these.
-
 == Introduction
 
 {description} Container orchestration tools are necessary to meet the requirements described in the xref:availability_scaling/availability_scaling.adoc#container[Availability and Scalability] guide starting at the _Container_ section.
@@ -58,11 +58,11 @@ IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/genera
 
 == Docker Compose
 
-Similarly, when using _docker run_ and handing over command-line parameters for a single container, you can define a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.
+Similar to using _docker run_ and handing over command-line parameters for a single container, you can use a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.
 
-* Consider that when planning to run Infinite Scale via Docker Compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server and other limitations but it is usually more when running the pure binary when it comes to ease of configuration and maintaining your environment.
+* Consider that when planning to run Infinite Scale via Docker Compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server and other limitations but it usually offers more than running the pure binary when it comes to ease of configuration and maintaining your environment.
 
-* Use docker compose when planning an extended degree of freedom compared to the binary installation but not needing the full capabilities of Kubernetes and Helm.
+* Use Docker Compose if you aim at an extended degree of freedom compared to the binary installation but don't need the full capabilities of Kubernetes and Helm.
 
 === Prerequisites
 
@@ -73,21 +73,9 @@ Check if the package `docker-compose` is installed in addition to docker:
 which docker-compose
 ----
 
-If `docker-compose` is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install `docker-compose` first. On most Linux distributions, you can simply use the package manager to do so. Note that in many cases, this will install a 1.x version (python-based) while a 2.x version (go-based) is preferred. To check which version would be installed with the package manager, simply type:
+If `docker-compose` is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install `docker-compose` first. On most Linux distributions, you can simply use the package manager to do so.
 
-[source,bash]
-----
-sudo apt-cache policy docker-compose
-----
-
-If the output shows a version like 2.x, you can use the package manager to install docker-compose, like with the following command on Debian-based distributions:
-
-[source,bash]
-----
-sudo apt install docker-compose
-----
-
-If the output shows a version like 1.25.0-1, follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version.
+Note that in many cases, this will install a 1.x version (python-based) only supported until June 2023. Version 2.x (go-based) is available from Docker. Follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version. Familiarize yourself with the {docker-compose-evolution}[differences between versions]. Most of our examples are still based on Compose-V1.
 
 When done, create a project directory, like `ocis-compose` in your home directory to have a common location for your Infinite Scale compose files.
 
