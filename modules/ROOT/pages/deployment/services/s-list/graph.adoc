@@ -12,7 +12,7 @@
 
 == Manual Filters
 
-Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` to refine results.
+Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` and `or` to refine results.
 
 == Sequence Diagram
 
