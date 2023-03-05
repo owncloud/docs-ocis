@@ -137,6 +137,8 @@ sudo chown -R ocis:ocis {ocis_env}
 
 Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Info] section for more information about the environment variables used. 
 
+Setting the correct `OCIS_URL` is essential for the built-in openIDConnect IDP as the xref:{s-path}/idp.adoc[IDP service] needs to be reachable under the same host and port as the reverse proxy is configured. If this has not been configured the same, the IDP service will log errors like `origin does not match request URL`.
+
 [source,bash,subs="attributes+"]
 ----
 sudo vi {ocis_env}/ocis.env
