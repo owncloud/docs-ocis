@@ -41,7 +41,7 @@ The minimum hardware requirements depend on the usage scenario you have in mind 
 
 The following table shows the tested and supported hardware architecture matrix::
 +
-[width="65%",cols="50%,50%",options="header"]
+[width="75%",cols="50%,50%",options="header"]
 |===
 | OS / Docker
 | Hardware Architecture
