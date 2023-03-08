@@ -36,8 +36,12 @@ The minimum hardware requirements depend on the usage scenario you have in mind 
 * For more intense testing purposes, the recommended start hardware is a multicore processor with at least 4GB of RAM.
 * For production environments, CPU and RAM are the main limiting factors. A clear guideline for CPUs can't be provided at this time since there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network-related factors.
 
+{empty}
+// only needed to separate from the list
+
 The following table shows the tested and supported hardware architecture matrix::
-[width="65%",cols="50%,50%",options="header"]
++
+[width="75%",cols="50%,50%",options="header"]
 |===
 | OS / Docker
 | Hardware Architecture
@@ -110,7 +114,7 @@ The benefit of keeping the inode/stat/block in memory is easily explained. All c
 Taking the numbers from above:
 
 [[sample_environments]]
-[width="70%",cols="^90%,^60%,^60%,^60%",options="header"]
+[width="80%",cols="^90%,^60%,^60%,^60%",options="header"]
 |===
 | # of Spaces +
 (# of Root Blocks)
