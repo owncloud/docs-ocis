@@ -248,7 +248,10 @@ As the Helm chart has currently not been published to a Helm repository, you nee
 
 * Check the supported Kubernetes versions before you download the chart.
 +
-The `~` represents all patch releases for that particular version:
+--
+** The `~` represents all patch releases for that particular version.
+** The `-0` represents subversions for that particular version.
+--
 +
 [tabs]
 ====
