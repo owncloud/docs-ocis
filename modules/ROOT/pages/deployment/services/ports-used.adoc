@@ -21,7 +21,7 @@ The following port ranges are used by services:
 | 9110-9114  | xref:{s-path}/ocs.adoc[ocs]
 | 9115-9119  | xxref:{s-path}/webdav.adoc[webdav]
 | 9120-9124  | xref:{s-path}/graph.adoc[graph]
-| 9125-9129  | FREE (formerly used by glauth)
+| 9125-9129  | xref:{s-path}/policies.adoc[policies]
 | 9130-9134  | xref:{s-path}/idp.adoc[idp]
 | 9135-9139  | FREE
 | 9140-9141  | xref:{s-path}/frontend.adoc[frontend]
@@ -39,7 +39,7 @@ The following port ranges are used by services:
 | 9166-9169  | xref:{s-path}/auth-machine.adoc[auth-machine]
 | 9170-9174  | xref:{s-path}/notifications.adoc[notifications]
 | 9175-9179  | xref:{s-path}/storage-publiclink.adoc[storage-publiclink]
-| 9180-9184  | FREE (formerly used by accounts)
+| 9180-9184  | FREE
 | 9185-9189  | xref:{s-path}/thumbnails.adoc[thumbnails]
 | 9190-9194  | xref:{s-path}/settings.adoc[settings]
 | 9195-9199  | FREE
@@ -54,4 +54,5 @@ The following port ranges are used by services:
 | 9240-9244  | xref:{s-path}/app-registry.adoc[app-registry]
 | 9245-9249  | FREE
 | 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
+| 9460-9464  | xref:{s-path}/store.adoc[store]
 |===

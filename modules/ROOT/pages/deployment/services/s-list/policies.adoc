@@ -1,0 +1,170 @@
+= Policies Service Configuration
+:toc: right
+:description: The Infinite Scale policies service provides a new grpc api which can be used to return whether a requested operation is allowed or not. To do so, Open Policy Agent (OPA) is used to determine the set of rules of what is permitted and what is not.
+
+:ext_name: policies
+
+// remember to REMOVE the corresponding tab if a new ocis release will be published
+
+:no_second_tab: true
+:no_third_tab: true
+
+== Introduction
+
+{description} 
+
+Policies are written in the https://www.openpolicyagent.org/docs/latest/policy-language/[rego query language, window=_blank]. The location of the rego files can be configured via yaml, a configuration using environment variables is not possible.
+
+== Default Values
+
+* The policies service listens on port 9125 by default.
+
+== General Information
+
+The Policies Service consists of the following modules:
+
+*   Proxy Authorization (middleware)
+*   Event Authorization (async post-processing)
+*   GRPC API (can be used from other services)
+
+To configure the Policies Service, three environment variables need to be defined:
+
+*   `POLICIES_ENGINE_TIMEOUT`
+*   `POLICIES_POSTPROCESSING_QUERY`
+*   `PROXY_POLICIES_QUERY`
+
+Note that each query setting defines the https://www.openpolicyagent.org/docs/latest/#complete-rules[Complete Rules,window=_blank] variable defined in the rego rule set the corresponding step uses for the evaluation. If the variable is mistyped or not found, the evaluation defaults to deny. Individual query definitions can be defined for each module.
+
+To activate the policies service for a module, it must be started with a yaml configuration that at minimum points to a rego file that contains the complete rule variable to be queried. Note that if the service is scaled horizontally, each instance should have access to the same rego files to avoid unpredictable results. If a file path has been configured but the file it is not present or accessible, the evaluation defaults to deny.
+
+When using async post-processing which is done via the xref:{s-path}/postprocessing.adoc[postprocessing service], the value `policies` must be added to the `POSTPROCESSING_STEPS` configuration in order where the evaluation should take place. Example: first check if a file contains questionable content via policies and continue if ok to check for viruses.
+
+For configuration examples, the example policies provided from the xref:example-policies[Example Policies] are used. 
+
+== Modules
+
+=== GRPC API
+
+The GRPC api can be used from any other internal service. It can also be used for example by third parties to find out if an action is allowed or not. This layer is already used by the proxy middleware. There is no configuration necessary, because the query setting (complete rule variable) must be part of the request.
+
+=== Proxy Middleware
+
+The xref:{s-path}/proxy.adoc[proxy service] already includes a middleware which uses the internal xref:grpc-service[GRPC api] to evaluate the policies. Since the Proxy is in heavy use and every HTTP request is processed here, only simple and quick decisions should be evaluated. More complex queries such as file content evaluation are _strongly_ discouraged.
+
+=== Event Service (Postprocessing)
+
+This layer is event-based and part of the xref:{s-path}/postprocessing.adoc[postprocessing service]. Since processing at this point is asynchronous, the operations can also take longer and be more expensive, like evaluating the contents of a file.
+
+== Defining Policies to Evaluate
+
+Each module can have as many policy files it takes for evaluation. Files can also include other files if necessary. To use policies, they have to be saved to a location that is accessible to the policies service. As a good starting point, take the xref:deployment/general/general-info.adoc#configuration-directory[config directory] and use a subdirectory collecting all the `.rego` files, though any other directory can be defined. The config directory is already accessible by all services and usually is included in a xref:maintenance/b-r/backup.adoc[backup] plan.
+
+If this is done, it's required to configure the policy service to use these files:
+
+NOTE: It is important, that *all* files needed have to be added to the list of files the policies service uses.
+
+[source,yaml]
+----
+policies:
+  engine:
+    policies:
+      - your_path_to_policies/proxy.rego
+      - your_path_to_policies/postprocessing.rego
+      - your_path_to_policies/util.rego
+----
+
+Once the reference to policy files are configured correctly, the _QUERY configuration needs to be defined for the proxy middleware and for the events service.
+
+== Setting the Query Configuration
+
+To define a value for the query evaluation, the following scheme is necessary:
+
+[source,plaintext]
+----
+data.<package-name>.<complete-rule-variable-name>
+----
+
+* The keyword `data` is mandatory and must be present.
+* The `package-name` is defined in one .rego file like `package postprocessing`. Is not related to the filename, for more details see the https://www.openpolicyagent.org/docs/latest/policy-language/#packages[packages,window=_blank] documentation.
+* The `complete-rule-variable-name` is the variable providing the result of the evaluation.
+* Exact one of the defined files, which is responsible for returning the evaluation result, must contain the combination of `<package-name>` and `<complete-rule-variable-name>`.
+
+=== Proxy
+
+Note that this setting has to be part of the proxy configuration.
+
+[source,yaml]
+----
+proxy:
+  policies_middleware:
+    query: data.proxy.granted
+----
+
+The same can be achieved by setting the following evironment variable:
+
+[source,yaml]
+----
+PROXY_POLICIES_QUERY=data.proxy.granted
+----
+
+=== Postprocessing
+
+[source,yaml]
+----
+policies:
+  postprocessing:
+    query: data.postprocessing.granted
+----
+
+The same can be achieved by setting the following evironment variable:
+
+[source,yaml]
+----
+POLICIES_POSTPROCESSING_QUERY=data.postprocessing.granted
+----
+
+As soon as that query is configured, the postprocessing service must be informed to use the policies step by setting the environment variable: 
+
+[source,yaml]
+----
+POSTPROCESSING_STEPS=policies
+----
+
+Note that additional steps can be configured and their appearance defines the order of processing. For details see the xref:{s-path}.adoc[postprocessing service] documentation.
+
+== Example Policies
+
+The policies service contains a set of pre-configured example policies. See the deployment examples directory for details. The contained policies disallow ocis to create certain filetypes, both via the proxy middleware and the events service via postprocessing.
+
+[tabs]
+====
+{compose_tab_1_tab_text}::
++
+--
+{composer-url}{compose_tab_1}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_1}`
+--
+ifndef::no_second_tab[]
+{compose_tab_2_tab_text}::
++
+--
+{composer-url}{compose_tab_2}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_2}`
+--
+endif::[]
+ifndef::no_third_tab[]
+{compose_tab_3_tab_text}::
++
+--
+{composer-url}{compose_tab_2}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
+
+Using git version name: `{compose_tab_3}`
+--
+endif::[]
+====
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]
