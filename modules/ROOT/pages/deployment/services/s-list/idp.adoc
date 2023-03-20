@@ -14,6 +14,10 @@ By default, the IDP service is configured to use the Infinite Scale xref:{s-path
 
 To use the embedded IDP service, it must be accessed with https. Accessing it with http is not possible and generates an error that is logged.
 
+== Default Values
+
+* IDP listens on port 9130 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

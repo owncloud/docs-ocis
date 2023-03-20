@@ -10,6 +10,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Default Values
+
+* Users listens on port 9144 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

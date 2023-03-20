@@ -11,6 +11,10 @@
 // fixme: source description is still missing, and a better description is needed
 // fixme: currently found at: https://owncloud.dev/extensions/storage/apps/#app-provider-capability
 
+== Default Values
+
+* App Provider listens on port 9165 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

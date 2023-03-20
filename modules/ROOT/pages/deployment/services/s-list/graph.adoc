@@ -10,6 +10,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Default Values
+
+* Graph listens on port 9120 by default.
+
 == Manual Filters
 
 Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` and `or` to refine results.

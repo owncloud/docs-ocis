@@ -8,6 +8,10 @@
 
 {description} To do this, it hooks into the event system and listens for certain events that the users need to be informed about. As an example, when a user is added to a share, a notification email will be sent to the user.
 
+== Default Values
+
+* Notifications listens on port 9170 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

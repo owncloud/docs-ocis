@@ -13,6 +13,10 @@
 * Metadata: all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
 * Content: all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
 
+== Default Values
+
+* Search listens on port 9220 by default.
+
 == General Considerations
 
 * To use the search service, an event system needs to be configured for all services like NATS, which is shipped and preconfigured.
