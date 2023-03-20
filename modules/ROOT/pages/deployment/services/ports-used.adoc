@@ -19,7 +19,7 @@ The following port ranges are used by services:
 | 9100-9104  | xref:{s-path}/web.adoc[web]
 | 9105-9109  | https://github.com/owncloud/ocis-hello[hello]
 | 9110-9114  | xref:{s-path}/ocs.adoc[ocs]
-| 9115-9119  | xxref:{s-path}/webdav.adoc[webdav]
+| 9115-9119  | xref:{s-path}/webdav.adoc[webdav]
 | 9120-9124  | xref:{s-path}/graph.adoc[graph]
 | 9125-9129  | xref:{s-path}/policies.adoc[policies]
 | 9130-9134  | xref:{s-path}/idp.adoc[idp]

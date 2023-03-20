@@ -11,6 +11,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Default Values
+
+* Storage-Users listens on port 9157 by default.
+
 == Manage Unfinished Uploads
 
 // referencing: [oCIS FS] clean up aborted uploads https://github.com/owncloud/ocis/issues/2622

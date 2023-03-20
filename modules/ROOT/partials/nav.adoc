@@ -38,7 +38,7 @@
 **** xref:deployment/services/s-list/idm.adoc[IDM]
 **** xref:deployment/services/s-list/idp.adoc[IDP]
 **** xref:deployment/services/s-list/nats.adoc[NATS]
-**** xref:deployment/services/s-list/notifications.adoc[Notification]
+**** xref:deployment/services/s-list/notifications.adoc[Notifications]
 **** xref:deployment/services/s-list/ocdav.adoc[OCDAV]
 **** xref:deployment/services/s-list/ocs.adoc[OCS]
 **** xref:deployment/services/s-list/policies.adoc[Policies]

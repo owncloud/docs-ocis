@@ -10,6 +10,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Default Values
+
+* OCS listens on port 9110 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

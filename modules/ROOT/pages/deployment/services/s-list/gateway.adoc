@@ -10,6 +10,10 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Default Values
+
+* Gateway listens on port 9142 by default.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
