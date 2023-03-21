@@ -50,7 +50,8 @@ environment variable. It is also possible to define a mapping of claim values to
 in ownCloud Infinite Scale via a `yaml` configuration. See the following `proxy.yaml` snippet for an
 example.
 
-```yaml
+[source,yaml]
+----
 role_assignment:
     driver: oidc
     oidc_role_mapper:
@@ -60,7 +61,7 @@ role_assignment:
             user: myUserRole
             spaceadmin: mySpaceAdminRole
             guest: myGuestRole
-```
+----
 
 This would assign the role `admin` to users with the value `myAdminRole` in the claim `ocisRoles`.
 The role `user` to users with the values `myUserRole` in the claim `ocisRoles` and so on.
@@ -73,12 +74,13 @@ will be logged and the user will not be able to log in.
 
 The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The `role_mapping` is:
 
-```yaml
+[source,yaml]
+----
 admin: ocisAdmin
 user: ocisUser
 spaceadmin: ocisSpaceAdmin
 guest: ocisGuest
-```
+----
 
 == Recommendations for Production Deployments
 
