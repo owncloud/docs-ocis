@@ -24,6 +24,7 @@
 **** xref:deployment/services/ports-used.adoc[Ports Used]
 **** xref:deployment/services/tls.adoc[Transport Layer Security]
 *** List of Services
+**** xref:deployment/services/s-list/antivirus.adoc[Antivirus]
 **** xref:deployment/services/s-list/app-provider.adoc[App Provider]
 **** xref:deployment/services/s-list/app-registry.adoc[App Registry]
 **** xref:deployment/services/s-list/audit.adoc[Audit]
