@@ -69,6 +69,8 @@
 ** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
 ** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
+* Additional Information
+** xref:additional-information/knowledge-base.adoc[Knowledge Base]
 
 ////
 * Migration

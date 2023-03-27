@@ -1,0 +1,66 @@
+= Brute Force Protection Against Failed Login Attempts
+:toc: right
+:description: Implementing a brute force protection against failing login attempts is something that usually should be done before the IDP, the load balancer or whatever component sees the requests first.
+:fail2ban_url: https://www.fail2ban.org/wiki/index.php/Main_Page
+
+== Introduction
+
+{description} Setting up {fail2ban_url}[Fail2ban] parsing logs can be a possibility but is subject to a concrete setup. Note that this document gives an overview and assumes that you are familiar with Fail2ban. The content has been extracted and adapted from xref:{oc-central-url}[Central], our community page, and is without any claim for correctness and eligibility for support, though feedback is welcomed.
+
+== Prerequisites
+
+* Logging to file needs to be enabled for Infinite Scale. See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_LOG_FILE] for more details.
+* When running a container setup, the Infinite Scale logs need to be available to the host so Fail2ban can access them. Make sure to create a volume to do so.
+* {fail2ban_url}[Fail2ban] needs to be:
+** installed and a basic setup configured. 
+** able to access the Infinite Scale logs.
+
+== Configuration
+
+The log for a failed login attempt looks like this and consists of two consecutive log entries:
+
+[source,plaintext]
+----
+{"level":"error","service":"idm","bind_dn":"uid=someuser,ou=users,o=libregraph-idm","op":"bind","remote_addr":"127.0.0.1:59672","time":"2023-03-20T19:26:04.726564978Z","message":"invalid credentials"}
+
+{"level":"info","service":"proxy","proto":"HTTP/1.0","request-id":"blabla","remote-addr":"123.123.123.123","method":"POST","status":204,"path":"/signin/v1/identifier/_/logon","duration":135.139963,"bytes":0,"time":"2023-03-20T19:26:04.727076622Z","message":"access-log"}
+----
+
+Note that the IP address of the source (`123.123.123.123`) is not in the line where the failed login attempt (`invalid credentials`) is detected.
+
+=== Fail2ban Setup
+
+Make sure to adapt the paths to configuration files according to the environment used.
+
+* Create a Fail2ban *filter* file `/etc/fail2ban/filter.d/ocis.conf` with the following example content:
++
+[source,plaintext]
+----
+# ocis.conf
+[Definition]
+failregex = ^.*"service":"idm".*"message":"invalid credentials"((.|\n)*)remote-addr"."<HOST>","method":"POST","status":204.*
+
+ignoreregex =
+
+datepattern = ^%%Y-%%b-%%dT%%H:%%M:%%S\.*Z
+
+[Init]
+# maybe to be increased, in case some other log slips in between
+maxlines = 2
+----
+
+* Create a Fail2ban *jail* file `/etc/fail2ban/jail.d/ocis.conf` with the following example content, use the correct path to access the `ocis.log` file and change any settings according to your needs:
++
+[source,plaintext]
+----
+[ocis]
+enabled = true
+filter = ocis
+logpath = /path/to/ocis/logs/ocis.logs
+maxretry = 3
+findtime = 3600
+bantime = 60
+action = iptables-allports
+----
+
+After creating the necessary files, restart Fail2ban and test the setup.
