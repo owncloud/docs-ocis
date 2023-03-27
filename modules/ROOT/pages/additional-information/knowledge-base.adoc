@@ -1,15 +1,15 @@
 = Knowledge Base
 :toc: right
-:description: The Infinite Scale knowledge base provides setup examples, best practices, contributor created content etc. that can be of interrest to admins as a guide on how topics can be addressed.
+:description: The Infinite Scale knowledge base provides setup examples, best practices, contributor-created content etc. that can be of interest to admins as a guide on how topics can be addressed.
 :fail2ban_url: https://www.fail2ban.org/wiki/index.php/Main_Page
 :kb_path: additional-information/kb-documents
 
 == Introduction
 
-{description} Topics listed are not intended to provide a full and ready to go guide, are maybe not suitable for all deployment scenarios but give an overview on how things can be achieved.
+{description} Information on topics listed here are not intended as a full and ready-to-go guide and may not be suitable for all deployment scenarios. Instead we give an overview on how things can be achieved.
 
-Note that each topic listed contains a brief description what it is about and links to a document for more details. This keeps this document compact and readble while all the information about the particular topic has its own description page. ownCloud is not responsible for any content that references external pages or if noted.
+Each topic contains a brief description what it is about and links to a document for more details. This keeps this document compact and readable while all the information about the particular topic has its own description page. ownCloud is not responsible for any referenced content of external pages.
 
 == Brute Force Protection Against Failed Login Attempts
 
-Implementing a brute force protection against failing login attempts is something that usually should be done before the IDP, the load balancer or whatever component sees the requests first. Setting up {fail2ban_url}[fail2ban] parsing ocis logs can be a possible way but is subject to a concrete setup. Follow this xref:{kb_path}/fail2ban-protect-login.adoc[document] for more details and guidance.
+Implementing a brute force protection against failing login attempts is something that usually should be done before the IDP, the load balancer or whatever component sees the requests first. Setting up {fail2ban_url}[Fail2ban] parsing Infinite Scale logs can be a possibility but is subject to a concrete setup. Follow this xref:{kb_path}/fail2ban-protect-login.adoc[document] for more details and guidance.

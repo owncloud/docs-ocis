@@ -5,15 +5,15 @@
 
 == Introduction
 
-{description} Setting up {fail2ban_url}[fail2ban] parsing logs can be a possible way but is subject to a concrete setup. Note that this document gives an overview and assumes that you are fimilar with failed2ban. The content has been extracted and adapted from xref:{oc-central-url}[Central], our community page and is without any claim for correctness and eligability for support, though feedback is welcomed.
+{description} Setting up {fail2ban_url}[Fail2ban] parsing logs can be a possibility but is subject to a concrete setup. Note that this document gives an overview and assumes that you are familiar with Fail2ban. The content has been extracted and adapted from xref:{oc-central-url}[Central], our community page, and is without any claim for correctness and eligibility for support, though feedback is welcomed.
 
 == Prerequisites
 
 * Logging to file needs to be enabled for Infinite Scale. See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_LOG_FILE] for more details.
-* When running a container setup, the Infinite Scale logs need to be available to the host so fail2ban can access them. Make sure to create a volume to do so.
-* {fail2ban_url}[fail2ban] needs to be:
-** installed and basic setup has been done. 
-** able to access the ocis logs.
+* When running a container setup, the Infinite Scale logs need to be available to the host so Fail2ban can access them. Make sure to create a volume to do so.
+* {fail2ban_url}[Fail2ban] needs to be:
+** installed and a basic setup configured. 
+** able to access the Infinite Scale logs.
 
 == Configuration
 
@@ -30,9 +30,9 @@ Note that the IP address of the source (`123.123.123.123`) is not in the line wh
 
 === Fail2ban Setup
 
-Note to adapt the paths to configuration files according the environment used.
+Make sure to adapt the paths to configuration files according to the environment used.
 
-* Create a fail2ban *filter* file `/etc/fail2ban/filter.d/ocis.conf` with the following example content:
+* Create a Fail2ban *filter* file `/etc/fail2ban/filter.d/ocis.conf` with the following example content:
 +
 [source,plaintext]
 ----
@@ -49,7 +49,7 @@ datepattern = ^%%Y-%%b-%%dT%%H:%%M:%%S\.*Z
 maxlines = 2
 ----
 
-* Create a fail2ban *jail* file `/etc/fail2ban/jail.d/ocis.conf` with the following example content, use the correct path to access the `ocis.log` file and change any settings according your needs:
+* Create a Fail2ban *jail* file `/etc/fail2ban/jail.d/ocis.conf` with the following example content, use the correct path to access the `ocis.log` file and change any settings according to your needs:
 +
 [source,plaintext]
 ----
@@ -63,4 +63,4 @@ bantime = 60
 action = iptables-allports
 ----
 
-Post creating the necessary files, restart fail2ban and test the setup.
+After creating the necessary files, restart Fail2ban and test the setup.
