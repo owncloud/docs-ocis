@@ -12,4 +12,8 @@ Each topic contains a brief description what it is about and links to a document
 
 == Brute Force Protection Against Failed Login Attempts
 
-Implementing a brute force protection against failing login attempts is something that usually should be done before the IDP, the load balancer or whatever component sees the requests first. Setting up {fail2ban_url}[Fail2ban] parsing Infinite Scale logs can be a possibility but is subject to a concrete setup. Follow this xref:{kb_path}/fail2ban-protect-login.adoc[document] for more details and guidance.
+Implementing a brute force protection against failing login attempts is something that usually should be done before the IDP, the load balancer or whatever component sees the requests first. Setting up {fail2ban_url}[Fail2ban] parsing Infinite Scale logs can be a possibility but is subject to a concrete setup. Follow this xref:{kb_path}/fail2ban-protect-login.adoc[document,window=_blank] for more details and guidance.
+
+== OCIS SSO with Authelia or Authentik
+
+Written by a contributor, the linked guide shows how to setup Infinite Scale to either work with https://www.authelia.com/[Authelia,window=_blank] or https://goauthentik.io/[Authentik,window=_blank]. Note that the codebase at the time of reference was Infinite Scale stable 2.0. Follow this https://helgeklein.com/blog/owncloud-infinite-scale-with-openid-connect-authentication-for-home-networks/[article,window=_blank] for more details and guidance.
