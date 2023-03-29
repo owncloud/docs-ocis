@@ -37,6 +37,7 @@
 **** xref:deployment/services/s-list/graph.adoc[Graph]
 **** xref:deployment/services/s-list/groups.adoc[Groups]
 **** xref:deployment/services/s-list/idm.adoc[IDM]
+**** xref:deployment/services/s-list/invitations.adoc[Invitations]
 **** xref:deployment/services/s-list/idp.adoc[IDP]
 **** xref:deployment/services/s-list/nats.adoc[NATS]
 **** xref:deployment/services/s-list/notifications.adoc[Notifications]
