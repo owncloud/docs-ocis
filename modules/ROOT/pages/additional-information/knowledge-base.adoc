@@ -8,7 +8,9 @@
 
 {description} Information on topics listed here are not intended as a full and ready-to-go guide and may not be suitable for all deployment scenarios. Instead we give an overview on how things can be achieved.
 
-Each topic contains a brief description what it is about and links to a document for more details. This keeps this document compact and readable while all the information about the particular topic has its own description page. ownCloud is not responsible for any referenced content of external pages.
+Each topic contains a brief description what it is about and links to a document for more details. This keeps this document compact and readable while all the information about the particular topic has its own description page. 
+
+NOTE: ownCloud is not responsible for any referenced content of external pages. Provided information comes without any claim for correctness and eligibility for support.
 
 == Brute Force Protection Against Failed Login Attempts
 
