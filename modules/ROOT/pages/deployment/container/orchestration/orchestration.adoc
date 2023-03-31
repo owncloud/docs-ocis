@@ -818,6 +818,7 @@ minikube kubectl -- get pods
 
 ==== Define Chart Access
 
+===== Linux
 . Get and check the minikube IP address:
 +
 [source,bash]
@@ -831,6 +832,26 @@ minikube ip
 ----
 192.168.49.2 ocis.kube.owncloud.test
 ----
+
+===== MacOS
+
+. minikube on MacOS requires a tunnel to be started from minikube to get access to the ingress of the cluster:
++
+[source,bash]
+----
+minikube tunnel --bind-address=192.168.179.3
+----
++
+The address to be set here (which should normally be the one of `en0`) can be fetched from `ifconfig`. Please note that the interface must be reachable from within Kubernetes. So `127.0.0.1` is no option here. This is due to the fact that the OpenID process tries to lookup the hostname of the cluster via the hosts `/etc/hosts` file (see next step), but `127.0.0.1` within a pod will not resolve to the host serving Kubernetes.
+
+. Add the IP address you specified in above's command to your `/etc/hosts` file. An example line for the `/etc/hosts` file could look like this:
++
+[source,plaintext]
+----
+192.168.179.3 ocis.kube.owncloud.test
+----
++
+Warning: This way you expose the system on your local machine's port to the local intranet. So everybody in your home network can access the system.
 
 === Access Infinite Scale in Your Browser
 
