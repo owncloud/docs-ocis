@@ -5,9 +5,9 @@
 Note that there is only this one master file for all breaking changes.
 For each breaking changes block you need:
 * a new section on top of the lastest one. (actual first, former second)
-* directly above the section an ID (see below how it is done) with the corresponding version equal to the version name so it can be accessed via an anchor. This can not be automated and must be maintained manually.
+* directly above the section an ID (see below how it is done) with the corresponding version equal to the version name so it can be accessed via an anchor. This cannot be automated and must be maintained manually.
 * Even if there are no breaking changes, add a section telling that there are no breaking changes.
-* You can not substitute the version with an attribute like {helm_tab_2_tab_text} as the attribute changes and the content here needs to be static.
+* You cannot substitute the version with an attribute like {helm_tab_2_tab_text} as the attribute changes and the content here needs to be static.
 * You can, if wanted, delete all sections if there are more than two except the last two which are mandatory to be present because of referencing.
 ** Double check the orchestration.adoc file if things need to be adapted (in section breaking changes)
 ////
