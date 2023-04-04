@@ -1,0 +1,62 @@
+= Helm Chart Breaking Changes
+:toc: right
+
+////
+Note that there is only this one master file for all breaking changes.
+For each breaking changes block you need:
+* a new section on top of the lastest one. (actual first, former second)
+* directly above the section an ID (see below how it is done) with the corresponding version equal to the version name so it can be accessed via an anchor. This cannot be automated and must be maintained manually.
+* Even if there are no breaking changes, add a section telling that there are no breaking changes.
+* You cannot substitute the version with an attribute like {helm_tab_2_tab_text} as the attribute changes and the content here needs to be static.
+* If there are more than two sections, you can delete some or all except the last two which are mandatory to be present because of referencing.
+** Double check the orchestration.adoc file if things need to be adapted (in section breaking changes)
+////
+
+[id=0.2.0]
+== Chart Version: 0.2.0
+
+Version 0.2.0 of the Helm Chart introduces some changes compared to version 0.1.0 with respect to the value names which align the service/app names at various places (values file, YAML files, directories).
+
+[width=100%,cols="~,~",options=header]
+|===
+| Old Value Name (0.1.0)
+| New Value Name (0.2.0)
+
+| `configRefs.storageUsersConfigRef`
+| `configRefs.storageusersConfigRef`
+
+| `secretRefs.storageSystemJwtSecretRef`
+| `secretRefs.storagesystemJwtSecretRef`
+
+| `secretRefs.storageSystemSecretRef`
+| `secretRefs.storagesystemSecretRef`
+
+| `services.appProvider`
+| `services.appprovider`
+
+| `services.appRegistry`
+| `services.appregistry`
+
+| `services.authBasic`
+| `services.authbasic`
+
+| `services.authMachine`
+| `services.authmachine`
+
+| `services.storagePublicLink`
+| `services.storagepubliclink`
+
+| `services.storageShares`
+| `services.storageshares`
+
+| `services.storageSystem`
+| `services.storagesystem`
+
+| `services.storageUsers`
+| `services.storageusers`
+|===
+
+[id=0.1.0]
+== Chart Version: 0.1.0
+
+There are no breaking changes for this release.

@@ -231,14 +231,42 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 
 ifdef::use_tab_2[]
 | {helm_tab_2_tab_text}
-| 2.0.0
+| 3.0.0-alpha
 endif::[]
 
 ifdef::use_tab_3[]
 | {helm_tab_3_tab_text}
-| 3.0.0 - 3.0.1
+| 2.0.0
 endif::[]
 |===
+
+=== Breaking Changes
+
+////
+* On each Helm Chart release, only the breaking-changes.adoc file MUST be maintained.
+* We can of course also state that one tab has no breaking change but in this case, this needs manual maintenance on each new version in this document too.
+////
+
+Breaking changes are only published for Helm Chart versions that have been released. Select from the tabs possible breaking changes between Helm Chart versions. A new document containing all the details will open.
+
+[tabs]
+====
+ifdef::use_tab_2[]
+{helm_tab_2_tab_text}::
++
+--
+xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_2_tab_text}[Breaking Changes,window=_blank]
+--
+endif::[]
+
+ifdef::use_tab_3[]
+{helm_tab_3_tab_text}::
++
+--
+xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_3_tab_text}[Breaking Changes,window=_blank]
+--
+endif::[]
+====
 
 === Get the Chart
 
