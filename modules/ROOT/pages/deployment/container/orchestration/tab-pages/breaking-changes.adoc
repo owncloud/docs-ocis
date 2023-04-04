@@ -8,14 +8,14 @@ For each breaking changes block you need:
 * directly above the section an ID (see below how it is done) with the corresponding version equal to the version name so it can be accessed via an anchor. This cannot be automated and must be maintained manually.
 * Even if there are no breaking changes, add a section telling that there are no breaking changes.
 * You cannot substitute the version with an attribute like {helm_tab_2_tab_text} as the attribute changes and the content here needs to be static.
-* You can, if wanted, delete all sections if there are more than two except the last two which are mandatory to be present because of referencing.
+* If there are more than two sections, you can delete some or all except the last two which are mandatory to be present because of referencing.
 ** Double check the orchestration.adoc file if things need to be adapted (in section breaking changes)
 ////
 
 [id=0.2.0]
 == Chart Version: 0.2.0
 
-Version 0.2.0 of the Helm Chart introduces some changes compared to verion 0.1.0 with respect to the value names which align the service/app names at various places (values file, YAML files, directories).
+Version 0.2.0 of the Helm Chart introduces some changes compared to version 0.1.0 with respect to the value names which align the service/app names at various places (values file, YAML files, directories).
 
 [width=100%,cols="~,~",options=header]
 |===

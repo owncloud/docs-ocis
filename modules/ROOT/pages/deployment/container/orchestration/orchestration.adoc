@@ -247,7 +247,7 @@ endif::[]
 * We can of course also state that one tab has no breaking change but in this case, this needs manual maintenance on each new version in this document too.
 ////
 
-Breaking changes are only published for Helm Chart versions that got released. Select from the tabs possible breaking changes between Helm Chart versions. A new document will open containing all the details.
+Breaking changes are only published for Helm Chart versions that have been released. Select from the tabs possible breaking changes between Helm Chart versions. A new document containing all the details will open.
 
 [tabs]
 ====
