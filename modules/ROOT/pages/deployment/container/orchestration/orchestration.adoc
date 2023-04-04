@@ -837,16 +837,16 @@ minikube ip
 
 NOTE: The following procedure exposes the macOS system via the necessary configured tunnel to the local network. This setup is therefore intended for development purposes only!
 
-. On macOS, minikube requires a tunnel to be started to get access to the ingress of the cluster:
+. On macOS, minikube requires a tunnel to be started to get access to the Ingress of the cluster:
 +
 [source,bash]
 ----
 minikube tunnel --bind-address=192.168.179.3
 ----
 +
-The IP address to be set, which should normally be the one of the `en0` interface, can be fetched from the `ifconfig` command. Note that the interface must be reachable from within Kubernetes and `127.0.0.1` is not an option for this case. This is because the OpenID process tries to lookup the hostname of the cluster via the  `/etc/hosts` file which is described in the next step and `127.0.0.1` within a pod will not resolve to the host serving Kubernetes.
+The IP address to be set, which should normally be the one of the `en0` interface, can be fetched with the `ifconfig` command. Note that the interface must be reachable from within Kubernetes and `127.0.0.1` is not an option in this case. This is because the OpenID process tries to look up the host name of the cluster via the  `/etc/hosts` file which is described in the next step. Within a pod `127.0.0.1` will not resolve to the host serving Kubernetes.
 
-. Add the IP address specified by the above command to your `/etc/hosts` file. An example could look like this:
+. Add the IP address provided by the above command to your `/etc/hosts` file. An example could look like this:
 +
 [source,plaintext]
 ----
