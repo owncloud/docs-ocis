@@ -33,7 +33,7 @@ The `ocs` service can use a configured store via `GRAPH_STORE_TYPE`. Possible st
 | Stores data in a configured Redis cluster.
 
 | `redis-sentinel`
-| Stores data in a configured redis sentinel cluster.
+| Stores data in a configured Redis Sentinel cluster.
 
 | `etcd`
 | Stores data in a configured etcd cluster.

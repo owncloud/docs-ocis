@@ -38,7 +38,7 @@ The `userlog` service persists information via the configured store in `USERLOG_
 | Stores data in a configured Redis cluster.
 
 | `redis-sentinel`
-| Stores data in a configured redis sentinel cluster.
+| Stores data in a configured Redis Sentinel cluster.
 
 | `etcd`
 | Stores data in a configured etcd cluster.
