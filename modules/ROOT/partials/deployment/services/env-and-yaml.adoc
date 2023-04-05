@@ -25,25 +25,20 @@ To exclude a deprecation file if not wanted - like when the file will just not e
 * :!no_deprecation:
 ////
 
-// preset all tab specific deprecations to false
-:show_deprecation_tab_1: false
-:show_deprecation_tab_2: false
-:show_deprecation_tab_3: false
-
-// check to evaluate deprecations and set an attribute per tab
+// evaluate deprecations if set in any tab, but only if no_deprecation is not set
+// if set, it will show the deprecation table in all tabs, independent if that tab has one or not
 ifndef::no_deprecation[]
 
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
-:show_deprecation_tab_1: true
+:has_deprecation_tab_1: true
 endif::[]
 
-////
 ifndef::no_second_tab[]
 ifdef::use_service_tab_2[]
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
-:show_deprecation_tab_2: true
+:has_deprecation_tab_2: true
 endif::[]
 endif::use_service_tab_2[]
 
@@ -51,12 +46,16 @@ ifndef::no_third_tab[]
 ifdef::use_service_tab_3[]
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
-:show_deprecation_tab_3: true
+:has_deprecation_tab_3: true
 endif::[]
 endif::use_service_tab_3[]
 endif::no_third_tab[]
 endif::no_second_tab[]
-////
+
+// if one tab deprecation is set to true, set it generally. ifdef with comma uses or (with + uses and)
+ifdef::has_deprecation_tab_1,has_deprecation_tab_2,has_deprecation_tab_3[]
+:show-deprecation: true
+endif::[]
 
 endif::no_deprecation[]
 
@@ -72,7 +71,7 @@ ifdef::no_yaml[]
 The `{ext_name}` variables are defined in the following way:
 endif::no_yaml[]
 
-// create the tabs
+// create the tabs. note that if no_second_tab is set, the third tab is also not shown
 
 [tabs]
 ====
