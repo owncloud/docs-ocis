@@ -96,7 +96,7 @@ When done, create a project directory like `ocis-compose` in your home directory
 
 Using git version name: `{compose_tab_1}`
 --
-ifdef::use_tab_2[]
+ifdef::use_service_tab_2[]
 {compose_tab_2_tab_text}::
 +
 --
@@ -105,7 +105,7 @@ ifdef::use_tab_2[]
 Using git version name: `{compose_tab_2}`
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_servicetab_3[]
 {compose_tab_3_tab_text}::
 +
 --
@@ -229,12 +229,12 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | {helm_tab_1_tab_text}
 | 3.0.0-alpha.1
 
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 | {helm_tab_2_tab_text}
 | 3.0.0-alpha
 endif::[]
 
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 | {helm_tab_3_tab_text}
 | 2.0.0
 endif::[]
@@ -251,7 +251,7 @@ Breaking changes are only published for Helm Chart versions that have been relea
 
 [tabs]
 ====
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -259,7 +259,7 @@ xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_ta
 --
 endif::[]
 
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -288,14 +288,14 @@ As the Helm chart has currently not been published to a Helm repository, you nee
 --
 include::{ocis-charts-raw-url}{helm_tab_1}{kube-versions-url}[]
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
 include::{ocis-charts-raw-url}{helm_tab_2}{kube-versions-url}[]
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -353,7 +353,7 @@ helm install ocis ./charts/ocis
 | {t2_text}
 |===
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -370,7 +370,7 @@ ifdef::use_tab_2[]
 |===
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -409,7 +409,7 @@ In all examples, adapt the settings according your needs.
 include::example$deployment/container/orchestration/values-overwrite-tab-1.yaml[]
 ----
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -419,7 +419,7 @@ include::example$deployment/container/orchestration/values-overwrite-tab-2.yaml[
 ----
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -447,7 +447,7 @@ endif::[]
 include::example$deployment/container/orchestration/service-monitor-tab-1.yaml[]
 ----
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -457,7 +457,7 @@ include::example$deployment/container/orchestration/service-monitor-tab-2.yaml[]
 ----
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -485,7 +485,7 @@ endif::[]
 include::example$deployment/container/orchestration/email-notification-tab-1.yaml[]
 ----
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -495,7 +495,7 @@ include::example$deployment/container/orchestration/email-notification-tab-2.yam
 ----
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -537,7 +537,7 @@ For these reasons, ownCloud cannot take responsibility for these generic secrets
 | {t_text}
 |===
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -551,7 +551,7 @@ ifdef::use_tab_2[]
 |===
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -606,7 +606,7 @@ For these reasons, ownCloud cannot take responsibility for these generic configu
 | {t_text}
 |===
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -620,7 +620,7 @@ ifdef::use_tab_2[]
 |===
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -675,7 +675,7 @@ As the operator of Helm Charts, you are responsible for these user management se
 | {t_text}
 |===
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -689,7 +689,7 @@ ifdef::use_tab_2[]
 |===
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -744,7 +744,7 @@ If you're using Helm Charts, you are responsible for these user management secre
 | {t_text}
 |===
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -758,7 +758,7 @@ ifdef::use_tab_2[]
 |===
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -805,7 +805,7 @@ This is an example with NGINX ingress and certificates issued by cert-manager. T
 include::example$deployment/container/orchestration/nginx-ingress-tab-1.yaml[]
 ----
 --
-ifdef::use_tab_2[]
+ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -815,7 +815,7 @@ include::example$deployment/container/orchestration/nginx-ingress-tab-2.yaml[]
 ----
 --
 endif::[]
-ifdef::use_tab_3[]
+ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --

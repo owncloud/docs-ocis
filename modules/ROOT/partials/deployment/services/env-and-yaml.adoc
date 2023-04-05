@@ -1,32 +1,78 @@
-// the attribute ext_name (mandatory) and no_yaml (not mandatory) will be handed over by the calling page.
-// if no_yaml is set, it will exclude rendering yaml files because it does not exist.
+////
+The attribute 'ext_name' (mandatory) and 'no_yaml' (not mandatory) will be handed over by the calling page.
+If no_yaml is set, it will exclude rendering yaml files because it does not exist.
 
-// print a dependent explanation line
-// no_yaml is not set = standard extension,
-// no_yaml is set = special scope envvars
+Print a dependent explanation line:
 
-// the included deprecation file just has an attribute necessary for rendering deprecations
-// this is necessary as attributes that are defined INSIDE a tabset will not get recognized,
-// attributes need to be defined OUTSIDE the tabset definition. example content:
-// :show-deprecation: true
-// the file contains the attribute too to be easy used outside of tabsets.
+* no_yaml is not set = standard service
+* no_yaml is set = special scope envvars
 
-// exclude a deprecation file if not wanted - like when the file will just not exist
-// manually unset the attribute if required via ':!no_deprecation:'
+Conditional tab printing, example:
 
+* no_second_tab = based on first appearance of the service
+  defined via the service, must overrule service tab. If there is no second, there is also no third
+* use_service_tab_2 = release based (defined in antora.yaml)
+
+The included deprecation file just has an attribute necessary for rendering deprecations.
+This is necessary as attributes that are defined INSIDE a tabset will not get recognized, attributes need to be defined OUTSIDE the tabset definition. example content:
+
+:show-deprecation: true
+
+The file contains the attribute too to be used outside of tabsets.
+
+To exclude a deprecation file if not wanted - like when the file will just not exist, manually unset the attribute if required via:
+
+* :!no_deprecation:
+////
+
+// preset all tab specific deprecations to false
+:show_deprecation_tab_1: false
+:show_deprecation_tab_2: false
+:show_deprecation_tab_3: false
+
+// check to evaluate deprecations and set an attribute per tab
 ifndef::no_deprecation[]
+
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
+ifeval::["{show-deprecation}" == "true"]
+:show_deprecation_tab_1: true
 endif::[]
+
+////
+ifndef::no_second_tab[]
+ifdef::use_service_tab_2[]
+include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
+ifeval::["{show-deprecation}" == "true"]
+:show_deprecation_tab_2: true
+endif::[]
+endif::use_service_tab_2[]
+
+ifndef::no_third_tab[]
+ifdef::use_service_tab_3[]
+include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{ext_name}_deprecation.adoc[]
+ifeval::["{show-deprecation}" == "true"]
+:show_deprecation_tab_3: true
+endif::[]
+endif::use_service_tab_3[]
+endif::no_third_tab[]
+endif::no_second_tab[]
+////
+
+endif::no_deprecation[]
+
+// conditionally render the variable entry text, either with or without section header
 
 ifndef::no_yaml[]
 === Environment Variables
 
 The `{ext_name}` service is configured via the following environment variables:
-endif::[]
+endif::no_yaml[]
 
 ifdef::no_yaml[]
 The `{ext_name}` variables are defined in the following way:
-endif::[]
+endif::no_yaml[]
+
+// create the tabs
 
 [tabs]
 ====
@@ -35,28 +81,24 @@ endif::[]
 --
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
-// disable printing the second tab if not allowed (eg. if service is fresh created)
-// set this if required in the calling page!
 ifndef::no_second_tab[]
-ifdef::use_tab_2[]
+ifdef::use_service_tab_2[]
 {service_tab_2_tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
-endif::[]
-// disable printing the third tab if not allowed (eg. if service is fresh created)
-// set this if required in the calling page!
+endif::use_service_tab_2[]
 ifndef::no_third_tab[]
-ifdef::use_tab_3[]
+ifdef::use_service_tab_3[]
 {service_tab_3_tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{ext_name}_configvars.adoc[]
 --
-endif::[]
-endif::[]
-endif::[]
+endif::use_service_tab_3[]
+endif::no_third_tab[]
+endif::no_second_tab[]
 ====
 
 ifndef::no_yaml[]
@@ -76,10 +118,8 @@ See the xref:deployment/general/general-info.adoc#configuration-file-naming[Conf
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
 --
-// disable printing the second tab if not allowed (eg. if service is fresh created)
-// set this if required in the calling page!
 ifndef::no_second_tab[]
-ifdef::use_tab_2[]
+ifdef::use_service_tab_2[]
 {service_tab_2_tab_text}::
 +
 --
@@ -88,11 +128,9 @@ ifdef::use_tab_2[]
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
 --
-endif::[]
-// disable printing the third tab if not allowed (eg. if service is fresh created)
-// set this if required in the calling page!
+endif::use_service_tab_2[]
 ifndef::no_third_tab[]
-ifdef::use_tab_3[]
+ifdef::use_service_tab_3[]
 {service_tab_3_tab_text}::
 +
 --
@@ -101,9 +139,9 @@ ifdef::use_tab_3[]
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{ext_name}-config-example.yaml[]
 ----
 --
-endif::[]
-endif::[]
-endif::[]
+endif::use_service_tab_3[]
+endif::no_third_tab[]
+endif::no_second_tab[]
 ====
 
-endif::[]
+endif::no_yaml[]
