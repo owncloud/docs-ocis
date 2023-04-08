@@ -1,7 +1,8 @@
-= Small-Scale Deployment with systemd 
+= Bare Metal Deployment with systemd 
 :toc: right
 :toclevels: 3
-:description: This guide describes the installation of a small-scale instance of Infinite Scale as a systemd service.
+:page-aliases: depl-examples/small-scale.adoc
+:description: This guide describes an installation of Infinite Scale as a systemd service on bare metal. This ranges from a small installation on a Raspberry Pi up to installations on a decent server.
 
 :systemd-url: https://systemd.io/
 :nginx-url: https://www.nginx.com/
@@ -22,13 +23,13 @@
 
 {description}
 
-Note that this guide expects that prerequisites are met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
+Note that this guide expects that prerequisite of a computer with an installed Linux distribution of choice is met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
 
 This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
 
 == Requirements
 
-* A filesystem supporting {xattr-url}[extended attributes,window=_blank], for a list see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
+* A supported filesystem according the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
 
 * {systemd-url}[systemd]
 * A HTTP reverse proxy, there are examples using {nginx-url}[nginx,window=_blank] and {apache-url}[Apache,window=_blank]
