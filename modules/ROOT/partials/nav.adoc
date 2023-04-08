@@ -69,7 +69,7 @@
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
-** xref:depl-examples/small-scale.adoc[Small-Scale with systemd]
+** xref:depl-examples/bare-metal.adoc[Bare Metal with systemd]
 * Additional Information
 ** xref:additional-information/knowledge-base.adoc[Knowledge Base]
 
