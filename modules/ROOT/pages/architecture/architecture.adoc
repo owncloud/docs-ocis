@@ -55,13 +55,21 @@ image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View]
 
 ==== Spaces
 
-A storage space is a logical concept. It organizes a set of resources in a hierarchical tree. It is identified by a `storage space id`, but no ownership is needed though one or more users are assigned to manage this space. Spaces can have users or groups, a quota, permissions, an image and a description etc. assigned. They may serve different purposes and have different workflows enabled like antivirus scanning. Examples for spaces would be every user’s personal storage space, project, group or school class storage spaces including shares and reshares.
+Spaces are a logical concept. They organize a set of resources in a hierarchical tree. Here are some key features:
 
-A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, owner, syncable, root {etag-url}[ETag], upload workflow steps...
+* Internally, a space is identified by a unique `storage space ID` and displayed to users by a given name.
+* A space has no owner, though one or more users can be assigned to manage a space.
+* Access to a space is granted via roles assigned to users, groups and guests like member, manager etc.
+* Each space can have an individual:
+** Description
+** Image
+** Quota
+* A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, managers, syncable, root {etag-url}[ETag] etc.
+* Spaces may serve different purposes like every user’s personal storage space, project, group or school class storage spaces including shares and reshares.
+* A space makes it much easier to separate data that can be shared and data that should not be shared. As an example, although you can share content in your personal space, it is much more secure to have a dedicated space for sharing and keep your personal space for your eyes only.
+* Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/prerequisites.adoc#ram-considerations[RAM Considerations].
 
 For detailed information on the implementation of spaces, check out the https://owncloud.dev/ocis/storage/spaces/[Developer Guide].
-
-Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/prerequisites.adoc#ram-considerations[RAM Considerations]
 
 ==== Federated Storage
 
