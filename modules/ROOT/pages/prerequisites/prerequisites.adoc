@@ -281,13 +281,13 @@ If you have started to use Infinite Scale before version 3.0, metadata was store
 
 === Available Filesystem Drivers
 
-The oics filesystem driver::
+The ocis filesystem driver::
 When the `ocis` driver is used, blobs and metadata must be on a POSIX-compliant filesystem. This driver decomposes the metadata and persists it in a POSIX filesystem. Blobs are stored on the filesystem as well. This layout makes extensive use of symlinks. A filesystem like xfs or zfs without practical inode size limitations is recommended. A further integration with file systems like CephFS or GPFS is under investigation.
 +
 NOTE: Ext4 limits the number of bytes that can be used for extended attribute names and their values to the size of a single block (by default 4k). This reduces the number of shares for a single file or folder to roughly 20-30, as grants have to share the available space with other metadata.
 
 The s3ng filesystem driver::
-When the `s3ng` driver is used, blobs reside on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several oCIS instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFS for storing this metadata. This splitting is necessary for performance reasons.
+When the `s3ng` driver is used, blobs reside on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several Infinite Scale instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFS for storing this metadata. This splitting is necessary for performance reasons.
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
