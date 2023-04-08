@@ -20,6 +20,8 @@
 :apache_rev_url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
 :what_is_apache_url: https://www.apache.org/
 
+:messagepack: https://msgpack.org/index.html
+
 == Introduction
 
 {description}
@@ -267,22 +269,31 @@ ____
 {what_is_apache_url}[Apache] In addition to being a "basic" web server and providing static and dynamic content to end-users, Apache httpd (as well as most other web servers) can also act as a reverse proxy server, also-known-as a "gateway" server.
 ____
 
-// fixme: describe the reason for the need
-// fixme: links to how to setup these things, maybe external links will work well too
-
 == Filesystems and Shared Storage
 
-Infinite Scale currently supports two different internal filesystem drivers which are `ocisfs` and `s3ng`.
+Infinite Scale defines drivers for filesystems to store blobs and metadata. The drivers can be configured via the xref:{s-path}/storage-users.adoc[Storage-Users Service Configuration].
 
-* When the `ocisfs` driver is used, data and metadata must be on a POSIX-compliant filesystem. This driver decomposes the metadata and persists it in a POSIX filesystem. Blobs are stored on the filesystem as well. The layout makes extensive use of symlinks and extended attributes. A filesystem like xfs or zfs without practical inode size limitations is recommended. A further integration with file systems like CephFS or GPFS is under investigation.
+=== Backend for Metadata
+
+Starting with Infinte Scale 3.0, metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
+
+If you have started to use Infinite Scale before version 3.0, metadata was stored in extended attributes (`xattrs`) and is converted with the upgrade automatically.
+
+=== Available Filesystem Drivers
+
+The ocis filesystem driver::
+When the `ocis` driver is used, blobs and metadata must be on a POSIX-compliant filesystem. This driver decomposes the metadata and persists it in a POSIX filesystem. Blobs are stored on the filesystem as well. This layout makes extensive use of symlinks. A filesystem like xfs or zfs without practical inode size limitations is recommended. A further integration with file systems like CephFS or GPFS is under investigation.
 +
 NOTE: Ext4 limits the number of bytes that can be used for extended attribute names and their values to the size of a single block (by default 4k). This reduces the number of shares for a single file or folder to roughly 20-30, as grants have to share the available space with other metadata.
 
-* When the `s3ng` driver is used, data resides on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be extra provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several oCIS instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFSv4 for storing this metadata. This is necessary for performance reasons. When listing extended attributes of an object, the result is currently limited to 64kB. Assuming a 20 byte uuid, a grant has ~40 bytes, which would limit the number of extended attributes to ~1630 entries or ~1600 shares. With further development, this limitation may be removed.
+The s3ng filesystem driver::
+When the `s3ng` driver is used, blobs reside on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several Infinite Scale instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFS for storing this metadata. This splitting is necessary for performance reasons.
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
-The currently supported Infinite Scale POSIX-compliant file systems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is definable on some filesystems and if applicable, is for informational purposes only:
+=== Supported POSIX-compliant Filesystems
+
+The supported Infinite Scale POSIX-compliant filesystems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is definable on some filesystems and if applicable, is for informational purposes only:
 
 [caption=]
 .Local Filesystems
@@ -315,69 +326,13 @@ The currently supported Infinite Scale POSIX-compliant file systems are the foll
 | The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
 |===
 
-Note the support for a Windows compatible filesystem like Samba will be available in a later release and separately announced.
-
-All POSIX-compliant supported filesystems, local or remote, must support extended attributes. You can check this with the following commands, change to a location in the mounted filesystem you want to check before:
-
-[source,bash]
-----
-touch foo.txt && attr -s mix -V bar foo.txt
-----
-
-[source,plaintext]
-----
-Attribute "mix" set to a 3 byte value for foo.txt:
-bar
-----
-
-[source,bash]
-----
-attr -g mix foo.txt
-----
-
-[source,plaintext]
-----
-Attribute "mix" had a 3 byte value for foo.txt:
-bar
-----
-
-[source,bash]
-----
-rm foo.txt
-----
-
-[[nfs_notes_prerequisites]]
-NFS Notes::
+Extended Attributes::
 +
-[NOTE]
+[IMPORTANT]
 ====
-When using NFS, you have to take care that the NFS server *AND* the NFS client provides `Extended Attributes`.
+Only when using Infinite Scale _before_ version 3.0.
 
-NFS Storage Based on Linux Servers::
-When using a kernel version 5.9 or higher, extended attributes for the NFS server and the NFS client are part of the system. To check, run the command:
-+
-[source,bash]
-----
-uname -r
-----
-+
-On the system providing the NFS server AND on the NFS client check the displayed version number.
-
-NFS Client::
-If you have an NFS server capable of extended attributes but you are unsure if your client accessing the server supports it, check the *nfs-utils* or *nfs-common* package version of your NFS client with the command:
-+
-[source,bash]
-----
-mount.nfs -V
-----
-+
-You need at minimum NFS version 2.6.1. For more details see the general {nfs-utils-url}[NFS Utils Release History] and the {ubuntu-nfs-url}[Ubuntu nfs-common Packages].
-
-NFS Servers Provided from Storage Vendors::
-A certification matrix will be provided when available.
-
-NFS Protocol Version::
-Note that if the kernel or the storage system supports extended attributes, you have to use *NFSv4* in order to use it.
+* See the documentation and notes about xref:prerequisites/xattrs.adoc[Extended Attributes] for metadata.  
 ====
 
 Ceph Notes::

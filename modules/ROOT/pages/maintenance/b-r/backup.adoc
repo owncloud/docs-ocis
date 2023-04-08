@@ -36,7 +36,7 @@ Keep in mind that you always have to back up all data sets consistently:
 
 {empty}
 
-(2) ... For POSIX-only environments, the location for blobs and metadata is the same. When using S3, the location differs. Note when using the `extended attributes` (xattr) backend for metadata, see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage], the backup process must include these attributes
+(2) ... For POSIX-only environments, the location for blobs and metadata is the same. When using S3, the location differs. The backup process must include the metadata, for details see xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
 As a rule of thumb, consider also to back up the Infinite Scale binary or the container used. This avoids difficulties when restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
 

@@ -7,7 +7,6 @@
 :systemd-url: https://systemd.io/
 :nginx-url: https://www.nginx.com/
 :apache-url: https://www.apache.org
-:xattr-url: https://en.wikipedia.org/wiki/Extended_file_attributes
 :certbot-url: https://certbot.eff.org
 :certbot-options-url: https://eff-certbot.readthedocs.io/en/stable/using.html#id36
 :ssl-labs-url: https://www.ssllabs.com/ssltest/
