@@ -57,8 +57,8 @@ image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View]
 
 Spaces are a logical concept. They organize a set of resources in a hierarchical tree. Here are some key features:
 
-* Internally, a space is identified by a unique `storage space id` and shows up to users by a given name.
-* A space has no ownership, though one or more users can be assigned to manage this space.
+* Internally, a space is identified by a unique `storage space ID` and displayed to users by a given name.
+* A space has no owner, though one or more users can be assigned to manage a space.
 * Access to a space is granted via roles assigned to users, groups and guests like member, manager etc.
 * Each space can have an individual:
 ** Description
@@ -66,8 +66,8 @@ Spaces are a logical concept. They organize a set of resources in a hierarchical
 ** Quota
 * A storage spaces registry then allows listing the capabilities of storage spaces, e.g. free space, quota, managers, syncable, root {etag-url}[ETag] etc.
 * Spaces may serve different purposes like every user’s personal storage space, project, group or school class storage spaces including shares and reshares.
-* A space makes it much more streamlined to separate data that can be shared or should not be shared. As an example, though you can share content in your personal space, it is much more secure to have a space dedicated for sharing where only you are the manager of, separating data from your personal space that is for your eyes only.
-* Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/prerequisites.adoc#ram-considerations[RAM Considerations]
+* A space makes it much easier to separate data that can be shared and data that should not be shared. As an example, although you can share content in your personal space, it is much more secure to have a dedicated space for sharing and keep your personal space for your eyes only.
+* Spaces have a small memory footprint and are therefore very effective. For details see the xref:prerequisites/prerequisites.adoc#ram-considerations[RAM Considerations].
 
 For detailed information on the implementation of spaces, check out the https://owncloud.dev/ocis/storage/spaces/[Developer Guide].
 
