@@ -26,4 +26,4 @@ If two-factor authentication is needed for Infinite Scale, you can use Keycloak 
 
 * See https://www.keycloak.org/docs/latest/server_admin/#one-time-password-otp-policies[Two-Factor Authentication via OTP Policies,window=_blank] for more details and guidance.
 * For use with email, refer to https://medium.com/@mesutpiskin/two-factor-authentication-via-email-in-keycloak-custom-auth-spi-935bbb3952a8[Two-Factor Authentication via Email,window=_blank].
-* Follow the https://www.n-k.de/2020/12/keycloak-2fa-sms-authentication.html[Two-Factor Authentication with SMS,window=_blank] for more details and guidance.
+* See https://www.n-k.de/2020/12/keycloak-2fa-sms-authentication.html[Two-Factor Authentication with SMS,window=_blank] for more details and guidance on usage with SMS.
