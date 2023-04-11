@@ -22,8 +22,8 @@ Written by a contributor, the linked guide shows how to set up Infinite Scale to
 
 == Two-Factor Authentication with Keycloak
 
-When there is the need to provide two factor authentication for Infinite Scale, you can use Keycloak which  provides builtin support for 2FA by default via TOTP/HOTP by using an app like Google Authenticator, FreeOTP and others. For 2FA using Email and SMS, Keykloak's Service Provider Interface (SPI) offers customized authentication providers that can be used to achieve this.
+If two-factor authentication is needed for Infinite Scale, you can use Keycloak which  provides built-in support for 2FA by default via TOTP/HOTP by using an app like Google Authenticator, FreeOTP and others. For 2FA using email and SMS, Keykloak's Service Provider Interface (SPI) offers customized authentication providers to achieve this.
 
-* Follow the https://www.keycloak.org/docs/latest/server_admin/#one-time-password-otp-policies[Two-Factor Authentication via OTP Policies,window=_blank] for more details and guidance.
-* Follow the  https://medium.com/@mesutpiskin/two-factor-authentication-via-email-in-keycloak-custom-auth-spi-935bbb3952a8[Two-Factor Authentication via Email,window=_blank] for more details and guidance.
+* See https://www.keycloak.org/docs/latest/server_admin/#one-time-password-otp-policies[Two-Factor Authentication via OTP Policies,window=_blank] for more details and guidance.
+* For use with email, refer to https://medium.com/@mesutpiskin/two-factor-authentication-via-email-in-keycloak-custom-auth-spi-935bbb3952a8[Two-Factor Authentication via Email,window=_blank].
 * Follow the https://www.n-k.de/2020/12/keycloak-2fa-sms-authentication.html[Two-Factor Authentication with SMS,window=_blank] for more details and guidance.
