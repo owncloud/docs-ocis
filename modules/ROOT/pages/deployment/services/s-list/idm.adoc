@@ -16,13 +16,17 @@
 
 [NOTE]
 ====
-The IDM service is limited in its functionality:
+The IDM service is per design limited in its functionality:
 
 * IDM only supports a subset of the LDAP operations +
 namely `BIND`, `SEARCH`, `ADD`, `MODIFY` and `DELETE`.
 * IDM currently does not do any LDAP schema verification like +
-`structural vs. auxiliary object classes`, `require and option attributes`, `syntax checks`, …
-* Therefore the IDM service is not meant to replace a general purpose LDAP server.
+`structural vs. auxiliary object classes`, +
+`require and option attributes`, +
+`syntax checks`, …
+* IDM currently does not support features like 2FA and device management.
+
+Therefore the IDM service is **not** meant to replace a general purpose LDAP server.
 ====
 
 == Default Values
