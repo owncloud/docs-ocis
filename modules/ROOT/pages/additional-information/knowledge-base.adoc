@@ -19,3 +19,11 @@ Implementing a brute force protection against failing login attempts is somethin
 == OCIS SSO with Authelia or authentik
 
 Written by a contributor, the linked guide shows how to set up Infinite Scale to either work with https://www.authelia.com/[Authelia,window=_blank] or https://goauthentik.io/[authentik,window=_blank]. Note that the code base at the time of reference was Infinite Scale stable 2.0. Follow this https://helgeklein.com/blog/owncloud-infinite-scale-with-openid-connect-authentication-for-home-networks/[article,window=_blank] for more details and guidance.
+
+== Two-Factor Authentication with Keycloak
+
+When there is the need to provide two factor authentication for Infinite Scale, you can use Keycloak which  provides builtin support for 2FA by default via TOTP/HOTP by using an app like Google Authenticator, FreeOTP and others. For 2FA using Email and SMS, Keykloak's Service Provider Interface (SPI) offers customized authentication providers that can be used to achieve this.
+
+* Follow the https://www.keycloak.org/docs/latest/server_admin/#one-time-password-otp-policies[Two-Factor Authentication via OTP Policies,window=_blank] for more details and guidance.
+* Follow the  https://medium.com/@mesutpiskin/two-factor-authentication-via-email-in-keycloak-custom-auth-spi-935bbb3952a8[Two-Factor Authentication via Email,window=_blank] for more details and guidance.
+* Follow the https://www.n-k.de/2020/12/keycloak-2fa-sms-authentication.html[Two-Factor Authentication with SMS,window=_blank] for more details and guidance.
