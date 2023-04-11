@@ -16,7 +16,7 @@
 
 [NOTE]
 ====
-The IDM service is per design limited in its functionality:
+The IDM service is by design limited in its functionality:
 
 * IDM only supports a subset of the LDAP operations +
 namely `BIND`, `SEARCH`, `ADD`, `MODIFY` and `DELETE`.

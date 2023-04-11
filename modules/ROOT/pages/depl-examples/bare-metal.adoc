@@ -26,7 +26,7 @@ Note that this guide expects that prerequisite of a computer with an installed L
 
 This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
 
-NOTE: The embedded IDM service provides a minimal LDAP Service for Infinite Scale and does not replace a LDAP server. See the xref:{s-path}/idm.adoc[IDM Service Configuration] for details.
+NOTE: The embedded IDM service provides a minimal LDAP service for Infinite Scale and does not replace a LDAP server. See the xref:{s-path}/idm.adoc[IDM Service Configuration] for details.
 
 == Requirements
 
