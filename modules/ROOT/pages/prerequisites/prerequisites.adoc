@@ -10,8 +10,6 @@
 :ceph_url: https://docs.ceph.com/en/latest/start/intro/
 :ceph_ram_url: https://docs.ceph.com/en/latest/start/hardware-recommendations/#ram
 :nfs_url: https://en.wikipedia.org/wiki/Network_File_System
-:nfs-utils-url: https://mirrors.edge.kernel.org/pub/linux/utils/nfs-utils/
-:ubuntu-nfs-url: https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=nfs-common&searchon=names
 
 :what_is_nginx_url: https://www.nginx.com/resources/glossary/nginx/
 :nginx_url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/

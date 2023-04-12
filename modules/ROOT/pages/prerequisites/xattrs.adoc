@@ -1,6 +1,8 @@
 = Extended Attributes (xattr)
 :toc: right
 :noindex:
+:nfs-utils-url: https://mirrors.edge.kernel.org/pub/linux/utils/nfs-utils/
+:ubuntu-nfs-url: https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=nfs-common&searchon=names
 
 == Introduction
 
