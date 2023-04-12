@@ -70,7 +70,7 @@ NOTE: In configuration variables and comments, you'll often come across the word
 
 == Try Online
 
-You can try Infinite Scale before you install it locally to get hands on and a feeling how things work and integrate. Our development provides several instances with different setups to test. The instances are reset on a regular basis. See our https://owncloud.dev/ocis/deployment/continuous_deployment/[Continuous Deployment,window=_blank] page for more details.
+You can try Infinite Scale before you install it locally to get hands-on experience and a feeling for how things work and integrate. Our development provides several instances with different setups to test. The instances are reset on a regular basis. See our https://owncloud.dev/ocis/deployment/continuous_deployment/[Continuous Deployment,window=_blank] page for more details.
 
 
 ////
