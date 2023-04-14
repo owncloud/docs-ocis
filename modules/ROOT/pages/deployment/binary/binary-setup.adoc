@@ -58,15 +58,6 @@ The output looks like this:
 ocis version {ocis-version}
 ----
 
-// fixme: recommended directory possibly to be adjusted when we actually have a recommended or standard location.
-
-* To install Infinite Scale via the package manager of your Linux system, use the package manager commands to search for ocis and install it accordingly.
-+
-[NOTE]
-====
-Package manager installation is in preparation and will be available soon.
-====
-
 == Getting Command Line Help
 
 To get a list of available options and commands type:
@@ -85,7 +76,9 @@ ocis --help
 
 == Accessing the Infinite Scale Runtime
 
-When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `https://localhost:{ocis_port}` or whatever URL and port you have defined.
+When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `\https://localhost:{ocis_port}`.
+
+include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
 == Start and Stop Infinite Scale
 
