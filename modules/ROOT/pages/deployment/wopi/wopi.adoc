@@ -62,7 +62,7 @@ The image below shows the WOPI integration in an overview to get a better unders
 
 image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
 
-== WOPI configuration Examples
+== WOPI Configuration Examples
 
 * See below for an example WOPI configuration using Docker Compose, to get a first impression of how a WOPI configuration can be achieved. Both, _ocis environment variables_ and _ocis service configuration_ yaml files are used. See the xref:conf-examples/office/office-integration.adoc[Office Integration] document for an in depth explanation.
 +
