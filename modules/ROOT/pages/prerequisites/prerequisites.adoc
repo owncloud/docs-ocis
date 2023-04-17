@@ -273,7 +273,7 @@ Infinite Scale defines drivers for filesystems to store blobs and metadata. The 
 
 === Backend for Metadata
 
-Starting with Infinte Scale 3.0, metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
+Starting with Infinite Scale 3.0, metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
 
 If you have started to use Infinite Scale before version 3.0, metadata was stored in extended attributes (`xattrs`) and is converted with the upgrade automatically.
 
