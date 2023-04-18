@@ -82,8 +82,8 @@ to the user. So if e.g. a user's `ocisRoles` claim has the values `myUserRole` a
 `mySpaceAdminRole` that user will get the ocis role `spaceadmin` assigned (because `spaceadmin`
 appears before `user` in the above sample configuration).
 
-If a user's claim values don't match any of the configured role mappings an error will be logged and
-the user will not be able to login.
+If a user's claim values don't match any of the configured role mappings, an error will be logged and
+the user will not be able to log in.
 ====
 
 The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The default `role_mapping` is:
