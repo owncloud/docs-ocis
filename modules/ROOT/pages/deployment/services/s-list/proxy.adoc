@@ -92,7 +92,7 @@ guest: ocisGuest
 
 The `proxy` service can use a configured store via `GRAPH_STORE_TYPE`. Possible stores are:
 
-[width=100%,cols="15%,85%",options=header]
+[width=100%,cols="25%,85%",options=header]
 |===
 | Store Type
 | Description

@@ -23,7 +23,7 @@ Running the `userlog` service without running the xref:{s-path}/eventhistory.ado
 
 The `userlog` service persists information via the configured store in `USERLOG_STORE_TYPE`. Possible stores are:
 
-[width=100%,cols="15%,85%",options=header]
+[width=100%,cols="25%,85%",options=header]
 |===
 | Store Type
 | Description

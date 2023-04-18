@@ -14,6 +14,7 @@
 ** xref:deployment/wopi/wopi.adoc[Office Applications using WOPI]
 ** xref:deployment/security/security.adoc[Securing oCIS]
 ** xref:deployment/nfs/nfs.adoc[Network File System Deployment]
+** xref:deployment/gdpr/gdpr.adoc[User Triggered GDPR Report]
 ** xref:deployment/services/services.adoc[Services]
 *** General Information
 **** xref:deployment/services/deployment-considerations.adoc[Deployment Considerations]

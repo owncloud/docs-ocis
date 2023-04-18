@@ -1,0 +1,45 @@
+{
+  "events": [
+    {
+      "event": {
+        "Executant": {
+          "idp": "https://<your-ocis-instance>",
+          "opaque_id": "4c510ada-c86b-4815-8820-42cdf82c3d51",
+          "type": 1
+        },
+        "Ref": {
+          "path": "/.personal_data_export.json",
+          "resource_id": {
+            "opaque_id": "4c510ada-c86b-4815-8820-42cdf82c3d51",
+            "space_id": "4c510ada-c86b-4815-8820-42cdf82c3d51"
+          }
+        },
+        "SpaceOwner": {
+          "idp": "https://<your-ocis-instance>",
+          "opaque_id": "4c510ada-c86b-4815-8820-42cdf82c3d51",
+          "type": 1
+        }
+      },
+      "id": "50a38ebf-fc1c-478e-b03a-03bf8bf74cc5",
+      "type": "events.FileTouched"
+    }
+  ],
+  "user": {
+    "id": {
+      "idp": "https://<your-ocis-instance>",
+      "opaque_id": "4c510ada-c86b-4815-8820-42cdf82c3d51",
+      "type": 1
+    },
+    "username": "einstein",
+    "mail": "einstein@example.org",
+    "display_name": "Albert Einstein",
+    "groups": [
+      "509a9dcd-bb37-4f4f-a01a-19dca27d9cfa",
+      "6040aa17-9c64-4fef-9bd0-77234d71bad0",
+      "dd58e5ec-842e-498b-8800-61f2ec6f911f",
+      "262982c1-2362-4afa-bfdf-8cbfef64a06e"
+    ],
+    "uid_number": 99,
+    "gid_number": 99
+  }
+}
