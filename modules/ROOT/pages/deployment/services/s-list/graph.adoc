@@ -30,7 +30,7 @@ image::deployment/services/graph/mermaid-graph.svg[width=600]
 
 The `graph` service can use a configured store via `GRAPH_STORE_TYPE`. Possible stores are:
 
-[width=100%,cols="15%,85%",options=header]
+[width=100%,cols="25%,85%",options=header]
 |===
 | Store Type
 | Description
@@ -61,6 +61,47 @@ The `graph` service can use a configured store via `GRAPH_STORE_TYPE`. Possible 
 2. Though usually not necessary, a database name and a database table can be configured for event stores if the event store supports this. Generally, this does not apply to stores of type `in-memory`. These settings are blank by default which means that the standard settings of the configured store applies.
 3. The `graph` service can be scaled if it's not using `in-memory` stores and the stores are configured identically over all instances.
 4.  When using `redis-sentinel`, the Redis master to use is configured via `GRAPH_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+
+== Keycloak Configuration for the Personal Data Export
+
+If Keycloak is used for authentication, GDPR regulations require to add all personal identifiable information that Keycloak has about the user to the personal data export. To do this, the following environment variables must be set:
+
+[width=100%,cols="15%,85%",options=header]
+|===
+| Environment Variable
+| Description
+
+| `OCIS_KEYCLOAK_BASE_PATH`
+| The URL to the Keycloak instance.
+
+| `OCIS_KEYCLOAK_CLIENT_ID`
+| The client ID of the client that is used to authenticate with Keycloak. This client has to be able to list users and get the credential data. 
+
+| `OCIS_KEYCLOAK_CLIENT_SECRET`
+| The client secret of the client that is used to authenticate with Keycloak.
+
+| `OCIS_KEYCLOAK_CLIENT_REALM`
+| The realm the client is defined in.
+
+| `OCIS_KEYCLOAK_USER_REALM`
+| The realm Infinite Scale users are defined in.
+
+| `OCIS_KEYCLOAK_INSECURE_SKIP_VERIFY`
+| If set to true, the TLS certificate of the Keycloak instance is not verified.
+|===
+
+=== Keycloak Client Configuration
+
+The client that is used to authenticate with Keycloak has to be able to list users and get the credential data. To do this, the following  roles have to be assigned to the client and they have to be about the realm that contains the Infinite Scale users:
+
+*   `view-users`
+*   `view-identity-providers`
+*   `view-realm`
+*   `view-clients`
+*   `view-events`
+*   `view-authorization`
+
+Note that these roles are only available to assign if the client is in the `master` realm.
 
 == Configuration
 

@@ -1,0 +1,46 @@
+= User-Triggered GDPR Report
+:toc: right
+:description: Starting with version 3 of Infinite Scale, users can create a General Data Protection Regulation (GDPR) report about the use of their own data in Infinite Scale at any time.
+
+== Introduction
+
+{description} When using Keycloak, some environment variables must be configured to gather user-relevant data stored in Keycloak, completing the report.
+
+== Configuration
+
+If Keycloak is used for authentication, GDPR regulations require to add all personal identifiable information that Keycloak has about the user to the personal data export. To configure these settings, see the xref:{s-path}/graph.adoc#keycloak-configuration-for-the-personal-data-export[Keycloak Configuration for the Personal Data Export] for more details. Beside that, no additional configuration is necessary as everything works out of the box.
+
+== User Workflow
+
+The following images show how easy it is for users to create their own GDPR report without any additional admin requests. Note that the example images are subject of change.
+
+A user can create the report using the acount information screen which opens when clicking on  menu:the circle top right[the users name].
+
+[cols="^.^~,^.^~",options="header"]
+|===
+| 1. Account Information
+| 2. Download GDPR Export
+
+a| image::deployment/gdpr/account-information.png[Account Information, width=500]
+a| image::deployment/gdpr/download-export.png[Download GDPR Export, width=500]
+|===
+
+If show hidden files is enabled via the gear icon, the report will also become visible in the user's home space. 
+
+[cols="^~,^~",options="header"]
+|===
+| 3. Configure Hidden Files
+| 4. Show Hidden Files
+
+a| image::deployment/gdpr/configure-hidden-files.png[Configure Hidden Files, width=500]
+a| image::deployment/gdpr/show-hidden-files.png[Show Hidden Files, width=500]
+|===
+
+== Example GDPR File
+
+A GDPR report is json-based and contains all GDPR-relevant information about a user in Infinite Scale. The example GDPR report below is created using the demo user Einstein. Note that the demo user Einstein is part of the embedded LDAP (xref:{s-path}/idm.adoc[IDM]) service if the instance was setup creating demo users. See xref:deployment/general/general-info.adoc#demo-users-and-groups[Demo Users and Groups] for more details.
+
+[source,json]
+----
+include::example$deployment/gdpr/personal_data_export.json[]
+----
