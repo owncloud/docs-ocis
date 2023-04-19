@@ -21,7 +21,7 @@ tag::service_tab_1[]
 | A comma-separated list of service names. Will add the listed services to the default configuration. Has no effect when `OCIS_RUN_SERVICES` is set. Note that one can add services not started by the default list and exclude services from the default list by using both envvars at the same time.
 |===
 
-Note to get the current list of services started by default, you need to run `ocis server` without restriction which services to load and afterwards `ocis list`.
+Note to get the current list of services started by default, you need to run `ocis server` without restriction which services to start and afterwards `ocis list`.
 end::service_tab_1[]
 
 tag::service_tab_2[]
