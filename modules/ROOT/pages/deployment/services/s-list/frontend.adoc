@@ -43,7 +43,7 @@ While the frontend service does not persist any data, it does cache `Stat()` res
 
 == Define Read-Only Attributes
 
-A lot of user management is made via the standardized libregraph API. Depending on how the system is configured, there might be some user attributes that an ocis instance admin can't change because of properties coming from an external LDAP server, or similar. This can be the case when the ocis admin is not the LDAP admin. To ease life for admins, there are hints as capabilites telling the frontend which attributes are read-only to enable a different optical representation like being grayed out. To configure these hints, use the environment variable `FRONTEND_READONLY_USER_ATTRIBUTES`, which takes a comma separated list of attributes, see the environment variable for supported values.
+A lot of user management is done via the standardized LibreGraph API. Depending on how the system is configured, there might be some user attributes that an Infinite Scale instance admin can't change because of properties coming from an external LDAP server, or similar. This can be the case when the Infinite Scale admin is not the LDAP admin. To make life easier for admins, read-only attributes can be displayed differently, e.g. grayed out. To configure these hints for the frontend, use the environment variable `FRONTEND_READONLY_USER_ATTRIBUTES`, which takes a comma separated list of attributes. See the environment variable for supported values.
 
 == Configuration
 
