@@ -25,7 +25,7 @@ The following environment variables are only available with the xref:deployment/
 
 [tabs]
 ====
-all releases::
+Since 3.0.0::
 +
 --
 [width="100%",cols="30%,70%",options="header",]
@@ -37,7 +37,25 @@ all releases::
 | A comma-separated list of service names. Will start only the listed services.
 
 | `OCIS_EXCLUDE_RUN_SERVICES`
-| A comma-separated list of service names. Will start all services except for the ones listed. Has no effect when OCIS_RUN_SERVICES is set.
+| A comma-separated list of service names. Will start all services except for the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
+
+| `OCIS_ADD_RUN_SERVICES`
+| A comma-separated list of service names. Will add the listed services to the default configuration. Has no effect when `OCIS_RUN_SERVICES` is set.
+|===
+--
+2.0.0::
++
+--
+[width="100%",cols="30%,70%",options="header",]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all services except for the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
 |===
 --
 ====
