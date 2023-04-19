@@ -1,0 +1,57 @@
+////
+special envvar are maintained manually as they cant be gathered by a automated process in the ocis repo.
+these envvars are rarely changed
+when a new ocis version is set, we only need to change the reference (tag) at the caller but not the content
+when a content is created, we can fix this here and in env-vars-special-scope.adoc
+////
+
+tag::service_tab_1[]
+[width="100%",cols="30%,70%",options="header",]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all default services except of the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
+
+| `OCIS_ADD_RUN_SERVICES`
+| A comma-separated list of service names. Will add the listed services to the default configuration. Has no effect when `OCIS_RUN_SERVICES` is set. Note that one can add services not started by the default list and exclude services from the default list by using both envvars at the same time.
+|===
+
+Note that you need to run `ocis server` and afterwards `ocis list` to get the current list which services are started by default.
+end::service_tab_1[]
+
+tag::service_tab_2[]
+[width="100%",cols="30%,70%",options="header",]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all default services except of the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
+|===
+
+Note that you need to run `ocis server` and afterwards `ocis list` to get the current list which services are started by default.
+end::service_tab_2[]
+
+tag::service_tab_3[]
+[width="100%",cols="30%,70%",options="header",]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all default services except of the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
+|===
+
+Note that you need to run `ocis server` and afterwards `ocis list` to get the current list which services are started by default.
+end::service_tab_3[]
