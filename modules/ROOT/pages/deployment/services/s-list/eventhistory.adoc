@@ -15,11 +15,11 @@
 
 == Prerequisites
 
-Running the `eventhistory` service without an event sytem like NATS is not possible.
+Running the `eventhistory` service without an event system like NATS is not possible.
 
 == Consuming
 
-The `eventhistory` services consumes all events from the configured event sytem.
+The `eventhistory` services consumes all events from the configured event system.
 
 == Storing
 
@@ -49,7 +49,7 @@ The `eventhistory` service stores each consumed event via the configured store i
 | Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 
 | `noop`
-| Stores nothing. Useful for testing. Not recommended in productive environments.
+| Stores nothing. Useful for testing. Not recommended in production environments.
 |===
 
 1. Note that in-memory stores are by nature not reboot persistent.

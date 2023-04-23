@@ -134,7 +134,7 @@ The `proxy` service can use a configured store via `GRAPH_STORE_TYPE`. Possible 
 | Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 
 | `noop`
-| Stores nothing. Useful for testing. Not recommended in productive environments.
+| Stores nothing. Useful for testing. Not recommended in production environments.
 |===
 
 1. Note that in-memory stores are by nature not reboot persistent.
