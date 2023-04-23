@@ -73,7 +73,7 @@ policies:
       - your_path_to_policies/util.rego
 ----
 
-Once the references to policy files are configured correctly, the _QUERY configuration needs to be defined for the proxy middleware and for the events service.
+Once the references to policy files are configured correctly, the `_QUERY` configuration needs to be defined for the proxy middleware and for the events service.
 
 == Setting the Query Configuration
 
@@ -100,7 +100,7 @@ proxy:
     query: data.proxy.granted
 ----
 
-The same can be achieved by setting the following evironment variable:
+The same can be achieved by setting the following environment variable:
 
 [source,yaml]
 ----
@@ -116,14 +116,14 @@ policies:
     query: data.postprocessing.granted
 ----
 
-The same can be achieved by setting the following evironment variable:
+The same can be achieved by setting the following environment variable:
 
 [source,yaml]
 ----
 POLICIES_POSTPROCESSING_QUERY=data.postprocessing.granted
 ----
 
-As soon as that query is configured, the postprocessing service must be informed to use the policies step by setting the environment variable: 
+As soon as that query is configured, the postprocessing service must be informed to use the policies step by setting the environment variable:
 
 [source,yaml]
 ----
