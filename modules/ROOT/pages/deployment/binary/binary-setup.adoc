@@ -56,7 +56,7 @@ The output looks like this:
 [source,plaintext,subs="attributes+"]
 ----
 Version: {ocis-version}
-Compiled: 2023-04-24 00:00:00 +0000 UTC
+Compiled: {ocis-compiled}
 
 No running services found.
 ----
