@@ -1,0 +1,46 @@
+= Caching
+:toc: right
+:description: Setup caching can not only be a big boost on performance but can also be essential when setting up Infinite Scale via container orchestration.
+
+== Introduction
+
+{description} Caching is also recommended for some services like to persist event data for later processing, or, not limited to but especially when the underlaying services are scaled via xref:deployment/container/orchestration/orchestration.adoc[container orchestration].
+
+== General Information
+
+These are the main aspects that require caching::
++
+--
+* *Performance*: This kind of cache does not need to be persistent and in case of outages, the cache gets rebuild and no information is lost. This is typically used for caching metadata and filesystem access.
+* *Persistance*: With this kind of caching, storing information temporarily on a persistent media is key. This kind of cache is used for generated events that are saved for later use like returning status info to users when requested. If this data gets lost, users will not get informed about state changes happened.
+* *Scaling*: When services are scaled horizontally, a common and persistent base for generated data is necessary.
+--
+
+Identifying caches by their name::
++
+--
+* Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE`.
+* Persistent caches can be identified via environment variables ending with `xxx_STORE_TYPE`.
+--
+
+Cache types::
++
+--
+* A *memory cache* is the fastest cache but not suitable for all requirements as it has no persistence and is limited to the running server respectively service. It can be used for deployments where:
+** persistence is not a requirement or a high priority or
+** scaling of services is not required.
+
+* An *external cache* like `redis`, `redis-sentinel`, `etcd`, `nats-js` is a own service not related to infinite Scale and usually installed on own hardware which requires its own performance, availability and scalability measures. These caches are connected via a fast network. Infinite Scale connects to these caches and uses their services like a blackbox.
+--
+
+Local vs global configuration::
++
+--
+* Performance and persistent caches can be configured per service individually or via global environment variables. See the xref:deployment/services/env-var-note.adoc[Notes for Environment Variables] for details with regards to settings precedence.
+--
+
+Identifying services that use caching::
++
+--
+* See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] for occations of services where caching is used. Search for `_CACHE_STORE` or `_STORE_TYPE`.
+--
