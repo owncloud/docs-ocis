@@ -55,7 +55,10 @@ The output looks like this:
 +
 [source,plaintext,subs="attributes+"]
 ----
-ocis version {ocis-version}
+Version: {ocis-version}
+Compiled: {ocis-compiled}
+
+No running services found.
 ----
 
 == Getting Command Line Help
