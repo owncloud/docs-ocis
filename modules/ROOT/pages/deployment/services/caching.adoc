@@ -30,7 +30,7 @@ Cache types::
 ** persistence is not a requirement or a high priority and
 ** scaling of services is not required.
 
-* An *external cache* like `redis`, `redis-sentinel`, `etcd`, `nats-js` is an independent service not related to infinite Scale and usually installed on separate hardware which requires its own performance, availability and scalability measures. These caches are connected via a fast network. Infinite Scale connects to these caches and uses their services like a blackbox.
+* An *external cache* like `redis`, `redis-sentinel`, `etcd`, `nats-js` is an independent service not related to Infinite Scale and usually installed on separate hardware which requires its own performance, availability and scalability measures. These caches are connected via a fast network. Infinite Scale connects to these caches and uses their services like a black box.
 --
 
 Local vs global configuration::
