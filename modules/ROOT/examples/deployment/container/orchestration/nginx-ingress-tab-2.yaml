@@ -7,7 +7,7 @@ ingress:
     cert-manager.io/issuer: 'ocis-certificate-issuer'
   tls:
     - hosts:
-        - ocis.owncloud.test
+        - ocis.kube.owncloud.test
       secretName: ocis-tls-certificate
 
 extraResources:
