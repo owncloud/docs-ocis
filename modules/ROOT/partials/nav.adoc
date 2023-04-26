@@ -20,7 +20,7 @@
 **** xref:deployment/services/deployment-considerations.adoc[Deployment Considerations]
 **** xref:deployment/services/env-var-note.adoc[Environment Variable Notes]
 **** xref:deployment/services/env-vars-special-scope.adoc[Environment Variables with Special Scope]
-**** xref:deployment/services/caching.adoc[Caching]
+**** xref:deployment/services/caching.adoc[Caching and Persistence]
 **** xref:deployment/services/gateways.adoc[Gateways]
 **** xref:deployment/services/logging.adoc[Logging]
 **** xref:deployment/services/ports-used.adoc[Ports Used]
