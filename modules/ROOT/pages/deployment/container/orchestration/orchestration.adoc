@@ -213,6 +213,8 @@ NOTE: The Helm chart is still in an experimental phase and has not yet been publ
 
 NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will be documented beside the development version.
 
+NOTE: When defining own Helm charts, consdider when using config overrides in your yaml definitions that a service does not get redefined in the override again. A multiple definition can cause chart issues that are hard to be identified.
+
 The `values.yaml` file provided by ownCloud uses generic configuration. You can customize this configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name of `values.yaml` follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
 
 === Supported Infinite Scale Versions
