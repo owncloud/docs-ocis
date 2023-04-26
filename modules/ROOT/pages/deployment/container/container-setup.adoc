@@ -18,6 +18,8 @@
 :docker-multi-url: https://docs.docker.com/get-started/07_multi_container/
 :docker-desktop-url: https://docs.docker.com/desktop/
 :docker-dashboard-url: https://docs.docker.com/desktop/dashboard/
+:docker-dashboard-linux-url: https://docs.docker.com/desktop/install/linux-install/
+:docker-dashboard-macos-url: https://docs.docker.com/desktop/install/mac-install/
 :portainer-url: https://www.portainer.io
 :docker-swarm-url: https://docs.docker.com/engine/reference/commandline/swarm/
 :kubernetes-url: https://kubernetes.io
@@ -451,7 +453,7 @@ In a nutshell, you have to create a Docker network and reference this network in
 
 == GUI for Docker
 
-* Docker on Linux does not have a dashboard by default, you have to use available tools like {portainer-url}[Portainer] or others which need manual installation.
+Docker provides a GUI named {docker-desktop-url}[Docker Desktop] for various operating systems, though you can use other tools like {portainer-url}[Portainer].
 
-* {docker-desktop-url}[Docker Desktop], which is available for macOS, includes the {docker-dashboard-url}[Docker Dashboard] without the need for additional installations.
-
+* For more information see the {docker-dashboard-macos-url}[Docker Desktop macOS] page.
+* For more information see the {docker-dashboard-linux-url}[Docker Desktop Linux] page for your distribution.
