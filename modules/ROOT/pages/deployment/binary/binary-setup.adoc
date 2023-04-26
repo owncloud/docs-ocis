@@ -138,10 +138,19 @@ ocis server
 
 Note that this will bind `ocis` to the shell you are running. If you want to detach it and avoid it being stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
 
+.Bash
 [source,bash]
 ----
 ocis server & disown -h
 ----
+
+.ZSH
+[source,bash]
+----
+ocis server & disown $!
+----
+
+See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
 
 === List Running Infinite Scale Processes
 
