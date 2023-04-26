@@ -1,17 +1,17 @@
 = Caching and Persistence
 :toc: right
-:description: Caching can not only be a big boost on performance but can also be essential when setting up Infinite Scale via container orchestration.
+:description: Caching can not only be a big boost to performance but can also be essential when setting up Infinite Scale via container orchestration.
 
 == Introduction
 
-{description} Persistence is recommended for some services like to manage event data for later processing, or, not limited to but especially when the underlying services are scaled via xref:deployment/container/orchestration/orchestration.adoc[container orchestration] providing consistent data across instantiated services.
+{description} Persistence is recommended for some services, for example, to manage event data for later processing, or, not limited to but especially when the underlying services are scaled via xref:deployment/container/orchestration/orchestration.adoc[container orchestration] providing consistent data across instantiated services.
 
 == General Information
 
 === Main Drivers
 
 * *Performance*: Caching does not need to be persistent and in case of outages, the cache is rebuilt and no information is lost. This is typically used for caching metadata and filesystem access (stat).
-* *Persistence*: With this kind of store, saving information temporarily on a persistent media is key. Presistance stores are used like for generated events returning status info to users when requested. If this data gets lost or is not consistenly available over the instantiated services, users will be inconsistently informed about state changes that happened.
+* *Persistence*: With this kind of store, saving information temporarily on a persistent media is key. Persistence stores are used, for example, for generated events returning status info to users when requested. If this data gets lost or is not consistently available over the instantiated services, users will be inconsistently informed about state changes that happened.
 * *Scaling*: When services are scaled horizontally (instantiated), a common and persistent base for generated data is necessary.
 
 
@@ -23,10 +23,10 @@
 === Store Types
 
 * *Memory* has best performance but is not suitable for all requirements as it has no persistence and is limited to the service on the running server. It can be used for deployments where:
-** persistence is not a required (issue: restart/reboot) and
+** persistence is not a requirement (issue: restart/reboot) and
 ** scaling of services is not required (issue: instantiation).
 
-* *External products* like `redis`, `redis-sentinel`, `etcd`, `nats-js` which are an independent service not related to Infinite Scale and usually installed on separate hardware requireing own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
+* *External products* like `redis`, `redis-sentinel`, `etcd`, `nats-js` which are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
 
 === Local vs Global Configuration
 
