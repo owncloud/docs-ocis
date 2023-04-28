@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale User service
 
-:ext_name: users
+:service_name: users
 
 == Introduction
 

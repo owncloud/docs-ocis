@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Group service
 
-:ext_name: groups
+:service_name: groups
 
 == Introduction
 

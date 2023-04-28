@@ -2,7 +2,7 @@
 :toc: right
 :description: The nats service is the event broker of the system. It distributes events among all other services and enables other services to communicate asynchronously.
 
-:ext_name: nats
+:service_name: nats
 
 == Introduction
 

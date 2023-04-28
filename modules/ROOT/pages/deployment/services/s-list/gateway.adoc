@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Frontend service
 
-:ext_name: gateway
+:service_name: gateway
 
 == Introduction
 

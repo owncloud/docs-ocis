@@ -5,7 +5,7 @@
 // references https://github.com/owncloud/ocis/pull/3864 ([docs-only] add PROPFIND sequence diagram examples)
 // also see: https://owncloud.dev/architecture/protocol-changes/ 
 
-:ext_name: ocdav
+:service_name: ocdav
 
 == Introduction
 

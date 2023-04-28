@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Storage-Shares service
 
-:ext_name: storage-shares
+:service_name: storage-shares
 
 == Introduction
 

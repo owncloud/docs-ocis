@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Storage-Publiclink service
 
-:ext_name: storage-publiclink
+:service_name: storage-publiclink
 
 == Introduction
 

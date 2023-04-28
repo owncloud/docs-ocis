@@ -4,7 +4,7 @@
 
 :oc10-api-url: https://doc.owncloud.com/server/next/developer_manual/core/apis/ocs-notification-endpoint-v1.html#get-user-notifications
 
-:ext_name: userlog
+:service_name: userlog
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 

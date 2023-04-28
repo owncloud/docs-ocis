@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale IDP service provides a built-in minimal OpenID Connect provider.
 
-:ext_name: idp
+:service_name: idp
 
 == Introduction
 

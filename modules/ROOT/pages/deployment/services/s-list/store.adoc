@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Store service
 
-:ext_name: store
+:service_name: store
 
 == Introduction
 

@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale postprocessing service handles the coordination of asynchronous post-processing steps.
 
-:ext_name: postprocessing
+:service_name: postprocessing
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 

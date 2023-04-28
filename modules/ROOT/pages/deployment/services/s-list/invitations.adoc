@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale invitations service provides an Invitation Manager that can be used to invite external users, aka guests, to an organization.
 
-:ext_name: invitations
+:service_name: invitations
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 

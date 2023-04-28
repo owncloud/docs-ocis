@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale App-Registry service
 
-:ext_name: app-registry
+:service_name: app-registry
 
 == Introduction
 

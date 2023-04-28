@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Storage-System service
 
-:ext_name: storage-system
+:service_name: storage-system
 
 == Introduction
 

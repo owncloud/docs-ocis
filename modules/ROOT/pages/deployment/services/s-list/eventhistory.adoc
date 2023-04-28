@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale eventhistory service consumes all events from the configured event system like NATS, stores them and allows other services to retrieve them via an event ID.
 
-:ext_name: eventhistory
+:service_name: eventhistory
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 

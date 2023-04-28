@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale antivirus service is responsible for scanning files for viruses.
 
-:ext_name: antivirus
+:service_name: antivirus
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 
