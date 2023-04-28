@@ -2,7 +2,7 @@
 :toc: right
 :description: The proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
 
-:ext_name: proxy
+:service_name: proxy
 
 == Introduction
 

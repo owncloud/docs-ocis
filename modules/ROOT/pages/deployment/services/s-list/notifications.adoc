@@ -3,7 +3,7 @@
 :description: The notification service is responsible for sending emails to users informing them about events that happened.
 :github-master-url: https://github.com/owncloud/ocis/blob/master//services/notifications/pkg/email/templates
 
-:ext_name: notifications
+:service_name: notifications
 
 == Introduction
 

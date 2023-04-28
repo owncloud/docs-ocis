@@ -3,7 +3,7 @@
 :tus-url: https://tus.io
 :description: The Infinite Scale Storage-Users service
 
-:ext_name: storage-users
+:service_name: storage-users
 
 == Introduction
 

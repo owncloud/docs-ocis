@@ -3,7 +3,7 @@
 :description: The Infinite Scale webfinger service provides an RFC7033 WebFinger lookup of ownCloud instances relevant for a given user account.
 :webfinger-url: https://en.wikipedia.org/wiki/WebFinger
 
-:ext_name: webfinger
+:service_name: webfinger
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 

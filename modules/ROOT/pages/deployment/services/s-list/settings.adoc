@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Settings service
 
-:ext_name: settings
+:service_name: settings
 
 == Introduction
 

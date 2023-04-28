@@ -2,7 +2,7 @@
 :toc: right
 :description: The web service embeds and serves the static files for the Infinite Scale Web Client.
 
-:ext_name: web
+:service_name: web
 
 == Introduction
 

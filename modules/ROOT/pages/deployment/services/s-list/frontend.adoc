@@ -2,7 +2,7 @@
 :toc: right
 :description: The frontend service translates various ownCloud related HTTP APIs to CS3 requests.
 
-:ext_name: frontend
+:service_name: frontend
 
 == Introduction
 

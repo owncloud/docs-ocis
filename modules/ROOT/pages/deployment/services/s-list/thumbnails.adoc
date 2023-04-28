@@ -2,7 +2,7 @@
 :toc: right
 :description: The thumbnails service provides methods to generate thumbnails for various files and resolutions based on requests.
 
-:ext_name: thumbnails
+:service_name: thumbnails
 
 == Introduction
 

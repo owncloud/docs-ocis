@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Auth Machine service
 
-:ext_name: auth-machine
+:service_name: auth-machine
 
 == Introduction
 

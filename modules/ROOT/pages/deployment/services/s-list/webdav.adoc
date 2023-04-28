@@ -2,7 +2,7 @@
 :toc: right
 :description: The webdav service, like the ocdav service, provides a HTTP API following the webdav protocol.
 
-:ext_name: webdav
+:service_name: webdav
 
 == Introduction
 

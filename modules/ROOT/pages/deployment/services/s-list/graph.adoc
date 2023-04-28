@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Graph service provides a simple graph world API which can be used by clients or other services or extensions.
 
-:ext_name: graph
+:service_name: graph
 
 == Introduction
 
