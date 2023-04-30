@@ -479,7 +479,7 @@ If you have enabled demo users and groups and you want to manage or delete them,
 
 == Using the Embedded IDP Service
 
-When using the embedded IDP service, you must not set the environment variable `PROXY_TLS` to `false`. See the xref:{s-path}/proxy.adoc#special-settings[Special Settings] section in the Proxy servicefor more details.
+When using the embedded IDP service, you must not set the environment variable `PROXY_TLS` to `false`. See the xref:{s-path}/proxy.adoc#special-settings[Special Settings] section in the Proxy service for more details.
 
 == Default Ports
 
