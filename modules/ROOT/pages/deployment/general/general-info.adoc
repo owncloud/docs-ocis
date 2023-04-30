@@ -477,6 +477,10 @@ You can now login with one of the demo users created using the `OCIS_URL` in you
 
 If you have enabled demo users and groups and you want to manage or delete them, use the web UI, e.g. `\https://localhost:9200`.
 
+== Using the Embedded IDP Service
+
+When using the embedded IDP service, you must not set the environment variable `PROXY_TLS` to `false`. See the xref:{s-path}/proxy.adoc#special-settings[Special Settings] section in the Proxy servicefor more details.
+
 == Default Ports
 
 See xref:deployment/services/ports-used.adoc[Used Port Ranges] at the _Services_ description for details.
