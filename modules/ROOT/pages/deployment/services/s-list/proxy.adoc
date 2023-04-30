@@ -142,6 +142,10 @@ The `proxy` service can use a configured store via `GRAPH_STORE_TYPE`. Possible 
 3. The `proxy` service can be scaled if it's not using `in-memory` stores and the stores are configured identically over all instances.
 4.  When using `redis-sentinel`, the Redis master to use is configured via `PROXY_OIDC_USERINFO_CACHE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
+== Special Settings
+
+When using the Infinite Scale xref:{s-path}/idp.adoc[IDP service] instead of an external IDP, the `PROXY_TLS` environment variable must be set to `true` because the embedded `libreConnect` shipped with the IDP service has a hard check if the connection is on TLS and uses the HTTPS protocol. If this mismatches, an error will be logged.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
