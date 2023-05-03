@@ -15,7 +15,9 @@
 
 == Email Notification Templates
 
-The `notifications` service has embedded email body templates. Email templates can use the placeholders `{{ .Greeting }}`, `{{ .MessageBody }}` and `{{ .CallToAction }}` which are replaced with translations when sent, see the xref:translations[Translations] section for more details. Depending on the email purpose, placeholders will contain different strings. An individual translatable string is available for each purpose, finally resolved by the placeholder. Though the email subject is also part of translations, it has no placeholder as it is a mandatory email component. The embedded templates are available for all deployment scenarios.
+The `notifications` service has embedded email text and html body templates. Email templates can use the placeholders `{{ .Greeting }}`, `{{ .MessageBody }}` and `{{ .CallToAction }}` which are replaced with translations when sent, see the xref:translations[Translations] section for more details.
+
+Depending on the email purpose, placeholders will contain different strings. An individual translatable string is available for each purpose, to be resolved via the placeholder. Though the email subject is also part of translations, it has no placeholder as it is a mandatory email component. The embedded templates are available for all deployment scenarios.
 
 [source,plaintext]
 ----
@@ -25,29 +27,53 @@ template
 final output
 ----
 
-In addition, the notifications service supports custom templates. Custom email templates take precedence over the embedded ones. If a custom email template exists, the embedded templates are not used. To configure custom email templates, the `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` environment variable needs to point to a base folder that will contain the email templates. This path must be available from all instances of the notifications service, a shared storage is recommended. The source templates provided by Infinite Scale you can derive from are located in following base folder {github-master-url}[email / templates,window=_blank] with subfolders `shares` and `spaces`.
+In addition, the notifications service supports custom templates. Custom email templates take precedence over the embedded ones. If a custom email template exists, the embedded templates are not used. To configure custom email templates, the `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` environment variable needs to point to a base folder that will contain the email templates and follow the xref:templates-subfolder-hierarchy[Templates Subfolder Hierarchy]. This path must be available from all instances of the notifications service, a shared storage is recommended.
 
--   {github-master-url}/shares/shareCreated.email.body.tmpl[shares / shareCreated.email.body.tmpl,window=_blank]
--   {github-master-url}/shares/shareExpired.email.body.tmpl[shares / shareExpired.email.body.tmpl,window=_blank]
--   {github-master-url}/spaces/membershipExpired.email.body.tmpl[spaces / membershipExpired.email.body.tmpl,window=_blank]
--   {github-master-url}/spaces/sharedSpace.email.body.tmpl[spaces / sharedSpace.email.body.tmpl,window=_blank]
--   {github-master-url}/spaces/unsharedSpace.email.body.tmpl[spaces / unsharedSpace.email.body.tmpl,window=_blank]
+[source,plaintext]
+----
+{NOTIFICATIONS_EMAIL_TEMPLATE_PATH}/templates/text/email.text.tmpl
+{NOTIFICATIONS_EMAIL_TEMPLATE_PATH}/templates/html/email.html.tmpl
+{NOTIFICATIONS_EMAIL_TEMPLATE_PATH}/templates/html/img/
+----
+
+The source templates provided by Infinite Scale you can use and adjust are located in the following base folder {github-master-url}[email / templates,window=_blank] with subfolders `text` and `html`.
+
+-   {github-master-url}/text/email.text.tmpl[text/email.text.tmpl,window=_blank]
+-   {github-master-url}/html/email.html.tmpl[html/email.html.tmpl,window=_blank]
+
+=== Templates Subfolder Hierarchy
 
 [source,plaintext]
 ----
 templates
 │
-└───shares
-│   │   shareCreated.email.body.tmpl
-│   │   shareExpired.email.body.tmpl
+└───html
+│   │   email.html.tmpl
+│   │
+│   └───img
+│       │   logo-mail.gif
 │
-└───spaces
-    │   membershipExpired.email.body.tmpl
-    │   sharedSpace.email.body.tmpl
-    │   unsharedSpace.email.body.tmpl
+└───text
+    │   email.text.tmpl
 ----
 
-Custom email templates referenced via `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` must also be located in subfolders `shares` and `spaces` and must have the same names as the embedded templates. It is important that the names of these files and  folders match the embedded ones.
+Custom email templates referenced via `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` must also be located in a subfolder `templates/text` and `templates/html` and must have the same names as the embedded templates. It is important that the names of these files and folders match the embedded ones. The `templates/html` subfolder contains a default HTML template provided by Infinite Scale.
+
+When using a custom HTML template, hosted images can either be linked with standard HTML code like:
+
+[source,html]
+----
+<img src="https://raw.githubusercontent.com/owncloud/core/master/core/img/logo-mail.gif" alt="logo-mail"/>
+----
+
+or embedded as a CID source like:
+
+[source,html]
+----
+<img src="cid:logo-mail.gif" alt="logo-mail"/>
+----
+
+In the latter case, image files must be located in the `templates/html/img` subfolder. Supported embedded image types are `png`, `jpeg`, and `gif`. Consider that embedding images via a CID resource may not be fully supported in all email web clients.
 
 == Translations
 
