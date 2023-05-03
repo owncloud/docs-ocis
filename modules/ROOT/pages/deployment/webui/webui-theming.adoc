@@ -1,6 +1,6 @@
 = ownCloud Web with Custom Theming
 :toc: right
-:toclevels: 1
+:toclevels: 2
 :description: Just like with other clients (Desktop, Android, iOS), themes can be used with ownCloud Web.
 
 :example-theme-url: https://github.com/owncloud/web/tree/master/config
