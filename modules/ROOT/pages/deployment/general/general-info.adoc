@@ -356,19 +356,22 @@ log:
 You can easily access Infinite Scale via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:demo-users-and-groups[].
 
 OCIS_URL::
++
+--
 Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
-+
-NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you need to configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
-+
-NOTE: By default, Infinite Scale enforces https for web and client access. If necessary, this can be changed to http, which is not recommended for production. For details see xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS for the HTTP Frontend] and xref:deployment/services/s-list/proxy.adoc[Proxy Service Configuration].
-+
-include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
+NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you *must* configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
+
+NOTE: By default, Infinite Scale enforces https for web and client access. If necessary, this can be changed in particular setups to http, which is *not* recommended for production. For details see xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS for the HTTP Frontend] and xref:deployment/services/s-list/proxy.adoc#special-settings[Proxy Service Configuration].
+
+include::partial$multi-location/idm-https-reverse-proxy.adoc[]
+--
 
 PROXY_HTTP_ADDR::
 When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
 
-// fixme: explain the proxy - but on a different page.
+
+Also see the xref:using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes.
 
 === Handling Certificates
 
@@ -477,10 +480,6 @@ You can now login with one of the demo users created using the `OCIS_URL` in you
 
 If you have enabled demo users and groups and you want to manage or delete them, use the web UI, e.g. `\https://localhost:9200`.
 
-== Using the Embedded IDP Service
-
-When using the embedded IDP service, you must not set the environment variable `PROXY_TLS` to `false`. See the xref:{s-path}/proxy.adoc#special-settings[Special Settings] section in the Proxy service for more details.
-
 == Default Ports
 
 See xref:deployment/services/ports-used.adoc[Used Port Ranges] at the _Services_ description for details.
@@ -489,11 +488,13 @@ See xref:deployment/services/ports-used.adoc[Used Port Ranges] at the _Services_
 
 See xref:deployment/services/logging.adoc[Logging] at the _Services_ description for details.
 
+== Using the Embedded IDP Service
+
+See the xref:{s-path}/proxy.adoc#special-settings[Special Settings] section in the Proxy service for configuration details when using the Infinite Scale xref:{s-path}/idp.adoc[IDP service] instead of an external IDP.
+
 == Using a Reverse Proxy
 
-// https://owncloud.dev/ocis/deployment/ocis_individual_services/
-
-If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the access, there is no need to use certificates between the reverse proxy and Infinite Scale again. You can therefore set `OCIS_INSECURE=false` or remove it completely. Also see: xref:handling-certificates[Handling Certificates].
+If you are using a reverse proxy like Traefik and the reverse proxy manages the certificates to secure the client access, you can use extra certificates between the proxy and Infinite Scale, although this is not mandatory. See the section xref:handling-certificates[Handling Certificates] for more details.
 
 include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
