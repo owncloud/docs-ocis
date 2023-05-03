@@ -1,0 +1,11 @@
+= ownCloud Web with Custom Configuration
+:toc: right
+:description: The behavior of the embedded web frontend named ownCloud Web can be configured. This guide shows you how to do so.
+
+== Introduction
+
+{description}
+
+== Custom Configuration
+
+Behavior customisation can be achieved by setting environment variables in the xref:{s-path}/web.adoc[Web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.

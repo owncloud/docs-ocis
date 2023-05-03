@@ -62,6 +62,9 @@
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
 **** xref:deployment/services/s-list/webfinger.adoc[Webfinger]
+** xref:deployment/webui/webui.adoc[WebUI]
+*** xref:deployment/webui/webui-customisation.adoc[Custom Configuration]
+*** xref:deployment/webui/webui-theming.adoc[Custom Theming]
 * Maintenance
 ** Backup and Restore
 *** xref:maintenance/b-r/backup.adoc[Backup]
