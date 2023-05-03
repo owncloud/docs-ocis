@@ -17,7 +17,7 @@
 
 The `notifications` service has embedded email text and html body templates. Email templates can use the placeholders `{{ .Greeting }}`, `{{ .MessageBody }}` and `{{ .CallToAction }}` which are replaced with translations when sent, see the xref:translations[Translations] section for more details.
 
-Depending on the email purpose, placeholders will contain different strings. An individual translatable string is available for each purpose, finally resolved by the placeholder. Though the email subject is also part of translations, it has no placeholder as it is a mandatory email component. The embedded templates are available for all deployment scenarios.
+Depending on the email purpose, placeholders will contain different strings. An individual translatable string is available for each purpose, to be resolved via the placeholder. Though the email subject is also part of translations, it has no placeholder as it is a mandatory email component. The embedded templates are available for all deployment scenarios.
 
 [source,plaintext]
 ----
@@ -27,7 +27,7 @@ template
 final output
 ----
 
-In addition, the notifications service supports custom templates. Custom email templates take precedence over the embedded ones. If a custom email template exists, the embedded templates are not used. To configure custom email templates, the `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` environment variable needs to point to a base folder that will contain the email templates and follow the xref:templates-subfolder-hierarchy[templates subfolder hierarchy]. This path must be available from all instances of the notifications service, a shared storage is recommended.
+In addition, the notifications service supports custom templates. Custom email templates take precedence over the embedded ones. If a custom email template exists, the embedded templates are not used. To configure custom email templates, the `NOTIFICATIONS_EMAIL_TEMPLATE_PATH` environment variable needs to point to a base folder that will contain the email templates and follow the xref:templates-subfolder-hierarchy[Templates Subfolder Hierarchy]. This path must be available from all instances of the notifications service, a shared storage is recommended.
 
 [source,plaintext]
 ----
@@ -36,7 +36,7 @@ In addition, the notifications service supports custom templates. Custom email t
 {NOTIFICATIONS_EMAIL_TEMPLATE_PATH}/templates/html/img/
 ----
 
-The source templates provided by Infinite Scale you can derive from are located in following base folder {github-master-url}[email / templates,window=_blank] with subfolders `text` and `html`.
+The source templates provided by Infinite Scale you can use and adjust are located in the following base folder {github-master-url}[email / templates,window=_blank] with subfolders `text` and `html`.
 
 -   {github-master-url}/text/email.text.tmpl[text/email.text.tmpl,window=_blank]
 -   {github-master-url}/html/email.html.tmpl[html/email.html.tmpl,window=_blank]
