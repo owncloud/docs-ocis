@@ -9,11 +9,11 @@
 
 == Introduction
 
-{description}  As an organization or company you may be interested in theming the ownCloud web user interface with your brand and slogan, while playful private individuals may simply enjoy the fun of decorating ownCloud web the way they like.
+{description}  As an organization or company you may be interested in theming the ownCloud web user interface with your brand and slogan and playful individuals may simply enjoy the fun of decorating ownCloud web the way they like.
 
-This can be achieved by providing a json file that contains text snippets (like brand name and slogan), paths to images (e.g. logos or favicon) and design tokens for various parameters like color, sizing and spacing. In the following, we explain the setup and configuration options and provide an empty template for you to get started.
+This can be achieved by providing a json file that contains text snippets (like brand name and slogan), paths to images (e.g. logos or favicons) and design tokens for various parameters like color, sizing and spacing. In the following, we explain the setup and configuration options and provide an empty template for you to get started.
 
-owncloud web can be seen as a hub for extensions like the files extension, the user management extension and others. The central part of owncloud web with respect to theming is the web-runtime which holds all general style definitions which can be used by but also be individually set by an extension. This makes it possible to e.g. individually style the generally frame independently from an extension.
+ownCloud web can be seen as a hub for extensions like the files extension, the user management extension and others. The central part of ownCloud web with respect to theming is the web-runtime which holds all general style definitions which can be used by but also be individually set by an extension. This makes it possible to e.g. individually style the general frame independent of an extension.
 
 == Providing a Theme
 
@@ -72,7 +72,7 @@ Here, you can specify a `"name"` and a `"slogan"` string. The name gets used in 
 
 === "logo"
 
-Here, you can specify the images to be used in the "topbar", for the "favicon" and on the "login" page. Various formats are supported and it’s up to you to decide which one fits best to your use case.
+Here, you can specify the images to be used in the "topbar", for the "favicon" and on the "login" page. Various formats are supported and it’s up to you to decide which one fits your use case best.
 
 === "loginPage"
 
@@ -106,7 +106,7 @@ Follow this structure to make sure your theming configuration is loaded correctl
 
 ==== Extendability
 
-If you define different key-value pairs inside any of the objects in `"designTokens"`, they will get loaded and initialized as CSS custom properties but don’t take any effect in the user interface. This gives you the opportunity to customize extension styles from within the theme in the web-runtime, without the need redefining the same style components in an extension again. Note that you can overwrite a style component set the web-runtime for an extension by the extension.
+If you define different key-value pairs inside any of the objects in `"designTokens"`, they will get loaded and initialized as CSS custom properties but don’t take any effect in the user interface. This gives you the opportunity to customize extension styles from within the theme in the web-runtime, without the need of redefining the same style components in an extension again. Note that you can overwrite a style component set in the web-runtime for an extension by the extension.
 
 ==== Breakpoints
 

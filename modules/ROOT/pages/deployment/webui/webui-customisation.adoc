@@ -8,4 +8,4 @@
 
 == Custom Configuration
 
-Behavior customisation can be achieved by setting environment variables in the xref:{s-path}/web.adoc[Web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
+Behavior customization can be achieved by setting environment variables in the xref:{s-path}/web.adoc[Web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
