@@ -20,9 +20,9 @@ The web service also provides a minimal API for branding functionality like chan
 
 If you want to use your custom compiled web client assets instead of the embedded ones, then you can do that by setting the `WEB_ASSET_PATH` variable to point to your compiled files. See https://owncloud.dev/clients/web/getting-started/[ownCloud Web / Getting Started] and https://owncloud.dev/clients/web/backend-ocis/[ownCloud Web / Setup with oCIS] in the developer documentation for more details.
 
-== Customize the WebUI Configuration
+== Customize the Web UI Configuration
 
-See the xref:deployment/webui/webui.adoc[WebUI] documentation for how to configure theming and customisation.
+See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming and customization.
 
 == Configuration
 
