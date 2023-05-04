@@ -6,6 +6,16 @@
 
 {description}
 
-== Custom Configuration
+== Web UI Configuration
 
-Behavior customization can be achieved by setting environment variables in the xref:{s-path}/web.adoc[web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
+* Single configuration settings of the embedded web UI can be defined via `WEB_OPTION_xxx` environment variables.
+* A json based configuration file can be used via the `WEB_UI_CONFIG_FILE` environment variable.
+* A configuration file takes precedence over single options set.
+
+=== Web UI Options
+
+Beside theming, the behavior of the web UI can be configured via options. Behavior customization can be achieved by setting environment variables in the xref:{s-path}/web.adoc[Web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
+
+=== Web UI Config File
+
+When defined via the `WEB_UI_CONFIG_FILE` xref:{s-path}/web.adoc[environment variable], the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
