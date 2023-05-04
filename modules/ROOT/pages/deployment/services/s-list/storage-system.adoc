@@ -52,7 +52,7 @@ The `frontend` service can use a configured store via `STORAGE_SYSTEM_CACHE_STOR
 
 == Deprecated Metadata Backend
 
-Starting with ocis version 3.0.0, the default backend for metadata switched to messagepack. If the setting `STORAGE_SYSTEM_OCIS_METADATA_BACKEND` has not been defined manually, the backend will be migrated to `messagepack` automatically. Though still possible to manually configure `xattrs`, this setting should not be used anymore as it will be removed in a later version.
+Starting with Infinite Scale version 3.0.0, the default backend for metadata switched to messagepack. If the setting `STORAGE_SYSTEM_OCIS_METADATA_BACKEND` has not been defined manually, the backend will be migrated to `messagepack` automatically. Though still possible to manually configure `xattrs`, this setting should not be used anymore as it will be removed in a later version.
 
 == Configuration
 
