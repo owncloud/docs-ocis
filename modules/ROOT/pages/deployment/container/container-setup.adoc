@@ -251,7 +251,7 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 === Recurring Start of Infinite Scale
 
-When you run the Infinite Scale container, you _must_ specify at least the `OCIS_URL` as an environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI].
+When you run the Infinite Scale container, you _must_ specify at least the `OCIS_URL` as an environment variable to have browser access. This is  because `localhost` would point to a location inside the container and not to the server being accessed. For details see: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI].
 
 In the example below, replace `<your-hostname>` with the host name or IP address of your server.
 

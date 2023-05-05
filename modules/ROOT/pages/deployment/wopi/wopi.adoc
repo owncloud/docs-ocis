@@ -27,13 +27,13 @@ Infinite Scale can be configured to use office applications as web applications 
 * define which icons are used for which applications,
 * define which app is preferred to open a file.
 
-Configured applications can be selected by users when opening a document via the WebUI. The list of available applications to open a file shows an icon and the app name for each entry.
+Configured applications can be selected by users when opening a document via the web UI. The list of available applications to open a file shows an icon and the app name for each entry.
 
 Office applications are:
 
 * provided via the xref:{s-path}/app-provider.adoc[App-Provider Service] because they are not able to register themself, see the xref:#wopi-configuration-examples[docker-compose.yml] file. 
 
-* configured for use with the WebUI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. Here, default office apps and their appearance in the list of available apps in the webUI are defined. For more information see the xref:#wopi-configuration-examples[app-registry.yaml] file.
+* configured for use with the web UI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. Here, default office apps and their appearance in the list of available apps in the web UI are defined. For more information see the xref:#wopi-configuration-examples[app-registry.yaml] file.
 
 {empty}
 [[special-ms-note]]

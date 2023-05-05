@@ -110,7 +110,7 @@ For some hints on what to take into consideration, check the notes listed here:
 * Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
 --
 
-. Though no changes are needed, adapt the xref:conf-examples/office/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the webUI with the names of available office applications to open. This can be changed if required.
+. Though no changes are needed, adapt the xref:conf-examples/office/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the web UI with the names of available office applications to open. This can be changed if required.
 
 . For Microsoft Office 365, adapt the xref:conf-examples/office/ext-files/wopiserver.adoc[wopiserver.conf.dist,window=_blank] file by adding the correct proxy URL. For more details about the background and how to obtain this URL see xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications using WOPI,window=_blank].
 
