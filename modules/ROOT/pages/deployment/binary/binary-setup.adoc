@@ -123,7 +123,7 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 ==== Recurring Start of Infinite Scale
 
-After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] or xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for basic environment variables.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI] or xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for basic environment variables.
 
 NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
 
@@ -232,7 +232,7 @@ sudo chown -R ocis:ocis {ocis_env}
 ----
 --
 
-Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the WebUI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
+Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
 
 NOTE: This is just an example with a minimal set of environment variables used.
 

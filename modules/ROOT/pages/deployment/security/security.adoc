@@ -12,6 +12,6 @@ Infinite Scale can be initialized with demo users for our customers to play arou
 
 NOTE: The generation of demo users only happens if you run the initial setup (`ocis init`) with an additional environment variable: `IDM_CREATE_DEMO_USERS=true`. For more information see xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups]. If you don't use this variable, only the user Admin is created.
 
-The demo users which are listed below can be deleted via the webUI.
+The demo users which are listed below can be deleted via the web UI.
 
 include::partial$deployment/demo_user_table.adoc[]

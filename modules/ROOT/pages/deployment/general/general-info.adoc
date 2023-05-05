@@ -351,7 +351,7 @@ log:
   file: [ path/to/log/file ] # MUST not be used with pretty = true
 ----
 
-== Configurations to Access the WebUI
+== Configurations to Access the Web UI
 
 You can easily access Infinite Scale via ownCloud Web with minimal configuration needs. Without going into too much detail, you need to provide the following two environment variables. See also the section about xref:handling-certificates[] and xref:demo-users-and-groups[].
 
