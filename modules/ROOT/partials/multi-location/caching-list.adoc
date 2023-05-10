@@ -1,6 +1,6 @@
 ////
-This partial contains the commonly used list if cache stores plus notes.
-It is used as partial so when there is a change, we only need to do it on one place
+This partial contains the commonly used list of cache stores plus notes.
+It is used as partial so when there is a change, we only need to do it in one place
 When including, there must be at the top and the bottom a line manually added describing service dependent stuff, see below.
 ////
 
