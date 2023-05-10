@@ -108,39 +108,11 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 
 == Caching
 
-The `proxy` service can use a configured store via `GRAPH_STORE_TYPE`. Possible stores are:
+The `proxy` service can use a configured store via `PROXY_OIDC_USERINFO_CACHE_STORE`. Possible stores are:
 
-[width=100%,cols="25%,85%",options=header]
-|===
-| Store Type
-| Description
-
-| `memory`
-| Basic in-memory store and the default.
-
-| `ocmem`
-| Advanced in-memory store allowing max size.
-
-| `Redis`
-| Stores data in a configured Redis cluster.
-
-| `redis-sentinel`
-| Stores data in a configured Redis Sentinel cluster.
-
-| `etcd`
-| Stores data in a configured etcd cluster.
-
-| `nats-js`
-| Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
-
-| `noop`
-| Stores nothing. Useful for testing. Not recommended in production environments.
-|===
-
-1. Note that in-memory stores are by nature not reboot-persistent.
-2. Though usually not necessary, a database name and a database table can be configured for event stores if the event store supports this. Generally, this does not apply to stores of type `in-memory`. These settings are blank by default which means that the standard settings of the configured store apply.
-3. The `proxy` service can be scaled if it's not using `in-memory` stores and the stores are configured identically over all instances.
-4.  When using `redis-sentinel`, the Redis master to use is configured via `PROXY_OIDC_USERINFO_CACHE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+include::partial$multi-location/caching-list.adoc[]
+// you must not have one or more blank lines here as it breaks continuous numbering!
+.  When using `redis-sentinel`, the Redis master to use is configured via `PROXY_OIDC_USERINFO_CACHE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Special Settings
 
