@@ -113,7 +113,7 @@ The `storage-users` service caches stat and metadata via the configured store in
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!
-.  When using `redis-sentinel`, the Redis master to use is configured via `STORAGE_USERS_STAT_CACHE_STORE_NODES` and `STORAGE_USERS_FILEMETADATA_CACHE_STORE_NODES` in the form of `10.10.0.200:26379/mymaster`.
+. When using `redis-sentinel`, the Redis master to use is configured via `STORAGE_USERS_STAT_CACHE_STORE_NODES` and `STORAGE_USERS_FILEMETADATA_CACHE_STORE_NODES` in the form of `10.10.0.200:26379/mymaster`.
 
 == Deprecated Metadata Backend
 
