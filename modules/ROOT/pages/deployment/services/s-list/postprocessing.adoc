@@ -53,9 +53,23 @@ To use custom post-processing steps, you need a custom service listening to the 
 
 === Workflow
 
-When setting a custom post-processing step (eg. "customstep") the postprocessing service will eventually send an event during post-processing. The event will be of the type StartPostprocessingStep with its field StepToStart set to "customstep". When the custom service receives this event, it can safely execute its actions. The post-processing service will wait until it has finished its work. The event contains further information (like filename, executing user, size, ...) and required tokens or URLs to download the file in case byte inspection is necessary.
+When setting a custom post-processing step (eg. "customstep") the postprocessing service will eventually send an event during post-processing. The event will be of the type `StartPostprocessingStep` with its field StepToStart set to "customstep". When the custom service receives this event, it can safely execute its actions. The post-processing service will wait until it has finished its work. The event contains further information (like filename, executing user, size, ...) and required tokens or URLs to download the file in case byte inspection is necessary.
 
-Once the custom service has finished its work, it should send an event of the type `PostprocessingFinished` via the configured event system. This event needs to contain a `FinishedStep` field set to "customstep". It also must contain the outcome of the step, which can be one of `delete` (abort post-processing, delete the file), `abort` (abort post-processing, keep the file) and `continue` (continue post-processing, this is the success case).
+Once the custom service has finished its work, it should send an event of the type `PostprocessingFinished` via the configured event system. This event needs to contain a `FinishedStep` field set to "customstep". It also must contain the outcome of the step, which can be one of:
+
+* `delete` (abort post-processing, delete the file), 
+* `abort` (abort post-processing, keep the file) and 
+* `continue` (continue post-processing, this is the success case).
+
+== Storing
+
+The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
+
+The `postprocessing` service stores each consumed event via the configured store in `EVENTHISTORY_STORE_TYPE`. Possible stores are:
+
+include::partial$multi-location/caching-list.adoc[]
+// you must not have one or more blank lines here as it breaks continuous numbering!
+. When using `redis-sentinel`, the Redis master to use is configured via `POSTPROCESSING_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Configuration
 

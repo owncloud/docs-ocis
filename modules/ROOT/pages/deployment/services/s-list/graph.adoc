@@ -32,7 +32,7 @@ The `graph` service can use a configured store via `GRAPH_CACHE_STORE`. Possible
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!
-.  When using `redis-sentinel`, the Redis master to use is configured via `GRAPH_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+. When using `redis-sentinel`, the Redis master to use is configured via `GRAPH_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Keycloak Configuration for the Personal Data Export
 
