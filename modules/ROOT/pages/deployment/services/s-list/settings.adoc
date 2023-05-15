@@ -10,6 +10,14 @@
 
 // fixme: source description is still missing, and a better description is needed
 
+== Caching
+
+The `settings` service caches the results of filesystem lookups to provide faster responses. The store used for the cache can be configured using the `SETTINGS_CACHE_STORE` environment variable. Possible stores are:
+
+include::partial$multi-location/caching-list.adoc[]
+// you must not have one or more blank lines here as it breaks continuous numbering!
+. When using `redis-sentinel`, the Redis master to use is configured via `SETTINGS_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+
 == Default Values
 
 * Settings listens on port 9190 by default.
