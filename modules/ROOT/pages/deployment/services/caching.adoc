@@ -17,7 +17,7 @@
 === Identifying Caches by their Name
 
 * Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE` which is valid for both local and global ones.
-* Persistent caches can be identified via environment variables ending with `xxx_STORE` when using local and `OCIS_PERSISTENT_STORE` when using global ones. Note that no other trailing name components are present when using local ones.
+* Persistent caches can be identified via environment variables ending with `xxx_STORE` when using local ones and `OCIS_PERSISTENT_STORE` when using global ones. Note that no other trailing name components are present when using local ones.
 
 === Store Types
 
