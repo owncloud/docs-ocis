@@ -201,7 +201,7 @@ Activate the new nginx config and reload nginx:
 
 [source,bash]
 ----
-sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
+sudo a2ensite ocis
 ----
 
 [source,bash]
