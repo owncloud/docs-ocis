@@ -14,11 +14,10 @@
 * *Persistence*: With this kind of store, saving information temporarily on a persistent media is key. Persistence stores are used, for example, for generated events returning status info to users when requested. If this data gets lost or is not consistently available over the instantiated services, users will be inconsistently informed about state changes that happened.
 * *Scaling*: When services are scaled horizontally (instantiated), a common and persistent base for generated data is necessary.
 
-
 === Identifying Caches by their Name
 
-* Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE`.
-* Persistent caches can be identified via environment variables ending with `xxx_STORE`. Note that no other trailing name components are present.
+* Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE` which is valid for both local and global ones.
+* Persistent caches can be identified via environment variables ending with `xxx_STORE` when using local ones and `OCIS_PERSISTENT_STORE` when using global ones. Note that no other trailing name components are present when using local ones.
 
 === Store Types
 
@@ -36,9 +35,7 @@ NOTE: When configuring `stat` and `metadata` caches individually for each servic
 
 == Identifying Services that Use Caching
 
-See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] for services where caching is used. Search for:
+See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] for services where caching or persistence is used. Search for:
 
-* *`_CACHE_STORE`* +
-for services using caching or
-* *`_STORE`* +
-for services using persistent stores. Note that no other trailing name components are present.
+* `OCIS_CACHE_STORE` or
+* `OCIS_PERSISTENT_STORE`.
