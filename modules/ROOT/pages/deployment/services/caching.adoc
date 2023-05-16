@@ -18,7 +18,7 @@
 === Identifying Caches by their Name
 
 * Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE`.
-* Persistent caches can be identified via environment variables ending with `xxx_PERSISTENT_STORE`.
+* Persistent caches can be identified via environment variables ending with `xxx_STORE`. Note that no other trailing name components are present.
 
 === Store Types
 
@@ -34,6 +34,11 @@
 +
 NOTE: When configuring `stat` and `metadata` caches individually for each service and not via the corresponding global environment variable, all caches must have the same configuration (access to the same cache) to provide consistent results.
 
-=== Identifying Services that Use Caching
+== Identifying Services that Use Caching
 
-* See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] for services where caching is used. Search for `_CACHE_STORE` or `_PERSISTENT_STORE`.
+See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] for services where caching is used. Search for:
+
+* *`_CACHE_STORE`* +
+for services using caching or
+* *`_STORE`* +
+for services using persistent stores. Note that no other trailing name components are present.
