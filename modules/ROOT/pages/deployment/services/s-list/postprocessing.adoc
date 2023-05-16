@@ -65,7 +65,7 @@ Once the custom service has finished its work, it should send an event of the ty
 
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
 
-The `postprocessing` service stores each consumed event via the configured store in `EVENTHISTORY_STORE_TYPE`. Possible stores are:
+The `postprocessing` service stores each consumed event via the configured store in `POSTPROCESSING_STORE`. Possible stores are:
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!

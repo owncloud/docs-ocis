@@ -55,11 +55,11 @@ A lot of user management is done via the standardized LibreGraph API. Depending 
 
 == Caching
 
-The `frontend` service can use a configured store via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE`. Possible stores are:
+The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`. Possible stores are:
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+. When using `redis-sentinel`, the Redis master to use is configured via `FRONTEND_OCS_STAT_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Configuration
 
