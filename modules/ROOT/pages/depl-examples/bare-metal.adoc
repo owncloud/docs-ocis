@@ -193,7 +193,7 @@ sudo nginx -t
 
 === Prepare nginx for certbot
 
-To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/nginx/sites-available` with the following content:
+To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis.conf` under `/etc/nginx/sites-available` with the following content:
 
 include::partial$deployment/nginx_80_example.adoc[]
 
