@@ -12,6 +12,9 @@
 
 {description}
 
+See the following PDF document for a brief 
+link:{attachmentsdir}/2023-05-22_Infinite_Scale_Overview.pdf[overview of Infinite Scale,window=_blank].
+
 === Target Audience
 
 This documentation addresses administrators and technically-oriented management:
