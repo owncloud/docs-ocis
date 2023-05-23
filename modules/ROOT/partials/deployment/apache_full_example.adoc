@@ -27,12 +27,13 @@
 
     #important, otherwise 400 errors from idp
     ProxyPreserveHost on
+    
+    ## Actual values to be added by certbot
+    # SSLCertificateFile /etc/letsencrypt/live/{ocis_url}/fullchain.pem
+    # SSLCertificateKeyFile /etc/letsencrypt/live/{ocis_url}/privkey.pem
 
-    SSLCertificateFile /etc/letsencrypt/live/{ocis_url}/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/{ocis_url}/privkey.pem
-
-    Include /etc/letsencrypt/options-ssl-apache.conf
-    SSLOpenSSLConfCmd DHParameters /etc/letsencrypt/ssl-dhparams.pem
+    # Include /etc/letsencrypt/options-ssl-apache.conf
+    # SSLOpenSSLConfCmd DHParameters /etc/letsencrypt/ssl-dhparams.pem
   </VirtualHost>
 </IfModule>
 ----
