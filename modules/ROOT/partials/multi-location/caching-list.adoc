@@ -18,7 +18,7 @@ When including, there must be at the top and the bottom a line manually added de
 | `ocmem`
 | Advanced in-memory store allowing max size.
 
-| `Redis`
+| `redis`
 | Stores data in a configured Redis cluster.
 
 | `redis-sentinel`
