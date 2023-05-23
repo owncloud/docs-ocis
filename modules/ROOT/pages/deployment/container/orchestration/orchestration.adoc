@@ -229,7 +229,7 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | Works with Infinite Scale Versions
 
 | {helm_tab_1_tab_text}
-| 3.0.0-rc.3
+| 3.0.0-rc.4
 
 ifdef::use_helm_tab_2[]
 | {helm_tab_2_tab_text}
