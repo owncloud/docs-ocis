@@ -159,7 +159,7 @@ OCIS_CONFIG_DIR={ocis_env}
 OCIS_BASE_DATA_PATH={ocis_data}
 ----
 
-`PROXY_TLS` is set to `false` because xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS termination] will be done by nginx.
+`PROXY_TLS` is set to `false` because xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS termination] will be done by the webserver. Though you also can secure the communication between Infinite Scale and the webserver, this is not covered by this document.
 
 Generate the initial Infinite Scale configuration file, also see xref:deployment/general/ocis-init.adoc[The ocis init Command]:
 
@@ -222,7 +222,7 @@ sudo certbot --nginx -d {ocis_url}
 
 Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
 
-include::partial$deployment/nginx_full_example.adoc[]
+include::partial$deployment/nginx_proxy_example.adoc[]
 
 Add the following to the SSL definition above if SSL security should be hardened / improved:
 
@@ -279,7 +279,7 @@ sudo certbot --apache -d {ocis_url}
 
 Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
 
-include::partial$deployment/apache_full_example.adoc[]
+include::partial$deployment/apache_proxy_example.adoc[]
 
 Add the following to the SSL definition above if SSL security should be hardened / improved:
 
