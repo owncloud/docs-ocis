@@ -12,8 +12,10 @@
 
 {description}
 
+// IMPORTANT: this permalink origins to: https://cloud.owncloud.com/index.php/apps/files/?dir=/Shared/owncloud/Product%20Management/Presentations/2023-05-22_Infinite%20Scale%20current%20state&fileid=6005441
+
 See the following PDF document for a brief 
-link:{attachmentsdir}/2023-05-22_Infinite_Scale_Overview.pdf[overview of Infinite Scale,window=_blank].
+https://cloud.owncloud.com/index.php/s/S7W9NPfKSHAoEYB[overview of Infinite Scale,window=_blank].
 
 === Target Audience
 
