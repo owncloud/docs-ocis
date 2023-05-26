@@ -81,7 +81,7 @@ You can try Infinite Scale before you install it locally to get hands-on experie
 
 == End-User License Agreement (EULA)
 
-ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual link:{attachmentsdir}/introduction/oCIS_EULA_11052022_final.pdf[EULA, window=_blank] for details.
+ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual https://raw.githubusercontent.com/owncloud/ocis/master/assets/End-User-License-Agreement-for-ownCloud-Infinite-Scale.pdf[EULA] for details.
 
 ////
 
