@@ -38,20 +38,20 @@ docker pull owncloud/ocis:3.0.0
 * or get the binary from the link above.
 --
 
-. Manually add the xref:{s-path}/graph.adoc#environment-variables[GRAPH_APPLICATION_ID,window=_blank] to the config. The value can be any text string using characters defined by the https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID definition] and is preferrable a UUID4 string.
+. Manually add the xref:{s-path}/graph.adoc#environment-variables[GRAPH_APPLICATION_ID,window=_blank] to the config. The value can be any text string using characters defined by the https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID definition] and is preferably a UUID4 string.
 +
 --
-- Either editing the xref:deployment/general/general-info.adoc#configuration-file-naming[ocis.yaml] (preferred and recommended) by adding:
+- Either edit the xref:deployment/general/general-info.adoc#configuration-file-naming[ocis.yaml] (preferred and recommended) by adding:
 +
 [source,yaml]
 ----
 graph:
   application:
-    # required by upgrading ocis to v3.0.0
+    # required when upgrading ocis to v3.0.0
     id: <your UUID4 string>
 ----
 
-- OR setting `GRAPH_APPLICATION_ID` as xref:deployment/general/general-info.adoc#configuration-rules[ENV variable].
+- OR setting `GRAPH_APPLICATION_ID` as an xref:deployment/general/general-info.adoc#configuration-rules[ENV variable].
 
 NOTE: This environment variable will be defined automatically when installing a fresh instance and running xref:deployment/general/ocis-init.adoc[ocis init] to initialize it.
 --
@@ -73,7 +73,7 @@ For any breaking changes that come along with Helm Charts, see the xref:deployme
 . Messagepack Readme First
 +
 --
-If you have manually changed one of the following environment variables to a value other than the default or explicitely set one of the enironment variables to the default which was `xattrs`:
+If you have manually changed one of the following environment variables to a value other than the default or explicitly set one of the environment variables to the default which was `xattrs`:
 
 `OCIS_DECOMPOSEDFS_METADATA_BACKEND`, +
 `STORAGE_SYSTEM_OCIS_METADATA_BACKEND`, +
@@ -83,7 +83,7 @@ the instance will stay at the configured backend when passing the next step.
 
 IMPORTANT: Though you can stay at the xattrs backend, it is highly recommended to migrate to messagepack as the xattrs backend is considered deprecated and will be removed soon.
 
-To enable migration, remove any of the manual configurations environment variables listed above. This can be also done in a later step but it is highly recommended to migrate now.
+To enable migration, remove any of the manually configured environment variables listed above. This can be also done in a later step but it is highly recommended to migrate now.
 
 NOTE: If you want to prevent the migration for now, set `OCIS_DECOMPOSEDFS_METADATA_BACKEND=xattrs`.
 --
