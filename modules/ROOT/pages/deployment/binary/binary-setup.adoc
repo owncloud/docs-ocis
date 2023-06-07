@@ -55,7 +55,7 @@ The output looks like this:
 +
 [source,plaintext,subs="attributes+"]
 ----
-Version: {ocis-version}
+Version: {ocis-actual-version}
 Compiled: {ocis-compiled}
 
 No running services found.

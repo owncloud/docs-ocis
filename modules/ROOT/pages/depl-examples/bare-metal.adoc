@@ -90,7 +90,7 @@ The output looks like this:
 
 [source,plaintext,subs="attributes+"]
 ----
-ocis version {ocis-version}
+ocis version {ocis-actual-version}
 ----
 
 === Create a Service User
