@@ -57,7 +57,7 @@ asciidoc:
     # note that tab 2 always contains the actual release and tab 3 the former
     helm_tab_1_tab_text: 'latest'
     helm_tab_2_tab_text: '0.3.0'
-    helm_tab_3_tab_text: '0.1.0'
+    helm_tab_3_tab_text: '0.2.0'
 
     # set attributes defining path components which will be assembled in the document
     secrets: 'deployment/container/orchestration/orchestration.adoc#define-secrets'
