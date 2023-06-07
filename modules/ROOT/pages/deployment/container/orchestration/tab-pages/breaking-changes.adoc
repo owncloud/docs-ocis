@@ -1,5 +1,6 @@
 = Helm Chart Breaking Changes
 :toc: right
+:description: Here you will find all breaking changes that come along with different Helm Chart releases. Note that all changes apply when going from one release to another.
 
 ////
 Note that there is only this one master file for all breaking changes.
@@ -12,8 +13,29 @@ For each breaking changes block you need:
 ** Double check the orchestration.adoc file if things need to be adapted (in section breaking changes)
 ////
 
+== Introduction
+
+{description}
+
+[id=0.3.0]
+== Chart Version: 0.3.0
+
+* `services.storageusers.storageBackend.driverConfig.s3ng.secretKey` and +
+ `services.storageusers.storageBackend.driverConfig.s3ng.accessKey` +
+have been deprecated. +
+Please set them via the `secretRefs.s3CredentialsSecretRef` secret instead.
+
+* If you had set `services.web.config.disableFeedbackLink` = `true`, you need to replace it by + 
+`services.web.config.feedbackLink.enabled` = `false`
+
+* In order to persist the instance logo that can be changed via the Web UI, +
+`services.web.persistence.enabled` must be set to `false`. +
+In prior releases the web frontend did not have any persistence.
+
 [id=0.2.0]
 == Chart Version: 0.2.0
+
+Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is listed for completion of breaking changes.
 
 Version 0.2.0 of the Helm Chart introduces some changes compared to version 0.1.0 with respect to the value names which align the service/app names at various places (values file, YAML files, directories).
 
