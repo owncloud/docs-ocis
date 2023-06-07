@@ -17,7 +17,7 @@ Open a shell and copy/paste the following commands:
 [source,bash,subs="attributes+"]
 ----
 sudo wget -O /usr/local/bin/ocis \
-  {ocis-downloadpage-url}{ocis-version}/ocis-{ocis-version}-linux-amd64
+  {ocis-downloadpage-url}{ocis-actual-version}/ocis-{ocis-actual-version}-linux-amd64
 ----
 
 [source,bash]
