@@ -223,7 +223,7 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 
 // this table needs manual update on the "works" rows when a new Helm chart release is published
 
-[width="65%",cols="~,~",options="header"]
+[width="60%",cols="~,~",options="header"]
 |===
 | Helm Chart Version
 | Works with Infinite Scale Versions
@@ -241,6 +241,8 @@ ifdef::use_helm_tab_3[]
 | 2.0.0
 endif::[]
 |===
+
+Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is not listed with a working Infinite Scale version therefore.
 
 === Breaking Changes
 
