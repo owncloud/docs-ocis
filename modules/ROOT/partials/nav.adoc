@@ -70,6 +70,8 @@
 *** xref:maintenance/b-r/backup.adoc[Backup]
 *** xref:maintenance/b-r/restore.adoc[Restore]
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
+* Migration and Upgrades
+** xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale]
 * Configuration Examples
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
