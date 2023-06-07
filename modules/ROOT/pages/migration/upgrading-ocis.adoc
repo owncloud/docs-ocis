@@ -1,0 +1,97 @@
+= Upgrading Infinite Scale
+:toc: right
+:toclevels: 2
+:description: When upgrading Infinite Scale, migration steps may be required. This document guides thru the necessary steps based on the versions used.
+
+== Introduction
+
+{description}
+
+NOTE: For any Infinite Scale version to upgrade to, see {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank] or {docker-ocis-url}[Infinite Scale image] to get the right version.
+
+IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backstep is neither supported nor recommended and will most likely break the instance.
+
+IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[backup] first.
+
+== Version 2.0.0 to 3.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* A new `GRAPH_APPLICATION_ID` environment variable has been added that must be populated.
+* The search index needs to be deleted as the layout has been changed.
+* The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
+* The xref:deployment/container/orchestration/orchestration.adoc#using-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
+
+=== Upgrade Steps
+
+. Shut down the Infinite Scale instance.
+. Update Infinite Scale via:
++
+--
+* Docker
++
+[source,bash]
+----
+docker pull owncloud/ocis:3.0.0
+----
+
+* or get the binary from the link above.
+--
+
+. Manually add the xref:{s-path}/graph.adoc#environment-variables[GRAPH_APPLICATION_ID,window=_blank] to the config. The value can be any text string using characters defined by the https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID definition] and is preferably a UUID4 string.
++
+--
+- Either edit the xref:deployment/general/general-info.adoc#configuration-file-naming[ocis.yaml] (preferred and recommended) by adding:
++
+[source,yaml]
+----
+graph:
+  application:
+    # required when upgrading ocis to v3.0.0
+    id: <your UUID4 string>
+----
+
+- OR setting `GRAPH_APPLICATION_ID` as an xref:deployment/general/general-info.adoc#configuration-rules[ENV variable].
+
+NOTE: This environment variable will be defined automatically when installing a fresh instance and running xref:deployment/general/ocis-init.adoc[ocis init] to initialize it.
+--
+
+. Delete the full search index. For details about the used path see:  xref:deployment/general/general-info.adoc#default-paths[OCIS_BASE_DATA_PATH,window=_blank]:
++
+--
+[source,bash]
+----
+rm -rf <OCIS_BASE_DATA_PATH>/search/*
+----
+
+NOTE: The empty search index will be recreated space by space when something changes in a space. You can also use the Infinite Scale CLI to manually trigger a xref:maintenance/commands/commands.adoc#reindex-a-space-for-search[Reindex a Space for Search].
+--
+
+. Changes in the Helm Charts +
+For any breaking changes that come along with Helm Charts, see the xref:deployment/container/orchestration/orchestration.adoc#breaking-changes[Breaking Changes] documentation.
+
+. Messagepack Readme First
++
+--
+If you have manually changed one of the following environment variables to a value other than the default or explicitly set one of the environment variables to the default which was `xattrs`:
+
+`OCIS_DECOMPOSEDFS_METADATA_BACKEND`, +
+`STORAGE_SYSTEM_OCIS_METADATA_BACKEND`, +
+`STORAGE_USERS_OCIS_METADATA_BACKEND`,
+
+the instance will stay at the configured backend when passing the next step.
+
+IMPORTANT: Though you can stay at the xattrs backend, it is highly recommended to migrate to messagepack as the xattrs backend is considered deprecated and will be removed soon.
+
+To enable migration, remove any of the manually configured environment variables listed above. This can be also done in a later step but it is highly recommended to migrate now.
+
+NOTE: If you want to prevent the migration for now, set `OCIS_DECOMPOSEDFS_METADATA_BACKEND=xattrs`.
+--
+
+. Start Infinite Scale
+
+. Migrate Metadata to Messagepack: +
+During the restart of Infinite Scale, the metadata store in the DecomposedFS will be migrated to `messagepack` _automatically_. You will see some  related log messages. 
+
+. Check your Instance +
+When the instance has started successfully, check the logs for any unusual entries.

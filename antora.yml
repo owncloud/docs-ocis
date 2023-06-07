@@ -68,6 +68,7 @@ asciidoc:
     composer-url: 'https://github.com/owncloud/ocis/tree/'
     composer-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     composer-final-path: '/deployments/examples'
+    docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
 
     # used in deployment/services via partials/env-and-yaml.adoc
     ocis-services-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
