@@ -103,9 +103,9 @@ ifdef::use_service_tab_2[]
 {composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_2}`
---
 endif::[]
-ifdef::use_servicetab_3[]
+--
+ifdef::use_service_tab_3[]
 {compose_tab_3_tab_text}::
 +
 --

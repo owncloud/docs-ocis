@@ -9,9 +9,12 @@ Print a dependent explanation line:
 
 Conditional tab printing, example:
 
-* no_second_tab = based on first appearance of the service
-  defined via the service, must overrule service tab. If there is no second, there is also no third
+* no_second_tab = based on first appearance of the service (defined in a service),
+  must overrule service tab. If there is no second, there is also no third.
+
 * use_service_tab_2 = release based (defined in antora.yaml)
+
+*   Note to make a tab hidden by no_xxx_tab showing up again, just comment it.
 
 The included deprecation file just has an attribute necessary for rendering deprecations.
 This is necessary as attributes that are defined INSIDE a tabset will not get recognized, attributes need to be defined OUTSIDE the tabset definition. example content:
