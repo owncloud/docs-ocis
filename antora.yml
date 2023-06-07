@@ -15,7 +15,7 @@ asciidoc:
     # used in partials/env-and-yaml.adoc for all services, based on releases
     # define to use tabs, the first tab is always active (master)
     use_service_tab_2: true  # set to any value if tab 2 should be shown
-    use_service_tab_3:       # set to any value if tab 3 should be shown
+    use_service_tab_3: true  # set to any value if tab 3 should be shown
 
     # used in orchestration.adoc for helm charts
     # define to use tabs, the first tab is always active (master)
@@ -25,27 +25,27 @@ asciidoc:
     # service_tab_x will be used to assemble the url accessing the link for the services
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     service_tab_1: 'docs' # do not change, the docs branch contains changes of master
-    service_tab_2: 'docs-stable-2.0'
-    service_tab_3: 'docs-stable-3.0'
+    service_tab_2: 'docs-stable-3.0'
+    service_tab_3: 'docs-stable-2.0'
 
     # service_tab_x_tab_text will be used as tab text shown for service_tab_x
     # note that we are refering via the 'service_tab_x' branch to the ocis repo, not the master branch!
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     service_tab_1_tab_text: 'latest'
-    service_tab_2_tab_text: '2.0.0'
-    service_tab_3_tab_text: '3.0.0'
+    service_tab_2_tab_text: '3.0.0'
+    service_tab_3_tab_text: '2.0.0'
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     compose_tab_1: 'master'
-    compose_tab_2: 'v2.0.0'
-    compose_tab_3: 'v3.0.0'
+    compose_tab_2: 'v3.0.0'
+    compose_tab_3: 'v2.0.0'
 
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     compose_tab_1_tab_text: 'latest'
-    compose_tab_2_tab_text: '2.0.0'
-    compose_tab_3_tab_text: '3.0.0'
+    compose_tab_2_tab_text: '3.0.0'
+    compose_tab_3_tab_text: '2.0.0'
 
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
     # note that tab 2 always contains the actual release and tab 3 the former

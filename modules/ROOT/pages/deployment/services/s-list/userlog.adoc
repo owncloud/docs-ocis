@@ -8,7 +8,7 @@
 
 // remember to REMOVE the corresponding tab if a new ocis release will be published
 
-:no_second_tab: true
+// :no_second_tab: true
 :no_third_tab: true
 
 == Introduction
