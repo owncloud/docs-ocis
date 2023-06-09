@@ -52,7 +52,7 @@ graph:
     id: <your UUID4 string>
 ----
 
-- OR setting `GRAPH_APPLICATION_ID` as an xref:deployment/general/general-info.adoc#configuration-rules[ENV variable,window=_blank].
+- or by setting `GRAPH_APPLICATION_ID` as an xref:deployment/general/general-info.adoc#configuration-rules[ENV variable,window=_blank].
 
 NOTE: This environment variable will be defined automatically when installing a fresh instance and running xref:deployment/general/ocis-init.adoc[ocis init] to initialize it.
 --
