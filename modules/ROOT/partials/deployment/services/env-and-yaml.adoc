@@ -65,6 +65,7 @@ endif::no_deprecation[]
 // conditionally render the variable entry text, either with or without section header
 
 ifndef::no_yaml[]
+
 === Environment Variables
 
 The `{service_name}` service is configured via the following environment variables:
