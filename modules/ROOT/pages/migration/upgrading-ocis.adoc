@@ -73,10 +73,10 @@ NOTE: The empty search index will be recreated space by space when something cha
 . Changes in the Helm Charts +
 For any breaking changes that come along with Helm Charts, see the xref:deployment/container/orchestration/orchestration.adoc#breaking-changes[Breaking Changes,window=_blank] documentation.
 
-. Messagepack Readme First
+. Messagepack Readme First +
+If you have manually changed one of the following environment variables to a value other than the default or explicitly set one of the environment variables to the default which was `xattrs`:
 +
 --
-If you have manually changed one of the following environment variables to a value other than the default or explicitly set one of the environment variables to the default which was `xattrs`:
 
 `OCIS_DECOMPOSEDFS_METADATA_BACKEND`, +
 `STORAGE_SYSTEM_OCIS_METADATA_BACKEND`, +
