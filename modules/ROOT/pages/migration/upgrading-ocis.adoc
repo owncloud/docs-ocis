@@ -18,6 +18,7 @@ IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[
 === Notable Changes Requiring Manual Intervention
 
 * A new `GRAPH_APPLICATION_ID` environment variable has been added that must be populated.
+* Automatic Role Assignments have been introduced that need a settings review.
 * The search index needs to be deleted as the layout has been changed.
 * The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
 * The xref:deployment/container/orchestration/orchestration.adoc#using-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
@@ -55,6 +56,8 @@ graph:
 
 NOTE: This environment variable will be defined automatically when installing a fresh instance and running xref:deployment/general/ocis-init.adoc[ocis init] to initialize it.
 --
+
+. xref:deployment/services/s-list/proxy.adoc#automatic-role-assignments[Automatic Role Assignments] have been introduced that need a settings review. All users that do not have a role assigned at the time of their first login will get the role 'user' assigned if the default of the environment variable `PROXY_ROLE_ASSIGNMENT_DRIVER` is used. The assignment can be changed based to the values of an OpenID Connect Claim of that user using a different setting. See the referenced documentation for more details.
 
 . Delete the full search index. For details about the used path see:  xref:deployment/general/general-info.adoc#default-paths[OCIS_BASE_DATA_PATH,window=_blank]:
 +

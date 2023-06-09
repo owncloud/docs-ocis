@@ -39,17 +39,11 @@ configured in different ways. The `PROXY_ROLE_ASSIGNMENT_DRIVER` environment var
 setting in the `role_assignment` section of the configuration file) selects which mechanism to use for
 the automatic role assignment.
 
-When set to `default`, all users that do not have a role assigned at the time of their first login will
-get the role 'user' assigned. (This is also the default behavior if `PROXY_ROLE_ASSIGNMENT_DRIVER`
-is unset.
+* When `PROXY_ROLE_ASSIGNMENT_DRIVER` is set to `default`, all users that do not have a role assigned at the time of their first login will get the role 'user' assigned. (This is also the default behavior if `PROXY_ROLE_ASSIGNMENT_DRIVER` is unset.
 
-When `PROXY_ROLE_ASSIGNMENT_DRIVER` is set to `oidc` the role assignment for a user will happen
-based on the values of an OpenID Connect Claim of that user. The name of the OpenID Connect Claim to
-be used for the role assignment can be configured via the `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`
-environment variable. It is also possible to define a mapping of claim values to role names defined
-in ownCloud Infinite Scale via a `yaml` configuration. See the following `proxy.yaml` snippet for an
-example.
-
+* When `PROXY_ROLE_ASSIGNMENT_DRIVER` is set to `oidc`, the role assignment for a user will happen based on the values of an OpenID Connect Claim of that user. The name of the OpenID Connect Claim to be used for the role assignment can be configured via the `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM` environment variable. It is also possible to define a mapping of claim values to role names defined in ownCloud Infinite Scale via a `yaml` configuration. See the following `proxy.yaml` snippet for an example.
++
+--
 [source,yaml]
 ----
 role_assignment:
@@ -99,6 +93,7 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 - role_name: guest
   claim_value: ocisGuest
 ----
+--
 
 == Recommendations for Production Deployments
 
