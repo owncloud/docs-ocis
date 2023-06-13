@@ -19,6 +19,7 @@ IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[
 
 * A new `GRAPH_APPLICATION_ID` environment variable has been added that must be populated.
 * Automatic Role Assignments have been introduced that need a settings review.
+* A new `OCIS_LDAP_DISABLE_USER_MECHANISM` environment variable has been introduced that needs a settings review.
 * The search index needs to be deleted as the layout has been changed.
 * The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
 * The xref:deployment/container/orchestration/orchestration.adoc#using-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
@@ -58,6 +59,8 @@ NOTE: This environment variable will be defined automatically when installing a 
 --
 
 . xref:deployment/services/s-list/proxy.adoc#automatic-role-assignments[Automatic Role Assignments,window=_blank] have been introduced that need a settings review. All users that do not have a role assigned at the time of their first login will get the role 'user' assigned if the default of the environment variable `PROXY_ROLE_ASSIGNMENT_DRIVER` is used. The assignment can be changed based to the values of an OpenID Connect Claim of that user using a different setting. See the referenced documentation for more details.
+
+. The environment variable xref:deployment/services/env-vars-special-scope.adoc[OCIS_LDAP_DISABLE_USER_MECHANISM] is an option to control the behavior for disabling users. The default value is `attribute` and requires configuration on the LDAP server. Disabled user management is LDAP implementation specific. If you are using the internal xref:{s-path}/idm.adoc[IDM] service instead of an external LDAP server or the LDAP server can not deal with disabled users or other possible incompatibilities, you must set this to `none`. Additionally and due to a bug recently discovered in the xref:{s-path}/idp.adoc[IDP] service, you must set `OCIS_LDAP_USER_ENABLED_ATTRIBUTE=""` to overwrite the default setting. This bug will be fixed in a subsequent release.
 
 . Delete the full search index. For details about the used path see:  xref:deployment/general/general-info.adoc#default-paths[OCIS_BASE_DATA_PATH,window=_blank]:
 +
