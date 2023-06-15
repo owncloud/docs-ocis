@@ -54,3 +54,7 @@ OPTIONS:
    --node value, -n value  Path to or ID of the node to inspect
    --help, -h              show help
 ----
+
+== Resume Postprocessing
+
+If postprocessing fails in one step due to an unforseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system admin can instead run a xref:{s-path}/postprocessing.adoc#resume-postprocessing[CLI command] to retry the failed upload.
