@@ -57,4 +57,4 @@ OPTIONS:
 
 == Resume Post-Processing
 
-If post-processing fails in one step due to an unforseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-postprocessing[CLI command] to retry the failed upload.
+If post-processing fails in one step due to an unforseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
