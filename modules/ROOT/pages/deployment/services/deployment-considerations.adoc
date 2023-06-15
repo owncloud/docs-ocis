@@ -3,7 +3,7 @@
 :description: When using container orchestration, some considerations should be taken into account when deploying services with respect to scaling.
 
 :nats-clustering-url: https://docs.nats.io/running-a-nats-service/configuration/clustering
-:nats-helm-url: https://docs.nats.io/running-a-nats-service/nats-kubernetes/helm-chart
+:nats-helm-url: https://docs.nats.io/running-a-nats-service/nats-kubernetes/helm-charts
 
 == Introduction
 
