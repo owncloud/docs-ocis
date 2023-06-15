@@ -61,6 +61,26 @@ Once the custom service has finished its work, it should send an event of the ty
 * `abort` (abort post-processing, keep the file) and 
 * `continue` (continue post-processing, this is the success case).
 
+== CLI Commands
+
+=== Resume Post-Processing
+
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a CLI command to retry the failed upload which is a two step process:
+
+* First, find the upload ID of the failed upload.
++
+[source,bash]
+----
+ocis storage-users uploads list
+----
+
+* Then use the restart command to resume post-processing of the ID selected.
++
+[source,bash]
+----
+ocis postprocessing restart -u <uploadID>
+----
+
 == Storing
 
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
