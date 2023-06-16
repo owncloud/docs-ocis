@@ -47,7 +47,7 @@ Please also check the changes for the Chart version 0.3.0 and 0.2.0 if you're pl
 [id=0.3.0]
 == Chart Version: 0.3.0
 
-Note that Helm Chart Version `0.3.0` was the first release compatible with Infinite Scale 3.0.0 but contains no upgrade path from version `0.1.0` to `0.3.0`. Upgrading will be implemented in a susequent release.
+Note that Helm Chart Version `0.3.0` was the first release compatible with Infinite Scale 3.0.0 but contains no upgrade path from version `0.1.0` to `0.3.0`. Upgrading will be implemented in a subequent release.
 
 * Following keys have been deprecated: +
 `services.storageusers.storageBackend.driverConfig.s3ng.secretKey` and +
