@@ -242,7 +242,8 @@ ifdef::use_helm_tab_3[]
 endif::[]
 |===
 
-Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is therefore not listed with a working Infinite Scale version.
+* If a Chart has been superceded by another for the same Infinite Scale release, only the latest one is listed. 
+* Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is therefore not listed with a working Infinite Scale version.
 
 === Breaking Changes
 
@@ -251,7 +252,7 @@ Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite S
 * We can of course also state that one tab has no breaking change but in this case, this needs manual maintenance on each new version in this document too.
 ////
 
-Breaking changes are only published for Helm Chart versions that have been released. Select from the tabs possible breaking changes between Helm Chart versions. A new document containing all the details will open.
+Select possible breaking changes of a Helm chart version from the tabs. A new document with all details will be opened, directly referring to the selected version, although the document contains information about all published versions.
 
 [tabs]
 ====

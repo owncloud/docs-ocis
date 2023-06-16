@@ -50,13 +50,13 @@ asciidoc:
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
     # note that tab 2 always contains the actual release and tab 3 the former
     helm_tab_1: 'master'
-    helm_tab_2: 'v0.3.0'
+    helm_tab_2: 'v0.4.0'
     helm_tab_3: 'v0.1.0'
 
     # helm_tab_x_tab_text will be used as tab text shown for tab_x
     # note that tab 2 always contains the actual release and tab 3 the former
     helm_tab_1_tab_text: 'latest'
-    helm_tab_2_tab_text: '0.3.0'
+    helm_tab_2_tab_text: '0.4.0'
     helm_tab_3_tab_text: '0.1.0'
 
     # set attributes defining path components which will be assembled in the document
