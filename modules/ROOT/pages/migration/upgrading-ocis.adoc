@@ -99,10 +99,32 @@ To enable migration, remove any of the manually configured environment variables
 NOTE: If you want to prevent the migration for now, set `OCIS_DECOMPOSEDFS_METADATA_BACKEND=xattrs`.
 --
 
-. Start Infinite Scale
-
 . Migrate Metadata to Messagepack: +
-During the restart of Infinite Scale, the metadata store in the DecomposedFS will be migrated to `messagepack` _automatically_. You will see some  related log messages. 
+It is important to disable clients and users logging in while the migration to `messagepack` is in progress. To do so, start Infinite Scale with only two necessary services. The example uses the binary as base:
++
+--
+[source,bash]
+----
+OCIS_RUN_SERVICES="storage-users,nats" \
+ocis server
+----
+
+Because the proxy service is not running, no clients or users can login. During the restart of Infinite Scale, the metadata store in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service. The start of the migration can be identified in the log with a message like:
+
+[source,plaintext]
+----
+{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-06-16T12:21:49.441395153Z","caller":"github.com/cs3org/reva/v2@v2.14.0/pkg/storage/utils/decomposedfs/migrator/0003_switch_to_messagepack_metadata.go:45","message":"Migrating to messagepack metadata backend..."}
+----
+
+When migration has finished - which can take a while depending on the quantity of files - you can see a log message like the below:
+
+[source,plaintext]
+----
+{"level":"info","time":"2023-06-16T12:30:05.267986656Z","caller":"github.com/cs3org/reva/v2@v2.14.0/pkg/storage/utils/decomposedfs/migrator/0003_switch_to_messagepack_metadata.go:106","message":"done."}`
+----
+
+Finally start the Infinite Scale instance as usual.
+--
 
 . Check your Instance +
 When the instance has started successfully, check the logs for any unusual entries.
