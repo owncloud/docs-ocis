@@ -242,7 +242,7 @@ ifdef::use_helm_tab_3[]
 endif::[]
 |===
 
-* If a Chart has been superceded by another for the same Infinite Scale release, only the latest one is listed. 
+* If a chart has been superseded by another for the same Infinite Scale release, only the latest one is listed. 
 * Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is therefore not listed with a working Infinite Scale version.
 
 === Breaking Changes
