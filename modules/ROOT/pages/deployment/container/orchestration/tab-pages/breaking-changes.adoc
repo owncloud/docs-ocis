@@ -32,7 +32,7 @@ Among them are the following notable improvements:
  `services.storageusers.persistence.claimName` to `storage-users-data` +
 in order to mitigate the breaking changes from Helm Chart 0.2.0.
 
-* Support of *Secret Auto Generation*. +
+* Support for *Secret Auto Generation*. +
 You no longer need to generate secrets manually. +
 ** If you already have secrets generated and configured via `extraResources`, you can just remove them from `extraResources`.
 ** If you applied the secrets manually to the Kubernetes cluster, they are not yet managed by Helm. Therefore you need to add the +
