@@ -13,3 +13,128 @@ There are descriptions and configuration details for each service available.
 When a service gets added to Infinite Scale, a page describing the service is added but the configuration will only show up for those releases where the service is available.
 
 Also see the supporting documents describing various topics around services.
+
+== Services Added per Release
+
+The following services have been introduced with the releases listed:
+
+=== Infinite Scale 3.0.0
+
+[width="100%",cols="20%,~",options="header"]
+|===
+| Service
+| Description
+
+| xref:{s-path}/antivirus.adoc[Antivirus]
+| The Antivirus service is responsible for scanning files for viruses.
+
+| xref:{s-path}/eventhistory.adoc[Eventhistory]
+| The Eventhistory service consumes all events from the configured event system.
+
+| xref:{s-path}/invitations.adoc[Invitations]
+| The Invitations service provides an Invitation Manager that can be used to invite external users, aka guests, to an organization.
+
+| xref:{s-path}/notification.adoc[Notification]
+| The Notification service is responsible for sending emails to users informing them about events that happened.
+
+| xref:{s-path}/policies.adoc[Policies]
+| The Policies service provides a new gRPC API which can be used to check whether a requested operation is allowed or not.
+
+| xref:{s-path}/postprocessing.adoc[Postprocessing]
+| The Postprocessing service handles the coordination of asynchronous post-processing steps.
+
+| xref:{s-path}/search.adoc[Search]
+| The Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
+
+| xref:{s-path}/userlog.adoc[Userlog]
+| The Userlog service is a mediator between the eventhistory service and clients who want to be informed about user-related events.
+
+| xref:{s-path}/webfinger.adoc[Webfinger]
+| The webfinger service provides an RFC7033 WebFinger lookup of ownCloud instances relevant for a given user account.
+|===
+
+=== Infinite Scale 2.0.0
+
+[width="100%",cols="20%,~",options="header"]
+|===
+| Service
+| Description
+
+| xref:{s-path}/app-provider.adoc[App Provider]
+| App providers represent apps, if the app is not able to register itself.
+
+| xref:{s-path}/app-registry.adoc[App Registry]
+|
+
+| xref:{s-path}/audit.adoc[Audit]
+| The Audit service logs all events of the system as an audit log.
+
+| xref:{s-path}/auth-basic.adoc[Auth Basic]
+| The Auth Basic service provides basic authentication for those clients who cannot handle OIDC.
+
+| xref:{s-path}/auth-bearer.adoc[Auth Bearer]
+| The Auth Bearer service authenticates OpenID Connect bearer tokens.
+
+| xref:{s-path}/frontend.adoc[Frontend]
+| The Frontend service translates various ownCloud related HTTP APIs to CS3 requests.
+
+| xref:{s-path}/gateway.adoc[Gateway]
+|
+
+| xref:{s-path}/graph.adoc[Graph]
+| The Graph service provides a simple graph world API which can be used by clients or other services or extensions.
+
+| xref:{s-path}/groups.adoc[Groups]
+|
+
+| xref:{s-path}/idm.adoc[IDM]
+| The IDM service provides a minimal LDAP Service for Infinite Scale.
+
+| xref:{s-path}/idp.adoc[IDP]
+| The IDP service provides a built-in minimal OpenID Connect provider.
+
+| xref:{s-path}/nats.adoc[nats]
+| The nats service is the event broker of the system.
+
+| xref:{s-path}/ocdav.adoc[ocDAV]
+| The ocDAV service is responsible for translating ownCloud flavoured WebDAV into CS3 API calls.
+
+| xref:{s-path}/ocs.adoc[OCS]
+| The OCS service provides the OCS API which is required by some ownCloud clients.
+
+| xref:{s-path}/proxy.adoc[Proxy]
+| The Proxy service is an API-Gateway for the ownCloud Infinite Scale microservices.
+
+| xref:{s-path}/settings.adoc[Settings]
+| The Settings service provides functionality for other services to register new settings as well as storing and retrieving the respective settings' values.
+
+| xref:{s-path}/sharing.adoc[Sharing]
+|
+
+| xref:{s-path}/store.adoc[Store]
+|
+
+| xref:{s-path}/storage-publiclink.adoc[Storage-Publiclink]
+|
+
+| xref:{s-path}/storage-shares.adoc[Storage-Shares]
+|
+
+| xref:{s-path}/storage-system.adoc[Storage-System]
+|
+
+| xref:{s-path}/storage-users.adoc[Storage-Users]
+|
+
+| xref:{s-path}/thumbnails.adoc[Thumbnails]
+| The Thumbnails service provides methods to generate thumbnails for various files and resolutions based on requests.
+
+| xref:{s-path}/users.adoc[Users]
+|
+
+| xref:{s-path}/web.adoc[Web]
+| The Web service embeds and serves the static files for the Infinite Scale Web Client.
+
+| xref:{s-path}/webdav.adoc[Webdav]
+| The Webdav service, like the ocdav service, provides a HTTP API following the webdav protocol.
+|===
