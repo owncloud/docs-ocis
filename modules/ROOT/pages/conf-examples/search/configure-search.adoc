@@ -73,7 +73,7 @@ To search for content, a content extraction engine needs to be installed and con
 
 === Tika Extractor
 
-Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled xref:https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform. The xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) is based on the container as it is ready to use.
+Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform. The xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) is based on the container as it is ready to use.
 
 ==== Prerequisites
 
