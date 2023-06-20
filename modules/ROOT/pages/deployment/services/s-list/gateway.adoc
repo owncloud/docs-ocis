@@ -1,6 +1,6 @@
 = Gateway Service Configuration
 :toc: right
-:description: The Infinite Scale Frontend service
+:description: The Infinite Scale Gateway service
 
 :service_name: gateway
 
