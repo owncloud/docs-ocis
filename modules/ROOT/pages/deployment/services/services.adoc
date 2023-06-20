@@ -32,7 +32,7 @@ The following services have been introduced with the releases listed:
 | The Eventhistory service consumes all events from the configured event system.
 
 | xref:{s-path}/invitations.adoc[Invitations]
-| The Invitations service provides an Invitation Manager that can be used to invite external users, aka guests, to an organization.
+| The Invitations service provides an invitation manager that can be used to invite external users, aka guests, to an organization.
 
 | xref:{s-path}/notification.adoc[Notification]
 | The Notification service is responsible for sending emails to users informing them about events that happened.
@@ -61,7 +61,7 @@ The following services have been introduced with the releases listed:
 | Description
 
 | xref:{s-path}/app-provider.adoc[App Provider]
-| App providers represent apps, if the app is not able to register itself.
+| App providers represent apps that are not able to register themselves.
 
 | xref:{s-path}/app-registry.adoc[App Registry]
 |
@@ -76,7 +76,7 @@ The following services have been introduced with the releases listed:
 | The Auth Bearer service authenticates OpenID Connect bearer tokens.
 
 | xref:{s-path}/frontend.adoc[Frontend]
-| The Frontend service translates various ownCloud related HTTP APIs to CS3 requests.
+| The Frontend service translates various ownCloud-related HTTP APIs to CS3 requests.
 
 | xref:{s-path}/gateway.adoc[Gateway]
 |
@@ -88,16 +88,16 @@ The following services have been introduced with the releases listed:
 |
 
 | xref:{s-path}/idm.adoc[IDM]
-| The IDM service provides a minimal LDAP Service for Infinite Scale.
+| The IDM service provides a minimal LDAP service for Infinite Scale.
 
 | xref:{s-path}/idp.adoc[IDP]
 | The IDP service provides a built-in minimal OpenID Connect provider.
 
 | xref:{s-path}/nats.adoc[nats]
-| The nats service is the event broker of the system.
+| The NATS service is the event broker of the system.
 
 | xref:{s-path}/ocdav.adoc[ocDAV]
-| The ocDAV service is responsible for translating ownCloud flavoured WebDAV into CS3 API calls.
+| The ocDAV service is responsible for translating ownCloud-flavored WebDAV into CS3 API calls.
 
 | xref:{s-path}/ocs.adoc[OCS]
 | The OCS service provides the OCS API which is required by some ownCloud clients.
@@ -133,8 +133,8 @@ The following services have been introduced with the releases listed:
 |
 
 | xref:{s-path}/web.adoc[Web]
-| The Web service embeds and serves the static files for the Infinite Scale Web Client.
+| The Web service embeds and serves the static files for the Infinite Scale web client.
 
 | xref:{s-path}/webdav.adoc[Webdav]
-| The Webdav service, like the ocdav service, provides a HTTP API following the webdav protocol.
+| The WebDAV service, like the ocdav service, provides a HTTP API following the WebDAV protocol.
 |===
