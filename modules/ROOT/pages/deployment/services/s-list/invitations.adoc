@@ -1,6 +1,6 @@
 = Invitations Service Configuration
 :toc: right
-:description: The Infinite Scale invitations service provides an Invitation Manager that can be used to invite external users, aka guests, to an organization.
+:description: The Infinite Scale invitations service provides an invitation manager that can be used to invite external users, aka guests, to an organization.
 
 :service_name: invitations
 
