@@ -1,6 +1,6 @@
 = Web Service Configuration
 :toc: right
-:description: The web service embeds and serves the static files for the Infinite Scale Web Client.
+:description: The web service embeds and serves the static files for the Infinite Scale web client.
 
 :service_name: web
 

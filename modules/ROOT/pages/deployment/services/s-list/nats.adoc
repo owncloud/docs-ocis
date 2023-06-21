@@ -1,6 +1,6 @@
 = NATS Service Configuration
 :toc: right
-:description: The nats service is the event broker of the system. It distributes events among all other services and enables other services to communicate asynchronously.
+:description: The NATS service is the event broker of the system. It distributes events among all other services and enables other services to communicate asynchronously.
 
 :service_name: nats
 

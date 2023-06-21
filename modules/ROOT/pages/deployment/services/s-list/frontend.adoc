@@ -1,6 +1,6 @@
 = Frontend Service Configuration
 :toc: right
-:description: The frontend service translates various ownCloud related HTTP APIs to CS3 requests.
+:description: The frontend service translates various ownCloud-related HTTP APIs to CS3 requests.
 
 :service_name: frontend
 

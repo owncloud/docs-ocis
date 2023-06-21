@@ -1,6 +1,6 @@
 = WebDAV Service Configuration
 :toc: right
-:description: The webdav service, like the ocdav service, provides a HTTP API following the webdav protocol.
+:description: The WebDAV service, like the ocdav service, provides a HTTP API following the WebDAV protocol.
 
 :service_name: webdav
 
