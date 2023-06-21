@@ -32,13 +32,13 @@ The antivirus service allows three different ways of handling infected files. Th
 
   -   *delete*: (default): Infected files will be deleted immediately, further post-processing is cancelled.
   -   *abort*:  (advanced option): Infected files will be kept, further post-processing is cancelled. Files can be manually retrieved and inspected by an admin. To identify the file for further investigation, the antivirus service logs the abort/infected state including the file ID. The file is located in the `storage/users/uploads` folder of the ocis data directory and persists until it is manually deleted by the admin via the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] command.
-  -   *continue*:  (obviously not recommended): Infected files will be marked via metadata as infected but post-processing continues normally. Note: Infected Files are moved to their final destination and therefore not prevented from download which includes the risk of spreading viruses.
+  -   *continue*:  (not recommended - only for debugging): Infected files will be marked via metadata as infected but post-processing continues normally. Note: Infected Files are moved to their final destination and therefore not prevented from download which includes the risk of spreading viruses.
 
-In all cases, a log entry is added declaring the infection and handling method and a notification via the `userlog` service sent.
+In all cases, a log entry is added declaring the infection, and handling method and a notification via the `userlog` service is sent.
 
 === Scanner Inaccessibility
 
-In case a scanner is not accessible by the antivirus service like a network outage, service outage or hardware outage, the antivirus service uses the `abort` case for further processing, independent of the actual setting made. In any case, an error is logged noting the inaccessibility of the scanner used.
+In case a scanner is not accessible by the antivirus service like a network outage, service outage, or hardware outage, the antivirus service uses the `abort` case for further processing, independent of the actual setting made. In any case, an error is logged noting the inaccessibility of the scanner used.
 
 == Operation Modes
 
