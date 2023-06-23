@@ -29,9 +29,16 @@ server {
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
         location / {
+            # OIDC Tokens in headers are quite large and can exceed default limits of reverse proxies
+            proxy_buffers 4 256k;
+            proxy_buffer_size 128k;
+            proxy_busy_buffers_size 256k;
+
+            # Disable checking of client request body size
+            client_max_body_size 0;
+
             proxy_pass http://localhost:{ocis_port};
             proxy_set_header Host $host;
-            client_max_body_size 0;
         }
 }
 ----
