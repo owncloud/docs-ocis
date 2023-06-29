@@ -28,9 +28,13 @@ This command is about purging old trash-bin items of `project` spaces (spaces th
 
 In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-a-space[Manually Trigger Re-Indexing a Space] section at the _Search_ service for details.
 
+== Resume Post-Processing
+
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
+
 == Inspect and Manipulate Node Metadata
 
-Infinite Scale provides a CLI command where you can inspect and manipulate node metadata.
+Infinite Scale provides a CLI command with which you can inspect and manipulate node metadata.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
 
@@ -55,6 +59,24 @@ OPTIONS:
    --help, -h              show help
 ----
 
-== Resume Post-Processing
+== Inspect and Repair Node Tree Sizes
 
-If post-processing fails in one step due to an unforseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
+Infinite Scale provides a CLI command with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
+
+[source,bash]
+----
+NAME:
+   ocis decomposedfs check-treesize - cli tool to check the treesize metadata of a Space
+
+USAGE:
+   ocis decomposedfs check-treesize [command options] [arguments...]
+
+OPTIONS:
+   --root value, -r value  Path to the root directory of the decomposedfs
+   --node value, -n value  Space ID of the Space to inspect
+   --repair                Try to repair nodes with incorrect treesize metadata. IMPORTANT: Only use this while ownCloud Infinite Scale is not running. (default: false)
+   --force                 Do not prompt for confirmation when running in repair mode. (default: false)
+   --help, -h              show help
+----
