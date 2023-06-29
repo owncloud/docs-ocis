@@ -34,7 +34,7 @@ If post-processing fails in one step due to an unforeseen error, current uploads
 
 == Inspect and Manipulate Node Metadata
 
-Infinite Scale provides a CLI command where you can inspect and manipulate node metadata.
+Infinite Scale provides a CLI command with which you can inspect and manipulate node metadata.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
 
