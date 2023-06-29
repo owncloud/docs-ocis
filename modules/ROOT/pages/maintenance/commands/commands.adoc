@@ -30,7 +30,7 @@ In rare circumstances, it can be necessary to initiate indexing manually for a g
 
 == Resume Post-Processing
 
-If post-processing fails in one step due to an unforseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
 
 == Inspect and Manipulate Node Metadata
 
@@ -61,7 +61,7 @@ OPTIONS:
 
 == Inspect and Repair Node Tree Sizes
 
-Infinite Scale provides a CLI command where you can inspect and repair node tree sizes. This command can be necessary for the very rare case if there are Spaces or files shown in the WebUI where the size does not match reality. Note for the repair option that Infinite Scale must be shut down.
+Infinite Scale provides a CLI command with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
 
