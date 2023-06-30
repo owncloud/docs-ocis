@@ -241,7 +241,7 @@ Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` an
 
 == Apache as Reverse Proxy
 
-Note that you need to have the modules `mod_rewrite`, `mod_ssl` and `mod_Proxy` enabled.
+Note that you need to have the modules `mod_rewrite`, `mod_ssl` and `mod_proxy` enabled.
 
 Always run a configuration test when updating your Apache configuration with:
 
