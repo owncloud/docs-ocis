@@ -39,3 +39,18 @@ See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-
 
 * `OCIS_CACHE_STORE` or
 * `OCIS_PERSISTENT_STORE`.
+
+== Common docker-compose Pitfalls
+
+[IMPORTANT]
+====
+When using docker-compose, there are common networking pitfalls. Though these pitfalls are not restricted to caching and persistence and without completeness, here are some examples:
+
+- When connecting to an internal network, ports of external services should not be exposed for security reasons.
+- Check if the store that is configured both in Infinite Scale and docker-compose is reachable from the ocis like:
++
+[source,bash]
+----
+ping redis -> PING redis (172.19.0.2): 56 data bytes 64 bytes from 172.19.0.2: seq=0 ttl=42 time=0.107 ms
+----
+====
