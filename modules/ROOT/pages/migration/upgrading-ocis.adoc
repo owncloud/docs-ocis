@@ -98,7 +98,7 @@ To enable migration, remove any of the manually configured environment variables
 
 NOTE: If you want to prevent the migration for now, set `OCIS_DECOMPOSEDFS_METADATA_BACKEND=xattrs`.
 
-IMPORTANT: Note that the migration of the metadata backend to messagepack is a one way process and can not be reverted except via a full restore. 
+IMPORTANT: Note that the migration of the metadata backend to messagepack is a one-way process and can not be reverted except via a full restore. 
 --
 
 . Migrate Metadata to Messagepack: +
