@@ -207,15 +207,13 @@ helm version
 ----
 --
 
-== Using Helm Charts with Infinite Scale
+== Using Our Helm Charts with Infinite Scale
 
 NOTE: The Helm chart is still in an experimental phase and has not yet been published on a Helm chart repository. For your convenience, ownCloud provides an {ocis-helm-charts-url}[ocis-charts] git repository.
 
 NOTE: ownCloud will publish updated data when new Helm chart releases become available. This information will be available in additional tabs in corresponding sections. Note that two Helm chart stable versions will be documented beside the development version.
 
 NOTE: When defining your own Helm charts, consider that, if you're using config overrides in your yaml definitions, a service does not get redefined in the override again. Multiple definitions can cause chart issues that are hard to identify.
-
-WARNING: There may be Helm Charts provided by other sources than ownCloud. These third party Helm Charts may or may not work and ownCloud can and will not give any hints, notes, tips or support.
 
 The `values.yaml` file provided by ownCloud uses generic configuration. You can customize this configuration with your own values, for example for different setups or sizings. This should be done by using your own `values.yaml` file at a different location which will _overwrite_ or _add_ content to the provided one. While not mandatory, the identical file name of `values.yaml` follows the convention of Helm. When it comes to security sensitive data like secrets, such data is usually _not_ added in the overwrite-values file for security reasons. In such a case, you apply secrets via command from a secrets file.
 
