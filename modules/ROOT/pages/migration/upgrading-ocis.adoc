@@ -97,6 +97,8 @@ IMPORTANT: Though you can stay at the xattrs backend, it is highly recommended t
 To enable migration, remove any of the manually configured environment variables listed above. This can be also done in a later step but it is highly recommended to migrate now.
 
 NOTE: If you want to prevent the migration for now, set `OCIS_DECOMPOSEDFS_METADATA_BACKEND=xattrs`.
+
+IMPORTANT: Note that the migration of the metadata backend to messagepack is a one way process and can not be reverted except via a full restore. 
 --
 
 . Migrate Metadata to Messagepack: +
