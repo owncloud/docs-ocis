@@ -207,7 +207,7 @@ helm version
 ----
 --
 
-== Using Helm Charts with Infinite Scale
+== Using Our Helm Charts with Infinite Scale
 
 NOTE: The Helm chart is still in an experimental phase and has not yet been published on a Helm chart repository. For your convenience, ownCloud provides an {ocis-helm-charts-url}[ocis-charts] git repository.
 
