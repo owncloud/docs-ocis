@@ -15,7 +15,7 @@ Services can `Consume` events from the nats service by registering to a `Consume
 == Default Values
 
 * Thumbnails listens on port 9230 by default.
-* The default location storing events is $OCIS_BASE_DATA_PATH:/nuts
+* The default location storing events is $OCIS_BASE_DATA_PATH:/nats
 
 == Underlying Technology
 
