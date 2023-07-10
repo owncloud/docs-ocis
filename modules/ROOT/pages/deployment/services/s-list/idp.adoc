@@ -12,7 +12,7 @@ The IPD service is mainly suitable for smaller installations. The recommendation
 
 By default, the IDP service is configured to use the Infinite Scale xref:{s-path}/idm.adoc[IDM service] as its LDAP backend for looking up and authenticating users. Other backends like an external LDAP server can be configured via a set of environment variables. For details see below.
 
-To use the embedded IDP service, it must be accessed with https. Accessing it with http is not possible and generates an error that is logged.
+IMPORTANT: To use the embedded IDP service, it must be accessed with https. Accessing it with http is not possible and generates an error that is logged.
 
 == Default Values
 
