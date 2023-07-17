@@ -39,4 +39,4 @@ When looking to the xref:deployment/container/orchestration/orchestration.adoc#d
 ],
 ----
 
-To complete this setup, you also must do adaptions in Keycloak. See the Keykloak https://www.keycloak.org/docs/latest/server_admin/index.html#con-basic-settings_server_administration_guide[Server Administration Guide] in paragraph btn:[Web Origins] for more details.
+To complete this setup, you also must configure Keycloak. See the Keykloak https://www.keycloak.org/docs/latest/server_admin/index.html#con-basic-settings_server_administration_guide[Server Administration Guide] in paragraph btn:[Web Origins] for more details.
