@@ -30,7 +30,7 @@ If two-factor authentication is needed for Infinite Scale, you can use Keycloak 
 
 == CORS Settings with Keycloak
 
-When looking to the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples], in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the follfowing setting responsible for CORS inside Infnite Scale:
+When looking at the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples], in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the following setting responsible for CORS inside Infnite Scale:
 
 [source,yaml]
 ----
