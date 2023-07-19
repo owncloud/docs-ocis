@@ -28,6 +28,8 @@ This guide was tested on a Debian 11 (bullseye) host but should work on any othe
 
 NOTE: The embedded IDM service provides a minimal LDAP service for Infinite Scale and does not replace a LDAP server. See the xref:{s-path}/idm.adoc[IDM Service Configuration] for details.
 
+NOTE: Consider to extend the configuration described based on the information given in xref:{s-path}/storage-users.adoc#graceful-shutdown[Graceful Shutdown].
+
 == Requirements
 
 * A supported filesystem according the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
