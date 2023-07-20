@@ -19,7 +19,7 @@ NOTE: The content has been extracted and adapted from {oc-central-url}[Central],
 
 == Configuration
 
-The log for a failed login attempt looks like this and consists of two consecutive log entries:
+The log for a failed login attempt looks like this and consists of two log entries that belong together:
 
 [source,plaintext]
 ----
@@ -28,11 +28,13 @@ The log for a failed login attempt looks like this and consists of two consecuti
 {"level":"info","service":"proxy","proto":"HTTP/1.0","request-id":"blabla","remote-addr":"123.123.123.123","method":"POST","status":204,"path":"/signin/v1/identifier/_/logon","duration":135.139963,"bytes":0,"time":"2023-03-20T19:26:04.727076622Z","message":"access-log"}
 ----
 
-Note that the IP address of the source (`123.123.123.123`) is not in the line where the failed login attempt (`invalid credentials`) is detected.
+* The first log entry is used to detect the `invalid credentials` message only but it does not contain the correct IP address.
+* The other related log entry contains the needed IP address for further processing.
+* There can be more lines inbetween the first log message and the one holding the correct address. These get filtered out by the regex part `((.|\n)*)` in the `failregex` definition. One of the cases that the two logs are not directly consecutive is, when enabling the Infinite Scale debug mode.
 
 === Fail2ban Setup
 
-Make sure to adapt the paths to configuration files according to the environment used.
+Make sure to adapt the paths to configuration files according to the environment used. For ease of reading and because `failregex` supports multiline, the regex used is multilined to match the description above, though you can write it all in one line. It is recommended to double check with https://fail2ban.readthedocs.io/en/latest/filters.html#developing-testing-a-regex[fail2ban-regex]. 
 
 * Create a Fail2ban *filter* file `/etc/fail2ban/filter.d/ocis.conf` with the following example content:
 +
@@ -40,15 +42,18 @@ Make sure to adapt the paths to configuration files according to the environment
 ----
 # ocis.conf
 [Definition]
-failregex = ^.*"service":"idm".*"message":"invalid credentials"((.|\n)*)remote-addr"."<HOST>","method":"POST","status":204.*
+failregex = ^.*"service":"idm".*"message":"invalid credentials"
+            ((.|\n)*)
+            remote-addr"."<HOST>","method":"POST","status":204.*
 
 ignoreregex =
 
 datepattern = ^%%Y-%%b-%%dT%%H:%%M:%%S\.*Z
 
 [Init]
-# maybe to be increased, in case some other log slips in between
-maxlines = 2
+# Maybe to be increased, in case more logs slip in between.
+# Set to 3 to include lines added when in debug mode
+maxlines = 3
 ----
 
 * Create a Fail2ban *jail* file `/etc/fail2ban/jail.d/ocis.conf` with the following example content, use the correct path to access the `ocis.log` file and change any settings according to your needs:
