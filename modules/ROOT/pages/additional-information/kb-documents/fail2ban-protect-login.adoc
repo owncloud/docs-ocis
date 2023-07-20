@@ -7,7 +7,7 @@
 
 {description} Setting up {fail2ban_url}[Fail2ban] parsing logs can be a possibility but is subject to a concrete setup. Note that this document gives an overview and assumes that you are familiar with Fail2ban.
 
-NOTE: The content has been extracted and adapted from xref:{oc-central-url}[Central], our community page, and is without any claim for correctness and eligibility for support, though feedback is welcomed.
+NOTE: The content has been extracted and adapted from {oc-central-url}[Central], our community page, and is without any claim for correctness and eligibility for support, though feedback is welcomed.
 
 == Prerequisites
 
