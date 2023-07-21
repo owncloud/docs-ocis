@@ -147,7 +147,7 @@ ocis server & disown -h
 .ZSH
 [source,bash]
 ----
-ocis server & disown $!
+ocis server & disown %%
 ----
 
 See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
