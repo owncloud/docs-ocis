@@ -19,6 +19,8 @@ NOTE: The content has been extracted and adapted from {oc-central-url}[Central],
 
 == Configuration
 
+Note, you need at minimum loglevel `info` for the xref:{s-path}/idm.adoc#configuration[idm] and xref:{s-path}/proxy.adoc#configuration[proxy] service to get all required data logged.
+
 The log for a failed login attempt looks like this and consists of two log entries that belong together:
 
 [source,plaintext]
