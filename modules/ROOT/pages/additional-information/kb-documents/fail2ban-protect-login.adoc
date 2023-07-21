@@ -30,11 +30,11 @@ The log for a failed login attempt looks like this and consists of two log entri
 
 * The first log entry is used to detect the `invalid credentials` message only but it does not contain the correct IP address.
 * The other related log entry contains the needed IP address for further processing.
-* There can be more lines inbetween the first log message and the one holding the correct address. These get filtered out by the regex part `((.|\n)*)` in the `failregex` definition. One of the cases that the two logs are not directly consecutive is, when enabling the Infinite Scale debug mode.
+* There can be more lines in between the first log message and the one holding the correct address. These get filtered out by the regex part `((.|\n)*)` in the `failregex` definition. One of the cases where the two logs are not directly consecutive is when enabling the Infinite Scale debug mode.
 
 === Fail2ban Setup
 
-Make sure to adapt the paths to configuration files according to the environment used. For ease of reading and because `failregex` supports multiline, the regex used is multilined to match the description above, though you can write it all in one line. It is recommended to double check with https://fail2ban.readthedocs.io/en/latest/filters.html#developing-testing-a-regex[fail2ban-regex]. 
+Make sure to adapt the paths to configuration files according to the environment used. For ease of reading and because `failregex` supports multi-line, the regex used is multi-lined to match the description above, though you can write it all in one line. It is recommended to double check with https://fail2ban.readthedocs.io/en/latest/filters.html#developing-testing-a-regex[fail2ban-regex]. 
 
 * Create a Fail2ban *filter* file `/etc/fail2ban/filter.d/ocis.conf` with the following example content:
 +
