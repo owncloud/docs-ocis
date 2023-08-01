@@ -1,0 +1,24 @@
+= Inspect and Manipulate Node Metadata
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+[source,bash]
+----
+ocis decomposedfs metadata
+NAME:
+   ocis decomposedfs metadata - cli tools to inspect and manipulate node metadata
+
+USAGE:
+   ocis decomposedfs metadata command [command options] [arguments...]
+
+COMMANDS:
+   dump     print the metadata of the given node. String attributes will be enclosed in quotes. Binary attributes will be returned encoded as base64 with their value being prefixed with '0s'.
+   get      print a specific attribute of the given node. String attributes will be enclosed in quotes. Binary attributes will be returned encoded as base64 with their value being prefixed with '0s'.
+   set      manipulate metadata of the given node. Binary attributes can be given hex encoded (prefix by '0x') or base64 encoded (prefix by '0s').
+   help, h  Shows a list of commands or help for one command
+
+OPTIONS:
+   --root value, -r value  Path to the decomposedfs
+   --node value, -n value  Path to or ID of the node to inspect
+   --help, -h              show help
+----

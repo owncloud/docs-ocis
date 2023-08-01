@@ -1,0 +1,19 @@
+= Inspect and Repair Node Tree Sizes
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+[source,bash]
+----
+NAME:
+   ocis decomposedfs check-treesize - cli tool to check the treesize metadata of a Space
+
+USAGE:
+   ocis decomposedfs check-treesize [command options] [arguments...]
+
+OPTIONS:
+   --root value, -r value  Path to the root directory of the decomposedfs
+   --node value, -n value  Space ID of the Space to inspect
+   --repair                Try to repair nodes with incorrect treesize metadata. IMPORTANT: Only use this while ownCloud Infinite Scale is not running. (default: false)
+   --force                 Do not prompt for confirmation when running in repair mode. (default: false)
+   --help, -h              show help
+----
