@@ -1,0 +1,88 @@
+= Roll Back / Roll Forward Decomposedfs Migrations
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
+
+It is important to disable clients and users logging in while any migration is in progress. To do so, start Infinite Scale with only two necessary services. The example uses the binary as base:
+
+[source,bash]
+----
+OCIS_RUN_SERVICES="storage-users,nats" \
+ocis server
+----
+
+[source,bash]
+----
+NAME:
+   ocis migrate decomposedfs - run a decomposedfs migration
+
+USAGE:
+   ocis migrate decomposedfs [command options] [arguments...]
+
+OPTIONS:
+   --direction value, -d value  direction of the migration to run ('up' or 'down') (default: "up")
+   --migration value, -m value  ID of the migration to run
+   --root value, -r value       Path to the root directory of the decomposedfs
+   --list, -l                   Print a list of migrations incl. their state (default: false)
+   --help, -h                   show help
+----
+
+Example Command 1::
+
+[source,bash]
+----
+ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ -l
+
++-----------+-----------+---------+
+| Migration |   State   | Message |
++-----------+-----------+---------+
+|      0001 | succeeded |         |
+|      0002 | succeeded |         |
+|      0003 | runagain  |         |
+|      0004 | succeeded |         |
+|      0005 | succeeded |         |
++-----------+-----------+---------+
+----
+
+Example Command 2::
+
+[source,bash]
+----
+ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ -d down -m 0005
+
+2023-07-27T09:23:38+02:00 INF Running migration 0005... (down) line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/migrator.go:119 service=migrate
+2023-07-27T09:23:38+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-type/personal.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:78 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:23:38+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-type/project.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:78 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:23:38+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-user-id/some-admin-user-id-0000-000000000000.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:78 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:23:38+02:00 INF done. line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:105 service=migrate
+2023-07-27T09:23:38+02:00 INF done line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/migrator.go:139 service=migrate
+----
+
+Example Command 3::
+
+[source,bash]
+----
+$ ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ -l
+
++-----------+-----------+---------+
+| Migration |   State   | Message |
++-----------+-----------+---------+
+|      0001 | succeeded |         |
+|      0002 | succeeded |         |
+|      0003 | runagain  |         |
+|      0004 | succeeded |         |
+|      0005 | down      |         |
++-----------+-----------+---------+
+----
+
+Example Command 4::
+
+[source,bash]
+----
+ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ -d up -m 0005
+
+2023-07-27T09:24:12+02:00 INF Running migration 0005... line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/migrator.go:119 service=migrate
+2023-07-27T09:24:12+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-type/personal.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:37 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:24:12+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-type/project.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:37 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:24:12+02:00 INF Fixing index format of /home/andre/.ocis/storage/users/indexes/by-user-id/some-admin-user-id-0000-000000000000.mpk line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:37 root=/home/andre/.ocis/storage/users/ service=migrate
+2023-07-27T09:24:12+02:00 INF done. line=/home/andre/src/owncloud/reva/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:66 service=migrate
+----

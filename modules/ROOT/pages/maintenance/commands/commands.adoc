@@ -34,49 +34,18 @@ If post-processing fails in one step due to an unforeseen error, current uploads
 
 == Inspect and Manipulate Node Metadata
 
-Infinite Scale provides a CLI command with which you can inspect and manipulate node metadata.
+Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
-
-[source,bash]
-----
-ocis decomposedfs metadata
-NAME:
-   ocis decomposedfs metadata - cli tools to inspect and manipulate node metadata
-
-USAGE:
-   ocis decomposedfs metadata command [command options] [arguments...]
-
-COMMANDS:
-   dump     print the metadata of the given node. String attributes will be enclosed in quotes. Binary attributes will be returned encoded as base64 with their value being prefixed with '0s'.
-   get      print a specific attribute of the given node. String attributes will be enclosed in quotes. Binary attributes will be returned encoded as base64 with their value being prefixed with '0s'.
-   set      manipulate metadata of the given node. Binary attributes can be given hex encoded (prefix by '0x') or base64 encoded (prefix by '0s').
-   help, h  Shows a list of commands or help for one command
-
-OPTIONS:
-   --root value, -r value  Path to the decomposedfs
-   --node value, -n value  Path to or ID of the node to inspect
-   --help, -h              show help
-----
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
 
 == Inspect and Repair Node Tree Sizes
 
-Infinite Scale provides a CLI command with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
+Infinite Scale provides a xref:maintenance/commands/node-tree-size.adoc[CLI command] with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
 
-[source,bash]
-----
-NAME:
-   ocis decomposedfs check-treesize - cli tool to check the treesize metadata of a Space
+== Roll Back / Roll Forward Decomposedfs Migrations
 
-USAGE:
-   ocis decomposedfs check-treesize [command options] [arguments...]
+Starting with Infinite Scale 3.1, a xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
 
-OPTIONS:
-   --root value, -r value  Path to the root directory of the decomposedfs
-   --node value, -n value  Space ID of the Space to inspect
-   --repair                Try to repair nodes with incorrect treesize metadata. IMPORTANT: Only use this while ownCloud Infinite Scale is not running. (default: false)
-   --force                 Do not prompt for confirmation when running in repair mode. (default: false)
-   --help, -h              show help
-----
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
