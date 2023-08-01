@@ -20,7 +20,7 @@ IMPORTANT: When upgrading from the current running release to the desired one, *
 === Notable Changes Requiring Manual Intervention
 
 * The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preperation to run successfully.
-* The xref:deployment/container/orchestration/orchestration.adoc#using-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
+* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Upgrade Steps
 
@@ -77,7 +77,7 @@ When the instance has started successfully, check the logs for any unusual entri
 * A new `OCIS_LDAP_DISABLE_USER_MECHANISM` environment variable has been introduced that needs a settings review.
 * The search index needs to be deleted as the layout has been changed.
 * The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
-* The xref:deployment/container/orchestration/orchestration.adoc#using-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
+* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Upgrade Steps
 
