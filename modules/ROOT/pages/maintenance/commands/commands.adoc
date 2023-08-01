@@ -36,16 +36,16 @@ If post-processing fails in one step due to an unforeseen error, current uploads
 
 Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
 == Inspect and Repair Node Tree Sizes
 
 Infinite Scale provides a xref:maintenance/commands/node-tree-size.adoc[CLI command] with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
 == Roll Back / Roll Forward Decomposedfs Migrations
 
 Starting with Infinite Scale 3.1, a xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 

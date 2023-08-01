@@ -1,6 +1,6 @@
 = Inspect and Repair Node Tree Sizes
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
 [source,bash]
 ----
