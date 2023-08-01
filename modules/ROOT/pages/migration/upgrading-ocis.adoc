@@ -19,7 +19,7 @@ IMPORTANT: When upgrading from the current running release to the desired one, *
 
 === Notable Changes Requiring Manual Intervention
 
-* The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preperation to run successfully.
+* The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully.
 * The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Upgrade Steps
@@ -48,14 +48,14 @@ OCIS_RUN_SERVICES="storage-users,nats" \
 ocis server
 ----
 
-Because the proxy service is not running, no clients or users can login. During the restart of Infinite Scale, the symlinks of spaces in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service. The start of the migration can be identified in the log with a message like:
+Because the proxy service is not running, no clients or users can login. During the restart of Infinite Scale, the symlinks of spaces in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service. The start of the migration can be identified in the log by a message like:
 
 [source,plaintext]
 ----
 {"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-06-16T12:21:49.441395153Z","caller":"github.com/cs3org/reva/v2@v2.14.0/pkg/storage/utils/decomposedfs/migrator/0003_switch_to_messagepack_metadata.go:45","message":"Migrating to messagepack metadata backend..."}
 ----
 
-When migration has finished - which can take a while depending on the quantity of files - you can see a log message like below:
+When migration has finished - which can take a while depending on the quantity of files - you can see a log message like this:
 
 [source,plaintext]
 ----
