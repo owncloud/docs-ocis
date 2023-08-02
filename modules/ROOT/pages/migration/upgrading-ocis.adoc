@@ -13,7 +13,7 @@ IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[
 
 IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backstep is neither supported nor recommended and will most likely break the instance.
 
-IMPORTANT: When upgrading from the current running release to the desired one, *ALL* upgrade steps from each release must be taken in order and none must be skipped.  
+IMPORTANT: When upgrading from the current running release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
 
 == Version 3.0.0 to 3.1.0
 
