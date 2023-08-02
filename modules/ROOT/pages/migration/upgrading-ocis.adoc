@@ -48,18 +48,22 @@ OCIS_RUN_SERVICES="storage-users,nats" \
 ocis server
 ----
 
-Because the proxy service is not running, no clients or users can login. During the restart of Infinite Scale, the symlinks of spaces in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service. The start of the migration can be identified in the log by a message like:
+Because the proxy service is not running, no clients or users can login. During the restart of Infinite Scale, the symlinks of spaces in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service. The start of the migration can be identified in the log by messages like:
 
 [source,plaintext]
 ----
-{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-06-16T12:21:49.441395153Z","caller":"github.com/cs3org/reva/v2@v2.14.0/pkg/storage/utils/decomposedfs/migrator/0003_switch_to_messagepack_metadata.go:45","message":"Migrating to messagepack metadata backend..."}
+{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-08-02T06:08:21.002825802Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0004_switch_to_messagepack_space_index.go:46","message":"Migrating /var/lib/ocis/storage/users/indexes/by-user-id/b7a2149b-3320-43a3-9bd2-c216340c212d.mpk to messagepack index format..."}
+...
+{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-08-02T06:08:21.028153362Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:37","message":"Fixing index format of /var/lib/ocis/storage/users/indexes/by-user-id/b7a2149b-3320-43a3-9bd2-c216340c212d.mpk"}
 ----
 
-When migration has finished - which can take a while depending on the quantity of files - you can see a log message like this:
+When migration has finished - which can take a while depending on the quantity of spaces - you can see log messages like this:
 
 [source,plaintext]
 ----
-{"level":"info","time":"2023-06-16T12:30:05.267986656Z","caller":"github.com/cs3org/reva/v2@v2.14.0/pkg/storage/utils/decomposedfs/migrator/0003_switch_to_messagepack_metadata.go:106","message":"done."}`
+{"level":"info","time":"2023-08-02T06:08:21.026943689Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0004_switch_to_messagepack_space_index.go:92","message":"done."}
+...
+{"level":"info","time":"2023-08-02T06:08:21.028422073Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:66","message":"done."}
 ----
 
 Finally start the Infinite Scale instance as usual.
