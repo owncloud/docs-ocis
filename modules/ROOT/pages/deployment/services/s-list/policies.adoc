@@ -35,7 +35,7 @@ To configure the policies service, three environment variables need to be define
 
 Note that each query setting defines the https://www.openpolicyagent.org/docs/latest/#complete-rules[Complete Rules,window=_blank] variable defined in the Rego rule set the corresponding step uses for the evaluation. If the variable is mistyped or not found, the evaluation defaults to deny. Individual query definitions can be defined for each module.
 
-To activate the policies service for a module, it must be started with a yaml configuration that points to at least one Rego file that contains the complete rule variable to be queried. Note that if the service is scaled horizontally, each instance should have access to the same Rego files to avoid unpredictable results. If a file path has been configured but the file it is not present or accessible, the evaluation defaults to deny.
+To activate the policies service for a module, it must be started with a yaml configuration that points to at least one Rego file that contains the complete rule variable to be queried. Note that if the service is scaled horizontally, each instance should have access to the same Rego files to avoid unpredictable results. If a file path has been configured but the file is not present or accessible, the evaluation defaults to deny.
 
 When using async post-processing via the xref:{s-path}/postprocessing.adoc[postprocessing service], the value `policies` must be added to the `POSTPROCESSING_STEPS` configuration in the order in which the evaluation should take place. Example: First check if a file contains questionable content via policies. If it looks okay, continue to check for viruses.
 
@@ -102,7 +102,7 @@ proxy:
 
 The same can be achieved by setting the following environment variable:
 
-[source,yaml]
+[source,bash]
 ----
 PROXY_POLICIES_QUERY=data.proxy.granted
 ----
@@ -118,14 +118,14 @@ policies:
 
 The same can be achieved by setting the following environment variable:
 
-[source,yaml]
+[source,bash]
 ----
 POLICIES_POSTPROCESSING_QUERY=data.postprocessing.granted
 ----
 
 As soon as that query is configured, the postprocessing service must be informed to use the policies step by setting the environment variable:
 
-[source,yaml]
+[source,bash]
 ----
 POSTPROCESSING_STEPS=policies
 ----
@@ -164,6 +164,30 @@ Using git version name: `{compose_tab_3}`
 --
 endif::[]
 ====
+
+== Extend Mime Type File Extension Mapping
+
+In the extended set of the rego query language, it is possible to get a list of associated file extensions based on a mime type, for example `ocis.mimetype.extensions("application/pdf")`.
+
+The list of mappings is restricted by default and is provided by the host system Infinite Scale is installed on.
+
+Starting with Infinite Scale 3.1, you can extend this list. To do so, Infinite Scale must be provided with the path to a custom `mime.types` file that maps mime types to extensions. The location of the file must be accessible by all instances of the policy service. As a rule of thumb, use the directory where the Infinite Scale configuration files are stored. Note that existing mappings from the host are extended by the definitions from the mime types file, but not replaced.
+
+The path to that file can be provided via a yaml configuration or an environment variable. Make sure to replace the `OCIS_CONFIG_DIR` string by an existing path. See the documentation of the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] and the xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables] for predefined or manually defined config paths.
+
+[source,bash]
+----
+OCIS_MACHINE_AUTH_API_KEY=OCIS_CONFIG_DIR/mime.types
+----
+
+[source,yaml]
+----
+policies:
+  engine:
+    mimes: OCIS_CONFIG_DIR/mime.types
+----
+
+A good example of how such a file should be formatted can be found in the https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types[Apache svn repository].
 
 == Configuration
 
