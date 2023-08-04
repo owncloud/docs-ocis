@@ -1,6 +1,6 @@
 = Upgrading from 3.0.0 to 3.1.0
 :toc: right
-:description: This document desribes the necessary steps when upgrading Infinite Scale from release 3.0.0 to 3.1.0.
+:description: This document describes the necessary steps when upgrading Infinite Scale from release 3.0.0 to 3.1.0.
 
 == Introduction
 
@@ -71,7 +71,7 @@ When migration has finished - which can take a while depending on the quantity o
 
 .. Monitoring progress via command
 +
-Use the following command to check the status of the migraion steps. Replace `<path-to-decomposedFS>` with the physical path of the environment variable `OCIS_BASE_DATA_PATH`, for more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
+Use the following command to check the status of the migration steps. Replace `<path-to-decomposedFS>` with the physical path of the environment variable `OCIS_BASE_DATA_PATH`. For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
 +
 --
 [source,bash]
