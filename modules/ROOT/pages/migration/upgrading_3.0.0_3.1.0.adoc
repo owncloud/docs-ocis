@@ -1,0 +1,101 @@
+= Upgrading from 3.0.0 to 3.1.0
+:toc: right
+:description: This document describes the necessary steps when upgrading Infinite Scale from release 3.0.0 to 3.1.0.
+
+== Introduction
+
+{description}
+
+IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#introduction[Upgrading Infinite Scale] documentation before you start.
+ 
+== Upgrade Steps
+
+. Shut down the Infinite Scale instance.
+. Update Infinite Scale via:
++
+--
+* Docker
++
+[source,bash]
+----
+docker pull owncloud/ocis:3.1.0
+----
+
+* or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+--
+
+. Migrate the Space Index to Messagepack: +
+It is important to disable clients and users logging in while the space index migration to `messagepack` is in progress. To do so, you have two choices:
++
+--
+.. Start Infinite Scale with only two necessary services. The example uses the binary as base:
++
+[source,bash]
+----
+OCIS_RUN_SERVICES="storage-users,nats" \
+ocis server
+----
+
+.. If configured, shut-down or disable the reverse proxy for Infinite Scale.
+
+Because either the Infinite Scale proxy service is not running or the reverse proxy is inaccessible, no clients or users can login.
+--
+
+. Migration process
++
+--
+During the restart of Infinite Scale, the symlinks of spaces in the DecomposedFS will be migrated to `messagepack` _automatically_ via the `storage-users` service.
+--
+
+.. Monitoring progress via logs
++
+--
+The start of the migration can be identified in the log by messages like:
+
+[source,plaintext]
+----
+{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-08-02T06:08:21.002825802Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0004_switch_to_messagepack_space_index.go:46","message":"Migrating /var/lib/ocis/storage/users/indexes/by-user-id/b7a2149b-3320-43a3-9bd2-c216340c212d.mpk to messagepack index format..."}
+...
+{"level":"info","root":"/var/lib/ocis/storage/users","time":"2023-08-02T06:08:21.028153362Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:37","message":"Fixing index format of /var/lib/ocis/storage/users/indexes/by-user-id/b7a2149b-3320-43a3-9bd2-c216340c212d.mpk"}
+----
+
+When migration has finished - which can take a while depending on the quantity of spaces - you can see log messages like this:
+
+[source,plaintext]
+----
+{"level":"info","time":"2023-08-02T06:08:21.026943689Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0004_switch_to_messagepack_space_index.go:92","message":"done."}
+...
+{"level":"info","time":"2023-08-02T06:08:21.028422073Z","caller":"github.com/cs3org/reva/v2@v2.15.0/pkg/storage/utils/decomposedfs/migrator/0005_fix_messagepack_space_index_format.go:66","message":"done."}
+----
+--
+
+.. Monitoring progress via command
++
+Use the following command to check the status of the migration steps. Replace `<path-to-decomposedFS>` with the physical path of the environment variable `OCIS_BASE_DATA_PATH`. For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
++
+--
+[source,bash]
+----
+ocis migrate decomposedfs -r <path-to-decomposedFS> list
+----
+
+Depending on the number of steps to process, you will see an output like the following:
+
+[source,plaintext]
+----
++-----------+-----------+---------+
+| Migration |   State   | Message |
++-----------+-----------+---------+
+|      0001 | succeeded |         |
+|      0002 | succeeded |         |
+|      0003 | succeeded |         |
+|      0004 | succeeded |         |
+|      0005 | succeeded |         |
++-----------+-----------+---------+
+----
+--
+
+. Finally, either start the Infinite Scale instance as usual or re-enable the reverse proxy.
+
+. Check your Instance +
+When the instance has started successfully, check the logs for any unusual entries.
