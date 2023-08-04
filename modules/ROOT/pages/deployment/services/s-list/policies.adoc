@@ -177,7 +177,7 @@ The path to that file can be provided via a yaml configuration or an environment
 
 [source,bash]
 ----
-OCIS_MACHINE_AUTH_API_KEY=OCIS_CONFIG_DIR/mime.types
+POLICIES_ENGINE_MIMES=OCIS_CONFIG_DIR/mime.types
 ----
 
 [source,yaml]
