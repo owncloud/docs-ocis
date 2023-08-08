@@ -1,0 +1,12 @@
+= Rebuild jsoncs3 Indexes
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+[source,bash]
+----
+NAME:
+   ocis ocis migrate rebuild-jsoncs3-indexes - repair and migrate jsoncs3 indexes
+
+USAGE:
+   ocis ocis migrate rebuild-jsoncs3-indexes
+----

@@ -95,6 +95,24 @@ Depending on the number of steps to process, you will see an output like the fol
 ----
 --
 
+. Run the "repair and migrate jsoncs3 indexes" command
++
+--
+[source,bash]
+----
+ocis migrate rebuild-jsoncs3-indexes
+----
+
+When finished, you will see an output like this:
+
+[source,plaintext]
+----
+Scanning storage storage-users-1 (1/1)
+  Rebuilding space 1/1...  done
+done
+----
+--
+
 . Finally, either start the Infinite Scale instance as usual or re-enable the reverse proxy.
 
 . Check your Instance +
