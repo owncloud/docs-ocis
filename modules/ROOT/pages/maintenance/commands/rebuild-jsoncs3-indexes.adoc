@@ -5,8 +5,12 @@ WARNING: Use this command with absolute care. It is not intended to play around 
 [source,bash]
 ----
 NAME:
-   ocis migrate rebuild-jsoncs3-indexes - repair and migrate jsoncs3 indexes
+   ocis migrate rebuild-jsoncs3-indexes - rebuild the share indexes from the shares json
 
 USAGE:
-   ocis migrate rebuild-jsoncs3-indexes
+   ocis migrate rebuild-jsoncs3-indexes command [command options] [arguments...]
+
+COMMANDS:
+   list     list decomposedfs migrations
+   help, h  Shows a list of commands or help for one command
 ----
