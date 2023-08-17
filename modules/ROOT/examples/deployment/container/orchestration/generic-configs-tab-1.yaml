@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: storage-users
+  name: storage-users # default for configRefs.storageusersConfigRef
 data:
   # how to generate: create a UUIDv4
   # example generation command: `cat /proc/sys/kernel/random/uuid`
@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: graph
+  name: graph # default for configRefs.graphConfigRef
 data:
   # how to generate: create a UUIDv4
   # example generation command: `cat /proc/sys/kernel/random/uuid`

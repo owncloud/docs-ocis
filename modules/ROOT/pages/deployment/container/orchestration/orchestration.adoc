@@ -242,7 +242,7 @@ ifdef::use_helm_tab_3[]
 endif::[]
 |===
 
-* If a chart has been superseded by another for the same Infinite Scale release, only the latest one is listed. 
+* If a chart has been superseded by another for the same Infinite Scale release, only the latest one is listed.
 * Note that Helm Chart Version `0.2.0` was a necessary intermediate for Infinite Scale `3.0.0-alpha.1` only and is therefore not listed with a working Infinite Scale version.
 
 === Breaking Changes
@@ -478,7 +478,7 @@ endif::[]
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* If the key `features.emailNotifications.enable` is set to `true`, the SMTP email server secret needs to be configured:
+* If the key `features.emailNotifications.enable` is set to `true`, the SMTP email server Secret referenced in `secretRefs.notificationsSmtpSecretRef` needs to be configured:
 +
 [tabs]
 ====
@@ -512,21 +512,60 @@ include::example$deployment/container/orchestration/email-notification-tab-3.yam
 endif::[]
 ====
 
+==== Configure S3ng Storage
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* If the key `services.storageusers.storageBackend.driver` is set to `s3ng`, the S3 access key ID / secret Secret referenced in `secretRefs.s3CredentialsSecretRef` needs to be configured:
++
+[tabs]
+====
+{helm_tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-1.yaml[]
+----
+--
+ifdef::use_helm_tab_2[]
+{helm_tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-2.yaml[]
+----
+--
+endif::[]
+ifdef::use_helm_tab_3[]
+{helm_tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-3.yaml[]
+----
+--
+endif::[]
+====
+
 // this is an additional anchor for yaml files that get included and reference to this section which was renamed
 
 [[define-secrets]]
 
-==== Define Generic Secrets
+==== Define Mandatory Secrets and ConfigMaps
 
-Infinite Scale requires some generic secrets to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
-
-For these reasons, ownCloud cannot take responsibility for these generic secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
+Infinite Scale requires some mandatory Secrets and ConfigMaps to work. They are created _one-off_ if you don't explicitly provide them. If you're using the builtin user management (not recommended), among the auto generated Secrets there are also some certificates which expire and need to be renewed by you.
+Please not that these Secrets and ConfigMaps need to be part of your backup since you need to provide them manually during a disaster recovery procedure.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-:t_text: Secrets file containing all relevant generic secrets configurations.
+===== Mandatory Secrets
 
-* The following example shows what generic secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description of how to generate it or find the right value.
+-:t_text: List of all mandatory Secrets.
+
+* If you want to manage Secrets on your own, you can look at the following example which shows what mandatory Secrets look like and how they can be generated. The example assumes that the `secretRefs` are not changed. Each Secret data entry holds a description of how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -572,28 +611,26 @@ ifdef::use_helm_tab_3[]
 endif::[]
 ====
 
-===== Apply Generic Secrets
+===== Apply Mandatory Secrets
 
 Secrets can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
-. To apply secrets by command, save the content as `generic-secrets.yaml` and use the following command with a path to the secrets file added if necessary:
+. To apply secrets by command, save the content as `mandatory-secrets.yaml` and use the following command with a path to the secrets file added if necessary:
 +
 [source,bash]
 ----
-minikube kubectl -- apply -f generic-secrets.yaml
+kubectl apply -f mandatory-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
-==== Define Generic Configs
+===== Mandatory ConfigMaps
 
-Infinite Scale requires some generic configuration to work. It was decided to not create them automatically, because we didn't find a satisfactory way for _one-off_ generation of secrets yet.
-
-For these reasons, ownCloud cannot take responsibility for these generic configuration. Any information necessary to use this application-relevant data is provided by ownCloud via examples.
+* If you want to manage ConfigMaps on your own, you can look at the following example which shows what mandatory ConfigMaps look like and how they can be generated. The example assumes that the `configRefs` are not changed. Each ConfigMaps data entry holds a description of how to generate it or find the right value.
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-:t_text: Configuration file containing all relevant generic configurations.
+-:t_text: List of all mandatory ConfigMaps.
 
 * The following example shows what generic configuration need to look like and how they can be generated. The example assumes that the `configRefs` are not changed . Each config data entry holds a description of how to generate it or find the right value.
 +
@@ -641,30 +678,28 @@ ifdef::use_helm_tab_3[]
 endif::[]
 ====
 
-===== Apply Generic Configs
+===== Apply Mandatory ConfigMaps
 
-Configs can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
+ConfigMaps can be applied by command or included in `extraResources` of your own `values.yaml` file. Adapt the data content according to your environment:
 
 . To apply configs by command, save the content as `generic-configs.yaml` and use the following command with a path to the secrets file added if necessary:
 +
 [source,bash]
 ----
-minikube kubectl -- apply -f generic-configs.yaml
+kubectl apply -f generic-configs.yaml
 ----
 
 . To apply configs via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
 ==== Built-in User Management Secrets
 
-If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
-
-As the operator of Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
+If you're using the built-in user management by setting `features.externalUserManagement.enabled` to `false` (which is the default), you'll need additional Secrets. These are also autogenerated for you if you don't provide them. Among these Secrets are certificates that expire after 365 days and therefore need a certificate rotation from time to time. Rotation can be achieved by deleting the Secrets "ldap-ca" and "ldap-cert" and restarting all oCIS Deployments (eg. `kubectl rollout restart deploy`)
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
 :t_text: Secrets file for the builtin user management.
 
-* The following example shows what user management secrets need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each secret data entry holds a description of how to generate it or find the right value.
+* The following example shows what the Secrets for the built-in user management need to look like and how they can be generated. The example assumes that the `secretRefs` are not changed . Each Secret data entry holds a description of how to generate it or find the right value.
 +
 [tabs]
 ====
@@ -718,14 +753,14 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 +
 [source,bash]
 ----
-minikube kubectl -- apply -f builtin-user-mgmt-secrets.yaml
+kubectl apply -f builtin-user-mgmt-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
 ==== External User Management Secrets
 
-If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
+If you're using external user management by setting `features.externalUserManagement.enabled` to `true`, you need to set these Secrets. Certificates are also required which should expire and therefore need a certificate rotation from time to time, for which we didn't document appropiate tooling yet.
 
 If you're using Helm Charts, you are responsible for these user management secrets and their lifecycle. Any information necessary to use this security-relevant data is provided by ownCloud via examples.
 
@@ -787,7 +822,7 @@ Secrets can be applied by command or included in `extraResources` of your own `v
 +
 [source,bash]
 ----
-minikube kubectl -- apply -f external-user-mgmt-secrets.yaml
+kubectl apply -f external-user-mgmt-secrets.yaml
 ----
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
@@ -846,7 +881,7 @@ helm upgrade --install --reset-values \
 +
 [source,bash]
 ----
-minikube kubectl -- get pods
+kubectl get pods
 ----
 
 ==== Define Chart Access

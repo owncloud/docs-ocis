@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: notifications-smtp-secret
+  name: notifications-smtp-secret # needs to be set to `secretRefs.notificationsSmtpSecretRef`
 type: Opaque
 data:
   # Username for authentication against the SMTP host.
