@@ -171,7 +171,7 @@ In the extended set of the rego query language, it is possible to get a list of 
 
 The list of mappings is restricted by default and is provided by the host system Infinite Scale is installed on.
 
-Starting with Infinite Scale 3.1, you can extend this list. To do so, Infinite Scale must be provided with the path to a custom `mime.types` file that maps mime types to extensions. The location of the file must be accessible by all instances of the policy service. As a rule of thumb, use the directory where the Infinite Scale configuration files are stored. Note that existing mappings from the host are extended by the definitions from the mime types file, but not replaced.
+Starting with Infinite Scale release 4.0.0, you can extend this list. To do so, Infinite Scale must be provided with the path to a custom `mime.types` file that maps mime types to extensions. The location of the file must be accessible by all instances of the policy service. As a rule of thumb, use the directory where the Infinite Scale configuration files are stored. Note that existing mappings from the host are extended by the definitions from the mime types file, but not replaced.
 
 The path to that file can be provided via a yaml configuration or an environment variable. Make sure to replace the `OCIS_CONFIG_DIR` string by an existing path. See the documentation of the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] and the xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables] for predefined or manually defined config paths.
 

@@ -15,7 +15,7 @@ IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backst
 
 IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
 
-== Version 3.0.0 to 3.1.0
+== Version 3.0.0 to 4.0.0
 
 === Notable Changes Requiring Manual Intervention
 
@@ -24,7 +24,7 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 
 === Upgrade Steps
 
-For a detailed description of the steps to upgrade see the xref:migration/upgrading_3.0.0_3.1.0.adoc[Upgrading from 3.0.0 to 3.1.0] documentation.
+For a detailed description of the steps to upgrade see the xref:migration/upgrading_3.0.0_4.0.0.adoc[Upgrading from 3.0.0 to 4.0.0] documentation.
 
 == Version 2.0.0 to 3.0.0
 
