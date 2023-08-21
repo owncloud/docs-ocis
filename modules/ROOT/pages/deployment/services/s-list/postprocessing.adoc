@@ -65,7 +65,7 @@ Once the custom service has finished its work, it should send an event of the ty
 
 === Resume Post-Processing
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 3.1, a system administrator can instead run a CLI command to retry the failed upload which is a two step process:
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 4.0.0, a system administrator can instead run a CLI command to retry the failed upload which is a two step process:
 
 * First, find the upload ID of the failed upload.
 +
