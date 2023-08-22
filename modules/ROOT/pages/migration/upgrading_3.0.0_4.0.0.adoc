@@ -120,16 +120,26 @@ When the instance has started successfully, check the logs for any unusual entri
 
 == Manage Breaking Changes
 
-Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. This was necessary to improve distributed installations for Infinite Scale like with Kubernetes. With the usage of service names, which are free definable strings, inter-service communication is greatly improved including multiple Infinite Scale instances on the same network.
+Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
 
 === How to Identify if You Are Affected
 
-1. If you have changed the default configuration for inter-service communication.
-2. If you have distributed services via multiple servers and therefore needed to change (1).
-3. If you run multiple Infinite Scale instances on the same network and therefore needed to change (1).
+* If you have changed the default configuration for the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY] environment variable.
 
-In all other cases, there is nothing that needs to be done as the new defaults will be used automatically.
+In all other cases, there is nothing that needs to be done as the new default will be used automatically.
 
-=== How to Manage the Changes
+=== How to Manage the Change
 
-Check all manually changed config variables for inter-service communication and replace the current IP based values with a text based string. As a guideline for naming the string and how the defaults are set in the old and new format, see the environment variable documentation for the xref:deployment/services/services.adoc[services] and the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] page.
+Manually reconfigure the environment variable to the new namespace:
+
+[width="100%",cols="35%,40%,20%"]
+|===
+3+^h| Default used value, new and old
+^h| Global envvar
+^h| Namespace (new)
+^h| IP (old)
+
+| xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY]
+| com.owncloud.api.gateway
+| 127.0.0.1:9142
+|===
