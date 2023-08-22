@@ -117,3 +117,29 @@ done
 
 . Check your Instance +
 When the instance has started successfully, check the logs for any unusual entries.
+
+== Manage Breaking Changes
+
+Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
+
+=== How to Identify if You Are Affected
+
+* If you have changed the default configuration for the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY] environment variable.
+
+In all other cases, there is nothing that needs to be done as the new default will be used automatically.
+
+=== How to Manage the Change
+
+Manually reconfigure the environment variable to the new namespace:
+
+[width="100%",cols="35%,40%,20%"]
+|===
+3+^h| Default used value, new and old
+^h| Global envvar
+^h| Namespace (new)
+^h| IP (old)
+
+| xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY]
+| com.owncloud.api.gateway
+| 127.0.0.1:9142
+|===

@@ -943,7 +943,3 @@ helm delete ocis
 ----
 
 This command removes all the Kubernetes components associated with the chart and deletes the deployment.
-
-=== Upgrading an Existing Release to a New Major Version
-
-A major chart version change (like v1.2.3 -> v2.0.0) indicates that there is an incompatible breaking change which needs manual actions.
