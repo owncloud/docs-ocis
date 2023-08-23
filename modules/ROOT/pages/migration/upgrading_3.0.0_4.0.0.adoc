@@ -126,7 +126,7 @@ When the instance has started successfully, check the logs for any unusual entri
 === How to Identify if You Are Affected
 
 * If you are using deprecated environment variables in your config. +
-See for deprecation notices in each service in the xref:deployment/services/services.adoc[List of Services] and the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables]. Note that you need to select the 3.0.0 tab to identify deprecations that may affect you.
+See the deprecation notices in each service in the xref:deployment/services/services.adoc[List of Services] and the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables]. Note that you need to select the 3.0.0 tab to identify deprecations that may affect you.
 * If you have changed the default configuration for the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY] environment variable.
 
 In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
