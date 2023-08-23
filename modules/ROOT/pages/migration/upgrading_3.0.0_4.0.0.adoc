@@ -120,16 +120,26 @@ When the instance has started successfully, check the logs for any unusual entri
 
 == Manage Breaking Changes
 
-Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
+* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
 
 === How to Identify if You Are Affected
 
+* If you are using deprecated environment variables in your config. +
+See the deprecation notices in each service in the xref:deployment/services/services.adoc[List of Services] and the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables]. Note that you need to select the 3.0.0 tab to identify deprecations that may affect you.
 * If you have changed the default configuration for the xref:deployment/services/env-vars-special-scope.adoc#global-environment-variables[OCIS_REVA_GATEWAY] environment variable.
 
-In all other cases, there is nothing that needs to be done as the new default will be used automatically.
+In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
 
 === How to Manage the Change
 
+* Manage deprecated variables
+** Environment variables that have been deprecated without successor can safely be removed from the configuration. These envvars do not harm as they are not used anymore.
+** Environment variables that have been deprecated with a successor need to be updated accordingly.
+
+* The `OCIS_REVA_GATEWAY` environment variable
++
+--
 Manually reconfigure the environment variable to the new namespace:
 
 [width="100%",cols="35%,40%,20%"]
@@ -143,3 +153,4 @@ Manually reconfigure the environment variable to the new namespace:
 | com.owncloud.api.gateway
 | 127.0.0.1:9142
 |===
+--

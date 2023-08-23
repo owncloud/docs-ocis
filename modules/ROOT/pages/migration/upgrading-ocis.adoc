@@ -25,6 +25,7 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 
 === Breaking Changes Requiring Manual Intervention
 
+* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
 * Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`
 
 === Upgrade Steps
