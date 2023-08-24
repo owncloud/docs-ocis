@@ -21,7 +21,6 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 
 * The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully.
 * The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
-* Environment variables marked for deprecation have been removed
 
 === Breaking Changes Requiring Manual Intervention
 
