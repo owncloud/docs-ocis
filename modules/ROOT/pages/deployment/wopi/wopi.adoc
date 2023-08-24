@@ -88,7 +88,7 @@ ifdef::use_tab_3[]
 {compose_tab_3_tab_text}::
 +
 --
-{composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+{composer-url}{compose_tab_3}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_3}`
 --
