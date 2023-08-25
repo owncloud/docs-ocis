@@ -37,7 +37,7 @@ For a detailed description of the steps to upgrade, see the xref:migration/upgra
 
 === Notable Changes Requiring Manual Intervention
 
-* The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully.
+* The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully. See Upgrade Steps below.
 * The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Breaking Changes Requiring Manual Intervention
