@@ -26,12 +26,14 @@ The file contains the attribute too to be used outside of tabsets.
 To exclude a deprecation file if not wanted - like when the file will just not exist, manually unset the attribute if required via:
 
 * :!no_deprecation:
+
 ////
 
-// evaluate deprecations if set in any tab, but only if no_deprecation is not set
-// if set, it will show the deprecation table in all tabs, independent if that tab has one or not
-ifndef::no_deprecation[]
+// read the xxx_deprecation.adoc file from ocis to evaluate deprecations but only if 'no_deprecation' is not set
+// see the deprecation evaluation in the next block how it gets handled 
 
+ifndef::no_deprecation[]
+// deprecation test tab 1, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
 :has_deprecation_tab_1: true
@@ -39,6 +41,7 @@ endif::[]
 
 ifndef::no_second_tab[]
 ifdef::use_service_tab_2[]
+// deprecation test tab 2, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
 :has_deprecation_tab_2: true
@@ -47,6 +50,7 @@ endif::use_service_tab_2[]
 
 ifndef::no_third_tab[]
 ifdef::use_service_tab_3[]
+// deprecation test tab 3, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
 :has_deprecation_tab_3: true
@@ -55,7 +59,12 @@ endif::use_service_tab_3[]
 endif::no_third_tab[]
 endif::no_second_tab[]
 
-// if one tab deprecation is set to true, set it generally. ifdef with comma uses or (with + uses and)
+////
+if one tab deprecation is set to true, set it generally. ifdef with comma uses or (with + uses and).
+this will show the deprecation table in *all* tabs if one is true, independent if that tab has one or not.
+this is because attributes are only evaluated OUTSIDE a tab definition.
+////
+
 ifdef::has_deprecation_tab_1,has_deprecation_tab_2,has_deprecation_tab_3[]
 :show-deprecation: true
 endif::[]

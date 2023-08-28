@@ -61,7 +61,7 @@ Installing the Docker stacks only requires a few steps. Take care to use the rel
 . Get the deployment example:
 +
 --
-Follow the xref:deployment/wopi/wopi.html#wopi-configuration-examples[WOPI Configuration Examples,window=_blank] to download the example files.
+Follow the xref:deployment/wopi/wopi.adoc#wopi-configuration-examples[WOPI Configuration Examples,window=_blank] to download the example files.
 
 After all resources have been downloaded, change into the directory:
 
