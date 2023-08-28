@@ -9,7 +9,7 @@
 :wopi-wiki-url: https://en.wikipedia.org/wiki/Web_Application_Open_Platform_Interface
 :wopi-ms-url: https://learn.microsoft.com/en-us/openspecs/office_protocols/ms-wopi/6a8bb410-68ad-47e4-9dc3-6cf29c6b046b
 
-// since ocis 4.0 we can use teh second tab
+// since ocis 4.0 we can use the second tab
 :use_tab_2: true
 
 == Introduction
