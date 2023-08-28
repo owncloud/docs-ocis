@@ -77,7 +77,12 @@ which docker-compose
 
 If `docker-compose` is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install `docker-compose` first. On most Linux distributions, you can simply use the package manager to do so.
 
-Note that in many cases, this will install a 1.x version (python-based) only supported until June 2023. Version 2.x (go-based) is available from Docker. Follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version. Familiarize yourself with the {docker-compose-evolution-url}[differences between versions] particularly with regard to syntax changes. Most of our examples are still based on Compose-V1.
+Note that in many cases, this will install a 1.x version (python-based) only supported until June 2023. Version 2.x (go-based) is available from Docker. Follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version. Familiarize yourself with the {docker-compose-evolution-url}[differences between versions] particularly with regard to syntax changes. Most of our examples are still based on Compose-V1. One major difference is, that compose is now a plugin of docker, even if there is still a standalone version. If the check above fails, you might also want to test:
+
+[source,bash]
+----
+docker compose version
+----
 
 When done, create a project directory like `ocis-compose` in your home directory to have a common location for your Infinite Scale Compose files.
 
