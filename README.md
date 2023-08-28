@@ -44,9 +44,9 @@ yarn serve
 
 When a *staging* build was created and pushed to the [staging site](https://doc.staging.owncloud.com), you can share the preview of the build. Note that staging is accessible via ownCloud SSO only.
 
-## Important New Infinite Scale Releas Info
+## Important New Infinite Scale Release Info
 
-Please refer to the [New Infinite Scale Releas Info](https://github.com/owncloud/docs-ocis/blob/master/docs/new-infinite-scale-release-info.md) or more information.
+Please refer to the [New Infinite Scale Release Info](https://github.com/owncloud/docs-ocis/blob/master/docs/new-infinite-scale-release-info.md) for more information.
 
 ## Target Branch and Backporting
 

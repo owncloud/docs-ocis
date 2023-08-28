@@ -1,19 +1,19 @@
-# New Infinite Scale Releas Info
+# New Infinite Scale Release Info
 
-If there is a new Infinite Scale release on the way, there are some things to know respectively to check:
+If there is a new Infinite Scale release on the way, there are some things to check:
 
 **Relevant for docs:**
 
-* The docs relevant releasing process in the `ocis` repo works the following:
-  * Based on a release tag like `v4.0.0`, a new `stable-x` branch is created.
-  * A new and empty `docs-stable-x` branch is created.
+* The docs relevant releasing process in the `ocis` repo works the following way:
+  * Based on a release tag like `v4.0.0`, a new `stable-x` branch is created. For example, `stable-4.0`.
+  * A new and empty `docs-stable-x` branch is created. For example, `docs-stable-4.0`.
   * The pipeline of the `stable-x` branch gets adapted to write to the `docs-stable-x` branch.
   * The `stable-x` branch gets added to the nightly cron jobs in drone which populates new and changed content to `docs-stable-x`.
   * Any merge in the `stable-x` branch also triggers the pipeline as usual.
 
-* **IMPORTANT** For any changes necessary that effect the output of the `docs-stable-x`, these must be done in `stable-x` and take effect in `docs-stable-x` when the `stable-x` pipeline ran. Manual commits to `docs-stable-x` will get overwritten at least daily.
+* **IMPORTANT** For any changes necessary that effect the output of the `docs-stable-x` branch, these must be done in `stable-x` and take effect in `docs-stable-x` when the `stable-x` pipeline runs. Manual commits to `docs-stable-x` will get overwritten at least daily.
 
-* **IMPORTANT**: Any changes neccessary in `stable-x` are based on a 6-eye principle and need 2 approvals therefore.
+* **IMPORTANT**: Any changes neccessary in `stable-x` are based on a 6-eye principle and therefore need 2 approvals.
 
 **Actions for docs:**
 
