@@ -6,7 +6,7 @@
 
 {description} This ensures that in case of issues, data can be restored from a backup.
 
-Though no backup strategies are covered, reading this document can add valuable information when creating a backup and restore strategy.
+Though no backup strategies are covered here, reading this document can add valuable information when creating a backup and restore strategy.
 
 == General Considerations
 
@@ -17,13 +17,17 @@ Infinite Scale can run in two different setups when it comes to storing data:
 
 For details on supported filesystems, see: xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage].
 
-Depending on how this data is stored, backup strategies and tasks will differ (see the sections below).
+Depending on how this data is stored, backup strategies and tasks will differ, see the sections below.
 
-You have to fully stop the Infinite Scale instance to create a consistent state necessary for performing the backup. In the following scenarios, this state of consistency is a prerequisite for all upcoming tasks. To avoid redundancy this step will not be repeated every time. When the backup is finished, Infinite Scale can be started again.
+You have to fully stop the Infinite Scale instance to create a consistent state necessary for performing the backup. In the following scenarios, this state of consistency is a prerequisite for all upcoming tasks. To avoid redundancy, this step will not be repeatedly written down every time. When backup has finished, Infinite Scale can be started again.
 
-Note that creating a backup may only take a few seconds if the underlying filesystem of your storage provides snapshot capabilities. After taking the necessary snapshots, the Infinite Scale instance can be started again. To prevent data loss in case of hardware failure, we recommend copying the snapshots to a secondary storage.
+There are two general approaches how to achieve a backup:
 
-See the xref:deployment/general/general-info.adoc#default-paths[Default Paths] for more information on where data is saved and how different locations can be defined.
+* When the underlying filesystems of the storages used provide snapshot capabilities, creating the base for the backup will only take a few seconds. This is the preferred method as the Infinite Scale instance can be started post creating the necessary snapshots again. To prevent data loss in case of hardware failures, it is recommend to copy the snapshots to a secondary storage or use a backup software of your choice that accesses the snapshots for further processing.
+
+* In case snapshot capabilities are not avialable or cant be used, a backup software of your choice can be taken to backup Infinite Scale.
+
+See the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation for more information on where data is saved and how different locations can be defined.
 
 Keep in mind that you always have to back up all data sets consistently:
 
