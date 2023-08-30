@@ -71,16 +71,21 @@ When migration has finished - which can take a while depending on the quantity o
 
 .. Monitoring progress via command
 +
-Use the following command to check the status of the migration steps. Replace `<path-to-decomposedFS>` with the physical path of the environment variable `OCIS_BASE_DATA_PATH`. For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
-+
 --
+* Use the command below to check the status of the migration steps.
+* Replace `<path-to-decomposedFS>` with the physical path of the environment variable: +
+`OCIS_BASE_DATA_PATH` + `/storage/users` +
+Example: `/var/lib/ocis/storage/users`
+* For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
+* Command
++
 [source,bash]
 ----
 ocis migrate decomposedfs -r <path-to-decomposedFS> list
 ----
-
++
 Depending on the number of steps to process, you will see an output like the following:
-
++
 [source,plaintext]
 ----
 +-----------+-----------+---------+
