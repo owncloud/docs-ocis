@@ -32,7 +32,7 @@ It is important to disable clients and users logging in while the space index mi
 +
 [source,bash]
 ----
-OCIS_RUN_SERVICES="storage-users,nats" \
+OCIS_RUN_SERVICES="gateway,nats,storage-system,storage-users" \
 ocis server
 ----
 
@@ -100,9 +100,16 @@ Depending on the number of steps to process, you will see an output like the fol
 ----
 --
 
-. Run the "repair and migrate jsoncs3 indexes" command
+. Run the "repair and migrate jsoncs3 indexes" command:
 +
 --
+* Note, run this command only if there are shares present.
+* If you run this command and no shares are present, an error will be printed like the following: +
+`error: not found: list container: error: not found: jsoncs3-share-manager-metadata/storages` +
+This error has no impact and can be neglected.
+
+{empty}
+
 [source,bash]
 ----
 ocis migrate rebuild-jsoncs3-indexes
