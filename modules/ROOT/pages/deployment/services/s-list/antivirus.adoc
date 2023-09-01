@@ -14,8 +14,10 @@
 
 The antivirus service currently supports https://tools.ietf.org/html/rfc3507[ICAP] and http://www.clamav.net/index.html[clamAV] as antivirus scanners. The `ANTIVIRUS_SCANNER_TYPE` environment variable is used to select the scanner. The detailed configuration for each scanner heavily depends on the scanner type selected. See the environment variables for more details.
 
-  -   For `icap`, only scanners using the `X-Infection-Found` header are currently supported.
-  -   For `clamav`, only local sockets can currently be configured.
+* For `icap`, only scanners using the `X-Infection-Found` header are currently supported.
+* For `clamav`, local Unix Domain Sockets and remote network sockets can be configured either by:
+** pointing to a file like `/tmp/clamd.socket` or
+** with a stream socket like `tcp://host.docker.internal:3310`.
 
 === Maximum Scan Size
 
