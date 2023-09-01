@@ -79,8 +79,8 @@ asciidoc:
 #   ocis
     latest-ocis-version: 'next'
     previous-ocis-version: 'next'
-    ocis-actual-version: '4.0.0'
-    ocis-compiled: '2023-08-23 00:00:00 +0000 UTC'
+    ocis-actual-version: '4.0.1'
+    ocis-compiled: '2023-09-01 00:00:00 +0000 UTC'
     ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis/stable/'
 #   desktop
     latest-desktop-version: 'next'
