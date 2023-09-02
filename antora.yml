@@ -32,7 +32,7 @@ asciidoc:
     # note that we are refering via the 'service_tab_x' branch to the ocis repo, not the master branch!
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     service_tab_1_tab_text: 'latest'
-    service_tab_2_tab_text: '4.0.0' # latest stable
+    service_tab_2_tab_text: '4.0.1' # latest stable
     service_tab_3_tab_text: '3.0.0' # former stable
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
@@ -44,7 +44,7 @@ asciidoc:
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     compose_tab_1_tab_text: 'latest'
-    compose_tab_2_tab_text: '4.0.0' # latest stable
+    compose_tab_2_tab_text: '4.0.1' # latest stable
     compose_tab_3_tab_text: '3.0.0' # former stable
 
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
