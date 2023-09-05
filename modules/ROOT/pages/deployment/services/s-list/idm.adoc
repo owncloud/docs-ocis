@@ -25,6 +25,7 @@ namely `BIND`, `SEARCH`, `ADD`, `MODIFY` and `DELETE`.
 `require and option attributes`, +
 `syntax checks`, …
 * IDM currently does not support features like 2FA and device management.
+* Check the xref:{s-path}/graph.adoc#restrict-username-patterns[Restrict Username Patterns] documentation.
 
 Therefore the IDM service is **not** meant to replace a general purpose LDAP server.
 ====
