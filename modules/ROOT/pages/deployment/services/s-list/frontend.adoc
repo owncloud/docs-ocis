@@ -1,5 +1,6 @@
 = Frontend Service Configuration
 :toc: right
+:toclevels: 4
 :description: The frontend service translates various ownCloud-related HTTP APIs to CS3 requests.
 
 :service_name: frontend
@@ -36,6 +37,16 @@ The datagateway endpoint, by default `/data`, forwards file up- and download req
 === ocs
 
 The ocs endpoint, by default `/ocs`, implements the ownCloud 10 Open Collaboration Services API by translating it into CS3 API requests. It can handle users, groups, capabilities and also implements the file sharing functionality on top of CS3. The `/ocs/v[12].php/cloud/user/signing-key` is currently handled by the dedicated xref:{s-path}/ocs.adoc[ocs] service.
+
+With the upcoming Infinite Scale release after 4.0.1, an ocs event handler and a new functionality for auto-accepting shares will be added, see the sections below.  
+
+==== Event Handler
+
+The `frontend` service contains an eventhandler for handling `ocs` related events. As of now, it only listens to the `ShareCreated` event.
+
+==== Auto-Accept Shares
+
+When setting the `FRONTEND_AUTO_ACCEPT_SHARES` to `true`, all incoming shares will be accepted automatically. Users can overwrite this setting individually in their profile.
 
 === Sharing
 
