@@ -1,6 +1,6 @@
 = OCS Service Configuration
 :toc: right
-:description: The Infinite Scale OCS service provides the OCS API which is required by some ownCloud clients.
+:description: The Infinite Scale OCS service (open collaboration services) serves one purpose: it has an endpoint for signing keys which the web frontend accesses when uploading data.
 
 :service_name: ocs
 
@@ -13,6 +13,10 @@
 == Default Values
 
 * OCS listens on port 9110 by default.
+
+== Signing-Keys Endpoint
+
+The `ocs` service provides an endpoint `/cloud/user/signing-key` which is accessed from the web frontend via GET to request a signing key used for uploads.
 
 == Configuration
 
