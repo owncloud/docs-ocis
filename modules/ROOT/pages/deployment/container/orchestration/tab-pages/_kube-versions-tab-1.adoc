@@ -1,4 +1,4 @@
-We only list non EOL versions as of the Chart release date from here: https://kubernetes.io/releases/[window=_blank]
+We only list non EOL versions as of the chart release date from here: https://kubernetes.io/releases/[window=_blank]
 
 Note that some EOL versions still might be API compatible.
 
