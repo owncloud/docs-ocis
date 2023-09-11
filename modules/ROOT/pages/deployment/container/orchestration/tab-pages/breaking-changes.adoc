@@ -17,8 +17,34 @@ For each breaking changes block you need:
 
 {description}
 
-// [id=0.5.0]
-//== Helm Chart Version: 0.5.0
+ [id=0.5.0]
+== Helm Chart Version: 0.5.0
+
+When upgrading from Helm Chart 0.4.0 you will be performing a upgrade from oCIS 3.0.0 to oCIS 4.0.1. This upgrade will perform some migrations, please see also https://doc.owncloud.com/ocis/next/migration/upgrading_3.0.0_4.0.0.html.
+
+For the Helm Chart, we recommend you to:
+- delete the Ingress object
+
+You can check the migration progress by running:
+`kubectl -n ocis delete ingress/proxy`
+Caution: this will make the oCIS installation be unavailable for your users. Depending on your Kubernetes Ingress Controller, your users will see different error pages.
+Deleting the Ingress object justs ensures, that nobody of your users will use oCIS while migrations are happening.
+
+Backup oCIS now.
+
+Now you can install oCIS Chart version 0.5.0 with the `ingress.enabled` setting, set to `false`.
+
+You now can monitor the migration status for the storage-users and storage-system service by running these commands:
+
+`kubectl -n <ocis-namespace> exec svc/storageusers -- ocis migrate decomposedfs -r /var/lib/ocis/storage/users list`
+
+`kubectl -n <ocis-namespace> exec svc/storagesystem -- ocis migrate decomposedfs -r /var/lib/ocis/storage/metadata list`
+
+If all migrations of both services show state `succeeded`, the migrations are finished.
+
+You now can install the oCIS Chart version 0.5.0 with the `ingress.enabled` setting, set to `true`.
+
+Users now should be able to access oCIS again.
 
 [id=0.4.0]
 == Helm Chart Version: 0.4.0
