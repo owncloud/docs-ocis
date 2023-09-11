@@ -1,0 +1,17 @@
+* Check the supported Kubernetes versions before you download the chart.
+** The `~` represents all patch releases for that particular version.
+** The `-0` represents subversions of that particular version.
+
++
+[width="100%",cols="~",options="header"]
+|===
+| Version
+a| [subs=-attributes]
++~1.27.0-0+
+a| [subs=-attributes]
++~1.26.0-0+
+a| [subs=-attributes]
++~1.25.0-0+
+a| [subs=-attributes]
++~1.24.0-0+
+|===

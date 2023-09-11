@@ -278,41 +278,47 @@ xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_ta
 endif::[]
 ====
 
-=== Get the Chart
+=== Supported Kubernetes Versions
 
-As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
+////
+note to adapt the _kube-versions-tab-x files
+1. when a new kubernetes version is added to the list or
+2. when a new ocis release gets published and the tab names change !!
 
-// note the sources for the include are on GitHub at ocis-charts.
+for (1), just add the version to the relevant tab-x file
+for (2), you need to "rotate" the content of the files.
 
-* Check the supported Kubernetes versions before you download the chart.
-+
---
-** The `~` represents all patch releases for that particular version.
-** The `-0` represents subversions of that particular version.
---
-+
+tab-2 -> tab-3
+tab-1 -> tab-2
+tab-1 gets new or adapted content based on former tab-1 content
+////
+
 [tabs]
 ====
 {helm_tab_1_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_1}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-1.adoc[]
 --
 ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_2}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-2.adoc[]
 --
 endif::[]
 ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_3}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-3.adoc[]
 --
 endif::[]
 ====
+
+=== Get the Chart
+
+As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
 
 === Start minikube
 
@@ -320,7 +326,7 @@ endif::[]
 +
 [source,bash]
 ----
-minikube start --kubernetes-version=v1.25.0
+minikube start --kubernetes-version=v1.28.1
 ----
 
 . Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:

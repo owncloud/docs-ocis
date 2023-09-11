@@ -62,7 +62,6 @@ asciidoc:
     # set attributes defining path components which will be assembled in the document
     secrets: 'deployment/container/orchestration/orchestration.adoc#define-secrets'
     ocis-charts-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis-charts/'
-    kube-versions-url: '/charts/ocis/docs/kube-versions.adoc'
     values-versions-url: '/charts/ocis/docs/values.adoc.yaml'
     values-desc-versions-url: '/charts/ocis/docs/values-desc-table.adoc'
     composer-url: 'https://github.com/owncloud/ocis/tree/'
