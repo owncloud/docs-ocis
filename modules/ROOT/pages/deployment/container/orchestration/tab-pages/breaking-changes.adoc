@@ -51,7 +51,7 @@ kubectl -n <ocis-namespace> exec svc/storagesystem -- ocis migrate decomposedfs 
 ----
 --
 * If all migration steps of both services show the state `succeeded`, migrations have finished.
-* You can now set the `ingress.enabled` setting to `true` and deploy the Helm chart as usual.
+* You can now set the `ingress.enabled` setting to `true` and deploy the Helm chart as usual. The formerly deleted Ingress object will be recreated automatically.
 
 Users should now be able to access Infinite Scale again.
 
