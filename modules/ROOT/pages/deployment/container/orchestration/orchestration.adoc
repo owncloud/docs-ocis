@@ -226,6 +226,8 @@ The `values.yaml` file provided by ownCloud uses generic configuration. You can 
 
 See the following table to match the Helm chart versions with Infinite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
 
+{empty}
+
 // this table needs manual update on the "works" rows when a new Helm chart release is published
 
 [width="60%",cols="~,~",options="header"]
@@ -234,16 +236,16 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | Works with Infinite Scale Versions
 
 | {helm_tab_1_tab_text}
-| 3.0.0
+| 4.0.1
 
 ifdef::use_helm_tab_2[]
 | {helm_tab_2_tab_text}
-| 3.0.0
+| 4.0.1
 endif::[]
 
 ifdef::use_helm_tab_3[]
 | {helm_tab_3_tab_text}
-| 2.0.0
+| 3.0.0
 endif::[]
 |===
 

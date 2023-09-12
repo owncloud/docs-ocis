@@ -1,17 +1,40 @@
-* Check the supported Kubernetes versions before you download the chart.
-** The `~` represents all patch releases for that particular version.
-** The `-0` represents subversions of that particular version.
+We only list non EOL versions as of the chart release date from here: https://kubernetes.io/releases/[window=_blank]
 
-+
-[width="100%",cols="~",options="header"]
+Note that some EOL versions still might be API compatible.
+
+{empty}
+
+[width="100%",cols="~,^~,^~",options="header"]
 |===
 | Version
+| Covered by tests
+| Tested by developers
+
 a| [subs=-attributes]
-+~1.27.0-0+
++1.27+
 a| [subs=-attributes]
-+~1.26.0-0+
++yes+
 a| [subs=-attributes]
-+~1.25.0-0+
++yes+
+
 a| [subs=-attributes]
-+~1.24.0-0+
++1.26+
+a| [subs=-attributes]
++yes+
+a| [subs=-attributes]
++yes+
+
+a| [subs=-attributes]
++1.25+
+a| [subs=-attributes]
++yes+
+a| [subs=-attributes]
++no+
+
+a| [subs=-attributes]
++1.24+
+a| [subs=-attributes]
++yes+
+a| [subs=-attributes]
++no+
 |===
