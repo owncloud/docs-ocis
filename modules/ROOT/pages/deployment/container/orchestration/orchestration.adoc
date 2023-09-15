@@ -338,6 +338,25 @@ minikube start --kubernetes-version=v1.28.1
 minikube addons enable ingress
 ----
 
+* Minikube for Mac (arm64/amd64) requires additional configurations to use ingress 
+. add domain name to `/etc/hosts`
++
+[source,bash]
+----
+127.0.0.1       ocis.kube.owncloud.test # example
+
+127.0.0.1       localhost
+255.255.255.255 broadcasthost
+::1             localhost
+----
+
+. Run minikube tunnel to be expose `80,443` ports
++
+[source,bash]
+----
+minikube tunnel
+----
+
 === Deploy the Chart
 
 // note the sources for values and description are on GitHub at ocis-charts.
