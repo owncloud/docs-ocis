@@ -357,14 +357,14 @@ minikube tunnel
 ----
 
 . Configure hosts:
-.. On Linux you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Those entries need to point to the Minikube interface IP which you can get by running `minikube ip`.
+.. On Linux you need to add additional configurations to use ingress by adding the domain names to `/etc/hosts`. Those entries need to point to the Minikube interface IP which you can get by running `minikube ip`.
 +
 [source,bash]
 ----
 192.168.49.2 ocis.kube.owncloud.test
 ----
 
-.. On macOS you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Since you are using `minikube tunnel`, those entries need to point to `127.0.0.1` because it's listening on the localhost interface.
+.. On macOS you need to add additional configurations to use ingress by adding the domain names to `/etc/hosts`. Since you are using `minikube tunnel`, those entries need to point to `127.0.0.1` because it's listening on the localhost interface.
 +
 [source,bash]
 ----
@@ -378,7 +378,7 @@ minikube tunnel
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
 
-* When installing oCIS in Minikube on MacOS you need to set the `hostAlias` option:
+* When installing Infinite Scale in Minikube on MacOS, you need to set the `hostAlias` option:
 +
 [source,yaml]
 ----
@@ -388,7 +388,7 @@ hostAlias:
       - "ocis.kube.owncloud.test"
 ----
 
-* Based on the Kubernetes version, you will find comments in `values.yaml` where content is Kubernetes version dependent. Search for comments with `Kubernetes` for details.
+* Based on the Kubernetes version, you will find comments in `values.yaml` where content depends on the Kubernetes version. Search for comments with `Kubernetes` for details.
 
 * Deploy the chart with the deployment name `ocis`, use any name as desired. To do so, run the following command from the root of the cloned repository:
 +
