@@ -331,44 +331,44 @@ As the Helm chart has currently not been published to a Helm repository, you nee
 minikube start --kubernetes-version=v1.28.1
 ----
 
-. Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
+. Enable the `minikube ingress` plugin, which acts like a reverse proxy for your cluster:
 +
 [source,bash]
 ----
 minikube addons enable ingress
 ----
 
-. Linux only: enable the ingress-dns plugin and configure it
-
+. Linux only: enable the `ingress-dns` plugin and configure it:
 +
 [source,bash]
 ----
 minikube addons enable ingress-dns
 ----
-+
-Follow step `4) (optional) Configure in-cluster DNS server to resolve local DNS names inside cluster` from https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#installation. Please note that this is not optional for a oCIS installation.
 
-. MacOS only: run minikube tunnel to be expose `80,443` ports
+. Configure the `in-cluster DNS server` to resolve local DNS names inside the cluster`:
++
+Note that this step is not optional but mandatory for an Infinite Scale installation. For details see https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#installation[Step 4, (optional) Configure in-cluster DNS server to resolve local DNS names inside cluster].
+
+. macOS only: run `minikube tunnel` to be expose `80,443` ports:
 +
 [source,bash]
 ----
 minikube tunnel
 ----
 
-. Configure hosts
-+
-On MacOS you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Since you are using `minikube tunnel`, those entries need to point to `127.0.0.1` because it's listening on the localhost interface.
-+
-[source,bash]
-----
-127.0.0.1 ocis.kube.owncloud.test
-----
-+
-On Linux you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Those entries need to point to the Minikube interface IP which you can get by running `minikube ip`.
+. Configure hosts:
+.. On Linux you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Those entries need to point to the Minikube interface IP which you can get by running `minikube ip`.
 +
 [source,bash]
 ----
 192.168.49.2 ocis.kube.owncloud.test
+----
+
+.. On macOS you need to add additional configurations to use the ingress by adding the domain names to `/etc/hosts`. Since you are using `minikube tunnel`, those entries need to point to `127.0.0.1` because it's listening on the localhost interface.
++
+[source,bash]
+----
+127.0.0.1 ocis.kube.owncloud.test
 ----
 
 === Deploy the Chart
