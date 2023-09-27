@@ -208,7 +208,7 @@ sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
 
 [source,bash]
 ----
-sudo systemctl reload nginx
+sudo nginx -s reload
 ----
 
 === Issuing a Certificate via certbot for nginx
@@ -234,7 +234,7 @@ Reload nginx again:
 
 [source,bash]
 ----
-sudo systemctl reload nginx
+sudo nginx -s reload
 ----
 
 If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
