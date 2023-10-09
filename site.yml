@@ -53,8 +53,8 @@ asciidoc:
 #   server
     # note that the version attributes just need to be present and have next as key
     # as they are just here for the test build
-    latest-server-version: '10.12'
-    previous-server-version: '10.11'
+    latest-server-version: '10.13'
+    previous-server-version: '10.12'
     latest-server-download-version: 'next'
     current-server-version: 'next'
     oc-changelog-url: 'https://owncloud.com/changelog/server/'
@@ -79,8 +79,9 @@ asciidoc:
 #   ocis
     latest-ocis-version: 'next'
     previous-ocis-version: 'next'
-    ocis-actual-version: '4.0.1'
-    ocis-compiled: '2023-09-01 00:00:00 +0000 UTC'
+    ocis-actual-version: '4.0.2'
+    ocis-former-version: '4.0.1'
+    ocis-compiled: '2023-10-06 00:00:00 +0000 UTC'
     ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis/stable/'
 #   desktop
     latest-desktop-version: 'next'
