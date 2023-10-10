@@ -176,7 +176,7 @@ NOTE: The command when run successfully will show you the initial admin user's p
 
 This command will create the configuration file `{ocis_env}/ocis.yaml`.
 
-IMPORTANT: Do NOT delete the  `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
+IMPORTANT: Do NOT delete the `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
 
 == Setup the systemd Service
 
