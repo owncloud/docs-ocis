@@ -16,14 +16,17 @@
   <VirtualHost *:443>
     ServerName {ocis_url}
 
+    # OIDC Tokens in headers are quite large and can exceed default limits of reverse proxies
+    LimitRequestFieldSize 131072 # 128k
+
     SSLProxyEngine on
     SSLProxyVerify none
     SSLProxyCheckPeerCN off
     SSLProxyCheckPeerName off
     SSLProxyCheckPeerExpire off
 
-    ProxyPass / http://localhost:{ocis_port}/
-    ProxyPassReverse / http://localhost:{ocis_port}/
+    ProxyPass / http://localhost:{ocis_port}/ responsefieldsize=131072 # 128k
+    ProxyPassReverse / http://localhost:{ocis_port}/ responsefieldsize=131072 #128k
 
     #important, otherwise 400 errors from idp
     ProxyPreserveHost on
