@@ -186,7 +186,7 @@ include::partial$deployment/dependent_startup.adoc[leveloffset=+2]
 
 == Nginx as Reverse Proxy
 
-NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the nginx configuration. This can be done with two methods as described below where you select your preferred one. For ease of writing, the examples show `sudo nginx -s reload`.
+NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the nginx configuration. This can be done with two methods as described below. Select your preferred one. For ease of writing, the examples show `sudo nginx -s reload`.
 
 * {empty}
 +
