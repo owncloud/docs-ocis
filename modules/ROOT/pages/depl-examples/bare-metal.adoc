@@ -176,7 +176,7 @@ NOTE: The command when run successfully will show you the initial admin user's p
 
 This command will create the configuration file `{ocis_env}/ocis.yaml`.
 
-IMPORTANT: Do NOT delete the  `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
+IMPORTANT: Do NOT delete the `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
 
 == Setup the systemd Service
 
@@ -186,12 +186,32 @@ include::partial$deployment/dependent_startup.adoc[leveloffset=+2]
 
 == Nginx as Reverse Proxy
 
-Always run a configuration test when updating your nginx configuration with:
+NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the nginx configuration. This can be done with two methods as described below. Select your preferred one. For ease of writing, the examples show `sudo nginx -s reload`.
 
+* {empty}
++
+--
+[source,bash]
+----
+sudo nginx -s reload
+----
+Note that this command includes checking and reloading the config in the same step.
+--
+
+* {empty}
++
+--
 [source,bash]
 ----
 sudo nginx -t
 ----
+
+[source,bash]
+----
+sudo systemctl reload nginx
+----
+Note that using `systemctl reload nginx` alone will NOT validate your configuration but will execute the command in a clean environment and not in the current user environment.
+--
 
 === Prepare nginx for certbot
 
@@ -199,17 +219,23 @@ To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a
 
 include::partial$deployment/nginx_80_example.adoc[]
 
-Activate the new nginx config and reload nginx:
-
+* Activate the new nginx config:
++
+--
 [source,bash]
 ----
 sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
 ----
+--
 
+* Check the config and reload nginx:
++
+--
 [source,bash]
 ----
-sudo systemctl reload nginx
+sudo nginx -s reload
 ----
+--
 
 === Issuing a Certificate via certbot for nginx
 
@@ -226,16 +252,18 @@ Adapt the config to redirect automatically to https, use the newly generated cer
 
 include::partial$deployment/nginx_proxy_example.adoc[]
 
-Add the following to the SSL definition above if SSL security should be hardened / improved:
-
+* Add the following to the SSL definition above if SSL security should be hardened / improved:
++
 include::partial$deployment/nginx_harden_ssl.adoc[]
 
-Reload nginx again:
-
+* Check the config and reload nginx:
++
+--
 [source,bash]
 ----
-sudo systemctl reload nginx
+sudo nginx -s reload
 ----
+--
 
 If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
 
@@ -243,12 +271,32 @@ Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` an
 
 == Apache as Reverse Proxy
 
-Always run a configuration test when updating your Apache configuration with:
+NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the Apache configuration. This can be done with two methods as described below. Select your preferred one. For ease of writing, the examples show `sudo apache2ctl -k graceful`.
+
+* {empty}
++
+--
+[source,bash]
+----
+sudo apache2ctl -k graceful
+----
+Note that this command includes checking and reloading the config in the same step.
+--
+
+* {empty}
++
+--
+[source,bash]
+----
+sudo apache2ctl -t
+----
 
 [source,bash]
 ----
-sudo apachectl configtest
+sudo systemctl reload apache2
 ----
+Note that using `systemctl reload apache2` alone will NOT validate your configuration but will execute the command in a clean environment and not in the current user environment.
+--
 
 === Prepare Apache for certbot
 
@@ -265,7 +313,7 @@ sudo ln -s /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
 
 [source,bash]
 ----
-sudo systemctl reload apache2
+sudo apache2ctl -k graceful
 ----
 
 === Issuing a Certificate via certbot for Apache
@@ -291,7 +339,7 @@ Reload Apache:
 
 [source,bash]
 ----
-sudo systemctl reload apache2
+sudo apache2ctl -k graceful
 ----
 
 See the linked documentation how to enable the {apache_http2_url}[http2,window=_blank] protocol for Apache.
