@@ -310,15 +310,15 @@ You can use environment variables to define or overwrite config parameters which
 
 [source,bash]
 ----
-PROXY_HTTP_ADDR=localhost:5555 ocis server
+PROXY_HTTP_ADDR=0.0.0.0:5555 ocis server
 ----
 
 or when using multiple environment variables like:
 
 [source,bash]
 ----
-PROXY_HTTP_ADDR=localhost:5555 \
-PROXY_DEBUG_ADDR=localhost:6666 \
+PROXY_HTTP_ADDR=0.0.0.0:5555 \
+PROXY_DEBUG_ADDR=0.0.0.0:6666 \
 ocis server
 ----
 
@@ -358,7 +358,7 @@ You can easily access Infinite Scale via ownCloud Web with minimal configuration
 OCIS_URL::
 +
 --
-Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
+Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service xref:deployment/services/env-vars-special-scope.adoc[environment variables] also using an URL still take precedence if set, but will fall back to this URL if not set.
 
 NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you *must* configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
@@ -368,10 +368,28 @@ include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 --
 
 PROXY_HTTP_ADDR::
-When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
+When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface.
 
+IMPORTANT: The bind address for `PROXY_HTTP_ADDR` must be on the same interface where the configured URL from the `OCIS_URL` environment variable is reachable. 
 
-Also see the xref:using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes.
+.Common reasons binding to a particular IP address
+{empty}
+--
+* Multiple network interfaces configured for specific tasks like web, storage, administration.
+* Binding SSL certificates to IP addresses.
+* ...
+--
+
+.Examples
+{empty}
+--
+* `PROXY_HTTP_ADDR=127.0.0.0:9200` +
+This causes Infinite Scale to *only* bind to the local network interface.
+* `PROXY_HTTP_ADDR=0.0.0.0:9200` +
+This tells Infinite Scale to bind it to *all* available network interfaces.
+--
+
+Also see the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes.
 
 === Handling Certificates
 
