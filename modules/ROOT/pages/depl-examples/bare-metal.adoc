@@ -271,7 +271,7 @@ Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` an
 
 == Apache as Reverse Proxy
 
-NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the Apache configuration. This can be done with two methods as described below where you select your preferred one. For ease of writing, the examples show `sudo apache2ctl -k graceful`.
+NOTE: Whenever a configuration change has been made, you need to do a configuration check and reload the Apache configuration. This can be done with two methods as described below. Select your preferred one. For ease of writing, the examples show `sudo apache2ctl -k graceful`.
 
 * {empty}
 +
