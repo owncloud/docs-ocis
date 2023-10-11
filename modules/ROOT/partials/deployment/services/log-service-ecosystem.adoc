@@ -1,0 +1,19 @@
+== The Log Service Ecosystem
+
+Log services like the `userlog`, `clientlog` and `sse` are responsible for composing notifications for a certain audience.
+
+{empty} +
+
+[width=80%,cols="20%,80%",options="header"]
+|====
+2+^| Log services and their tasks
+| xref:{s-path}/userlog.adoc[userlog]
+| This service *translates and adjusts messages* to be human readable.
+
+| xref:{s-path}/clientlog.adoc[clientlog]
+| This service *composes machine readable messages*, so clients can act without the need to query the server.
+
+| xref:{s-path}/sse.adoc[sse]
+| This service is only responsible for *sending these messages*. It does not care about their form or language.
+
+|====

@@ -55,5 +55,8 @@ The following port ranges are used by services:
 | 9240-9244  | xref:{s-path}/app-registry.adoc[app-registry]
 | 9245-9249  | FREE
 | 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
+| 9255-9259  | xref:{s-path}/postprocessing.adoc[postprocessing]
+| 9260-9264  | xref:{s-path}/clientlog.adoc[clientlog]
+| 9270-9274  | xref:{s-path}/eventhistory.adoc[eventhistory]
 | 9460-9464  | xref:{s-path}/store.adoc[store]
 |===
