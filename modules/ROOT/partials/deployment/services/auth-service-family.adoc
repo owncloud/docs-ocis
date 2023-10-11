@@ -1,3 +1,5 @@
+== The `auth` Service Family
+
 Infinite Scale uses serveral authentication services for different use cases. All services that start with `auth-` are part of the authentication service family. Each member authenticates requests with different scopes.
 
 {empty} +

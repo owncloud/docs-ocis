@@ -15,8 +15,6 @@
 
 * Auth Server listens on port 9198 by default.
 
-== The `auth` Service Family
-
 include::partial$deployment/services/auth-service-family.adoc[]
 
 == Service Accounts
