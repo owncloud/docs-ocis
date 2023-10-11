@@ -18,12 +18,12 @@ include::partial$deployment/services/auth-service-family.adoc[]
 
 == Built in OpenID Connect Identity Provider
 
-A default Infinite Scale deployment will start a built in xref{s-path}/idp.adoc[OpenID Connect identity provider] but can be configured to use an external one as well.
+A default Infinite Scale deployment will start a built-in xref{s-path}/idp.adoc[OpenID Connect identity provider] but can be configured to use an external one as well.
 
 == Scalability
 
 There is no persistance or caching. The xref:{s-path}/proxy.adoc[proxy] caches verified auth bearer tokens. Requests will be forwarded to the identity provider. Therefore, multiple instances of the `auth-bearer` service can be started without further configuration. Currently, the `auth` registry used by the xref:{s-path}/gateway.adoc[gateway] service can only use a single instance of the service. To use more than one auth provider per deployment, you need to scale the gateway.
-This will change over time when developed and documented when avaialble.
+This will change over time and be documented when available.
 
 == Configuration
 

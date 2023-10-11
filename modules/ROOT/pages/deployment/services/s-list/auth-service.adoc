@@ -5,7 +5,7 @@
 :no_second_tab: true
 //:no_third_tab: true
 
-:description: The Infinite Scale Auth Service service is used to authenticate service accounts. Compared to normal accounts, service accounts are Infinite Scale internal only and not available as ordinary users like via LDAP.
+:description: The Infinite Scale Auth Service is used to authenticate service accounts. Compared to normal accounts, service accounts are Infinite Scale internal only and not available to ordinary users like via LDAP.
 
 == Introduction
 
@@ -19,7 +19,7 @@ include::partial$deployment/services/auth-service-family.adoc[]
 
 == Service Accounts
 
-Service accounts are user accounts that are only used for inter service communication. The users have no personal space, do not show up in user lists and cannot login via the UI. Service accounts can be configured in the settings service. Only the `admin` service user is available for now. Additionally to the actions it can do via its role, all service users can stat all files on all spaces.
+Service accounts are user accounts that are only used for inter-service communication. These users have no personal space, do not show up in user lists and cannot login via the UI. Service accounts can be configured in the settings service. Only the `admin` service user is available for now. In addition to the actions it can do via its role, all service users can stat all files on all spaces.
 
 == Configuring Service Accounts
 

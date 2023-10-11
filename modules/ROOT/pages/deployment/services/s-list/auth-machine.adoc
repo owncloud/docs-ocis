@@ -18,7 +18,7 @@ include::partial$deployment/services/auth-service-family.adoc[]
 
 == User Impersonation
 
-When one ocis service is trying to talk to other ocis services, it needs to authenticate itself. To do so, it will impersonate a user using the `auth-machine` service. It will then act on behalf of this user. Any action will show up as action of this specific user, which gets visible when e.g. logged in the audit log.
+When one Infinite Scale service is trying to talk to other Infinite Scale services, it needs to authenticate itself. To do so, it will impersonate a user using the `auth-machine` service. It will then act on behalf of this user. Any action will show up as action of this specific user, which gets visible when e.g. logged in to the audit log.
 
 == Deprecation
 
