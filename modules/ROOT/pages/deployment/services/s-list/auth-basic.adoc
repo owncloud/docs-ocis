@@ -21,6 +21,8 @@ NOTE: The basic authentication implementation does not support cookies and is th
 
 * Auth Basic listens on port 9146 by default.
 
+include::partial$deployment/services/auth-service-family.adoc[]
+
 == Auth Managers
 
 Since the `auth-basic` service does not do any validation itself, it needs to be configured with an authentication manager. One can use the `AUTH_BASIC_AUTH_PROVIDER` environment variable to configure this.
