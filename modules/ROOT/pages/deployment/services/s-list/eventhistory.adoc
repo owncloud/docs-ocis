@@ -8,6 +8,10 @@
 
 {description} 
 
+== Default Values
+
+* The eventhistory service listens on port 9174 by default.
+
 == Prerequisites
 
 Running the `eventhistory` service without an event system like NATS is not possible.

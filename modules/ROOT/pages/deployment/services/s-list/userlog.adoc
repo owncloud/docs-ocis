@@ -10,6 +10,12 @@
 
 {description} 
 
+== Default Values
+
+* The userlog service listens on port 9210 by default.
+
+include::partial$deployment/services/log-service-ecosystem.adoc[]
+
 == Prerequisites
 
 Running the `userlog` service without running the xref:{s-path}/eventhistory.adoc[eventhistory] service is not possible.

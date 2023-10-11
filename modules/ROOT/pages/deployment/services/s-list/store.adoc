@@ -12,7 +12,7 @@
 
 == Default Values
 
-* Store listens on port 9460 by default.
+* The store service listens on port 9460 by default.
 
 == Configuration
 

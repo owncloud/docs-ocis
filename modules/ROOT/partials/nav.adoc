@@ -34,6 +34,7 @@
 **** xref:deployment/services/s-list/auth-bearer.adoc[Auth Bearer]
 **** xref:deployment/services/s-list/auth-machine.adoc[Auth Machine]
 **** xref:deployment/services/s-list/auth-service.adoc[Auth Service]
+**** xref:deployment/services/s-list/clientlog.adoc[Clientlog]
 **** xref:deployment/services/s-list/eventhistory.adoc[Eventhistory]
 **** xref:deployment/services/s-list/frontend.adoc[Frontend]
 **** xref:deployment/services/s-list/gateway.adoc[Gateway]
