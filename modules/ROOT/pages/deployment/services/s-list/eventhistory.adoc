@@ -10,7 +10,7 @@
 
 == Default Values
 
-* The Eventhistory Service listens on port 9174 by default.
+* The eventhistory service listens on port 9174 by default.
 
 == Prerequisites
 

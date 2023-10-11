@@ -5,7 +5,7 @@
 :no_second_tab: true
 //:no_third_tab: true
 
-:description: The Infinite Scale Clientlog service is responsible for composing machine readable notifications for clients. Clients are apps and web interfaces.
+:description: The Infinite Scale clientlog service is responsible for composing machine-readable notifications for clients. Clients are apps and web interfaces.
 
 == Introduction
 
@@ -13,13 +13,13 @@
 
 == Default Values
 
-* The Clientlog service listens on port 9260 by default.
+* The clientlog service listens on port 9260 by default.
 
 include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 == Clientlog Events
 
-The messages the `clientlog` service sends are intended for the use by clients, _not by users_. The client might for example be informed that a file has finished post-processing. With that, the client can make the file available to the user without additional server queries.
+The messages the `clientlog` service sends are intended for use by clients, _not by users_. The client might for example be informed that a file has finished post-processing. With that, the client can make the file available to the user without additional server queries.
 
 == Configuration
 

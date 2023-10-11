@@ -12,7 +12,7 @@
 
 == Default Values
 
-* The Userlog service listens on port 9210 by default.
+* The userlog service listens on port 9210 by default.
 
 include::partial$deployment/services/log-service-ecosystem.adoc[]
 
