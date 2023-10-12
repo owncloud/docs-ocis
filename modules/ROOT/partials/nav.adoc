@@ -53,6 +53,7 @@
 **** xref:deployment/services/s-list/search.adoc[Search]
 **** xref:deployment/services/s-list/settings.adoc[Settings]
 **** xref:deployment/services/s-list/sharing.adoc[Sharing]
+**** xref:deployment/services/s-list/sse.adoc[SSE]
 **** xref:deployment/services/s-list/store.adoc[Store]
 **** xref:deployment/services/s-list/storage-publiclink.adoc[Storage-Publiclink]
 **** xref:deployment/services/s-list/storage-shares.adoc[Storage-Shares]
