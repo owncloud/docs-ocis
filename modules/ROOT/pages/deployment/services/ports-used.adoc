@@ -23,7 +23,7 @@ The following port ranges are used by services:
 | 9120-9124  | xref:{s-path}/graph.adoc[graph]
 | 9125-9129  | xref:{s-path}/policies.adoc[policies]
 | 9130-9134  | xref:{s-path}/idp.adoc[idp]
-| 9135-9139  | FREE
+| 9135-9139  | xref:{s-path}/sse.adoc[sse]
 | 9140-9141  | xref:{s-path}/frontend.adoc[frontend]
 | 9142-9143  | xref:{s-path}/gateway.adoc[gateway]
 | 9144-9145  | xref:{s-path}/users.adoc[users]
