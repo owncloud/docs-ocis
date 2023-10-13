@@ -50,7 +50,7 @@ When setting the `FRONTEND_AUTO_ACCEPT_SHARES` to `true`, all incoming shares wi
 
 == The password policy
 
-Note that the password policy currently impacts _only_ public link password validation.
+Note that the password policy currently impacts only *public link password validation*.
 
 With the password policy, mandatory criteria for the password can be defined via the environment variables listed below.
 
