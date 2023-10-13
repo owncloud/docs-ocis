@@ -40,6 +40,22 @@ include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!
 . When using `redis-sentinel`, the Redis master to use is configured via `SETTINGS_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
+== Settings Management
+
+Infinite Scale services can register *settings bundles* with the settings service.
+
+== Settings Usage
+
+Services can set or query Infinite Scale *setting values* of a user from settings bundles.
+
+== Service Accounts
+
+The settings service needs to know the ID's of service accounts but it doesn't need their secrets. Currently only one service account can be configured which has the admin role. This can be set with the `SETTINGS_SERVICE_ACCOUNT_ID_ADMIN` envvar, but it will also pick up the global `OCIS_SERVICE_ACCOUNT_ID` envvar. Also see the xref:{s-path}/auth-service.adoc[auth-service] service description for additional details.
+
+== Default Language
+
+The default language can be defined via `SETTINGS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited by the list supported languages. This setting can be used to set the default language for invitation emails.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
