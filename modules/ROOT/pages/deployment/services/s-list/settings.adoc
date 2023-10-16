@@ -63,7 +63,7 @@ The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` ser
 ** If a user sets another language in the WebUI in menu:Account[Language], then the `notification` and `userlog` services and WebUI use the language defined by the user. If no translation is found, it falls back to English.
 
 * If  `OCIS_DEFAULT_LANGUAGE` **is set**, the expected behavior is:
-** The `notification` and `userlog` services and the WebUI use `OCIS_DEFAULT_LANGUAGE`  by default, until a user sets another language in the WebUI via menu:Account[Language].
+** The `notification` and `userlog` services and the WebUI use `OCIS_DEFAULT_LANGUAGE` by default, until a user sets another language in the WebUI via menu:Account[Language].
 ** If a user sets another language in the WebUI in menu:Account[Language], the `notification` and `userlog` services and WebUI use the language defined by the user. If no translation is found, it falls back to `OCIS_DEFAULT_LANGUAGE` and then to English.
 
 == Configuration
