@@ -82,14 +82,14 @@ Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can
 
 === Thumbnail Processors
 
-Starting with Infinite Scale 5.0, image generation can be configured by defining different processors. The following processors are available:
+Starting with Infinite Scale 5.0, thumbnail image generation can be configured by defining different processors. A processor handed over as part of the request forces Infinite Scale to render a thumbnail in a format that does not crop the image. Without using a processor, thumbnail images are always scaled to fit the given frame. The way how a processor creates the thumbnail image can be defined by one of the processors available from the list below:
 
 * `resize`
 * `fit`
 * `fill`
 * `thumbnail`
 
-To apply one of those, a query parameter has to be added to the request, e.g. `?processor=fit`
+To apply one of those processors, a query parameter has to be added to the request, e.g. `?processor=fit`
 
 === Deleting Thumbnails
 
