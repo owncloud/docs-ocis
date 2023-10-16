@@ -80,6 +80,17 @@ Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can
 | 15x10  
 |===
 
+=== Thumbnail Processors
+
+Starting with Infinite Scale 5.0, image generation can be configured by defining different processors. Following processors are available:
+
+* `resize`
+* `fit`
+* `fill`
+* `thumbnail`
+
+To apply one of those, a query parameter has to be added to the request, e.g. `?processor=fit`
+
 === Deleting Thumbnails
 
 As of now, there is no automated thumbnail deletion. This is especially true when a source file gets deleted or moved. This situation will be solved at a later stage. For the time being, if you run short on physical thumbnails space, you have to manually delete the thumbnail store to free space. Thumbnails will then be recreated on request.
