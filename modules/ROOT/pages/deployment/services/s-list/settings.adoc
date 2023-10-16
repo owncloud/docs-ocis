@@ -50,7 +50,7 @@ Services can set or query Infinite Scale *setting values* of a user from setting
 
 == Service Accounts
 
-The settings service needs to know the ID's of service accounts but it doesn't need their secrets. Currently only one service account can be configured which has the admin role. This can be set with the `SETTINGS_SERVICE_ACCOUNT_ID_ADMIN` envvar, but it will also pick up the global `OCIS_SERVICE_ACCOUNT_ID` envvar. Also see the xref:{s-path}/auth-service.adoc[auth-service] service description for additional details.
+The settings service needs to know the IDs of service accounts but it doesn't need their secrets. Currently only one service account can be configured which has the admin role. This can be set with the `SETTINGS_SERVICE_ACCOUNT_ID_ADMIN` envvar, but it will also pick up the global `OCIS_SERVICE_ACCOUNT_ID` envvar. Also see the xref:{s-path}/auth-service.adoc[auth-service] service description for additional details.
 
 == Default Language
 
@@ -59,12 +59,12 @@ Starting with Infinite Scale 5.0, the default language can be defined via the `O
 The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` services and the WebUI. Note that translations must exist for all named components to be presented correctly.
 
 * If  `OCIS_DEFAULT_LANGUAGE` **is not set**, the expected behavior is:
-** The `notification` and `userlog` services and the WebUI use English by default, until a user sets another language in the WebUI via menu:Account[Language].
-** If a user sets another language in the WebUI in menu:Account[Language], then the `notification` and `userlog` services and WebUI use the language defined by the user. If no translation is found, it falls back to English.
+** The `notification` and `userlog` services and the Web UI use English by default, until a user sets another language in the Web UI via menu:Account[Language].
+** If a user sets another language in the Web UI in menu:Account[Language], then the `notification` and `userlog` services and Web UI use the language defined by the user. If no translation is found, it falls back to English.
 
 * If  `OCIS_DEFAULT_LANGUAGE` **is set**, the expected behavior is:
-** The `notification` and `userlog` services and the WebUI use `OCIS_DEFAULT_LANGUAGE` by default, until a user sets another language in the WebUI via menu:Account[Language].
-** If a user sets another language in the WebUI in menu:Account[Language], the `notification` and `userlog` services and WebUI use the language defined by the user. If no translation is found, it falls back to `OCIS_DEFAULT_LANGUAGE` and then to English.
+** The `notification` and `userlog` services and the Web UI use `OCIS_DEFAULT_LANGUAGE` by default, until a user sets another language in the Web UI via menu:Account[Language].
+** If a user sets another language in the Web UI in menu:Account[Language], the `notification` and `userlog` services and Web UI use the language defined by the user. If no translation is found, it falls back to `OCIS_DEFAULT_LANGUAGE` and then to English.
 
 == Configuration
 
