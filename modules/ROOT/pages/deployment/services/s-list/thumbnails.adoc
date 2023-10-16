@@ -82,7 +82,7 @@ Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can
 
 === Thumbnail Processors
 
-Starting with Infinite Scale 5.0, image generation can be configured by defining different processors. Following processors are available:
+Starting with Infinite Scale 5.0, image generation can be configured by defining different processors. The following processors are available:
 
 * `resize`
 * `fit`
