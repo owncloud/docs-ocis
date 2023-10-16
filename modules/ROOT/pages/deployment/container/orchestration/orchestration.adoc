@@ -378,11 +378,11 @@ minikube tunnel
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
 
-* When installing Infinite Scale in Minikube on MacOS, you need to set the `hostAlias` option:
+* When installing Infinite Scale in Minikube on MacOS, you need to set the `hostAliases` option:
 +
 [source,yaml]
 ----
-hostAlias:
+hostAliases:
   - ip: "192.168.49.2" # <- needs to be the IP of `minikube ip`
     hostnames:
       - "ocis.kube.owncloud.test"
