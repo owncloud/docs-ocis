@@ -606,6 +606,24 @@ include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret
 endif::[]
 ====
 
+==== Configure Userlog Global Notifications Secret
+
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+* If you you need to use Global Notifications Secret referenced in secretRefs.globalNotificationsSecretRef needs to be configured:
+:
++
+[tabs]
+====
+{helm_tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-1.yaml[]
+----
+--
+
 // this is an additional anchor for yaml files that get included and reference to this section which was renamed
 
 [[define-secrets]]
