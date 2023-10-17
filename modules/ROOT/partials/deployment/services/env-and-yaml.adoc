@@ -12,8 +12,6 @@ Conditional tab printing, example:
 * no_second_tab = based on first appearance of the service (defined in a service),
   must overrule service tab. If there is no second, there is also no third.
 
-* use_service_tab_2 = release based (defined in antora.yaml)
-
 *   Note to make a tab hidden by no_xxx_tab showing up again, just comment it.
 
 The included deprecation file just has an attribute necessary for rendering deprecations.
@@ -40,22 +38,18 @@ ifeval::["{show-deprecation}" == "true"]
 endif::[]
 
 ifndef::no_second_tab[]
-ifdef::use_service_tab_2[]
 // deprecation test tab 2, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
 :has_deprecation_tab_2: true
 endif::[]
-endif::use_service_tab_2[]
 
 ifndef::no_third_tab[]
-ifdef::use_service_tab_3[]
 // deprecation test tab 3, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 ifeval::["{show-deprecation}" == "true"]
 :has_deprecation_tab_3: true
 endif::[]
-endif::use_service_tab_3[]
 endif::no_third_tab[]
 endif::no_second_tab[]
 
@@ -94,21 +88,17 @@ endif::no_yaml[]
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
 --
 ifndef::no_second_tab[]
-ifdef::use_service_tab_2[]
 {service_tab_2_tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
 --
-endif::use_service_tab_2[]
 ifndef::no_third_tab[]
-ifdef::use_service_tab_3[]
 {service_tab_3_tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
 --
-endif::use_service_tab_3[]
 endif::no_third_tab[]
 endif::no_second_tab[]
 ====
@@ -131,7 +121,6 @@ include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{servic
 ----
 --
 ifndef::no_second_tab[]
-ifdef::use_service_tab_2[]
 {service_tab_2_tab_text}::
 +
 --
@@ -140,9 +129,7 @@ ifdef::use_service_tab_2[]
 include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}{service_name}-config-example.yaml[]
 ----
 --
-endif::use_service_tab_2[]
 ifndef::no_third_tab[]
-ifdef::use_service_tab_3[]
 {service_tab_3_tab_text}::
 +
 --
@@ -151,7 +138,6 @@ ifdef::use_service_tab_3[]
 include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{service_name}-config-example.yaml[]
 ----
 --
-endif::use_service_tab_3[]
 endif::no_third_tab[]
 endif::no_second_tab[]
 ====
