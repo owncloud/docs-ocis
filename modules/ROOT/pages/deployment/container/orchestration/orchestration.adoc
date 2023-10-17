@@ -3,6 +3,11 @@
 :toclevels: 3
 :description: This document provides guidelines for container orchestration tools suitable for Infinite Scale.
 
+////
+on new helmchart releases, check for attributes `no_second_tab` and `no_third_tab` to enable tab rendering. 
+if all blocks are allowed to be rendered, you can safely remove the attributes and the queries from the block.
+////
+
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
 :docker-compose-evolution-url: https://docs.docker.com/compose/compose-v2/
@@ -101,16 +106,13 @@ When done, create a project directory like `ocis-compose` in your home directory
 
 Using git version name: `{compose_tab_1}`
 --
-ifdef::use_service_tab_2[]
 {compose_tab_2_tab_text}::
 +
 --
 {composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
 
 Using git version name: `{compose_tab_2}`
-endif::[]
 --
-ifdef::use_service_tab_3[]
 {compose_tab_3_tab_text}::
 +
 --
@@ -118,7 +120,6 @@ ifdef::use_service_tab_3[]
 
 Using git version name: `{compose_tab_3}`
 --
-endif::[]
 ====
 +
 --
@@ -238,15 +239,11 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | {helm_tab_1_tab_text}
 | 4.0.1
 
-ifdef::use_helm_tab_2[]
 | {helm_tab_2_tab_text}
 | 4.0.1
-endif::[]
 
-ifdef::use_helm_tab_3[]
 | {helm_tab_3_tab_text}
 | 3.0.0
-endif::[]
 |===
 
 * If a chart has been superseded by another for the same Infinite Scale release, only the latest one is listed.
@@ -263,21 +260,17 @@ Select possible breaking changes of a Helm chart version from the tabs. A new do
 
 [tabs]
 ====
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
 xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_2_tab_text}[Breaking Changes,window=_blank]
 --
-endif::[]
 
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
 xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_3_tab_text}[Breaking Changes,window=_blank]
 --
-endif::[]
 ====
 
 === Supported Kubernetes Versions
@@ -302,20 +295,16 @@ tab-1 gets new or adapted content based on former tab-1 content
 --
 include::./tab-pages/_kube-versions-tab-1.adoc[]
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
 include::./tab-pages/_kube-versions-tab-2.adoc[]
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
 include::./tab-pages/_kube-versions-tab-3.adoc[]
 --
-endif::[]
 ====
 
 === Get the Chart
@@ -414,7 +403,6 @@ helm install ocis ./charts/ocis
 | {t2_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -430,8 +418,6 @@ ifdef::use_helm_tab_2[]
 | {t2_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -447,7 +433,6 @@ ifdef::use_helm_tab_3[]
 | {t2_text}
 |===
 --
-endif::[]
 ====
 
 === Customize the Generic Setup
@@ -470,7 +455,6 @@ In all examples, adapt the settings according your needs.
 include::example$deployment/container/orchestration/values-overwrite-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -479,8 +463,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/values-overwrite-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -489,7 +471,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Enable Metrics with Prometheus
@@ -508,7 +489,6 @@ endif::[]
 include::example$deployment/container/orchestration/service-monitor-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -517,8 +497,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/service-monitor-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -527,7 +505,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/service-monitor-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Configure Email Notification
@@ -546,7 +523,6 @@ endif::[]
 include::example$deployment/container/orchestration/email-notification-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -555,8 +531,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/email-notification-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -565,7 +539,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/email-notification-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Configure S3ng Storage
@@ -584,7 +557,6 @@ endif::[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -593,8 +565,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -603,15 +573,19 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Configure Userlog Global Notifications Secret
 
 // edit the yaml data shown at example$deployment/container/orchestration/
 
-* If you you need to use Global Notifications Secret referenced in secretRefs.globalNotificationsSecretRef needs to be configured:
-:
+// comment/uncomment when HC releases are published that allow showing stuff
+// when all tabs are allowed, we can safely remove the variables and queries
+// did not exist in 0.5.0
+:no_second_tab: true
+//:no_third_tab: true
+
+* Configure _Global Notifications Secrets_ referenced in `secretRefs.globalNotificationsSecretRef` if required:
 +
 [tabs]
 ====
@@ -623,10 +597,34 @@ endif::[]
 include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-1.yaml[]
 ----
 --
+ifndef::no_second_tab[]
+{helm_tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-2.yaml[]
+----
+--
+ifndef::no_third_tab[]
+{helm_tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-3.yaml[]
+----
+--
+endif::no_third_tab[]
+endif::no_second_tab[]
+====
 
-// this is an additional anchor for yaml files that get included and reference to this section which was renamed
+// unset the attributes for any use on a different location.
+:!no_second_tab:
+:!no_third_tab:
 
-[[define-secrets]]
+// this is an additional anchor for yaml files that get _included_ and reference to this section which was renamed.
+[#define-secrets]
 
 ==== Define Mandatory Secrets and ConfigMaps
 
@@ -656,7 +654,6 @@ IMPORTANT: These Secrets and ConfigMaps need to be part of your backup since you
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -669,8 +666,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -683,7 +678,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Mandatory Secrets
@@ -723,7 +717,6 @@ kubectl apply -f mandatory-secrets.yaml
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -736,8 +729,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -750,7 +741,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Mandatory ConfigMaps
@@ -792,7 +782,6 @@ IMPORTANT: These Secrets are certificates that expire after 365 days and therefo
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -805,8 +794,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -819,7 +806,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Built-in User Management Secrets
@@ -861,7 +847,6 @@ If you're using Helm Charts, you are responsible for these user management secre
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -874,8 +859,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -888,7 +871,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply External User Management Secrets
@@ -922,7 +904,6 @@ This is an example with NGINX ingress and certificates issued by cert-manager. T
 include::example$deployment/container/orchestration/nginx-ingress-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -931,8 +912,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/nginx-ingress-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -941,7 +920,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/nginx-ingress-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Apply Chart Changes
