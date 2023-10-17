@@ -1,6 +1,6 @@
 = App-Registry Service Configuration
 :toc: right
-:description: The Infinite Scale App-Registry service
+:description: The Infinite Scale App-Registry service is the single point where all apps register themselves and their respective supported mime types.
 
 :service_name: app-registry
 
@@ -8,11 +8,68 @@
 
 {description}
 
-// fixme: source description is still missing, and a better description is needed
+Administrators can set default applications on a per mime type basis and also allow the creation of new files for certain mime types. This per mime type configuration also features a description, file extension option and an icon.
 
 == Default Values
 
 * App-Registry listens on port 9240 by default.
+
+== Mime Type Configuration
+
+In order to modify the mime type config, you need to set `STORAGE_APP_REGISTRY_MIMETYPES_JSON` environment variable to a valid JSON file with content like this:
+
+[source.json]
+----
+[
+  {
+    "mime_type": "application/vnd.oasis.opendocument.text",
+    "extension": "odt",
+    "name": "OpenDocument",
+    "description": "OpenDocument text document",
+    "icon": "https://some-website.test/opendocument-text-icon.png",
+    "default_app": "Collabora",
+    "allow_creation": true
+  },
+  {
+    "mime_type": "application/vnd.oasis.opendocument.spreadsheet",
+    "extension": "ods",
+    "name": "OpenSpreadsheet",
+    "description": "OpenDocument spreadsheet document",
+    "icon": "",
+    "default_app": "Collabora",
+    "allow_creation": false
+  }
+]
+----
+
+Fields::
++
+--
+* `mime_type` +
+The mime type you want to configure.
+* `extension` +
+The file extension to be used for new files.
+* `name` +
+The name of the file / mime type.
+* `description` +
+The human-readable description of the file / mime type.
+* `icon` +
+The URL to an icon which should be used for that mime type.
+* `default_app` +
+The name of the default app which opens this mime type when the user doesn’t specify one.
+* `allow_creation` +
+Whether a user should be able to create new file from that mime type (true or false).
+--
+
+== App Drivers
+
+App drivers represent apps if the app is not able to register itself. Currently there is only the CS3org WOPI server app driver.
+
+=== CS3org WOPI Server App Driver
+
+The CS3org WOPI server app driver is included in Infinite Scale by default. It needs at least one WOPI compliant app like Collabora, OnlyOffice or the Microsoft Online Server or a CS3org WOPI bridge supported app like CodiMD or Etherpad and the CS3org WOPI server.
+
+The configuration of the actual app provider in a xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[docker-compose example] can be found in the full `ocis-wopi` example directory especially in the config sections `ocis-appprovider-collabora` and `ocis-appprovider-onlyoffice`.
 
 == Configuration
 
