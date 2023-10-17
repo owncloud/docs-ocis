@@ -12,16 +12,6 @@ asciidoc:
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
 
-    # used in partials/env-and-yaml.adoc for all services, based on releases
-    # define to use tabs, the first tab is always active (master)
-    use_service_tab_2: true  # set to any value if tab 2 should be shown
-    use_service_tab_3: true  # set to any value if tab 3 should be shown
-
-    # used in orchestration.adoc for helm charts
-    # define to use tabs, the first tab is always active (master)
-    use_helm_tab_2: true # set to any value if tab 2 should be shown
-    use_helm_tab_3: true # set to any value if tab 3 should be shown
-
     # service_tab_x will be used to assemble the url accessing the link for the services
     # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
     service_tab_1: 'docs' # do not change, the docs branch contains changes of master
