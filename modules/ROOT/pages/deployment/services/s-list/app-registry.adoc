@@ -14,7 +14,13 @@ Administrators can set default applications on a per mime type basis and also al
 
 * App-Registry listens on port 9240 by default.
 
-== Mime Type Configuration
+== Mime Type Configuration / Creation Allow List
+
+The apps will register their supported mime types automatically, so that users can open supported files with them.
+
+Administrators can set default applications on a per mime type basis and also allow the creation of new files for certain mime types. This, per mime type configuration, also features a description, file extension option and an icon.
+
+=== Mime Type Configuration
 
 In order to modify the mime type config, you need to set `STORAGE_APP_REGISTRY_MIMETYPES_JSON` environment variable to a valid JSON file with content like this:
 
