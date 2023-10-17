@@ -101,6 +101,10 @@ include::partial$deployment/services/webui_language_code.adoc[]
 *   If the base language `de` is also not available, the service falls back to the system's default English (`en`),
 which is the source of the texts provided by the code.
 
+== Default Language
+
+The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. See the xref:{s-path}/settings.adoc#default-language[settings] service for a detailed description.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
