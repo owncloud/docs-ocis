@@ -71,11 +71,11 @@ ifndef::no_yaml[]
 
 === Environment Variables
 
-The `{service_name}` service is configured via the following environment variables:
+The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 endif::no_yaml[]
 
 ifdef::no_yaml[]
-The `{service_name}` variables are defined in the following way:
+The `{service_name}` variables are defined in the following way. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 endif::no_yaml[]
 
 // create the tabs. note that if no_second_tab is set, the third tab is also not shown

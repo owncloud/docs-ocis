@@ -1,0 +1,74 @@
+= Environment Variable Types
+
+////
+The envvar type description document is referenced via `env-and-yaml.adoc`and `env-vars-special-scope.adoc`.
+It contains a general description how envvar types influence the values an envvar can take.
+This brings clearance and reducues possible errors and repeated explanation.
+If a new envvar type gets added, the description needs to be updated.
+Note, do not add this file to the navigation.
+////
+
+:description: The following table describes the allowed values for an environment variable based on it's type. If not stated otherwise, no quotes around values are needed.
+
+{description}
+
+{empty} +
+
+[width="100%",cols="10%,90%a",options="header"]
+|===
+| Type
+| Description & Examples
+
+| bool
+| A boolean value defined either by `true` or `false`. +
+`OCIS_LOG_PRETTY=false`
+
+| string
+| In general, only one allowed value.
+--
+* Any allowed string like a path or name: +
+`OCIS_REVA_GATEWAY=com.owncloud.api.gateway`
+* If predefined by a list of possible values - even from external sources, the exact value like: +
+`OCIS_LOG_LEVEL=error`
+* If a value might contain blanks or special characters like with templates, embed the value in quotes: +
+`FRONTEND_OCS_ADDITIONAL_INFO_ATTRIBUTE='{{.Mail}}'` +
+`STORAGE_USERS_OCIS_GENERAL_SPACE_ALIAS_TEMPLATE=` +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `'{{.SpaceType}}/{{.SpaceName \| replace " " "-" \| lower}}'`
+
+NOTE: If a string contains commas, it is still treated as single string and not as array containing multiple strings like: +
+`OCIS_LDAP_GROUP_BASE_DN=ou=groups,o=libregraph-idm`
+
+NOTE: Some values defined as string are _not_ defined as `int` by purpose to distinguish between `0` (zero) and `''`(empty). For an example see `GRAPH_SPACES_DEFAULT_QUOTA`.
+--
+
+| []string
+| An array with multiple values allowed. The list is comma separated ONLY, no blanks or brackets of any kind:
+--
+* `FRONTEND_CHECKSUMS_SUPPORTED_TYPES=sha1,md5,adler32`
+* The complete array can be put into quotes like: +
+`THUMBNAILS_RESOLUTIONS='16x16,32x32,64x64,128x128'`
+* Though possible, _avoid_ putting values in quotes as this can easily cause escaping issues: +
+`OCIS_CORS_ALLOW_HEADERS="\'Authorization\',\'Origin\',\'Content-Type\'"`
+--
+
+| int
+| An integer value with no other characters than numbers. +
+See https://pkg.go.dev/builtin#int[int,window=_blank] for the value range. Empty values default to `0` (zero): +
+`WEB_CACHE_TTL=604800`
+
+| uint
+| An unsigned integer value with no other characters than numbers. +
+See https://pkg.go.dev/builtin#uint[uint,window=_blank] for the value range. Empty values default to `0` (zero): +
+`SEARCH_CONTENT_EXTRACTION_SIZE_LIMIT=20971520`
+
+| int64
+| A 64bit integer value with no other characters than numbers. +
+See https://pkg.go.dev/builtin#int64[int64,window=_blank] for the value range. Empty values default to `0` (zero): +
+`USERS_OWNCLOUDSQL_NOBODY=90`
+
+| Duration
+| The duration can be set as number followed by a unit identifier like s, m or h. +
+Empty values default to `0` (zero): +
+`OCIS_PERSISTENT_STORE_TTL=0s` +
+`OCIS_CACHE_TTL=336h0m0s`
+|===
