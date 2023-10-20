@@ -35,7 +35,7 @@ Note, do not add this file to the navigation.
 `STORAGE_USERS_OCIS_GENERAL_SPACE_ALIAS_TEMPLATE=` +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp} `'{{.SpaceType}}/{{.SpaceName \| replace " " "-" \| lower}}'`
 
-NOTE: If a string contains commas, it is still treated as single string and not as array containing multiple strings like: +
+NOTE: If a string contains commas, it is still treated as a single string and not as an array containing multiple strings like: +
 `OCIS_LDAP_GROUP_BASE_DN=ou=groups,o=libregraph-idm`
 
 NOTE: Some values defined as string are _not_ defined as `int` by purpose to distinguish between `0` (zero) and `''`(empty). For an example see `GRAPH_SPACES_DEFAULT_QUOTA`.
@@ -62,12 +62,12 @@ See https://pkg.go.dev/builtin#uint[uint,window=_blank] for the value range. Emp
 `SEARCH_CONTENT_EXTRACTION_SIZE_LIMIT=20971520`
 
 | int64
-| A 64bit integer value with no other characters than numbers. +
+| A 64-bit integer value with no other characters than numbers. +
 See https://pkg.go.dev/builtin#int64[int64,window=_blank] for the value range. Empty values default to `0` (zero): +
 `USERS_OWNCLOUDSQL_NOBODY=90`
 
 | Duration
-| The duration can be set as number followed by a unit identifier like s, m or h. +
+| The duration can be set as a number followed by a unit identifier like s, m or h. +
 Empty values default to `0` (zero): +
 `OCIS_PERSISTENT_STORE_TTL=0s` +
 `OCIS_CACHE_TTL=336h0m0s`
