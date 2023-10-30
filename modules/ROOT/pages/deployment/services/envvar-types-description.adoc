@@ -3,7 +3,7 @@
 ////
 The envvar type description document is referenced via `env-and-yaml.adoc`and `env-vars-special-scope.adoc`.
 It contains a general description how envvar types influence the values an envvar can take.
-This brings clearance and reducues possible errors and repeated explanation.
+This brings clarity and reduces possible errors and repeated explanation.
 If a new envvar type gets added, the description needs to be updated.
 Note, do not add this file to the navigation.
 ////
@@ -38,7 +38,7 @@ Note, do not add this file to the navigation.
 NOTE: If a string contains commas, it is still treated as a single string and not as an array containing multiple strings like: +
 `OCIS_LDAP_GROUP_BASE_DN=ou=groups,o=libregraph-idm`
 
-NOTE: Some values defined as string are _not_ defined as `int` by purpose to distinguish between `0` (zero) and `''`(empty). For an example see `GRAPH_SPACES_DEFAULT_QUOTA`.
+NOTE: Some values defined as string are _not_ defined as `int` on purpose to distinguish between `0` (zero) and `''`(empty). For an example see `GRAPH_SPACES_DEFAULT_QUOTA`.
 --
 
 | []string
