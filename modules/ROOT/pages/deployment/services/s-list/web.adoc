@@ -22,7 +22,7 @@ If you want to use your custom compiled web client assets instead of the embedde
 
 == Customize the Web UI Configuration
 
-See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming, customization and when you want to embed Web into another application.
+See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming and customization or how to embed Web into another application.
 
 // you will find `Web UI Configuration`, `Web UI Options` and `Embedding Web` from the dev docs in that link.
 
