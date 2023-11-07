@@ -67,7 +67,8 @@ See https://pkg.go.dev/builtin#int64[int64,window=_blank] for the value range. E
 `USERS_OWNCLOUDSQL_NOBODY=90`
 
 | Duration
-| The duration can be set as a number followed by a unit identifier like s, m or h. +
+| The duration can be set as a number followed by a time unit identifier like ms, s, m or h.
+Note that no other identifiers are allowed. Durations can be combined by multiple numbers and their identifiers. + 
 Empty values default to `0` (zero): +
 `OCIS_PERSISTENT_STORE_TTL=0s` +
 `OCIS_CACHE_TTL=336h0m0s`
