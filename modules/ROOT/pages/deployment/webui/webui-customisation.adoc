@@ -19,3 +19,7 @@ Beside theming, the behavior of the web UI can be configured via options. Behavi
 === Web UI Config File
 
 When defined via the `WEB_UI_CONFIG_FILE` xref:{s-path}/web.adoc[environment variable], the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
+
+== Embedding Web
+
+Web can be consumed by another application in a stripped down version called “Embed mode”. This mode is supposed to be used in the context of selecting or sharing resources. For more details see the developer documentation https://owncloud.dev/clients/web/embed-mode/[ownCloud Web / Embed Mode]. See the environment variables: `WEB_OPTION_MODE` and `WEB_OPTION_EMBED_TARGET` to configure the embedded mode.
