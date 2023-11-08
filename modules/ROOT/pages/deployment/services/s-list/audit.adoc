@@ -1,6 +1,6 @@
 = Audit Service Configuration
 :toc: right
-:description: The audit service logs all events of the system as an audit log. With audit logs, you are able to prove compliance with corporate and legal guidelines as well as to enable reporting and auditing of operations.
+:description: The audit service logs all events of the system as an audit log. With audit logs, you are able to prove compliance with corporate and legal guidelines as well as enable reporting and auditing of operations.
 
 :service_name: audit
 
@@ -28,7 +28,7 @@ Example json::
 
 The audit service is not started automatically when running as single binary started via `ocis server` or when running as docker container and must be started and stopped manually on demand.
 
-Per default, it will be logged to standard out, but can also be configured to a file output. Note that when a file output is used, it is not part of the standard log file but a separate one.
+Per default, it will be logged to standard out, but can also be configured to write into a file. Note that when a file output is used, it is not part of the standard log file but a separate one.
 
 The audit service logs:
 
