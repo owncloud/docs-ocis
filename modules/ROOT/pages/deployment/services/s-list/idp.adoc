@@ -12,6 +12,18 @@ The IDP service is mainly suitable for smaller installations. The recommendation
 
 By default, the IDP service is configured to use the Infinite Scale xref:{s-path}/idm.adoc[IDM service] as its LDAP backend for looking up and authenticating users. Other backends like an external LDAP server can be configured via a set of environment variables. For details see below.
 
+[NOTE]
+====
+The IDP service is by design limited in its functionality:
+
+* IDP does NOT support branding or theming. +
+This also means that there is no possibility to customize the login screen.
+* IDP has no brute force protection like external IDP's have. +
+This means that there is no "invalid credential" logged on consecutive failed login attempts.
+
+Therefore the IDP service is **not** meant to replace an external OpenID Connect Provider.
+====
+
 IMPORTANT: To use the embedded IDP service, it must be accessed with https. Accessing it with http is not possible and generates an error that is logged.
 
 == Default Values
