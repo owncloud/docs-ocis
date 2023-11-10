@@ -58,5 +58,6 @@ The following port ranges are used by services:
 | 9255-9259  | xref:{s-path}/postprocessing.adoc[postprocessing]
 | 9260-9264  | xref:{s-path}/clientlog.adoc[clientlog]
 | 9270-9274  | xref:{s-path}/eventhistory.adoc[eventhistory]
+| 9280-9284  | xref:{s-path}/ocm.adoc[ocm]
 | 9460-9464  | xref:{s-path}/store.adoc[store]
 |===
