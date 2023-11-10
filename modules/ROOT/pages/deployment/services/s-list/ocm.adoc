@@ -5,7 +5,7 @@
 :no_second_tab: true
 //:no_third_tab: true
 
-:description: The Infinite Scale ocm service provides federated sharing functionality based on the sciencemesh and ocm HTTP API's.
+:description: The Infinite Scale OCM service provides federated sharing functionality based on the ScienceMesh and OCM HTTP APIs.
 
 == Introduction
 
@@ -28,7 +28,7 @@ IMPORTANT: For security reasons and data protection, invitations are limited to 
 
 The OCM service implements an invitation workflow for _trusted_ instances when creating federated shares.
 
-The list of trusted instances is managed via a configuration file. The currently only supported backend is `json`, which stores the list of trusted instances in a json file on disk.
+The list of trusted instances is managed via a configuration file. The only supported backend is currently `json`, which stores the list of trusted instances in a json file on disk.
 
 Example for a `providers.json` file:
 
@@ -60,21 +60,21 @@ Example for a `providers.json` file:
 ]
 ----
 
-Note that there is no limit in adding multiple trusted providers.
+Note that there is no limit to adding multiple trusted providers.
 
 == Invitation Workflow
 
 Before sharing a resource with a remote user, this user has to be invited by the sharer.
 
-In order to do so, a request is sent to the sciencemesh API. The generated token is passed on to the receiver, who will then accept the invitation. As a result, remote users will be added on both sides.
+In order to do so, a request is sent to the ScienceMesh API. The generated token is passed on to the receiver, who will then accept the invitation. As a result, remote users will be added on both sides.
 
-The data backend for the workflow, not the data itself, is configurable. The currently only supported backend is `json` which stores the data in a json file on disk.
+The data backend for the workflow, not the data itself, is configurable. The only supported backend is currently `json` which stores the data in a json file on disk.
 
 == Creating Shares
 
 OCM Shares are currently created using the xref:{s-path}/ocs.adoc[OCS] API, just like regular shares.
 
-The data backend for the workflow, not the data itself, is configurable. The currently only supported backend is `json` which stores the data in a json file on disk.
+The data backend for the workflow, not the data itself, is configurable. The only currently supported backend is `json` which stores the data in a json file on disk.
 
 == Configuration
 
