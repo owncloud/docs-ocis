@@ -242,7 +242,7 @@ For _best performance_, _stability_, _support_, and _full functionality_ we offi
 
 == Usermanagement, Authorization and Authentication
 
-Infinite Scale provides out of the box a minimal OpenID Connect provider via the xref:{s-path}/idp.adoc[IDP Service] and a minimal LDAP service via the xref:{s-path}/idm.adoc[IDM Service]. Both services a limited in the provided functionality, see the referenced servcies for important details. These services can be used for small environments like up to a view hundred users. For enterprise environments, it is highly recommended using enterprise grade external software like KeyCloak plus openLDAP or MS ADFS with Active Directory, which can be configured in the respective service. Please use the {oc-contact-url}[ownCloud contact form] to get in touch if other than the named IDP / IDM providers are required.
+Infinite Scale provides out of the box a minimal OpenID Connect provider via the xref:{s-path}/idp.adoc[IDP Service] and a minimal LDAP service via the xref:{s-path}/idm.adoc[IDM Service]. Both services are limited in the provided functionality, see the referenced services for important details. These services can be used for small environments like up to a few hundred users. For enterprise environments, it is highly recommended using enterprise grade external software like KeyCloak plus openLDAP or MS ADFS with Active Directory, which can be configured in the respective service. Please use the {oc-contact-url}[ownCloud contact form] to get in touch if other than the named IDP / IDM providers are required.
 
 == Additional Software
 
