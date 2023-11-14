@@ -240,9 +240,9 @@ For _best performance_, _stability_, _support_, and _full functionality_ we offi
 * openSUSE Leap 15.2 and 15.3
 * Ubuntu 20.04 and 22.04
 
-== Authorization and Authorisation (IDP)
-ownCloud Infinite Scale is dependent on Open ID Connect, therefor a connection to an idendity provider (IDP) is mandatory.
-Konnect is included, however it has a limited scope which is recommended up to 500 users and if you do not have a central IDP.
+== Authorization and Authentication (IDP)
+ownCloud Infinite Scale is dependent on Open ID Connect, therefore a connection to an identity provider (IDP) is mandatory.
+Konnect is included, however it has a limited scope and is therefore only recommended for up to 500 users and if you do not have a central IDP.
 Keycloak (with openLDAP) and MS ADFS (with AD) are supported. For additional IDPs please contact sales@owncloud.com.
 
 == Additional Software
