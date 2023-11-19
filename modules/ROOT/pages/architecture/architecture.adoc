@@ -30,7 +30,7 @@ These topics have always been kept in mind during the development of Infinite Sc
 
 Looking at the image below, you see that the state of classic file sharing is not sufficient for today's requirements and the trend clearly heads toward services around data and metadata. Iron-cast structures do not allow for additional value that could be created out of data and metadata. Services available to clients like end users or management have to be able to follow different and dynamic requirements. This is the basis of the Infinite Scale architecture. 
 
-image::architecture/infinite_scale_data_platform.svg[width=750]
+image::architecture/infinite_scale_data_platform.svg[Infinite Scale Data Platform,width=500]
 
 === C4 Model
 
@@ -43,9 +43,9 @@ ____
 
 Use this link to download the link:{attachmentsdir}/architecture/infinite-scale-c4-model.dsl[Infinite Scale C4 Model] raw description file.
 
-image::architecture/c4-ocis-system-context.svg[Infinite Scale System Context, width=500]
+image::architecture/c4-ocis-system-context.svg[Infinite Scale System Context,width=400]
 
-image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View]
+image::architecture/c4-ocis-system-container.svg[Infinite Scale Container View,width=400]
 
 == Concepts
 
@@ -85,7 +85,7 @@ The diagram below shows the core concepts of the new architecture:
 
 * Storage providers can hold multiple storage spaces. On an Infinite Scale instance, there might be a dedicated storage provider responsible for users' personal storage spaces. There might be multiple storage providers, either to shard the load, provide different levels of redundancy or support custom workflows. Or there might be just one, hosting all types of storage spaces.
 
-image:architecture/idea.drawio.svg[]
+image::architecture/idea.drawio.svg[Storage Spaces,width=500]
 
 For example, *Einstein* wants to share something with *Marie*, who has an account at a _different_ identity provider and uses a different storage space registry. OpenID Connect (OIDC) is used for authentication.
 
