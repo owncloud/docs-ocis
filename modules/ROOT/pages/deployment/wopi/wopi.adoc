@@ -60,7 +60,7 @@ Apart from licensing, when using Microsoft 365, the following procedure applies,
 
 The image below shows the WOPI integration in an overview to get a better understanding of which general components are involved and which basic settings need to be set. It also shows where parts of an URL are defined, how an URL is assembled, and which component is using which part of the URL. Note that only a few configuration options are shown in the image to get the relationships right.
 
-image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
+image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram,width=500]
 
 == WOPI Configuration Examples
 
