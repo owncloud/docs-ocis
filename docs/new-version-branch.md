@@ -7,36 +7,36 @@ When doing a new release for Infinite Scale like `1.x`, a new version branch mus
 
 **Step 1: Create and configure the new `1.x` branch**
 
-1.  Create a new `1.x` branch based on latest `origin/master`
+1.  Create a new `1.x` branch based on latest `origin/master`.
 2.  Copy the `.drone.star` file from the _former_ `1.x-1` branch
-    (it contains the correct branch specific setup rules and replaces the current one coming from master)
-3.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`)
-4.  In `site.yml` adjust all `-version` keys according the new and former releases
-    (in section `asciidoc.attributes`)
-5.  In `antora.yml` change the version from `next` to `1.x`
-6.  Run a build by entering `yarn antora-local`. No errors should occur
+    (it contains the correct branch specific setup rules and replaces the current one coming from master).
+3.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`).
+4.  In `site.yml` adjust all `-version` keys of the new and former releases accordingly
+    (in section `asciidoc.attributes`).
+5.  In `antora.yml` change the version from `next` to `1.x`.
+6.  Run a build by entering `yarn antora-local`. No errors should occur.
 7.  Commit the changes and push the new `1.x` branch. **DO NOT CREATE A PR!**
 
-**Step 2: Configure the master branch to use the new `1.x` branch**
+**Step 2: Configure the master branch to use the new `1.x` branch.**
 
-9.  Create a new `changes_necessary_for_1.x` branch based on latest `origin/master`
-10.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`)
-11. In `site.yml` in section `asciidoc.attributes`, adjust all `-version` keys related to this repo according the new and former releases. Note if those attributes exist in other content sources, they must be set to the identical value to create consistent test builds.
-12. No changes in `antora.yml` but check if the version is set to `next`
-13. Run a build by entering `yarn antora-local`. No errors should occur
-14. Commit changes and push it
+9.  Create a new `changes_necessary_for_1.x` branch based on latest `origin/master`.
+10.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`).
+11. In `site.yml` in section `asciidoc.attributes`, adjust all `-version` keys related to this repo for the new and former releases accordingly. Note if those attributes exist in other content sources, they must be set to the identical value to create consistent test builds.
+12. No changes in `antora.yml` but check if the version is set to `next`.
+13. Run a build by entering `yarn antora-local`. No errors should occur.
+14. Commit changes and push them.
 15. Create a Pull Request. When CI is green, all is done correctly. Merge the PR to master.
 
-**Step 3: Set the correct Branding build branches in the docs repo**
+**Step 3: Set the correct Branding build branches in the docs repo.**
 
 16. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust the last **two** branches at `url: https://github.com/owncloud/docs-client-branding.git` accordingly
-    (in section `content.sources.url.branches`)
-17. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust all `-version` keys in section `attributes` related to this repo according the new and former releases.
+    (in section `content.sources.url.branches`).
+17. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust all `-version` keys in section `attributes` related to this repo for the new and former releases accordingly.
 
 **Step 4: Protection and Renaming**
 
 18. Go to the settings of the this repository and change the protection of the branch list (Settings > Branches) so that the `1.x` branch gets protected and the `1.x-2` branch is no longer protected.
-19. Rename the `1.x-2` branch to `x_archived_1.x-2`
+19. Rename the `1.x-2` branch to `x_archived_1.x-2`.
 
 **Text Suggestion for Step 2**
 
@@ -64,7 +64,7 @@ merging the 1.x-2 pdf is fixed.
 @michaelstingl @jesmrec fyi
 
 @mmattel @EParzefall @phil-davis
-post merging this, we need to backport all relevant changes to 1.x
+post merging this, we need to backport all relevant changes to 1.x.
 ```
 
 -->

@@ -25,7 +25,7 @@ See the [following section](https://github.com/owncloud/docs#target-branch-and-b
 
 ## Branching Workflow
 
-Please refer to the [Branching Workflow for the Infinite Scale](./docs/the-branching-workflow.md) or more information.
+Please refer to the [Branching Workflow for the Infinite Scale](./docs/the-branching-workflow.md) for more information.
 
 ## Create a New Version Branch for Infinite Scale
 
