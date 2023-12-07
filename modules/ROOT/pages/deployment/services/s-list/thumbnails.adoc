@@ -8,7 +8,7 @@
 
 {description} It retrieves the sources at the location where the user files are stored and saves the thumbnails where system files are stored. Those locations have defaults but can be manually defined via environment variables.
 
-Note that for developers, more information is available with regards querying thumbnails in the services section of the https://owncloud.dev[Developer Documentation].
+Note that for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev[Developer Documentation].
 
 == Default Values
 
