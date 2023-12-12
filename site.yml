@@ -58,7 +58,7 @@ asciidoc:
     latest-server-download-version: 'next'
     current-server-version: 'next'
     oc-changelog-url: 'https://owncloud.com/changelog/server/'
-    oc-install-package-url: 'https://software.opensuse.org//download.html?project=isv%3AownCloud%3Aserver%3A10&package=owncloud-complete-files'
+    oc-install-package-url: 'https://download.owncloud.com/server/stable/?sort=time&order=asc'
     oc-examples-server-url: 'https://owncloud.install.com/owncloud'
     oc-examples-server-ip: '127.0.0.1'
     oc-examples-username: 'username'
@@ -79,8 +79,8 @@ asciidoc:
 #   ocis
     latest-ocis-version: 'next'
     previous-ocis-version: 'next'
-    ocis-actual-version: '4.0.2'
-    ocis-former-version: '4.0.1'
+    ocis-actual-version: '4.0.4'
+    ocis-former-version: '4.0.3'
     ocis-compiled: '2023-10-06 00:00:00 +0000 UTC'
     ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis/stable/'
 #   desktop
