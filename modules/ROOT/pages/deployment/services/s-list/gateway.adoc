@@ -1,6 +1,6 @@
 = Gateway Service Configuration
 :toc: right
-:description: The Infinite Scale Gateway service is responsible for passing requests to the storage providers. Other services never talk to the storage providers directly but will always send their requests to the `gateway` service.
+:description: The Infinite Scale Gateway service is responsible for passing requests to the storage providers. Other services never talk to the storage providers directly but will always send their requests via the `gateway` service.
 
 :service_name: gateway
 
