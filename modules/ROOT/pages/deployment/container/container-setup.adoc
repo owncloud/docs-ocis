@@ -232,7 +232,7 @@ docker run --rm -it \
 
 On success, you will see a message like:
 
-:init_path: /etc/ocis/ocis-config/ocis.yaml
+:init_path: /etc/ocis/ocis.yaml
 
 include::partial$deployment/ocis_init.adoc[]
 
@@ -242,7 +242,7 @@ If you get an error message like the following:
 
 [source,plaintext]
 ----
-Could not create config: config in /etc/ocis/ocis-config/ocis.yaml already exists
+Could not create config: config in /etc/ocis/ocis.yaml already exists
 ----
 
 you already have created a configuration once. As you cannot overwrite the existing configuration, you must delete the old configuration first to proceed. For more details, see: xref:deployment/general/general-info.adoc#initialize-infinite-scale[Initialize Infinite Scale].
