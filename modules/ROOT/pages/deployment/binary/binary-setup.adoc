@@ -217,7 +217,7 @@ sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
 
 * We strongly advise *against* using the user `root` for this purpose.
-* Since `ocis` user doesn't have home directory, these directories `{ocis_env}` and `{ocis_data}` must exist and the user `ocis` must be able to read it.
+* Since the `ocis` user doesn't have a home directory, the directories `{ocis_env}` and `{ocis_data}` must exist and the user `ocis` must be able to read it.
 +
 --
 [source,bash,subs="attributes+"]
