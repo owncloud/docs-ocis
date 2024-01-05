@@ -217,23 +217,23 @@ sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 ----
 
 * We strongly advise *against* using the user `root` for this purpose.
-* Placing the environment file in `{ocis_env}` is only a suggestion, but a good one.
-** The directory `ocis_env` must exist and the user `ocis` must be able to read it.
+* Since the `ocis` user doesn't have a home directory, the directories `{ocis_env}` and `{ocis_data}` must exist and the user `ocis` must be able to read it.
 +
 --
 [source,bash,subs="attributes+"]
 ----
-sudo mkdir -p {ocis_env}
+sudo mkdir -p {ocis_env} {ocis_data}
 ----
 
 [source,bash,subs="attributes+"]
 ----
-sudo chown -R ocis:ocis {ocis_env}
+sudo chown -R ocis:ocis {ocis_env} {ocis_data}
 ----
 --
-
-Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
-
+* Placing the environment file in `{ocis_env}` is only a suggestion, but a good one.
+** Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
++
+--
 NOTE: This is just an example with a minimal set of environment variables used.
 
 [source,plaintext,subs="attributes+"]
@@ -241,8 +241,17 @@ NOTE: This is just an example with a minimal set of environment variables used.
 OCIS_INSECURE=true
 OCIS_URL=https://localhost:{ocis_port}
 PROXY_HTTP_ADDR=0.0.0.0:{ocis_port}
-
+OCIS_CONFIG_DIR={ocis_env}
+OCIS_BASE_DATA_PATH={ocis_data}
 OCIS_LOG_LEVEL=error
+----
+--
+
+Use the following command to initialize the ocis config:
+
+[source,bash,subs="attributes+"]
+----
+OCIS_CONFIG_DIR={ocis_env} sudo -u ocis ocis init --insecure true
 ----
 
 === Setup systemd Service
