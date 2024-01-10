@@ -34,7 +34,7 @@ The following services have been introduced with the releases listed:
 | xref:{s-path}/invitations.adoc[Invitations]
 | The Invitations service provides an invitation manager that can be used to invite external users, aka guests, to an organization.
 
-| xref:{s-path}/notification.adoc[Notification]
+| xref:{s-path}/notifications.adoc[Notification]
 | The Notification service is responsible for sending emails to users informing them about events that happened.
 
 | xref:{s-path}/policies.adoc[Policies]
