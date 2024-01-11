@@ -146,7 +146,7 @@ As soon as that query is configured, the postprocessing service must be informed
 POSTPROCESSING_STEPS=policies
 ----
 
-Note that additional steps can be configured and their position in the list defines the order of processing. For details see the xref:{s-path}.adoc[postprocessing service] documentation.
+Note that additional steps can be configured and their position in the list defines the order of processing. For details see the xref:{s-path}/postprocessing.adoc[postprocessing service] documentation.
 
 == Example Policies
 
