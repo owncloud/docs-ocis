@@ -273,6 +273,7 @@ ____
 == Filesystems and Shared Storage
 
 Infinite Scale defines drivers for filesystems to store blobs and metadata. The drivers can be configured via the xref:{s-path}/storage-users.adoc[Storage-Users Service Configuration].
+The used filesystem must fully support utf-8 filenames and must be POSIX-compliant.
 
 === Backend for Metadata
 
