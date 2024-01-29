@@ -1,70 +1,68 @@
-# Create a New Version Branch for Infinite Scale
+# Create a New Version Branch
 
-Note that at the moment **no branching** is necessary for the ocis repo as only the `master` branch is used that appears a `next` in the documentation.
+Note that at the moment **no branching** is necessary for the docs-ocis repo as only the `master` branch is used that appears as `next` in the documentation.
 
 <!--
-When doing a new release for Infinite Scale like `1.x`, a new version branch must be created based on `master`. It is necessary to do this in four steps. Please set the new and former version numbers accordingly
+(prepared if we want to versionize ocis docs)
+**Step 1: This will create and configure the new `5.x` branch properly**
 
-**Step 1: Create and configure the new `1.x` branch**
+1.  Go to the settings of this repository and check/change the protection of the branch list so that
+    the upcoming `5.x` branch can get pushed.
+2.  Create a new `5.x` branch based on latest `origin/master`
+3.  Copy the `.drone.star` file from the _former_ `5.x-1` branch
+    (it contains the correct branch specific setup rules and replaces the current one coming from master)
+4.  In `.drone.star` set `latest_version` to `5.x` (on top in section `def main(ctx)`).
+5.  Check in `site.yml` in section `content.sources`: that the following value is set: `- url: .` and in `content.sources.url` the following value is set: `- HEAD`.
+6.  In `antora.yml`, set the `version:` key on top to the same as the branch name like `5.x`
+7.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building.
+8.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building and will be correctly set in the docs repo when doing a full build.
+9.  Run a build by entering `yarn antora-local`. No build errors should occur.
+10.  Commit the changes and push the new `5.x` branch. This makes the branch available for futher processing. DO NOT CREATE A PR!
 
-1.  Create a new `1.x` branch based on latest `origin/master`.
-2.  Copy the `.drone.star` file from the _former_ `1.x-1` branch
-    (it contains the correct branch specific setup rules and replaces the current one coming from master).
-3.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`).
-4.  In `site.yml` adjust all `-version` keys of the new and former releases accordingly
-    (in section `asciidoc.attributes`).
-5.  In `antora.yml` change the version from `next` to `1.x`.
-6.  Run a build by entering `yarn antora-local`. No errors should occur.
-7.  Commit the changes and push the new `1.x` branch. **DO NOT CREATE A PR!**
+**Step 2: This will configure the master branch properly to use the new `5.x` branch**
 
-**Step 2: Configure the master branch to use the new `1.x` branch.**
+11. Create new `changes_necessary_for_5.x` branch based on latest `origin/master`.
+12. In `.drone.star` set `latest_version` to `5.x` (on top in section `def main(ctx)`).
+13. In `antora.yml`, check if the `version:` key is set to `next`.
+14. In `site.yml` and in `antora.yml`, DO NOT adjust relevant `-version` keys.
+15. Run a build by entering `yarn antora`. No build errors or warnings should occur.
+16. Commit changes and push them. (Check the branch protection rules upfront so that the push passes.)
+17. Create a Pull Request and see the text suggestion at the bottom. When CI is green, all is done correctly. Merge the PR to master when the 5.x branch is close to be released.
 
-9.  Create a new `changes_necessary_for_1.x` branch based on latest `origin/master`.
-10.  In `.drone.star` set `latest_version` to `1.x` (on top in section `def main(ctx)`).
-11. In `site.yml` in section `asciidoc.attributes`, adjust all `-version` keys related to this repo for the new and former releases accordingly. Note if those attributes exist in other content sources, they must be set to the identical value to create consistent test builds.
-12. No changes in `antora.yml` but check if the version is set to `next`.
-13. Run a build by entering `yarn antora-local`. No errors should occur.
-14. Commit changes and push them.
-15. Create a Pull Request. When CI is green, all is done correctly. Merge the PR to master.
+**Step 3: Protection and Renaming**
 
-**Step 3: Set the correct Branding build branches in the docs repo.**
+18. Go to the settings of this repository and change the protection of the branch list so that
+    the `5.x` branch gets protected.
+19. Unprotect the `5.x-2` branch and rename it to `x_archived_5.x-2`. Note that this step can be postponed if needed. Note that after renaming, local building cant be done anymore.
 
-16. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust the last **two** branches at `url: https://github.com/owncloud/docs-client-branding.git` accordingly
-    (in section `content.sources.url.branches`).
-17. In `site.yml` of [docs](https://github.com/owncloud/docs/blob/master/site.yml) adjust all `-version` keys in section `attributes` related to this repo for the new and former releases accordingly.
+**Step 4: Changes in the Docs Repo**
 
-**Step 4: Protection and Renaming**
+20. In `site.yml` of the [docs](https://github.com/owncloud/docs/blob/master/site.yml) repo, adjust all `-version` keys in section `attributes` related to this repo according the new and former releases. Note that the values MUST NOT contain the trailing `@`. (The trailing @ character allows the value to be overwritten like from the corresponding `antora.yml` file which is only necessary for local building the corresponding docs-xxx repo.) Note that merging that PR should be _close before_ publishing the relevant code release.
 
-18. Go to the settings of the this repository and change the protection of the branch list (Settings > Branches) so that the `1.x` branch gets protected and the `1.x-2` branch is no longer protected.
-19. Rename the `1.x-2` branch to `x_archived_1.x-2`.
+**Step 5: Set URI `latest` Path Part to 5.x**
+
+21. Nothing needs to be done there. The moment when the new server release gets tagged - which is part of the release process - `latest` will be automatically set to the tagged release number. This should work automatically. If not, sysadmins need to be informed to updated the underlying process.
 
 **Text Suggestion for Step 2**
 
 The following text is a copy/paste suggestion for the PR in step 2, replace the branch numbers accordingly:
 ```
-These are the changes necessary to finalize the creation of the 1.x branch.
+These are the changes necessary to finalize the creation of the 5.x branch.
 
-The 1.x branch is already pushed and prepared and is included in the branch protection rules.
+* The 5.x branch is already pushed and prepared and is included in the branch protection rules.
 
-When 1.x (Infinite Scale) is finally out, the 1.x-2 branch can be archived,
-see step 4 in https://github.com/owncloud/docs-client-branding/blob/master/docs/new-version-branch.md
+* When 5.x (core) is finally out, the 5.x-2 branch can be archived, see step 3 in [Create a New Version Branch](https://github.com/owncloud/docs-client-desktop/blob/master/docs-ocis/new-version-branch.md)
 
-Note, that the 1.x branch in this repo is already created, but the `latest` pointer on the web
-will be set to it automatically when the tag in Branding is set. This means, that in the docs homepage,
-`latest` will point to 1.x-1 until the tag in Branding Clients is set accordingly. When merging this PR,
-1.x-2 will be dropped from the web but is available via pdf as usual.
+* Note, that the 5.x branch in this repo is already created, but the `latest` pointer on the web will be set to it automatically when the tag in core is set. This means, that in the docs homepage, `latest` will point to 5.x-1 until the tag in core is set accordingly. When merging this PR, 5.x-2 will be dropped from the web.
 
-Note, this PR must be merged before the 1.x tag in the Branding Clients repo is set to avoid a 404 for `latest`.
+* Note that this PR must be merged **before** the 5.x tag in core is set to avoid a 404 for `latest`.
 
-Note that a PR in docs must be made to announce the 1.x branch. The docs PR must be merged AFTER this PR is merged to avoid a CI error in docs.
+* Note before merging this PR, we should take care that 5.x-2 has all necessary changes merged.
 
-Before merging this PR, we should take care that 1.x-2 has all changes necessary merged as post
-merging the 1.x-2 pdf is fixed.
-
-@michaelstingl @jesmrec fyi
+@micbar fyi
 
 @mmattel @EParzefall @phil-davis
-post merging this, we need to backport all relevant changes to 1.x.
+Post merging this, we need to backport all relevant changes to 5.x
 ```
 
 -->
