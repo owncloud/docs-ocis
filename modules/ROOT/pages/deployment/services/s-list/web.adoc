@@ -6,7 +6,7 @@
 
 == Introduction
 
-{description} See the xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] description for more details.
+{description} See the https://doc.owncloud.com/webui/next/owncloud_web/index.html[ownCloud Web] description for more details.
 
 Note that clients will respond with a connection error if the web service is not available.
 

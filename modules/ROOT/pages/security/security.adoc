@@ -46,7 +46,7 @@ The fact that Golang is statically typed helps reduce the amount of logic errors
 
 === Vuejs
 
-The web client xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] of Infinite Scale is implemented with Vue.js. This supports securely displaying user input since everything displayed is being escaped by default.
+The web client https://doc.owncloud.com/webui/next/owncloud_web/index.html[ownCloud Web] of Infinite Scale is implemented with Vue.js. This supports securely displaying user input since everything displayed is being escaped by default.
 
 == Developmental Aspects
 

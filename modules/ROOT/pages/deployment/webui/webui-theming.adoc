@@ -1,7 +1,6 @@
 = ownCloud Web with Custom Theming
 :toc: right
 :toclevels: 2
-:page-aliases: {latest-webui-version}@webui:owncloud_web:themed_webui.adoc
 :description: Just like with other clients (Desktop, Android, iOS), themes can be used with ownCloud Web.
 
 :example-theme-url: https://github.com/owncloud/web/tree/master/config
