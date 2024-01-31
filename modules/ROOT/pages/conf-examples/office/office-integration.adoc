@@ -56,7 +56,7 @@ For the clients, make sure that the addresses can be resolved to the server(s) r
 
 == Installation
 
-Installing the Docker stacks only requires a few steps. Take care to use the relevant version. Select a base folder of choice for the target location. Note that the examples use the latest stable version: {compose_tab_2}.
+Installing the Docker stacks only requires a few steps. Take care to use the relevant version. Select a base folder of choice for the target location. Note that the examples use the version corresponding to this release.
 
 . Get the deployment example:
 +

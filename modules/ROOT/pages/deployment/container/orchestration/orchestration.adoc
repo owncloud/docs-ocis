@@ -106,30 +106,16 @@ When done, create a project directory like `ocis-compose` in your home directory
 
 Using git version name: `{compose_tab_1}`
 --
-{compose_tab_2_tab_text}::
-+
---
-{composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_2}`
---
-{compose_tab_3_tab_text}::
-+
---
-{composer-url}{compose_tab_3}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_3}`
---
 ====
 +
 --
-Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space, replace the version accordingly:
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, update the version accordingly like when there is a new patch release available:
 
 * Using a shallow git clone which minimizes the required clone space like:
 +
 [source,bash,subs="attributes+"]
 ----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1}
 ----
 
 // https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
@@ -138,7 +124,7 @@ git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
 +
 [source,plaintext,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}{compose_tab_2}{composer-final-path}
+{download-gh-directory-url}?url={composer-url}{compose_tab_1}{composer-final-path}
 ----
 --
 
