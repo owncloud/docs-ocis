@@ -1,9 +1,7 @@
 # Create a New Version Branch
 
-Note that at the moment **no branching** is necessary for the docs-ocis repo as only the `master` branch is used that appears as `next` in the documentation.
+When doing a new release of ownCloud Infinite Scale like `5.x`, a new version branch must be created based on `master`. It is necessary to do this in steps. Keep in mind that we only process master and the latest two versions. For older versions we only keep the pdf files statically - if possible.
 
-<!--
-(prepared if we want to versionize ocis docs)
 **Step 1: This will create and configure the new `5.x` branch properly**
 
 1.  Go to the settings of this repository and check/change the protection of the branch list so that
@@ -51,7 +49,7 @@ These are the changes necessary to finalize the creation of the 5.x branch.
 
 * The 5.x branch is already pushed and prepared and is included in the branch protection rules.
 
-* When 5.x (core) is finally out, the 5.x-2 branch can be archived, see step 3 in [Create a New Version Branch](https://github.com/owncloud/docs-client-desktop/blob/master/docs-ocis/new-version-branch.md)
+* When 5.x (core) is finally out, the 5.x-2 branch can be archived, see step 3 in [Create a New Version Branch](https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md)
 
 * Note, that the 5.x branch in this repo is already created, but the `latest` pointer on the web will be set to it automatically when the tag in core is set. This means, that in the docs homepage, `latest` will point to 5.x-1 until the tag in core is set accordingly. When merging this PR, 5.x-2 will be dropped from the web.
 
@@ -64,5 +62,3 @@ These are the changes necessary to finalize the creation of the 5.x branch.
 @mmattel @EParzefall @phil-davis
 Post merging this, we need to backport all relevant changes to 5.x
 ```
-
--->
