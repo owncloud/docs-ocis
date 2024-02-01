@@ -3,17 +3,17 @@ Note that this page is created because when the contents of the included yaml is
 
 The source content comes from github.
 
-Note that you cant create a attribute on the fly and handover to the include macro
+Note that you cant create a attribute on the fly and handover to the include macro.
 
-We need to allow substitution of attributes first, then macros
+We need to allow substitution of attributes first, then macros.
 ////
 
 :noindex:
 
 [caption=]
-.Source: link:{composer-raw-url}{compose_tab_2}{composer-final-path}/ocis_wopi/docker-compose.yml[]
+.Source: link:{composer-raw-url}{compose_tab_1}{composer-final-path}/ocis_wopi/docker-compose.yml[]
 {empty}
 [source,yaml]
 ----
-include::{composer-raw-url}{compose_tab_2}{composer-final-path}/ocis_wopi/docker-compose.yml[]
+include::{composer-raw-url}{compose_tab_1}{composer-final-path}/ocis_wopi/docker-compose.yml[]
 ----

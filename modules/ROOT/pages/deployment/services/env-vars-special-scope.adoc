@@ -30,28 +30,23 @@ The following environment variables are only available with the xref:deployment/
 --
 include::./_special-envvar.adoc[tag=service_tab_1]
 --
-{service_tab_2_tab_text}::
-+
---
-include::./_special-envvar.adoc[tag=service_tab_2]
---
-{service_tab_3_tab_text}::
-+
---
-include::./_special-envvar.adoc[tag=service_tab_3]
---
 ====
 
 == Extended Environment Variables
 
-// note that if a description of an extended envvar is missing, you need to fix this in:
-// https://github.com/owncloud/ocis/blob/master/docs/helpers/extended_vars.yaml
-// see the readme.md file in that folder
+////
+Note that if a description of an extended envvar is missing, you need to fix this in:
+https://github.com/owncloud/ocis/blob/master/docs/helpers/extended_vars.yaml
+see the readme.md file in that folder.
+IMPORTANT: Extended envvars do not have an extended_deprecation.adoc file. We therefore must set the attribute to true.
+////
  
 :service_name: extended
 :no_deprecation: true
 
 include::partial$deployment/services/env-and-yaml.adoc[]
+
+// IMPORTANT: Global envvars currently do not have a global_deprecation.adoc file. We therefore must set the attribute to true.
 
 == Global Environment Variables
 

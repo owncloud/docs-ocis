@@ -161,20 +161,6 @@ The policies service contains a set of preconfigured example policies. See the d
 
 Using git version name: `{compose_tab_1}`
 --
-{compose_tab_2_tab_text}::
-+
---
-{composer-url}{compose_tab_2}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_2}`
---
-{compose_tab_3_tab_text}::
-+
---
-{composer-url}{compose_tab_3}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_3}`
---
 ====
 
 == Extend Mime Type File Extension Mapping
