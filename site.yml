@@ -43,7 +43,7 @@ asciidoc:
     latest-ocis-version: 'next@'   # do not change, soft set, correctly defined via antora.yml
     previous-ocis-version: 'next@' # do not change, soft set, correctly defined via antora.yml
     # these versions are just for printing like in releases but not used for referencing
-    # needs to be changed here and not in the docs-ocis repo to be properly shown on the web
+    # needs to be changed here and mandatory in the docs repo to be properly shown on the web
     # the following versions get printed on <all> build versions where applicable
     # for branch only dependent version content, change the values in antora.yml at compose_tab_1_tab_text
     ocis-actual-version: '4.0.4'
