@@ -35,10 +35,10 @@ include::./_special-envvar.adoc[tag=service_tab_1]
 == Extended Environment Variables
 
 ////
-note that if a description of an extended envvar is missing, you need to fix this in:
+Note that if a description of an extended envvar is missing, you need to fix this in:
 https://github.com/owncloud/ocis/blob/master/docs/helpers/extended_vars.yaml
 see the readme.md file in that folder.
-IMPORTANT, extended envvars do not have a extended_deprecation.adoc file. we therefore must set the attribute to true.
+IMPORTANT: Extended envvars do not have an extended_deprecation.adoc file. We therefore must set the attribute to true.
 ////
  
 :service_name: extended
@@ -46,7 +46,7 @@ IMPORTANT, extended envvars do not have a extended_deprecation.adoc file. we the
 
 include::partial$deployment/services/env-and-yaml.adoc[]
 
-// IMPORTANT, global envvars currently do not have a global_deprecation.adoc file. we therefore must set the attribute to true.
+// IMPORTANT: Global envvars currently do not have a global_deprecation.adoc file. We therefore must set the attribute to true.
 
 == Global Environment Variables
 

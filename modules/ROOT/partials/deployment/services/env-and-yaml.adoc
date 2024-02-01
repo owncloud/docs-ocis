@@ -28,8 +28,8 @@ To exclude a deprecation file if not wanted - like when the file will just not e
 ////
 
 ////
-important: the xxx_deprecation.adoc does not extist for extended or global envvars. it may change for global envvars! therefore we need to query 'no_deprecation' to skip importing - or if we exclicitely dont want to show deprecated content.
-when rendering an included content in a table, any attribute set in the included file is dropped and cant be queried. therefore we read upfront xxx_deprecation.adoc where only the deprecation state is set. having this we extra set 'show-deprecation' outside the tab but with the same value which is taken for building.
+Important: The xxx_deprecation.adoc does not exist for extended or global envvars. It may change for global envvars! Therefore we need to query 'no_deprecation' to skip importing - or if we explicitly don't want to show deprecated content.
+When rendering an included content in a table, any attribute set in the included file is dropped and can't be queried. Therefore we read upfront xxx_deprecation.adoc where only the deprecation state is set. Having this extra, we set 'show-deprecation' outside the tab but with the same value which is taken for building.
 ////
 
 :show-deprecation: false
