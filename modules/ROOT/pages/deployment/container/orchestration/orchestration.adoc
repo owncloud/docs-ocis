@@ -109,13 +109,13 @@ Using git version name: `{compose_tab_1}`
 ====
 +
 --
-Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, update the version accordingly like when there is a new patch release available:
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, check or update the version accordingly like when there is a new patch release available:
 
 * Using a shallow git clone which minimizes the required clone space like:
 +
 [source,bash,subs="attributes+"]
 ----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1}
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1_tab_text}
 ----
 
 // https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
