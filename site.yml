@@ -46,8 +46,8 @@ asciidoc:
     # needs to be changed here and mandatory in the docs repo to be properly shown on the web
     # the following versions get printed on <all> build versions where applicable
     # for branch only dependent version content, change the values in antora.yml at compose_tab_1_tab_text
-    ocis-actual-version: '4.0.4'
-    ocis-former-version: '4.0.3'
+    ocis-actual-version: '4.0.5'
+    ocis-former-version: '4.0.4'
     ocis-compiled: '2023-10-06 00:00:00 +0000 UTC'
     ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis/stable/'
   extensions:

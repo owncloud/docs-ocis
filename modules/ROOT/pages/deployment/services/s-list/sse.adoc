@@ -1,11 +1,8 @@
 = SSE (Server-Sent Events) Configuration
 :toc: right
+:description: The Infinite Scale sse service is responsible for sending sse (server-sent events) to a user.
 
 :service_name: sse
-:no_second_tab: true
-//:no_third_tab: true
-
-:description: The Infinite Scale sse service is responsible for sending sse (server-sent events) to a user.
 
 == Introduction
 

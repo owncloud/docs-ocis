@@ -54,7 +54,7 @@ The settings service needs to know the IDs of service accounts but it doesn't ne
 
 == Default Language
 
-Starting with Infinite Scale 5.0, the default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited to the list of supported languages. This setting can be used to set the default language for notification and invitation emails.
+The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited to the list of supported languages. This setting can be used to set the default language for notification and invitation emails.
 
 The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` services and the WebUI. Note that translations must exist for all named components to be presented correctly.
 

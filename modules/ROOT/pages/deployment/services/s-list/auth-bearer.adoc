@@ -18,7 +18,7 @@ include::partial$deployment/services/auth-service-family.adoc[]
 
 == Built in OpenID Connect Identity Provider
 
-A default Infinite Scale deployment will start a built-in xref{s-path}/idp.adoc[OpenID Connect identity provider] but can be configured to use an external one as well.
+A default Infinite Scale deployment will start a built-in xref:{s-path}/idp.adoc[OpenID Connect identity provider] but can be configured to use an external one as well.
 
 == Scalability
 

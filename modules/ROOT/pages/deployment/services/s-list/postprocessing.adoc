@@ -4,11 +4,6 @@
 
 :service_name: postprocessing
 
-// remember to REMOVE the corresponding tab if a new ocis release will be published
-
-// :no_second_tab: true
-:no_third_tab: true
-
 == Introduction
 
 {description} 
@@ -68,7 +63,7 @@ The backoff behavior as mentioned in the `retry` outcome can be configured using
 
 === Resume Post-Processing
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. Starting with Infinite Scale release 4.0.0, a system administrator can instead run a CLI command to retry the failed upload which is a two step process:
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a CLI command to retry the failed upload which is a two step process:
 
 * First, find the upload ID of the failed upload.
 +
