@@ -46,12 +46,12 @@ WARNING: Use this command with absolute care. It is not intended to play around 
 
 == Roll Back / Roll Forward Decomposedfs Migrations
 
-Starting with Infinite Scale release 4.0.0, a xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
+A xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
 == Repair and Migrate jsoncs3 Indexes
 
-Starting with Infinite Scale release 4.0.0, a xref:maintenance/commands/rebuild-jsoncs3-indexes.adoc[CLI command] is provided to repair and migrate jsoncs3 indexes. In rare circumstances the data for shares from the "Shared with others" and "Shared with me" index can be corrupted though no data is lost. When using this command, you can recreate that index and migrate it to a new layout which fixes the issue.
+A xref:maintenance/commands/rebuild-jsoncs3-indexes.adoc[CLI command] is provided to repair and migrate jsoncs3 indexes. In rare circumstances the data for shares from the "Shared with others" and "Shared with me" index can be corrupted though no data is lost. When using this command, you can recreate that index and migrate it to a new layout which fixes the issue.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 

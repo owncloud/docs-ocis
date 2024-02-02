@@ -44,53 +44,6 @@ With the upcoming Infinite Scale release after 4.0.1, an ocs event handler and a
 
 The `frontend` service contains an eventhandler for handling `ocs` related events. As of now, it only listens to the `ShareCreated` event.
 
-==== Auto-Accept Shares
-
-When setting the `FRONTEND_AUTO_ACCEPT_SHARES` to `true`, all incoming shares will be accepted automatically. Users can overwrite this setting individually in their profile.
-
-== The Password Policy
-
-Note that the password policy currently impacts only *public link password validation*.
-
-With the password policy, mandatory criteria for the password can be defined via the environment variables listed below.
-
-Generally, a password can contain any UTF-8 characters, however some characters are regarded as special since they are not used in ordinary texts. Which characters should be treated as special is defined by "The OWASP® Foundation" https://owasp.org/www-community/password-special-characters[password-special-characters] (between double quotes): " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
-
-The validation against the banned passwords list can be configured via a text file with words separated by new lines. If a user tries to set a password listed in the banned passwords list, the password can not be used (is invalid) even if the other mandatory criteria are passed. The admin can define the path of the banned passwords list file. If the file doesn't exist in a location, Infinite Scale tries to load a file from the `OCIS_CONFIG_DIR/OCIS_PASSWORD_POLICY_BANNED_PASSWORDS_LIST`. An option will be enabled when the file has been loaded successfully.
-
-The following environment variables can be set to define the password policy behavior:
-
-* `OCIS_PASSWORD_POLICY_MIN_CHARACTERS` +
-Define the minimum password length.
-* `OCIS_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS` +
-Define the minimum number of uppercase letters.
-* `OCIS_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS` +
-Define the minimum number of lowercase letters.
-* `OCIS_PASSWORD_POLICY_MIN_DIGITS` +
-Define the minimum number of digits.
-* `OCIS_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS` +
-Define the minimum number of special characters.
-* `OCIS_PASSWORD_POLICY_BANNED_PASSWORDS_LIST` +
-Path to the 'banned passwords list' file.
-
-NOTE: A password can have a *maximum length* of **72 bytes**. Depending on the alphabet used, a character is encoded by 1 to 4 bytes, defining the maximum length of a password indirectly. While US-ASCII will only need one byte, Latin alphabets and also Greek or Cyrillic ones need two bytes. Three bytes are needed for characters in Chinese, Japanese and Korean etc.
-
-=== Sharing
-
-Aggregating share information is one of the most time consuming operations in OCIS. The service fetches a list of either received or created shares and has to stat every resource individually. While stats are fast, the default behavior scales linearly with the number of shares.
-
-To save network trips the sharing implementation can cache the stat requests with an in memory cache or in redis. It will shorten the response time by the network round-trip overhead at the cost of the API only eventually being updated.
-
-Setting `FRONTEND_OCS_RESOURCE_INFO_CACHE_TTL=60` would cache the stat info for 60 seconds. Increasing this value makes sense for large deployments with thousands of active users that keep the cache up to date. Low frequency usage scenarios should not expect a noticeable improvement.
-
-== Scalability
-
-While the frontend service does not persist any data, it does cache information about files and filesystem (`Stat()`) responses and user information. Therefore, multiple instances of this service can be spawned in a bigger deployment like when using container orchestration with Kubernetes, when configuring `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE` and the related config options.
-
-== Define Read-Only Attributes
-
-A lot of user management is done via the standardized LibreGraph API. Depending on how the system is configured, there might be some user attributes that an Infinite Scale instance admin can't change because of properties coming from an external LDAP server, or similar. This can be the case when the Infinite Scale admin is not the LDAP admin. To make life easier for admins, read-only attributes can be displayed differently, e.g. grayed out. To configure these hints for the frontend, use the environment variable `FRONTEND_READONLY_USER_ATTRIBUTES`, which takes a comma separated list of attributes. See the environment variable for supported values.
-
 == Caching
 
 The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`. Possible stores are:
