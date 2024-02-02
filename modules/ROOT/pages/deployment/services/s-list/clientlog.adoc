@@ -1,11 +1,8 @@
 = Clientlog Configuration
 :toc: right
+:description: The Infinite Scale clientlog service is responsible for composing machine-readable notifications for clients. Clients are apps and web interfaces.
 
 :service_name: clientlog
-:no_second_tab: true
-//:no_third_tab: true
-
-:description: The Infinite Scale clientlog service is responsible for composing machine-readable notifications for clients. Clients are apps and web interfaces.
 
 == Introduction
 

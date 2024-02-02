@@ -1,11 +1,8 @@
 = OCM Configuration
 :toc: right
+:description: The Infinite Scale OCM service provides federated sharing functionality based on the ScienceMesh and OCM HTTP APIs.
 
 :service_name: ocm
-:no_second_tab: true
-//:no_third_tab: true
-
-:description: The Infinite Scale OCM service provides federated sharing functionality based on the ScienceMesh and OCM HTTP APIs.
 
 == Introduction
 
