@@ -16,20 +16,16 @@ asciidoc:
     s-path: 'deployment/services/s-list'
 
     # service_tab_x will be used to assemble the url accessing the link for the services
-    service_tab_1: 'docs' # do not change, the docs branch contains changes of master
-#    service_tab_1: 'docs-stable-5.0' # latest stable
+    service_tab_1: 'docs-stable-5.0' # latest stable
 
     # service_tab_x_tab_text will be used as tab text shown for service_tab_x
-    service_tab_1_tab_text: 'latest'
-#    service_tab_2_tab_text: '5.0.0' # latest stable including patch releases
+    service_tab_1_tab_text: '5.0.0' # latest stable including patch releases
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_tab_1: 'master'
-#    compose_tab_1: 'v5.0.0' # latest stable
+    compose_tab_1: 'v5.0.0' # latest stable
 
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
-    compose_tab_1_tab_text: 'latest'
-#    compose_tab_1_tab_text: '5.0.0' # latest stable including patch releases
+    compose_tab_1_tab_text: '5.0.0' # latest stable including patch releases
 
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
     # note that tab 2 always contains the actual release and tab 3 the former
