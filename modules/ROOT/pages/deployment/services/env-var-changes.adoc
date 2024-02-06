@@ -1,0 +1,25 @@
+# Changed Environment Variables in Versions
+:toc: right
+:description: This page contains tables with added and removed environment variables between Infinite Scale version 4.0.5 and 5.0.0.
+
+== Introduction
+
+{description}
+
+// the includes should be replaced by something like:
+// include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
+// the path components possibly need to be adapted + antora.yml
+
+== Added Environment Variables
+
+The following table shows all environment variables that have been *added*:
+{empty} +
+{empty} +
+
+include::partial$deployment/services/general-info/env-var-changes/added-4.0.5-5.0.0.adoc[]
+
+== Removed Environment Variables
+
+The following table shows all environment variables that have been *removed*:
+{empty} +
+{empty} +
