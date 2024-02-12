@@ -49,11 +49,11 @@ These are the changes necessary to finalize the creation of the 5.x branch.
 
 * The 5.x branch is already pushed and prepared and is included in the branch protection rules.
 
-* When 5.x (core) is finally out, the 5.x-2 branch can be archived, see step 3 in [Create a New Version Branch](https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md)
+* When 5.x is finally out, the 5.x-2 branch can be archived, see step 3 in [Create a New Version Branch](https://github.com/owncloud/docs-ocis/blob/master/docs/new-version-branch.md)
 
-* Note, that the 5.x branch in this repo is already created, but the `latest` pointer on the web will be set to it automatically when the tag in core is set. This means, that in the docs homepage, `latest` will point to 5.x-1 until the tag in core is set accordingly. When merging this PR, 5.x-2 will be dropped from the web.
+* Note, that the 5.x branch in this repo is already created, but the `latest` pointer on the web will be set to it automatically when the tag in oics is set. This means, that in the docs homepage, `latest` will point to 5.x-1 until the tag in ocis is set accordingly. When merging this PR, 5.x-2 will be dropped from the web.
 
-* Note that this PR must be merged **before** the 5.x tag in core is set to avoid a 404 for `latest`.
+* Note that this PR must be merged **before** the 5.x tag in ocis is set to avoid a 404 for `latest`.
 
 * Note before merging this PR, we should take care that 5.x-2 has all necessary changes merged.
 
