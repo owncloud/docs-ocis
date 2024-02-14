@@ -145,7 +145,7 @@ The default locations (no need to set them explicitly) for _config_ files, which
 `/etc/ocis/`
 +
 * For binary releases +
-`$HOME/.ocis/config/`
+`$HOME/.ocis/config/` or `~/.ocis/config/` (preferred)
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
 +
@@ -186,7 +186,7 @@ The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the ba
 `/var/lib/ocis`
 +
 * For binary releases +
-`$HOME/.ocis/`
+`$HOME/.ocis/` or `~/.ocis/config/` (preferred)
 +
 NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
 the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
