@@ -44,7 +44,7 @@ image::deployment/services/graph/mermaid-graph.svg[width=600]
 
 == Caching
 
-The `graph` service can use a configured store via `GRAPH_CACHE_STORE`. Possible stores are:
+The `graph` service can use a configured store via `GRAPH_CACHE_STORE`.
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!
