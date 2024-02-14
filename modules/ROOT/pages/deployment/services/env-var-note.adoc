@@ -51,3 +51,18 @@ If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:{
 If you're using a container and want or need to keep all data persistent, you need to provide host filesystem access to the container, which you can do with mounts or volumes.
 ====
 --
+
+== Using Environment Variables in YAML
+
+Environment variables can be used in yaml config files. This allows them to be used in config files for Infinite Scale services, which will then be replaced by the actual value of the environment variable at runtime.
+
+Example:
+
+[source,yaml]
+----
+web:
+  http:
+    addr: ${SOME_HTTP_ADDR}
+----
+
+This makes it possible to use the same config file for different environments, without the need to change the config file itself. Such a setting is especially useful when using docker compose to run Infinite Scale services. It is a common pattern to create an `.env` file which contains the environment variables to be used with docker compose. Now you can use the same `.env` file to configure the Infinite Scale services via yaml.

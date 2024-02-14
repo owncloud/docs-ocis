@@ -67,8 +67,9 @@ include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{s
 ifndef::no_yaml[]
 === YAML Example
 
-Note that the filename shown below has been chosen on purpose. +
-See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+* Note that the filename shown below has been chosen on purpose.
+* See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+* See the xref:deployment/services/env-var-note.adoc[Notes for Environment Variables] if you want to use environment variables in the yaml file.
 
 [tabs]
 ====
