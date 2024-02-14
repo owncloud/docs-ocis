@@ -1,4 +1,0 @@
-== Storage Configuration
-:toc: right
-:toclevels: 1
-
