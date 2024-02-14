@@ -16,7 +16,7 @@
 
 == Caching
 
-The `frontend` service can use a configured store via `STORAGE_SYSTEM_CACHE_STORE`. Possible stores are:
+The `frontend` service can use a configured store via `STORAGE_SYSTEM_CACHE_STORE`.
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!

@@ -93,7 +93,7 @@ A lot of user management is done via the standardized LibreGraph API. Depending 
 
 == Caching
 
-The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`. Possible stores are:
+The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`.
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!

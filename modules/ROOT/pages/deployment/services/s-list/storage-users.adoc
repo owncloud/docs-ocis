@@ -123,7 +123,7 @@ The configuration for the `purge-expired` command is done by using the following
 
 == Caching
 
-The `storage-users` service caches stat, metadata and uuids of files and folders via the configured store in `STORAGE_USERS_STAT_CACHE_STORE`, `STORAGE_USERS_FILEMETADATA_CACHE_STORE` and `STORAGE_USERS_ID_CACHE_STORE`. Possible stores are:
+The `storage-users` service caches stat, metadata and uuids of files and folders via the configured store in `STORAGE_USERS_STAT_CACHE_STORE`, `STORAGE_USERS_FILEMETADATA_CACHE_STORE` and `STORAGE_USERS_ID_CACHE_STORE`.
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!

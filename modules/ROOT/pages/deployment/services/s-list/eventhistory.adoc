@@ -22,7 +22,7 @@ The `eventhistory` services consumes all events from the configured event system
 
 == Storing
 
-The `eventhistory` service stores each consumed event via the configured store in `EVENTHISTORY_STORE`. Possible stores are:
+The `eventhistory` service stores each consumed event via the configured store in `EVENTHISTORY_STORE`.
 
 include::partial$multi-location/caching-list.adoc[]
 // you must not have one or more blank lines here as it breaks continuous numbering!

@@ -5,7 +5,11 @@ When including, there must be at the top and the bottom a line manually added de
 ////
 
 // to be added manually like:
-// The `frontend` service can use a configured store via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE`. Possible stores are:
+// The `frontend` service can use a configured store via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE`.
+
+Note that for each service based environment variable, a global one might be available additionally. Check the configuration section below. Possible stores are:
+{empty} +
+{empty} +
 
 [width=100%,cols="25%,85%",options=header]
 |===
