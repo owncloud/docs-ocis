@@ -26,6 +26,10 @@ Running the `userlog` service without running the xref:{s-path}/eventhistory.ado
 
 include::partial$multi-location/caching-list.adoc[]
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuring Events
 
 Currently, the configuration which user-related events are of interest is hard-coded and cannot be changed.

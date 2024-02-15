@@ -16,19 +16,23 @@
 
 Running the `eventhistory` service without an event system like NATS is not possible.
 
-== Consuming
+=== Consuming
 
 The `eventhistory` services consumes all events from the configured event system.
 
-== Storing
+=== Storing
 
 :is_stat: true
 
 include::partial$multi-location/caching-list.adoc[]
 
-== Retrieving
+=== Retrieving
 
 Other services can call the `eventhistory` service via a gRPC call to retrieve events. The request must contain the event ID that should be retrieved.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 
