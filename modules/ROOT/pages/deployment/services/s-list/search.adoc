@@ -153,6 +153,10 @@ In the following example, let's assume a file tree `foo/bar/baz` exists.
 If the folder `bar` gets renamed to `new-bar`, the path to `baz` is no longer `foo/bar/baz` but `foo/new-bar/baz`.  
 The search service checks the change and either just updates the path in the index or creates a new index for all items affected if none was present.
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

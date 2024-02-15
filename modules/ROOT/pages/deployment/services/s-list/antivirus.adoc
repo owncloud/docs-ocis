@@ -45,6 +45,10 @@ The antivirus service can scan files during `post-processing`. `on demand` scann
 
 The antivirus service will scan files during post-processing. It listens for a post-processing step called `virusscan`. This step can be added in the environment variable `POSTPROCESSING_STEPS`. Read the documentation of the xref:{s-path}/postprocessing.adoc[postprocessing service] for more details.
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

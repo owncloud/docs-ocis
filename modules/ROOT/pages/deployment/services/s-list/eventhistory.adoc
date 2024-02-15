@@ -16,21 +16,23 @@
 
 Running the `eventhistory` service without an event system like NATS is not possible.
 
-== Consuming
+=== Consuming
 
 The `eventhistory` services consumes all events from the configured event system.
 
-== Storing
+=== Storing
 
-The `eventhistory` service stores each consumed event via the configured store in `EVENTHISTORY_STORE`.
+:is_stat: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `EVENTHISTORY_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
-== Retrieving
+=== Retrieving
 
 Other services can call the `eventhistory` service via a gRPC call to retrieve events. The request must contain the event ID that should be retrieved.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 
