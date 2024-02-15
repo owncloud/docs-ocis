@@ -81,13 +81,11 @@ ocis postprocessing restart -u <uploadID>
 
 == Storing
 
+:is_stat: true
+
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
 
-The `postprocessing` service stores each consumed event via the configured store in `POSTPROCESSING_STORE`.
-
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `POSTPROCESSING_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Configuration
 

@@ -62,14 +62,19 @@ The following environment variables can be set to define the password policy beh
 
 * `OCIS_PASSWORD_POLICY_MIN_CHARACTERS` +
 Define the minimum password length.
+
 * `OCIS_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS` +
 Define the minimum number of uppercase letters.
+
 * `OCIS_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS` +
 Define the minimum number of lowercase letters.
+
 * `OCIS_PASSWORD_POLICY_MIN_DIGITS` +
 Define the minimum number of digits.
+
 * `OCIS_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS` +
 Define the minimum number of special characters.
+
 * `OCIS_PASSWORD_POLICY_BANNED_PASSWORDS_LIST` +
 Path to the 'banned passwords list' file.
 
@@ -93,11 +98,9 @@ A lot of user management is done via the standardized LibreGraph API. Depending 
 
 == Caching
 
-The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`.
+:is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `FRONTEND_OCS_STAT_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Configuration
 
