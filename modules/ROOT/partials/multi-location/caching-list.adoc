@@ -1,11 +1,23 @@
 ////
 This partial contains the commonly used list of cache stores plus notes.
 It is used as partial so when there is a change, we only need to do it in one place
-When including, there must be at the top and the bottom a line manually added describing service dependent stuff, see below.
 ////
 
-// to be added manually like:
-// The `frontend` service can use a configured store via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE`. Possible stores are:
+ifdef::is_cache[]
+:env_store: OCIS_CACHE_STORE
+:env_nodes: OCIS_CACHE_STORE_NODES
+endif::is_cache[]
+
+ifdef::is_stat[]
+:env_store: OCIS_PERSISTENT_STORE
+:env_nodes: OCIS_PERSISTENT_STORE_NODES
+endif::is_stat[]
+
+The {service_name} service can use a configured store via the global {env_store} environment variable.
+
+Note that for each global environment variable, a service-based one might be available additionally. For precedences see xref:deployment/services/env-var-note.adoc[Environment Variable Notes]. Check the configuration section below. Supported stores are:
+{empty} +
+{empty} +
 
 [width=100%,cols="25%,85%",options=header]
 |===
@@ -15,28 +27,42 @@ When including, there must be at the top and the bottom a line manually added de
 | `memory`
 | Basic in-memory store and the default.
 
-| `ocmem`
-| Advanced in-memory store allowing max size.
-
-| `redis`
-| Stores data in a configured Redis cluster.
-
 | `redis-sentinel`
 | Stores data in a configured Redis Sentinel cluster.
 
-| `etcd`
-| Stores data in a configured etcd cluster.
-
-| `nats-js`
-| Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
+| `nats-js-kv`
+| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
+
+| `ocmem`
+| *(deprecated)* Advanced in-memory store allowing max size.
+
+| `redis`
+| *(deprecated)* Stores data in a configured Redis cluster.
+
+| `etcd`
+| *(deprecated)* Stores data in a configured etcd cluster.
+
+| `nats-js`
+| *(deprecated)* Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 |===
 
-. Note that in-memory stores are by nature not reboot-persistent.
-. Though usually not necessary, a database name and a database table can be configured for event stores if the event store supports this. Generally not applicable for stores of type `in-memory`. These settings are blank by default which means that the standard settings of the configured store apply.
-. The {service_name} service can be scaled if not using `in-memory` stores and the stores are configured identically over all instances.
-// no blank lines here, this will break continuous numbering!!
-// to be added manually like:
-// . When using `redis-sentinel`, the Redis master to use is configured via `FRONTEND_OCS_RESOURCE_INFO_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+Other store types may work but are currently not supported.
+
+NOTE: The {service_name} service can only be scaled if not using the `memory` store and the stores are configured identically over all instances!
+
+NOTE: If you have used one of the deprecated stores of a former version, you should reconfigure to use one of the supported ones as the deprecated stores will be removed in a later version.
+
+Store specific notes::
++
+--
+* When using `redis-sentinel`: +
+The Redis master to use is configured via e.g. `{env_nodes}` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+
+* When using `nats-js-kv`: +
+** It is recommended to set `{env_nodes}` to the same value as `OCIS_EVENTS_ENDPOINT`. That way the cache uses the same nats instance as the event bus.
+** Authentication can be added, if configured, via `OCIS_CACHE_AUTH_USERNAME` and `OCIS_CACHE_AUTH_PASSWORD`.
+** It is possible to set `OCIS_CACHE_DISABLE_PERSISTENCE` to instruct nats to not persist cache data on disc.
+--

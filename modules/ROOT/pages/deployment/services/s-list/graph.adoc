@@ -44,11 +44,9 @@ image::deployment/services/graph/mermaid-graph.svg[width=600]
 
 == Caching
 
-The `graph` service can use a configured store via `GRAPH_CACHE_STORE`. Possible stores are:
+:is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `GRAPH_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Keycloak Configuration for the Personal Data Export
 
@@ -90,6 +88,10 @@ The client that is used to authenticate with Keycloak has to be able to list use
 *   `view-authorization`
 
 Note that these roles are only available to assign if the client is in the `master` realm.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

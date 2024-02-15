@@ -62,14 +62,19 @@ The following environment variables can be set to define the password policy beh
 
 * `OCIS_PASSWORD_POLICY_MIN_CHARACTERS` +
 Define the minimum password length.
+
 * `OCIS_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS` +
 Define the minimum number of uppercase letters.
+
 * `OCIS_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS` +
 Define the minimum number of lowercase letters.
+
 * `OCIS_PASSWORD_POLICY_MIN_DIGITS` +
 Define the minimum number of digits.
+
 * `OCIS_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS` +
 Define the minimum number of special characters.
+
 * `OCIS_PASSWORD_POLICY_BANNED_PASSWORDS_LIST` +
 Path to the 'banned passwords list' file.
 
@@ -91,13 +96,15 @@ While the frontend service does not persist any data, it does cache information 
 
 A lot of user management is done via the standardized LibreGraph API. Depending on how the system is configured, there might be some user attributes that an Infinite Scale instance admin can't change because of properties coming from an external LDAP server, or similar. This can be the case when the Infinite Scale admin is not the LDAP admin. To make life easier for admins, read-only attributes can be displayed differently, e.g. grayed out. To configure these hints for the frontend, use the environment variable `FRONTEND_READONLY_USER_ATTRIBUTES`, which takes a comma separated list of attributes. See the environment variable for supported values.
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Caching
 
-The `frontend` service can use a configured store via `FRONTEND_OCS_STAT_CACHE_STORE`. Possible stores are:
+:is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `FRONTEND_OCS_STAT_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Configuration
 

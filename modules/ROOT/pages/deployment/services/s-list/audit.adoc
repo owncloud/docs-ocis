@@ -39,6 +39,10 @@ The audit service logs:
 - Sharing operations +
 (user/group sharing, sharing via link, changing permissions, calls to sharing API from clients)
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
