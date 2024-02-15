@@ -10,7 +10,7 @@ The Infinite Scale event bus can be configured by a set of environment variables
 ====
 * If you are using a binary installation as described in xref:deployment/binary/binary-setup.adoc[Binary Setup] or xref:depl-examples/bare-metal.adoc[Bare Metal with systemd], the address of the event bus `OCIS_EVENTS_ENDPOINT` is predefined as localhost address without the need for further configuration, but changable on demand.
 
-* In case of an orchestrated installation like with Docker or Kubernetes, the event bus must be an external service for scalability like a `Redis Sentinel cluster` or a key-value-store https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. Both named stores are supperted as also used in xref:deployment/services/caching.adoc[Caching and Persistence]. The store used is not part of the Infinite Scale installation and must be seperately provided and configured.
+* In case of an orchestrated installation like with Docker or Kubernetes, the event bus must be an external service for scalability like a `Redis Sentinel cluster` or a key-value-store https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. Both named stores are supported and also used in xref:deployment/services/caching.adoc[Caching and Persistence]. The store used is not part of the Infinite Scale installation and must be separately provided and configured.
 
 * Note that from a configuration point of view, caching respectively persistance is independent from the event bus configuration.
 ====
