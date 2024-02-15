@@ -79,6 +79,10 @@ ocis storage-users uploads list
 ocis postprocessing restart -u <uploadID>
 ----
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Storing
 
 :is_stat: true

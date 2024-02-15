@@ -187,6 +187,10 @@ policies:
 
 A good example of how such a file should be formatted can be found in the https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types[Apache svn repository].
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

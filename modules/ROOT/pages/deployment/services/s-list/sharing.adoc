@@ -14,6 +14,10 @@
 
 * Sharing listens on port 9150 by default.
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]

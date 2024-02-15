@@ -18,6 +18,10 @@ include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 The messages the `clientlog` service sends are intended for use by clients, _not by users_. The client might for example be informed that a file has finished post-processing. With that, the client can make the file available to the user without additional server queries.
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
