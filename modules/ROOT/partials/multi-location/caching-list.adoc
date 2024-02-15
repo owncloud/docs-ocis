@@ -54,7 +54,7 @@ Other store types may work but are currently not supported.
 
 NOTE: The {service_name} service can only be scaled if not using the `memory` store and the stores are configured identically over all instances!
 
-NOTE: If you have used one of the deprecated stores of a former version, you should reconfigure to one of the supported ones as the deprecated stores will be removed in a later version.
+NOTE: If you have used one of the deprecated stores of a former version, you should reconfigure to use one of the supported ones as the deprecated stores will be removed in a later version.
 
 Store specific notes::
 +
