@@ -2,24 +2,25 @@
 :toc: right
 :description: This page contains tables with added and removed environment variables between Infinite Scale version 4.0.5 and 5.0.0.
 
+:source_path: {ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/env-var-deltas/
+// https://raw.githubusercontent.com/owncloud/ocis/docs-stable-5.0/services/_includes/adoc/env-var-deltas/
+
 == Introduction
 
 {description}
 
-// the includes should be replaced by something like:
-// include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
-// the path components possibly need to be adapted + antora.yml
+== Added and Removed Environment Variables
 
-== Added Environment Variables
-
-The following table shows all environment variables that have been *added*:
-{empty} +
-{empty} +
-
-include::partial$deployment/services/general-info/env-var-changes/added-4.0.5-5.0.0.adoc[]
-
-== Removed Environment Variables
-
-The following table shows all environment variables that have been *removed*:
-{empty} +
-{empty} +
+[tabs]
+====
+Added::
++
+--
+include::{source_path}{env_var_delta_name}-added.adoc[]
+--
+Removed::
++
+--
+include::{source_path}{env_var_delta_name}-removed.adoc[]
+--
+====
