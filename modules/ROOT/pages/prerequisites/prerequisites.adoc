@@ -345,6 +345,14 @@ Ceph Notes::
 * Note that you cannot access the same files in CephFS and Ceph-S3. Ceph allows exposing commodity hardware as either blockstorage (RBD), S3 or CephFS. It is not possible to write a file via S3 and then read it via CephFS.
 ====
 
+=== Required Character Encoding
+
+The required character encoding is 4-Byte UTF-8 Unicode Encoding.
+
+=== Disk Performance (IOPS)
+
+The storage system must not impose a cap on the input/output operations per second (IOPS). Imposing such limits can significantly degrade the performance, leading to suboptimal user experiences and decreased efficiency. Ensuring unrestricted IOPS capability is essential for maintaining optimal performance levels.
+
 == Compatible Apps and Clients
 
 At the moment, spaces are supported with the new ownCloud Web interface and the Desktop app version 3.0.
