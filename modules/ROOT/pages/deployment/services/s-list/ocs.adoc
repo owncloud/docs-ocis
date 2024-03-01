@@ -18,6 +18,40 @@
 
 The `ocs` service provides an endpoint `/cloud/user/signing-key` which is accessed from the web frontend via GET to request a signing key used for uploads.
 
+== Signing-Keys Store
+
+To authenticate presigned URLs, the xref:deployment/services/s-list/proxy.adoc[proxy] service needs to read the signing keys from a store that is populated by the `ocs` service.
+
+The following stores can be configured via the `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE` environment variable:
+
+* `nats-js-kv` +
+Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[nats jetstream].
+
+* `redis-sentinel` +
+Stores data in a configured Redis Sentinel cluster.
+
+* `ocisstoreservice` +
+Stores data in the _deprecated_ Infinite Scale xref:deployment/services/s-list/store.adoc[store] service. +
+Requires setting `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` to `com.owncloud.api.store`.
+
+[NOTE]
+====
+* The `memory` or `ocmem` stores cannot be used as they do not share the memory from the ocs service signing key memory store, even in a single process.
+
+* Make sure to configure the same store in the proxy service.
+====
+
+Store specific notes:
+
+* When using `redis-sentinel` +
+The Redis master to use is configured via e.g. `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+
+* When using `nats-js-kv` +
+It is recommended to set `PROXY_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` to the same value as `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES`. That way the xref:deployment/services/s-list/proxy.adoc[proxy] service uses the same nats instance as the ocs service.
+
+* When using `ocisstoreservice` +
+The `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` must be set to the service name `com.owncloud.api.store`. It does not support TTL and stores the presigning keys indefinitely. Also, the xref:deployment/services/s-list/store.adoc[store]  service needs to be started.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
