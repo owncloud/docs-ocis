@@ -37,7 +37,9 @@ docker pull owncloud/ocis:5.0.0
 * If you are using deprecated environment variables in your config.
 ** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
 * If you have changed the default configuration for the xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[MICRO_REGISTRY] environment variable.
-* If you have used custom theming in your Infinite Scale instance by providing a custom theme.json file.
+* If you have used custom theming in your Infinite Scale instance...
+** by providing a custom theme.json file.
+** by uploading a custom logo without additional changes to the theme.
 
 In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
 
@@ -130,6 +132,8 @@ Note that the "Desktop", "Android" and "iOS" platforms currently lack support fo
 
 The theming data from your old `theme.json` file needs to be moved to the "web" section of the new `theme.json` file.
 This can be done with copy & paste and only small adjustments, since the structure of a single, web-specific theme within the `theme.json` remains mostly unchanged.
+
+WARNING: If you have uploaded a custom logo without additional changes to the theme, oCIS internally created a custom theme.json anyway which now needs to be deleted. Otherwise any logo upload attempt will fail.
 --
 
 === Deprecations
