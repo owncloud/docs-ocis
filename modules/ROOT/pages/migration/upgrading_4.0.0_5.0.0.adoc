@@ -109,7 +109,7 @@ NOTE: For new deployments starting with ocis 5.0.0, these values are autogenerat
 WARNING: If no values are provided during an upgrade, ocis will not start and log a fatal error.
 --
 
-* We've changed the structure of the `theme.json` file. This was done for several reasons:
+* We have changed the structure of the `theme.json` file. This was done for several reasons:
 ** To be able to support multiple client platforms,
 ** to be able to create a fallback chain of theming information and
 ** to reduce the amount of configuration needed for theming.
@@ -121,7 +121,7 @@ If you have a custom `theme.json` file, you need to update it to the new structu
 * The old structure can be found here: https://doc.owncloud.com/ocis/4.0/deployment/webui/webui-theming.html#example-theme[Infinite Scale 4.0 Example Theme, window=_blank].
 * The new structure can be found here: https://owncloud.dev/clients/web/theming/#example-theme[Infinite Scale 5.0 Example Theme, window=_blank].
 
-The most important adjustment is the fact, that the old structure only supported multiple themes on a single platform (web). The new structure defines a `common` section and a `clients` section on the root level of the file.
+The most important adjustment is the fact, that the old structure only supported multiple themes on a single platform (web). The new structure defines a `common` and a `clients` section on the root level of the file.
 
 * The `common` section provides defaults for all client platforms.
 * The `clients` section provides platform specific general theming information and a list of themes.
@@ -138,7 +138,7 @@ This can be done with copy & paste and only small adjustments, since the structu
 We deprecated some service registries. If your `MICRO_REGISTRY` config is set to one of these values `mdns, nats, kubernetes, etcd, consul` please use `nats-js-kv` in the future (`memory` is only intended for testing environments).
 
 * Micro caches and stores +
-We deprecated some micro caches and stores. If one of your `*_CACHE_STORE` variables is using one of there values `redis-sentinel, redis, etcd, nats, ocmem` please use `nats-js-kv` in the future (`memory` is only intended for testing environments).
+We deprecated some micro caches and stores. If one of your `*_CACHE_STORE` variables is using one of there values `redis-sentinel`, `redis`, `etcd`, `nats` or `ocmem`,  use `nats-js-kv` in the future. Note that `memory` is only intended for testing environments.
 
 * Resharing +
 We have disabled the resharing feature by default. It will be removed from the product. Existing reshares will still be visible to the original resource owner. Creation of new reshares will not be possible. Make sure that `OCIS_ENABLE_RESHARING` is *not* set to `true` in your deployments.
