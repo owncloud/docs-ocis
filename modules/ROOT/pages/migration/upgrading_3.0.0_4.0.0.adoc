@@ -132,7 +132,7 @@ When the instance has started successfully, check the logs for any unusual entri
 
 == Manage Breaking Changes
 
-* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* All environment variables that were marked for deprecation in Infinite Scale release 3.0.0 have finally been removed.
 * Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
 
 === How to Identify if You Are Affected
