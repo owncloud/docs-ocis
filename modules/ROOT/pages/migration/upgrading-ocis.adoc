@@ -15,6 +15,24 @@ IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backst
 
 IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
 
+== Version 4.0.0 to 5.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
+* The maintenance command `ocis storage-users uploads list` has been deprecated and will be removed in a later release. A successor with more capabilities has been implemented, see the xref:deployment/services/s-list/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] documentation for more details.
+
+=== Breaking Changes Requiring Manual Intervention
+
+* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* The default service registry has been changed.
+* Service accounts are now needed for some backend operations.
+* Resharing is now disabled by default and will be removed from the product.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_4.0.0_5.0.0.adoc[Upgrading from 4.0.0 to 5.0.0] documentation.
+
 == Version 3.0.0 to 4.0.0
 
 === Notable Changes Requiring Manual Intervention
