@@ -95,7 +95,7 @@ COMMANDS:
 
 Purge all expired items from the trash-bin.
 
-[source,plaintext]
+[source,bash]
 ----
 ocis storage-users trash-bin purge-expired
 ----
@@ -109,7 +109,7 @@ Used to obtain space trash-bin information and takes the system admin user as th
 Has a default value of `720h` which equals `30 days`. This means, the command will delete all files older than `30 days`. The value is human-readable, for valid values see the duration type described in the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types]. A value of `0` is equivalent to disable and prevents the deletion of `personal space` trash-bin files.
 
 * `STORAGE_USERS_PURGE_TRASH_BIN_PROJECT_DELETE_BEFORE` +
-Has a default value of `30 days`, which means the command will delete all files older than `30 days`. The value is human-readable, valid values are `24h`, `60m`, `60s` etc. `0` is equivalent to disable and prevents the deletion of `project space` trash-bin files.
+Has a default value of `720h` which equals `30 days`. This means, the command will delete all files older than `30 days`. The value is human-readable, for valid values see the duration type described in the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types]. A value of `0` is equivalent to disable and prevents the deletion of `project space` trash-bin files.
 
 ==== List and Restore Trash-Bins Items
 
