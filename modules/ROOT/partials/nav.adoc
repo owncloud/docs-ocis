@@ -75,6 +75,7 @@
 *** xref:maintenance/b-r/backup.adoc[Backup]
 *** xref:maintenance/b-r/restore.adoc[Restore]
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
+** xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs]
 * Migration and Upgrades
 ** xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale]
 * Configuration Examples
