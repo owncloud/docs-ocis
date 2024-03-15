@@ -31,7 +31,7 @@ Note that for each global environment variable, a service-based one might be ava
 | Stores data in a configured Redis Sentinel cluster.
 
 | `nats-js-kv`
-| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]
+| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
