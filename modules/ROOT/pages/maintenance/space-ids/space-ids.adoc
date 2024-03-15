@@ -4,24 +4,24 @@
 
 == Introduction
 
-{description} As example for a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
+{description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
 
 Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
 
 The following prerequisites apply:
 
-* The administrator must have shell access where Infinite Scale runs on.
-* The administrator needs to use his active bearer token in the request described below.
+* The administrator must have shell access where Infinite Scale runs.
+* The administrator needs to use their active bearer token in the request described below.
 * For ease of reading the result, the https://jqlang.github.io/jq/[jq] library should be installed on the OS where the shell command is executed. It is used in the examples.
 
-To be said, the life span of the bearer token is short, in  particular less than a minute. If the token expires, the curl command will fail with an unauthorized message. Preparing is therefore key.
+Note that the life span of the bearer token is short, in  particular less than a minute. If the token expires, the curl command will fail with an unauthorized message. So it is important to be prepared.
 
 == Preparation
 
 * Open a terminal window for shell access
 ** The generated curl command described will be executed here.
 * Prepare an editor
-** Open an editor of choice where you can easily copy and paste to and add the following on top. The example lists `personal` users space ID's. Replace it with `project` for listing manually created spaces. Replace `<your host:9200>` with the URL:port you are accessing the Infinite Scale instance. Note to add a trailing blank line in the example as content is copied afterwards.
+** Open an editor of choice where you can easily copy and paste to and add the following on top. The example lists `personal` users space ID's. Replace it with `project` for listing manually created spaces. Replace `<your host:9200>` with the URL:port of the Infinite Scale instance. Note to add a trailing blank line in the example as content is copied afterwards.
 +
 --
 [source,bash]
@@ -34,7 +34,7 @@ curl -XGET -vk 'https://<your host:9200>/graph/v1.0/drives?$filter=driveType+eq+
 --
 
 * Open a browser
-** Login as administrator at `\https://<your host:9200>`, replace `<your host:9200>` with the URL:port you are accessing the Infinite Scale instance.
+** Login as administrator at `\https://<your host:9200>`, replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
 ** Open the browsers menu:Developer Console[].
 ** Open the menu:Network[] tab.
 ** Select btn:[XHR], browser dependent, it is maybe called `Fetch XHR`.
@@ -131,7 +131,7 @@ Project Space::
 
 == Output Interpretation and Usage
 
-Depending if you are looking for a personal or project space, find the name of the space in the `name` respectively the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
+Depending on if you are looking for a personal or project space, find the name of the space in the `name` or the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
 
 [source,json]
 ----
