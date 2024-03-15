@@ -29,7 +29,7 @@ docker pull owncloud/ocis:5.0.0
 * All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
 * The default service registry has been changed.
 * Service accounts are now needed for some backend operations.
-* Resharing is now disabled by default and will be removed from the product.
+* Resharing will be disabled and removed from the product.
 * The structure of the `theme.json` file has changed.
 
 === How to Identify if You Are Affected
@@ -40,6 +40,7 @@ docker pull owncloud/ocis:5.0.0
 * If you have used custom theming in your Infinite Scale instance:
 ** by providing a custom `theme.json` file.
 ** by uploading a custom logo without additional changes to the theme.
+* If you have used resharing
 
 In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
 
@@ -135,6 +136,26 @@ The theming data from your old `theme.json` file needs to be moved to the `web` 
 This can be done with copy & paste and only small adjustments, since the structure of a single, web-specific theme within the `theme.json` remains mostly unchanged.
 
 WARNING: If you have uploaded a custom logo without additional changes to the theme, Infinite Scale internally created a custom 'theme.json' anyway which now needs to be deleted. Otherwise any logo upload attempt will fail.
+--
+
+* Resharing
++
+--
+Because resharing is deprecated and will be removed in a subsequent release, the environment variables enabling resharing should be set to `false` respectively removed from the config. Doing so, resharing will be disabled. Note that existing reshares will continue to be visible to the original resource owner.
+
+The environment variables responsible for resharing are:
+
+* (global) `OCIS_ENABLE_RESHARING`
+** (local) `FRONTEND_ENABLE_RESHARING`
+** (local) `GRAPH_ENABLE_RESHARING`
+** (local) `SHARING_ENABLE_RESHARING`
+
+{empty}
+
+How to disable resharing::
+* If you have set any of the local environment variables manually, remove it from your configuration.
+* Manually set `OCIS_ENABLE_RESHARING` to `false`. +
+Note that this environment variable can safely be removed from the config when resharing has been removed in a subsequent release. A removal notification will be provided.
 --
 
 === Deprecations
