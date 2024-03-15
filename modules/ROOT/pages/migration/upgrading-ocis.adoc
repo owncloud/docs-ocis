@@ -27,7 +27,7 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 * All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
 * The default service registry has been changed.
 * Service accounts are now needed for some backend operations.
-* Resharing is now disabled by default and will be removed from the product.
+* Resharing will be disabled and removed from the product.
 
 === Upgrade Steps
 
