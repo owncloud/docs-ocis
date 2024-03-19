@@ -154,7 +154,7 @@ See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
 ** When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
 ====
 
-* You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
+* You can deviate from the default location and define a custom configuration directory on startup using the environment variable `OCIS_CONFIG_DIR`.
 
 === Base Data Directory
 
@@ -210,7 +210,7 @@ The following environment variables can overwrite the base path if required:
 
 ==== Default Location
 
-* The base path has a default location for metadata and service dependent data (xref:#services_using_base_path[see above]) which *must be* on a POSIX storage. If not otherwise defined via xref:using-s3-for-blobs[Using S3 for Blobs], it is also used storing blobs using that path:
+* The base path has a default location for metadata and service dependent data (xref:#services_using_base_path[see above]) which *must be* on a POSIX storage. If not otherwise defined via xref:using-s3-for-blobs[Using S3 for Blobs], it is also used to store blobs using that path:
 
 ** For container images (inside the container) +
 `/var/lib/ocis`
@@ -225,7 +225,7 @@ The following environment variables can overwrite the base path if required:
 ** When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
 ====
 
-* You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_BASE_DATA_PATH`.
+* You can deviate from the default location and define a custom base directory on startup using the environment variable `OCIS_BASE_DATA_PATH`.
 
 * More Important Notes
 +
