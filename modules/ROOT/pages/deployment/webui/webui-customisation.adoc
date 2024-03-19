@@ -58,8 +58,7 @@ Everything else is skipped and not considered as an application.
 ** `entrypoint` - required +
 The entrypoint of the application like `index.js`, the path is relative to the parent directory.
 ** `config` - optional +
-
-* A list of key-value pairs that are passed to the global web application configuration `apps.yaml`.
+A list of key-value pairs that are passed to the global web application configuration `apps.yaml`.
 
 === Application Configuration
 
