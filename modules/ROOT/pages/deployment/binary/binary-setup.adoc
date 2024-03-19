@@ -96,7 +96,7 @@ Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[
 
 ==== First Time Start
 
-Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `~/.ocis/config/`. For details see: xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules]. Type the following command to initialize Infinite Scale.
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `$HOME/.ocis/config/`. For details see the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] documentation. Type the following command to initialize Infinite Scale.
 
 [source,bash]
 ----
@@ -115,7 +115,7 @@ If you get an error message like the following:
 
 [source,plaintext]
 ----
-Could not create config: config in ~/.ocis/config/ocis.yaml already exists
+Could not create config: config in /home/<user-name>/.ocis/config/ocis.yaml already exists
 ----
 
 you already have created a configuration once. As you cannot overwrite the existing configuration, you must delete the old configuration first to proceed. For more details, see: xref:deployment/general/general-info.adoc#initialize-infinite-scale[Initialize Infinite Scale].
