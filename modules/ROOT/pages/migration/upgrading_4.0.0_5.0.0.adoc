@@ -8,7 +8,7 @@
 
 IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#introduction[Upgrading Infinite Scale] documentation before you start.
 
-IMPORTANT: Check if you are affected and follow every step mentioned for a smooth upgrade.
+IMPORTANT: Check below, if you are affected by breaking changes and prepare all steps mentioned before you start the upgrade.
 
 == Upgrade Steps
 
