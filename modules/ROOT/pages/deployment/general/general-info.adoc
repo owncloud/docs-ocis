@@ -436,9 +436,18 @@ Also see the xref:deployment/general/general-info.adoc#using-the-embedded-idp-se
 
 === Handling Certificates
 
-// https://owncloud.dev/ocis/deployment/basic-remote-setup/
-
 Certificates are necessary to secure browser access. Infinite Scale can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell Infinite Scale which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+
+[NOTE]
+====
+* When clients have direct access to the Infinite Scale instance:
+** Use signed certificates, see below.
+** When using unsigned certificates, _depending on the browser used_, errors may get logged like: +
+`TLS handshake error from IP:PORT: remote error: tls: unknown certificate`
+* When using a reverse proxy:
+** Browser access terminates at the webserver and certificates are handled there.
+** You can additionally secure the communication using (un)signed certificates for communication between the reverse proxy and infinite Scale.
+====
 
 === Embedded Self-Signed Certificates
 

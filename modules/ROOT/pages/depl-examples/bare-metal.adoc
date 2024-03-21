@@ -85,14 +85,15 @@ Check the version installed:
 
 [source,bash]
 ----
-ocis version
+ocis version  --skip-services
 ----
 
 The output looks like this:
 
 [source,plaintext,subs="attributes+"]
 ----
-ocis version {ocis-actual-version}
+Version: {ocis-actual-version}
+Compiled: {ocis-compiled}
 ----
 
 === Create a Service User
@@ -139,7 +140,7 @@ sudo touch {ocis_env}/ocis.env
 sudo chown -R ocis:ocis {ocis_env}
 ----
 
-Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Info] section for more information about the environment variables used. 
+Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Information] section for more information about the environment variables used. 
 
 Setting the correct `OCIS_URL` is essential for the built-in openIDConnect IDP as the xref:{s-path}/idp.adoc[IDP service] needs to be reachable under the same host and port as the reverse proxy is configured. If this has not been configured the same, the IDP service will log errors like `origin does not match request URL`. See the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes of the `PROXY_TLS` environment variable.
 
