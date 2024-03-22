@@ -163,50 +163,55 @@ Because Infinite Scale does not use a database for storing information like user
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
 * When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
-.Path for System Data
-The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required like when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
-
-[#services_using_base_path]
-.Services That Can Deviate from the Base Data Path
-The following environment variables can overwrite the base path if required:
-
-// ocis/services$ grep -r 'OCIS_BASE_DATA_PATH' --include=*.go **/pkg/config
-
-* xref:{s-path}/auth-basic.adoc[OCIS_LDAP_CACERT;AUTH_BASIC_LDAP_CACERT, window=_blank]
-* xref:{s-path}/graph.adoc[OCIS_LDAP_CACERT;GRAPH_LDAP_CACERT, window=_blank]
-* xref:{s-path}/groups.adoc[OCIS_LDAP_CACERT;GROUPS_LDAP_CACERT, window=_blank]
-* xref:{s-path}/idm.adoc[IDM_LDAPS_CERT, window=_blank]
-* xref:{s-path}/idm.adoc[IDM_LDAPS_KEY, window=_blank]
-* xref:{s-path}/idm.adoc[IDM_DATABASE_PATH, window=_blank]
-* xref:{s-path}/idp.adoc[IDP_ENCRYPTION_SECRET_FILE, window=_blank]
-* xref:{s-path}/idp.adoc[IDP_SIGNING_PRIVATE_KEY_FILES, window=_blank]
-* xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_CERT, window=_blank]
-* xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_KEY, window=_blank]
-* xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR, window=_blank]
-* xref:{s-path}/nats.adoc[NATS_TLS_CERT, window=_blank]
-* xref:{s-path}/nats.adoc[NATS_TLS_KEY, window=_blank]
-* xref:{s-path}/ocm.adoc[OCM_OCM_INVITE_MANAGER_JSON_FILE, window=_blank]
-* xref:{s-path}/ocm.adoc[OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE, window=_blank]
-* xref:{s-path}/ocm.adoc[OCM_OCM_CORE_JSON_FILE, window=_blank]
-* xref:{s-path}/ocm.adoc[OCM_OCM_SHAREPROVIDER_JSON_FILE, window=_blank]
-* xref:{s-path}/proxy.adoc[PROXY_TRANSPORT_TLS_KEY, window=_blank]
-* xref:{s-path}/search.adoc[SEARCH_ENGINE_BLEVE_DATA_PATH, window=_blank] ^*^
-* xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH, window=_blank]
-* xref:{s-path}/sharing.adoc[SHARING_USER_JSON_FILE, window=_blank]
-* xref:{s-path}/sharing.adoc[SHARING_PUBLIC_JSON_FILE, window=_blank]
-* xref:{s-path}/store.adoc[STORE_DATA_PATH, window=_blank]
-* xref:{s-path}/storage-system.adoc[STORAGE_SYSTEM_OCIS_ROOT, window=_blank]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT, window=_blank]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT, window=_blank]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR, window=_blank]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_UPLOADINFO_DIR, window=_blank]
-* xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT, window=_blank] ^*^
-* xref:{s-path}/users.adoc[OCIS_LDAP_CACERT;USERS_LDAP_CACERT, window=_blank]
-
-// necessary to properly break the list item from the next component
 {empty}
 
-(*) ... Note that it is recommended for these services to configure an individual path due to expected higher data quantities on larger installations, see the important note on possible impacts below.
+Path for System Data::
+The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required like when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
+
+
+// ocis/services$ grep -r 'OCIS_BASE_DATA_PATH' --include=*.go **/pkg/config
+// https://docs.asciidoctor.org/asciidoc/latest/subs/apply-subs-to-blocks/
+
+[#services_using_base_path]
+Services That Can Deviate from the Base Data Path::
+The following environment variables can overwrite the base data path if required:
++
+--
+[source,subs="+callouts,macros,attributes+"]
+----
+• xref:{s-path}/auth-basic.adoc[OCIS_LDAP_CACERT;AUTH_BASIC_LDAP_CACERT, window=_blank]
+• xref:{s-path}/graph.adoc[OCIS_LDAP_CACERT;GRAPH_LDAP_CACERT, window=_blank]
+• xref:{s-path}/groups.adoc[OCIS_LDAP_CACERT;GROUPS_LDAP_CACERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_CERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_KEY, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_DATABASE_PATH, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_ENCRYPTION_SECRET_FILE, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_SIGNING_PRIVATE_KEY_FILES, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_CERT, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_CERT, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_KEY, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_INVITE_MANAGER_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_CORE_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_SHAREPROVIDER_JSON_FILE, window=_blank]
+• xref:{s-path}/proxy.adoc[PROXY_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/search.adoc[SEARCH_ENGINE_BLEVE_DATA_PATH, window=_blank] <1>
+• xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_USER_JSON_FILE, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_PUBLIC_JSON_FILE, window=_blank]
+• xref:{s-path}/store.adoc[STORE_DATA_PATH, window=_blank]
+• xref:{s-path}/storage-system.adoc[STORAGE_SYSTEM_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_UPLOADINFO_DIR, window=_blank]
+• xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT, window=_blank] <1>
+• xref:{s-path}/users.adoc[OCIS_LDAP_CACERT;USERS_LDAP_CACERT, window=_blank]
+----
+<1> Note that it is recommended for these services to configure an individual path due to expected higher data quantities on larger installations, see the important note on possible impacts below.
+--
 
 ==== Default Location
 
