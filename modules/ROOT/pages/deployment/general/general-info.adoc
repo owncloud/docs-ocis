@@ -139,17 +139,22 @@ See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
 
 === Configuration Directory
 
-The default locations (no need to set them explicitly) for _config_ files, which have to be on a POSIX storage, are:
+* The configuration directory has a default location for _config_ files, which *must be* on a POSIX storage:
 
-* For container images (inside the container) +
+** For container images (inside the container) +
 `/etc/ocis/`
 +
-* For binary releases +
+** For binary releases +
 `$HOME/.ocis/config/`
 +
-NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
-+
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+[NOTE]
+====
+* Do not replace `$HOME` with `~` (tilde). The code does not resolve `~` to the users home directory.
+* Check that `$HOME` resolves to a valid directory.
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+====
+
+* You can deviate from the default location and define a custom configuration directory on startup using the environment variable `OCIS_CONFIG_DIR`.
 
 === Base Data Directory
 
@@ -158,40 +163,78 @@ Because Infinite Scale does not use a database for storing information like user
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
 * When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
 
-.Path for System Data
-The base directory is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
-
-.Default Location
-The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
-
-.Services That Can Deviate from the Base Data Path
-The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
-
-* xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]
-* xref:{s-path}/search.adoc[SEARCH_DATA_PATH]
-* xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH]
-* xref:{s-path}/store.adoc[STORE_DATA_PATH]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR]
-* xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT]
-
-// necessary to properly break the list item from the next component
 {empty}
 
-.The default locations for the _base_ directory are:
-{empty}
---
-* For container images (inside the container) +
-`/var/lib/ocis`
+Path for System Data::
+The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required like when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
+
+
+// ocis/services$ grep -r 'OCIS_BASE_DATA_PATH' --include=*.go **/pkg/config
+// https://docs.asciidoctor.org/asciidoc/latest/subs/apply-subs-to-blocks/
+
+[#services_using_base_path]
+Services That Can Deviate from the Base Data Path::
+The following environment variables can overwrite the base data path if required:
 +
-* For binary releases +
+--
+[source,subs="+callouts,macros,attributes+"]
+----
+• xref:{s-path}/auth-basic.adoc[OCIS_LDAP_CACERT;AUTH_BASIC_LDAP_CACERT, window=_blank]
+• xref:{s-path}/graph.adoc[OCIS_LDAP_CACERT;GRAPH_LDAP_CACERT, window=_blank]
+• xref:{s-path}/groups.adoc[OCIS_LDAP_CACERT;GROUPS_LDAP_CACERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_CERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_KEY, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_DATABASE_PATH, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_ENCRYPTION_SECRET_FILE, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_SIGNING_PRIVATE_KEY_FILES, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_CERT, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_CERT, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_KEY, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_INVITE_MANAGER_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_CORE_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_SHAREPROVIDER_JSON_FILE, window=_blank]
+• xref:{s-path}/proxy.adoc[PROXY_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/search.adoc[SEARCH_ENGINE_BLEVE_DATA_PATH, window=_blank] <1>
+• xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_USER_JSON_FILE, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_PUBLIC_JSON_FILE, window=_blank]
+• xref:{s-path}/store.adoc[STORE_DATA_PATH, window=_blank]
+• xref:{s-path}/storage-system.adoc[STORAGE_SYSTEM_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_UPLOADINFO_DIR, window=_blank]
+• xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT, window=_blank] <1>
+• xref:{s-path}/users.adoc[OCIS_LDAP_CACERT;USERS_LDAP_CACERT, window=_blank]
+----
+<1> Note that it is recommended for these services to configure an individual path due to expected higher data quantities on larger installations, see the important note on possible impacts below.
+--
+
+==== Default Location
+
+* The base path has a default location for metadata and service dependent data (xref:#services_using_base_path[see above]) which *must be* on a POSIX storage. If not otherwise defined via xref:using-s3-for-blobs[Using S3 for Blobs], it is also used to store blobs using that path:
+
+** For container images (inside the container) +
+`/var/lib/ocis`
+
+** For binary releases +
 `$HOME/.ocis/`
 +
-NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
-the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
+[NOTE]
+====
+* Do not replace `$HOME` with `~` (tilde). The code does not resolve `~` to the users home directory.
+* Check that `$HOME` resolves to a valid directory.
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
+====
+
+* You can deviate from the default location and define a custom base directory on startup using the environment variable `OCIS_BASE_DATA_PATH`.
+
+* More Important Notes
 +
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
+NOTE: When setting the base directory manually, it will be used automatically for the xref:#services_using_base_path[services described above] - if they are not otherwise manually defined. 
 +
 WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
 +
@@ -204,11 +247,10 @@ Consider using a separate partition or an external filesystem like NFS for the d
 * Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
 * The index data stored for the xref:{s-path}/search.adoc[search service] is located on the same root path and filled up the filesystem. 
 ====
---
 
 === Using S3 for Blobs
 
-When using S3 for storing user data, metadata must reside on POSIX using the base directory as path. For more details see the section xref:base-data-directory[Base Data Directory] above.
+When using S3 for storing user data (blobs), metadata must reside on POSIX using the base directory `OCIS_BASE_DATA_PATH` as path. For more details see the section xref:base-data-directory[Base Data Directory] above.
 
 Configuring the xref:{s-path}/storage-users.adoc[Storage-Users] service is necessary to define the usage of POSIX and S3 storage for Infinite Scale.
 
@@ -276,8 +318,10 @@ This will print an output like:
 | app-provider       |
 | app-registry       |
 | auth-basic         |
-| auth-bearer        |
 | auth-machine       |
+| auth-service       |
+| clientlog          |
+| eventhistory       |
 | frontend           |
 | gateway            |
 | graph              |
@@ -287,20 +331,24 @@ This will print an output like:
 | nats               |
 | notifications      |
 | ocdav              |
+| ocm                |
 | ocs                |
+| postprocessing     |
 | proxy              |
 | search             |
 | settings           |
 | sharing            |
+| sse                |
 | storage-publiclink |
 | storage-shares     |
 | storage-system     |
 | storage-users      |
-| store              |
 | thumbnails         |
+| userlog            |
 | users              |
 | web                |
 | webdav             |
+| webfinger          |
 +--------------------+
 ----
 
@@ -393,9 +441,18 @@ Also see the xref:deployment/general/general-info.adoc#using-the-embedded-idp-se
 
 === Handling Certificates
 
-// https://owncloud.dev/ocis/deployment/basic-remote-setup/
-
 Certificates are necessary to secure browser access. Infinite Scale can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell Infinite Scale which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+
+[NOTE]
+====
+* When clients have direct access to the Infinite Scale instance:
+** Use signed certificates, see below.
+** When using unsigned certificates, _depending on the browser used_, errors may get logged like: +
+`TLS handshake error from IP:PORT: remote error: tls: unknown certificate`
+* When using a reverse proxy:
+** Browser access terminates at the webserver and certificates are handled there.
+** You can additionally secure the communication using (un)signed certificates for communication between the reverse proxy and infinite Scale.
+====
 
 === Embedded Self-Signed Certificates
 

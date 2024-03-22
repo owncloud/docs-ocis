@@ -1,11 +1,8 @@
 = Auth Service Configuration
 :toc: right
+:description: The Infinite Scale Auth Service is used to authenticate service accounts. Compared to normal accounts, service accounts are Infinite Scale internal only and not available to ordinary users like via LDAP.
 
 :service_name: auth-service
-:no_second_tab: true
-//:no_third_tab: true
-
-:description: The Infinite Scale Auth Service is used to authenticate service accounts. Compared to normal accounts, service accounts are Infinite Scale internal only and not available to ordinary users like via LDAP.
 
 == Introduction
 

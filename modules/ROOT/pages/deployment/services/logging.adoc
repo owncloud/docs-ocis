@@ -4,7 +4,7 @@
 
 == Introduction
 
-{description}
+{description} By default Infinite Scale logs to `stderr`. For Docker, everything can be seen in the docker logs output.
 
 == Log Levels
 

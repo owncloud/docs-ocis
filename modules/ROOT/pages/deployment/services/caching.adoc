@@ -25,7 +25,7 @@
 ** persistence is not a requirement (issue: restart/reboot) and
 ** scaling of services is not required (issue: instantiation).
 
-* *External products* like `redis`, `redis-sentinel`, `etcd`, `nats-js` which are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
+* *External products* like `nats-js-kv` or `redis-sentinel` are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
 
 === Local vs Global Configuration
 

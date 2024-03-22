@@ -1,17 +1,16 @@
 = Audit Service Configuration
 :toc: right
-:description: The audit service logs all events of the system as an audit log. Per default, it will be logged to standard out, but can also be configured to a file output.
+:description: The audit service logs all events of the system as an audit log. With audit logs, you are able to prove compliance with corporate and legal guidelines as well as enable reporting and auditing of operations.
 
 :service_name: audit
 
 == Introduction
 
-{description} Supported log formats are json or a minimal human-readable format.
+{description} 
 
-With audit logs, you are able to prove compliance with corporate guidelines as well as to enable reporting and auditing of operations. The audit service takes note of actions conducted by users and administrators.
+Supported log formats are `json` or a `minimal` human-readable format. The audit service takes note of actions conducted by users and administrators.
 
-Example minimal format:
-
+Example minimal format::
 [source,plaintext]
 ----
 file_delete)
@@ -20,8 +19,7 @@ file_trash_delete)
    user 'user_id' removed file 'item_id' from trashbin
 ----
 
-Example json:
-
+Example json::
 [source,json]
 ----
 {"RemoteAddr":"","User":"user_id","URL":"","Method":"","UserAgent":"","Time":"","App":"admin_audit","Message":"user 'user_id' trashed file 'item_id'","Action":"file_delete","CLI":false,"Level":1,"Path":"path","Owner":"user_id","FileID":"item_id"}
@@ -29,6 +27,8 @@ Example json:
 ----
 
 The audit service is not started automatically when running as single binary started via `ocis server` or when running as docker container and must be started and stopped manually on demand.
+
+Per default, it will be logged to standard out, but can also be configured to write into a file. Note that when a file output is used, it is not part of the standard log file but a separate one.
 
 The audit service logs:
 
@@ -38,6 +38,10 @@ The audit service logs:
 (creation/deletion of users)
 - Sharing operations +
 (user/group sharing, sharing via link, changing permissions, calls to sharing API from clients)
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

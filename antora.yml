@@ -7,35 +7,29 @@ nav:
 
 asciidoc:
   attributes:
+    latest-ocis-version: {page-component-version}   # do not change, this is the value of the version key
+    previous-ocis-version: {page-component-version} # do not change, this is the value of the version key
+
     # used to define the include path for services without trailing /
     # note that any changes of this path also need adjustment in
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
 
     # service_tab_x will be used to assemble the url accessing the link for the services
-    # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
-    service_tab_1: 'docs' # do not change, the docs branch contains changes of master
-    service_tab_2: 'docs-stable-4.0' # latest stable
-    service_tab_3: 'docs-stable-3.0' # former stable
+    service_tab_1: 'docs' # latest stable like docs-stable-5.0
 
     # service_tab_x_tab_text will be used as tab text shown for service_tab_x
-    # note that we are refering via the 'service_tab_x' branch to the ocis repo, not the master branch!
-    # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
-    service_tab_1_tab_text: 'latest'
-    service_tab_2_tab_text: '4.0.2' # latest stable
-    service_tab_3_tab_text: '3.0.0' # former stable
+    service_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
-    # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
-    compose_tab_1: 'master'
-    compose_tab_2: 'v4.0.0' # latest stable
-    compose_tab_3: 'v3.0.0' # former stable
+    compose_tab_1: 'master' # latest stable like v5.0.0
 
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
-    # note that tab 2 should always contain the actual release and tab 3 the former, if use_service_tab_3 is enabled
-    compose_tab_1_tab_text: 'latest'
-    compose_tab_2_tab_text: '4.0.2' # latest stable
-    compose_tab_3_tab_text: '3.0.0' # former stable
+    compose_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0
+
+    # this is the first part of the name for envvars between major versions that will be added or removed
+    # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
+    env_var_delta_name: '4.0.0-5.0.0'
 
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
     # note that tab 2 always contains the actual release and tab 3 the former

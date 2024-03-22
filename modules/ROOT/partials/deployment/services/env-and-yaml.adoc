@@ -5,14 +5,14 @@ If no_yaml is set, it will exclude rendering yaml files because it does not exis
 Print a dependent explanation line:
 
 * no_yaml is not set = standard service
-* no_yaml is set = special scope envvars
+* no_yaml is set     = special scope envvars
 
 Conditional tab printing, example:
 
 * no_second_tab = based on first appearance of the service (defined in a service),
   must overrule service tab. If there is no second, there is also no third.
 
-*   Note to make a tab hidden by no_xxx_tab showing up again, just comment it.
+* Note to make a tab hidden by no_xxx_tab showing up again, just comment it.
 
 The included deprecation file just has an attribute necessary for rendering deprecations.
 This is necessary as attributes that are defined INSIDE a tabset will not get recognized, attributes need to be defined OUTSIDE the tabset definition. example content:
@@ -27,58 +27,33 @@ To exclude a deprecation file if not wanted - like when the file will just not e
 
 ////
 
-// read the xxx_deprecation.adoc file from ocis to evaluate deprecations but only if 'no_deprecation' is not set
-// see the deprecation evaluation in the next block how it gets handled 
+////
+Important: The xxx_deprecation.adoc does not exist for extended or global envvars. It may change for global envvars! Therefore we need to query 'no_deprecation' to skip importing - or if we explicitly don't want to show deprecated content.
+When rendering an included content in a table, any attribute set in the included file is dropped and can't be queried. Therefore we read upfront xxx_deprecation.adoc where only the deprecation state is set. Having this extra, we set 'show-deprecation' outside the tab but with the same value which is taken for building.
+////
+
+:show-deprecation: false
 
 ifndef::no_deprecation[]
 // deprecation test tab 1, uncomment for testing
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
-ifeval::["{show-deprecation}" == "true"]
-:has_deprecation_tab_1: true
-endif::[]
-
-ifndef::no_second_tab[]
-// deprecation test tab 2, uncomment for testing
-include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
-ifeval::["{show-deprecation}" == "true"]
-:has_deprecation_tab_2: true
-endif::[]
-
-ifndef::no_third_tab[]
-// deprecation test tab 3, uncomment for testing
-include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
-ifeval::["{show-deprecation}" == "true"]
-:has_deprecation_tab_3: true
-endif::[]
-endif::no_third_tab[]
-endif::no_second_tab[]
-
-////
-if one tab deprecation is set to true, set it generally. ifdef with comma uses or (with + uses and).
-this will show the deprecation table in *all* tabs if one is true, independent if that tab has one or not.
-this is because attributes are only evaluated OUTSIDE a tab definition.
-////
-
-ifdef::has_deprecation_tab_1,has_deprecation_tab_2,has_deprecation_tab_3[]
-:show-deprecation: true
-endif::[]
-
 endif::no_deprecation[]
 
-// conditionally render the variable entry text, either with or without section header
+// conditionally render the envvar entry text, either with or without section header
 
+// text version 1
 ifndef::no_yaml[]
-
 === Environment Variables
 
-The `{service_name}` service is configured via the following environment variables:
+The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 endif::no_yaml[]
 
+// text version 2
 ifdef::no_yaml[]
-The `{service_name}` variables are defined in the following way:
+The `{service_name}` variables are defined in the following way. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 endif::no_yaml[]
 
-// create the tabs. note that if no_second_tab is set, the third tab is also not shown
+// create the tabs in any case
 
 [tabs]
 ====
@@ -87,28 +62,14 @@ endif::no_yaml[]
 --
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
 --
-ifndef::no_second_tab[]
-{service_tab_2_tab_text}::
-+
---
-include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
---
-ifndef::no_third_tab[]
-{service_tab_3_tab_text}::
-+
---
-include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
---
-endif::no_third_tab[]
-endif::no_second_tab[]
 ====
 
 ifndef::no_yaml[]
-
 === YAML Example
 
-Note that the filename shown below has been chosen on purpose. +
-See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+* Note that the filename shown below has been chosen on purpose.
+* See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+* See the xref:deployment/services/env-var-note.adoc[Notes for Environment Variables] if you want to use environment variables in the yaml file.
 
 [tabs]
 ====
@@ -120,26 +81,5 @@ See the xref:deployment/general/general-info.adoc#configuration-file-naming[Conf
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{service_name}-config-example.yaml[]
 ----
 --
-ifndef::no_second_tab[]
-{service_tab_2_tab_text}::
-+
---
-[source,yaml]
-----
-include::{ocis-services-raw-url}{service_tab_2}{ocis-services-final-path}{service_name}-config-example.yaml[]
-----
---
-ifndef::no_third_tab[]
-{service_tab_3_tab_text}::
-+
---
-[source,yaml]
-----
-include::{ocis-services-raw-url}{service_tab_3}{ocis-services-final-path}{service_name}-config-example.yaml[]
-----
---
-endif::no_third_tab[]
-endif::no_second_tab[]
 ====
-
 endif::no_yaml[]

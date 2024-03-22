@@ -1,1 +1,10 @@
-NOTE: If you want to reuse an already configured _minimized_ setup for any other address than `\https://localhost`, you *must* use a reverse proxy. When Infinite Scale is accessed, it forwards requests to the embedded xref:{s-path}/idp.adoc[IDP service] which requires a secure connection. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] for more details on using a reverse proxy setup.
+[NOTE]
+====
+If you want to reuse an already configured _minimized_ setup for any other address than `\https://localhost` :
+
+* When accessing the server using the hostname or IP:
+** You *must* start Infinite Scale using the environment variable `OCIS_URL=<hostname or IP>`. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI].
+
+* When accessing the server using a dedicated domain name:
+** You *must* use a reverse proxy. When Infinite Scale is accessed, it forwards requests to the embedded xref:{s-path}/idp.adoc[IDP service] which requires a secure connection and a domain name that matches the reverse proxy settings. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] for more details on using a reverse proxy setup.
+====

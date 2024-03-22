@@ -1,11 +1,8 @@
 = SSE (Server-Sent Events) Configuration
 :toc: right
+:description: The Infinite Scale sse service is responsible for sending sse (server-sent events) to a user.
 
 :service_name: sse
-:no_second_tab: true
-//:no_third_tab: true
-
-:description: The Infinite Scale sse service is responsible for sending sse (server-sent events) to a user.
 
 == Introduction
 
@@ -20,6 +17,10 @@ include::partial$deployment/services/log-service-ecosystem.adoc[]
 == Subscribing
 
 Clients can subscribe to the `/sse` endpoint to be informed by the server when an event happens. The `sse` endpoint will respect language changes of the user without needing to reconnect. Note that sse has a limitation of six open connections per browser which can be reached if one has opened various tabs of the Web UI pointing to the same Infinite Scale instance.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

@@ -32,13 +32,11 @@ The settings service supports two different backends for persisting the data. Th
 
 == Caching
 
+:is_cache: true
+
 When using `SETTINGS_STORE_TYPE=metadata`, the `settings` service caches the results of queries against the storage backend to provide faster responses. The content of this cache is independent of the cache used in the `storage-system` service as it caches directory listing and settings content stored in files.
 
-The store used for the cache can be configured using the `SETTINGS_CACHE_STORE` environment variable. Possible stores are:
-
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `SETTINGS_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Settings Management
 
@@ -54,7 +52,7 @@ The settings service needs to know the IDs of service accounts but it doesn't ne
 
 == Default Language
 
-Starting with Infinite Scale 5.0, the default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited to the list of supported languages. This setting can be used to set the default language for notification and invitation emails.
+The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited to the list of supported languages. This setting can be used to set the default language for notification and invitation emails.
 
 The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` services and the WebUI. Note that translations must exist for all named components to be presented correctly.
 
