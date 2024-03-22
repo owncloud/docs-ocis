@@ -20,7 +20,7 @@ This description gives a brief overview and can be used as basic template runnin
 
 [IMPORTANT]
 ====
-This binary setup description makes the following assumtions:
+This binary setup description makes the following assumptions:
 
 * Server Access:
 ** If you only want to acccess the server running Infinite Scale from the server itself, you can use <localhost> as URL and no further configuration is neccesary.
@@ -143,7 +143,7 @@ When you have configured and started the Infinite Scale _runtime_ either xref:st
 
 include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
-The example commands shown below have no environment variables or command line options for ease of reading, add them according your requirements::
+The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements::
 +
 --
 To start the Infinite Scale runtime type:
@@ -225,7 +225,7 @@ sudo kill -15 221706
 
 == Setting up systemd for Infinite Scale
 
-Note that the procedure assumes that a fresh setup from scratch is made. In case not, you must relocate and adapt an existing config file.  
+Note that the procedure assumes that a fresh setup from scratch is made. If not, you must relocate and adapt an existing config file.  
 
 === Create a Service User
 
