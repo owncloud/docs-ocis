@@ -7,14 +7,15 @@
 
 {description}
 
+Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
 == Local Storage
 
 To decide which filesystem for local storage can be used, see the  xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
 
-We highly recommend, if the instance is planned to be productive, to consider the follwing, for details and where to define changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
+We highly recommend, if the instance is planned to be productive, to consider the follwing. For details and which enironment varsiables necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
 
 * To avoid filling up the filesystem and making the system unresponsive:
 ** Separate via partitions the OS from where Infinite Scale metadata and blobs will be stored.
-* If you expect a high data volume that can lead to a high volume of search and/or thumbnails space requirements - which would be stored without manual configuration in the default location set in `OCIS_BASE_DATA_PATH`:
-** Consider either using an own partition or if you have already planned a separate partition for blobs and matadata, reuse that one. In such a case, folders for each area can be created in the target partition and permanently mounted using the `--bind` option on the OS.  
+* If you expect a high data volume that can lead to a high volume of search and/or thumbnails space requirements - which would be stored without manual configuration in a default location using `OCIS_BASE_DATA_PATH` as base path:
+** Consider either using an own partition or, if you have already planned a separate partition for blobs and matadata, you can reuse that one. In the latter case, folders for each area including metadata and blobs can be created in the target partition and permanently mounted using the `--bind` option in the OS.
