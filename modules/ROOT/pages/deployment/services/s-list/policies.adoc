@@ -107,7 +107,7 @@ data.<package-name>.<complete-rule-variable-name>
 
 === Proxy
 
-Note that this setting has to be part of the proxy configuration.
+Note that this setting has to be part of the xref:{s-path}/proxy.adoc[proxy] configuration.
 
 [source,yaml]
 ----
