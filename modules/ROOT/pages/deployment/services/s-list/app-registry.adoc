@@ -22,31 +22,25 @@ Administrators can set default applications for each MIME type and also allow th
 
 === MIME Type Configuration
 
-In order to modify the MIME type config, you need to set `STORAGE_APP_REGISTRY_MIMETYPES_JSON` environment variable to a valid JSON file with content like this:
+Modifing the MIME type config can only be achieved via a yaml configuration. Using environment variables is not possible. For an example, see the `ocis_wopi/config/ocis/app-registry.yaml` at xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[docker-compose example]. The following is a brief structure and a field description:
 
-[source.json]
+Structure::
++
+--
+[source,yaml]
 ----
-[
-  {
-    "mime_type": "application/vnd.oasis.opendocument.text",
-    "extension": "odt",
-    "name": "OpenDocument",
-    "description": "OpenDocument text document",
-    "icon": "https://some-website.test/opendocument-text-icon.png",
-    "default_app": "Collabora",
-    "allow_creation": true
-  },
-  {
-    "mime_type": "application/vnd.oasis.opendocument.spreadsheet",
-    "extension": "ods",
-    "name": "OpenSpreadsheet",
-    "description": "OpenDocument spreadsheet document",
-    "icon": "",
-    "default_app": "Collabora",
-    "allow_creation": false
-  }
-]
+app_registry:
+  mimetypes:
+  - mime_type: application/vnd.oasis.opendocument.spreadsheet
+    extension: ods
+    name: OpenSpreadsheet
+    description: OpenDocument spreadsheet document
+    icon: https://some-website.test/opendocument-spreadsheet-icon.png
+    default_app: Collabora
+    allow_creation: true
+  - mime_type: ...
 ----
+--
 
 Fields::
 +
@@ -73,7 +67,9 @@ App drivers represent apps if the app is not able to register itself. Currently 
 
 === CS3org WOPI Server App Driver
 
-The CS3org WOPI server app driver is included in Infinite Scale by default. It needs at least one WOPI-compliant app like Collabora, OnlyOffice or the Microsoft Online Server or a CS3org WOPI bridge supported app like CodiMD or Etherpad and the CS3org WOPI server.
+The CS3org WOPI server app driver is included in Infinite Scale by default. It needs at least one WOPI-compliant app like Collabora, OnlyOffice or the Microsoft Online Server or a CS3org WOPI bridge supported app like CodiMD or Etherpad and the https://github.com/cs3org/wopiserver[CS3org WOPI server].
+
+=== App Provider Configuration
 
 The configuration of the actual app provider in a xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[docker-compose example] can be found in the full `ocis-wopi` example directory especially in the config sections `ocis-appprovider-collabora` and `ocis-appprovider-onlyoffice`.
 
