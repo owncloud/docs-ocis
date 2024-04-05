@@ -123,7 +123,7 @@ Special configuration settings can be the following:
 There are certain situations where multiple settings using the same keys apply for a configuration set. This can be like in the xref:{s-path}/app-registry.adoc[app-registry] service where default apps for mimetypes are defined. A single environment variable cannot hold all that information. For this case, a yaml configuration is the only way possible. Note that both installation methods, binary and container, can deal with yaml configuration files.
 
 .Using OS environment variables in yaml files
-OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows a default setting to be defined, but use different values for different use cases.
+OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases.
 
 {empty}
 
