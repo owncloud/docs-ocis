@@ -81,10 +81,14 @@ To configure services, see the xref:deployment/services/services.adoc[Services] 
 NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
 * Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
-+
-.. Environment variables
-.. Services configuration file
-.. Infinite Scale configuration file
+
+** Infinite Scale environment variables.
+** Services configuration files. +
+like xref:{s-path}/app-registry.adoc[app-registry.yaml] or xref:{s-path}/proxy.adoc[proxy.yaml]
+** Infinite Scale configuration file. +
+xref:deployment/general/ocis-init.adoc[ocis.yaml]
+
+Configurations must be located in the xref:default-paths[OCIS_CONFIG_DIR] path.
 
 === Configuration File Naming
 
@@ -101,12 +105,39 @@ ocis.yaml
 
 When using `ocis.yaml` and you configure a service, the topic for the service configuration must be the service name.
 
-You can list the possible services names by typing:
+You can list the available services names by typing:
 
 [source,bash]
 ----
 ocis list
 ----
+
+=== Special Configuration Settings
+
+Special configuration settings can be the following:
+
+* Configurations that can only be made with yaml but not with environment variables.
+* yaml configurations that use an OS environment variable for the value.
+
+.yaml only settings
+There are certain situations where multiple settings using the same keys apply for a configuration set. This can be like in the xref:{s-path}/app-registry.adoc[app-registry] service where default apps for mimetypes are defined. A single environment variable cannot hold all that information. For this case, a yaml configuration is the only way possible. Note that both installation methods, binary and container, can deal with yaml configuration files.
+
+.Using OS environment variables in yaml files
+OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases.
+
+{empty}
+
+.Example:
+--
+[source,yaml]
+----
+web:
+  http:
+    addr: ${SOME_HTTP_ADDR}
+----
+
+In the example above, the value of the OS enironment variable `SOME_HTTP_ADDR` will be used at runtime for the key `addr`.
+--
 
 == Default Paths
 
