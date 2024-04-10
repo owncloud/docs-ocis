@@ -156,6 +156,10 @@ The `storage-users` service caches stat, metadata and uuids of files and folders
 
 include::partial$multi-location/caching-list.adoc[]
 
+== Resource Optimisation
+
+See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` enironment variable.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
