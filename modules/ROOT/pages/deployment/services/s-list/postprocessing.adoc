@@ -63,16 +63,23 @@ The backoff behavior as mentioned in the `retry` outcome can be configured using
 
 === Resume Post-Processing
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a CLI command to retry the failed upload which is a two step process:
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run CLI commands to retry the failed upload which is a two step process. For details on the `storage-users` command see the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] documentation.
 
-* First, find the upload ID of the failed upload.
+* First list ongoing upload sessions:
 +
 [source,bash]
 ----
-ocis storage-users uploads list
+ocis storage-users uploads sessions
 ----
 
-* Then use the restart command to resume post-processing of the ID selected.
+* If you want to restart *all* uploads, just rerun the command with the `--restart` flag:
++
+[source,bash]
+----
+ocis storage-users uploads sessions --restart
+----
+
+* If you want to restart *only one* upload, use the postprocessing restart command with the ID selected:
 +
 [source,bash]
 ----
