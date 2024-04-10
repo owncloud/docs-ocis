@@ -158,7 +158,7 @@ include::partial$multi-location/caching-list.adoc[]
 
 == Resource Optimisation
 
-See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` enironment variable.
+See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` environment variable.
 
 == Configuration
 
