@@ -112,7 +112,7 @@ S3 to store blobs is typically used by large enterprises and hosters, though it 
 
 * S3 for blobs
 
-As you can see in the table below, the layout distributes data over different storages and mounts based on their use case. This is by nature to enable scaling the system according the needs of large enterprises.
+With S3, data will be distributed over different storages and mounts based on their use case. With such a setup, the system can scale according the needs of large enterprises.
 
 {empty} +
 
@@ -151,7 +151,7 @@ Depending on the storage connected and the servers capabilities, Infinite Scale 
 
 `STORAGE_USERS_OCIS_MAX_CONCURRENCY`
 
-The value to consider is based on how much CPU's and memory the server has the instance of the xref:{s-path}/storage-users.adoc[storage-users] service is running on, which kind of storage, POSIX or S3 is used for blobs and what you want to achieve.
+The value to consider and only as a rule of thumb is based on how much CPU's and memory the server has the instance of the xref:{s-path}/storage-users.adoc[storage-users] service is running on, which kind of storage, POSIX or S3 is used for blobs and what you want to achieve.
 
 === Background
 
