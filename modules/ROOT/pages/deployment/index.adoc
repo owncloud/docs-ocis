@@ -14,6 +14,6 @@
 
 * For a more complex or enterprise setup, consider reading xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. This document also covers the use of Kubernetes and Helm Charts.
 
-* The next steps will likely be mounting a xref:deployment/nfs/nfs.adoc[Network File System] and managing xref:deployment/services/services.adoc[Services].
+* The next steps will likely be mounting a xref:deployment/storage/nfs.adoc[Network File System] and managing xref:deployment/services/services.adoc[Services].
 
 * xref:deployment/security/security.adoc[Securing Infinite Scale] should be a primary concern after you've set up your server.

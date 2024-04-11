@@ -1,0 +1,173 @@
+= General Storage Considerations and Settings
+:toc: right
+:toclevels: 2
+:description: Infinite Scale can connect to several types of storages. This document gives some general information, considerations and recommendations with regards to supported storages.
+
+== Introduction
+
+{description}
+
+Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
+
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note that the way that Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
+
+{empty} +
+
+[role=center,width=100%,cols="25%,45%,45%",options="header"]
+|===
+| Size
+| Case
+| Storage Type
+
+| Small or testing
+| Home
+| Local Storage
+
+| Medium
+| Small and midmarket enterprises
+| NFS
+
+| Large
+| Large enterprises and hosters
+| S3 for blobs +
+NFS for metadata and other data
+|===
+
+[NOTE]
+====
+* This page intends to give an overview and does not go into configuration details.
+* The levels of space requirement described below give an indication of what to expect, but never a number.
+====
+
+== Write Consistency
+
+Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. In any case, a file ID based on UUIDv4 is created to guarantee the uniqueness of file names. Proper file locking is implemented for writing metadata.
+
+== Local Storage
+
+Using local storage is a good choice if you want to test or plan to have a small productive instance. Drawbacks are less scalability and failover, because of one monolithic block of storage. Note that at any time you can switch selected mount points to NFS which is described in the next section.
+
+To decide which filesystems can be used for local storage, see xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
+
+We highly recommend, if the instance is planned to be used in production, to consider the follwing topics. For details and which environment variables are necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
+
+* To avoid filling up the filesystem and making the system unresponsive:
+** Use partitions to separate the OS from where Infinite Scale metadata and blobs will be stored.
+
+* If you expect a data volume that can lead to a high demand for *search* and/or *thumbnail* space - which would be stored by default in a subfolder using the `OCIS_BASE_DATA_PATH` as base path.
+** The data path for services mentioned in xref:deployment/general/general-info.adoc#base-data-directory[Services That Can Deviate from the Base Data Path] can be individually configured. Using an additional partition/mount point is a possible way to achieve this.
+
+The following table describes where data should be stored when using Infinite Scale in production:
+
+{empty} +
+
+[role=center,width=70%,cols="40%,45%,60%",options="header"]
+|===
+| Environment Variable
+| Target
+| Space requirement
+
+| `OCIS_CONFIG_DIR`
+| Default (local)
+| Very low
+
+| `OCIS_BASE_DATA_PATH`
+| Partition
+| Medium
+|===
+
+== NFS
+
+Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. The same rules apply as described in the xref:local-storage[Local Storage] section, but instead of using partitions you use NFS mount points. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
+
+{empty} +
+
+[role=center,width=70%,cols="40%,35%,80%",options="header"]
+|===
+| Environment Variable
+| Target
+| Space requirement
+
+| `OCIS_CONFIG_DIR`
+| NFS_1
+| Very low
+
+| `OCIS_BASE_DATA_PATH`
+| NFS_2
+| High
+
+| Search and Thumbnails
+| NFS_3
+| Medium, to be monitored
+|===
+
+== S3
+
+S3 to store blobs is typically used by large enterprises and hosters, though it can fit for medium enterprises too. Data distribution and separation is a bit different compared to a pure POSIX backend. For details on S3 see the xref:deployment/storage/s3.adoc[S3] documentation. Also see the xref:deployment/general/general-info.adoc#using-s3-for-blobs[Using S3 for Blobs] description:
+
+* POSIX storage, usually NFS.
+** Metadata
+** Data for search and/or thumbnails
+** Other data
+
+* S3 for blobs
+
+With S3, data will be distributed over different storages and mounts based on their use case. With such a setup, the system can scale according to the needs of large enterprises.
+
+{empty} +
+
+[role=center,width=90%,cols="40%,45%,80%",options="header"]
+|===
+| Environment Variable
+| Target
+| Space requirement
+
+| `OCIS_CONFIG_DIR`
+| NFS_1
+| Very low
+
+| `OCIS_BASE_DATA_PATH`
+| NFS_2
+| Medium, to be monitored +
+Alternatively low if NFS_4
+
+| Search and Thumbnails
+| NFS_3
+| Medium, to be monitored
+
+| `STORAGE_USERS_S3NG_ROOT`
+| `OCIS_BASE_DATA_PATH` +
+Alternatively NFS_4
+| Medium, to be monitored
+
+| S3 specific settings
+| S3
+| High
+|===
+
+== Resource Optimisation
+
+Depending on the storage connected and the servers capabilities, Infinite Scale can be optimized using the servers resources. The relevant environment variable to configure this is:
+
+`STORAGE_USERS_OCIS_MAX_CONCURRENCY`
+
+The value to consider and only as a rule of thumb is based on how much CPU's and memory the server has the instance of the xref:{s-path}/storage-users.adoc[storage-users] service is running on, which kind of storage, POSIX or S3 is used for blobs and what you want to achieve.
+
+=== Background
+
+In a nutshell, the value for `STORAGE_USERS_OCIS_MAX_CONCURRENCY` defines how many workers are assigned to storage related tasks. Any worker not only serves its job, but also consumes CPU and memory resources which needs to balance out. On the other hand side, when it comes to the connected storage, workers serving S3 will be more in response waiting time compared to POSIX connections. As workers which are in waiting state do consume less resources, the value can be considered to allow overcommitting CPU resources.
+
+=== Value Considerations
+
+As a rule of thumb and if using POSIX storage only:
+
+* Performance without worrying about memory +
+`runtime.NumCPU() * 2`
+* Performance +
+`runtime.NumCPU()`
+* Limited memory available +
+ A value of 4 or lower, assuming 4 is still lower than the number of CPU available
+
+If S3 is used storing blobs, the resulting value can be increased.
+
+NOTE: It is essential to monitor your instance with respect to CPU, memory, network latency and the load pattern created by users. Only this can give you a final view on adapting the value.
