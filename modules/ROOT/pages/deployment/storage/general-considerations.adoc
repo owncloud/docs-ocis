@@ -159,7 +159,7 @@ In a nutshell, the value for `STORAGE_USERS_OCIS_MAX_CONCURRENCY` defines how ma
 
 === Value Considerations
 
-The following considerations are based on using POSIX storage only
+As a rule of thumb and if using POSIX storage only:
 
 * Performance without worrying about memory +
 `runtime.NumCPU() * 2`
