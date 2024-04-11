@@ -9,7 +9,7 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note that the way how Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note that the way that Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
 
 {empty} +
 
@@ -36,26 +36,26 @@ NFS for metadata and other data
 [NOTE]
 ====
 * This page intends to give an overview and does not go into configuration details.
-* Any level of space requirement described below shall give an direction what to expect, but never a number.
+* The levels of space requirement described below give an indication of what to expect, but never a number.
 ====
 
 == Write Consistency
 
-Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. In any case, a file ID based on UUIDv4 is created to guarantee the uniqueness of files names. A proper file locking is implemented for writing metadata.
+Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. In any case, a file ID based on UUIDv4 is created to guarantee the uniqueness of file names. Proper file locking is implemented for writing metadata.
 
 == Local Storage
 
-Using local storage is a good choice if you want to test or plan to have a small productive instance. As drawback, scalability and failover is because of one monolithic block not given. Note that you can at anytime switch selected mount points defined to NFS which is described in the next section.
+Using local storage is a good choice if you want to test or plan to have a small productive instance. Drawbacks are less scalability and failover, because of one monolithic block of storage. Note that at any time you can switch selected mount points to NFS which is described in the next section.
 
-To decide which filesystem for local storage can be used, see the  xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
+To decide which filesystems can be used for local storage, see xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
 
-We highly recommend, if the instance is planned to be used in production, to consider the follwing topics. For details and which environment variables necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
+We highly recommend, if the instance is planned to be used in production, to consider the follwing topics. For details and which environment variables are necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
 
 * To avoid filling up the filesystem and making the system unresponsive:
-** Separate via partitions the OS from where Infinite Scale metadata and blobs will be stored.
+** Use partitions to separate the OS from where Infinite Scale metadata and blobs will be stored.
 
-* If you expect a data volume that can lead to a high demand in *search* and/or *thumbnail* space requirements - which would be stored without manual configuration in a subfolder using the `OCIS_BASE_DATA_PATH` as base path.
-** Though not required, the data path for services mentioned in xref:deployment/general/general-info.adoc#base-data-directory[Services That Can Deviate from the Base Data Path] can be deviated and individually configured. Using an additional partition/moint point is a possible way to achieve this.
+* If you expect a data volume that can lead to a high demand for *search* and/or *thumbnail* space - which would be stored by default in a subfolder using the `OCIS_BASE_DATA_PATH` as base path.
+** The data path for services mentioned in xref:deployment/general/general-info.adoc#base-data-directory[Services That Can Deviate from the Base Data Path] can be individually configured. Using an additional partition/mount point is a possible way to achieve this.
 
 The following table describes where data should be stored when using Infinite Scale in production:
 
@@ -63,7 +63,7 @@ The following table describes where data should be stored when using Infinite Sc
 
 [role=center,width=70%,cols="40%,45%,60%",options="header"]
 |===
-| Envorinment Variable
+| Environment Variable
 | Target
 | Space requirement
 
@@ -78,13 +78,13 @@ The following table describes where data should be stored when using Infinite Sc
 
 == NFS
 
-Using NFS is benefical because the instance components are separated from the storage and can scale therefore independently. Such a setup is used when you plan a production environment with many users. As the same rules apply described in the topics of xref:local-storage[Local Storage], you mount instead using partitions NFS mount points. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
+Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. The same rules apply as described in the xref:local-storage[Local Storage] section, but instead of using partitions you use NFS mount points. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
 
 {empty} +
 
 [role=center,width=70%,cols="40%,35%,80%",options="header"]
 |===
-| Envorinment Variable
+| Environment Variable
 | Target
 | Space requirement
 
@@ -96,7 +96,7 @@ Using NFS is benefical because the instance components are separated from the st
 | NFS_2
 | High
 
-| Seach and Thumbnails
+| Search and Thumbnails
 | NFS_3
 | Medium, to be monitored
 |===
@@ -112,13 +112,13 @@ S3 to store blobs is typically used by large enterprises and hosters, though it 
 
 * S3 for blobs
 
-With S3, data will be distributed over different storages and mounts based on their use case. With such a setup, the system can scale according the needs of large enterprises.
+With S3, data will be distributed over different storages and mounts based on their use case. With such a setup, the system can scale according to the needs of large enterprises.
 
 {empty} +
 
 [role=center,width=90%,cols="40%,45%,80%",options="header"]
 |===
-| Envorinment Variable
+| Environment Variable
 | Target
 | Space requirement
 
@@ -131,7 +131,7 @@ With S3, data will be distributed over different storages and mounts based on th
 | Medium, to be monitored +
 Alternatively low if NFS_4
 
-| Seach and Thumbnails
+| Search and Thumbnails
 | NFS_3
 | Medium, to be monitored
 
@@ -170,4 +170,4 @@ As a rule of thumb and if using POSIX storage only:
 
 If S3 is used storing blobs, the resulting value can be increased.
 
-NOTE: It is essential to monitor you instance with respect to CPU, memory, network latency and the load pattern created by users. Only this can give you a final view on adapting the value.
+NOTE: It is essential to monitor your instance with respect to CPU, memory, network latency and the load pattern created by users. Only this can give you a final view on adapting the value.
