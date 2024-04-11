@@ -58,7 +58,8 @@ When using Infinite Scale as user storage, a directory named `storage/users/uplo
 
 Example cases for expired uploads::
 * When a user uploads a big file but the file exceeds the user-quota, the upload can't be moved to the target after it has finished. The file stays at the upload location until it is manually cleared.
-* If the bandwith is limited and the file to transfer can't be transferred completely before the upload expiration time is reached, the file expires and can't be processed. 
+* If the bandwith is limited and the file to transfer can't be transferred completely before the upload expiration time is reached, the file expires and can't be processed.
+* If the upload was technically successful, but the postprocessing step failed due to an internal error, it will not get further processed. See the procedure in the xref:{s-path}/postprocessing.adoc#resume-post-processing[Resume Post-Processing] documentation for details how to solve this.
 
 There are two commands available to manage unfinished uploads::
 [source,bash]
