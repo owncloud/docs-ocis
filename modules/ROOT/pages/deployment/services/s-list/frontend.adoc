@@ -38,17 +38,17 @@ The datagateway endpoint, by default `/data`, forwards file up- and download req
 
 The ocs endpoint, by default `/ocs`, implements the ownCloud 10 Open Collaboration Services API by translating it into CS3 API requests. It can handle users, groups, capabilities and also implements the file sharing functionality on top of CS3. The `/ocs/v[12].php/cloud/user/signing-key` is currently handled by the dedicated xref:{s-path}/ocs.adoc[ocs] service.
 
-With the upcoming Infinite Scale release after 4.0.1, an ocs event handler and a new functionality for auto-accepting shares will be added, see the sections below.  
-
 ==== Event Handler
 
-The `frontend` service contains an eventhandler for handling `ocs` related events. As of now, it only listens to the `ShareCreated` event.
+The `frontend` service contains an eventhandler for handling `ocs` related events. For details see the https://owncloud.dev[developer documentation].
 
-==== Auto-Accept Shares
+== Auto-Accept Shares
 
 When setting the `FRONTEND_AUTO_ACCEPT_SHARES` to `true`, all incoming shares will be accepted automatically. Users can overwrite this setting individually in their profile.
 
-== The Password Policy
+== Passwords
+
+=== The Password Policy
 
 Note that the password policy currently impacts only *public link password validation*.
 
@@ -79,6 +79,20 @@ Define the minimum number of special characters.
 Path to the 'banned passwords list' file.
 
 NOTE: A password can have a *maximum length* of **72 bytes**. Depending on the alphabet used, a character is encoded by 1 to 4 bytes, defining the maximum length of a password indirectly. While US-ASCII will only need one byte, Latin alphabets and also Greek or Cyrillic ones need two bytes. Three bytes are needed for characters in Chinese, Japanese and Korean etc.
+
+=== Password Enforcement for all Public Links
+
+For public accessible shares, independent if read only or writable, a password is enforced. To change this requirement, set the following environment variable to `false`:
+
+`OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD`
+
+=== Password Enforcement for Writeable Public Links
+
+For public accessible writable shares, a password can be enforced. To change the current setting, set the following environment variable to `true`:
+
+`OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD`
+
+NOTE: Changing this environment variable only makes sense if the `OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD` environment variable is set to `false`.
 
 === Sharing
 
