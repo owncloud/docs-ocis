@@ -12,15 +12,24 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Upgrade Steps
 
+////
+'compose_tab_1_tab_text' from the version (branch) can be 'master'. in this case we must use the site.yml's 'ocis-actual-version' to point to a number and not master. this is necessary to dynamically have a version number used and never master as this does not work with docker! we also cant use 'latest' as we have to stick to the referenced stable version.
+////
+
+:compose_version: {compose_tab_1_tab_text}
+ifeval::["{compose_tab_1_tab_text}" == "master"]
+:compose_version: {ocis-actual-version}
+endif::[]
+
 . Shut down the Infinite Scale instance.
 . Update Infinite Scale via:
 +
 --
 * Docker
 +
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-docker pull owncloud/ocis:5.0.0
+docker pull owncloud/ocis:{compose_version}
 ----
 
 * or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
