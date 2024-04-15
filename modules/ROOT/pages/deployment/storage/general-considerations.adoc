@@ -9,7 +9,7 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note that the way that Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way how Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
 
 {empty} +
 
@@ -43,19 +43,35 @@ NFS for metadata and other data
 
 Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. In any case, a file ID based on UUIDv4 is created to guarantee the uniqueness of file names. Proper file locking is implemented for writing metadata.
 
+== Important Data Distribution Notes
+
+Read the following note carefully, especially if all your data is stored on POSIX only:
+
+[IMPORTANT]
+====
+Consider using a separate partition or an external filesystem like NFS for the base data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
+
+* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
+* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the base data path and moved when finished to the target space if the target space quota is not exceeded.
+* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
+* Index and thumbnail data stored for the xref:{s-path}/search.adoc[search service] and the xref:{s-path}/thumbnails.adoc[thumbnails service] is located on the same base data path and filled up the filesystem. 
+====
+
+We highly recommend the follwing topics for production instances. For details and which environment variables are necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
+
+* To avoid filling up the filesystem the OS is running on making the system unresponsive, separate the OS from where Infinite Scale data will be stored by:
+** Use independent partitions for data and the OS.
+** Use NFS for the data.
+** Use S3 for blobs.
+
+* If you expect a data volume that can lead to a high demand for *search* and/or *thumbnail* space - which would be stored by default in a subfolder using the `OCIS_BASE_DATA_PATH` as base path:
+** The data path for services mentioned in xref:deployment/general/general-info.adoc#base-data-directory[Services That Can Deviate from the Base Data Path] can be individually configured. Using additional partitions/mount points are a possible way to achieve this.
+
 == Local Storage
 
-Using local storage is a good choice if you want to test or plan to have a small productive instance. Drawbacks are less scalability and failover, because of one monolithic block of storage. Note that at any time you can switch selected mount points to NFS which is described in the next section.
+Using local storage is a good choice if you want to test or plan to have a small productive instance. Drawbacks are less scalability and failover, because of one monolithic block. Note that at any time you can switch selected mount points to NFS which is described in the next section.
 
 To decide which filesystems can be used for local storage, see xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
-
-We highly recommend, if the instance is planned to be used in production, to consider the follwing topics. For details and which environment variables are necessary for the changes see the xref:deployment/general/general-info.adoc#default-paths[Default Paths] documentation:
-
-* To avoid filling up the filesystem and making the system unresponsive:
-** Use partitions to separate the OS from where Infinite Scale metadata and blobs will be stored.
-
-* If you expect a data volume that can lead to a high demand for *search* and/or *thumbnail* space - which would be stored by default in a subfolder using the `OCIS_BASE_DATA_PATH` as base path.
-** The data path for services mentioned in xref:deployment/general/general-info.adoc#base-data-directory[Services That Can Deviate from the Base Data Path] can be individually configured. Using an additional partition/mount point is a possible way to achieve this.
 
 The following table describes where data should be stored when using Infinite Scale in production:
 
@@ -78,7 +94,7 @@ The following table describes where data should be stored when using Infinite Sc
 
 == NFS
 
-Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. The same rules apply as described in the xref:local-storage[Local Storage] section, but instead of using partitions you use NFS mount points. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
+Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
 
 {empty} +
 
@@ -103,7 +119,7 @@ Using NFS is beneficial because the instance components are separated from the s
 
 == S3
 
-S3 to store blobs is typically used by large enterprises and hosters, though it can fit for medium enterprises too. Data distribution and separation is a bit different compared to a pure POSIX backend. For details on S3 see the xref:deployment/storage/s3.adoc[S3] documentation. Also see the xref:deployment/general/general-info.adoc#using-s3-for-blobs[Using S3 for Blobs] description:
+S3 to store blobs is typically used by large enterprises and hosters, though it can fit for medium enterprises too. Data distribution and separation is a bit different compared to a pure POSIX backend. For details on S3 including configuration notes see the xref:deployment/storage/s3.adoc[S3] documentation:
 
 * POSIX storage, usually NFS.
 ** Metadata
@@ -145,7 +161,7 @@ Alternatively NFS_4
 | High
 |===
 
-== Resource Optimisation
+== Server Resource Optimisation
 
 Depending on the storage connected and the servers capabilities, Infinite Scale can be optimized using the servers resources. The relevant environment variable to configure this is:
 
