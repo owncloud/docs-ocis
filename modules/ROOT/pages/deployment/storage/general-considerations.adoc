@@ -98,7 +98,7 @@ Using NFS is beneficial because the instance components are separated from the s
 
 {empty} +
 
-[role=center,width=70%,cols="40%,35%,80%",options="header"]
+[role=center,width=90%,cols="40%,45%,80%",options="header"]
 |===
 | Environment Variable
 | Target
@@ -110,11 +110,17 @@ Using NFS is beneficial because the instance components are separated from the s
 
 | `OCIS_BASE_DATA_PATH`
 | NFS_2
-| High
+| High, to be monitored +
+Alternatively medium if NFS_4
 
 | Search and Thumbnails
 | NFS_3
 | Medium, to be monitored
+
+| `STORAGE_USERS_OCIS_ROOT`
+| `OCIS_BASE_DATA_PATH` +
+Alternatively NFS_4
+| High, to be monitored
 |===
 
 == S3
