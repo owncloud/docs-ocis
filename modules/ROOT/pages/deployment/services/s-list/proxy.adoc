@@ -8,6 +8,8 @@
 
 {description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front like with an external reverse proxy.
 
+See the https://owncloud.dev/services/proxy/[Developer Documentation] for details if you want to write your own extensions and need to change or add routes to endpoints.
+
 == Default Values
 
 * The proxy listens on port 9200 by default.
