@@ -3,6 +3,8 @@
 :toclevels: 2
 :description: Infinite Scale can store blobs on S3 storage. This document gives some general information and considerations for the use of S3.
 
+:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
+
 == Introduction
 
 {description} See the xref:deployment/storage/general-considerations.adoc#s3[General Storage Considerations] in the S3 section for which data is stored where.
@@ -41,11 +43,73 @@ There is no way to guarantee consistency correctness because object operations a
 Writes or any mutations to a file do not appear in the namespace until it is committed. Concurrent access across shared buckets will not see any modifications. Shared access is therefore not the focus of S3.
 
 * *Access Control:* +
-The way S3 APIs handle identity and access management policies is incompatible with POSIX.
+The way S3 APIs handle identity and access management (IAM) policies is incompatible with POSIX.
 
 == Configuration
 
-To configure Infinite Scale for use with S3, read the
+Basically, two configurations need to be made.
 
-* xref:deployment/general/general-info.adoc#using-s3-for-blobs[Using S3 for Blobs] documenation and the
-* xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] in particular `ocis_s3`.
+* The xref:{s-path}/storage-users.adoc[Storage-Users] service needs to be configured for the use of POSIX and S3 storage for Infinite Scale. This includes the following environment variables:
++
+[source, yaml]
+----
+# activate s3ng storage driver
+STORAGE_USERS_DRIVER: s3ng
+# Path to metadata stored on POSIX
+STORAGE_USERS_S3NG_ROOT:
+# keep system data on ocis storage
+STORAGE_SYSTEM_DRIVER: ocis
+
+# s3ng specific settings
+STORAGE_USERS_S3NG_ENDPOINT:
+STORAGE_USERS_S3NG_REGION:
+STORAGE_USERS_S3NG_ACCESS_KEY:
+STORAGE_USERS_S3NG_SECRET_KEY:
+STORAGE_USERS_S3NG_BUCKET:
+----
+
+* A xref:s3-bucket-policy[S3 Bucket Policy] needs to be created.
+
+Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples]  in particular `ocis_s3` and the xref:deployment/container/orchestration/orchestration.adoc#deploy-the-chart[Deploy the Chart] section in the `Container Orchestration` documentation.
+
+=== S3 Bucket Policy
+
+Bucket policies are an Identity and Access Management (IAM) mechanism for controlling access to resources. They are a critical element in securing your S3 buckets against unauthorized access and attacks.
+
+Bucket policies, which are a collection of statements *defined on S3*, are evaluated one after another in order of appearance, that describe what a requester is allowed to do on a bucket and with each object contained in that bucket. It applies to a requester who has been authenticated to access the bucket in question. For more details see {aws-bucket-policy-url}[AWS: Using bucket policies, window=_blank]. 
+
+The following S3 bucket policies are a *requirement* for Infinite Scale when connecting to an S3 bucket. Replace the bucket name according your environment.
+
+{empty}
+
+[source,yaml]
+----
+# The S3NG driver needs an existing S3 bucket with the following permissions:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket-name"
+            ]
+        },
+        {
+            "Sid": "ActionsInBucketContext",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*Object",
+                "s3:*MultipartUpload",
+                "s3:ListMultipartUploadParts"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket-name/*"
+            ]
+        }
+    ]
+}
+----
