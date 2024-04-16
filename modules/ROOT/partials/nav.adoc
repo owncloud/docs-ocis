@@ -81,6 +81,8 @@
 ** xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs]
 * Migration and Upgrades
 ** xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale]
+* Monitoring
+** xref:monitoring/prometheus.adoc[Prometheus]
 * Configuration Examples
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
