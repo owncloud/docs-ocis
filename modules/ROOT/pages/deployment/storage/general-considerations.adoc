@@ -9,7 +9,7 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way how Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
 
 {empty} +
 
@@ -69,7 +69,7 @@ We highly recommend the follwing topics for production instances. For details an
 
 == Local Storage
 
-Using local storage is a good choice if you want to test or plan to have a small productive instance. Drawbacks are less scalability and failover, because of one monolithic block. Note that at any time you can switch selected mount points to NFS which is described in the next section.
+Using local storage is a good choice if you want to test or plan to have a small production instance. Drawbacks are less scalability and failover, because of one monolithic block. Note that at any time you can switch selected mount points to NFS which is described in the next section.
 
 To decide which filesystems can be used for local storage, see xref:prerequisites/prerequisites.adoc#supported-posix-compliant-filesystems[Supported POSIX-compliant Filesystems].
 
