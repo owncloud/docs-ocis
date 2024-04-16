@@ -84,7 +84,7 @@ The following S3 bucket policies are a *requirement* for Infinite Scale when con
 
 [source,yaml]
 ----
-# The S3NG driver needs an existing S3 bucket with following permissions:
+# The S3NG driver needs an existing S3 bucket with the following permissions:
 {
     "Version": "2012-10-17",
     "Statement": [
