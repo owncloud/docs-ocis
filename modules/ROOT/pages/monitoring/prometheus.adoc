@@ -1,0 +1,71 @@
+= Metrics for Prometheus
+:toc: right
+:description: Infinite Scale exposes metrics in the prometheus format. This document gives more details how to implement and access it.
+
+== Introduction
+
+{description} Also see the https://prometheus.io[Prometheus] documentation for more details.
+
+== Metrics
+
+The Infinite Scale proxy service exposes metrics in the prometheus format. These metrics are exposed on the `/metrics` endpoint. There are two ways to run the ocis proxy service which has an impact on the number of metrics exposed.
+
+Single Process Mode::
+In the single process mode, all Infinite Scale services are running inside a single process. This is the default mode when using the `ocis server` command to start the services. In this mode, the proxy service exposes metrics about the proxy service itself and about the services it is proxying. This is due to the nature of the prometheus registry which is a singleton.
+
+* Metrics exposed by the proxy service itself are prefixed with `ocis_proxy_`.
+* Metrics exposed by other ocis services are prefixed with `ocis_<service-name>_`.
+
+Standalone Mode::
+In this mode, the proxy service only exposes its own metrics. The metrics of the other ocis services are exposed on their own metrics endpoints.
+
+=== Available Metrics
+
+The following metrics are exposed by the xref:{s-path}/proxy.adoc[proxy] service:
+
+{empty}
+
+[role=center,width=100%,cols="35%,80%,55%",options="header"]
+|===
+| Metric Name
+| Description
+| Labels
+
+| `ocis_proxy_requests_total`
+| https://prometheus.io/docs/tutorials/understanding_metric_types/#counter[Counter] metric which reports the total number of HTTP requests.
+| `method`: +
+HTTP method of the request.
+
+| `ocis_proxy_errors_total`
+| https://prometheus.io/docs/tutorials/understanding_metric_types/#counter[Counter] metric which reports the total number of HTTP requests which have failed. That counts all response codes >= 500 
+| `method`: +
+HTTP method of the request.
+
+| `ocis_proxy_duration_seconds`
+| https://prometheus.io/docs/tutorials/understanding_metric_types/#histogram[Histogram] of the time (in seconds) each request took. A histogram metric uses buckets to count the number of events that fall into each bucket.
+| `method`: +
+HTTP method of the request.
+
+| `ocis_proxy_build_info\{version}`
+| A metric with a constant `1` value labeled by version, exposing the version of the ocis proxy service.
+| `version`: +
+Build version of the proxy.
+|===
+
+== Prometheus Configuration
+
+The following is an example prometheus configuration for the single process mode. It assumes that the proxy service is configured to bind on all interfaces `PROXY_HTTP_ADDR=0.0.0.0:9205` and that the proxy is available via the `ocis` service name (typically in docker-compose). The prometheus service detects the `/metrics` endpoint automatically and scrapes it every 15 seconds.
+
+[source,yaml]
+----
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: ocis_proxy
+    static_configs:
+    - targets: ["ocis:9205"]
+----
+
+== Prometheus Example Screen
+
+image::monitoring/prometheus/prometheus_metrics.png[Prometheus example image, width=500]
