@@ -155,6 +155,10 @@ When using the Infinite Scale xref:{s-path}/idp.adoc[IDP service] instead of an 
 -   If no reverse proxy is set up, the `PROXY_TLS` environment variable *must* be set to `true` because the embedded `libreConnect` shipped with the IDP service has a hard check if the connection is on TLS and uses the HTTPS protocol. If this mismatches, an error will be logged and no connection from the client can be established.
 -   `PROXY_TLS` *can* be set to `false` if a reverse proxy is used and the https connection is terminated at the reverse proxy. When setting to `false`, the communication between the reverse proxy and Infinite Scale is not secured. If set to `true`, you must provide certificates.
 
+== Metrics
+
+For details on monitoring see the xref:monitoring/prometheus.adoc[Metrics for Prometheus] documentation.
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[]
