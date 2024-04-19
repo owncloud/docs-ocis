@@ -22,7 +22,7 @@ asciidoc:
     service_tab_1_tab_text: '5.0.2' # latest stable including patch releases
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_tab_1: 'v5.0.1' # latest stable including patch releases like v5.0.0 (note the v !)
+    compose_tab_1: 'v5.0.2' # latest stable including patch releases like v5.0.0 (note the v !)
 
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
     compose_tab_1_tab_text: '5.0.2' # latest stable including patch releases like 5.0.0 (must be without v !)
