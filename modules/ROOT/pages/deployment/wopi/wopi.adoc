@@ -60,7 +60,7 @@ Apart from licensing, when using Microsoft 365, the following procedure applies,
 
 The image below shows the WOPI integration in an overview to get a better understanding of which general components are involved and which basic settings need to be set. It also shows where parts of an URL are defined, how an URL is assembled, and which component is using which part of the URL. Note that only a few configuration options are shown in the image to get the relationships right.
 
-image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
+image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram,width=500]
 
 == WOPI Configuration Examples
 
@@ -75,34 +75,16 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram]
 
 Using git version name: `{compose_tab_1}`
 --
-ifdef::use_tab_2[]
-{compose_tab_2_tab_text}::
-+
---
-{composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_2}`
---
-endif::[]
-ifdef::use_tab_3[]
-{compose_tab_3_tab_text}::
-+
---
-{composer-url}{compose_tab_3}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_3}`
---
-endif::[]
 ====
 +
 --
-Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. Replace the version accordingly:
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, check or update the version accordingly like when there is a new patch release available:
 
 * Using a shallow git clone which minimizes the required clone space like:
 +
 [source,bash,subs="attributes+"]
 ----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1_tab_text}
 ----
 
 // https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
@@ -111,6 +93,6 @@ git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
 +
 [source,plaintext,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}{compose_tab_2}{composer-final-path}{wopi_subdir}
+{download-gh-directory-url}?url={composer-url}{compose_tab_1}{composer-final-path}{wopi_subdir}
 ----
 --

@@ -1,7 +1,6 @@
 = General Information
 :toc: right
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
-:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
 
 == Introduction
 
@@ -81,10 +80,14 @@ To configure services, see the xref:deployment/services/services.adoc[Services] 
 NOTE: Administrators must be aware of the sources, the location and order applied (the _configuration file arithmetics_). Mismanaging them can be a source of confusion leading to undesired results on the final configuration created and applied.
 
 * Infinite Scale uses a hierarchical structure for its configuration, *where each element overwrites its precedent*. These are:
-+
-.. Environment variables
-.. Services configuration file
-.. Infinite Scale configuration file
+
+** Infinite Scale environment variables.
+** Services configuration files. +
+like xref:{s-path}/app-registry.adoc[app-registry.yaml] or xref:{s-path}/proxy.adoc[proxy.yaml]
+** Infinite Scale configuration file. +
+xref:deployment/general/ocis-init.adoc[ocis.yaml]
+
+Configurations must be located in the xref:default-paths[OCIS_CONFIG_DIR] path.
 
 === Configuration File Naming
 
@@ -101,12 +104,39 @@ ocis.yaml
 
 When using `ocis.yaml` and you configure a service, the topic for the service configuration must be the service name.
 
-You can list the possible services names by typing:
+You can list the available services names by typing:
 
 [source,bash]
 ----
 ocis list
 ----
+
+=== Special Configuration Settings
+
+Special configuration settings can be the following:
+
+* Configurations that can only be made with yaml but not with environment variables.
+* yaml configurations that use an OS environment variable for the value.
+
+.yaml only settings
+There are certain situations where multiple settings using the same keys apply for a configuration set. This can be like in the xref:{s-path}/app-registry.adoc[app-registry] service where default apps for mimetypes are defined. A single environment variable cannot hold all that information. For this case, a yaml configuration is the only way possible. Note that both installation methods, binary and container, can deal with yaml configuration files.
+
+.Using OS environment variables in yaml files
+OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases.
+
+{empty}
+
+.Example:
+--
+[source,yaml]
+----
+web:
+  http:
+    addr: ${SOME_HTTP_ADDR}
+----
+
+In the example above, the value of the OS enironment variable `SOME_HTTP_ADDR` will be used at runtime for the key `addr`.
+--
 
 == Default Paths
 
@@ -139,99 +169,114 @@ See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
 
 === Configuration Directory
 
-The default locations (no need to set them explicitly) for _config_ files, which have to be on a POSIX storage, are:
+* The configuration directory has a default location for _config_ files, which *must be* on a POSIX storage:
 
-* For container images (inside the container) +
+** For container images (inside the container) +
 `/etc/ocis/`
 +
-* For binary releases +
+** For binary releases +
 `$HOME/.ocis/config/`
 +
-NOTE: You can deviate from the default location and define a custom configuration file location on startup using the environment variable `OCIS_CONFIG_DIR`.
-+
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+[NOTE]
+====
+* Do not replace `$HOME` with `~` (tilde).
+** The code does not resolve `~` to the users home directory.
+* Check that `$HOME` resolves to a valid directory.
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+====
+
+* You can deviate from the default location and define a custom configuration directory on startup using the environment variable `OCIS_CONFIG_DIR`.
 
 === Base Data Directory
 
 Because Infinite Scale does not use a database for storing information like users, groups, spaces, internal data, etc., it saves all this data to a permanent file location. Depending on the system setup, the base directory contains not only the metadata but also blobs. See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Filesystems and Shared Storage] for more details.
 
 * When only using a supported POSIX filesystem, blobs and metadata are stored on POSIX.  
-* When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. Also see xref:using-s3-for-blobs[Using S3 for Blobs].
+* When using S3 and POSIX, blobs are stored on S3, while metadata is stored on POSIX. See the xref:deployment/storage/s3.adoc[S3] documentation for more details.
 
-.Path for System Data
-The base directory is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service].
-
-.Default Location
-The base path has default locations (see below) if not manually defined by the environment variable `OCIS_BASE_DATA_PATH`.
-
-.Services That Can Deviate from the Base Data Path
-The environment variable `OCIS_BASE_DATA_PATH`, if manually defined, sets the base path in a generic way. The following services can overwrite the base path for that service if necessary.
-
-* xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR]
-* xref:{s-path}/search.adoc[SEARCH_DATA_PATH]
-* xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH]
-* xref:{s-path}/store.adoc[STORE_DATA_PATH]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT]
-* xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR]
-* xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT]
-
-// necessary to properly break the list item from the next component
 {empty}
 
-.The default locations for the _base_ directory are:
-{empty}
---
-* For container images (inside the container) +
-`/var/lib/ocis`
+Path for System Data::
+The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required like when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service] or xref:{s-path}/thumbnails.adoc[thumbnails service].
+
+// ocis/services$ grep -r 'OCIS_BASE_DATA_PATH' --include=*.go **/pkg/config
+// https://docs.asciidoctor.org/asciidoc/latest/subs/apply-subs-to-blocks/
+
+[#services_using_base_path]
+Services That Can Deviate from the Base Data Path::
+The following environment variables can overwrite the base data path if required:
 +
-* For binary releases +
+--
+[source,subs="+callouts,macros,attributes+"]
+----
+• xref:{s-path}/auth-basic.adoc[OCIS_LDAP_CACERT;AUTH_BASIC_LDAP_CACERT, window=_blank]
+• xref:{s-path}/graph.adoc[OCIS_LDAP_CACERT;GRAPH_LDAP_CACERT, window=_blank]
+• xref:{s-path}/groups.adoc[OCIS_LDAP_CACERT;GROUPS_LDAP_CACERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_CERT, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_LDAPS_KEY, window=_blank]
+• xref:{s-path}/idm.adoc[IDM_DATABASE_PATH, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_ENCRYPTION_SECRET_FILE, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_SIGNING_PRIVATE_KEY_FILES, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_CERT, window=_blank]
+• xref:{s-path}/idp.adoc[IDP_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_NATS_STORE_DIR, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_CERT, window=_blank]
+• xref:{s-path}/nats.adoc[NATS_TLS_KEY, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_INVITE_MANAGER_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_CORE_JSON_FILE, window=_blank]
+• xref:{s-path}/ocm.adoc[OCM_OCM_SHAREPROVIDER_JSON_FILE, window=_blank]
+• xref:{s-path}/proxy.adoc[PROXY_TRANSPORT_TLS_KEY, window=_blank]
+• xref:{s-path}/search.adoc[SEARCH_ENGINE_BLEVE_DATA_PATH, window=_blank] <1>
+• xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_USER_JSON_FILE, window=_blank]
+• xref:{s-path}/sharing.adoc[SHARING_PUBLIC_JSON_FILE, window=_blank]
+• xref:{s-path}/store.adoc[STORE_DATA_PATH, window=_blank]
+• xref:{s-path}/storage-system.adoc[STORAGE_SYSTEM_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_DATADIR, window=_blank]
+• xref:{s-path}/storage-users.adoc[STORAGE_USERS_OWNCLOUDSQL_UPLOADINFO_DIR, window=_blank]
+• xref:{s-path}/thumbnails.adoc[THUMBNAILS_FILESYSTEMSTORAGE_ROOT, window=_blank] <1>
+• xref:{s-path}/users.adoc[OCIS_LDAP_CACERT;USERS_LDAP_CACERT, window=_blank]
+----
+<1> Note that it is recommended for these services to configure an individual path due to expected higher data quantities on larger installations, see the important note on possible impacts below.
+--
+
+==== Default Location
+
+* The base path has a default location for metadata and service dependent data (xref:#services_using_base_path[see above]) which *must be* on a POSIX storage. If not otherwise defined when using xref:deployment/storage/s3.adoc[S3], it is also used to store blobs using that path:
+
+** For container images (inside the container) +
+`/var/lib/ocis`
+
+** For binary releases +
 `$HOME/.ocis/`
 +
-NOTE: You can deviate from the default location and define a custom configuration file location on startup using 
-the environment variable `OCIS_BASE_DATA_PATH`. When setting the base directory manually, it will be used automatically for the services described above - if they are not otherwise manually defined. 
-+
-NOTE: When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
-+
-WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
-+
-[IMPORTANT]
+[NOTE]
 ====
-Consider using a separate partition or an external filesystem like NFS for the data path. If you only have one partition for your OS, Infinite Scale and your data, *filling up the filesystem with user data can make your system unresponsive*. This can easily happen under the following conditions: 
+* Do not replace `$HOME` with `~` (tilde).
+** The code does not resolve `~` to the users home directory.
 
-* The total storage space consumed by all spaces, even if there are individual quotas set for spaces, exceeds the available disk space.
-* When multiple users have concurrent uploads of big files, those big files - partly uploaded - will not count against the target space quota. These files are temporarily located in the upload folder located in the data path and moved when finished to the target space if the target space quota is not exceeded.
-* Expired uploads that have not been cleaned up (see xref:manage-unfinished-uploads[Manage Unfinished Uploads]) can demand storage unnecessarily and can be a hidden cause of exceeding the available storage space.
-* The index data stored for the xref:{s-path}/search.adoc[search service] is located on the same root path and filled up the filesystem. 
+* Check that `$HOME` resolves to a valid directory.
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
 ====
+
+* You can deviate from the default location and define a custom base directory on startup using the environment variable `OCIS_BASE_DATA_PATH`.
+
+* More Important Notes
++
+--
+IMPORTANT: When setting the base directory manually, it will be used automatically for the xref:#services_using_base_path[services described above] - if they are not otherwise manually defined. 
+
+WARNING: The location must be used by Infinite Scale exclusively. Writing into this location not using Infinite Scale is discouraged to avoid any unexpected behavior. 
 --
 
 === Using S3 for Blobs
 
-When using S3 for storing user data, metadata must reside on POSIX using the base directory as path. For more details see the section xref:base-data-directory[Base Data Directory] above.
+When using S3 for storing user data (blobs), metadata must reside on POSIX. The environment variable responsible for storaing metadata in S3 is `STORAGE_USERS_S3NG_ROOT` and derives, if not otherwise defined, from the base directory `OCIS_BASE_DATA_PATH`. For more details see the section xref:base-data-directory[Base Data Directory] above.
 
-Configuring the xref:{s-path}/storage-users.adoc[Storage-Users] service is necessary to define the usage of POSIX and S3 storage for Infinite Scale.
-
-The following environment variables are need to be configured for the use with S3 (see the Storage-Users service for details):
-
-[source, yaml]
-----
-# activate s3ng storage driver
-STORAGE_USERS_DRIVER: s3ng
-# Path to metadata stored on POSIX
-STORAGE_USERS_S3NG_ROOT:
-# keep system data on ocis storage
-STORAGE_SYSTEM_DRIVER: ocis
-
-# s3ng specific settings
-STORAGE_USERS_S3NG_ENDPOINT:
-STORAGE_USERS_S3NG_REGION:
-STORAGE_USERS_S3NG_ACCESS_KEY:
-STORAGE_USERS_S3NG_SECRET_KEY:
-STORAGE_USERS_S3NG_BUCKET:
-----
-
-Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] for more details.
+Read the xref:deployment/storage/s3.adoc[S3] documentation for more details on how to configure Infinite Scale for the with S3.
 
 == Initialize Infinite Scale
 
@@ -276,8 +321,10 @@ This will print an output like:
 | app-provider       |
 | app-registry       |
 | auth-basic         |
-| auth-bearer        |
 | auth-machine       |
+| auth-service       |
+| clientlog          |
+| eventhistory       |
 | frontend           |
 | gateway            |
 | graph              |
@@ -287,20 +334,24 @@ This will print an output like:
 | nats               |
 | notifications      |
 | ocdav              |
+| ocm                |
 | ocs                |
+| postprocessing     |
 | proxy              |
 | search             |
 | settings           |
 | sharing            |
+| sse                |
 | storage-publiclink |
 | storage-shares     |
 | storage-system     |
 | storage-users      |
-| store              |
 | thumbnails         |
+| userlog            |
 | users              |
 | web                |
 | webdav             |
+| webfinger          |
 +--------------------+
 ----
 
@@ -310,15 +361,15 @@ You can use environment variables to define or overwrite config parameters which
 
 [source,bash]
 ----
-PROXY_HTTP_ADDR=localhost:5555 ocis server
+PROXY_HTTP_ADDR=0.0.0.0:5555 ocis server
 ----
 
 or when using multiple environment variables like:
 
 [source,bash]
 ----
-PROXY_HTTP_ADDR=localhost:5555 \
-PROXY_DEBUG_ADDR=localhost:6666 \
+PROXY_HTTP_ADDR=0.0.0.0:5555 \
+PROXY_DEBUG_ADDR=0.0.0.0:6666 \
 ocis server
 ----
 
@@ -358,7 +409,7 @@ You can easily access Infinite Scale via ownCloud Web with minimal configuration
 OCIS_URL::
 +
 --
-Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service environment variables also using an URL still take precedence if set, but will fall back to this URL if not set.
+Expects a URL including _protocol_, _host_ and optionally _port_ to simplify configuring all the different services. Other service xref:deployment/services/env-vars-special-scope.adoc[environment variables] also using an URL still take precedence if set, but will fall back to this URL if not set.
 
 NOTE: If you need to access Infinite Scale running on a VM or a remote machine via a host name other than localhost or in a container, you *must* configure the host name with `OCIS_URL`. The same applies if you are not using host names but an IP address (e.g. 192.168.178.25) instead.
 
@@ -368,16 +419,43 @@ include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 --
 
 PROXY_HTTP_ADDR::
-When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface. 
+When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If you want or need to change that based on your requirements, you can use a different address e.g. to bind the proxy to an interface.
 
+IMPORTANT: The bind address for `PROXY_HTTP_ADDR` must be on the same interface where the configured URL from the `OCIS_URL` environment variable is reachable. 
 
-Also see the xref:using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes.
+.Common reasons binding to a particular IP address
+{empty}
+--
+* Multiple network interfaces configured for specific tasks like web, storage, administration.
+* Binding SSL certificates to IP addresses.
+* ...
+--
+
+.Examples
+{empty}
+--
+* `PROXY_HTTP_ADDR=127.0.0.0:9200` +
+This causes Infinite Scale to *only* bind to the local network interface.
+* `PROXY_HTTP_ADDR=0.0.0.0:9200` +
+This tells Infinite Scale to bind it to *all* available network interfaces.
+--
+
+Also see the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes.
 
 === Handling Certificates
 
-// https://owncloud.dev/ocis/deployment/basic-remote-setup/
-
 Certificates are necessary to secure browser access. Infinite Scale can run with embedded self-signed certificates mainly used for testing purposes or signed certificates provided by the admin. To tell Infinite Scale which kind of certificates you are using, the environment variable `OCIS_INSECURE` is used.
+
+[NOTE]
+====
+* When clients have direct access to the Infinite Scale instance:
+** Use signed certificates, see below.
+** When using unsigned certificates, _depending on the browser used_, errors may get logged like: +
+`TLS handshake error from IP:PORT: remote error: tls: unknown certificate`
+* When using a reverse proxy:
+** Browser access terminates at the webserver and certificates are handled there.
+** You can additionally secure the communication using (un)signed certificates for communication between the reverse proxy and infinite Scale.
+====
 
 === Embedded Self-Signed Certificates
 
@@ -501,31 +579,3 @@ include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 == Maintenance Commands
 
 There are multiple commands available to maintain the Infinite Scale instance. See the xref:maintenance/commands/commands.adoc[Maintenance Commands] document for more details.
-
-== S3 Bucket Policy
-
-With S3 bucket policies, you can configure and secure access to objects in your buckets, see
-{aws-bucket-policy-url}[Using bucket policies]. The following S3 bucket policies are a requirement when connecting to an S3 bucket, replace the bucket name accordingly. When using an S3 bucket you have to set the storage driver to `s3ng`. Also see the xref:deployment/container/orchestration/orchestration.adoc#deploy-the-chart[Deploy the Chart] section in the `Container Orchestration` documentation and the xref:{s-path}/storage-users.adoc[STORAGE_USERS_DRIVER] configuration value.
-
-{empty}
-[source,yaml]
-----
-# The S3NG driver needs an existing S3 bucket with following permissions:
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ListObjectsInBucket",
-            "Effect": "Allow",
-            "Action": ["s3:ListBucket"],
-            "Resource": ["arn:aws:s3:::bucket-name"]
-        },
-        {
-            "Sid": "AllObjectActions",
-            "Effect": "Allow",
-            "Action": "s3:*Object",
-            "Resource": ["arn:aws:s3:::bucket-name/*"]
-        }
-    ]
-}
-----

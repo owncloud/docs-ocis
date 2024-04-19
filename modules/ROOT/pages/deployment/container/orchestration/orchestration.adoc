@@ -3,6 +3,11 @@
 :toclevels: 3
 :description: This document provides guidelines for container orchestration tools suitable for Infinite Scale.
 
+////
+on new helmchart releases, check for attributes `no_second_tab` and `no_third_tab` to enable tab rendering. 
+if all blocks are allowed to be rendered, you can safely remove the attributes and the queries from the block.
+////
+
 :docker-compose-url: https://docs.docker.com/get-started/08_using_compose/
 :docker-compose-install-url: https://docs.docker.com/compose/install/
 :docker-compose-evolution-url: https://docs.docker.com/compose/compose-v2/
@@ -77,7 +82,12 @@ which docker-compose
 
 If `docker-compose` is installed, you'll be informed. If not, you may get no output at all or a message that it couldn't be found. In that case you need to install `docker-compose` first. On most Linux distributions, you can simply use the package manager to do so.
 
-Note that in many cases, this will install a 1.x version (python-based) only supported until June 2023. Version 2.x (go-based) is available from Docker. Follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version. Familiarize yourself with the {docker-compose-evolution-url}[differences between versions] particularly with regard to syntax changes. Most of our examples are still based on Compose-V1.
+Note that in many cases, this will install a 1.x version (python-based) only supported until June 2023. Version 2.x (go-based) is available from Docker. Follow the {docker-compose-install-url}[Install Docker Compose] guide to install a 2.x version. Familiarize yourself with the {docker-compose-evolution-url}[differences between versions] particularly with regard to syntax changes. Most of our examples are still based on Compose-V1. One major difference is, that compose is now a plugin of docker, even if there is still a standalone version. If the check above fails, you might also want to test:
+
+[source,bash]
+----
+docker compose version
+----
 
 When done, create a project directory like `ocis-compose` in your home directory to have a common location for your Infinite Scale Compose files.
 
@@ -96,34 +106,16 @@ When done, create a project directory like `ocis-compose` in your home directory
 
 Using git version name: `{compose_tab_1}`
 --
-ifdef::use_service_tab_2[]
-{compose_tab_2_tab_text}::
-+
---
-{composer-url}{compose_tab_2}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_2}`
-endif::[]
---
-ifdef::use_service_tab_3[]
-{compose_tab_3_tab_text}::
-+
---
-{composer-url}{compose_tab_3}{composer-final-path}[Docker Compose deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_3}`
---
-endif::[]
 ====
 +
 --
-Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space, replace the version accordingly:
+Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, check or update the version accordingly like when there is a new patch release available:
 
 * Using a shallow git clone which minimizes the required clone space like:
 +
 [source,bash,subs="attributes+"]
 ----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1_tab_text}
 ----
 
 // https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
@@ -132,7 +124,7 @@ git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_2}
 +
 [source,plaintext,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}{compose_tab_2}{composer-final-path}
+{download-gh-directory-url}?url={composer-url}{compose_tab_1}{composer-final-path}
 ----
 --
 
@@ -221,6 +213,8 @@ The `values.yaml` file provided by ownCloud uses generic configuration. You can 
 
 See the following table to match the Helm chart versions with Infinite Scale releases. Note that the chart version matches the tag in the {ocis-helm-charts-url}[ocis-charts] git repository.
 
+{empty}
+
 // this table needs manual update on the "works" rows when a new Helm chart release is published
 
 [width="60%",cols="~,~",options="header"]
@@ -229,17 +223,13 @@ See the following table to match the Helm chart versions with Infinite Scale rel
 | Works with Infinite Scale Versions
 
 | {helm_tab_1_tab_text}
-| 3.0.0
+| 4.0.1
 
-ifdef::use_helm_tab_2[]
 | {helm_tab_2_tab_text}
-| 3.0.0
-endif::[]
+| 4.0.1
 
-ifdef::use_helm_tab_3[]
 | {helm_tab_3_tab_text}
-| 2.0.0
-endif::[]
+| 3.0.0
 |===
 
 * If a chart has been superseded by another for the same Infinite Scale release, only the latest one is listed.
@@ -256,58 +246,56 @@ Select possible breaking changes of a Helm chart version from the tabs. A new do
 
 [tabs]
 ====
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
 xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_2_tab_text}[Breaking Changes,window=_blank]
 --
-endif::[]
 
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
 xref:deployment/container/orchestration/tab-pages/breaking-changes.adoc#{helm_tab_3_tab_text}[Breaking Changes,window=_blank]
 --
-endif::[]
 ====
 
-=== Get the Chart
+=== Supported Kubernetes Versions
 
-As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
+////
+note to adapt the _kube-versions-tab-x files
+1. when a new kubernetes version is added to the list or
+2. when a new ocis release gets published and the tab names change !!
 
-// note the sources for the include are on GitHub at ocis-charts.
+for (1), just add the version to the relevant tab-x file
+for (2), you need to "rotate" the content of the files.
 
-* Check the supported Kubernetes versions before you download the chart.
-+
---
-** The `~` represents all patch releases for that particular version.
-** The `-0` represents subversions of that particular version.
---
-+
+tab-2 -> tab-3
+tab-1 -> tab-2
+tab-1 gets new or adapted content based on former tab-1 content
+////
+
 [tabs]
 ====
 {helm_tab_1_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_1}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-1.adoc[]
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_2}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-2.adoc[]
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
-include::{ocis-charts-raw-url}{helm_tab_3}{kube-versions-url}[]
+include::./tab-pages/_kube-versions-tab-3.adoc[]
 --
-endif::[]
 ====
+
+=== Get the Chart
+
+As the Helm chart has currently not been published to a Helm repository, you need to clone ownCloud's Helm chart git repository named {ocis-helm-charts-url}[ocis-charts].
 
 === Start minikube
 
@@ -315,14 +303,47 @@ endif::[]
 +
 [source,bash]
 ----
-minikube start --kubernetes-version=v1.25.0
+minikube start --kubernetes-version=v1.28.1
 ----
 
-. Enable the minikube ingress plugin, which acts like a reverse proxy for your cluster:
+. Enable the `minikube ingress` plugin, which acts like a reverse proxy for your cluster:
 +
 [source,bash]
 ----
 minikube addons enable ingress
+----
+
+. Linux only: enable the `ingress-dns` plugin and configure it:
++
+[source,bash]
+----
+minikube addons enable ingress-dns
+----
+
+. Configure the `in-cluster DNS server` to resolve local DNS names inside the cluster`:
++
+Note that this step is not optional but mandatory for an Infinite Scale installation. For details see https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#installation[Step 4, (optional) Configure in-cluster DNS server to resolve local DNS names inside cluster].
+
+. macOS only: run `minikube tunnel` to be expose `80,443` ports:
++
+[source,bash]
+----
+minikube tunnel
+----
+
+. Configure hosts:
+.. On Linux you need to add additional configurations to use ingress by adding the domain names to `/etc/hosts`. Those entries need to point to the Minikube interface IP which you can get by running `minikube ip`.
++
+[source,bash]
+----
+192.168.49.2 ocis.kube.owncloud.test
+----
+
+.. On macOS you need to add additional configurations to use ingress by adding the domain names to `/etc/hosts`. Since you are using `minikube tunnel`, those entries need to point to `127.0.0.1` because it's listening on the localhost interface.
++
+[source,bash]
+----
+127.0.0.1 ocis.kube.owncloud.test
 ----
 
 === Deploy the Chart
@@ -332,7 +353,17 @@ minikube addons enable ingress
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
 
-* Based on the Kubernetes version, you will find comments in `values.yaml` where content is Kubernetes version dependent. Search for comments with `Kubernetes` for details.
+* When installing Infinite Scale in Minikube on MacOS, you need to set the `hostAliases` option:
++
+[source,yaml]
+----
+hostAliases:
+  - ip: "192.168.49.2" # <- needs to be the IP of `minikube ip`
+    hostnames:
+      - "ocis.kube.owncloud.test"
+----
+
+* Based on the Kubernetes version, you will find comments in `values.yaml` where content depends on the Kubernetes version. Search for comments with `Kubernetes` for details.
 
 * Deploy the chart with the deployment name `ocis`, use any name as desired. To do so, run the following command from the root of the cloned repository:
 +
@@ -358,7 +389,6 @@ helm install ocis ./charts/ocis
 | {t2_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -374,8 +404,6 @@ ifdef::use_helm_tab_2[]
 | {t2_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -391,7 +419,6 @@ ifdef::use_helm_tab_3[]
 | {t2_text}
 |===
 --
-endif::[]
 ====
 
 === Customize the Generic Setup
@@ -414,7 +441,6 @@ In all examples, adapt the settings according your needs.
 include::example$deployment/container/orchestration/values-overwrite-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -423,8 +449,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/values-overwrite-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -433,7 +457,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/values-overwrite-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Enable Metrics with Prometheus
@@ -452,7 +475,6 @@ endif::[]
 include::example$deployment/container/orchestration/service-monitor-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -461,8 +483,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/service-monitor-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -471,7 +491,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/service-monitor-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Configure Email Notification
@@ -490,7 +509,6 @@ endif::[]
 include::example$deployment/container/orchestration/email-notification-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -499,8 +517,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/email-notification-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -509,7 +525,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/email-notification-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Configure S3ng Storage
@@ -528,7 +543,6 @@ endif::[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -537,8 +551,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -547,12 +559,58 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/s3ng-s3-access-key-id-secret-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
-// this is an additional anchor for yaml files that get included and reference to this section which was renamed
+==== Configure Userlog Global Notifications Secret
 
-[[define-secrets]]
+// edit the yaml data shown at example$deployment/container/orchestration/
+
+// comment/uncomment when HC releases are published that allow showing stuff
+// when all tabs are allowed, we can safely remove the variables and queries
+// did not exist in 0.5.0
+:no_second_tab: true
+//:no_third_tab: true
+
+* Configure _Global Notifications Secrets_ referenced in `secretRefs.globalNotificationsSecretRef` if required:
++
+[tabs]
+====
+{helm_tab_1_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-1.yaml[]
+----
+--
+ifndef::no_second_tab[]
+{helm_tab_2_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-2.yaml[]
+----
+--
+ifndef::no_third_tab[]
+{helm_tab_3_tab_text}::
++
+--
+[source,yaml]
+----
+include::example$deployment/container/orchestration/userlog-global-notifications-secret-tab-3.yaml[]
+----
+--
+endif::no_third_tab[]
+endif::no_second_tab[]
+====
+
+// unset the attributes for any use on a different location.
+:!no_second_tab:
+:!no_third_tab:
+
+// this is an additional anchor for yaml files that get _included_ and reference to this section which was renamed.
+[#define-secrets]
 
 ==== Define Mandatory Secrets and ConfigMaps
 
@@ -582,7 +640,6 @@ IMPORTANT: These Secrets and ConfigMaps need to be part of your backup since you
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -595,8 +652,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -609,7 +664,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Mandatory Secrets
@@ -649,7 +703,6 @@ kubectl apply -f mandatory-secrets.yaml
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -662,8 +715,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -676,7 +727,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Mandatory ConfigMaps
@@ -718,7 +768,6 @@ IMPORTANT: These Secrets are certificates that expire after 365 days and therefo
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -731,8 +780,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -745,7 +792,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply Built-in User Management Secrets
@@ -787,7 +833,6 @@ If you're using Helm Charts, you are responsible for these user management secre
 | {t_text}
 |===
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -800,8 +845,6 @@ ifdef::use_helm_tab_2[]
 | {t_text}
 |===
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -814,7 +857,6 @@ ifdef::use_helm_tab_3[]
 | {t_text}
 |===
 --
-endif::[]
 ====
 
 ===== Apply External User Management Secrets
@@ -848,7 +890,6 @@ This is an example with NGINX ingress and certificates issued by cert-manager. T
 include::example$deployment/container/orchestration/nginx-ingress-tab-1.yaml[]
 ----
 --
-ifdef::use_helm_tab_2[]
 {helm_tab_2_tab_text}::
 +
 --
@@ -857,8 +898,6 @@ ifdef::use_helm_tab_2[]
 include::example$deployment/container/orchestration/nginx-ingress-tab-2.yaml[]
 ----
 --
-endif::[]
-ifdef::use_helm_tab_3[]
 {helm_tab_3_tab_text}::
 +
 --
@@ -867,7 +906,6 @@ ifdef::use_helm_tab_3[]
 include::example$deployment/container/orchestration/nginx-ingress-tab-3.yaml[]
 ----
 --
-endif::[]
 ====
 
 ==== Apply Chart Changes
@@ -885,43 +923,6 @@ helm upgrade --install --reset-values \
 [source,bash]
 ----
 kubectl get pods
-----
-
-==== Define Chart Access
-
-===== Linux
-. Get and check the minikube IP address:
-+
-[source,bash]
-----
-minikube ip
-----
-
-. If not already done, add the minikube IP address to your `/etc/hosts` file or use the Ingress DNS add-on. An example line for the `/etc/hosts` file could look like this:
-+
-[source,plaintext]
-----
-192.168.49.2 ocis.kube.owncloud.test
-----
-
-===== macOS
-
-NOTE: The following procedure exposes the macOS system via the necessary configured tunnel to the local network. This setup is therefore intended for development purposes only!
-
-. On macOS, minikube requires a tunnel to be started to get access to the Ingress of the cluster:
-+
-[source,bash]
-----
-minikube tunnel --bind-address=192.168.179.3
-----
-+
-The IP address to be set, which should normally be the one of the `en0` interface, can be fetched with the `ifconfig` command. Note that the interface must be reachable from within Kubernetes and `127.0.0.1` is not an option in this case. This is because the OpenID process tries to look up the host name of the cluster via the  `/etc/hosts` file which is described in the next step. Within a pod `127.0.0.1` will not resolve to the host serving Kubernetes.
-
-. Add the IP address provided by the above command to your `/etc/hosts` file. An example could look like this:
-+
-[source,plaintext]
-----
-192.168.179.3 ocis.kube.owncloud.test
 ----
 
 === Access Infinite Scale in Your Browser

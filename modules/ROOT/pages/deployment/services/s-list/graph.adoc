@@ -14,6 +14,22 @@
 
 * Graph listens on port 9120 by default.
 
+== Restrict Username Patterns
+
+Usernames can be restricted to follow certain patterns. Such patterns can be neccessary when using the xref:{s-path}/idm.adoc[internal IDM] for example to align with local Unix username restrictions. Username restrictions can also be handled with an external IDM like Keycloak. The environment variable `GRAPH_USERNAME_MATCH` can be set to the following values to define where and how these restriction are handled:
+
+* `none` +
+There is no internal username checking. Restrictions, if any, are defined in the _external_ IDM like Keycloak.
+
+* `default` +
+Usernames are restricted by the following criteria:
+** ASCII standard charset, no UTF-8
+** The username _must_ start with either
+*** an `_` (underscore) or
+*** a letter where there is no distinction between lower- and uppercase.
+** More characters from the ASCII charset including numbers, aligning to the Unix user namespace. 
+** optionally an `@` character followed by a domain name 
+
 == Manual Filters
 
 Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` and `or` to refine results.
@@ -28,11 +44,9 @@ image::deployment/services/graph/mermaid-graph.svg[width=600]
 
 == Caching
 
-The `graph` service can use a configured store via `GRAPH_CACHE_STORE`. Possible stores are:
+:is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-. When using `redis-sentinel`, the Redis master to use is configured via `GRAPH_CACHE_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 == Keycloak Configuration for the Personal Data Export
 
@@ -74,6 +88,10 @@ The client that is used to authenticate with Keycloak has to be able to list use
 *   `view-authorization`
 
 Note that these roles are only available to assign if the client is in the `master` realm.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

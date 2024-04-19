@@ -10,7 +10,7 @@
 
 * Single configuration settings of the embedded web UI can be defined via `WEB_OPTION_xxx` environment variables.
 * A json based configuration file can be used via the `WEB_UI_CONFIG_FILE` environment variable.
-* A configuration file takes precedence over single options set.
+* If a json based configuration file is used, these configurations take precedence over single options set.
 
 === Web UI Options
 
@@ -19,3 +19,117 @@ Beside theming, the behavior of the web UI can be configured via options. Behavi
 === Web UI Config File
 
 When defined via the `WEB_UI_CONFIG_FILE` xref:{s-path}/web.adoc[environment variable], the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
+
+== Embedding Web
+
+Web can be consumed by another application in a stripped-down version called “Embed mode”. This mode is supposed to be used in the context of selecting or sharing resources. For more details refer to the developer documentation https://owncloud.dev/clients/web/embed-mode/[ownCloud Web / Embed Mode]. See the environment variables: `WEB_OPTION_MODE` and `WEB_OPTION_EMBED_TARGET` to configure the embedded mode.
+
+== Web Apps
+
+The administrator of the environment is capable of providing custom web applications to the users. This feature is useful for organizations that want to provide third party or custom apps to their users.
+
+It's important to note, that the feature is at the moment only capable of providing static (js, mjs, e.g.) web applications and does not support injection of dynamic web applications (custom dynamic backends).
+
+=== Loading Applications
+
+Web applications are loaded, if added in the Infinite Scale source code, at build-time from `<ocis_repo>/services/web/assets/apps`. This cannot be manipulated at runtime.
+
+Additionally, the administrator can provide custom applications by storing them in the path defined by the environment variable `WEB_ASSET_APPS_PATH`.
+
+This environment variable defaults to the Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory] `$OCIS_BASE_DATA_PATH/web/assets/apps`, but can be redefined with any path set manually.
+
+The final list of available applications is composed of the built-in and the custom applications provided by the administrator via `WEB_ASSET_APPS_PATH`.
+
+For example, if Infinite Scale would contain a built-in extension named `image-viewer-dfx` and the administrator provides a custom application named `image-viewer-obj` via the `WEB_ASSET_APPS_PATH` directory, the user will be able to access both
+applications from the WebUI.
+
+=== Application Structure
+
+* Applications always have to follow a strict structure, which is:
+
+** Each application must be in its own directory accessed via `WEB_ASSET_APPS_PATH`.
+** Each application directory must contain a `manifest.json` file.
+
++
+Everything else is skipped and not considered as an application.
+
+* The `manifest.json` file contains the following fields:
+
+** `entrypoint` - required +
+The entrypoint of the application like `index.js`, the path is relative to the parent directory.
+** `config` - optional +
+A list of key-value pairs that are passed to the global web application configuration `apps.yaml`.
+
+=== Application Configuration
+
+If a custom configuration is needed, the administrator must provide the required configuration inside the `$OCIS_BASE_DATA_PATH/config/apps.yaml` file.
+
+NOTE: An application manifest should _never_ be changed manually, see xref:using-custom-assets[Using Custom Assets] for customisation.
+
+The `apps.yaml` file must contain a list of key-value pairs which gets merged with the `config` field. For example, if the `image-viewer-obj` application contains the following configuration:
+
+[source,json]
+----
+{
+  "entrypoint": "index.js",
+  "config": {
+    "maxWidth": 1280,
+    "maxHeight": 1280
+  }
+}
+----
+
+The `apps.yaml` file contains the following configuration:
+
+[source,yaml]
+----
+image-viewer-obj:
+  config:
+    maxHeight: 640
+    maxSize: 512
+----
+
+The final configuration for web will be:
+
+[source,json]
+----
+{
+  "external_apps": [
+    {
+      "id": "image-viewer-obj",
+      "path": "index.js",
+      "config": {
+        "maxWidth": 1280,
+        "maxHeight": 640,
+        "maxSize": 512
+      }
+    }
+  ]
+}
+----
+
+Besides the configuration from the `manifest.json` file, the `apps.yaml` file can also contain the following fields:
+
+* `disabled` - optional +
+Defaults to `false`. If set to `true`, the application will not be loaded.
+
+{empty}
+
+NOTE: A local provided configuration yaml will always override the shipped application manifest configuration.
+
+=== Using Custom Assets
+
+Besides the configuration and application registration, in the process of loading the application assets, the system uses a mechanism to load custom assets.
+
+This is very useful for cases where just a single asset should be overwritten, like a logo or similar.
+
+Consider the following: Infinite Scale is shipped with a default web app named `image-viewer-dfx` which contains a logo,
+but the administrator wants to provide a custom logo for that application.
+
+This can be achieved using the path defined via `WEB_ASSET_APPS_PATH` and adding a custom structure like `WEB_ASSET_APPS_PATH/image-viewer-dfx/`. Here you can add all custom assets to load like `logo.png`. On loading the web app, custom assets defined overwrite default ones.
+
+This also applies for the `manifest.json` file, if the administrator wants to provide a custom one.
+
+== Miscellaneous
+
+Please note that Infinite Scale, in particular the web service, needs a restart to load new applications or changes to the `apps.yaml` file.

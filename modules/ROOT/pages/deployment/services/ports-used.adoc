@@ -23,7 +23,7 @@ The following port ranges are used by services:
 | 9120-9124  | xref:{s-path}/graph.adoc[graph]
 | 9125-9129  | xref:{s-path}/policies.adoc[policies]
 | 9130-9134  | xref:{s-path}/idp.adoc[idp]
-| 9135-9139  | FREE
+| 9135-9139  | xref:{s-path}/sse.adoc[sse]
 | 9140-9141  | xref:{s-path}/frontend.adoc[frontend]
 | 9142-9143  | xref:{s-path}/gateway.adoc[gateway]
 | 9144-9145  | xref:{s-path}/users.adoc[users]
@@ -42,10 +42,11 @@ The following port ranges are used by services:
 | 9180-9184  | FREE
 | 9185-9189  | xref:{s-path}/thumbnails.adoc[thumbnails]
 | 9190-9194  | xref:{s-path}/settings.adoc[settings]
-| 9195-9199  | FREE
+| 9195-9197  | FREE
+| 9198-9199  | xref:{s-path}/auth-service.adoc[auth-service]
 | 9200-9204  | xref:{s-path}/proxy.adoc[proxy]
 | 9205-9209  | xref:{s-path}/proxy.adoc[proxy]
-| 9210-9214  | FREE
+| 9210-9214  | xref:{s-path}/userlog.adoc[userlog]
 | 9215-9219  | xref:{s-path}/storage-system.adoc[storage-system]
 | 9220-9224  | xref:{s-path}/search.adoc[search]
 | 9225-9229  | FREE
@@ -54,5 +55,9 @@ The following port ranges are used by services:
 | 9240-9244  | xref:{s-path}/app-registry.adoc[app-registry]
 | 9245-9249  | FREE
 | 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
+| 9255-9259  | xref:{s-path}/postprocessing.adoc[postprocessing]
+| 9260-9264  | xref:{s-path}/clientlog.adoc[clientlog]
+| 9270-9274  | xref:{s-path}/eventhistory.adoc[eventhistory]
+| 9280-9284  | xref:{s-path}/ocm.adoc[ocm]
 | 9460-9464  | xref:{s-path}/store.adoc[store]
 |===

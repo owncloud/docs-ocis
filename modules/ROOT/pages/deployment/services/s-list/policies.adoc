@@ -4,11 +4,6 @@
 
 :service_name: policies
 
-// remember to REMOVE the corresponding tab if a new ocis release will be published
-
-// :no_second_tab: true
-:no_third_tab: true
-
 == Introduction
 
 {description} 
@@ -51,6 +46,27 @@ The gRPC API can be used by any other internal service. It can also be used for 
 
 The xref:{s-path}/proxy.adoc[proxy service] already includes a middleware which uses the internal xref:grpc-service[gRPC api] to evaluate the policies. Since the proxy is in heavy use and every HTTP request is processed here, only simple and quick decisions should be evaluated. More complex queries such as file content evaluation are _strongly_ discouraged.
 
+If the evaluation in the proxy results in a `denied` outcome, the response will return a `403 Permission Denied` with the following response body:
+
+[source,json]
+----
+{
+    "error":
+    {
+        "code": "deniedByPolicy",
+        "message": "Operation denied due to security policies",
+        "innererror":
+        {
+            "date": "2023-09-19T13:22:20Z",
+            "filename": "File",
+            "method": "POST",
+            "path": "/dav/spaces/some-space-id/Folder/",
+            "request-id": "9CFCE925-F9D9-4F26-AB3B-2C1C40A9CD0C"
+        }
+    }
+}
+----
+
 === Event Service (Postprocessing)
 
 This layer is event-based and part of the xref:{s-path}/postprocessing.adoc[postprocessing service]. Since processing at this point is asynchronous, the operations can also take longer and be more expensive, like evaluating the contents of a file.
@@ -91,7 +107,7 @@ data.<package-name>.<complete-rule-variable-name>
 
 === Proxy
 
-Note that this setting has to be part of the proxy configuration.
+Note that this setting has to be part of the xref:{s-path}/proxy.adoc[proxy] configuration.
 
 [source,yaml]
 ----
@@ -130,7 +146,7 @@ As soon as that query is configured, the postprocessing service must be informed
 POSTPROCESSING_STEPS=policies
 ----
 
-Note that additional steps can be configured and their position in the list defines the order of processing. For details see the xref:{s-path}.adoc[postprocessing service] documentation.
+Note that additional steps can be configured and their position in the list defines the order of processing. For details see the xref:{s-path}/postprocessing.adoc[postprocessing service] documentation.
 
 == Example Policies
 
@@ -145,24 +161,6 @@ The policies service contains a set of preconfigured example policies. See the d
 
 Using git version name: `{compose_tab_1}`
 --
-ifndef::no_second_tab[]
-{compose_tab_2_tab_text}::
-+
---
-{composer-url}{compose_tab_2}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_2}`
---
-endif::[]
-ifndef::no_third_tab[]
-{compose_tab_3_tab_text}::
-+
---
-{composer-url}{compose_tab_3}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
-
-Using git version name: `{compose_tab_3}`
---
-endif::[]
 ====
 
 == Extend Mime Type File Extension Mapping
@@ -171,7 +169,7 @@ In the extended set of the rego query language, it is possible to get a list of 
 
 The list of mappings is restricted by default and is provided by the host system Infinite Scale is installed on.
 
-Starting with Infinite Scale release 4.0.0, you can extend this list. To do so, Infinite Scale must be provided with the path to a custom `mime.types` file that maps mime types to extensions. The location of the file must be accessible by all instances of the policy service. As a rule of thumb, use the directory where the Infinite Scale configuration files are stored. Note that existing mappings from the host are extended by the definitions from the mime types file, but not replaced.
+This list can be extended. To do so, Infinite Scale must be provided with the path to a custom `mime.types` file that maps mime types to extensions. The location of the file must be accessible by all instances of the policy service. As a rule of thumb, use the directory where the Infinite Scale configuration files are stored. Note that existing mappings from the host are extended by the definitions from the mime types file, but not replaced.
 
 The path to that file can be provided via a yaml configuration or an environment variable. Make sure to replace the `OCIS_CONFIG_DIR` string by an existing path. See the documentation of the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] and the xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables] for predefined or manually defined config paths.
 
@@ -188,6 +186,10 @@ policies:
 ----
 
 A good example of how such a file should be formatted can be found in the https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types[Apache svn repository].
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

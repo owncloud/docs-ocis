@@ -32,7 +32,7 @@ It is important to disable clients and users logging in while the space index mi
 +
 [source,bash]
 ----
-OCIS_RUN_SERVICES="storage-users,nats" \
+OCIS_RUN_SERVICES="gateway,nats,storage-system,storage-users" \
 ocis server
 ----
 
@@ -71,16 +71,21 @@ When migration has finished - which can take a while depending on the quantity o
 
 .. Monitoring progress via command
 +
-Use the following command to check the status of the migration steps. Replace `<path-to-decomposedFS>` with the physical path of the environment variable `OCIS_BASE_DATA_PATH`. For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
-+
 --
+* Use the command below to check the status of the migration steps.
+* Replace `<path-to-decomposedFS>` with the physical path of the environment variable: +
+`OCIS_BASE_DATA_PATH` + `/storage/users` +
+Example: `/var/lib/ocis/storage/users`
+* For more details see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] documentation.
+* Command
++
 [source,bash]
 ----
 ocis migrate decomposedfs -r <path-to-decomposedFS> list
 ----
-
++
 Depending on the number of steps to process, you will see an output like the following:
-
++
 [source,plaintext]
 ----
 +-----------+-----------+---------+
@@ -95,9 +100,16 @@ Depending on the number of steps to process, you will see an output like the fol
 ----
 --
 
-. Run the "repair and migrate jsoncs3 indexes" command
+. Run the "repair and migrate jsoncs3 indexes" command:
 +
 --
+* Note, run this command only if there are shares present.
+* If you run this command and no shares are present, an error will be printed like the following: +
+`error: not found: list container: error: not found: jsoncs3-share-manager-metadata/storages` +
+This error has no impact and can be neglected.
+
+{empty}
+
 [source,bash]
 ----
 ocis migrate rebuild-jsoncs3-indexes
@@ -120,7 +132,7 @@ When the instance has started successfully, check the logs for any unusual entri
 
 == Manage Breaking Changes
 
-* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* All environment variables that were marked for deprecation in Infinite Scale release 3.0.0 have finally been removed.
 * Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`. There is no need to configure them at the moment.
 
 === How to Identify if You Are Affected

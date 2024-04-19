@@ -17,8 +17,43 @@ For each breaking changes block you need:
 
 {description}
 
-// [id=0.5.0]
-//== Helm Chart Version: 0.5.0
+[id=0.5.0]
+== Helm Chart Version: 0.5.0
+
+When upgrading from Helm Chart 0.4.0 to 0.5.0, you will be performing a upgrade from Infinite Scale 3.0.0 to 4.0.1. This upgrade will perform some migrations, please also see xref:migration/upgrading_3.0.0_4.0.0.adoc[Upgrading from 3.0.0 to 4.0.0] for more details.
+
+* Back up Infinite Scale as described in the xref:maintenance/b-r/backup.adoc[backup documentation].
+
+* For the Helm Chart, we recommend to:
+** delete the Ingress object
++
+--
+[source,bash]
+----
+kubectl -n ocis delete ingress/proxy
+----
+
+IMPORTANT: This command will make the Infinite Scale installation unavailable for users. Depending on your Kubernetes Ingress Controller, users will see different error pages. Deleting the Ingress object just ensures that none of your users can access Infinite Scale during the migration processes.
+--
+
+* Install Infinite Scale chart version 0.5.0 with the `ingress.enabled` setting set to `false`, see xref:deployment/container/orchestration/orchestration.adoc#deploy-the-chart[Deploy the Chart] and xref:deployment/container/orchestration/orchestration.adoc#apply-chart-changes[Apply Chart Changes].
+* With Infinite Scale started using the new Helm chart version, monitor the migration status for the storage-users and storage-system service by running these commands:
++
+--
+[source,bash]
+----
+kubectl -n <ocis-namespace> exec svc/storageusers -- ocis migrate decomposedfs -r /var/lib/ocis/storage/users list
+----
+
+[source,bash]
+----
+kubectl -n <ocis-namespace> exec svc/storagesystem -- ocis migrate decomposedfs -r /var/lib/ocis/storage/metadata list
+----
+--
+* If all migration steps of both services show the state `succeeded`, migrations have finished.
+* You can now set the `ingress.enabled` setting to `true` and deploy the Helm chart as usual. The formerly deleted Ingress object will be recreated automatically.
+
+Users should now be able to access Infinite Scale again.
 
 [id=0.4.0]
 == Helm Chart Version: 0.4.0

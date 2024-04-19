@@ -8,6 +8,8 @@
 
 {description} It retrieves the sources at the location where the user files are stored and saves the thumbnails where system files are stored. Those locations have defaults but can be manually defined via environment variables.
 
+Note that for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev[Developer Documentation].
+
 == Default Values
 
 * Thumbnails listens on port 9185 by default.
@@ -28,10 +30,10 @@ The relevant environment variables defining file locations are:
 | Having a default set by the Infinite Scale code, but if defined, used as base path for other services.
 
 | `STORAGE_USERS_OCIS_ROOT`
-| Source files, defaults to (1) plus path component, but can be freely defined if required.  
+| Source files, defaults to ^(1)^ plus path component, but can be freely defined if required.  
 
 | `THUMBNAILS_FILESYSTEMSTORAGE_ROOT`
-| Target files, defaults to (1) plus path component, but can be freely defined if required.  
+| Target files, defaults to ^(1)^ plus path component, but can be freely defined if required.  
 |===
 
 === Thumbnail Location

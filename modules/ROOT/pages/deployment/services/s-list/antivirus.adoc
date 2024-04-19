@@ -4,23 +4,20 @@
 
 :service_name: antivirus
 
-// remember to REMOVE the corresponding tab if a new ocis release will be published
-
-// :no_second_tab: true
-:no_third_tab: true
-
 == Introduction
 
 {description} 
 
-== Configuration
+== Antivirus Configuration
 
 === Antivirus Scanner Type
 
 The antivirus service currently supports https://tools.ietf.org/html/rfc3507[ICAP] and http://www.clamav.net/index.html[clamAV] as antivirus scanners. The `ANTIVIRUS_SCANNER_TYPE` environment variable is used to select the scanner. The detailed configuration for each scanner heavily depends on the scanner type selected. See the environment variables for more details.
 
-  -   For `icap`, only scanners using the `X-Infection-Found` header are currently supported.
-  -   For `clamav`, only local sockets can currently be configured.
+* For `icap`, only scanners using the `X-Infection-Found` header are currently supported.
+* For `clamav`, local Unix Domain Sockets and remote network sockets can be configured either by:
+** pointing to a file like `/tmp/clamd.socket` or
+** with a stream socket like `tcp://host.docker.internal:3310`.
 
 === Maximum Scan Size
 
@@ -47,6 +44,10 @@ The antivirus service can scan files during `post-processing`. `on demand` scann
 === Post-processing
 
 The antivirus service will scan files during post-processing. It listens for a post-processing step called `virusscan`. This step can be added in the environment variable `POSTPROCESSING_STEPS`. Read the documentation of the xref:{s-path}/postprocessing.adoc[postprocessing service] for more details.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

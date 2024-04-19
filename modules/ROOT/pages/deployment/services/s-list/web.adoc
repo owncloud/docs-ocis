@@ -6,7 +6,7 @@
 
 == Introduction
 
-{description} See the xref:{latest-webui-version}@webui:owncloud_web:index.adoc[ownCloud Web] description for more details.
+{description} See the https://doc.owncloud.com/webui/next/owncloud_web/index.html[ownCloud Web] description for more details.
 
 Note that clients will respond with a connection error if the web service is not available.
 
@@ -22,7 +22,9 @@ If you want to use your custom compiled web client assets instead of the embedde
 
 == Customize the Web UI Configuration
 
-See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming and customization.
+See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming and customization or how to embed Web into another application.
+
+// you will find `Web UI Configuration`, `Web UI Options` and `Embedding Web` from the dev docs in that link.
 
 == Configuration
 

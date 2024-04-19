@@ -46,7 +46,7 @@ This questionnaire is not static and more rounds may be needed to refine each it
 
 Traditionally, availability concepts often focus on monolithic hardware and software components. This changes when you take a services-centered view. While a service may be up and running, it might not respond accordingly to requests because of scaling factors. This means for clients, the driver for the measures taken is not just "available". Using a sophisticated hardware setup can be one way to solve this. But it usually does not or only partially solves the scalability issues.
 
-In Gartner's report _How Systems Complexity Reduces Uptime_ link:{attachmentsdir}/availability/gartner_complexity_reduces_uptime.pdf[(pdf copy)] from 2021, you can see that the more components you have the lower the resulting availability will be, which is especially true when using a bunch of monolithic software components.
+In Gartner's report _How Systems Complexity Reduces Uptime_ xref:attachment$/availability/gartner_complexity_reduces_uptime.pdf[(pdf copy)] from 2021, you can see that the more components you have the lower the resulting availability will be, which is especially true when using a bunch of monolithic software components.
 
 [quote, '(C) Gartner {gartner_complexity_url}[How Systems Complexity Reduces Uptime]']
 ____

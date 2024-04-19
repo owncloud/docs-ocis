@@ -8,11 +8,14 @@
 
 {description}
 
+NOTE: The store service is marked for deprecation and will be removed in a later version. Its tasks will be taken over by other services.
+
+
 // fixme: source description is still missing, and a better description is needed
 
 == Default Values
 
-* Store listens on port 9460 by default.
+* The store service listens on port 9460 by default.
 
 == Configuration
 

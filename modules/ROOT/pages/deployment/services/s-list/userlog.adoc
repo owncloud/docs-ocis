@@ -6,14 +6,15 @@
 
 :service_name: userlog
 
-// remember to REMOVE the corresponding tab if a new ocis release will be published
-
-// :no_second_tab: true
-:no_third_tab: true
-
 == Introduction
 
 {description} 
+
+== Default Values
+
+* The userlog service listens on port 9210 by default.
+
+include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 == Prerequisites
 
@@ -21,11 +22,13 @@ Running the `userlog` service without running the xref:{s-path}/eventhistory.ado
 
 == Storing
 
-The `userlog` service persists information via the configured store in `USERLOG_STORE`. Possible stores are:
+:is_stat: true
 
 include::partial$multi-location/caching-list.adoc[]
-// you must not have one or more blank lines here as it breaks continuous numbering!
-.  When using `redis-sentinel`, the Redis master to use is configured via `USERLOG_STORE_NODES` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuring Events
 
@@ -105,6 +108,10 @@ include::partial$deployment/services/webui_language_code.adoc[]
 *   If a requested language code is not available, the service tries to fall back to the base language if available. For example, if the requested language-code `de_DE` is not available, the service tries to fall back to translations in the `de` folder.
 *   If the base language `de` is also not available, the service falls back to the system's default English (`en`),
 which is the source of the texts provided by the code.
+
+== Default Language
+
+The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. See the xref:{s-path}/settings.adoc#default-language[settings] service for a detailed description.
 
 == Configuration
 
