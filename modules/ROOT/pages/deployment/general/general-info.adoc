@@ -171,10 +171,10 @@ See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
 
 * The configuration directory has a default location for _config_ files, which *must be* on a POSIX storage:
 
-** For container images (inside the container) +
+** For container images (inside the container) and xref:depl-examples/bare-metal.html#used-settings[systemd Deployments] +
 `/etc/ocis/`
 +
-** For binary releases +
+** For a simple binary setup +
 `$HOME/.ocis/config/`
 +
 [NOTE]
