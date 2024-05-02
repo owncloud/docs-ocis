@@ -15,7 +15,7 @@
 
 == Introduction
 
-This description gives a brief overview and can be used as basic template running the ocis binary. It does not cover extended deployment tasks or how to manage trusted certificates.
+This description gives a brief overview and can be used as basic template for running the ocis binary. It does not cover extended deployment tasks or how to manage trusted certificates.
 
 {description} 
 
