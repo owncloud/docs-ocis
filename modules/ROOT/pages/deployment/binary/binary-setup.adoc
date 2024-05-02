@@ -34,7 +34,7 @@ IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/genera
 
 == Prerequisite
 
-NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
+See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
 
 == Installation
 
@@ -196,8 +196,11 @@ Depending on the user you started `ocis` with and which user you are currently l
 + 
 [source,bash]
 ----
-ps ax | grep "ocis server" | grep -v grep | \
-   awk '{ print $1 }' | xargs kill -15
+ps -ax | \
+   grep "ocis server" | \
+   grep -v grep | \
+   awk '{ print $1 }' | \
+   xargs kill -15
 ----
 
 Stopping a particular ocis PID::

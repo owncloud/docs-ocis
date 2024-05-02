@@ -135,7 +135,7 @@ web:
     addr: ${SOME_HTTP_ADDR}
 ----
 
-In the example above, the value of the OS enironment variable `SOME_HTTP_ADDR` will be used at runtime for the key `addr`.
+In the example above, the value of the OS environment variable `SOME_HTTP_ADDR` will be used at runtime for the key `addr`.
 --
 
 == Default Paths
