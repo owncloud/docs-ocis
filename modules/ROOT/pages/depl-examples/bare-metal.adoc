@@ -22,7 +22,7 @@
 
 {description}
 
-This deployment example addresses a small productive environment. For a minimal test and development environment, see the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. The main differences between the setup described in this document and a minimal test environment is, the use of systemd, letsencrypt and a reverse proxy.
+This deployment example addresses a small production environment. For a minimal test and development environment, see the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. The main differences between the setup described in this document and a minimal test environment is, the use of systemd, letsencrypt and a reverse proxy.
 
 Note that this guide expects that prerequisite of a computer with an installed Linux distribution of choice is met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
 

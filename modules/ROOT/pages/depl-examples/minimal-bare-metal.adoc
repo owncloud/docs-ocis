@@ -27,7 +27,7 @@ This binary setup description makes the following assumptions:
 
 * Server Access:
 ** If you only want to acccess the server running Infinite Scale from the server itself, you can use <localhost> as URL and no further configuration is neccesary.
-** If you want to access the server from remote clients, you must configure and access Infinite Scale using the servers hostname. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] when using a dedicated domain name.
+** If you want to access the server from remote clients, you must configure and access Infinite Scale using the servers hostname. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] example when using a dedicated domain name.
 
 * You are fine in the first step using Infinite Scales internal unsigned certificates. +
 Trusted certificates can be installed later on, see xref:deployment/general/general-info.adoc#handling-certificates[Handling Certificates] for more information. 
@@ -41,13 +41,13 @@ See the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Pre
 
 == Used Settings
 
-The following settings were used in this guide. You can change this according your needs:
+The following settings were used in this guide. You can change this according to your needs:
 
 * The Infinite Scale binary location: `{ocis_bin}` (OS default)
 * The Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory]: `{ocis_env}`
 * The Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory]: `{ocis_data}`
-* The URL accessing Infinite Scale: `{ocis_url}`
-* The internal port accessing Infinite Scale: {ocis_port} (default)
+* The URL for accessing Infinite Scale: `{ocis_url}`
+* The port for accessing Infinite Scale: {ocis_port} (default)
 
 == Installation
 
