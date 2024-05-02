@@ -122,7 +122,7 @@ Special configuration settings can be the following:
 There are certain situations where multiple settings using the same keys apply for a configuration set. This can be like in the xref:{s-path}/app-registry.adoc[app-registry] service where default apps for mimetypes are defined. A single environment variable cannot hold all that information. For this case, a yaml configuration is the only way possible. Note that both installation methods, binary and container, can deal with yaml configuration files.
 
 .Using OS environment variables in yaml files
-OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases.
+OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases. Default values can be specified after a `|` character.
 
 {empty}
 
@@ -130,12 +130,14 @@ OS environment variables can be used in yaml config files for Infinite Scale ser
 --
 [source,yaml]
 ----
-web:
+proxy:
   http:
-    addr: ${SOME_HTTP_ADDR}
+    addr: ${PROXY_HTTP_ADDR|localhost:4321}
 ----
 
-In the example above, the value of the OS environment variable `SOME_HTTP_ADDR` will be used at runtime for the key `addr`.
+In the example above, the value of the OS environment variable `PROXY_HTTP_ADDR` will be used at runtime for the key `addr`. If the variable is empty or doeas not exist, the default value of `localhost:4321` is used.
+
+NOTE: Infinite Scale uses the `|` character for its config defaults in yaml files. Other software like Docker use a bash style `:-` defining defaults.
 --
 
 == Default Paths
