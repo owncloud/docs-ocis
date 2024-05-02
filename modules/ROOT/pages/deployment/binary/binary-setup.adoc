@@ -34,7 +34,7 @@ IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/genera
 
 == Prerequisite
 
-NOTE: Infinite Scale by default relies on Multicast DNS (mDNS), usually via `avahi-daemon`. If your system has a firewall, make sure mDNS is allowed in your active zone and http and https ports are open.
+See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
 
 == Installation
 
