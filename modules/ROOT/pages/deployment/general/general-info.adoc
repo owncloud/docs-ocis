@@ -140,7 +140,7 @@ In the example above, the value of the OS environment variable `PROXY_HTTP_ADDR`
 [NOTE]
 ====
 * Infinite Scale uses the `|` character for its config defaults in yaml files.
-* Other software like Docker use a bash style `:-` defining defaults.
+* Other software like Docker uses a bash style `:-` for defining defaults.
 ====
 --
 
