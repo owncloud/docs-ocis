@@ -196,8 +196,11 @@ Depending on the user you started `ocis` with and which user you are currently l
 + 
 [source,bash]
 ----
-ps ax | grep "ocis server" | grep -v grep | \
-   awk '{ print $1 }' | xargs kill -15
+ps -ax | \
+   grep "ocis server" | \
+   grep -v grep | \
+   awk '{ print $1 }' | \
+   xargs kill -15
 ----
 
 Stopping a particular ocis PID::
