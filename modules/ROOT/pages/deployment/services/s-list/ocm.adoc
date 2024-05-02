@@ -27,7 +27,7 @@ The OCM service implements an invitation workflow for _trusted_ instances when c
 
 The list of trusted instances is managed via a configuration file. The only supported backend is currently `json`, which stores the list of trusted instances in a json file on disk.
 
-Example for a `providers.json` file:
+Example for a `ocmproviders.json` file:
 
 [source,json]
 ----
@@ -53,7 +53,7 @@ Example for a `providers.json` file:
                 "host": "example.com:port"
             }
         ]
-    },
+    }
 ]
 ----
 
