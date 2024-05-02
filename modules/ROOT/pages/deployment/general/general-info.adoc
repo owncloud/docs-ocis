@@ -135,9 +135,13 @@ proxy:
     addr: ${PROXY_HTTP_ADDR|localhost:4321}
 ----
 
-In the example above, the value of the OS environment variable `PROXY_HTTP_ADDR` will be used at runtime for the key `addr`. If the variable is empty or doeas not exist, the default value of `localhost:4321` is used.
+In the example above, the value of the OS environment variable `PROXY_HTTP_ADDR` will be used at runtime for the key `addr`. If the variable is empty or does not exist, the default value of `localhost:4321` is used.
 
-NOTE: Infinite Scale uses the `|` character for its config defaults in yaml files. Other software like Docker use a bash style `:-` defining defaults.
+[NOTE]
+====
+* Infinite Scale uses the `|` character for its config defaults in yaml files.
+* Other software like Docker use a bash style `:-` defining defaults.
+====
 --
 
 == Default Paths
