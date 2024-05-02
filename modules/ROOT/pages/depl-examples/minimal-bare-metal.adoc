@@ -1,22 +1,25 @@
-= Binary Setup
+= Minimal Bare Metal Deployment
 :toc: right
 :toclevels: 3
-:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks
+:page-aliases: deployment/binary/binary-setup.adoc
+:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks.
 
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
 
 :ocis_bin: /usr/local/bin
-:ocis_env: /etc/ocis
+:ocis_env: $HOME/.ocis/config/
 :ocis_data: /var/lib/ocis
-:ocis_url: ocis.example.com
+:ocis_url: localhost or IP
 :ocis_port: 9200
 
 == Introduction
 
-This description gives a brief overview and can be used as basic template running the ocis binary, including an example of how to configure systemd. It does not cover extended deployment tasks or how to manage trusted certificates.
+This description gives a brief overview and can be used as basic template running the ocis binary. It does not cover extended deployment tasks or how to manage trusted certificates.
 
-{description} like a xref:deployment/container/orchestration/orchestration.adoc[container orchestration] or using a xref:depl-examples/bare-metal.adoc[reverse proxy]. Of course you can use it for production in your environment, too. See the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] documentation for impacts. 
+{description} 
+
+For a small production environment, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between the setup described in this document and the small production environment is the use of systemd, letsencrypt and a reverse proxy.
 
 [IMPORTANT]
 ====
@@ -24,7 +27,7 @@ This binary setup description makes the following assumptions:
 
 * Server Access:
 ** If you only want to acccess the server running Infinite Scale from the server itself, you can use <localhost> as URL and no further configuration is neccesary.
-** If you want to acccess the server running Infinite Scale from clients, you must configure and access Infinite Scale using the servers hostname or IP. <localhost> is not possible. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] when using a dedicated domain name.
+** If you want to access the server from remote clients, you must configure and access Infinite Scale using the servers hostname. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] when using a dedicated domain name.
 
 * You are fine in the first step using Infinite Scales internal unsigned certificates. +
 Trusted certificates can be installed later on, see xref:deployment/general/general-info.adoc#handling-certificates[Handling Certificates] for more information. 
@@ -34,7 +37,17 @@ IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/genera
 
 == Prerequisite
 
-See xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[ocis prerequisites,window=_blank].
+See the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Prerequisites,window=_blank] section for more details.
+
+== Used Settings
+
+The following settings were used in this guide. You can change this according your needs:
+
+* The Infinite Scale binary location: `{ocis_bin}` (OS default)
+* The Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory]: `{ocis_env}`
+* The Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory]: `{ocis_data}`
+* The URL accessing Infinite Scale: `{ocis_url}`
+* The internal port accessing Infinite Scale: {ocis_port} (default)
 
 == Installation
 
@@ -139,11 +152,10 @@ NOTE: You cannot instantiate runtime services though you can define which servic
 
 ==== Accessing the Infinite Scale Runtime
 
-When you have configured and started the Infinite Scale _runtime_ either xref:starting-infinite-scale[manually] or via xref:setting-up-systemd-for-infinite-scale[systemd] as described below, you can access it via a browser using `\https://localhost:{ocis_port}`.
+When you have configured and started the Infinite Scale runtime as described in the example command below, you can access it via a browser using `\https://localhost:{ocis_port}`.
 
-include::partial$multi-location/idm-https-reverse-proxy.adoc[]
-
-The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements::
+Starting Infinite Scale::
+The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements.
 +
 --
 To start the Infinite Scale runtime type:
@@ -170,6 +182,8 @@ ocis server & disown %%
 See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
 --
 
+include::partial$multi-location/idm-https-reverse-proxy.adoc[]
+
 === List Running Infinite Scale Processes
 
 To list all running ocis processes type:
@@ -189,10 +203,10 @@ ps ax | grep ocis | grep -v grep
 
 Depending on what you want to stop, different commands need to be applied.
 
-If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on.
+If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on. Do not use `SIGKILL` (-9) as this will initiate a dirty shutdown.
 
 Stopping the complete runtime with all its running services::
-Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for proper permissions.
+Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for the kill command for proper permissions.
 + 
 [source,bash]
 ----
@@ -200,7 +214,7 @@ ps -ax | \
    grep "ocis server" | \
    grep -v grep | \
    awk '{ print $1 }' | \
-   xargs kill -15
+   xargs sudo kill -15
 ----
 
 Stopping a particular ocis PID::
@@ -225,61 +239,3 @@ To terminate the `ocis proxy` service type the following command, where `sudo` m
 ----
 sudo kill -15 221706
 ----
-
-== Setting up systemd for Infinite Scale
-
-Note that the procedure assumes that a fresh setup from scratch is made. If not, you must relocate and adapt an existing config file.  
-
-=== Create a Service User
-
-In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
-
-[source,bash]
-----
-sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
-----
-
-* We strongly advise *against* using the user `root` for this purpose.
-* Since the `ocis` user doesn't have a home directory, the directories `{ocis_env}` and `{ocis_data}` must exist and the user `ocis` must be able to read it.
-+
---
-[source,bash,subs="attributes+"]
-----
-sudo mkdir -p {ocis_env} {ocis_data}
-----
-
-[source,bash,subs="attributes+"]
-----
-sudo chown -R ocis:ocis {ocis_env} {ocis_data}
-----
---
-* Placing the environment file in `{ocis_env}` is only a suggestion, but a good one.
-** Create the file `{ocis_env}/ocis.env` with the definitions of environment variables. See the following sections for information on additional environment variables: xref:deployment/general/general-info.adoc#configurations-to-access-the-webui[Configurations to Access the Web UI] and xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
-+
---
-NOTE: This is just an example with a minimal set of environment variables used.
-
-[source,plaintext,subs="attributes+"]
-----
-OCIS_INSECURE=true
-OCIS_URL=https://<hostname or IP>:{ocis_port}
-PROXY_HTTP_ADDR=0.0.0.0:{ocis_port}
-OCIS_CONFIG_DIR={ocis_env}
-OCIS_BASE_DATA_PATH={ocis_data}
-OCIS_LOG_LEVEL=error
-----
---
-
-Use the following command to initialize the Infinite Scale config:
-
-[source,bash,subs="attributes+"]
-----
-OCIS_CONFIG_DIR={ocis_env} \
-sudo -u ocis ocis init --insecure true
-----
-
-=== Setup systemd Service
-
-include::partial$deployment/systemd.adoc[]
-
-include::partial$deployment/dependent_startup.adoc[leveloffset=+2]
