@@ -1,58 +1,42 @@
 name: ocis
 title: Infinite Scale Documentation
-version: 'next'
+version: "next"
 start_page: ROOT:index.adoc
 nav:
-- modules/ROOT/partials/nav.adoc
+  - modules/ROOT/partials/nav.adoc
 
 asciidoc:
   attributes:
-    latest-ocis-version: {page-component-version}   # do not change, this is the value of the version key
-    previous-ocis-version: {page-component-version} # do not change, this is the value of the version key
+    latest-ocis-version: { page-component-version } # do not change, this is the value of the version key
+    previous-ocis-version: { page-component-version } # do not change, this is the value of the version key
 
     # used to define the include path for services without trailing /
     # note that any changes of this path also need adjustment in
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
-    s-path: 'deployment/services/s-list'
+    s-path: "deployment/services/s-list"
 
     # service_tab_x will be used to assemble the url accessing the link for the services
-    service_tab_1: 'docs' # latest stable like docs-stable-5.0
+    service_tab_1: "docs" # latest stable like docs-stable-5.0
 
     # service_tab_x_tab_text will be used as tab text shown for service_tab_x
-    service_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0
+    service_tab_1_tab_text: "master" # latest stable including patch releases like 5.0.0
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_tab_1: 'master' # latest stable including patch releases like v5.0.0 (note the v !)
+    compose_tab_1: "master" # latest stable including patch releases like v5.0.0 (note the v !)
 
     # compose_tab_x_tab_text will be used as tab text shown for tab_x
-    compose_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0 (must be without v !)
+    compose_tab_1_tab_text: "master" # latest stable including patch releases like 5.0.0 (must be without v !)
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
-    env_var_delta_name: '4.0.0-5.0.0'
-
-    # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
-    # note that tab 2 always contains the actual release and tab 3 the former
-    helm_tab_1: 'master'
-    helm_tab_2: 'v0.5.0'
-    helm_tab_3: 'v0.4.0'
-
-    # helm_tab_x_tab_text will be used as tab text shown for tab_x
-    # note that tab 2 always contains the actual release and tab 3 the former
-    helm_tab_1_tab_text: 'latest'
-    helm_tab_2_tab_text: '0.5.0'
-    helm_tab_3_tab_text: '0.4.0'
+    env_var_delta_name: "4.0.0-5.0.0"
 
     # set attributes defining path components which will be assembled in the document
-    secrets: 'deployment/container/orchestration/orchestration.adoc#define-secrets'
-    ocis-charts-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis-charts/'
-    values-versions-url: '/charts/ocis/docs/values.adoc.yaml'
-    values-desc-versions-url: '/charts/ocis/docs/values-desc-table.adoc'
-    composer-url: 'https://github.com/owncloud/ocis/tree/'
-    composer-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
-    composer-final-path: '/deployments/examples'
+    composer-url: "https://github.com/owncloud/ocis/tree/"
+    composer-raw-url: "https://raw.githubusercontent.com/owncloud/ocis/"
+    composer-final-path: "/deployments/examples"
     docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
 
     # used in deployment/services via partials/env-and-yaml.adoc
-    ocis-services-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
-    ocis-services-final-path: '/services/_includes/'
+    ocis-services-raw-url: "https://raw.githubusercontent.com/owncloud/ocis/"
+    ocis-services-final-path: "/services/_includes/"
