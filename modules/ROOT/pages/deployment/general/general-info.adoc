@@ -393,13 +393,13 @@ NOTE: In case of a service overwriting its shared logging config received from t
 
 These are the necessary log keys and the available values:
 
-[source,plaintext]
+[source,yaml]
 ----
 log:
-  level: [ error | warning | info | debug ]
-  color: [ true | false ]
+  level:  [ error | warning | info | debug ]
+  color:  [ true | false ]
   pretty: [ true | false ]
-  file: [ path/to/log/file ] # MUST not be used with pretty = true
+  file:   [ path/to/log/file ] # MUST not be used with pretty = true
 ----
 
 == Configurations to Access the Web UI
