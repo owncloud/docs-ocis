@@ -61,7 +61,9 @@ Example cases for expired uploads::
 * If the bandwith is limited and the file to transfer can't be transferred completely before the upload expiration time is reached, the file expires and can't be processed.
 * If the upload was technically successful, but the postprocessing step failed due to an internal error, it will not get further processed. See the procedure in the xref:{s-path}/postprocessing.adoc#resume-post-processing[Resume Post-Processing] documentation for details how to solve this.
 
-There are two commands available to manage unfinished uploads::
+The following commands are available to manage unfinished uploads::
++
+--
 [source,bash]
 ----
 ocis storage-users uploads <command>
@@ -71,7 +73,120 @@ ocis storage-users uploads <command>
 ----
 COMMANDS:
    sessions  Print a list of upload sessions
-   clean     Clean up leftovers from expired uploads
+   clean     Clean up leftovers from expired uploads (deprecated, do not use it)
+   list      Print a list of all incomplete uploads  (deprecated, do not use it)
+----
+--
+
+==== Sessions command
+
+The `sessions` command is the entry point for listing, restarting and cleaning unfinished uploads.
+
+[source,bash]
+----
+ocis storage-users uploads sessions
+----
+
+Note, though possible, do not use the deprecated upload commands listed above. Their function has been embedded in the session command respectively replaced by a command option.
+
+[source,plaintext]
+----
+NAME:
+   ocis storage-users uploads sessions - Print a list of upload sessions
+
+USAGE:
+   ocis storage-users uploads sessions [command options]
+
+OPTIONS:
+   --id value    filter sessions by upload session id (default: unset)
+   --processing  filter sessions by processing status (default: unset)
+   --expired     filter sessions by expired status    (default: unset)
+   --has-virus   filter sessions by virus scan result (default: unset)
+   --json        output as json                       (default: false)
+   --restart     send restart event for all listed sessions (default: false)
+   --clean       remove uploads                       (default: false)
+   --help, -h    show help
+----
+
+This will always output a list of uploads that match the criteria. See the examples below.
+
+Some additional information on returned information::
+* `Offset` is the amount of bytes the server has already received. +
+If `Offset` == `Size` the server has reveived all bytes of the upload.
+* `Processing` indicates if the uploaded file is currently going through postprocessing.
+* `Scan Date` and `Scan Result` indicate the scanning status. +
+If `Scan Date` is set and `Scan Result` is empty the file is not virus infected.
+
+==== Command Examples
+
+Command to list ongoing upload sessions
+
+[source,bash]
+----
+ocis storage-users uploads sessions --expired=false --processing=false
+----
+
+{empty}
+
+[caption=]
+.Sessions that are not expired:
+[width="100%",cols="~,~,~,~,~,~,~,~,~,~,~",options="header"]
+|===
+| Space
+| Upload Id
+| Name
+| Offset
+| Size
+| Executant
+| Owner
+| Expires
+| Processing
+| Scan Date
+| Scan Result
+
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| 5e387954-7313-4223-a904-bf996da6ec0b
+| foo.txt
+| 0
+| 1234
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| 2024-01-26T13:04:31+01:00
+| false
+| 2024-04-24T11:24:14+02:00
+| infected: virus A
+
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| f066244d-97b2-48e7-a30d-b40fcb60cec6
+| bar.txt
+| 0
+| 4321
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| f7fbf8c8-139b-4376-b307-cf0a8c2d0d9c
+| 2024-01-26T13:18:47+01:00
+| false
+| 2024-04-24T14:38:29+02:00
+|
+|===
+
+
+The sessions command can also clear and restart uploads. The output is the same as if run without the `--clean` or `--restart` flag. Note that it is recommended to run the command first without the `--clean` (`--processing`) flag to double check which uploads get cleaned (restarted).
+
+.Cleans all expired uploads regardless of processing and virus state.
+[source,bash]
+----
+ocis storage-users uploads sessions \
+     --expired=true \
+     --clean
+----
+
+.Restarts all uploads that are processing and are not virus infected
+[source,bash]
+----
+ocis storage-users uploads sessions \
+     --processing=false \
+     --has-virus=false \
+     --restart
 ----
 
 === Manage Trash-Bin Items
