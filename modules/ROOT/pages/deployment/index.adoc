@@ -8,7 +8,7 @@
 
 * The xref:deployment/general/general-info.adoc[General Info] section summarizes general and important information which is not dependent on the way that you install Infinite Scale. Any setup refers to this general information as prerequisite knowledge.
 
-* If you only want to play around and see what Infinite Scale has to offer, we suggest the quick and easy xref:deployment/binary/binary-setup.adoc[Binary Setup] section.
+* If you only want to play around and see what Infinite Scale has to offer, we suggest the quick and easy xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] section.
 
 * If you have already decided on a container instance with one or more containers, checkout the xref:deployment/container/container-setup.adoc[Container Setup].
 

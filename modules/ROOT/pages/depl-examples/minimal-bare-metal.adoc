@@ -1,0 +1,246 @@
+= Minimal Bare Metal Deployment
+:toc: right
+:toclevels: 3
+:page-aliases: deployment/binary/binary-setup.adoc
+:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks.
+
+:systemd-url: https://systemd.io/
+:traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
+
+:ocis_bin: /usr/local/bin
+:ocis_env: $HOME/.ocis/config/
+:ocis_data: /var/lib/ocis
+:ocis_url: localhost or IP
+:ocis_port: 9200
+
+== Introduction
+
+This description gives a brief overview and can be used as basic template for running the ocis binary. It does not cover extended deployment tasks or how to manage trusted certificates.
+
+{description} 
+
+For a small production environment, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between the setup described in this document and the small production environment is the use of systemd, letsencrypt and a reverse proxy.
+
+[IMPORTANT]
+====
+This minimal bare metal deployment makes the following assumptions:
+
+* Acccessing Infinite Scale only from the server. + 
+Use <localhost> as URL and no further configuration is neccesary. +
+To access Infinite Scale via hostname or IP, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
+
+* You are fine in the first step using Infinite Scales internal unsigned certificates. +
+Trusted certificates can be installed later on, see xref:deployment/general/general-info.adoc#handling-certificates[Handling Certificates] for more information. 
+====
+
+IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Information] page first, as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
+
+== Prerequisite
+
+See the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Prerequisites,window=_blank] section for more details.
+
+== Used Settings
+
+The following settings were used in this guide. You can change this according to your needs:
+
+* The Infinite Scale binary location: `{ocis_bin}` (OS default)
+* The Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory]: `{ocis_env}`
+* The Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory]: `{ocis_data}`
+* The URL for accessing Infinite Scale: `{ocis_url}`
+* The port for accessing Infinite Scale: {ocis_port} (default)
+
+== Installation
+
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
++
+--
+To download use:
+
+[source,bash,subs="attributes+"]
+----
+sudo wget -O {ocis_bin}/ocis <file_url>
+----
+--
+
+* Make the binary executable with:
++
+--
+[source,bash,subs="attributes+"]
+----
+sudo chmod +x {ocis_bin}/ocis
+----
+--
+
+* Check the version installed:
++
+--
+[source,bash,subs="attributes+"]
+----
+ocis version --skip-services
+----
+
+The output looks like this:
+
+[source,plaintext,subs="attributes+"]
+----
+Version: {ocis-actual-version}
+Compiled: {ocis-compiled}
+----
+
+Note that if you omit `--skip-services`, you will get additional information about services printed.
+--
+
+== Getting Command Line Help
+
+To get a list of available options and commands type:
+
+[source,bash]
+----
+ocis
+----
+
+or
+
+[source,bash]
+----
+ocis --help
+----
+
+== Start and Stop Infinite Scale
+
+=== Starting Infinite Scale
+
+Infinite Scale is started in two steps:
+
+* A first time start to initialize the system and
+* a recurring start after initialization.
+
+Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system. This step can only be done during initialisation.
+
+==== First Time Initializing Infinite Scale
+
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `{ocis_env}`. For details see the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] documentation. Type the following command to initialize Infinite Scale.
+
+[source,bash]
+----
+ocis init
+----
+
+On success, you will see a message like:
+
+:init_path: pass:[<your-user>/.ocis/config/ocis.yaml]
+
+include::partial$deployment/ocis_init.adoc[]
+
+[NOTE]
+====
+If you get an error message like the following:
+
+[source,plaintext]
+----
+Could not create config: config in /home/<user-name>/.ocis/config/ocis.yaml already exists
+----
+
+you already have created a configuration once. As you cannot overwrite the existing configuration, you must delete the old configuration first to proceed. For more details, see: xref:deployment/general/general-info.adoc#initialize-infinite-scale[Initialize Infinite Scale].
+====
+
+==== Recurring Start of Infinite Scale
+
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the following sections for more information and details:
+
+* xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
+* xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI]
+
+NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
+
+==== Accessing the Infinite Scale Runtime
+
+When you have configured and started the Infinite Scale runtime as described in the example command above, you can access it via a browser using `\https://localhost:{ocis_port}`.
+
+Starting Infinite Scale::
+The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements.
++
+--
+To start the Infinite Scale runtime type:
+
+[source,bash]
+----
+ocis server
+----
+
+Note that this will bind `ocis` to the shell you are running. If you want to detach it and avoid it being stopped when closing the shell or the shell gets disconnected (SIGHUP), use the following command:
+
+.Bash
+[source,bash]
+----
+ocis server & disown -h
+----
+
+.ZSH
+[source,zsh]
+----
+ocis server & disown %%
+----
+
+See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
+--
+
+=== Accessing Infinite Scale Other Than Localhost
+
+include::partial$multi-location/idm-https-reverse-proxy.adoc[]
+
+=== List Running Infinite Scale Processes
+
+To list all running ocis processes type:
+
+[source,bash]
+----
+ps ax | grep ocis | grep -v grep
+----
+
+[source,plaintext]
+----
+ 221297 pts/1    Sl     0:04 ocis server
+ 221706 pts/0    Sl     0:00 ocis proxy
+----
+
+=== Stopping Infinite Scale
+
+Depending on what you want to stop, different commands need to be applied.
+
+If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on. Do not use `SIGKILL` (-9) as this will initiate a dirty shutdown.
+
+Stopping the complete runtime with all its running services::
+Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for the kill command for proper permissions.
++ 
+[source,bash]
+----
+ps -ax | \
+   grep "ocis server" | \
+   grep -v grep | \
+   awk '{ print $1 }' | \
+   xargs sudo kill -15
+----
+
+Stopping a particular ocis PID::
+First identify which PID you want to terminate:
++
+[source,bash]
+----
+ps ax | grep "ocis" | grep -v grep
+----
++
+This may give an output like the following:
++
+[source,plaintext]
+----
+ 221297 pts/1    Sl     0:04 ocis server
+ 221706 pts/0    Sl     0:00 ocis proxy
+----
++
+To terminate the `ocis proxy` service type the following command, where `sudo` may not be necessary depending on the permissions of the logged-in user. Replace the PID according the output from above:
++
+[source,bash]
+----
+sudo kill -15 221706
+----

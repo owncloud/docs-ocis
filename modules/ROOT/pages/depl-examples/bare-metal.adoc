@@ -22,6 +22,8 @@
 
 {description}
 
+This deployment example addresses a small production environment. For a minimal test and development environment, see the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. The main differences between the setup described in this document and a minimal test environment is, the use of systemd, letsencrypt and a reverse proxy.
+
 Note that this guide expects that prerequisite of a computer with an installed Linux distribution of choice is met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
 
 This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
@@ -57,8 +59,8 @@ There are a few steps that are recommended but not covered in this guide:
 The following settings were used in this guide. You can change this according your needs:
 
 * The Infinite Scale binary location: `{ocis_bin}` (OS default)
-* The Infinite Scale configuration directory: `{ocis_env}`
-* The Infinite Scale data directory: `{ocis_data}`
+* The Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory]: `{ocis_env}`
+* The Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory]: `{ocis_data}`
 * The URL accessing Infinite Scale: `{ocis_url}` +
 Note that this URL must resolve to the server running this installation.
 * The internal port accessing Infinite Scale: {ocis_port} (default)

@@ -8,7 +8,7 @@
 
 IMPORTANT: We highly recommend reading this document first before you start setting up your system. Many obstacles can be avoided when knowing the basic concepts. Though it is tempting to just give things a try - which is totally ok, you will quickly realize that you may have to start again from scratch before the setup meets your requirements.
 
-The example commands shown need to be adjusted depending on whether you are using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or a xref:deployment/container/container-setup.adoc[Container Setup].
+The example commands shown need to be adjusted depending on whether you are using the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
 When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-infinite-scale-with-environment-variables[] for details.
 
@@ -24,7 +24,7 @@ Starting Infinite Scale using the embedded supervisor::
 This mode can be used when scaling is not the primary focus and can be the case if you have a:
 * testing and/or development environment, or
 * small production environment (xref:availability_scaling/availability_scaling.adoc#single-server-setup[Single Server Setup]).
-* See: xref:deployment/binary/binary-setup.adoc[Binary Setup] and xref:deployment/container/container-setup.adoc[Container Setup] for more details.
+* See: xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] and xref:deployment/container/container-setup.adoc[Container Setup] for more details.
 
 Starting Infinite Scale in unsupervised mode::
 This mode is used when _availability, scaling and the adjustment to dynamically changing requirements_ have a xref:availability_scaling/availability_scaling.adoc#deployment-evolution[high priority]. In this case, an external supervisor like Kubernetes is used to deploy and run Infinite Scale with its services.
@@ -61,7 +61,7 @@ ocis list
 ----
 
 Stopping the Infinite Scale Runtime::
-In supervised mode, you have to stop the `ocis server` which also stops all services. See xref:deployment/binary/binary-setup.adoc#stopping-infinite-scale[Stopping Infinite Scale] for more details.
+In supervised mode, you have to stop the `ocis server` which also stops all services. See xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale] for more details.
 
 ==== Unsupervised Services
 
@@ -182,7 +182,7 @@ See xref:using-s3-for-blobs[Using S3 for Blobs] for the S3 configuration.
 * Do not replace `$HOME` with `~` (tilde).
 ** The code does not resolve `~` to the users home directory.
 * Check that `$HOME` resolves to a valid directory.
-** When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale], you *must* specify a configuration file location.
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the scenario xref:depl-examples/bare-metal.adoc#setup-the-systemd-service[Setup the systemd Service], you *must* specify a configuration file location.
 ====
 
 * You can deviate from the default location and define a custom configuration directory on startup using the environment variable `OCIS_CONFIG_DIR`.
@@ -259,7 +259,7 @@ The following environment variables can overwrite the base data path if required
 ** The code does not resolve `~` to the users home directory.
 
 * Check that `$HOME` resolves to a valid directory.
-** When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:deployment/binary/binary-setup.adoc#setting-up-systemd-for-infinite-scale[Setting up systemd for Infinite Scale] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
+** When using a system user for the runtime, which has no login and therefore no home directory, like in the generic binary setup scenario xref:depl-examples/bare-metal.adoc#setup-the-systemd-service[Setup the systemd Service] or in the deployment example xref:depl-examples/small-scale.adoc[Small-Scale with systemd], you *must* specify a base directory location because a system user has no logon and therefore no home directory!
 ====
 
 * You can deviate from the default location and define a custom base directory on startup using the environment variable `OCIS_BASE_DATA_PATH`.
@@ -280,7 +280,7 @@ Read the xref:deployment/storage/s3.adoc[S3] documentation for more details on h
 
 == Initialize Infinite Scale
 
-Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/binary/binary-setup.adoc[Binary Setup] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
+Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] or the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialisation. To do so, run:
 
 [source,bash]
 ----
@@ -393,13 +393,13 @@ NOTE: In case of a service overwriting its shared logging config received from t
 
 These are the necessary log keys and the available values:
 
-[source,plaintext]
+[source,yaml]
 ----
 log:
-  level: [ error | warning | info | debug ]
-  color: [ true | false ]
+  level:  [ error | warning | info | debug ]
+  color:  [ true | false ]
   pretty: [ true | false ]
-  file: [ path/to/log/file ] # MUST not be used with pretty = true
+  file:   [ path/to/log/file ] # MUST not be used with pretty = true
 ----
 
 == Configurations to Access the Web UI
