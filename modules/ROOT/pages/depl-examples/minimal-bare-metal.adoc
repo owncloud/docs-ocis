@@ -115,7 +115,7 @@ Infinite Scale is started in two steps:
 * A first time start to initialize the system and
 * a recurring start after initialization.
 
-Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system. This step can only be done during initialisation.
+Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system. This step can only be done during initialization.
 
 ==== First Time Initializing Infinite Scale
 
