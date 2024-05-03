@@ -12,7 +12,6 @@
 *** xref:deployment/storage/s3.adoc[S3]
 ** xref:deployment/general/general-info.adoc[General Information]
 ** xref:deployment/general/ocis-init.adoc[The ocis init Command]
-** xref:deployment/binary/binary-setup.adoc[Binary Setup]
 ** xref:deployment/container/container-setup.adoc[Container Setup]
 ** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
 ** xref:deployment/wopi/wopi.adoc[Office Applications using WOPI]
@@ -88,6 +87,7 @@
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
+** xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal]
 ** xref:depl-examples/bare-metal.adoc[Bare Metal with systemd]
 * Additional Information
 ** xref:additional-information/knowledge-base.adoc[Knowledge Base]

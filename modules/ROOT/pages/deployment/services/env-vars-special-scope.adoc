@@ -21,7 +21,7 @@ Examples:
 // their source is in: https://github.com/owncloud/ocis/blob/master/ocis-pkg/config/config.go
 // at 'type Runtime struct'
 
-The following environment variables are only available with the xref:deployment/binary/binary-setup.adoc[Binary Setup]. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+The following environment variables are only available with the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 
 [tabs]
 ====
