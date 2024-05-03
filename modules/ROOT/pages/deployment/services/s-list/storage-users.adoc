@@ -87,7 +87,7 @@ The `sessions` command is the entry point for listing, restarting and cleaning u
 ocis storage-users uploads sessions
 ----
 
-Note, though possible, do not use the deprecated upload commands listed above. Their function has been embedded in the session command respectively replaced by a command option.
+Note, though possible, do not use the deprecated upload commands listed above. Their function has been embedded in the session command as command options.
 
 [source,plaintext]
 ----
@@ -111,8 +111,8 @@ OPTIONS:
 This will always output a list of uploads that match the criteria. See the examples below.
 
 Some additional information on returned information::
-* `Offset` is the amount of bytes the server has already received. +
-If `Offset` == `Size` the server has reveived all bytes of the upload.
+* `Offset` is the number of bytes the server has already received. +
+If `Offset` == `Size` the server has received all bytes of the upload.
 * `Processing` indicates if the uploaded file is currently going through postprocessing.
 * `Scan Date` and `Scan Result` indicate the scanning status. +
 If `Scan Date` is set and `Scan Result` is empty the file is not virus infected.
