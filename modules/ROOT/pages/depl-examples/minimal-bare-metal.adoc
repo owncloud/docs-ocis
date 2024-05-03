@@ -23,11 +23,11 @@ For a small production environment, see the xref:depl-examples/bare-metal.adoc[B
 
 [IMPORTANT]
 ====
-This binary setup description makes the following assumptions:
+This minimal bare metal deployment makes the following assumptions:
 
-* Server Access:
-** If you only want to acccess the server running Infinite Scale from the server itself, you can use <localhost> as URL and no further configuration is neccesary.
-** If you want to access the server from remote clients, you must configure and access Infinite Scale using the servers hostname. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] example when using a dedicated domain name.
+* Acccessing Infinite Scale only from the server. + 
+Use <localhost> as URL and no further configuration is neccesary. +
+To access Infinite Scale via hostname or IP, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
 
 * You are fine in the first step using Infinite Scales internal unsigned certificates. +
 Trusted certificates can be installed later on, see xref:deployment/general/general-info.adoc#handling-certificates[Handling Certificates] for more information. 
@@ -115,11 +115,11 @@ Infinite Scale is started in two steps:
 * A first time start to initialize the system and
 * a recurring start after initialization.
 
-Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system.
+Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system. This step can only be done during initialisation.
 
 ==== First Time Initializing Infinite Scale
 
-Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `$HOME/.ocis/config/`. For details see the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] documentation. Type the following command to initialize Infinite Scale.
+Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `{ocis_env}`. For details see the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] documentation. Type the following command to initialize Infinite Scale.
 
 [source,bash]
 ----
@@ -146,13 +146,16 @@ you already have created a configuration once. As you cannot overwrite the exist
 
 ==== Recurring Start of Infinite Scale
 
-After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the sections xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI] or xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory] for basic environment variables.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the following sections for more information and details:
+
+* xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
+* xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI]
 
 NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
 
 ==== Accessing the Infinite Scale Runtime
 
-When you have configured and started the Infinite Scale runtime as described in the example command below, you can access it via a browser using `\https://localhost:{ocis_port}`.
+When you have configured and started the Infinite Scale runtime as described in the example command above, you can access it via a browser using `\https://localhost:{ocis_port}`.
 
 Starting Infinite Scale::
 The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements.
@@ -174,13 +177,15 @@ ocis server & disown -h
 ----
 
 .ZSH
-[source,bash]
+[source,zsh]
 ----
 ocis server & disown %%
 ----
 
 See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
 --
+
+=== Accessing Infinite Scale Other Than Localhost
 
 include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
