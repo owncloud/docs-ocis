@@ -16,6 +16,10 @@
 This could happen if services are developed which are not shipped as part of the single binary.
 ====
 
+== Reset the Admin Password
+
+If you need to reset the admin password from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
 == Manage Expired Uploads
 
 Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularly. See the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] section at the _Storage Users_ service for details.
