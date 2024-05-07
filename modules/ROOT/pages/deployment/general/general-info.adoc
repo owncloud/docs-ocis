@@ -551,7 +551,7 @@ To reset the admin password, you either must:
 
 * Shutdown Infinite scale if you are using the binary setup.
 * Stop the container if you are using a docker setup.
-* Stop the xref:{s-path}/idm.adoc[IDM] service if you are using a orchestrated setup.
+* Stop the xref:{s-path}/idm.adoc[IDM] service if you are using an orchestrated setup.
 
 This is because the IDM service needs exclusive access to particular backend information. If the IDM service is running, an error message will be logged and the admin password can't be changed.
 ====
