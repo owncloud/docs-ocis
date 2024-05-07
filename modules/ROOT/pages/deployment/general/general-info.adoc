@@ -2,6 +2,8 @@
 :toc: right
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description}
@@ -528,16 +530,65 @@ Login to the webinterface with this admin user and change relevant data accordin
 
 === Password Reset for the Admin User
 
-If you have forgotten the password for the admin user or want to change it, run the following command. Note that the admin user must already exist:
+The admin password can be reset via command line if it has been forgotten and the admin can't enter the webUI anymore. Note that the admin user must already exist which happens if you have xref:deployment/general/ocis-init.adoc[initialized Infinite Scale].
+
+After running the respective command and entering a new password, the admin can relogin using the new password.
+
+Note that when Infinite Scale gets initialized with xref:deployment/general/ocis-init.adoc[The ocis init Command], an admin password is created and stored in the `ocis.yaml` file. The lifespan of this admin password is up to the point when it either gets changed in the webUI or via the resetpassword command. Any admin password changes are NOT written back to the `ocis.yaml` file nor manual changes to the `admin_password` are considerd as a new password.
+
+[source,yaml]
+----
+idm:
+  service_user_passwords:
+    admin_password: ....
+    idm_password: ....
+    ...
+----
+
+[NOTE]
+====
+To reset the admin password, you either must:
+
+* Shutdown Infinite scale if you are using the binary setup.
+* Stop the container if you are using a docker setup.
+* Stop the xref:{s-path}/idm.adoc[IDM] service if you are using an orchestrated setup.
+
+This is because the IDM service needs exclusive access to particular backend information. If the IDM service is running, an error message will be logged and the admin password can't be changed.
+====
+
+==== Binary Setup
+
+Run the following command to reset the admin password:
 
 [source,bash]
 ----
 ocis idm resetpassword
 ----
 
-After running this command and entering a new password, the admin can relogin using the new password.
+==== Container and Orchestrated Setup
 
-The password is written into the `ocis.yaml` file in section `idm:`.
+The use of `sudo` depends on if docker has been setup rootless or not.
+
+Replace the following placeholders according your setup:
+
+* `<ocis-path>` +
+This is the local path the where Infinite Scale stores all data except the configuration.
+
+* `<ocis-config-path>` +
+This is the local path where the Infinite Scale configuration is stored. 
+
+* `<ocis-version>` +
+The Infinite Scale version used like `latest` or `{compose_version}` or ... .
+
+[source,bash]
+----
+sudo docker run -it \
+  -v <ocis-path>:/var/lib/ocis \
+  -v <ocis-config-path>/config:/etc/ocis \
+  owncloud/ocis:<ocis-version> idm resetpassword
+----
+
+Note that depending on your setup, you can add `--rm` to your `docker run` command which removes the container afterwards.
 
 === Demo Users and Groups
 
