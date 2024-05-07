@@ -86,7 +86,7 @@ LDAPTLS_REQCERT=never \
     -W -b o=libregraph-idm objectclass=inetorgperson
 ----
 
-Extract the `idm_password` password to enter from the `ocis.yaml`  
+Extract the `idm_password` password to enter from the `ocis.yaml` config file which is located in the Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory].
 
 == Configuration
 
