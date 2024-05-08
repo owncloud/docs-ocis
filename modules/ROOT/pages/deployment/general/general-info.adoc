@@ -552,11 +552,13 @@ To reset the admin password, you either must:
 * Shutdown Infinite scale if you are using the binary setup.
 * Stop the container if you are using a docker setup.
 * Stop the environment if you are using docker compose. +
-Note that the environemnt must be stopped and not paused.
+Note that the environment must be stopped and not paused.
 * Stop the xref:{s-path}/idm.adoc[IDM] service if you are using an orchestrated setup.
 
 This is because the IDM service needs exclusive access to particular backend information. If the IDM service is running, an error message will be logged and the admin password can't be changed.
 ====
+
+When the prerequisite from the note above is fulfilled, you can reset the admin password as described below. When finished, the Infinite Scale instance respectively the IDM service can be started again and the new admin password is available. 
 
 ==== Binary Setup
 
@@ -584,13 +586,13 @@ The Infinite Scale version used like `latest` or `{compose_version}` or ... .
 
 [source,bash]
 ----
-sudo docker run -it \
+sudo docker run -it --rm \
   -v <ocis-path>:/var/lib/ocis \
   -v <ocis-config-path>:/etc/ocis \
   owncloud/ocis:<ocis-version> idm resetpassword
 ----
 
-Note that depending on your setup, you can add `--rm` to your `docker run` command which removes the container afterwards.
+With `--rm`, the container gets removed after execution to avoid any orphaned containers.
 
 [#docker-volumes]
 When you have defined docker volumes for storing data::
