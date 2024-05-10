@@ -389,10 +389,10 @@ When running in supervised mode (`ocis server`), it is beneficial to have common
 [source,yaml]
 ----
 log:
-  level: error
-  color: true
+  level:  error
+  color:  true
   pretty: true
-  file: /var/tmp/ocis_output.log
+  file:   /var/tmp/ocis_output.log
 ----
 
 NOTE: In case of a service overwriting its shared logging config received from the main ocis.yaml file, you must specify *all* values.
@@ -551,8 +551,9 @@ To reset the admin password, you either must:
 
 * Shutdown Infinite scale if you are using the binary setup.
 * Stop the container if you are using a docker setup.
-* Stop the environment if you are using docker compose. +
-Note that the environment must be stopped and not paused.
+* Down the environment if you are using docker compose. +
+Note that the environment must be downed, stopping or pausing is not sufficient. +
+Use `docker compose down` to do so.
 * Stop the xref:{s-path}/idm.adoc[IDM] service if you are using an orchestrated setup.
 
 This is because the IDM service needs exclusive access to particular backend information. If the IDM service is running, an error message will be logged and the admin password can't be changed.
