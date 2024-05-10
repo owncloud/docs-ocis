@@ -545,8 +545,8 @@ To reset the admin password, you either must:
 
 * Shutdown Infinite scale if you are using the binary setup.
 * Stop the container if you are using a docker setup.
-* Down the environment if you are using docker compose. +
-Note that the environment must be downed, stopping or pausing is not sufficient. +
+* Shut down the environment if you are using docker compose. +
+Note that the environment must be shut down. Stopping or pausing is not sufficient. +
 Use `docker compose down` to do so.
 * Stop the xref:{s-path}/idm.adoc[IDM] service if you are using an orchestrated setup.
 
