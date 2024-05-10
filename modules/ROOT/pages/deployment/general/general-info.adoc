@@ -209,7 +209,7 @@ Services That Can Deviate from the Base Data Path::
 The following environment variables can overwrite the base data path if required:
 +
 --
-[source,subs="+callouts,macros,attributes+"]
+[,subs="+callouts,macros,attributes+"]
 ----
 • xref:{s-path}/auth-basic.adoc[OCIS_LDAP_CACERT;AUTH_BASIC_LDAP_CACERT, window=_blank]
 • xref:{s-path}/graph.adoc[OCIS_LDAP_CACERT;GRAPH_LDAP_CACERT, window=_blank]
