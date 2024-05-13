@@ -56,3 +56,6 @@ asciidoc:
     # used in deployment/services via partials/env-and-yaml.adoc
     ocis-services-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     ocis-services-final-path: '/services/_includes/'
+
+    # used in deployment orchestration and depl-examples
+    download-gh-directory-url: https://download-directory.github.io
