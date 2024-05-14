@@ -14,15 +14,15 @@ toc::[]
 
 == Introduction
 
-{description} The aim of this guide is to be quickly up and running and get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later derive for other requirements not handled in this documentation.
+{description} The aim of this guide is to be quickly up and running and get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
 
-NOTE: This guide will always reference to the latest stable downloadable version of Infinite Scale.
+NOTE: This guide will always reference the latest stable downloadable version of Infinite Scale.
 
 == Requirements
 
 === Hardware
 
-This guide describes an installation of Infinite Scale based on Ubuntu LTS and docker compose. The underlaying hardware of the computer (server) can be anything as listed below as long it meets the OS requirements defined in the xref:software-stack[Software Stack]:
+This guide describes an installation of Infinite Scale based on Ubuntu LTS and docker compose. The underlying hardware of the computer (server) can be anything as listed below as long it meets the OS requirements defined in the xref:software-stack[Software Stack]:
 
 * Raspberry Pi
 * Notebook
@@ -30,7 +30,7 @@ This guide describes an installation of Infinite Scale based on Ubuntu LTS and d
 * Virtual Machine
 * ...
 
-Note, do not get confused by the term _server_. At the moment you install software that serves tasks others can access, independent if you run a desktop or server OS, the term server is used.
+Note, do not get confused by the term _server_. When you install software that serves tasks others can access, independent of if you run a desktop or server OS, the term server is used.
 
 [NOTE]
 ====
@@ -47,7 +47,7 @@ You, as administrator, should have the following minimum knowledge stack.
 
 * Basic knowledge about terms like: +
 server, hostname, localhost, DNS, DHCP, network ect. +
-In case you are not sure, just use a search engine for more details.
+If you are not sure, just use a search engine for more details.
 
 * Command line (bash) basics like: +
 ssh, actions on files, edit files via nano or vi etc.
@@ -60,7 +60,7 @@ You are interested in using it, possibly for the first time.
 
 === Software Stack
 
-For the OS, we have selected *Ubuntu LTS 22.04*. On purpose, we reference to https://ubuntu.com/download/desktop[Ubuntu Desktop] as you have a GUI including a browser preinstalled. The office suite that is offered to be installed with Ubuntu Desktop is no prerequisite and can be omitted during the OS installation process if a fresh setup is planned.
+For the OS, we have selected *Ubuntu LTS 22.04*. On purpose, we reference to https://ubuntu.com/download/desktop[Ubuntu Desktop] as that has a GUI including a browser preinstalled. The office suite that is offered to be installed with Ubuntu Desktop is not a prerequisite and can be omitted during the OS installation process if a fresh setup is planned.
 
 If you already have a computer running Ubuntu Desktop LTS 22.04, you can use that one as long it meets the requirements listed below. 
 
@@ -77,7 +77,7 @@ These are limitations that are defined by the setup chosen.
 [#accessing-ocis]
 Accessing Infinite Scale::
 --
-1. Based on the goal setting up an Infinite Scale instance quickly, any access to the instance is in the first step *only* possible from computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
+1. Based on the goal of setting up an Infinite Scale instance quickly, any access to the instance is in the first step *only* possible from computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
 +
 Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured as a follow up step.
 +
@@ -87,7 +87,7 @@ image::depl-examples/ubuntu-compose/ubuntu-basic-install.drawio.svg[Network Over
 
 {empty}
 
-NOTE: Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted, which is safe to do so. These self signed certificates are automatically generated during the initial startup. See xref:prepare-your-browser[Prepare Your Browser] for an important information.
+NOTE: Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted, which is safe to do so. These self signed certificates are automatically generated during the initial startup. See xref:prepare-your-browser[Prepare Your Browser] for important information.
 --
 
 User and User Access Management::
@@ -112,15 +112,15 @@ docker is installed. Make sure you have the https://docs.docker.com/release-note
 https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[Install using the apt repository, window=_blank].
 Check with the verification step to see if docker has been installed successfully.
 
-Note that by default and for security reasons, docker commands need to be issued with `sudo` permissions. You can change that on your own responsibility based on the description in https://docs.docker.com/engine/install/linux-postinstall/[Manage Docker as a non-root user, window=_blank].
+Note that by default and for security reasons, docker commands need to be issued with `sudo` permissions. You can change that based on the description in https://docs.docker.com/engine/install/linux-postinstall/[Manage Docker as a non-root user, window=_blank]. You need to understand and take responsibility for the different security situation when Docker is used as a non-root user.
 
 == Prepare the Infinite Scale Installation
 
-The preparation installing Infinite Scale is made in several steps. When editing files, `nano` is used in the examples though any editor of choice can be selected.
+The preparation for installing Infinite Scale is done in several steps. When editing files, `nano` is used in the examples though any editor of choice can be selected.
 
 === Create a Docker Compose Directory
 
-The relevant files necessary for `docker compose` can be at any location. For the ease of handling, a subdirectory structure inside your home directory is created. To do so, issue the following command in a shell:
+The relevant files necessary for `docker compose` can be at any location. For ease of handling, a subdirectory structure inside your home directory is created. To do so, issue the following command in a shell:
 
 [source,bash]
 ----
@@ -158,7 +158,7 @@ unzip 'owncloud ocis v{compose_version} deployments-examples_ocis_wopi.zip' \
   -d ~/compose/ocis/ocis_wopi
 ----
 
-When files got extracted, list the directory with:
+When files have been extracted, list the directory with:
 
 [source,bash]
 ----
@@ -218,7 +218,7 @@ Set the value to any initial password you like.
 ** This is the _initial_ admin password you define. +
 Its value has no effect if the admin password is changed later on in the browser or via password reset from the command line.
 
-** You can omit setting an own initial password. +
+** You can omit setting an initial password. +
 If omitted, the default password `admin` is used.
 
 == Start the Compose Setup
@@ -230,11 +230,11 @@ When you have finished the configuration, you can start the compose setup by iss
 sudo docker compose up
 ----
 
-This comand will download all necessary containers and starts up the instance according your settings. All outputs and logging is also printed to the shell. For later startups, you can add the `-d` flag which starts the container in the background and no logging is printed to the shell.
+This command will download all necessary containers and starts up the instance according your settings. All outputs and logging is also printed to the shell. For later startups, you can add the `-d` flag which starts the container in the background and no logging is printed to the shell.
 
 === Prepare Your Browser
 
-* The following step is necessary because no valid browser certificates like ones from Letsencryp are used.
+* The following step is necessary because no valid browser certificates like ones from Letsencrypt are used.
 * When using trusted certificates which require a domain resolvable from the internet, this step is not necessary. Setting up trusted certificates is not covered here.
 
 After you have started up Infinite Scale, you must accept one time per browser invalid certificates provided by Infinite Scale *before* you can access Infinite Scale and web office applications.
@@ -247,7 +247,7 @@ image::depl-examples/ubuntu-compose/accept-untrusted-certificate.png[Accept Inva
 
 == First Time Login
 
-Now, after preparations have finished, you can access your instance *from your server* (the machine you have installed Infinite Scale). To do so, open your browser and enter the instance URL:
+Now, after preparations have finished, you can access your instance *from your server* (the machine on which you have installed Infinite Scale). To do so, open your browser and enter the instance URL:
 
 [source,URL]
 ----
@@ -264,7 +264,7 @@ For the credentials, use:
 * `admin` for the password, +
 or the one you have defined manually during setup.
 
-NOTE: If you forgot the manual defined password set during initial setup, you need to follow one of the procedures described in the xref:admin-password[Admin Password] section.
+NOTE: If you forgot the manually defined password set during initial setup, you need to follow one of the procedures described in the xref:admin-password[Admin Password] section.
 
 If you have logged in successfully, you should see the following screen:
 
@@ -276,7 +276,7 @@ TIP: Checkout the https://doc.owncloud.com/desktop[Desktop App] for enhanced usa
 
 [NOTE]
 ====
-The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not downed manually by the following commend.
+The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down manually by the following commend.
 
 [source,bash]
 ----
@@ -292,7 +292,7 @@ Finally, a short description is provided if you would like to uninstall this dep
 
 With the current setup, Infinite Scale can only be accessed from the computer Infinite Scale is installed on. The following enhancement will make your instance also accessible for other clients inside your network, but not from the internet.
 
-In the image shown at xref:accessing-ocis[Accessing Infinite Scale], a modem/router has a central role providing access to the internet. For home and small business environments, this device also runs internal services like DHCP to provide IP addresses for clients on the network and DNS to resolve names to IP addresses. These services usually do not need any manual configuration except when running dedicated services in the local network. Both, the DHCP and DNS service can, depending on your environment also be on different hardware. The following procedure describes the setup necessary in a general way, use the vendors guide for configuration details.
+In the image shown at xref:accessing-ocis[Accessing Infinite Scale], a modem/router has a central role providing access to the internet. For home and small business environments, this device also runs internal services like DHCP to provide IP addresses for clients on the network and DNS to resolve names to IP addresses. These services usually do not need any manual configuration except when running dedicated services in the local network. The DHCP and DNS service can also be on different hardware, depending on your environment. The following procedure describes the setup necessary in a general way, use the vendors guide for configuration details.
 
 * Get the IP address used by the computer you are running Infinite Scale on that connects to your local network. To do so, use the following command:
 +
@@ -301,7 +301,7 @@ In the image shown at xref:accessing-ocis[Accessing Infinite Scale], a modem/rou
 ----
 hostname -I | awk '{print $1}'
 ----
-Note that this IP address is usually provided via DHCP and is therefore not static and subject of changes. Setting up a static IP address is not covered here.
+Note that this IP address is usually provided via DHCP and is therefore not static and subject to changes. Setting up a static IP address is not covered here.
 
 When done, check that you get a response using *another computer in your network* by issuing:
 
@@ -314,7 +314,7 @@ ping <IP address returned from the command above>
 * In the DNS settings of the modem/router or other hardware/software that runs the DNS service in your local network:
 +
 --
-Add DNS entries similar as defined in xref:update-the-hosts-file[Update the hosts File] but using the IP address of your server Infinite Scale runs on, replace the example IP address with the real address from <IP address returned from above>:
+Add DNS entries similar to what was defined in xref:update-the-hosts-file[Update the hosts File] but using the IP address of your server that Infinite Scale runs on, replace the example IP address with the real address from <IP address returned from above>:
 
 [source,hosts]
 ----
@@ -327,7 +327,7 @@ wopiserver.owncloud.test --> 10.168.90.81
 ---- 
 --
 
-* Check that *all* entries from above are resolvable from one client in your local network. That client shoud not be the one running Infinite Scale. Open a shell and use the following example command:
+* Check that *all* entries from above are resolvable from one client in your local network. That client should not be the one running Infinite Scale. Open a shell and use the following example command:
 +
 --
 [source,bash]
@@ -342,7 +342,7 @@ ping ocis.owncloud.test
 
 When all URL's are resolvable::
 --
-* Though not mandatory, you can now remove the manually added entries formerly added in xref:update-the-hosts-file[Update the hosts File] because name resolution is now on the local DNS server. Do not forget to reboot post changing the host file. The Infinite Scale deployment will reboot automatically if the compose environment was not downed by commend.
+* Though not mandatory, you can now remove the manually added entries formerly added in xref:update-the-hosts-file[Update the hosts File] because name resolution is now on the local DNS server. Do not forget to reboot post changing the host file. The Infinite Scale deployment will reboot automatically if the compose environment was not shut down by command.
 
 * For any client that would like to access your Infinite Scale instance, follow the one time procedure described in xref:prepare-your-browser[Prepare Your Browser].
 --
@@ -351,18 +351,18 @@ Congratulations, all clients within your local network are now able to access In
 
 TIP: It is recommended to add some users to your Infinite Scale instance additionally to the admin user before other clients login.
 
-== Mointor the Instance
+== Monitor the Instance
 
 === Logs
 
-I fyou have started up the instance in background mode using:
+If you have started up the instance in background mode using:
 
 [source,bash]
 ----
 sudo docker compose up -d
 ----
 
-you can monitor the logs life by issuing the following command:
+you can monitor the log file by issuing the following command:
 
 [source,bash]
 ----
@@ -474,7 +474,7 @@ The Infinite Scale instance is now fully removed from the server.
 
 === Initial Admin Password from Docker Log
 
-For the case the manual set *initial* admin password has been forgotten *before* it got changed, you can get it from the docker log. See the https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logging.
+If the manually set *initial* admin password has been forgotten *before* it got changed, you can get it from the docker log. See the https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logging.
 
 First you need to get the Infinite Scale `CONTAINER ID`:
 
@@ -483,7 +483,7 @@ First you need to get the Infinite Scale `CONTAINER ID`:
 sudo docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
 ----
 
-From the output, note the container ID that has in the printout:
+From the output, note the container ID in the printout:
 
 * Image -> `owncloud/ocis:{compose_version}` and
 * Command starting with -> `/bin/sh -c 'ocis in…`.
