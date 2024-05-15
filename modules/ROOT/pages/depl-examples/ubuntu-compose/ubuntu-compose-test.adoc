@@ -81,7 +81,7 @@ Accessing Infinite Scale::
 +
 Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured as a follow up step.
 +
-image::depl-examples/ubuntu-compose/ubuntu-basic-install.drawio.svg[Network Overview, width=400]
+image::depl-examples/ubuntu-compose/ubuntu-test-install.drawio.svg[Network Overview, width=400]
 
 2. To access Infinite Scale from your computer or from your local network, the domain name `ocis.owncloud.test` and other required subdomains are used which are not resolvable from external networks.
 
