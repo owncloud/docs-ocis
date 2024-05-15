@@ -77,7 +77,7 @@ These are limitations that are defined by the setup chosen.
 [#accessing-ocis]
 Accessing Infinite Scale::
 --
-1. Based on the goal of setting up an Infinite Scale instance quickly, any access to the instance is in the first step *only* possible from computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
+1. Based on the goal of setting up an Infinite Scale instance quickly, any access to the instance is in the first step *only* possible from the computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
 +
 Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured as a follow up step.
 +
@@ -276,7 +276,7 @@ TIP: Checkout the https://doc.owncloud.com/desktop[Desktop App] for enhanced usa
 
 [NOTE]
 ====
-The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down manually by the following commend.
+The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down manually by the following command.
 
 [source,bash]
 ----
@@ -483,10 +483,13 @@ First you need to get the Infinite Scale `CONTAINER ID`:
 sudo docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
 ----
 
-From the output, note the container ID in the printout:
+From the output, note the container ID in the printout that matches:
 
-* Image -> `owncloud/ocis:{compose_version}` and
-* Command starting with -> `/bin/sh -c 'ocis in…`.
+[.transparent-background,subs="quotes,attributes+"]
+----
+* Image 		-> *owncloud/ocis:{compose_version}* and
+* Command starting with	-> */bin/sh -c 'ocis in…*.
+----
 
 Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
 
