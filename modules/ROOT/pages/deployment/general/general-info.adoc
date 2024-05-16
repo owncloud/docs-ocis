@@ -363,7 +363,11 @@ This will print an output like:
 +--------------------+
 ----
 
-=== Starting Infinite Scale With Environment Variables
+== Start Infinite Scale With Defined Services
+
+Infinite Scale can be started with a defined set of services which can deviate from the default list. To do so, environment variables can be set as described below. The environment variables relevant to define which services will be started are described in the xref:deployment/services/env-vars-special-scope.adoc#special-environment-variables[Special Environment Variables].
+
+== Starting Infinite Scale With Environment Variables
 
 You can use environment variables to define or overwrite config parameters which will be used when starting Infinite Scale like:
 
