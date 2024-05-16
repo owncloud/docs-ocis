@@ -430,7 +430,7 @@ sudo docker rmi <container ID> <container ID> ...
 ----
 --
 
-. Remove Docker Volumes 
+. Remove docker volumes:
 ** Remove all unused anonymous docker volumes:
 +
 --
@@ -465,6 +465,17 @@ sudo docker volume rm <volume name> <volume name> ...
 [source,bash]
 ----
 sudo docker volume ls
+----
+--
+
+. Remove the directory with the docker compose files:
++
+--
+Issue the following command to remove the docker compose directory used by `ocis_wopi`:
+
+[source,bash]
+----
+sudo rm -r ~/compose/ocis/ocis_wopi
 ----
 --
 
