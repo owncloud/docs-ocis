@@ -56,7 +56,7 @@ Build version of the proxy.
 
 The following is an example prometheus configuration for the single process mode. It assumes that:
 
-* the proxy service is configured to bind on all interfaces `PROXY_HTTP_ADDR=0.0.0.0:9205` and 
+* the proxy service is configured to bind on all interfaces `PROXY_DEBUG_ADDR=0.0.0.0:9205` and 
 * the proxy is available via the `ocis` service name (typically in docker-compose environments).
 
 The prometheus service detects the `/metrics` endpoint automatically and scrapes it every 15 seconds.
