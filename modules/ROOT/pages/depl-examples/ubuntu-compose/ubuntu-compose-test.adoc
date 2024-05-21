@@ -60,9 +60,9 @@ You are interested in using it, possibly for the first time.
 
 === Software Stack
 
-For the OS, we have selected *Ubuntu LTS 22.04*. On purpose, we reference to https://ubuntu.com/download/desktop[Ubuntu Desktop] as that has a GUI including a browser preinstalled. The office suite that is offered to be installed with Ubuntu Desktop is not a prerequisite and can be omitted during the OS installation process if a fresh setup is planned.
+For the OS, *Ubuntu LTS 24.04* has been selected, but it will also work with Ubuntu LTS 22.04. On purpose, we reference to https://ubuntu.com/download/desktop[Ubuntu Desktop] as that has a GUI including a browser preinstalled. The office suite that is offered to be installed with Ubuntu Desktop is not a prerequisite and can be omitted during the OS installation process if a fresh setup is planned.
 
-If you already have a computer running Ubuntu Desktop LTS 22.04, you can use that one as long it meets the requirements listed below. 
+If you already have a computer running Ubuntu Desktop LTS 24.04, you can use that one as long it meets the requirements listed below. 
 
 Note that this guide expects:
 
