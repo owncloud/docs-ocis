@@ -150,11 +150,11 @@ The `.zip` file will be downloaded into your `Download` directory.
 
 NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get overwritten without notice and you need to xref:edit-the-configuration-file[reconfigure] your configuration.
 
-In the shell, change into that download directory and extract the zip file into a defined directory by issuing the following command:
+In the shell, extract the zip file into a defined directory by issuing the following command:
 
 [source,bash,subs="attributes+"]
 ----
-unzip 'owncloud ocis v{compose_version} deployments-examples_ocis_wopi.zip' \
+unzip ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_ocis_wopi.zip' \
   -d ~/compose/ocis/ocis_wopi
 ----
 
