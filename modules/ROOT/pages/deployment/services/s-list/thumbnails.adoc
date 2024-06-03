@@ -8,7 +8,7 @@
 
 {description} It retrieves the sources at the location where the user files are stored and saves the thumbnails where system files are stored. Those locations have defaults but can be manually defined via environment variables.
 
-Note that for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev[Developer Documentation].
+Note for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev/services/thumbnails/[Developer Documentation].
 
 == Default Values
 
@@ -59,9 +59,15 @@ If a file type was not properly assigned or the type identification failed, thum
 
 Thumbnails can either be generated as `png`, `jpg` or `gif` files. These types are hardcoded and no other types can be requested. A requestor, like another service or a client, can request one of the available types to be generated. If more than one type is required, each type must be requested individually.
 
+=== Thumbnail Query String Parameters
+
+Clients can request thumbnail previews for files by adding `?preview=1` to the file URL. Requests for files with no thumbnail available respond with HTTP status 404. For a detailed list of parameters see: https://owncloud.dev/services/thumbnails/#thumbnail-query-string-parameters[Developer Documentation].
+
 === Thumbnail Resolution
 
 Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can request any arbitrary resolution and the thumbnail service will use the one closest to the requested resolution. If more than one resolution is required, each resolution must be requested individually.
+
+{empty}
 
 [caption=]
 .Example
@@ -82,6 +88,11 @@ Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can
 | 15x10  
 |===
 
+////
+=== Thumbnail Processors
+that section is covered in the dev docs only, see the comment in the page intro.
+////
+
 === Deleting Thumbnails
 
 As of now, there is no automated thumbnail deletion. This is especially true when a source file gets deleted or moved. This situation will be solved at a later stage. For the time being, if you run short on physical thumbnails space, you have to manually delete the thumbnail store to free space. Thumbnails will then be recreated on request.
@@ -89,6 +100,8 @@ As of now, there is no automated thumbnail deletion. This is especially true whe
 === Memory Considerations
 
 Since source files need to be loaded into memory when generating thumbnails, large source files could potentially crash this service if there is insufficient memory available. For bigger instances when using container orchestration deployment methods, this service can be dedicated to its own server(s) with more memory.
+
+To have more control over memory and CPU consumption, the maximum number of concurrent requests can be limited by setting the environment variable `THUMBNAILS_MAX_CONCURRENT_REQUESTS`. The default value is 0 which does not apply any restrictions to the number of concurrent requests. As soon as the number of concurrent requests is reached, any further request will be responded with `429/Too Many Requests` and a requesting client can retry at a later point in time.
 
 == Configuration
 
