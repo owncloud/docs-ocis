@@ -233,7 +233,7 @@ Has a default value of `720h` which equals `30 days`. This means, the command wi
 Restoring is possible only to the original location. The personal or project `spaceID` is required for the items to be restored. To authenticate the CLI tool use:
 
 --
-`OCIS_SERVICE_ACCOUNT_SECRET=<acc-secret>` and +
+`OCIS_SERVICE_ACCOUNT_SECRET=<acc-secret>` +
 `OCIS_SERVICE_ACCOUNT_ID=<acc-id>`
 --
 
