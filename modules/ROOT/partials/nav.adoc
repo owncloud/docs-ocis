@@ -74,6 +74,7 @@
 *** xref:deployment/webui/webui-theming.adoc[Custom Theming]
 * Maintenance
 ** Backup and Restore
+*** xref:maintenance/b-r/backup_considerations.adoc[Backup Considerations]
 *** xref:maintenance/b-r/backup.adoc[Backup]
 *** xref:maintenance/b-r/restore.adoc[Restore]
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
