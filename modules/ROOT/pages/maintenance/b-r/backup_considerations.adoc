@@ -6,7 +6,7 @@
 
 {description} You can also refer to it when you are just curious about how Infinite Scale stores its data.
 
-Note, as a prerequisite backing up Infinite Scale, the instance has to be fully shut down for the time being.
+Note, as a prerequisite for backing up Infinite Scale, the instance has to be fully shut down.
 
 == Infinite Scale Data Structure
 
@@ -139,7 +139,7 @@ Contains the data for the internal Infinite Scale identity management. See the x
 
 === idp
 
-Note: This folder will not appear if you use an external idp. Refer to your idp's documentation for backup details in this case.
+Note: This folder will not appear if you use an external IDP. Refer to your IDP's documentation for backup details in this case.
 
 Contains the data for the internal Infinite Scale identity provider. See the xref:{s-path}/idp.adoc[IDP service] for more details.
 
@@ -164,7 +164,7 @@ Contains the data for the internal Infinite Scale identity provider. See the xre
 
 === nats
 
-Note: This folder will not appear if you use an external nats installation. In that case, data has to secured in alignment with the external installation.
+Note: This folder will not appear if you use an external nats installation. In that case, data has to be secured in alignment with the external installation.
 
 Contains nats data for streams and stores. See the xref:{s-path}/nats.adoc[NATS service] for more details.
 
@@ -234,7 +234,7 @@ Contains Infinite Scale meta (and blob) data, depending on the blobstore. See th
 * `ocm`: +
 *BACKUP REQUIRED/OMITABLE*. Contains ocm share data. When not using xref:{s-path}/ocm.adoc[ocm sharing], this folder does not need to be backed up.
 * `users`: +
-*BACKUP REQUIRED*. Contains user data. Path can be specified via `STORAGE_USERS_OCIS_ROOT`. Not backing it up will remove all spaces and all files. As result, you will have a configured but empty Infinite Scale instance, which is fully functional accepting new data. Old data is lost.
+*BACKUP REQUIRED*. Contains user data. Path can be specified via `STORAGE_USERS_OCIS_ROOT`. Not backing it up will remove all spaces and all files. As result, you will have a configured but empty Infinite Scale instance, which is fully functional for accepting new data. Old data is lost.
 
 === thumbnails
 
@@ -264,7 +264,7 @@ Contains web assets such as custom logos, themes etc. See the xref:{s-path}/web.
 ----
 
 * `assets`: +
-*BACKUP RECOMMENDED/OMITABLE*. This folder contains custom web assets. Can be specified via `WEB_ASSET_CORE_PATH`. If no custom web assets are used, there is no need for a backup. If those exist but are not backed up, they need to be reuploaded.
+*BACKUP RECOMMENDED/OMITTABLE*. This folder contains custom web assets. Can be specified via `WEB_ASSET_CORE_PATH`. If no custom web assets are used, there is no need for a backup. If those exist but are not backed up, they need to be reuploaded.
 
 === External Services
 
