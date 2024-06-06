@@ -17,9 +17,9 @@ include::partial$multi-location/compose-version.adoc[]
 
 == Introduction
 
-{description} It does not cover extended deployment tasks or how to manage trusted certificates etc. and is intended to get a first hands on the system.
+{description} It does not cover extended deployment tasks or how to manage trusted certificates etc. and is intended to get a first hands-on experience of the system.
 
-For a small production environment using the binary installation approach, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between this setup and the small production environment using binary is in a nutshell the use of systemd, LetsEncrypt and a reverse proxy.
+For a small production environment using the binary installation approach, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between this setup and the small production environment using the binary installation is, in a nutshell, the use of systemd, LetsEncrypt and a reverse proxy.
 
 [IMPORTANT]
 ====
