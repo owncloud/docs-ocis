@@ -2,7 +2,7 @@
 :toc: right
 :toclevels: 3
 :page-aliases: deployment/binary/binary-setup.adoc
-:description: Installing the Infinite Scale binary manually works well if you want to quickly test Infinite Scale without performing additional tasks.
+:description: This description allows you to have an Infinite Scale system up and running with only a view commands.
 
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
@@ -13,20 +13,20 @@
 :ocis_url: localhost or IP
 :ocis_port: 9200
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
-This description gives a brief overview and can be used as basic template for running the ocis binary. It does not cover extended deployment tasks or how to manage trusted certificates.
+{description} It does not cover extended deployment tasks or how to manage trusted certificates etc. and is intended to get a first hands on the system.
 
-{description} 
-
-For a small production environment, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between the setup described in this document and the small production environment is the use of systemd, letsencrypt and a reverse proxy.
+For a small production environment using the binary installation approach, see the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd]. The main differences between this setup and the small production environment using binary is in a nutshell the use of systemd, LetsEncrypt and a reverse proxy.
 
 [IMPORTANT]
 ====
 This minimal bare metal deployment makes the following assumptions:
 
 * Acccessing Infinite Scale only from the server. + 
-Use <localhost> as URL and no further configuration is neccesary. +
+Use `\https://localhost:{ocis_port}` as URL and no further configuration is neccesary. +
 To access Infinite Scale via hostname or IP, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
 
 * You are fine in the first step using Infinite Scales internal unsigned certificates. +
@@ -35,7 +35,7 @@ Trusted certificates can be installed later on, see xref:deployment/general/gene
 
 IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/general-info.adoc[General Information] page first, as it contains valuable information about configuration rules, managing services and default paths - just to mention some of the useful topics.
 
-== Prerequisite
+== Prerequisites
 
 See the xref:prerequisites/prerequisites.adoc#filesystems-and-shared-storage[Prerequisites,window=_blank] section for more details.
 
@@ -46,8 +46,40 @@ The following settings were used in this guide. You can change this according to
 * The Infinite Scale binary location: `{ocis_bin}` (OS default)
 * The Infinite Scale xref:deployment/general/general-info.adoc#configuration-directory[configuration directory]: `{ocis_env}`
 * The Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory]: `{ocis_data}`
-* The URL for accessing Infinite Scale: `{ocis_url}`
-* The port for accessing Infinite Scale: {ocis_port} (default)
+* The URL for accessing Infinite Scale: `localhost`
+* The port for accessing Infinite Scale: `{ocis_port}` (default)
+
+== TL;DR
+
+For those who want to skip reading the full document, use this summary of commands to download, start and access Infinite Scale without any additional information provided. For more details and explanations, we recommend taking the step by step process starting with the next section.
+
+IMPORTANT: With this approach, the system you install Infinite Scale on *must* have a GUI present. A headless system has different requirements and needs an extended setup, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
+
+Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+
+[source,bash,subs="attributes+"]
+----
+sudo wget -O {ocis_bin}/ocis <file_url>
+----
+
+[source,bash,subs="attributes+"]
+----
+sudo chmod +x {ocis_bin}/ocis
+----
+
+[source,bash]
+----
+ocis init
+----
+
+[source,bash]
+----
+ocis server
+----
+
+Open a browser and use as URL: `\https://localhost:{ocis_port}` and the credentials printed by the `ocis init` command to login.
+
+Congratulations, you now have access to your Infinite Scale instance.
 
 == Installation
 
@@ -83,7 +115,7 @@ The output looks like this:
 
 [source,plaintext,subs="attributes+"]
 ----
-Version: {ocis-actual-version}
+Version: {compose_version}
 Compiled: {ocis-compiled}
 ----
 
@@ -106,9 +138,7 @@ or
 ocis --help
 ----
 
-== Start and Stop Infinite Scale
-
-=== Starting Infinite Scale
+== Starting Infinite Scale
 
 Infinite Scale is started in two steps:
 
@@ -117,7 +147,7 @@ Infinite Scale is started in two steps:
 
 Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[Default Users and Groups] section if you want to have demo users created when initializing the system. This step can only be done during initialization.
 
-==== First Time Initializing Infinite Scale
+=== First Time Initializing Infinite Scale
 
 Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infinite-scale[first time initialization] to set up the environment. You will need to answer questions as the basis for generating a default `ocis.yaml` file. You can edit this file later. The default location for config files is, if not otherwise defined, `{ocis_env}`. For details see the xref:deployment/general/general-info.adoc#configuration-directory[Configuration Directory] documentation. Type the following command to initialize Infinite Scale.
 
@@ -144,18 +174,9 @@ Could not create config: config in /home/<user-name>/.ocis/config/ocis.yaml alre
 you already have created a configuration once. As you cannot overwrite the existing configuration, you must delete the old configuration first to proceed. For more details, see: xref:deployment/general/general-info.adoc#initialize-infinite-scale[Initialize Infinite Scale].
 ====
 
-==== Recurring Start of Infinite Scale
+=== Starting the Infinite Scale Runtime
 
-After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services. See the following sections for more information and details:
-
-* xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
-* xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI]
-
-NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
-
-==== Accessing the Infinite Scale Runtime
-
-When you have configured and started the Infinite Scale runtime as described in the example command above, you can access it via a browser using `\https://localhost:{ocis_port}`.
+After initializing Infinite Scale for the first time, you can start the Infinite Scale runtime which includes embedded services.
 
 Starting Infinite Scale::
 The example commands shown below have no environment variables or command line options for ease of reading, add them according to your requirements.
@@ -185,11 +206,24 @@ ocis server & disown %%
 See the respective shell documentation for how to manage processes respectively detach and re-attach sessions.
 --
 
+=== Configuring Infinite Scale
+
+Infinite Scale can be configured via environment variables, see the following sections for more information and details:
+
+* xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
+* xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI]
+
+NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
+
+== Accessing Infinite Scale
+
+When you have configured and started the Infinite Scale runtime as described in the example command above, you can access it via a browser using `\https://localhost:{ocis_port}`. Use the credentials printed from the `ocis init` command.
+
 === Accessing Infinite Scale Other Than Localhost
 
 include::partial$multi-location/idm-https-reverse-proxy.adoc[]
 
-=== List Running Infinite Scale Processes
+== List Running Infinite Scale Processes
 
 To list all running ocis processes type:
 
@@ -204,7 +238,7 @@ ps ax | grep ocis | grep -v grep
  221706 pts/0    Sl     0:00 ocis proxy
 ----
 
-=== Stopping Infinite Scale
+== Stopping Infinite Scale
 
 Depending on what you want to stop, different commands need to be applied.
 
