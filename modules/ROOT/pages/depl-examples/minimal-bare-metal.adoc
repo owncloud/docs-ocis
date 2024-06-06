@@ -2,7 +2,7 @@
 :toc: right
 :toclevels: 3
 :page-aliases: deployment/binary/binary-setup.adoc
-:description: This description allows you to have an Infinite Scale system up and running with only a view commands.
+:description: This description allows you to have an Infinite Scale system up and running with only a few commands.
 
 :systemd-url: https://systemd.io/
 :traefik-url: https://doc.traefik.io/traefik/getting-started/install-traefik/
