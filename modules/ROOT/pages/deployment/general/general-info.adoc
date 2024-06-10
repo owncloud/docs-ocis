@@ -34,7 +34,7 @@ This mode is used when _availability, scaling and the adjustment to dynamically 
 
 == Managing Services
 
-Services are built as microservices which can be started, stopped or instantiated. xref:{s-path}/services_rules.adoc[Services Rules] documentation has been added to explain some background. Read this carefully to avoid unwanted behavior. For details of each service see the xref:deployment/services/services.adoc[Services] documentation.
+Services are built as microservices which can be started, stopped or instantiated. xref:{s-path}/services_rules.adoc[Services Rules] documentation has been added to explain some background. Read this carefully to avoid unwanted behavior. See xref:start-infinite-scale-with-defined-services[Start Infinite Scale With Defined Services] for details about how to start Infinite Scale with a defined set of services.
 
 === List Available Services
 

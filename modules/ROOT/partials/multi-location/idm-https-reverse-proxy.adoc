@@ -1,6 +1,8 @@
+:ocis_port: 9200
+
 [NOTE]
 ====
-If you want to reuse an already configured _minimized_ setup for any other address than `\https://localhost` :
+If you want to reuse an already configured _minimized_ setup for any _other_ address than `\https://localhost:{ocis_port}`:
 
 * When accessing the server using the hostname or IP:
 ** You *must* start Infinite Scale using the environment variable `OCIS_URL=<hostname or IP>`. +
