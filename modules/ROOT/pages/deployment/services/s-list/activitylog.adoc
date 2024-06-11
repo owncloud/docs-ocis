@@ -1,0 +1,30 @@
+= Activitylog
+:toc: right
+:description: The Infinite Scale activitylog service is responsible for storing events (activities) per resource.
+
+:service_name: activitylog
+
+== Introduction
+
+{description} Resources can be `Space Roots`, `Files` and `Folders`.
+
+== Default Values
+
+* Activitylog listens on port 9195 by default.
+
+include::partial$deployment/services/log-service-ecosystem.adoc[]
+
+== Storing
+
+// renders dependent on is_cache or is_stat
+:is_stat: true
+
+include::partial$multi-location/caching-list.adoc[]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[]

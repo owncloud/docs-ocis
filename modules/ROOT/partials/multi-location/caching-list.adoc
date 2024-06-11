@@ -13,9 +13,10 @@ ifdef::is_stat[]
 :env_nodes: OCIS_PERSISTENT_STORE_NODES
 endif::is_stat[]
 
-The {service_name} service can use a configured store via the global {env_store} environment variable.
+The {service_name} service can use a configured store via the global `{env_store}` environment variable.
 
 Note that for each global environment variable, a service-based one might be available additionally. For precedences see xref:deployment/services/env-var-note.adoc[Environment Variable Notes]. Check the configuration section below. Supported stores are:
+
 {empty} +
 {empty} +
 

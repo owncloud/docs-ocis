@@ -103,6 +103,7 @@ include::partial$multi-location/event-bus.adoc[]
 
 == Storing
 
+// renders dependent on is_cache or is_stat
 :is_stat: true
 
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
