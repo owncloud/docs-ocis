@@ -26,5 +26,5 @@ Log services like the `activitylog`, `clientlog`, `sse` and `userlog` are respon
 
 Services may depend on each other:
 
-1. The `activitylog` service mandatory requires the `eventhistory` service. +
+1. The `activitylog` service requires the `eventhistory` service. +
 2. The `userlog` service is configured by default to use both the `eventhistory` and `sse` service. It can be configured to use both, the one, or the other. 
