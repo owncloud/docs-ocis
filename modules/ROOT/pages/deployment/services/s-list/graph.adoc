@@ -44,6 +44,7 @@ image::deployment/services/graph/mermaid-graph.svg[width=600]
 
 == Caching
 
+// renders dependent on is_cache or is_stat
 :is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]

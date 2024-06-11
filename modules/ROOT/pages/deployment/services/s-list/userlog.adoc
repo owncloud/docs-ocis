@@ -22,6 +22,7 @@ Running the `userlog` service without running the xref:{s-path}/eventhistory.ado
 
 == Storing
 
+// renders dependent on is_cache or is_stat
 :is_stat: true
 
 include::partial$multi-location/caching-list.adoc[]
