@@ -1,19 +1,30 @@
 == The Log Service Ecosystem
 
-Log services like the `userlog`, `clientlog` and `sse` are responsible for composing notifications for a certain audience.
+Log services like the `activitylog`, `clientlog`, `sse` and `userlog` are responsible for composing notifications for a certain audience.
 
 {empty} +
 
 [width=80%,cols="20%,80%",options="header"]
 |====
 2+^| Log services and their tasks
-| xref:{s-path}/userlog.adoc[userlog]
-| This service *translates and adjusts messages* to be human-readable.
+
+| xref:{s-path}/activitylog.adoc[activitylog] ^1^
+| This service *stores events per resource*. These can be retrieved to show item activities.
 
 | xref:{s-path}/clientlog.adoc[clientlog]
 | This service *composes machine-readable messages*, so clients can act without the need to query the server.
 
+| xref:{s-path}/eventhistory.adoc[eventhistory]
+| This service *stores events* and allows other services to retrieve them via an event ID.
+
 | xref:{s-path}/sse.adoc[sse]
 | This service is only responsible for *sending these messages*. It does not care about their form or language.
 
+| xref:{s-path}/userlog.adoc[userlog] ^2^
+| This service *translates and adjusts messages* to be human-readable.
 |====
+
+Services may depend on each other:
+
+1. The `activitylog` service requires the `eventhistory` service. +
+2. The `userlog` service is configured by default to use both the `eventhistory` and `sse` service. It can be configured to use both, the one, or the other. 
