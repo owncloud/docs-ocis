@@ -10,22 +10,29 @@
 
 === Main Drivers
 
-* *Performance*: Caching does not need to be persistent and in case of outages, the cache is rebuilt and no information is lost. This is typically used for caching metadata and filesystem access (stat).
-* *Persistence*: With this kind of store, saving information temporarily on a persistent media is key. Persistence stores are used, for example, for generated events returning status info to users when requested. If this data gets lost or is not consistently available over the instantiated services, users will be inconsistently informed about state changes that happened.
-* *Scaling*: When services are scaled horizontally (instantiated), a common and persistent base for generated data is necessary.
+* *Performance* +
+Caching does not need to be persistent and in case of outages, the cache is rebuilt and no information is lost. This is typically used for caching metadata and filesystem access (stat).
+* *Persistence* +
+With this kind of store, saving information temporarily on a persistent media is key. Persistence stores are used, for example, for generated events returning status info to users when requested. If this data gets lost or is not consistently available over the instantiated services, users will be inconsistently informed about state changes that happened.
+* *Scaling* +
+When services are scaled horizontally (instantiated), a common and persistent base for generated data is necessary.
 
 === Identifying Caches by their Name
 
-* Performance caches can be identified via environment variables ending with `xxx_CACHE_STORE` which is valid for both local and global ones.
-* Persistent caches can be identified via environment variables ending with `xxx_STORE` when using local ones and `OCIS_PERSISTENT_STORE` when using global ones. Note that no other trailing name components are present when using local ones.
+* *Performance caches* +
+Can be identified via environment variables ending with `xxx_CACHE_STORE` which is valid for both local and global ones.
+* *Persistent caches* +
+Can be identified via environment variables ending with `xxx_STORE` when using local ones and `OCIS_PERSISTENT_STORE(_xxx)` when using global ones. Note that no other trailing name components are present when using local ones.
 
 === Store Types
 
-* *Memory* has best performance but is not suitable for all requirements as it has no persistence and is limited to the service on the running server. It can be used for deployments where:
+* *Memory* +
+This type has best performance but is not suitable for all requirements as it has no persistence and is limited to the service on the running server. It can be used for deployments where:
 ** persistence is not a requirement (issue: restart/reboot) and
 ** scaling of services is not required (issue: instantiation).
 
-* *External products* like `nats-js-kv` or `redis-sentinel` are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
+* *External products* +
+These products like `nats-js-kv` or `redis-sentinel` are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
 
 === Local vs Global Configuration
 
