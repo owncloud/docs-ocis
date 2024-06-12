@@ -16,7 +16,7 @@ toc::[]
 
 {description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes Infinite Scale and web office applications for document collaboration. Using this setup, you can get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
 
-NOTE: This guide references to the latest stable downloadable version of this release of Infinite Scale.
+NOTE: This guide references the latest stable downloadable version of this release of Infinite Scale.
 
 == Requirements
 
@@ -77,18 +77,18 @@ These are limitations that are defined by the setup chosen.
 [#accessing-ocis]
 Accessing Infinite Scale::
 --
-. The setup requires in the first step a system that has a GUI. Though you can expand the setup as described in xref:access-from-the-local-network[Access From the Local Network], a headless system (no GUI) like it is used in an production environment is covered in a follow up documentation.
+. The setup requires in the first step a system that has a GUI. Though you can expand the setup as described in xref:access-from-the-local-network[Access From the Local Network], a headless system (no GUI) like what would be used in a production environment is covered in later documentation.
 . Based on the goal of setting up an Infinite Scale instance as fast as possible, any access to the instance is in the first step *only* possible from the computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
 +
-Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured.
+Setting up access from the outside, aka internet, to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured.
 +
 image::depl-examples/ubuntu-compose/ubuntu-test-install.drawio.svg[Network Overview, width=400]
 
 . To access Infinite Scale from your computer or from your local network, the domain name `ocis.owncloud.test` and other required subdomains are used which are not resolvable from external networks.
 
-. Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted upfront, which is safe to do so.
+. Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted upfront, which is safe to do.
 +
-NOTE: The self signed certificates used are automatically provided by https://traefik.io[traefik] which is part of the deployment. These certificates are re-issued on EVERY start of the compose environment. You therfore must (re)accept them when you start or re-start this deployment, see xref:prepare-your-browser[Prepare Your Browser] for more details.
+NOTE: The self signed certificates used are automatically provided by https://traefik.io[traefik] which is part of the deployment. These certificates are re-issued on EVERY start of the compose environment. You therefore must (re)accept them when you start or re-start this deployment, see xref:prepare-your-browser[Prepare Your Browser] for more details.
 --
 
 User and User Access Management::
@@ -105,7 +105,7 @@ To check if docker is installed, open a shell and type the following command:
 docker --version
 ----
 
-* If you get an output like the following: +
+* If you get output like the following: +
 `Docker version 26.1.2, build 211e74b` +
 docker is installed. Make sure you have the https://docs.docker.com/release-notes/[latest stable version, window=_blank] installed, for details see https://docs.docker.com/engine/install/ubuntu/#upgrade-docker-engine[Upgrade Docker Engine, window=_blank].
 
@@ -247,7 +247,7 @@ This procedure is necessary:
 * For any clients and browsers that will access this Infinite Scale instance from the same network before Infinite Scale is used.
 * Every time the compose environment is started like with `docker compose up`.
 
-To accept invalid certificates, which is in this case safe to do so, open a browser, access *any* domain added via xref:update-the-hosts-file[Update the hosts File] and accept that you are fine using that invalid certificate. There is no furter action necessary than accepting the certificate. See an example screenshot based on the Firefox browser for guidance:
+To accept invalid certificates, which is in this case safe to do, open a browser, access *any* domain added via xref:update-the-hosts-file[Update the hosts File] and accept that you are fine using that invalid certificate. There is no further action necessary than accepting the certificate. See an example screenshot based on the Firefox browser for guidance:
 
 image::depl-examples/ubuntu-compose/accept-untrusted-certificate.png[Accept Invalid Certificate, width=300]
 ====
@@ -291,7 +291,7 @@ sudo docker compose down
 ----
 ====
 
-With further steps described below, the configuration can be enhanced to make Infinite Scale not only accessible from your computer but also for other clients within your network. Some basic monitoring commands are also described
+With further steps described below, the configuration can be enhanced to make Infinite Scale not only accessible from your computer but also for other clients within your network. Some basic monitoring commands are also described.
 
 Finally, a short description is provided if you would like to uninstall this deployment example.
 
