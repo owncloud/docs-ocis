@@ -807,18 +807,18 @@ kubectl apply -f builtin-user-mgmt-secrets.yaml
 
 . To apply secrets via your own `values.yaml`, add the content at `extraResources`. Proper yaml formatting is necessary.
 
-==== Custom CA chain
+==== Custom CA Chain
 
-If you're using a custom CA for some of your services like S3 or your mail server it can be necessary to add a custom CA chain to your deployment.
+If you are using a custom CA for some of your services like S3 or your mail server, it can be necessary to add a custom CA chain to your deployment.
 
 * When adding the custom CA chain, a secret with the CA chain must be present. Multiple chains can be part of this secret.
 +
+--
 [source,bash]
 ----
 kubectl create secret generic ocis-custom-ca-chain --from-file=/PATH/TO/FILE
 ----
 
-+
 [source,yaml]
 ----
 customCAChain:
@@ -827,6 +827,7 @@ customCAChain:
   # Name of existing secret
   existingSecret: "ocis-custom-ca-chain"
 ----
+--
 
 ==== External User Management Secrets
 
