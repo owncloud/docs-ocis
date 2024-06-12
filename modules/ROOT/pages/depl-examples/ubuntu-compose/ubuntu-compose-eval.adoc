@@ -1,7 +1,7 @@
-= Install ownCloud via Docker on Ubuntu
+= Evaluate ownCloud via Docker Compose on Ubuntu Desktop
 :toc: macro
 :toclevels: 3
-:keywords: docker compose, raspberry pi, install, ocis, infinite scale
+:keywords: docker compose, raspberry pi, install, evaluate, ocis, infinite scale
 :description: If you want to be independent of big tech SaaS, you may want to evaluate a local installation of Infinite Scale and see if you can handle self-hosting in the future.
 
 include::partial$multi-location/compose-version.adoc[]
@@ -14,9 +14,9 @@ toc::[]
 
 == Introduction
 
-{description} The aim of this guide is to be quickly up and running and get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
+{description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes Infinite Scale and web office applications for document collaboration. Using this setup, you can get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
 
-NOTE: This guide will always reference the latest stable downloadable version of Infinite Scale.
+NOTE: This guide references to the latest stable downloadable version of this release of Infinite Scale.
 
 == Requirements
 
@@ -77,17 +77,18 @@ These are limitations that are defined by the setup chosen.
 [#accessing-ocis]
 Accessing Infinite Scale::
 --
-1. Based on the goal of setting up an Infinite Scale instance quickly, any access to the instance is in the first step *only* possible from the computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
+. The setup requires in the first step a system that has a GUI. Though you can expand the setup as described in xref:access-from-the-local-network[Access From the Local Network], a headless system (no GUI) like it is used in an production environment is covered in a follow up documentation.
+. Based on the goal of setting up an Infinite Scale instance as fast as possible, any access to the instance is in the first step *only* possible from the computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
 +
-Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured as a follow up step.
+Setting up access from the outside aka internet to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured.
 +
 image::depl-examples/ubuntu-compose/ubuntu-test-install.drawio.svg[Network Overview, width=400]
 
-2. To access Infinite Scale from your computer or from your local network, the domain name `ocis.owncloud.test` and other required subdomains are used which are not resolvable from external networks.
+. To access Infinite Scale from your computer or from your local network, the domain name `ocis.owncloud.test` and other required subdomains are used which are not resolvable from external networks.
 
-{empty}
-
-NOTE: Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted, which is safe to do so. These self signed certificates are automatically generated during the initial startup. See xref:prepare-your-browser[Prepare Your Browser] for important information.
+. Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted upfront, which is safe to do so.
++
+NOTE: The self signed certificates used are automatically provided by https://traefik.io[traefik] which is part of the deployment. These certificates are re-issued on EVERY start of the compose environment. You therfore must (re)accept them when you start or re-start this deployment, see xref:prepare-your-browser[Prepare Your Browser] for more details.
 --
 
 User and User Access Management::
@@ -237,13 +238,19 @@ This command will download all necessary containers and starts up the instance a
 * The following step is necessary because no valid browser certificates like ones from Letsencrypt are used.
 * When using trusted certificates which require a domain resolvable from the internet, this step is not necessary. Setting up trusted certificates is not covered here.
 
-After you have started up Infinite Scale, you must accept one time per browser invalid certificates provided by Infinite Scale *before* you can access Infinite Scale and web office applications.
+After you have started up Infinite Scale, you must accept per browser invalid certificates provided by the docker compose setup *before* you can access Infinite Scale and web office applications.
 
-NOTE: This one time procedure is necessary for any clients and browsers that will access this Infinite Scale instance from the same network before Infinite Scale is used.
+[NOTE]
+====
+This procedure is necessary:
+
+* For any clients and browsers that will access this Infinite Scale instance from the same network before Infinite Scale is used.
+* Every time the compose environment is started like with `docker compose up`.
 
 To accept invalid certificates, which is in this case safe to do so, open a browser, access *any* domain added via xref:update-the-hosts-file[Update the hosts File] and accept that you are fine using that invalid certificate. There is no furter action necessary than accepting the certificate. See an example screenshot based on the Firefox browser for guidance:
 
 image::depl-examples/ubuntu-compose/accept-untrusted-certificate.png[Accept Invalid Certificate, width=300]
+====
 
 == First Time Login
 
@@ -292,7 +299,9 @@ Finally, a short description is provided if you would like to uninstall this dep
 
 With the current setup, Infinite Scale can only be accessed from the computer Infinite Scale is installed on. The following enhancement will make your instance also accessible for other clients inside your network, but not from the internet.
 
-In the image shown at xref:accessing-ocis[Accessing Infinite Scale], a modem/router has a central role providing access to the internet. For home and small business environments, this device also runs internal services like DHCP to provide IP addresses for clients on the network and DNS to resolve names to IP addresses. These services usually do not need any manual configuration except when running dedicated services in the local network. The DHCP and DNS service can also be on different hardware, depending on your environment. The following procedure describes the setup necessary in a general way, use the vendors guide for configuration details.
+In the image shown at xref:accessing-ocis[Accessing Infinite Scale], a modem/router has a central role providing access to the internet. For home and small business environments, this device also runs internal services like DHCP to provide IP addresses for clients on the network and DNS to resolve names to IP addresses. These services usually do not need any manual configuration except when running dedicated services in the local network. The DHCP and DNS service can also be on different hardware, depending on your environment.
+
+The following procedure describes the setup necessary in a general way, use the vendors guide for configuration details.
 
 * Get the IP address used by the computer you are running Infinite Scale on that connects to your local network. To do so, use the following command:
 +
