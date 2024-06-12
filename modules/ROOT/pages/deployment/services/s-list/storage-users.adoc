@@ -151,6 +151,7 @@ include::partial$multi-location/event-bus.adoc[]
 
 == Caching
 
+// renders dependent on is_cache or is_stat
 :is_cache: true
 
 The `storage-users` service caches stat, metadata and uuids of files and folders via the configured stores.

@@ -107,6 +107,7 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 
 Important, also see section xref:presigned-urls[Presigned Urls] below.
 
+// renders dependent on is_cache or is_stat
 :is_cache: true
 
 include::partial$multi-location/caching-list.adoc[]
