@@ -26,7 +26,7 @@ See the [Generating the Documentation](https://github.com/owncloud/docs#generati
 
 ## Important Notes
 
-* When the Infinite Scale dev team creates a new service and merges the code, you **must** add a new service page in the services folder using the service name as document name. If this is omitted, **ALL** new and pending doc (!!) PR'S ()will error with `target of xref not found` because of missing reference targets. These references origin in the `env-vars-special-scope.adoc` document which uses sources from the `ocis` repo containing automatically generated content where the referenced target is missing in the admin docs.
+* When the Infinite Scale dev team creates a new service and merges the code, you **must** add a new service page in the services folder using the service name as document name. If this is omitted, **ALL** new and pending doc (!!) PR's ()will error with `target of xref not found` because of missing reference targets. These references originate in the `env-vars-special-scope.adoc` document which uses sources from the `ocis` repo containing automatically generated content where the referenced target is missing in the admin docs.
 
 ## Target Branch and Backporting
 
