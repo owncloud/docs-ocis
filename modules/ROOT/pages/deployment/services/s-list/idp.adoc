@@ -18,8 +18,12 @@ The IDP service is by design limited in its functionality:
 
 * IDP does NOT support branding or theming. +
 This also means that there is no possibility to customize the login screen.
+
 * IDP has no brute force protection like external IDP's have. +
 This means that there is no "invalid credential" logged on consecutive failed login attempts.
+
+* The IDP has no back-channel logout capability. +
+Consider that you have configured Infinite Scale to work with Keycloak. When logging out via the webUI, Keycloak will issue a callback to the Infinite Scale backend about the fact that the session has ended. The Infinite Scale backend is then able to invalidate it's internal session cache. The IDP service does not support backchannel logout and Infinite Scale will consider the access token valid until it reaches it's expiry.
 
 Therefore the IDP service is **not** meant to replace an external OpenID Connect Provider.
 ====
