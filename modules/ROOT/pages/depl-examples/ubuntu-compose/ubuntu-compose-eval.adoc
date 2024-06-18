@@ -4,6 +4,9 @@
 :keywords: docker compose, raspberry pi, install, evaluate, ocis, infinite scale
 :description: If you want to be independent of big tech SaaS, you may want to evaluate a local installation of Infinite Scale and see if you can handle self-hosting in the future.
 
+// the folder to use for the example
+:ocis_wopi: ocis_wopi
+
 include::partial$multi-location/compose-version.adoc[]
 
 image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]
@@ -14,7 +17,7 @@ toc::[]
 
 == Introduction
 
-{description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes Infinite Scale and web office applications for document collaboration. Using this setup, you can get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
+{description} The aim of this guide is to be up and running as fast as possible using a setup that includes *Infinite Scale and web office applications for document collaboration* optimized for evaluation. Using this setup, you can get a feeling about the capabilities of Infinite Scale. Based on this guide, you can later adjust for other requirements not handled in this documentation.
 
 NOTE: This guide references the latest stable downloadable version of this release of Infinite Scale.
 
@@ -24,7 +27,7 @@ NOTE: This guide references the latest stable downloadable version of this relea
 
 This guide describes an installation of Infinite Scale based on Ubuntu LTS and docker compose. The underlying hardware of the computer (server) can be anything as listed below as long it meets the OS requirements defined in the xref:software-stack[Software Stack]:
 
-* Raspberry Pi
+* Raspberry Pi (4 and higher, min. 8GB RAM)
 * Notebook
 * PC
 * Virtual Machine
@@ -78,13 +81,16 @@ These are limitations that are defined by the setup chosen.
 Accessing Infinite Scale::
 --
 . The setup requires in the first step a system that has a GUI. Though you can expand the setup as described in xref:access-from-the-local-network[Access From the Local Network], a headless system (no GUI) like what would be used in a production environment is covered in later documentation.
+
 . Based on the goal of setting up an Infinite Scale instance as fast as possible, any access to the instance is in the first step *only* possible from the computer Infinite Scale is installed on and in the second step from the internal network ([.lime]#green#) the server is connected to.
 +
 Setting up access from the outside, aka internet, to the server using an external resolvable domain like `ocis.mydomain.com` and routing networks ([.red]#red#) is *not* part of this documentation but can be configured.
 +
-image::depl-examples/ubuntu-compose/ubuntu-test-install.drawio.svg[Network Overview, width=400]
+image::depl-examples/ubuntu-compose/ubuntu-eval-install.drawio.svg[Network Overview, width=400]
 
 . To access Infinite Scale from your computer or from your local network, the domain name `ocis.owncloud.test` and other required subdomains are used which are not resolvable from external networks.
+
+. For the ease of the setup, the configuration for sending notifications via emails is omitted, though this can be configured if required.
 
 . Because no validated certificates are used for this environment, any browser accessing Infinite Scale will get invalid certificate warnings that must be accepted upfront, which is safe to do.
 +
@@ -96,8 +102,11 @@ The following embedded services are well suited for this kind of installation an
 * Infinite Scale has an embedded identity management (IDM footnote:[See the xref:{s-path}/idm.adoc[IDM, window=_blank] service for more details]) which takes care of creating, storing, and managing user identity information.
 * In addition, it also has an embedded identity provider (IDP footnote:[See the xref:{s-path}/idp.adoc[IDP, window=_blank] service for more details]) to track and manage user identities, as well as the permissions and access levels associated with those identities.
 
-== Install the Docker Engine
+== Install Docker and Docker Compose
 
+Docker Engine::
++
+--
 To check if docker is installed, open a shell and type the following command:
 
 [source,bash]
@@ -114,6 +123,10 @@ https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[Inst
 Check with the verification step to see if docker has been installed successfully.
 
 Note that by default and for security reasons, docker commands need to be issued with `sudo` permissions. You can change that based on the description in https://docs.docker.com/engine/install/linux-postinstall/[Manage Docker as a non-root user, window=_blank]. You need to understand and take responsibility for the different security situation when Docker is used as a non-root user.
+--
+
+Docker Compose::
+To install `docker compose` follow the docker guide in https://docs.docker.com/compose/install/linux/#install-the-plugin-manually[Install the Compose plugin, window=_blank].
 
 == Prepare the Infinite Scale Installation
 
@@ -128,23 +141,26 @@ The relevant files necessary for `docker compose` can be at any location. For ea
 mkdir -p ~/compose/ocis
 ----
 
+{empty} +
+
 .Compose directory structure overview
+[,subs="+replacements,attributes+"]
 ----
 - home/<your-user>
-  └ compose        base directory structuring compose deployments
-    └ ocis         directory containing all Infinite Scale deployments
-      └ ocis_wopi  directory containing the specific deployment
-      └ ...        other Infinite Scale deployments
-    └ ...          non Infinite Scale deployments
+  └ compose            -> base directory structuring compose deployments
+    └ ocis             -> directory containing all Infinite Scale deployments
+      └ {ocis_wopi}    -> directory containing the specific deployment
+      └ ...              -> other Infinite Scale deployments
+    └ ...                -> non Infinite Scale deployments
 ----
 
 === Download and Extract the Example
 
-To download and extract the necessary deployment example footnote:[Derived from the https://owncloud.dev/ocis/deployment/ocis_wopi/[oCIS with WOPI server, window=_blank] developer example], open the browser and enter the following URL:
+To download and extract the necessary deployment example footnote:[Derived from the https://owncloud.dev/ocis/deployment/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open the browser and enter the following URL:
 
 [source,url,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}v{compose_version}{composer-final-path}/ocis_wopi
+{download-gh-directory-url}?url={composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}
 ----
 
 The `.zip` file will be downloaded into your `Download` directory.
@@ -155,15 +171,15 @@ In the shell, extract the zip file into a defined directory by issuing the follo
 
 [source,bash,subs="attributes+"]
 ----
-unzip ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_ocis_wopi.zip' \
-  -d ~/compose/ocis/ocis_wopi
+unzip ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' \
+  -d ~/compose/ocis/{ocis_wopi}
 ----
 
 When files have been extracted, list the directory with:
 
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-ls -la ~/compose/ocis/ocis_wopi/
+ls -la ~/compose/ocis/{ocis_wopi}/
 ----
 
 The listing should contain files and folders like the following:
@@ -174,6 +190,7 @@ The listing should contain files and folders like the following:
 docker-compose.yml
 .env
 [.aqua]#monitoring_tracing#
+...
 README.md
 ----
 
@@ -185,17 +202,14 @@ To access Infinite Scale from your local machine after the deployment is up, pre
 ----
 127.0.0.1       ocis.owncloud.test
 127.0.0.1  collabora.owncloud.test
-127.0.0.1 onlyoffice.owncloud.test
 127.0.0.1 wopiserver.owncloud.test
-127.0.0.1  companion.owncloud.test
-127.0.0.1       mail.owncloud.test
 ---- 
 
 Reboot the server to activate this change. When done, check with `ping` on the domains added if you get a valid response.
 
 === Edit the Configuration File
 
-Change into the `~/compose/ocis/ocis_wopi` directory because further configuration is done from there.
+Change into the `~/compose/ocis/{ocis_wopi}` directory because further configuration is done from there.
 
 Any change that is relevant for the deployment is done via the `.env` file. It's content is used to overwrite default data defined in `docker-compose.yml`.
 
@@ -210,7 +224,7 @@ Set the value to:
 OCIS_DOCKER_TAG={compose_version}
 ----
 
-This uses the latest _stable_ version for the Infinite Scale container.
+NOTE: This uses the latest _stable_ version for the Infinite Scale container available for this release. Using `latest` as tag will mostly not end up in a non-functional deployment.
 --
 
 * `ADMIN_PASSWORD` +
@@ -235,8 +249,11 @@ This command will download all necessary containers and starts up the instance a
 
 === Prepare Your Browser
 
+IMPORTANT: Because no valid browser certificates are used, this setup should _never_ run in production and is intended for evaluation purposes only.
+
 * The following step is necessary because no valid browser certificates like ones from Letsencrypt are used.
-* When using trusted certificates which require a domain resolvable from the internet, this step is not necessary. Setting up trusted certificates is not covered here.
+
+* When using trusted certificates like with Letsencrypt which require a domain resolvable from the internet, this step is not necessary. Setting up trusted certificates is not covered here.
 
 After you have started up Infinite Scale, you must accept per browser invalid certificates provided by the docker compose setup *before* you can access Infinite Scale and web office applications.
 
@@ -247,7 +264,7 @@ This procedure is necessary:
 * For any clients and browsers that will access this Infinite Scale instance from the same network before Infinite Scale is used.
 * Every time the compose environment is started like with `docker compose up`.
 
-To accept invalid certificates, which is in this case safe to do, open a browser, access *any* domain added via xref:update-the-hosts-file[Update the hosts File] and accept that you are fine using that invalid certificate. There is no further action necessary than accepting the certificate. See an example screenshot based on the Firefox browser for guidance:
+To accept invalid certificates, which is in this case safe to do, open a browser, access *any* domain added via xref:update-the-hosts-file[Update the hosts File] and accept that you are fine using that invalid certificate. For ease of handling, accept the ocis subdomain as last as it will immediately provide login post accepting. There is no further action necessary than accepting the certificate. See an example screenshot based on the Firefox browser for guidance:
 
 image::depl-examples/ubuntu-compose/accept-untrusted-certificate.png[Accept Invalid Certificate, width=300]
 ====
@@ -327,12 +344,9 @@ Add DNS entries similar to what was defined in xref:update-the-hosts-file[Update
 
 [source,hosts]
 ----
-      ocis.owncloud.test --> 10.168.90.81
- collabora.owncloud.test --> 10.168.90.81
-onlyoffice.owncloud.test --> 10.168.90.81
-wopiserver.owncloud.test --> 10.168.90.81
- companion.owncloud.test --> 10.168.90.81
-      mail.owncloud.test --> 10.168.90.81
+      ocis.owncloud.test --> 192.168.90.25
+ collabora.owncloud.test --> 192.168.90.25
+wopiserver.owncloud.test --> 192.168.90.25
 ---- 
 --
 
@@ -391,14 +405,14 @@ sudo docker compose ps --format "table {{.Service}}\t{{.State}}"
 
 Follow this guide if you have finished testing and would like to fully remove the instance including all data.
 
-. Shut down the docker compose environment:
+. Shut down the docker compose environment and remove all volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers:
 +
 --
-Change into the `ocis_wopi` directory and issue:
+Change into the `{ocis_wopi}` directory and issue:
 
 [source,bash]
 ----
-sudo docker compose down
+sudo docker compose down -v
 ----
 --
 
@@ -435,56 +449,18 @@ sudo docker images
 --
 [source,bash]
 ----
-sudo docker rmi <container ID> <container ID> ...
-----
---
-
-. Remove docker volumes:
-** Remove all unused anonymous docker volumes:
-+
---
-[source,bash]
-----
-sudo docker volume prune
-----
---
-
-** Remove all named docker volumes related to this deployment:
-*** First list all remaining docker volumes:
-+
---
-[source,bash]
-----
-sudo docker volume ls
-----
---
-
-*** Then remove all volumes starting with `ocis_wopi_`
-+
---
-[source,bash]
-----
-sudo docker volume rm <volume name> <volume name> ...
-----
---
-
-*** Finally check if all of them have been removed:
-+
---
-[source,bash]
-----
-sudo docker volume ls
+sudo docker rmi <image ID> <image ID> ...
 ----
 --
 
 . Remove the directory with the docker compose files:
 +
 --
-Issue the following command to remove the docker compose directory used by `ocis_wopi`:
+Issue the following command to remove the docker compose directory used by `{ocis_wopi}`:
 
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-sudo rm -r ~/compose/ocis/ocis_wopi
+sudo rm -r ~/compose/ocis/{ocis_wopi}
 ----
 --
 
