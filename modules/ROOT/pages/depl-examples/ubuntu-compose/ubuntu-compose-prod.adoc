@@ -45,7 +45,7 @@ We recommend at minimum 4-6GB of memory.
 
 You, as administrator, must have the following minimum knowledge stack.
 
-* Being capable to order and configure external accessible domains:
+* Being capable to order and configure external accessible domains.
 
 * Being capable to configure: +
 Router, Firewall, NAT, DHCP, networks ect.
@@ -122,7 +122,7 @@ image::depl-examples/ubuntu-compose/ubuntu-prod-install.drawio.svg[Network Overv
 == Limitations
 
 Data Location::
-All data is stored in default docker volumes. You need to manually reconfigure the volumes if you want to define own paths.
+All data is stored in default docker volumes. You need to manually reconfigure the volumes if you want to define your own paths.
 
 User and User Access Management::
 The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
@@ -176,7 +176,7 @@ companion.yml
 
 == Edit the Configuration File
 
-Only a view settings need to be configured in the `.env` file:
+Only a few settings need to be configured in the `.env` file:
 
 * `TRAEFIK_ACME_MAIL` +
 Add a valid response eMail address for Letsencrypt, see the note below.
@@ -192,11 +192,11 @@ Define these settings according your eMail configuration. With the settings defi
 
 [NOTE]
 ====
-* When not defining own domain names, internal evaluation only domain names with self signed certificates are used automatically.
+* When not defining your own domain names, internal evaluation only domain names with self signed certificates are used automatically.
 
-* To trigger cerfificate issuing via LetsEncrypt, it checks in the request for creating valid certificates if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Expect that self signed certificates are used if the traefik log contains per URL defined the message "Contact emails @example.org are forbidden".
+* To trigger cerfificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message "Contact emails @example.org are forbidden".
 
-* We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back issuing valid certificates.
+* We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
 ====
 
 == Start the Compose Setup
@@ -239,7 +239,7 @@ image::depl-examples/ubuntu-compose/ocis-logged-in.png[Infinite Scale Logged In,
 
 Congratulations, you have successfully setup Infinite Scale based on the deployment example.
 
-TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] the for enhanced usage.
+TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] to sync files to/from clients.
 
 [NOTE]
 ====
@@ -259,13 +259,13 @@ With further steps described below, some basic monitoring commands and a short d
 
 Issue the following sequence of commands to monitor logs:
 
-.This command will print among other data the required Container ID 
+.This command will print the required Container ID, among other data 
 [source,bash]
 ----
 sudo docker ps
 ----
 
-.Replace the <container_id> according the container you want to monitor the log.
+.Replace the <container_id> according the container for which you want to monitor the log.
 [source,bash]
 ----
 sudo docker compose logs -f <container_id>
@@ -318,7 +318,7 @@ To change the admin password from the command line, which you can do at any time
 
 == Remove the Instance
 
-Follow this guide if you to fully remove the instance including all data.
+Follow this guide if you want to fully remove the instance including all data.
 
 . Shut down the docker compose environment and remove all volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers:
 +
