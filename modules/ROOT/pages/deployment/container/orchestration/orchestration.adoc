@@ -17,7 +17,6 @@ if all blocks are allowed to be rendered, you can safely remove the attributes a
 :swarm-v-kub-1-url: https://circleci.com/blog/docker-swarm-vs-kubernetes/#c-consent-modal
 :swarm-v-kub-2-url: https://vexxhost.com/blog/kubernetes-vs-docker-swarm-containerization-platforms/
 :helm-charts-ocis-url: https://github.com/owncloud/ocis-charts
-:download-gh-directory-url: https://download-directory.github.io
 
 :ocis_individual_services-url: https://github.com/owncloud/ocis/tree/master/deployments/examples/ocis_individual_services
 :ht-pwd-url: https://htpasswdgenerator.de/

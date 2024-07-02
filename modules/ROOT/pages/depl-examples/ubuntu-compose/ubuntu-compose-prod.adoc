@@ -1,0 +1,384 @@
+= Install Infinite Scale on a Server for Production Use
+:toc: macro
+:toclevels: 3
+:keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
+:description: Install Infinite Scale using Docker Compose on a server for production use.
+
+// the folder to use for the example
+:ocis_wopi: ocis_wopi
+
+include::partial$multi-location/compose-version.adoc[]
+
+image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]
+
+{empty} +
+
+toc::[]
+
+== Introduction
+
+{description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
+
+NOTE: This guide references the latest production version of Infinite Scale.
+
+== Requirements
+
+=== Hardware
+
+This guide describes an installation of Infinite Scale based on Ubuntu LTS and docker compose. The underlying hardware of the server can be anything as listed below as long it meets the OS requirements defined in the xref:software-stack[Software Stack]:
+
+* Raspberry Pi (4 and higher)
+* Bare Metal Server
+* Virtual Machine
+* ...
+
+[NOTE]
+====
+* Disk space +
+About 2.8GB of disk space is needed as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. 
+
+* Memory +
+We recommend at minimum 4-6GB of memory. 
+====
+
+=== Knowledge Stack
+
+You, as administrator, must have the following minimum knowledge stack.
+
+* Being capable to order and configure external accessible domains:
+
+* Being capable to configure: +
+Router, Firewall, NAT, DHCP, networks ect.
+
+* Command line (bash) tools like: +
+ssh, actions on files, edit files etc.
+
+* Maintaining a server: +
+Setting or changing hostnames, IP configuration, installing SW packages etc.
+
+=== Software Stack
+
+For the OS, *Ubuntu LTS 24.04* has been selected, but it will also work with Ubuntu LTS 22.04. If you already have a server running Ubuntu LTS 24.04, you can use that one as long it meets the requirements listed below. 
+
+Note that this guide expects:
+
+* The prerequisite of a server with the installed OS is met and any required software other than Infinite Scale like docker and docker compose is installed and preconfigured and all the software is updated to the latest version.
+
+* You have at minimum shell access and you can reach your host via ssh from another computer in your network. `sudo` permissions may be required in some steps later in the setup.
+
+=== Other Requirements
+
+Domain Name and Routing::
+To access Infinite Scale from the internet, you *must*:
++
+--
+* Own a domain name which will get multiple subdomains configured.
+* Own an IP address that points to your router and can be NATed to your server.
+* Both http and https traffic for the sub-domains configured will be routed to your server.
+--
+
+eMail::
+The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details:
++
+--
+* `SMTP_HOST` +
+SMTP host to connect to.
+* `SMTP_PORT` +
+Port of the SMTP host to connect to.
+* `SMTP_SENDER` +
+An eMail address that is used for sending Infinite Scale notification eMails like +
+[.blue]##`ocis <\noreply@yourdomain.com>`##.
+* `SMTP_USERNAME` +
+Username for the SMTP host to connect to.
+* `SMTP_PASSWORD` +
+Password for the SMTP host to connect to.
+* `SMTP_AUTHENTICATION` +
+Authentication method for the SMTP communication.
+* `SMTP_SECURITY` +
+Define using secure or insecure connections to the SMTP server.
+--
+
+==== Domain Names
+
+This environment requires that multiple subdomain names are available. They must be configured in the way that these URL`s point to the server you are using. This includes DNS settings, routing and NAT settings which is not covered here.
+
+The following subdomains are required, an example is printed for each:
+
+* `OCIS_DOMAIN` +
+[.blue]##`ocis.yourdomain.com`##
+
+* `COLLABORA_DOMAIN` +
+[.blue]##`collabora.yourdomain.com`##
+
+* `WOPISERVER_DOMAIN` +
+[.blue]##`wopiserver.yourdomain.com`##
+
+== Accessing Infinite Scale
+
+Infinite Scale can be accessed from the internet and from your local network with the `OCIS_DOMAIN` you have defined:
+
+image::depl-examples/ubuntu-compose/ubuntu-prod-install.drawio.svg[Network Overview, width=400]
+
+== Limitations
+
+Data Location::
+All data is stored in default docker volumes. You need to manually reconfigure the volumes if you want to define own paths.
+
+User and User Access Management::
+The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
++
+--
+* Infinite Scale has an embedded identity management (IDM footnote:[See the xref:{s-path}/idm.adoc[IDM, window=_blank] service for more details]) which takes care of creating, storing, and managing user identity information.
+
+* In addition, it also has an embedded identity provider (IDP footnote:[See the xref:{s-path}/idp.adoc[IDP, window=_blank] service for more details]) to track and manage user identities, as well as the permissions and access levels associated with those identities.
+--
+
+== Download and Extract the Example
+
+To download and extract the necessary deployment example footnote:[Derived from the {composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open the browser and enter the following URL:
+
+[source,url,subs="attributes+"]
+----
+{download-gh-directory-url}?url={composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}
+----
+
+The `.zip` file will be downloaded into your `Download` directory.
+
+NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get overwritten without notice and you need to xref:edit-the-configuration-file[reconfigure] your configuration!
+
+In the shell, extract the zip file into a defined directory by issuing the following command:
+
+[source,bash,subs="attributes+"]
+----
+unzip ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' \
+  -d ~/compose/ocis/{ocis_wopi}
+----
+
+When files have been extracted, list the directory with:
+
+[source,bash,subs="attributes+"]
+----
+ls -la ~/compose/ocis/{ocis_wopi}/
+----
+
+The listing should contain files and folders like the following:
+
+[source,subs="+quotes"]
+----
+[.aqua]#config#
+docker-compose.yml
+.env
+README.md
+collabora.yml
+companion.yml
+...
+----
+
+== Edit the Configuration File
+
+Only a view settings need to be configured in the `.env` file:
+
+* `TRAEFIK_ACME_MAIL` +
+Add a valid response eMail address for Letsencrypt, see the note below.
+
+* `TRAEFIK_ACME_CASERVER` +
+Set the CAServer to staging, see the note below.
+
+* `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and `WOPISERVER_DOMAIN` +
+Set the domain names as defined in xref:domain-names[Domain Names].
+
+* `SMPT_xxx` +
+Define these settings according your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
+
+[NOTE]
+====
+* When not defining own domain names, internal evaluation only domain names with self signed certificates are used automatically.
+
+* To trigger cerfificate issuing via LetsEncrypt, it checks in the request for creating valid certificates if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Expect that self signed certificates are used if the traefik log contains per URL defined the message "Contact emails @example.org are forbidden".
+
+* We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back issuing valid certificates.
+====
+
+== Start the Compose Setup
+
+When you have finished the configuration, you can start the compose setup by issuing the following command:
+
+[source,bash]
+----
+sudo docker compose up --remove-orphans
+----
+
+This command will download all necessary containers and starts up the instance according your settings. All outputs and logging is also printed to the shell.
+
+For later startups, you can add the `-d` flag which starts the container in the background and no logging is printed to the shell.
+
+== First Time Login
+
+Now, after preparations have finished, you can access your instance *from any client*. To do so, open your browser and enter the instance URL:
+
+[source,URL]
+----
+ocis.yourdomain.com
+----
+
+Which will show the following screen:
+
+image::depl-examples/ubuntu-compose/infinite-scale-login.png[Infinite Scale Login, width=300]
+
+For the credentials, use:
+
+* `admin` as user and 
+* `admin` for the password, +
+or the one you have defined manually during setup.
+
+NOTE: If you forgot the manually defined password set during initial setup, you need to follow one of the procedures described in the xref:admin-password[Admin Password] section.
+
+If you have logged in successfully, you should see the following screen:
+
+image::depl-examples/ubuntu-compose/ocis-logged-in.png[Infinite Scale Logged In, width=300]
+
+Congratulations, you have successfully setup Infinite Scale based on the deployment example.
+
+TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] the for enhanced usage.
+
+[NOTE]
+====
+The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down manually by the following command.
+
+[source,bash]
+----
+sudo docker compose down
+----
+====
+
+With further steps described below, some basic monitoring commands and a short description to uninstall Infinite Scale is provided.
+
+== Monitor the Instance
+
+=== Logs
+
+Issue the following sequence of commands to monitor logs:
+
+.This command will print among other data the required Container ID 
+[source,bash]
+----
+sudo docker ps
+----
+
+.Replace the <container_id> according the container you want to monitor the log.
+[source,bash]
+----
+sudo docker compose logs -f <container_id>
+----
+
+=== Container
+
+To get the state of running containers, issue the following command:
+
+[source,bash]
+----
+sudo docker compose ps --format "table {{.Service}}\t{{.State}}"
+----
+
+== Admin Password
+
+=== Initial Admin Password from Docker Log
+
+If the manually set *initial* admin password has been forgotten *before* it got changed, you can get it from the docker log. See the https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logging.
+
+First you need to get the Infinite Scale `CONTAINER ID`:
+
+[source,bash]
+----
+sudo docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
+----
+
+From the output, note the container ID in the printout that matches:
+
+[.transparent-background,subs="quotes,attributes+"]
+----
+* Image 		-> *owncloud/ocis:{compose_version}* and
+* Command starting with	-> */bin/sh -c 'ocis in…*.
+----
+
+Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
+
+[source,bash]
+----
+docker logs <CONTAINER ID> 2>&1 | less
+----
+
+The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more deatils.
+
+If no password can be identified, you must reset the admin password via the command line as described below.
+
+=== Command Line Password Reset
+
+To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
+== Remove the Instance
+
+Follow this guide if you to fully remove the instance including all data.
+
+. Shut down the docker compose environment and remove all volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers:
++
+--
+Change into the `{ocis_wopi}` directory and issue:
+
+[source,bash]
+----
+sudo docker compose down -v
+----
+--
+
+. Check that there are no remaining containers related to this deployment:
++
+--
+[source,bash]
+----
+sudo docker ps -a --format "table {{.ID}} {{.Image}} {{.Command}}" | grep ocis 
+----
+--
+
+** If there are _orphaned_ `owncloud/ocis:{compose_version}` containers, remove them with:
++
+--
+[source,bash]
+----
+sudo docker rm <container ID> <container ID> ...
+----
+--
+
+. Remove all images related to this deployment:
+** List all docker images to get the names and the corresponding container ID:
++
+--
+[source,bash]
+----
+sudo docker images
+----
+--
+
+** Remove the images:
++
+--
+[source,bash]
+----
+sudo docker rmi <image ID> <image ID> ...
+----
+--
+
+. Remove the directory with the docker compose files:
++
+--
+Issue the following command to remove the docker compose directory used by `{ocis_wopi}`:
+
+[source,bash,subs="attributes+"]
+----
+sudo rm -r ~/compose/ocis/{ocis_wopi}
+----
+--
+
+The Infinite Scale instance is now fully removed from the server.
+
+{empty} +
