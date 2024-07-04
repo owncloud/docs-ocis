@@ -12,34 +12,35 @@ When doing a new release of ownCloud Infinite Scale like `5.x`, a new version br
 4.  In `.drone.star` set `latest_version` to `5.x` (on top in section `def main(ctx)`).
 5.  Check in `site.yml` in section `content.sources`: that the following value is set: `- url: .` and in `content.sources.url` the following value is set: `- HEAD`.
 6.  In `antora.yml`, set the `version:` key on top to the same as the branch name like `5.x`
-7.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building.
-8.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building and will be correctly set in the docs repo when doing a full build.
-9.  Run a build by entering `yarn antora-local`. No build errors should occur.
-10.  Commit the changes and push the new `5.x` branch. This makes the branch available for futher processing. DO NOT CREATE A PR!
+7.  In `antora.yml`, comment or remove the `prerelease` key.
+8.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building.
+9.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building and will be correctly set in the docs repo when doing a full build.
+10.  Run a build by entering `yarn antora-local`. No build errors should occur.
+11.  Commit the changes and push the new `5.x` branch. This makes the branch available for futher processing. DO NOT CREATE A PR!
 
 **Step 2: This will configure the master branch properly to use the new `5.x` branch**
 
-11. Create new `changes_necessary_for_5.x` branch based on latest `origin/master`.
-12. In `.drone.star` set `latest_version` to `5.x` (on top in section `def main(ctx)`).
-13. In `antora.yml`, check if the `version:` key is set to `next`.
-14. In `site.yml` and in `antora.yml`, DO NOT adjust relevant `-version` keys.
-15. Run a build by entering `yarn antora`. No build errors or warnings should occur.
-16. Commit changes and push them. (Check the branch protection rules upfront so that the push passes.)
-17. Create a Pull Request and see the text suggestion at the bottom. When CI is green, all is done correctly. Merge the PR to master when the 5.x branch is close to be released.
+12. Create new `changes_necessary_for_5.x` branch based on latest `origin/master`.
+13. In `.drone.star` set `latest_version` to `5.x` (on top in section `def main(ctx)`).
+14. In `antora.yml`, check if the `version:` key is set to `next`.
+15. In `site.yml` and in `antora.yml`, DO NOT adjust relevant `-version` keys.
+16. Run a build by entering `yarn antora`. No build errors or warnings should occur.
+17. Commit changes and push them. (Check the branch protection rules upfront so that the push passes.)
+18. Create a Pull Request and see the text suggestion at the bottom. When CI is green, all is done correctly. Merge the PR to master when the 5.x branch is close to be released.
 
 **Step 3: Protection and Renaming**
 
-18. Go to the settings of this repository and change the protection of the branch list so that
+19. Go to the settings of this repository and change the protection of the branch list so that
     the `5.x` branch gets protected.
-19. Unprotect the `5.x-2` branch and rename it to `x_archived_5.x-2`. Note that this step can be postponed if needed. Note that after renaming, local building cant be done anymore.
+20. Unprotect the `5.x-2` branch and rename it to `x_archived_5.x-2`. Note that this step can be postponed if needed. Note that after renaming, local building cant be done anymore.
 
 **Step 4: Changes in the Docs Repo**
 
-20. In `site.yml` of the [docs](https://github.com/owncloud/docs/blob/master/site.yml) repo, adjust all `-version` keys in section `attributes` related to this repo according the new and former releases. Note that the values MUST NOT contain the trailing `@`. (The trailing @ character allows the value to be overwritten like from the corresponding `antora.yml` file which is only necessary for local building the corresponding docs-xxx repo.) Note that merging that PR should be _close before_ publishing the relevant code release.
+21. In `site.yml` of the [docs](https://github.com/owncloud/docs/blob/master/site.yml) repo, adjust all `-version` keys in section `attributes` related to this repo according the new and former releases. Note that the values MUST NOT contain the trailing `@`. (The trailing @ character allows the value to be overwritten like from the corresponding `antora.yml` file which is only necessary for local building the corresponding docs-xxx repo.) Note that merging that PR should be _close before_ publishing the relevant code release.
 
 **Step 5: Set URI `latest` Path Part to 5.x**
 
-21. Nothing needs to be done there. The moment when the new server release gets tagged - which is part of the release process - `latest` will be automatically set to the tagged release number. This should work automatically. If not, sysadmins need to be informed to updated the underlying process.
+22. Nothing needs to be done there. The moment when the new server release gets tagged - which is part of the release process - `latest` will be automatically set to the tagged release number. This should work automatically. If not, sysadmins need to be informed to updated the underlying process.
 
 **Text Suggestion for Step 2**
 
@@ -59,6 +60,6 @@ These are the changes necessary to finalize the creation of the 5.x branch.
 
 @micbar fyi
 
-@mmattel @EParzefall @phil-davis
+@mmattel @phil-davis
 Post merging this, we need to backport all relevant changes to 5.x
 ```

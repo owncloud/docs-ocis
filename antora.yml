@@ -1,6 +1,7 @@
 name: ocis
 title: Infinite Scale Documentation
 version: 'next'
+prerelease: true  # define that this is a prerelease version to proper identify stable releases
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/partials/nav.adoc

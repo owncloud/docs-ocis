@@ -4,6 +4,10 @@ site:
   url: https://doc.owncloud.com
   start_page: ocis::index.adoc
 
+urls:
+  # see https://docs.antora.org/antora/latest/playbook/urls-latest-prerelease-version-segment/
+  latest_version_segment: '' # make the actual version segment less in the url
+
 content:
   sources:
   - url: .
