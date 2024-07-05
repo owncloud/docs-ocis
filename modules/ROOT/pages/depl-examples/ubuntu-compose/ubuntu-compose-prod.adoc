@@ -104,7 +104,7 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires that multiple (sub)domain names are available. You can deviate from the examples according your environment. The (sub)domain names must be configured in the way that these URL's point to the server you are using. This includes DNS settings, routing and NAT settings which is *not* covered here.
+This environment requires that multiple (sub)domain names are available. You can deviate from the examples according your environment. The (sub)domain must be configured in the way, that these URL's point to the server you are using which includes DNS settings, routing and NAT settings and is *not* covered here. The same ist true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
 
 The following subdomains are required, an example is printed for each:
 
