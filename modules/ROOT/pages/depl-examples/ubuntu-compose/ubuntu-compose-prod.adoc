@@ -68,6 +68,9 @@ Note that this guide expects:
 
 === Other Requirements
 
+Firewall::
+Because this server is exposed to the internet, we highly recommend using a firewall for security reasons. This can be an external firewall or a firewall configured on the server. The minimum configuration for the firewall is to allow port 443. Note that this document *does not* cover configuring any kind of firewall.
+
 Domain Name and Routing::
 To access Infinite Scale from the internet, you *must*:
 +
@@ -78,7 +81,7 @@ To access Infinite Scale from the internet, you *must*:
 --
 
 eMail::
-The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details:
+The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details. Note that if this data is not available, Infinite Scale will start but no notifications can be sent.
 +
 --
 * `SMTP_HOST` +
@@ -100,7 +103,7 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires that multiple subdomain names are available. They must be configured in the way that these URL`s point to the server you are using. This includes DNS settings, routing and NAT settings which is not covered here.
+This environment requires that multiple (sub)domain names are available. You can deviate from the examples according your environment. The (sub)domain names must be configured in the way that these URL's point to the server you are using. This includes DNS settings, routing and NAT settings which is *not* covered here.
 
 The following subdomains are required, an example is printed for each:
 
