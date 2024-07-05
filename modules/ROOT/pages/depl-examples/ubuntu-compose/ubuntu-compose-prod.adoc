@@ -76,6 +76,7 @@ To access Infinite Scale from the internet, you *must*:
 +
 --
 * Own a domain name which will get multiple subdomains configured.
+** You can also use a wildcard operator for the subdomains in the DNS configuration. In case where you already use subdomains for other purposes, we recommend using a subdomain as entry point and add the wildcard operator there to allow different IP configurations.
 * Own an IP address that points to your router and can be NATed to your server.
 * Both http and https traffic for the sub-domains configured will be routed to your server.
 --
