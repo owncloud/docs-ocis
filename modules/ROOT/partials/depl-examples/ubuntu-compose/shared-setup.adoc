@@ -1,0 +1,442 @@
+////
+https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
+
+this are textblocks that can be reused by different deployment examples - but all of them must use LetsEncrypt !
+text and image deviations are handled via attributes:
+
+first is hetzner, commented below local server
+
+:text_1: on Hetzner
+// (leave empty)
+
+:text_2: Hetzner provides a firewall configuration option right from the beginning, or is available after the server has been defined.
+// Configuring a firewall is not part of this document.
+
+:text_3: Though possible, there is no need to configure an additional firewall inside the server.
+// (leave empty)
+
+:text_4: provided by Hetzner
+// of your WAN
+
+:text_5: this server
+// your WAN
+
+:overview_image: ubuntu-hetzner-access.drawio.svg
+// ubuntu-prod-install.drawio.svg
+////
+
+tag::shared_1[]
+
+=== Other Requirements
+
+Firewall::
+Because the server configured {text_1} is exposed to the internet, we highly recommend configuring a firewall for security reasons. {text_2}
++
+NOTE: The minimum configuration for the firewall is to allow port 22, 80 and 443. We also recommend to allow `ICMP` to be able to ping the server. {text_3}
+
+Domain Name and Routing::
+To access Infinite Scale from the internet, you *must*:
++
+--
+* Own a domain name which will get multiple subdomains configured.
+** You can also use a wildcard operator for the subdomains in the DNS configuration. In case where you already use subdomains for other purposes, we recommend using a subdomain as entry point and add the wildcard operator there to allow different IP configurations.
+* The IP address {text_4} needs to be used for the (sub)domains configured.
+
+Note that you can use any domain provider of choice.
+--
+
+eMail::
+The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details. Note that if this data is not available, Infinite Scale will start but no notifications can be sent.
++
+--
+* `SMTP_HOST` +
+SMTP host to connect to.
+* `SMTP_PORT` +
+Port of the SMTP host to connect to.
+* `SMTP_SENDER` +
+An eMail address that is used for sending Infinite Scale notification eMails like +
+[.blue]##`ocis <\noreply@yourdomain.com>`##.
+* `SMTP_USERNAME` +
+Username for the SMTP host to connect to.
+* `SMTP_PASSWORD` +
+Password for the SMTP host to connect to.
+* `SMTP_AUTHENTICATION` +
+Authentication method for the SMTP communication.
+* `SMTP_SECURITY` +
+Define using secure or insecure connections to the SMTP server.
+--
+
+==== Domain Names
+
+This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according your environment. The (sub)domains must be configured to point to the server you configured. The same ist true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
+
+The following (sub)domains are required at minimum, an example is printed for each, replace them according your environment:
+
+* `OCIS_DOMAIN` +
+[.blue]##`ocis.yourdomain.com`##
+
+* `COLLABORA_DOMAIN` +
+[.blue]##`collabora.yourdomain.com`##
+
+* `WOPISERVER_DOMAIN` +
+[.blue]##`wopiserver.yourdomain.com`##
+
+== Accessing Infinite Scale
+
+Infinite Scale can be accessed from the internet and from your local network with the `OCIS_DOMAIN` you have defined:
+
+image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400]
+
+== Limitations
+
+Data Location::
+All data is stored in volumes managed by docker in the same partition of the server. You need to manually reconfigure the docker volumes in the main docker compose file if you want to define your own volume paths instead the ones managed by docker. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
+
+User and User Access Management::
+The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
++
+--
+* Infinite Scale has an embedded identity management (IDM footnote:[See the xref:{s-path}/idm.adoc[IDM, window=_blank] service for more details]) which takes care of creating, storing, and managing user identity information.
+
+* In addition, it also has an embedded identity provider (IDP footnote:[See the xref:{s-path}/idp.adoc[IDP, window=_blank] service for more details]) to track and manage user identities, as well as the permissions and access levels associated with those identities.
+--
+
+end::shared_1[]
+
+
+tag::hetzner_only_1[]
+
+== Prepare Hetzner
+
+=== SSH Key
+
+To be prepared accessing the configured server, we recommend using key based authentication for ssh instead using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
+
+Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys are now located in `~/.ssh`.
+
+When using Putty (Windows) to access your server, you must convert the private key generated into the `ppk` format to be usable for Putty. Read the  https://www.puttygen.com[puttygen] guide to do so.
+
+After the server has been created, you can copy new private keys to the server by adding them into `~/.ssh/authorized_keys` file.
+
+=== Login to Hetzer
+
+If you not already have an account on https://www.hetzner.com[Hetzner], register for free and log in.
+
+image::depl-examples/ubuntu-compose/hetzner-register-login.png[Hetzner Login or register, width=250]
+
+=== Configure and Order the Desired Server
+
+After logging in, select from the selector on the top right the `cloud` item.
+
+image::depl-examples/ubuntu-compose/hetzner-select-cloud.png[Select Cloud, width=150]
+
+Then, you either can use an existing project, if you have one, or create a `new project`.
+
+image::depl-examples/ubuntu-compose/hetzner-create-new-project.png[Create new project, width=300]
+
+Select the project of choice and in the new screen click on btn:[Add Server].
+
+In the following screen, you can define the::
+--
+* *Server Location* (Chose one from the offered)
+* *Image* (we use for this deployment Ubuntu)
+* *Type* (select any server type that matches your requirements)
+* *Networking* (we recommend using additionally IPv4)
+* *SSH keys* (here you enter the public key you created before)
+* *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too)
+* *Firewall* (add a rule for at minimum port 22 and 443, can be added later on too)
+* ... more items
+* *Name* (define a name for the server)
+--
+
+After you have finished, the server is built and when done you can click on it which opens a screen with more details and post configuration options.
+
+image::depl-examples/ubuntu-compose/hetzner-server-defined.png[Server View, width=300]
+
+NOTE: In this screen, you also see the IP address of the server that is necessary to be used for the domains pointing to this server.
+
+end::hetzner_only_1[]
+
+
+tag::shared_2[]
+
+== Add the IP Address to the Domains
+
+After the server has been finally setup, you must use the IP address assigned to {text_5} to configure DNS mapping at your DNS provider accordingly. If you have allowed ICMP requests in the firewall settings, you can then ping your server with one of the domain names defined.
+
+== Prepare the Server
+
+As a standard regular task, you need to update packages, especially on first server login:
+
+[source,bash]
+----
+apt-get update && apt-get upgrade
+----
+
+=== Install Required Software Packages
+
+Note that we do not recommend using the Ubuntu embedded Docker installations but install and upgrade them manually to get the latest releases.
+
+Docker Engine::
+Follow this guide to install `docker`: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[Install using the apt repository, window=_blank].
+
+Docker Compose::
+Follow this guide to install `docker compose`: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually[Install the Compose plugin, window=_blank].
+
+unzip::
++
+--
+The package `unzip` may not be present. In case install with:
+[source,bash]
+----
+apt install unzip
+----
+--
+
+== Download and Transfer the Example
+
+To download and extract the necessary deployment example footnote:[Derived from the {composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
+
+[source,url,subs="attributes+"]
+----
+{download-gh-directory-url}?url={composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}
+----
+
+The `.zip` file will be downloaded into your local `Download` directory.
+
+Transfer the `.zip` file created to the server by issuing the following command, replace the user accordingly:
+
+[source,bash,subs="attributes+"]
+----
+scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' <user>@<IP or domain>:/opt
+----
+
+NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get overwritten without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
+
+== Extract the Example
+
+Login into the server and:
+
+* Create a subdirectory to save all compose files and folders.
++
+[source,bash,subs="attributes+"]
+----
+mkdir -p /opt/compose/ocis/{ocis_wopi}
+----
+
+* Extract the zip file into the directory by issuing the following command:
++
+[source,bash,subs="attributes+"]
+----
+unzip -d /opt/compose/ocis/{ocis_wopi} \
+  /opt/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip'
+----
+
+* When files have been extracted, list the directory with:
++
+--
+[source,bash,subs="attributes+"]
+----
+ls -la /opt/compose/ocis/{ocis_wopi}/
+----
+
+The listing should contain files and folders like the following:
+
+[source,subs="+quotes"]
+----
+[.aqua]#config#
+docker-compose.yml
+.env
+README.md
+collabora.yml
+companion.yml
+...
+----
+--
+
+== Edit the Configuration File
+
+Change into the `/opt/compose/ocis/{ocis_wopi}` directory and open the `.env` file with an editor.
+
+Only a few settings need to be configured:
+
+* `INSECURE` +
+Comment this line because we are on an internet facing server.
+
+* `TRAEFIK_ACME_MAIL` +
+Add a valid response eMail address for Letsencrypt, see the note below.
+
+* `TRAEFIK_ACME_CASERVER` +
+Set the CAServer to staging, see the note below.
+
+* `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and `WOPISERVER_DOMAIN` +
+Set the domain names as defined in xref:domain-names[Domain Names].
+
+* `SMPT_xxx` +
+Define these settings according your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
+
+[NOTE]
+====
+* When not defining your own domain names, internal evaluation only domain names with self signed certificates are used automatically.
+
+* LetsEncrypt notes:
+
+** We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
+
+** To trigger cerfificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
+====
+
+== Start the Compose Setup
+
+When you have finished the configuration, you can start the compose setup by issuing the following command:
+
+[source,bash]
+----
+docker compose up -d --remove-orphans
+----
+
+This command will download all necessary containers and starts up the instance according your settings in the background (flag `-d`).
+
+Check the logs via the `docker logs command`, especially the traefik logs. See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
+
+If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting and restart it. Recheck the traefik logs and when all is fine, you can access your instance, for details see below. 
+
+=== Solving First Startup Issues
+
+If any issues are logged by traefik on first startup with respect to LetsEncrypt like:
+
+* `...unable to generate a certificate for the domains...`, `acme: error: 400` and `acme-challenge`: +
+Check if the ports 80/443 are open in the firewall configured. You can run a test _during running compose_ to test if traefik can be reached on those ports. To do so visit https://letsdebug.net[Let's Debug].
+
+* `...DNS problem: NXDOMAIN looking up A for...` +
+This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
+
+Whenever you had a DNS issue at this stage, you will face follow up issues on a consecutive compose start because the certificae volume now holds invalid data. Therefore the cert volume needs to be deleted:
+
+.Shut down the deployment
+[source,bash]
+----
+docker compose down
+----
+Note, not use the `-v` option as it will delete ALL volumes. Also see the next section.
+
+.List the docker volumes
+[source,bash]
+----
+docker volume ls
+----
+
+.Delete the docker certs volume
+[source,bash]
+----
+docker volume rm ocis_wopi_certs
+----
+
+== Stop the Compose Setup
+
+Stopping the compose setup is easy, just issue:
+
+[source,bash]
+----
+docker compose down
+----
+
+For safty reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. In case, deleting volumes selectively is the preferred method, see the section above.
+
+== First Time Login
+
+Now, after preparations have finished, you can access your instance *from any client*. To do so, open your browser and enter the instance URL as you have defined it:
+
+[source,URL]
+----
+ocis.yourdomain.com
+----
+
+Which will show the following screen:
+
+image::depl-examples/ubuntu-compose/infinite-scale-login.png[Infinite Scale Login, width=300]
+
+For the credentials, use:
+
+* `admin` as user and 
+* `admin` for the password, +
+or the one you have defined manually during setup.
+
+NOTE: If you have defined an initial password via the `.env` file manually but forgot it, you need to follow one of the procedures described in the xref:admin-password[Admin Password] section.
+
+If you have logged in successfully, you should see the following screen:
+
+image::depl-examples/ubuntu-compose/infinite-scale-logged-in.png[Infinite Scale Logged In, width=300]
+
+*Congratulations*, you have successfully setup Infinite Scale with Web Office.
+
+TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] to sync files to/from clients.
+
+NOTE: The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down by command.
+
+With further steps described below, some basic monitoring commands and a short description to uninstall Infinite Scale is provided.
+
+== Monitor the Instance
+
+=== Logs
+
+Issue the following sequence of commands to monitor logs:
+
+.This command will print the required Container ID, among other data 
+[source,bash]
+----
+docker ps
+----
+
+.Replace the <container_id> according the container for which you want to monitor the log.
+[source,bash]
+----
+docker compose logs -f <container_id>
+----
+
+=== Container
+
+To get the state of running containers, issue the following command:
+
+[source,bash]
+----
+docker compose ps --format "table {{.Service}}\t{{.State}}"
+----
+
+== Admin Password
+
+=== Initial Admin Password from Docker Log
+
+If the manually set *initial* admin password has been forgotten *before* it got changed, you can get it from the docker log. See the https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logging.
+
+First you need to get the Infinite Scale `CONTAINER ID`:
+
+[source,bash]
+----
+docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
+----
+
+From the output, note the container ID in the printout that matches:
+
+[.transparent-background,subs="quotes,attributes+"]
+----
+* Image 		-> *owncloud/ocis:{compose_version}* and
+* Command starting with	-> */bin/sh -c 'ocis in…*.
+----
+
+Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
+
+[source,bash]
+----
+docker logs <CONTAINER ID> 2>&1 | less
+----
+
+The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more deatils.
+
+If no password can be identified, you must reset the admin password via the command line as described below.
+
+=== Command Line Password Reset
+
+To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
+end::shared_2[]

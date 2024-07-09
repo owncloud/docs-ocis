@@ -91,6 +91,8 @@
 * Deployment Examples
 ** xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal]
 ** xref:depl-examples/bare-metal.adoc[Bare Metal with systemd]
+** Ubuntu with Docker Compose
+*** xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner]
 * Additional Information
 ** xref:additional-information/knowledge-base.adoc[Knowledge Base]
 
