@@ -21,7 +21,7 @@ toc::[]
 
 IMPORTANT: With the decision to use https://www.hetzner.com[Hetzner] for our cloud deployment example, you can select from a variety of server locations which include many residing in the EU. Using a location inside the EU has a big *positive* impact for your data in terms of General Data Protection Regulation (GDPR).
 
-NOTE: With the minimum configuration available on Hetzner, you can start with about €4/month for a cloud driven Infinite Scale deployment. Note that prices are subject of changes and only intended for imformational purposes.
+NOTE: With the minimum configuration available on Hetzner, you can start with about €4/month for a cloud driven Infinite Scale deployment. Note that prices are subject to changes and only intended for informational purposes.
 
 NOTE: This guide references the latest production version of Infinite Scale.
 
@@ -29,7 +29,7 @@ NOTE: This guide references the latest production version of Infinite Scale.
 
 === Hardware
 
-This guide describes an installation of Infinite Scale on the Hetzner Cloud using Ubuntu LTS as OS and docker compose. The underlying hardware can be configured according the offers from Hetzner and your requirements. 
+This guide describes an installation of Infinite Scale on the Hetzner Cloud using Ubuntu LTS as OS and docker compose. The underlying hardware can be configured according to the offers from Hetzner and your requirements. 
 
 [NOTE]
 ====
@@ -87,6 +87,6 @@ include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;he
 
 Note that this deploymment can only be updated within Infinite Scale v5.
 
-If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can countinue using Infinite Scale as usual.
+If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
 
 {empty} +
