@@ -14,6 +14,10 @@
 
 * Sharing listens on port 9150 by default.
 
+== Passwords
+
+For details on password management see the xref:{s-path}/frontend.adoc#passwords[Passwords] documentation. 
+
 == Event Bus Configuration
 
 include::partial$multi-location/event-bus.adoc[]
