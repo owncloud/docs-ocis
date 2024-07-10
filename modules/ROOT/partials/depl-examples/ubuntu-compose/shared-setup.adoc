@@ -39,7 +39,7 @@ To access Infinite Scale from the internet, you *must*:
 +
 --
 * Own a domain name which will get multiple subdomains configured.
-** You can also use a wildcard operator for the subdomains in the DNS configuration. In case where you already use subdomains for other purposes, we recommend using a subdomain as entry point and add the wildcard operator there to allow different IP configurations.
+** You can also use a wildcard operator for the subdomains in the DNS configuration. In cases where you already use subdomains for other purposes, we recommend using a subdomain as entry point and add the wildcard operator there to allow different IP configurations.
 * The IP address {text_4} needs to be used for the (sub)domains configured.
 
 Note that you can use any domain provider of choice.
@@ -68,7 +68,7 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according your environment. The (sub)domains must be configured to point to the server you configured. The same ist true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
+This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according your environment. The (sub)domains must be configured to point to the server you configured. The same is true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
 
 The following (sub)domains are required at minimum, an example is printed for each, replace them according your environment:
 
@@ -110,7 +110,7 @@ tag::hetzner_only_1[]
 
 === SSH Key
 
-To be prepared accessing the configured server, we recommend using key based authentication for ssh instead using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
+We recommend using key based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
 
 Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys are now located in `~/.ssh`.
 
@@ -118,9 +118,9 @@ When using Putty (Windows) to access your server, you must convert the private k
 
 After the server has been created, you can copy new private keys to the server by adding them into `~/.ssh/authorized_keys` file.
 
-=== Login to Hetzer
+=== Login to Hetzner
 
-If you not already have an account on https://www.hetzner.com[Hetzner], register for free and log in.
+If you do not already have an account on https://www.hetzner.com[Hetzner], register for free and log in.
 
 image::depl-examples/ubuntu-compose/hetzner-register-login.png[Hetzner Login or register, width=250]
 
@@ -138,10 +138,10 @@ Select the project of choice and in the new screen click on btn:[Add Server].
 
 In the following screen, you can define the::
 --
-* *Server Location* (Chose one from the offered)
-* *Image* (we use for this deployment Ubuntu)
+* *Server Location* (Choose one from the offered)
+* *Image* (we use Ubuntu for this deployment)
 * *Type* (select any server type that matches your requirements)
-* *Networking* (we recommend using additionally IPv4)
+* *Networking* (we recommend using IPv4 as well as IPv6)
 * *SSH keys* (here you enter the public key you created before)
 * *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too)
 * *Firewall* (add a rule for at minimum port 22 and 443, can be added later on too)
@@ -272,7 +272,7 @@ Set the CAServer to staging, see the note below.
 * `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and `WOPISERVER_DOMAIN` +
 Set the domain names as defined in xref:domain-names[Domain Names].
 
-* `SMPT_xxx` +
+* `SMTP_xxx` +
 Define these settings according your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
 
 [NOTE]
@@ -283,7 +283,7 @@ Define these settings according your eMail configuration. With the settings defi
 
 ** We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
 
-** To trigger cerfificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
+** To trigger certificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
 ====
 
 == Start the Compose Setup
@@ -311,14 +311,14 @@ Check if the ports 80/443 are open in the firewall configured. You can run a tes
 * `...DNS problem: NXDOMAIN looking up A for...` +
 This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
 
-Whenever you had a DNS issue at this stage, you will face follow up issues on a consecutive compose start because the certificae volume now holds invalid data. Therefore the cert volume needs to be deleted:
+Whenever you had a DNS issue at this stage, you will face follow up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore the cert volume needs to be deleted:
 
 .Shut down the deployment
 [source,bash]
 ----
 docker compose down
 ----
-Note, not use the `-v` option as it will delete ALL volumes. Also see the next section.
+Note, do not use the `-v` option as it will delete ALL volumes. Also see the next section.
 
 .List the docker volumes
 [source,bash]
@@ -388,7 +388,7 @@ Issue the following sequence of commands to monitor logs:
 docker ps
 ----
 
-.Replace the <container_id> according the container for which you want to monitor the log.
+.Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
 ----
 docker compose logs -f <container_id>
