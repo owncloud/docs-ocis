@@ -73,6 +73,14 @@ NOTE: We highly recommend reading the xref:deployment/general/general-info.adoc[
 
 Configuration of Infinite Scale might be quite different to what you are used to but it's very simple. It works with environment variables and optional configuration files for you to create depending on your specific needs. The settings in configuration files can always be overruled by setting the respective environment variables manually on the command line.
 
+== Release Life Cycle
+
+Starting with version 6 of Infinite Scale, releases are now split into `production` and `rolling`. See the https://owncloud.dev/ocis/release_roadmap/[Developer Docs Release Life Cycle] page for more details and impacts.
+
+You can find more details on changes made in each release published in the https://doc.owncloud.com/ocis_release_notes.html[Infinite Scale Server Release Notes].
+
+IMPORTANT: Rolling releases are published in a cycle of 3 weeks. Due to this relative short cycle, you will find the actual development and the current published rolling release documentation *not* separated. They are both part of the `next` segment in the URL. Compared to production releases where the respective release number is used, the actual rolling release number published can be found e.g. in each service description in section "Environment Variables".
+
 == Try Online
 
 You can try Infinite Scale before you install it locally to get hands-on experience and a feeling for how things work and integrate. Our development provides several instances with different setups to test. The instances are reset on a regular basis. See our https://owncloud.dev/ocis/deployment/continuous_deployment/[Continuous Deployment,window=_blank] page for more details.
