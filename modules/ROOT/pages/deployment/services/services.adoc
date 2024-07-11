@@ -18,6 +18,17 @@ Also see the supporting documents describing various topics around services.
 
 The following services have been introduced with the releases listed:
 
+=== Infinite Scale _next_
+
+[width="100%",cols="20%,~",options="header"]
+|===
+| Service
+| Description
+
+| xref:{s-path}/activitylog.adoc[Activitylog]
+| The Activitylog service is responsible for storing events (activities) per resource.
+|===
+
 === Infinite Scale 5.0.0
 
 [width="100%",cols="20%,~",options="header"]
