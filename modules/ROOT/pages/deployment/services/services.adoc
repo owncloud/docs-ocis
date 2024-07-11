@@ -27,6 +27,9 @@ The following services have been introduced with the releases listed:
 
 | xref:{s-path}/activitylog.adoc[Activitylog]
 | The Activitylog service is responsible for storing events (activities) per resource.
+
+| xref:{s-path}/collaboration.adoc[Collaboration]
+| The Collaboration service connects Infinite Scale with document servers such as Collabora and ONLYOFFICE using the WOPI protocol.
 |===
 
 === Infinite Scale 5.0.0
