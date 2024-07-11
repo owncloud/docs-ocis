@@ -19,6 +19,8 @@ asciidoc:
     service_tab_1: 'docs' # latest stable like docs-stable-5.0
 
     # service_tab_x_tab_text will be used as tab text shown for service_tab_x
+    # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
+    # this does not apply to branched releases using semver, only to the master branch! 
     service_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0
 
     # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)

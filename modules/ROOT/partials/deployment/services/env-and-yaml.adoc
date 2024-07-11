@@ -39,9 +39,19 @@ ifndef::no_deprecation[]
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
 endif::no_deprecation[]
 
+// define the text to be printed as tab text for the envvar table in services
+// this is only relevant for master as it prints the rolling version additionally
+// branched versions are not affected
+:tab_text: {service_tab_1_tab_text}
+ifeval::["{service_tab_1_tab_text}" == "master"]
+:tab_text: {service_tab_1_tab_text} + Rolling {ocis-rolling-version}
+endif::[]
+
+
 // conditionally render the envvar entry text, either with or without section header
 
 // text version 1
+
 ifndef::no_yaml[]
 === Environment Variables
 
@@ -49,6 +59,7 @@ The `{service_name}` service is configured via the following environment variabl
 endif::no_yaml[]
 
 // text version 2
+
 ifdef::no_yaml[]
 The `{service_name}` variables are defined in the following way. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 endif::no_yaml[]
@@ -57,7 +68,7 @@ endif::no_yaml[]
 
 [tabs]
 ====
-{service_tab_1_tab_text}::
+{tab_text}::
 +
 --
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
@@ -73,7 +84,7 @@ ifndef::no_yaml[]
 
 [tabs]
 ====
-{service_tab_1_tab_text}::
+{tab_text}::
 +
 --
 [source,yaml]
