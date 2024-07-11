@@ -18,13 +18,33 @@ Also see the supporting documents describing various topics around services.
 
 The following services have been introduced with the releases listed:
 
+=== Infinite Scale 5.0.0
+
+[width="100%",cols="20%,~",options="header"]
+|===
+| Service
+| Description
+
+| xref:{s-path}/clientlog.adoc[Clientlog]
+| The Clientlog service is responsible for composing machine-readable notifications for clients.
+
+| xref:{s-path}/eventhistory.adoc[Eventhistory]
+| The Eventhistory service consumes all events from the configured event system like NATS, stores them and allows other services to retrieve them via an event ID.
+
+| xref:{s-path}/ocm.adoc[OCM]
+| The OCM service provides federated sharing functionality based on the ScienceMesh and OCM HTTP APIs.
+
+| xref:{s-path}/sse.adoc[SSE]
+| The  SSE service is responsible for sending sse (server-sent events) to a user.
+|===
+
 === Infinite Scale 4.0.0
 
 No services have been added with Infinite Scale version 4.0.0.
 
 === Infinite Scale 3.0.0
 
-[width="100%",cols="25%,~",options="header"]
+[width="100%",cols="20%,~",options="header"]
 |===
 | Service
 | Description
@@ -59,7 +79,7 @@ No services have been added with Infinite Scale version 4.0.0.
 
 === Infinite Scale 2.0.0
 
-[width="100%",cols="25%,~",options="header"]
+[width="100%",cols="20%,~",options="header"]
 |===
 | Service
 | Description
@@ -68,7 +88,7 @@ No services have been added with Infinite Scale version 4.0.0.
 | App providers represent apps that are not able to register themselves.
 
 | xref:{s-path}/app-registry.adoc[App Registry]
-|
+| The App-Registry service is the single point where all apps register themselves and their respective supported mime types.
 
 | xref:{s-path}/audit.adoc[Audit]
 | The Audit service logs all events of the system as an audit log.
@@ -83,7 +103,7 @@ No services have been added with Infinite Scale version 4.0.0.
 | The Frontend service translates various ownCloud-related HTTP APIs to CS3 requests.
 
 | xref:{s-path}/gateway.adoc[Gateway]
-|
+| The Gateway service is responsible for passing requests to the storage providers.
 
 | xref:{s-path}/graph.adoc[Graph]
 | The Graph service provides a simple graph world API which can be used by clients or other services or extensions.
