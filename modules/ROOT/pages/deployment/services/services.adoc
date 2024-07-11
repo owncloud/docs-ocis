@@ -18,6 +18,10 @@ Also see the supporting documents describing various topics around services.
 
 The following services have been introduced with the releases listed:
 
+=== Infinite Scale 4.0.0
+
+No services have been added with Infinite Scale version 4.0.0.
+
 === Infinite Scale 3.0.0
 
 [width="100%",cols="25%,~",options="header"]
