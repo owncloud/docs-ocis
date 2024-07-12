@@ -27,4 +27,4 @@ Starting with Infinite Scale version 3.0.0, the default backend for metadata swi
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

@@ -24,4 +24,4 @@ By using the envvars `OCIS_SERVICE_ACCOUNT_ID` and `OCIS_SERVICE_ACCOUNT_SECRET`
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

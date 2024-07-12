@@ -92,4 +92,4 @@ Since source files need to be loaded into memory when generating thumbnails, lar
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]
