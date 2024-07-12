@@ -109,4 +109,4 @@ If a resource is shared using SecureView, the share reciever will get a 403 (for
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

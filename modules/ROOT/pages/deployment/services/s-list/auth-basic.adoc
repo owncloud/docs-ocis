@@ -41,4 +41,4 @@ Scalability, just like memory and CPU consumption, are highly dependent on the c
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

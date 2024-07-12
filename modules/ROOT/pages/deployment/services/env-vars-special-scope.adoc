@@ -2,9 +2,6 @@
 :toc: right
 :description: Some environment variables have a special, extended or global scope. Variables with special scope are related to a deployment method only.
 
-// there is only an adoc table to include but no yaml file. this is only when using special scope envvars.
-:no_yaml: true
-
 == Introduction
 
 {description} Variables with an extended scope do not directly configure services but functions underneath. Variables with a global scope can configure more than one service.
@@ -15,44 +12,39 @@ Examples:
 * The extended environment variable `OCIS_CONFIG_DIR` can be used with `ocis init`.
 * The special environment variable `OCIS_RUN_SERVICES` is only available with a binary deployment.
 
+
 == Special Environment Variables
 
-// these envvars cant be gathered automatically and must be maintained manually.
+// these envvars cant be gathered automatically and must be maintained manually. they change very rarely!
 // their source is in: https://github.com/owncloud/ocis/blob/master/ocis-pkg/config/config.go
 // at 'type Runtime struct'
 
-The following environment variables are only available with the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+The following environment variables are only available with the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 
-[tabs]
-====
-{service_tab_1_tab_text}::
-+
---
-include::./_special-envvar.adoc[tag=service_tab_1]
---
-====
+include::partial$deployment/services/env-and-yaml.adoc[tag=special_envvars]
+
 
 == Extended Environment Variables
 
 ////
-Note that if a description of an extended envvar is missing, you need to fix this in:
+IMPORTANT: extended envvars currently do not have an extended_deprecation.adoc file. handled in the include.
+
+note that if a description of an extended envvar missing or strange looking envvars present, you need to fix this in:
 https://github.com/owncloud/ocis/blob/master/docs/helpers/extended_vars.yaml
 see the readme.md file in that folder.
-IMPORTANT: Extended envvars do not have an extended_deprecation.adoc file. We therefore must set the attribute to true.
 ////
  
 :service_name: extended
-:no_deprecation: true
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-only]
 
-// IMPORTANT: Global envvars currently do not have a global_deprecation.adoc file. We therefore must set the attribute to true.
 
 == Global Environment Variables
 
+// IMPORTANT: global envvars currently do not have an global_deprecation.adoc file. handled in the include.
+
 :service_name: global
-:no_deprecation: true
 
 Note that the descriptions of these environment variables may differ depending on the service context.
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-only]

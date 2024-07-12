@@ -34,4 +34,4 @@ The webdav service does not persist any data and does not cache any information.
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

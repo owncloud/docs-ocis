@@ -35,4 +35,4 @@ Note that using TLS is highly recommended for production environments, especiall
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

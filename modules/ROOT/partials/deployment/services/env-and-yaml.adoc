@@ -1,81 +1,78 @@
 ////
-The attribute 'service_name' (mandatory) and 'no_yaml' (not mandatory) will be handed over by the calling page.
-If no_yaml is set, it will exclude rendering yaml files because it does not exist.
-
-Print a dependent explanation line:
-
-* no_yaml is not set = standard service
-* no_yaml is set     = special scope envvars
-
-Conditional tab printing, example:
-
-* no_second_tab = based on first appearance of the service (defined in a service),
-  must overrule service tab. If there is no second, there is also no third.
-
-* Note to make a tab hidden by no_xxx_tab showing up again, just comment it.
+The attribute 'service_name' will be handed over by the calling page.
 
 The included deprecation file just has an attribute necessary for rendering deprecations.
-This is necessary as attributes that are defined INSIDE a tabset will not get recognized, attributes need to be defined OUTSIDE the tabset definition. example content:
+This is necessary as attributes that are defined INSIDE a tabset will not get recognized, attributes like show-deprecation need to be defined OUTSIDE the tabset definition.
 
-:show-deprecation: true
+The included xxx_deprecation.adoc file contains the attribute identical value compared to the xxx.adoc file, to be used outside of tabsets.
 
-The file contains the attribute too to be used outside of tabsets.
-
-To exclude a deprecation file if not wanted - like when the file will just not exist, manually unset the attribute if required via:
-
-* :!no_deprecation:
-
+Important: The xxx_deprecation.adoc does not exist for extended or global envvars. It may change for global envvars! When rendering an included content in a table, any attribute set in the included file is dropped and can't be queried. Therefore we read upfront xxx_deprecation.adoc where only the deprecation state is set. Having this extra, we set 'show-deprecation' outside the tab but with the same value which is taken for building.
 ////
 
-////
-Important: The xxx_deprecation.adoc does not exist for extended or global envvars. It may change for global envvars! Therefore we need to query 'no_deprecation' to skip importing - or if we explicitly don't want to show deprecated content.
-When rendering an included content in a table, any attribute set in the included file is dropped and can't be queried. Therefore we read upfront xxx_deprecation.adoc where only the deprecation state is set. Having this extra, we set 'show-deprecation' outside the tab but with the same value which is taken for building.
-////
 
-:show-deprecation: false
+// SPECIAL ENVVARS: print hardcoded list
 
-ifndef::no_deprecation[]
-// deprecation test tab 1, uncomment for testing
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
-endif::no_deprecation[]
+tag::special_envvars[]
 
-// define the text to be printed as tab text for the envvar table in services
-// this is only relevant for master as it prints the rolling version additionally
-// branched versions are not affected
-:tab_text: {service_tab_1_tab_text}
-ifeval::["{service_tab_1_tab_text}" == "master"]
-:tab_text: {service_tab_1_tab_text} + Rolling {ocis-rolling-version}
-endif::[]
+// compute the correct tab text
+include::partial$multi-location/tab-text.adoc[]
 
-
-// conditionally render the envvar entry text, either with or without section header
-
-// text version 1
-
-ifndef::no_yaml[]
-=== Environment Variables
-
-The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
-endif::no_yaml[]
-
-// text version 2
-
-ifdef::no_yaml[]
-The `{service_name}` variables are defined in the following way. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
-endif::no_yaml[]
-
-// create the tabs in any case
+// this directive is usually not necessary and its need likely an antora bug. because there is no text after the include
+// and the tabs, we need to simulate this with empty. using it we prevent a warning that the attribute is missing...
+{empty}
 
 [tabs]
 ====
 {tab_text}::
 +
 --
+[width="100%",cols="30%,70%",options="header"]
+|===
+| Name
+| Description
+
+| `OCIS_RUN_SERVICES`
+| A comma-separated list of service names. Will start only the listed services.
+
+| `OCIS_EXCLUDE_RUN_SERVICES`
+| A comma-separated list of service names. Will start all default services except of the ones listed. Has no effect when `OCIS_RUN_SERVICES` is set.
+
+| `OCIS_ADD_RUN_SERVICES`
+| A comma-separated list of service names. Will add the listed services to the default configuration. Has no effect when `OCIS_RUN_SERVICES` is set. Note that one can add services not started by the default list and exclude services from the default list by using both envvars at the same time.
+|===
+
+Note to get the current list of services started by default, you need to run `ocis server` without restriction which services to start and run afterwards `ocis list`.
+--
+====
+
+end::special_envvars[]
+
+
+
+// TEXT VERSION 1: print envvars and yaml, used in services
+
+tag::envvars-yaml[]
+
+// compute the correct tab text
+include::partial$multi-location/tab-text.adoc[]
+
+=== Environment Variables
+
+The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+
+// load the deprecation activation file. this will overwrite the above.
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
+
+[tabs]
+====
+{tab_text}::
++
+--
+// if deprecation activation is true, it will also show the deprecation content.
 include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
 --
 ====
 
-ifndef::no_yaml[]
 === YAML Example
 
 * Note that the filename shown below has been chosen on purpose.
@@ -93,4 +90,34 @@ include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{servic
 ----
 --
 ====
-endif::no_yaml[]
+
+end::envvars-yaml[]
+
+
+
+// TEXT VERSION 2 only print envvars
+
+tag::envvars-only[]
+
+// default to not show deprecations
+:show-deprecation: false
+
+// compute the correct tab text
+include::partial$multi-location/tab-text.adoc[]
+
+The `{service_name}` variables are defined in the following way. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+
+// do not load any deprecation activations. use the default set via ':show-deprecation: false' above
+// this prevents showing any deprecations which is necessary for global envvars which currently do not have
+// any deprecations configured.
+
+[tabs]
+====
+{tab_text}::
++
+--
+include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
+--
+====
+
+end::envvars-only[]
