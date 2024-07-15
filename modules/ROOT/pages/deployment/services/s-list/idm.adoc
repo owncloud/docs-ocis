@@ -90,4 +90,4 @@ Extract the `idm_password` password to enter from the `ocis.yaml` config file wh
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

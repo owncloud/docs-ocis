@@ -75,4 +75,4 @@ The data backend for the workflow, not the data itself, is configurable. The onl
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

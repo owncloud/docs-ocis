@@ -19,4 +19,4 @@ NOTE: The store service is marked for deprecation and will be removed in a later
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

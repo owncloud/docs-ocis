@@ -67,4 +67,4 @@ The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` ser
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]
