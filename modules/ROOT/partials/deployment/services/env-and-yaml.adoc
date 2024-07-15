@@ -26,6 +26,8 @@ include::partial$multi-location/tab-text.adoc[]
 {tab_text}::
 +
 --
+[caption=]
+.Environment variables only available for binary deployments
 [width="100%",cols="30%,70%",options="header"]
 |===
 | Name
@@ -61,7 +63,7 @@ include::partial$multi-location/tab-text.adoc[]
 The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 
 // load the deprecation activation file. this will overwrite the above.
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_deprecation.adoc[]
+include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/{service_name}_deprecation.adoc[]
 
 [tabs]
 ====
@@ -69,7 +71,7 @@ include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{s
 +
 --
 // if deprecation activation is true, it will also show the deprecation content.
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
+include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/{service_name}_configvars.adoc[]
 --
 ====
 
@@ -86,7 +88,7 @@ include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{s
 --
 [source,yaml]
 ----
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}{service_name}-config-example.yaml[]
+include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}{service_name}-config-example.yaml[]
 ----
 --
 ====
@@ -116,7 +118,7 @@ The `{service_name}` variables are defined in the following way. Read the xref:d
 {tab_text}::
 +
 --
-include::{ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/{service_name}_configvars.adoc[]
+include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/{service_name}_configvars.adoc[]
 --
 ====
 

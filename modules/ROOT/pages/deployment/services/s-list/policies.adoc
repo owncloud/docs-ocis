@@ -154,12 +154,12 @@ The policies service contains a set of preconfigured example policies. See the d
 
 [tabs]
 ====
-{compose_tab_1_tab_text}::
+{compose_tab_text}::
 +
 --
-{composer-url}{compose_tab_1}{composer-final-path}[Rego policies deployment examples directory,window=_blank]
+{compose_url}{compose_url_component}{compose_final_path}[Rego policies deployment examples directory,window=_blank]
 
-Using git version name: `{compose_tab_1}`
+Using git version name: `{compose_url_component}`
 --
 ====
 

@@ -15,19 +15,26 @@ asciidoc:
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
 
-    # service_tab_x will be used to assemble the url accessing the link for the services
-    service_tab_1: 'docs-stable-5.0' # latest stable
+    # note that service_url_component is used for services ONLY
+    # service_url_component will be used to assemble the url for services to include content (tables) sourced from the ocis repo.
+    service_url_component: 'docs' # docs for master or when stable, like docs-stable-5.0
 
-    # service_tab_x_tab_text will be used as tab text shown for service_tab_x
+    # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
-    service_tab_1_tab_text: 'master' # latest stable including patch releases like 5.0.0
+    service_tab_text: 'master' # latest stable including patch releases like 5.0.0
 
-    # compose_tab_x will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_tab_1: 'v5.0.5' # latest stable including patch releases like v5.0.0 (note the v !)
+    # note that compose_url_component is used for compose examples and for the EULA ONLY
+    # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
+    compose_url_component: 'master' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
 
-    # compose_tab_x_tab_text will be used as tab text shown for tab_x
-    compose_tab_1_tab_text: '5.0.5' # latest stable including patch releases like 5.0.0 (must be without v !)
+    # compose_tab_text will be used as tab text for examples and all other stuff but not servcies 
+    compose_tab_text: 'master' # latest stable including patch releases like 5.0.0
+
+    # use this attribute to define the branch name for git clone
+    # the value is usually identical to compose_tab_text, but it should be separatable to be independent
+    # note that you must define a value and not an attribute from above 
+    compose_git_name: 'master' # latest stable including patch releases like 5.0.0 (must be without v !)
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
@@ -50,11 +57,15 @@ asciidoc:
     ocis-charts-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis-charts/'
     values-versions-url: '/charts/ocis/docs/values.adoc.yaml'
     values-desc-versions-url: '/charts/ocis/docs/values-desc-table.adoc'
-    composer-url: 'https://github.com/owncloud/ocis/tree/'
-    composer-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
-    composer-final-path: '/deployments/examples'
-    docker-ocis-url: https://hub.docker.com/r/owncloud/ocis
+    compose_url: 'https://github.com/owncloud/ocis/tree/'
+    compose_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
+    compose_final_path: '/deployments/examples'
 
-    # used in deployment/services via partials/env-and-yaml.adoc
-    ocis-services-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis/'
-    ocis-services-final-path: '/services/_includes/'
+    # production and rolling have separate paths when it comes to download from docker
+    docker_ocis_prod_url: https://hub.docker.com/r/owncloud/ocis
+    docker_ocis_rolling_url: https://hub.docker.com/r/owncloud/ocis-rolling
+
+    # only used in deployment/services via partials/env-and-yaml.adoc
+    # static path components, used to assemble the final path depedend on service_url_component to include services
+    ocis_services_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
+    ocis_services_final_path: '/services/_includes/'
