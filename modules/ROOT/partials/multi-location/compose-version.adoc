@@ -1,8 +1,8 @@
 ////
-'compose_tab_1_tab_text' from the version (branch) can be 'master'. in this case we must use the site.yml's 'ocis-actual-version' to point to a number and not master. this is necessary to dynamically have a version number used and never master as this does not work with docker! we also cant use 'latest' as we have to stick to the referenced stable version.
+'compose_tab_text' from the version (branch) can be 'master'. in this case we must use the site.yml's 'ocis-actual-version' to point to a number and not master. this is necessary to dynamically have a version number used and never master as this does not work with docker! we also cant use 'latest' as we have to stick to the referenced stable version.
 ////
 
-:compose_version: {compose_tab_1_tab_text}
-ifeval::["{compose_tab_1_tab_text}" == "master"]
+:compose_version: {compose_tab_text}
+ifeval::["{compose_tab_text}" == "master"]
 :compose_version: {ocis-actual-version}
 endif::[]

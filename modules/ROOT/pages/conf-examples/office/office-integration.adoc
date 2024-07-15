@@ -12,7 +12,7 @@
 
 {description}
 
-For this purpose, ownCloud offers Docker containers with sample configurations available on {composer-url}{compose_tab_1}{composer-final-path}{wopi_subdir}[GitHub,window=_blank].
+For this purpose, ownCloud offers Docker containers with sample configurations available on {compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}[GitHub,window=_blank].
 
 For details on how WOPI integrates with Infinite Scale see: xref:deployment/wopi/wopi.adoc[Office Applications using WOPI].
 
