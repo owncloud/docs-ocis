@@ -116,4 +116,4 @@ The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment 
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

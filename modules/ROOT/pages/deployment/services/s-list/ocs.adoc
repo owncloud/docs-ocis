@@ -54,4 +54,4 @@ The `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` must be set to the service name 
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

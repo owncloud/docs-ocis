@@ -54,4 +54,4 @@ image::deployment/services/ocdav/mermaid-ocdav-5.svg[width=600]
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

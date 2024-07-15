@@ -164,4 +164,4 @@ See the xref:deployment/storage/general-considerations.adoc#resource-optimisatio
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

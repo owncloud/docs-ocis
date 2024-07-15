@@ -36,4 +36,4 @@ IMPORTANT: To use the embedded IDP service, it must be accessed with https. Acce
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

@@ -65,4 +65,4 @@ Consider that when a guest account has to be provisioned in an external user man
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

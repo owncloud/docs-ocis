@@ -162,4 +162,4 @@ For details on monitoring see the xref:monitoring/prometheus.adoc[Metrics for Pr
 
 == Configuration
 
-include::partial$deployment/services/env-and-yaml.adoc[]
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]
