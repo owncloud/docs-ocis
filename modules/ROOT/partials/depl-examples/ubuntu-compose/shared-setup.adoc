@@ -144,7 +144,7 @@ In the following screen, you can define the::
 * *Networking* (we recommend using IPv4 as well as IPv6)
 * *SSH keys* (here you enter the public key you created before)
 * *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too)
-* *Firewall* (add a rule for at minimum port 22 and 443, can be added later on too)
+* *Firewall* (add a rule for at minimum port 22, 80 and 443, can be added later on too)
 * ... more items
 * *Name* (define a name for the server)
 --
