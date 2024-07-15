@@ -4,8 +4,8 @@ or it is the value of the name as defined in antora.yml
 ////
 
 // compute the correct tab text
-:tab_text: {service_tab_1_tab_text}
+:tab_text: {service_tab_text}
 
-ifeval::["{service_tab_1_tab_text}" == "master"]
-:tab_text: {service_tab_1_tab_text} + Rolling {ocis-rolling-version}
+ifeval::["{service_tab_text}" == "master"]
+:tab_text: {service_tab_text} + Rolling {ocis-rolling-version}
 endif::[]

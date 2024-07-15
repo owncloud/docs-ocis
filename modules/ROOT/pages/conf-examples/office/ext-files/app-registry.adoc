@@ -11,9 +11,9 @@ We need to allow substitution of attributes first, then macros.
 :noindex:
 
 [caption=]
-.Source: link:{composer-raw-url}{compose_tab_1}{composer-final-path}/ocis_wopi/config/ocis/app-registry.yaml[]
+.Source: link:{compose_raw_url}{compose_url_component}{compose_final_path}/ocis_wopi/config/ocis/app-registry.yaml[]
 {empty}
 [source,yaml]
 ----
-include::{composer-raw-url}{compose_tab_1}{composer-final-path}/ocis_wopi/config/ocis/app-registry.yaml[]
+include::{compose_raw_url}{compose_url_component}{compose_final_path}/ocis_wopi/config/ocis/app-registry.yaml[]
 ----

@@ -68,12 +68,12 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram,width=500]
 +
 [tabs]
 ====
-{compose_tab_1_tab_text}::
+{compose_tab_text}::
 +
 --
-{composer-url}{compose_tab_1}{composer-final-path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+{compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
 
-Using git version name: `{compose_tab_1}`
+Using git version name: `{compose_url_component}`
 --
 ====
 +
@@ -84,7 +84,7 @@ Note that github will not let you download a single directory easily. You can ge
 +
 [source,bash,subs="attributes+"]
 ----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1_tab_text}
+git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_git_name}
 ----
 
 // https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
@@ -93,6 +93,6 @@ git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_tab_1_tab_t
 +
 [source,plaintext,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}{compose_tab_1}{composer-final-path}{wopi_subdir}
+{download-gh-directory-url}?url={compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}
 ----
 --
