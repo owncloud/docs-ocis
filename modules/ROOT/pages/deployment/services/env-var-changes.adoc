@@ -2,7 +2,7 @@
 :toc: right
 :description: This page contains tables with added and removed environment variables between Infinite Scale version 4.0.0 and 5.0.0.
 
-:source_path: {ocis-services-raw-url}{service_tab_1}{ocis-services-final-path}adoc/env-var-deltas/
+:source_path: {ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/env-var-deltas/
 // https://raw.githubusercontent.com/owncloud/ocis/docs-stable-5.0/services/_includes/adoc/env-var-deltas/
 
 == Introduction

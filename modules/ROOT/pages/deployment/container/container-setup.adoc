@@ -28,7 +28,7 @@
 
 == Introduction
 
-{description} See the latest or stable images from {docker-ocis-url}[Docker Hub].
+{description} See the latest or stable images from {docker_ocis_prod_url}[Docker Hub].
 
 This description mainly focuses on Docker which you can take as template or starting point if you are using different container managing software products.
 
@@ -93,7 +93,7 @@ If the group does not exist or you are not a member, continue with {docker-post-
 
 To give some terminology guidance, images are unchangeable snapshots of live containers, while containers are running (or stopped) instances of an image.
 
-* To download the {docker-ocis-url}[latest Infinite Scale image], run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available, but might be in the future. If not explicitly declared otherwise, the _latest_ tag is implicitely used and always reflects the current master branch. Consider using a stable release when planning ocis for production:
+* To download the {docker_ocis_prod_url}[latest Infinite Scale image], run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available, but might be in the future. If not explicitly declared otherwise, the _latest_ tag is implicitely used and always reflects the current master branch. Consider using a stable release when planning ocis for production:
 +
 [source,bash]
 ----
@@ -132,7 +132,7 @@ latest
 
 === Update an Image
 
-First check the current version of the image used with the command above and compare it with the versions available on {docker-ocis-url}[Docker Hub]. When a new image is available use these steps to upgrade the image.
+First check the current version of the image used with the command above and compare it with the versions available on {docker_ocis_prod_url}[Docker Hub]. When a new image is available use these steps to upgrade the image.
 
 NOTE: Read the ocis release notes before upgrading to avoid missing notes about possible breaking changes.
 
