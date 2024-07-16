@@ -1,0 +1,25 @@
+= Revisions Cleanup
+
+The revisions command allows removing the revisions of files in the storage.
+
+[source,bash]
+----
+ocis revisions purge -p /base/path/storage/users
+----
+
+It takes the `--resource-id` (or `--r`) parameter which specifies the scope of the command:
+
+* An empty string (default) removes all revisions from all spaces.
+* A spaceID (like `d419032c-65b9-4f4e-b1e4-0c69a946181d\$44b5a63b-540c-4002-a674-0e9c833bbe49`) removes all revisions in that space.
+* A resourceID (e.g. `d419032c-65b9-4f4e-b1e4-0c69a946181d\$44b5a63b-540c-4002-a674-0e9c833bbe49\!e8a73d49-2e00-4322-9f34-9d7f178577b2`) removes all revisions from that specific file.
+
+This command provides additional options:
+
+* `--dry-run` (default: `true`) +
+Do not remove any revisions but print the revisions that would be removed.
+
+* `-b` / `--blobstore` +
+Allows specifying the blobstore to use. Defaults to `ocis`. Can be switched to `s3ng` but needs addtional envvar configuration (see the `storage-users` service for more details).
+
+* `-v` / `--verbose` +
+Prints additional information about the revisions that are removed.
