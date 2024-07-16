@@ -1,6 +1,6 @@
 = Revisions Cleanup
 
-The trash cli allows removing empty folders from the trashbin. This should be used to speed up trash bin operations.
+The trash cli command allows removing empty folders from the trashbin. This should be used to speed up trash bin operations.
 
 [source,bash]
 ----

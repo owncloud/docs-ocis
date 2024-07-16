@@ -54,7 +54,7 @@ If you need to reset the admin password from the command line, follow the xref:d
 
 == Online Only Commands
 
-Compared to offline commands that can be issued when Infinite Scale is shut down, online commands must be issued if Infinite Scale and the respective service(es) are running.
+Compared to offline commands that can be issued when Infinite Scale is shut down, online commands must be issued when Infinite Scale and the respective service(es) are running.
 
 === Manage Expired Uploads
 
