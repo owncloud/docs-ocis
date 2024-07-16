@@ -50,7 +50,7 @@ The name of an OIDC claim whose value should be used for the `displayname` attri
 * `PROXY_AUTOPROVISION_CLAIM_GROUPS` +
 The name of an OIDC claim whose value should be used to maintain a user's group membership. The claim value should contain a list of group names the user should be a member of. Defaults to `groups`.
 * `PROXY_USER_OIDC_CLAIM` +
-When resolving and authenticated OIDC user, the value of this claims is used to lookup the user in the users service. For auto provisioning setups this usually is the same claims as set via `PROXY_AUTOPROVISION_CLAIM_USERNAME`.
+When resolving an authenticated OIDC user, the value of this claim is used to lookup the user in the users service. For auto provisioning setups this usually is the same claims as set via `PROXY_AUTOPROVISION_CLAIM_USERNAME`.
 * `PROXY_USER_CS3_CLAIM` +
 This is the name of the user attribute in ocis that is used to lookup the user by the value of the `PROXY_USER_OIDC_CLAIM`. For auto provisioning setups this usually needs to be set to `username`.
 
@@ -58,7 +58,7 @@ This is the name of the user attribute in ocis that is used to lookup the user b
 
 When a user logs into ownCloud Infinite Scale for the first time, the proxy checks if that user already exists. This is done by querying the `users` service for users, where the attribute set in `PROXY_USER_CS3_CLAIM` matches the value of the OIDC claim configured in `PROXY_USER_OIDC_CLAIM`.
 
-If the users does not exist, the proxy will create a new user via the `graph` service using the claim values configured in
+If the user does not exist, the proxy will create a new user via the `graph` service using the claim values configured in
 `PROXY_AUTOPROVISION_CLAIM_USERNAME`, `PROXY_AUTOPROVISION_CLAIM_EMAIL` and `PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME`.
 
 If the user does already exist, the proxy will check if the user's email or displayname has changed and updates those accordingly via `graph` service.
