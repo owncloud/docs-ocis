@@ -1,0 +1,13 @@
+= Revisions Cleanup
+
+The trash cli allows removing empty folders from the trashbin. This should be used to speed up trash bin operations.
+
+[source,bash]
+----
+ocis trash purge-empty-dirs -p /base/path/storage/users
+----
+
+This command provides additional options:
+
+* `--dry-run` (default: `true`) +
+Do not remove any empty folders but print the empty folders that would be removed.
