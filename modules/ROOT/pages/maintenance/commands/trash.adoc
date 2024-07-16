@@ -1,4 +1,4 @@
-= Revisions Cleanup
+= Trash CLI
 
 The trash cli command allows removing empty folders from the trashbin. This should be used to speed up trash bin operations.
 
