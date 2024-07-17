@@ -53,7 +53,7 @@ The following port ranges are used by services:
 | 9230-9234  | xref:{s-path}/nats.adoc[nats]
 | 9235-9239  | xref:{s-path}/idm.adoc[idm]
 | 9240-9244  | xref:{s-path}/app-registry.adoc[app-registry]
-| 9245-9249  | FREE
+| 9245-9249  | xref:{s-path}/auth-app.adoc[auth-app]
 | 9250-9254  | https://github.com/owncloud/ocis/tree/master/ocis/pkg/runtime[ocis server (runtime)]
 | 9255-9259  | xref:{s-path}/postprocessing.adoc[postprocessing]
 | 9260-9264  | xref:{s-path}/clientlog.adoc[clientlog]

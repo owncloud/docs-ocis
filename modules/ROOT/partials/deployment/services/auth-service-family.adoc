@@ -7,6 +7,9 @@ Infinite Scale uses several authentication services for different use cases. All
 [width=80%,cols="20%,80%",options="header"]
 |====
 2+^| As of now, these `auth` services exist
+| xref:{s-path}/auth-app.adoc[auth-app]
+| Handles *3rd party app* authentication.
+
 | xref:{s-path}/auth-basic.adoc[auth-basic]
 | Handles *basic* authentication.
 
