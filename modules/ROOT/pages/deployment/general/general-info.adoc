@@ -12,7 +12,7 @@ IMPORTANT: We highly recommend reading this document first before you start sett
 
 The example commands shown need to be adjusted depending on whether you are using the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment] or a xref:deployment/container/container-setup.adoc[Container Setup].
 
-When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:starting-infinite-scale-with-environment-variables[] for details.
+When using global options on startup, you can always use command line options or environment variables. Run `ocis help` and see xref:start-infinite-scale-with-environment-variables[] for details.
 
 == Embedded Supervisor (Runtime)
 
@@ -302,9 +302,11 @@ IMPORTANT: The command line option `--force-overwrite` is only intended for deve
 
 To reinitialize Infinite Scale, you have to delete your config and your data and start from scratch.
 
-== Start Infinite Scale With All Predefined Services
+== Start Infinite Scale
 
-When you type `ocis server`, the embedded supervisor is automatically used and starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
+=== Start Infinite Scale With All Predefined Services
+
+When you type `ocis server`, the embedded supervisor is automatically used and the runtime starts available predefined services automatically. The supervisor starts by default on port 9250 and listens for commands regarding the lifecycle of the supervised services.
 
 To list the started predefined services, type:
 
@@ -313,7 +315,7 @@ To list the started predefined services, type:
 ocis list
 ----
 
-This will print an output like:
+This will print an output like the following (subject of change):
 
 [source,plaintext]
 ----
@@ -357,11 +359,7 @@ This will print an output like:
 +--------------------+
 ----
 
-== Start Infinite Scale With Defined Services
-
-Infinite Scale can be started with a defined set of services which can deviate from the default list. To do so, environment variables can be set as described below. The environment variables relevant to define which services will be started are described in the xref:deployment/services/env-vars-special-scope.adoc#special-environment-variables[Special Environment Variables].
-
-== Starting Infinite Scale With Environment Variables
+=== Start Infinite Scale With Environment Variables
 
 You can use environment variables to define or overwrite config parameters which will be used when starting Infinite Scale like:
 
@@ -378,6 +376,99 @@ PROXY_HTTP_ADDR=0.0.0.0:5555 \
 PROXY_DEBUG_ADDR=0.0.0.0:6666 \
 ocis server
 ----
+
+=== Start Infinite Scale With Defined Services
+
+Infinite Scale can be started with a defined set of services which can deviate from the default list. To do so, environment variables can be set as described above. The environment variables relevant to define which services will be started are described in the xref:deployment/services/env-vars-special-scope.adoc#special-environment-variables[Special Environment Variables].
+
+When a runtime has already been started either with a service that is not automatically started or with an explicitly excluded service and you want to start that service manually, you can achieve this the following ways, the search service selected is just an example:
+
+Use multiple runtimes::
+This method is beneficial if you want to start multiple services managed by a supervisor.
++
+--
+.First we start the runtime but exclude the search service.
+[source,bash]
+----
+OCIS_EXCLUDE_RUN_SERVICES="search" \
+ocis server &
+----
+
+.Then we start the runtime with defined services (multiple servcies can be added separated by comma).
+[source,bash]
+----
+OCIS_RUN_SERVICES="search" \
+OCIS_RUNTIME_PORT=9251 \
+ocis server &
+----
+
+Note as defined in the example above, when starting the runtime multiple times, you _must_ specify a new port for the runtime to not conflict with already running ones.
+
+Now, when listing the services started, you only get them listed per runtime which requires the port to be added if that differs from the default.
+
+.List running services from the runtime using the default port.
+[source,bash]
+----
+ocis list
+----
+
+Output as in the list example above.
+
+.List running services from a defined runtime.
+[source,bash]
+----
+OCIS_RUNTIME_PORT=9251 \
+ocis list
+----
+
+[source,plaintext]
+----
++---------------+
+|    SERVICE    |
++---------------+
+| search        |
++---------------+
+----
+--
+
+{empty}
+
+Use a single runtime::
+This method is beneficial if you want to start services managed by a supervisor and add individual independent started services not covered by a supervisor.
++
+--
+.First we start the runtime but exclude the search service.
+[source,bash]
+----
+OCIS_EXCLUDE_RUN_SERVICES="search" \
+ocis server &
+----
+
+.Then we start the formerly excluded search service individually and not covered by a supervisor.
+[source,bash]
+----
+ocis search server &
+----
+
+Notes:
+
+* Only one service can be started per command at a time.
+* Use `ocis list` to list started services of the runtime.
+* You _cant_ use `ocis list` to list any individually started service. This is only possible using the `ps` command (shortened):
++
+.Print running ocis instances.
+[source,bash]
+----
+ps ax | grep ocis
+----
++
+.Output example
+[source,bash]
+----
+ocis server
+ocis search server
+----
+--
 
 === Globally Shared Logging Values
 

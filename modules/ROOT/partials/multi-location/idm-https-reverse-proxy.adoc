@@ -7,7 +7,7 @@ If you want to reuse an already configured _minimized_ setup for any _other_ add
 * When accessing the server using the hostname or IP:
 ** You *must* start Infinite Scale using the environment variable `OCIS_URL=<hostname or IP>`. +
 See the following sections for more details and information:
-*** xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and 
+*** xref:deployment/general/general-info.adoc#start-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables] and 
 *** xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI].
 
 * When accessing the server using a dedicated domain name:
