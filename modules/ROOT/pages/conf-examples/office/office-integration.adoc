@@ -2,7 +2,6 @@
 :toc: right
 :description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
 
-:wopi_subdir: /ocis_wopi
 :traefik_url: https://traefik.io/traefik/
 :wopiserver_url: https://hub.docker.com/r/cs3org/wopiserver/tags?page=1&ordering=last_updated
 :onlyoffice_hw_url: https://helpcenter.onlyoffice.com/installation/docs-community-sys-reqs-docker.aspx

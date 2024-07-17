@@ -69,3 +69,7 @@ asciidoc:
     # static path components, used to assemble the final path depedend on service_url_component to include services
     ocis_services_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     ocis_services_final_path: '/services/_includes/'
+
+    # used in deployment orchestration and depl-examples
+    wopi_subdir: /ocis_wopi
+    download-gh-directory-url: https://download-directory.github.io
