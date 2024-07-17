@@ -9,6 +9,8 @@
 
 {description} To do this, it hooks into the event system and listens for certain events that the users need to be informed about. As an example, when a user is added to a share, a notification email will be sent to the user.
 
+Note that the {service_name} service does not start automatically when using the binary deployment. The service must be started manually. For details how to do so see the xref:deployment/general/general-info.adoc#start-infinite-scale-with-defined-services[Start Infinite Scale With Defined Services].
+
 == Default Values
 
 * Notifications listens on port 9170 by default.
