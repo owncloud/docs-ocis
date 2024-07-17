@@ -11,6 +11,8 @@
 
 With the `auth-app` service, you can create tokens that can be used to authenticate 3rd party apps accessing Infinite Scale.
 
+To enable `{service_name}`, you first must set `PROXY_ENABLE_APP_AUTH` to `true`.
+
 == Default Values
 
 * Auth Basic listens on port 9245 by default.
