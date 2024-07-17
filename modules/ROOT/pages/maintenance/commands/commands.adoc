@@ -64,9 +64,9 @@ Compared to unfinished uploads which are handled by the system, managing expired
 
 This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc##purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items] section at the _Storage Users_ service for details.
 
-=== Reindex a Space for Search
+=== Reindex Spaces for Search
 
-In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-a-space[Manually Trigger Re-Indexing a Space] section at the _Search_ service for details.
+In rare circumstances, it can be necessary to initiate indexing manually for a given space a user has access to or all spaces. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-spaces[Manually Trigger Re-Indexing Spaces] section at the _Search_ service for details.
 
 === Resume Post-Processing
 

@@ -81,7 +81,6 @@ The search service consists of two main parts which are file `indexing` and file
 
 Every time a resource changes its state, a corresponding event is triggered. Based on the event, the search service processes the file and adds the result to its index. There are a few more steps between accepting the file and updating the index.
 
-// we need to use searching as the word search seems to be rendered to a button due to a customizing ages ago.
 === Searching
 
 A query via the search service will return results based on the index created.
@@ -134,16 +133,19 @@ This case only triggers indexing if `async post processing` is disabled. If so, 
 
 This is exactly the same as xref:file-uploaded-synchronous[File uploaded - synchronous] with the only difference that it is used for asynchronous uploads.
 
-== Manually Trigger Re-Indexing a Space
+== Manually Trigger Re-Indexing Spaces
 
-The service includes a command-line interface to trigger re-indexing a space:
+The service includes a command-line interface to trigger re-indexing spaces:
 
 [source,bash]
 ----
-ocis search index --space $SPACE_ID --user $USER_ID
+ocis search index --space $SPACE_ID --all-spaces --user $USER_ID
 ----
 
-Note that not names but IDs are necessary and that the specified user ID needs access to the space to be indexed.
+* IDs but not names are necessary as parameter.
+** See the xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs] for how to retrieve a space ID.
+** The specified user ID needs to have access to the space to be indexed.
+* The arguments `-space` and `--all-spaces` are mutual exclusive , but one must be provided.
 
 == Notes
 
