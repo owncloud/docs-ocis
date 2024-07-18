@@ -1,0 +1,98 @@
+= Install Infinite Scale on a Server for Production Use
+:toc: macro
+:toclevels: 3
+:keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
+:description: Install Infinite Scale using Docker Compose on a server for production use.
+
+// the folder to use for the example
+:ocis_wopi: ocis_wopi
+
+include::partial$multi-location/compose-version.adoc[]
+
+image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]
+
+{empty} +
+
+toc::[]
+
+== Introduction
+
+{description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
+
+NOTE: This guide references the latest production version of Infinite Scale.
+
+== Requirements
+
+=== Hardware
+
+This guide describes an installation of Infinite Scale based on Ubuntu LTS and docker compose. The underlying hardware of the server can be anything as listed below as long it meets the OS requirements defined in the xref:software-stack[Software Stack]:
+
+* Raspberry Pi (4 and higher)
+* Bare Metal Server
+* Virtual Machine
+* ...
+
+[NOTE]
+====
+* Disk space +
+About 2.8GB of disk space is needed as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. 
+
+* Memory +
+We recommend at minimum 4-6GB of memory. 
+====
+
+=== Knowledge Stack
+
+You, as administrator, must have the following minimum knowledge stack.
+
+* Being capable to order and configure external accessible domains.
+
+* Being capable to configure: +
+Router, Firewall, NAT, DHCP, networks etc.
+
+* Command line (bash) tools like: +
+ssh, actions on files, edit files etc.
+
+* Maintaining a server: +
+Setting or changing hostnames, IP configuration, installing SW packages etc.
+
+=== Software Stack
+
+For the OS, *Ubuntu LTS 24.04* has been selected, but it will also work with Ubuntu LTS 22.04. If you already have a server running Ubuntu LTS 24.04, you can use that one as long it meets the requirements listed below. 
+
+Note that this guide expects:
+
+* The prerequisite of a server with the installed OS is met and any required software other than Infinite Scale like docker and docker compose is installed and preconfigured and all the software is updated to the latest version.
+
+* You have at minimum shell access and you can reach your host via ssh from another computer in your network. `sudo` permissions may be required in some steps later in the setup.
+
+// deployment specific text, this is for local server, alternatively use the commented ones below for hetzner
+
+:text_1:
+// on Hetzner
+
+:text_2: Configuring a firewall is not part of this document.
+// Hetzner provides a firewall configuration option right from the beginning, or is available after the server has been defined.
+
+:text_3:
+// Though possible, there is no need to configure an additional firewall inside the server.
+
+:text_4: of your WAN
+// provided by Hetzner
+
+:text_5: your WAN
+// this server
+
+:overview_image: ubuntu-server-access.drawio.svg
+// ubuntu-hetzner-access.drawio.svg
+
+include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;shared_2]
+// tags=shared_1;hetzner_only_1;shared_2
+
+== Updating
+
+Note that this deploymment can only be updated within Infinite Scale v5.
+
+If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
+
+{empty} +
