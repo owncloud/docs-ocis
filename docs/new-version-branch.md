@@ -1,6 +1,6 @@
 # Create a New Version Branch
 
-When doing a new release of ownCloud Infinite Scale like `5.x`, a new version branch must be created based on `master`. It is necessary to do this in steps. Keep in mind that we only process master and the latest two versions. For older versions we only keep the pdf files statically - if possible.
+When doing a new release of ownCloud Infinite Scale like `5.x`, a new version branch must be created based on `master`. It is necessary to do this in steps. Keep in mind that we only process master and the latest two versions. For older versions, we only keep the PDF files statically - if possible.
 
 **Step 1: This will create and configure the new `5.x` branch properly**
 
@@ -15,7 +15,7 @@ When doing a new release of ownCloud Infinite Scale like `5.x`, a new version br
 7.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building.
 8.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are only used for local building and will be correctly set in the docs repo when doing a full build.
 9.  Run a build by entering `yarn antora-local`. No build errors should occur.
-10.  Commit the changes and push the new `5.x` branch. This makes the branch available for futher processing. DO NOT CREATE A PR!
+10.  Commit the changes and push the new `5.x` branch. This makes the branch available for further processing. DO NOT CREATE A PR!
 
 **Step 2: This will configure the master branch properly to use the new `5.x` branch**
 
@@ -31,7 +31,7 @@ When doing a new release of ownCloud Infinite Scale like `5.x`, a new version br
 
 18. Go to the settings of this repository and change the protection of the branch list so that
     the `5.x` branch gets protected.
-19. Unprotect the `5.x-2` branch and rename it to `x_archived_5.x-2`. Note that this step can be postponed if needed. Note that after renaming, local building cant be done anymore.
+19. Unprotect the `5.x-2` branch and rename it to `x_archived_5.x-2`. Note that this step can be postponed if needed. Note that after renaming, local building can't be done anymore.
 
 **Step 4: Changes in the Docs Repo**
 
@@ -39,7 +39,7 @@ When doing a new release of ownCloud Infinite Scale like `5.x`, a new version br
 
 **Step 5: Set URI `latest` Path Part to 5.x**
 
-21. Nothing needs to be done there. The moment when the new server release gets tagged - which is part of the release process - `latest` will be automatically set to the tagged release number. This should work automatically. If not, sysadmins need to be informed to updated the underlying process.
+21. Nothing needs to be done there. The moment when the new server release gets tagged - which is part of the release process - `latest` will be automatically set to the tagged release number. This should work automatically. If not, sysadmins need to be informed to update the underlying process.
 
 **Text Suggestion for Step 2**
 
