@@ -28,11 +28,11 @@ asciidoc:
     # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
     compose_url_component: 'master' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
 
-    # compose_tab_text will be used as tab text for examples and all other stuff but not servcies 
+    # compose_tab_text will be used as tab text for examples and all other stuff but not services
     compose_tab_text: 'master' # latest stable including patch releases like 5.0.0
 
     # use this attribute to define the branch name for git clone
-    # the value is usually identical to compose_tab_text, but it should be separatable to be independent
+    # the value is usually identical to compose_tab_text, but it should be separable to be independent
     # note that you must define a value and not an attribute from above 
     compose_git_name: 'master' # latest stable including patch releases like 5.0.0 (must be without v !)
 
@@ -66,7 +66,7 @@ asciidoc:
     docker_ocis_rolling_url: https://hub.docker.com/r/owncloud/ocis-rolling
 
     # only used in deployment/services via partials/env-and-yaml.adoc
-    # static path components, used to assemble the final path depedend on service_url_component to include services
+    # static path components, used to assemble the final path dependent on service_url_component to include services
     ocis_services_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     ocis_services_final_path: '/services/_includes/'
 
