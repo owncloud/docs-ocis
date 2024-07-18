@@ -195,11 +195,11 @@ apt install unzip
 
 == Download and Transfer the Example
 
-To download and extract the necessary deployment example footnote:[Derived from the {composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
+To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
 
 [source,url,subs="attributes+"]
 ----
-{download-gh-directory-url}?url={composer-url}v{compose_version}{composer-final-path}/{ocis_wopi}
+{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}
 ----
 
 The `.zip` file will be downloaded into your local `Download` directory.
