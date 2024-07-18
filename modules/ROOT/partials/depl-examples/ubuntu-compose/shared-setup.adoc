@@ -1,7 +1,7 @@
 ////
 https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
 
-this are textblocks that can be reused by different deployment examples - but all of them must use LetsEncrypt !
+these are text blocks that can be reused by different deployment examples - but all of them must use LetsEncrypt !
 text and image deviations are handled via attributes:
 
 first is hetzner, commented below local server
@@ -68,9 +68,9 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according your environment. The (sub)domains must be configured to point to the server you configured. The same is true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
+This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according to your environment. The (sub)domains must be configured to point to the server you configured. The same is true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
 
-The following (sub)domains are required at minimum, an example is printed for each, replace them according your environment:
+The following (sub)domains are required at minimum, an example is printed for each, replace them according to your environment:
 
 * `OCIS_DOMAIN` +
 [.blue]##`ocis.yourdomain.com`##
@@ -90,7 +90,7 @@ image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400
 == Limitations
 
 Data Location::
-All data is stored in volumes managed by docker in the same partition of the server. You need to manually reconfigure the docker volumes in the main docker compose file if you want to define your own volume paths instead the ones managed by docker. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
+All data is stored in volumes managed by docker in the same partition of the server. You need to manually reconfigure the docker volumes in the main docker compose file if you want to define your own volume paths instead of the ones managed by docker. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
 
 User and User Access Management::
 The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
@@ -110,7 +110,7 @@ tag::hetzner_only_1[]
 
 === SSH Key
 
-We recommend using key based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
+We recommend using key-based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
 
 Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys are now located in `~/.ssh`.
 
@@ -149,7 +149,7 @@ In the following screen, you can define the::
 * *Name* (define a name for the server)
 --
 
-After you have finished, the server is built and when done you can click on it which opens a screen with more details and post configuration options.
+After you have finished, the server is built, and when done, you can click on it which opens a screen with more details and post-configuration options.
 
 image::depl-examples/ubuntu-compose/hetzner-server-defined.png[Server View, width=300]
 
@@ -273,11 +273,11 @@ Set the CAServer to staging, see the note below.
 Set the domain names as defined in xref:domain-names[Domain Names].
 
 * `SMTP_xxx` +
-Define these settings according your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
+Define these settings according to your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
 
 [NOTE]
 ====
-* When not defining your own domain names, internal evaluation only domain names with self signed certificates are used automatically.
+* When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
 
 * LetsEncrypt notes:
 
@@ -311,7 +311,7 @@ Check if the ports 80/443 are open in the firewall configured. You can run a tes
 * `...DNS problem: NXDOMAIN looking up A for...` +
 This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
 
-Whenever you had a DNS issue at this stage, you will face follow up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore the cert volume needs to be deleted:
+Whenever you have a DNS issue at this stage, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the cert volume needs to be deleted:
 
 .Shut down the deployment
 [source,bash]
@@ -431,7 +431,7 @@ Use the container ID identified in the following command to read the Infinite Sc
 docker logs <CONTAINER ID> 2>&1 | less
 ----
 
-The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more deatils.
+The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
 
 If no password can be identified, you must reset the admin password via the command line as described below.
 
