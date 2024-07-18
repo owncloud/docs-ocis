@@ -41,6 +41,12 @@ include::partial$multi-location/tab-text.adoc[]
 
 | `OCIS_ADD_RUN_SERVICES`
 | A comma-separated list of service names. Will add the listed services to the default configuration. Has no effect when `OCIS_RUN_SERVICES` is set. Note that one can add services not started by the default list and exclude services from the default list by using both envvars at the same time.
+
+| `OCIS_RUNTIME_PORT`
+| The port where the runtime will start. Defaults to 9250. Only necessary when multiple runtimes are started in parallel. Each runtime must have its own port exclusively.
+
+| `OCIS_RUNTIME_HOST`
+| The hostname the runtime will listen to. Defaults to `localhost`.
 |===
 
 Note to get the current list of services started by default, you need to run `ocis server` without restriction which services to start and run afterwards `ocis list`.
