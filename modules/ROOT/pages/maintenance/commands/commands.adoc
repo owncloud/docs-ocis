@@ -16,45 +16,81 @@
 This could happen if services are developed which are not shipped as part of the single binary.
 ====
 
-== Reset the Admin Password
+== Offline Commands
+
+Compared to online commands that need to be issued during operation of Infinite Scale, offline commands can, and somtimes must only be issued if Infinite Scale is not running.
+
+=== Common Path Parameter
+
+Infinite Scale offers a variety of offline CLI commands to monitor or repair Infinite Scale installations. Many of these commands have a common mandatory parameter: `--basePath` (or `-p`) which needs to point to a storage provider. Example paths are:
+
+----
+.ocis/storage/users          # bare metal deployment
+
+/var/tmp/ocis/storage/users  # docker deployment
+
+...
+----
+
+These paths can vary depending on your Infinite Scale installation.
+
+=== Backup Consistency
+
+Infinite Scale provides a xref:maintenance/commands/backup-consistency.adoc[CLI command] with which you can inspect the consistency of an Infinite Scale storage.
+
+NOTE: This command MUST only be issued when Infinite Scale is offline and no services are running. This command will report false positives when issued during normal operation.
+
+=== Revisions Cleanup
+
+Infinite Scale provides a xref:maintenance/commands/revisions-cleanup.adoc[CLI command] which allows removing revisions of files in the storage.
+
+=== Trash Purge
+
+Infinite Scale provides a xref:maintenance/commands/trash.adoc[CLI command] with which you can remove empty folders from the trashbin.
+
+=== Reset the Admin Password
 
 If you need to reset the admin password from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
 
-== Manage Expired Uploads
+== Online Only Commands
+
+Compared to offline commands that can be issued when Infinite Scale is shut down, online commands must be issued when Infinite Scale and the respective service(es) are running.
+
+=== Manage Expired Uploads
 
 Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularly. See the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] section at the _Storage Users_ service for details.
 
-== Purge Expired Space Trash-Bin Items
+=== Purge Expired Space Trash-Bin Items
 
 This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc##purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items] section at the _Storage Users_ service for details.
 
-== Reindex a Space for Search
+=== Reindex a Space for Search
 
 In rare circumstances, it can be necessary to initiate indexing manually for a given space or user. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-a-space[Manually Trigger Re-Indexing a Space] section at the _Search_ service for details.
 
-== Resume Post-Processing
+=== Resume Post-Processing
 
 If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
 
-== Inspect and Manipulate Node Metadata
+=== Inspect and Manipulate Node Metadata
 
 Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
-== Inspect and Repair Node Tree Sizes
+=== Inspect and Repair Node Tree Sizes
 
 Infinite Scale provides a xref:maintenance/commands/node-tree-size.adoc[CLI command] with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
-== Roll Back / Roll Forward Decomposedfs Migrations
+=== Roll Back / Roll Forward Decomposedfs Migrations
 
 A xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
-== Repair and Migrate jsoncs3 Indexes
+=== Repair and Migrate jsoncs3 Indexes
 
 A xref:maintenance/commands/rebuild-jsoncs3-indexes.adoc[CLI command] is provided to repair and migrate jsoncs3 indexes. In rare circumstances the data for shares from the "Shared with others" and "Shared with me" index can be corrupted though no data is lost. When using this command, you can recreate that index and migrate it to a new layout which fixes the issue.
 
