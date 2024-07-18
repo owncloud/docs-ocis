@@ -48,7 +48,7 @@ You, as administrator, must have the following minimum knowledge stack.
 * Being capable to order and configure external accessible domains.
 
 * Being capable to configure: +
-Router, Firewall, NAT, DHCP, networks ect.
+Router, Firewall, NAT, DHCP, networks etc.
 
 * Command line (bash) tools like: +
 ssh, actions on files, edit files etc.
