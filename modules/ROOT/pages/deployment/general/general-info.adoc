@@ -342,7 +342,6 @@ This will print an output like the following (subject of change):
 | idm                |
 | idp                |
 | nats               |
-| notifications      |
 | ocdav              |
 | ocm                |
 | ocs                |
