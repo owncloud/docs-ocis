@@ -210,7 +210,7 @@ See the respective shell documentation for how to manage processes respectively 
 
 Infinite Scale can be configured via environment variables, see the following sections for more information and details:
 
-* xref:deployment/general/general-info.adoc#starting-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
+* xref:deployment/general/general-info.adoc#start-infinite-scale-with-environment-variables[Starting Infinite Scale With Environment Variables]
 * xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI]
 
 NOTE: You cannot instantiate runtime services though you can define which services should start or be excluded from starting. See xref:deployment/general/general-info.adoc#managing-services[Managing Services] for more details.
