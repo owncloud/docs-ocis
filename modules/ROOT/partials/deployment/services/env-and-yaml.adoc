@@ -66,7 +66,7 @@ include::partial$multi-location/tab-text.adoc[]
 
 === Environment Variables
 
-The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+The `{service_name}` service is configured via the following environment variables. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details. Column `IV` shows with which release the environment has been introduced.
 
 // load the deprecation activation file. this will overwrite the above.
 include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/{service_name}_deprecation.adoc[]
