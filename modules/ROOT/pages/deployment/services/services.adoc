@@ -25,6 +25,9 @@ The following services have been introduced with the releases listed:
 | Service
 | Description
 
+| xref:{s-path}/auth-app.adoc[Auth-App]
+| The Auth-App provides authentication for 3rd party apps.
+
 | xref:{s-path}/activitylog.adoc[Activitylog]
 | The Activitylog service is responsible for storing events (activities) per resource.
 

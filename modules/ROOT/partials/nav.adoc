@@ -34,6 +34,7 @@
 **** xref:deployment/services/s-list/app-provider.adoc[App Provider]
 **** xref:deployment/services/s-list/app-registry.adoc[App Registry]
 **** xref:deployment/services/s-list/audit.adoc[Audit]
+**** xref:deployment/services/s-list/auth-app.adoc[Auth App]
 **** xref:deployment/services/s-list/auth-basic.adoc[Auth Basic]
 **** xref:deployment/services/s-list/auth-bearer.adoc[Auth Bearer]
 **** xref:deployment/services/s-list/auth-machine.adoc[Auth Machine]
