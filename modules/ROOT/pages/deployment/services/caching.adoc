@@ -46,3 +46,18 @@ See the xref:deployment/services/env-vars-special-scope.adoc#global-environment-
 
 * `OCIS_CACHE_STORE` or
 * `OCIS_PERSISTENT_STORE`.
+
+== Common Container Networking Pitfalls
+
+[IMPORTANT]
+====
+When using a container environment like with `docker compose`, there are common networking pitfalls. Though these pitfalls are not restricted to caching and persistence and without completeness, here are some examples:
+
+- When connecting to an internal network, ports to external services should not be exposed for security reasons.
+- Check if the cache/store that is configured both in Infinite Scale and docker is reachable from Infinite Scale like:
++
+[source,bash]
+----
+ping redis -> PING redis (172.19.0.2): 56 data bytes 64 bytes from 172.19.0.2: seq=0 ttl=42 time=0.107 ms
+----
+====
