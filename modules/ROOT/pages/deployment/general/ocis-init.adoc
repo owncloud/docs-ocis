@@ -54,7 +54,7 @@ WARNING: When setting this environment variable, the existing configuration will
 
 === Container Setup
 
-When deploying via `docker run` as described in xref:deployment/container/container-setup.adoc[Container Setup], initialisation needs to be triggerd once before the first full start. See the referenced page how to do so.
+When deploying via `docker run` as described in xref:deployment/container/container-setup.adoc[Container Setup], initialisation needs to be triggered once before the first full start. See the referenced page how to do so.
 
 === Container Orchestration
  
@@ -83,10 +83,10 @@ Whenever there is a change in the existing configuration, independent of whether
 
 == How to Apply Manual Changes
 
-If changes are necessary *after* running `ocis init`, these changes can be applied in differernt ways:
+If changes are necessary *after* running `ocis init`, these changes can be applied in different ways:
 
 * Adding changes in `ocis.yaml`.
 * Providing changes via environment variables.
 * Providing changes via yaml files.
 
-In any case, after changes have been applied, Infinite Scale bust be restartet to make changes effective.
+In any case, after changes have been applied, Infinite Scale bust be restarted to make changes effective.
