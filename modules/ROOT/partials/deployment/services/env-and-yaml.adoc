@@ -83,8 +83,7 @@ include::{ocis_services_raw_url}{service_url_component}{ocis_services_final_path
 
 === YAML Example
 
-* Note that the filename shown below has been chosen on purpose.
-* See the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] for details when setting up your own configuration.
+* Note the file shown below must be renamed and placed in the correct folder according to the xref:deployment/general/general-info.adoc#configuration-file-naming[Configuration File Naming] conventions to be effective.
 * See the xref:deployment/services/env-var-note.adoc[Notes for Environment Variables] if you want to use environment variables in the yaml file.
 
 [tabs]
