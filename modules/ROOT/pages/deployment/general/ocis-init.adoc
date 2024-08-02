@@ -93,7 +93,7 @@ In any case, after changes have been applied, Infinite Scale bust be restarted t
 
 == Diff Mode
 
-`ocis init` provides an a additinal argument whith which you can generate a patchable diff file. The `--diff` argument can be used when you update to a new Infinite Scale version and want to see which changes to mandatory settings have appeared. Using the diff argument is safe, as the command never changes any settings.
+`ocis init` provides an a additional argument with which you can generate a patchable diff file. The `--diff` argument can be used when you update to a new Infinite Scale version and want to see which changes to mandatory settings have appeared. Using the diff argument is safe, as the command never changes any settings.
 
 The diff is stored in the xref:deployment/general/general-info.adoc#default-paths[config folder] as `ocis.config.patch` file and can either be applied to `ocis.yaml` using the linux `patch` command or you can apply the changes manually.
 
@@ -103,7 +103,7 @@ The diff is stored in the xref:deployment/general/general-info.adoc#default-path
 ocis init --diff
 ----
 
-.Example diff file like when upgrading from 5 (production) to 6 (rolling)
+.Example diff file when upgrading from 5 (production) to 6 (rolling)
 [source,diff]
 ----
 --- /home/user_1/.ocis/config/ocis.yaml        2024-08-02 12:31:45.892704129 +0200
