@@ -15,6 +15,8 @@ IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backst
 
 IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
 
+IMPORTANT: When upgrading from an older release to the desired one, mandatory configuration settings may have been added or removed. To see the changes required, you can run `ocis init --diff` after upgrading but before finally starting. For more details, see the xref:deployment/general/ocis-init.adoc[ocis init command] description.
+
 == Version 4.0.0 to 5.0.0
 
 === Notable Changes Requiring Manual Intervention
