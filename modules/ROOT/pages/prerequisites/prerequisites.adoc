@@ -360,16 +360,18 @@ At the moment, spaces are supported with the new ownCloud Web interface and the 
 * Web (embedded in Infinite Scale)
 * Desktop app 3.0
 
-The mobile apps currently do not support spaces but work just like with ownCloud Server when connected to Infinite Scale if used in their current versions. This means that users can access and synchronize their home folder and received shares. Supported versions without spaces are:
-
-* iOS app version 11.11
-* Android app version 2.21
-
-Spaces for the mobile apps will be available in the following upcoming versions:
+Spaces for the mobile apps are available in versions:
 
 * iOS app 12.0
 * Android app 4.0
 
 Pre-release versions for https://owncloud.com/beta-testing/#ios[iOS] and https://owncloud.com/beta-testing/#android[Android] are already available for testing.
 
+== Supported Languages
 
+Supported languages are:
+
+* English
+* German
+
+Additional languages may be contributed by the community but are not guaranteed to be complete.
