@@ -6,7 +6,7 @@
 
 == Introduction
 
-{description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front like with an external reverse proxy.
+{description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front of an external reverse proxy.
 
 See the https://owncloud.dev/services/proxy/[Developer Documentation] for details if you want to write your own extensions and need to change or add routes to endpoints.
 
@@ -27,7 +27,7 @@ The following request authentication schemes are implemented:
 
 When using an external OpenID Connect IDP, the proxy can be configured to automatically provision users upon their first login.
 
-=== Prequisites
+=== Prerequisites
 
 A number of prerequisites must be met for automatic user provisioning to work:
 
@@ -42,11 +42,11 @@ To enable automatic user provisioning, the following environment variables must 
 * `PROXY_AUTOPROVISION_ACCOUNTS` +
 Set to `true` to enable automatic user provisioning.
 * `PROXY_AUTOPROVISION_CLAIM_USERNAME` +
-The name of an OIDC claim whose value should be used as the username for the autoprovsioned user in ownCloud Infinite Scale. Defaults to `preferred_username`. Can also be set to e.g. `sub` to guarantee a unique and stable username.
+The name of an OIDC claim whose value should be used as the username for the auto-provisioned user in ownCloud Infinite Scale. Defaults to `preferred_username`. Can also be set to e.g. `sub` to guarantee a unique and stable username.
 * `PROXY_AUTOPROVISION_CLAIM_EMAIL` +
-The name of an OIDC claim whose value should be used for the `mail` attribute of the autoprovisioned user in ownCloud Infinite Scale. Defaults to `email`.
+The name of an OIDC claim whose value should be used for the `mail` attribute of the auto-provisioned user in ownCloud Infinite Scale. Defaults to `email`.
 * `PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME` +
-The name of an OIDC claim whose value should be used for the `displayname` attribute of the autoprovisioned user in ownCloud Infinite Scale. Defaults to `name`.
+The name of an OIDC claim whose value should be used for the `displayname` attribute of the auto-provisioned user in ownCloud Infinite Scale. Defaults to `name`.
 * `PROXY_AUTOPROVISION_CLAIM_GROUPS` +
 The name of an OIDC claim whose value should be used to maintain a user's group membership. The claim value should contain a list of group names the user should be a member of. Defaults to `groups`.
 * `PROXY_USER_OIDC_CLAIM` +
