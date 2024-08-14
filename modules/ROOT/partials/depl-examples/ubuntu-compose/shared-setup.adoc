@@ -81,6 +81,8 @@ The following (sub)domains are required at minimum, an example is printed for ea
 * `WOPISERVER_DOMAIN` +
 [.blue]##`wopiserver.yourdomain.com`##
 
+Note that more (sub)domains may be required depending on your setup. See the `.env` file more details.
+
 == Accessing Infinite Scale
 
 Infinite Scale can be accessed from the internet and from your local network with the `OCIS_DOMAIN` you have defined:
@@ -90,7 +92,7 @@ image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400
 == Limitations
 
 Data Location::
-All data is stored in volumes managed by docker in the same partition of the server. You need to manually reconfigure the docker volumes in the main docker compose file if you want to define your own volume paths instead of the ones managed by docker. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
+If not otherwise setup and configured, all data is stored in volumes managed by docker in the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file accordingly. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
 
 User and User Access Management::
 The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
@@ -143,7 +145,8 @@ In the following screen, you can define the::
 * *Type* (select any server type that matches your requirements)
 * *Networking* (we recommend using IPv4 as well as IPv6)
 * *SSH keys* (here you enter the public key you created before)
-* *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too)
+* *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too). +
+These volumes can then be used by xref:edit-the-configuration-file[configuring variables] in the `.env` file
 * *Firewall* (add a rule for at minimum port 22, 80 and 443, can be added later on too)
 * ... more items
 * *Name* (define a name for the server)
@@ -195,7 +198,7 @@ apt install unzip
 
 == Download and Transfer the Example
 
-To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
+To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[ocis_full, window=_blank] developer example], open a browser and enter the following URL:
 
 [source,url,subs="attributes+"]
 ----
@@ -244,12 +247,10 @@ The listing should contain files and folders like the following:
 
 [source,subs="+quotes"]
 ----
-[.aqua]#config#
-docker-compose.yml
-.env
-README.md
+clamav.yml
+cloudimporter.yml
 collabora.yml
-companion.yml
+[.aqua]#config#
 ...
 ----
 --
@@ -269,8 +270,14 @@ Add a valid response eMail address for Letsencrypt, see the note below.
 * `TRAEFIK_ACME_CASERVER` +
 Set the CAServer to staging, see the note below.
 
+* `OCIS_DOCKER_IMAGE` +
+Check that the correct image type is selected ({version-type}).
+
 * `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and `WOPISERVER_DOMAIN` +
 Set the domain names as defined in xref:domain-names[Domain Names].
+
+* `OCIS_CONFIG_DIR` and `OCIS_DATA_DIR` +
+If you expect a higher amount of data in the instance, consider using own paths instead of using docker internal volumes.
 
 * `SMTP_xxx` +
 Define these settings according to your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
@@ -282,6 +289,8 @@ Define these settings according to your eMail configuration. With the settings d
 * LetsEncrypt notes:
 
 ** We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
+
+** When switching back from the staging environment to valid certificate generation, you also *must* remove the traefik `certs` volume. To do so, see the commands in xref:solving-first-startup-issues[Solving First Startup Issues].
 
 ** To trigger certificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
 ====
@@ -327,9 +336,9 @@ docker volume ls
 ----
 
 .Delete the docker certs volume
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-docker volume rm ocis_wopi_certs
+docker volume rm {ocis_wopi}_certs
 ----
 
 == Stop the Compose Setup
@@ -341,7 +350,11 @@ Stopping the compose setup is easy, just issue:
 docker compose down
 ----
 
-For safty reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. In case, deleting volumes selectively is the preferred method, see the section above.
+For safty reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. In case deleting volumes is necessary, deleting them selectively is the preferred method, see the section above for an example.
+
+== Change Settings
+ 
+To change settings via the `.env` file, the compose setup must be in down state. See the section above for how to do so.
 
 == First Time Login
 
@@ -378,9 +391,9 @@ With further steps described below, some basic monitoring commands and a short d
 
 == Monitor the Instance
 
-=== Logs
+=== Container
 
-Issue the following sequence of commands to monitor logs:
+To get the state of running containers, issue one of the following commands:
 
 .This command will print the required Container ID, among other data 
 [source,bash]
@@ -388,19 +401,20 @@ Issue the following sequence of commands to monitor logs:
 docker ps
 ----
 
+.Short form with only the Service name, State and Container ID:
+[source,bash]
+----
+docker compose ps --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
+----
+
+=== Logs
+
+Issue the following sequence of commands to monitor logs:
+
 .Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
 ----
 docker compose logs -f <container_id>
-----
-
-=== Container
-
-To get the state of running containers, issue the following command:
-
-[source,bash]
-----
-docker compose ps --format "table {{.Service}}\t{{.State}}"
 ----
 
 == Admin Password
@@ -438,5 +452,18 @@ If no password can be identified, you must reset the admin password via the comm
 === Command Line Password Reset
 
 To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
+== Updating
+
+ifeval::["{version-type}" == "rolling"]
+Note that this deploymment can, for the time being, only be updated within Infinite Scale rolling releases.
+endif::[]
+
+If new Infinite Scale releases are available, you *must not* skip any version in between the current running an the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
+
+* If there is no release gap, you can update by just stopping and starting the compose environment.
+* For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must stop the compose environment, set the `OCIS_DOCKER_TAG` variable in the `.env` file accordingly and start the compose environment again. For the last release, you can remove any setting of `OCIS_DOCKER_TAG` as `latest` is used by default.
+
+In any case, containers will update automatically and you can continue using Infinite Scale as usual.
 
 end::shared_2[]

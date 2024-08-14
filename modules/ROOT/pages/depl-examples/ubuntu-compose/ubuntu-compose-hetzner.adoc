@@ -5,9 +5,9 @@
 :description: Install Infinite Scale using Docker Compose on the Hetzner Cloud for production use.
 
 // the folder to use for the example
-:ocis_wopi: ocis_wopi
+:ocis_wopi: ocis_full
 
-include::partial$multi-location/compose-version.adoc[]
+include::partial$multi-location/compose-version-rolling.adoc[]
 
 image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]
 
@@ -23,7 +23,7 @@ IMPORTANT: With the decision to use https://www.hetzner.com[Hetzner] for our clo
 
 NOTE: With the minimum configuration available on Hetzner, you can start with about €4/month for a cloud driven Infinite Scale deployment. Note that prices are subject to changes and only intended for informational purposes.
 
-NOTE: This guide references the latest production version of Infinite Scale.
+NOTE: This guide references the latest {version-type} version of Infinite Scale.
 
 == Requirements
 
@@ -34,7 +34,7 @@ This guide describes an installation of Infinite Scale on the Hetzner Cloud usin
 [NOTE]
 ====
 * Disk space +
-About 2.8GB of disk space is needed as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
+About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
 ** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. Any migration of data from embedded disk space to a volume is *not covered* here.
 
 * Memory +
@@ -82,11 +82,5 @@ For the OS, *Ubuntu LTS 24.04* has been selected.
 
 include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;hetzner_only_1;shared_2]
 // tags=shared_1;shared_2
-
-== Updating
-
-Note that this deploymment can only be updated within Infinite Scale v5.
-
-If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
 
 {empty} +

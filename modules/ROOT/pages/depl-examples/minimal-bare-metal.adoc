@@ -13,7 +13,7 @@
 :ocis_url: localhost or IP
 :ocis_port: 9200
 
-include::partial$multi-location/compose-version.adoc[]
+include::partial$multi-location/compose-version-production.adoc[]
 
 == Introduction
 

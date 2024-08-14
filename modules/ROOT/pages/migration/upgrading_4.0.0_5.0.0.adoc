@@ -2,7 +2,7 @@
 :toc: right
 :description: This document describes the necessary steps when upgrading Infinite Scale from release 4.0.x to 5.0.0.
 
-include::partial$multi-location/compose-version.adoc[]
+include::partial$multi-location/compose-version-production.adoc[]
 
 == Introduction
 
