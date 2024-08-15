@@ -354,7 +354,7 @@ For safty reasons, *do not* add the `-v` (volumes) flag to the command as that w
 
 == Change Settings
  
-To change settings via the `.env` file, the compose setup must be in down state. See the section above for how to do so.
+To change settings via the `.env` file, the compose setup must be in the down state. See the section above for how to do so.
 
 == First Time Login
 
@@ -459,7 +459,7 @@ ifeval::["{version-type}" == "rolling"]
 Note that this deploymment can, for the time being, only be updated within Infinite Scale rolling releases.
 endif::[]
 
-If new Infinite Scale releases are available, you *must not* skip any version in between the current running an the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
+If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
 * If there is no release gap, you can update by just stopping and starting the compose environment.
 * For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must stop the compose environment, set the `OCIS_DOCKER_TAG` variable in the `.env` file accordingly and start the compose environment again. For the last release, you can remove any setting of `OCIS_DOCKER_TAG` as `latest` is used by default.
