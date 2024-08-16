@@ -92,7 +92,7 @@ image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400
 == Limitations
 
 Data Location::
-If not otherwise setup and configured, all data is stored in volumes managed by docker in the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file accordingly. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
+If not otherwise setup and configured, all data is stored in volumes managed by docker in the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file accordingly. This is highly recommended as described in the xref:hardware[Hardware] section above.
 
 User and User Access Management::
 The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
@@ -114,11 +114,11 @@ tag::hetzner_only_1[]
 
 We recommend using key-based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
 
-Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys are now located in `~/.ssh`.
+Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys to use after generation are located in `~/.ssh`.
 
 When using Putty (Windows) to access your server, you must convert the private key generated into the `ppk` format to be usable for Putty. Read the  https://www.puttygen.com[puttygen] guide to do so.
 
-After the server has been created, you can copy new private keys to the server by adding them into `~/.ssh/authorized_keys` file.
+After the server has been created, you can copy new private keys to the server by adding them into the `~/.ssh/authorized_keys` file.
 
 === Login to Hetzner
 
@@ -145,8 +145,8 @@ In the following screen, you can define the::
 * *Type* (select any server type that matches your requirements)
 * *Networking* (we recommend using IPv4 as well as IPv6)
 * *SSH keys* (here you enter the public key you created before)
-* *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too). +
-These volumes can then be used by xref:edit-the-configuration-file[configuring variables] in the `.env` file
+* *Volumes* (add a volume if you want to separate the OS from the data) +
+This can be done at any time after the first setup but needs data migration. The volumes defined can then be used by xref:edit-the-configuration-file[configuring variables] in the `.env` file
 * *Firewall* (add a rule for at minimum port 22, 80 and 443, can be added later on too)
 * ... more items
 * *Name* (define a name for the server)
@@ -169,7 +169,7 @@ After the server has been finally setup, you must use the IP address assigned to
 
 == Prepare the Server
 
-As a standard regular task, you need to update packages, especially on first server login:
+As a standard regular task, you need to update packages, especially after first server login:
 
 [source,bash]
 ----
@@ -198,6 +198,8 @@ apt install unzip
 
 == Download and Transfer the Example
 
+Note that the client from where you download the example and upload it via `scp` must both have granted access to the server and the `scp` app installed. For the `scp` example, a Linux based client has been selected. Adapt the command according the OS used.
+
 To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[ocis_full, window=_blank] developer example], open a browser and enter the following URL:
 
 [source,url,subs="attributes+"]
@@ -214,7 +216,7 @@ Transfer the `.zip` file created to the server by issuing the following command,
 scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' <user>@<IP or domain>:/opt
 ----
 
-NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get overwritten without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
+NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get *overwritten* without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
 
 == Extract the Example
 
@@ -308,7 +310,7 @@ This command will download all necessary containers and starts up the instance a
 
 Check the logs via the `docker logs command`, especially the traefik logs. See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
 
-If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting and restart it. Recheck the traefik logs and when all is fine, you can access your instance, for details see below. 
+If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting, remove the `cert` volume as described below and restart the compose environment. Recheck the xref:monitor-the-instance[traefik logs] and when all is fine, you can access your instance. 
 
 === Solving First Startup Issues
 
@@ -320,14 +322,14 @@ Check if the ports 80/443 are open in the firewall configured. You can run a tes
 * `...DNS problem: NXDOMAIN looking up A for...` +
 This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
 
-Whenever you have a DNS issue at this stage, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the cert volume needs to be deleted:
+Whenever you have at this stage a DNS issue or you have used the Letsencrypt staging environment, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the `cert` volume needs to be deleted:
 
 .Shut down the deployment
 [source,bash]
 ----
 docker compose down
 ----
-Note, do not use the `-v` option as it will delete ALL volumes. Also see the next section.
+Note, do not use the `-v` option as it will delete ALL volumes.
 
 .List the docker volumes
 [source,bash]
@@ -354,7 +356,7 @@ For safty reasons, *do not* add the `-v` (volumes) flag to the command as that w
 
 == Change Settings
  
-To change settings via the `.env` file, the compose setup must be in the down state. See the section above for how to do so.
+To change settings via the `.env` file, the compose setup must be in the `down` state. See the section above for how to do so.
 
 == First Time Login
 
@@ -387,13 +389,13 @@ TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud
 
 NOTE: The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down by command.
 
-With further steps described below, some basic monitoring commands and a short description to uninstall Infinite Scale is provided.
+Among other topics described below, some basic xref:monitor-the-instance[monitoring] commands and a short description to xref:updating[update] Infinite Scale is provided.
 
 == Monitor the Instance
 
 === Container
 
-To get the state of running containers, issue one of the following commands:
+To get the state and the Container ID of running containers, issue one of the following commands:
 
 .This command will print the required Container ID, among other data 
 [source,bash]
@@ -409,7 +411,7 @@ docker compose ps --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 
 === Logs
 
-Issue the following sequence of commands to monitor logs:
+Issue the following command to monitor a log:
 
 .Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
