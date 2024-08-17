@@ -200,7 +200,7 @@ apt install unzip
 
 Note that the client from where you download the example and upload it via `scp` must both have granted access to the server and the `scp` app installed. For the `scp` example, a Linux based client has been selected. Adapt the command according the OS used.
 
-To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[ocis_full, window=_blank] developer example], open a browser and enter the following URL:
+To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], open a browser and enter the following URL:
 
 [source,url,subs="attributes+"]
 ----
@@ -356,7 +356,7 @@ For safty reasons, *do not* add the `-v` (volumes) flag to the command as that w
 
 == Change Settings
  
-To change settings via the `.env` file, the compose setup must be in the `down` state. See the section above for how to do so.
+To change settings via the `.env` file, the compose setup _must be_ in the `down` state. See the section above for how to do so.
 
 == First Time Login
 
@@ -395,18 +395,18 @@ Among other topics described below, some basic xref:monitor-the-instance[monitor
 
 === Container
 
-To get the state and the Container ID of running containers, issue one of the following commands:
+To get the state and the Container ID, issue one of the following commands:
 
 .This command will print the required Container ID, among other data 
 [source,bash]
 ----
-docker ps
+docker ps -a
 ----
 
 .Short form with only the Service name, State and Container ID:
 [source,bash]
 ----
-docker compose ps --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
+docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 ----
 
 === Logs
@@ -454,6 +454,71 @@ If no password can be identified, you must reset the admin password via the comm
 === Command Line Password Reset
 
 To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+
+== Volume Migration
+
+This section gives some guidance if you want to migrate the Infinite Scale docker internal volumes to docker volumes using a local path. This can be required like to separate the container from its data or if a high data volume is expected. See additional documentation in the xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted] if you want to use network mounts like NFS or iSCSI for the data directory.
+
+* Prepare two directories which will provide the mount point for Infinite Scale `data` and `config`. +
+The example will use the local path `/mnt/data` and `mnt/config`, adapt according your environment.
+
+* For the following steps, the compose setup _must be_ in `up` state, the containers must provide a container ID for copying.
+
+** Stop the running instance. By doing so, the instance gets stopped but containers are not removed compared when downing it:
++
+[source,bash]
+----
+docker compose stop
+----
+
+** Get the `ocis` container ID using one of the xref:container[maintenance - Container] commands.
+
+** Copy both the content of the docker internal `ocis-config` and `ocis-data` volume to their new local location by issuing the following commands, replace `<CONTAINER ID>` accordingly:
++
+[source,bash]
+----
+docker cp <CONTAINER ID>:/etc/ocis/. /mnt/config
+docker cp <CONTAINER ID>:/var/lib/ocis/. /mnt/data
+----
+
+** Change the ownership of the new source folders recursively. This step is _very important_ because the user inside the container is `1000` and will mostly not match the user who copied:
++
+[source,bash]
+----
+chown -R 1000:1000 /mnt/config /mnt/data
+----
+
+* Down the compose instance by issuing:
++
+[source,bash]
+----
+docker compose down
+----
+
+** In the `.env` file, set the paths:
++
+[source,.env]
+----
+OCIS_DATA_DIR=/mnt/data
+OCIS_CONFIG_DIR=/mnt/config
+----
+
+* Bring the compose environment `up` with:
++
+[source,bash]
+----
+docker compose up
+----
+
+** If the containers come up without reporting issues, you have successfully moved your Infinte Scale docker internal volumes to local paths.
+
+* Finally, you can remove the docker internal volumes for `config` and `data`:
++
+[source,bash,subs="attributes+"]
+----
+docker volume ls
+docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data`
+----
 
 == Updating
 
