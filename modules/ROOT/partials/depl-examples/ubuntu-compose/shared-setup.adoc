@@ -429,15 +429,19 @@ First you need to get the Infinite Scale `CONTAINER ID`:
 
 [source,bash]
 ----
-docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
+docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 ----
 
-From the output, note the container ID in the printout that matches:
+From the output, see an example below, note the container ID that matches `ocis`:
 
-[.transparent-background,subs="quotes,attributes+"]
+[source,subs="+quotes"]
 ----
-* Image 		-> *owncloud/ocis:{compose_version}* and
-* Command starting with	-> */bin/sh -c 'ocis in…*.
+SERVICE         STATE     CONTAINER ID
+collabora       running   a7f74dfbbec3
+collaboration   running   ed4d086ddd06
+[.aqua]#ocis#            running   [.aqua]#b395d936c23a#
+tika            running   08ae7b0c9c0e
+traefik         running   5f0e1d03bcbf
 ----
 
 Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
