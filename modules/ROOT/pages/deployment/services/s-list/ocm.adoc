@@ -25,7 +25,7 @@ IMPORTANT: For security reasons and data protection, invitations are limited to 
 
 The OCM service implements an invitation workflow for _trusted_ instances when creating federated shares.
 
-The list of trusted instances is managed via a configuration file. The only supported backend is currently `json`, which stores the list of trusted instances in a json file on disk.
+The list of trusted instances is managed by the `ocmproviderauthorizer` service. The only supported backend currently is `json` which stores the list in a json file on disk. Note that the `ocmproviders.json` file, which holds that configuration, is expected to be located in the root of the ocis config directory if not otherwise defined. See the `OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE` environment variable for more details.
 
 Example for a `ocmproviders.json` file:
 
