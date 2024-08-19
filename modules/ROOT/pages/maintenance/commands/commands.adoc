@@ -70,7 +70,7 @@ In rare circumstances, it can be necessary to initiate indexing manually for a g
 
 === Resume Post-Processing
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#resume-post-processing[CLI command] to retry the failed upload.
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#cli-commands[CLI Commands] to retry the failed upload.
 
 === Inspect and Manipulate Node Metadata
 
