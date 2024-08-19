@@ -112,11 +112,11 @@ tag::hetzner_only_1[]
 
 We recommend using key-based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
 
-Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys are now located in `~/.ssh`.
+Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys to use after generation are located in `~/.ssh`.
 
 When using Putty (Windows) to access your server, you must convert the private key generated into the `ppk` format to be usable for Putty. Read the  https://www.puttygen.com[puttygen] guide to do so.
 
-After the server has been created, you can copy new private keys to the server by adding them into `~/.ssh/authorized_keys` file.
+After the server has been created, you can copy new private keys to the server by adding them into the `~/.ssh/authorized_keys` file.
 
 === Login to Hetzner
 
@@ -166,7 +166,7 @@ After the server has been finally setup, you must use the IP address assigned to
 
 == Prepare the Server
 
-As a standard regular task, you need to update packages, especially on first server login:
+As a standard regular task, you need to update packages, especially after first server login:
 
 [source,bash]
 ----
@@ -195,6 +195,8 @@ apt install unzip
 
 == Download and Transfer the Example
 
+Note that the client from where you download the example and upload it via `scp` must both have granted access to the server and the `scp` app installed. For the `scp` example, a Linux based client has been selected. Adapt the command according the OS used.
+
 To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
 
 [source,url,subs="attributes+"]
@@ -211,7 +213,7 @@ Transfer the `.zip` file created to the server by issuing the following command,
 scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' <user>@<IP or domain>:/opt
 ----
 
-NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get overwritten without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
+NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get *overwritten* without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
 
 == Extract the Example
 
@@ -283,6 +285,8 @@ Define these settings according to your eMail configuration. With the settings d
 
 ** We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
 
+** When switching back from the staging environment to valid certificate generation, you also *must* remove the traefik `certs` volume. To do so, see the commands in xref:solving-first-startup-issues[Solving First Startup Issues].
+
 ** To trigger certificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
 ====
 
@@ -299,7 +303,7 @@ This command will download all necessary containers and starts up the instance a
 
 Check the logs via the `docker logs command`, especially the traefik logs. See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
 
-If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting and restart it. Recheck the traefik logs and when all is fine, you can access your instance, for details see below. 
+If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting, remove the `cert` volume as described below and restart the compose environment. Recheck the xref:monitor-the-instance[traefik logs] and when all is fine, you can access your instance. 
 
 === Solving First Startup Issues
 
@@ -311,14 +315,14 @@ Check if the ports 80/443 are open in the firewall configured. You can run a tes
 * `...DNS problem: NXDOMAIN looking up A for...` +
 This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
 
-Whenever you have a DNS issue at this stage, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the cert volume needs to be deleted:
+If you have a DNS issue at this stage or you have used the Letsencrypt staging environment, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the `cert` volume needs to be deleted:
 
 .Shut down the deployment
 [source,bash]
 ----
 docker compose down
 ----
-Note, do not use the `-v` option as it will delete ALL volumes. Also see the next section.
+Note, do not use the `-v` option as it will delete ALL volumes.
 
 .List the docker volumes
 [source,bash]
@@ -341,7 +345,11 @@ Stopping the compose setup is easy, just issue:
 docker compose down
 ----
 
-For safty reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. In case, deleting volumes selectively is the preferred method, see the section above.
+For safety reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. If deleting volumes is necessary, deleting them selectively is the preferred method, see the section above for an example.
+
+== Change Settings
+ 
+To change settings via the `.env` file, the compose setup _must be_ in the `down` state. See the section above for how to do so.
 
 == First Time Login
 
@@ -374,33 +382,34 @@ TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud
 
 NOTE: The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down by command.
 
-With further steps described below, some basic monitoring commands and a short description to uninstall Infinite Scale is provided.
+Among other topics described below, some basic xref:monitor-the-instance[monitoring] commands are provided.
 
 == Monitor the Instance
 
-=== Logs
+=== Container
 
-Issue the following sequence of commands to monitor logs:
+To get the state and the Container ID, issue one of the following commands:
 
 .This command will print the required Container ID, among other data 
 [source,bash]
 ----
-docker ps
+docker ps -a
 ----
+
+.Short form with only the Service name, State and Container ID:
+[source,bash]
+----
+docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
+----
+
+=== Logs
+
+Issue the following command to monitor a log:
 
 .Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
 ----
 docker compose logs -f <container_id>
-----
-
-=== Container
-
-To get the state of running containers, issue the following command:
-
-[source,bash]
-----
-docker compose ps --format "table {{.Service}}\t{{.State}}"
 ----
 
 == Admin Password
@@ -413,15 +422,19 @@ First you need to get the Infinite Scale `CONTAINER ID`:
 
 [source,bash]
 ----
-docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}" | grep ocis
+docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 ----
 
-From the output, note the container ID in the printout that matches:
+From the output, see an example below, note the container ID that matches `ocis`:
 
-[.transparent-background,subs="quotes,attributes+"]
+[source,subs="+quotes"]
 ----
-* Image 		-> *owncloud/ocis:{compose_version}* and
-* Command starting with	-> */bin/sh -c 'ocis in…*.
+SERVICE         STATE     CONTAINER ID
+collabora       running   a7f74dfbbec3
+collaboration   running   ed4d086ddd06
+[.aqua]#ocis#            running   [.aqua]#b395d936c23a#
+tika            running   08ae7b0c9c0e
+traefik         running   5f0e1d03bcbf
 ----
 
 Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
