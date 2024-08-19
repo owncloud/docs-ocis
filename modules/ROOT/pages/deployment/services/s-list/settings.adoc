@@ -92,10 +92,10 @@ To create custom roles:
 
 * Copy the role example to a `json` file.
 * Change `id`, `name`, and `displayName` according your requirements.
-* Copy the desired permissions from the `user-all-permissions` example to the `settings` array of the role.
-* Set the `SETTINGS_BUNDLE_PATH` environment variable to the path/json-file and start Infinite Scale.
+* Copy the desired permissions from the `user-all-permissions` example below to the `settings` array of the role.
+* Set the `SETTINGS_BUNDLE_PATH` envvar to the path of the json file and start Infinite Scale.
 
-See the full https://owncloud.dev/services/settings/#custom-roles[Custom Roles] json example in the developer documentation for more details.
+See the full https://owncloud.dev/services/settings/#custom-roles[Custom Roles] example in the developer documentation for more details.
 
 == Configuration
 
