@@ -517,7 +517,7 @@ docker compose up
 [source,bash,subs="attributes+"]
 ----
 docker volume ls
-docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data`
+docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data
 ----
 
 == Updating
