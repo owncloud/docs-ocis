@@ -26,7 +26,7 @@ This also applies for the `manifest.json` file, if the administrator wants to pr
 
 == Extend Web UI With Apps
 
-The Infinite Scale administrator is capable of providing custom web applications to the users. This feature is useful for organizations that want to provide third party or custom apps to their users.
+The Infinite Scale administrator is capable of providing custom web applications to the users. This feature is useful for organizations that want to provide third party or custom apps to their users. See the https://github.com/owncloud/web-extensions[WebUI extensions] repository for examples.
 
 It's important to note, that the feature is at the moment only capable of providing static (js, mjs, e.g.) web applications and does not support injection of dynamic web applications (custom dynamic backends).
 
