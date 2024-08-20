@@ -16,15 +16,34 @@ The web service also provides a minimal API for branding functionality like chan
 
 * Web listens on port 9100 by default.
 
-== Custom Compiled Web Assets
+== Web UI Configuration
 
-If you want to use your custom compiled web client assets instead of the embedded ones, then you can do that by setting the `WEB_ASSET_PATH` variable to point to your compiled files. See https://owncloud.dev/clients/web/getting-started/[ownCloud Web / Getting Started] and https://owncloud.dev/clients/web/backend-ocis/[ownCloud Web / Setup with oCIS] in the developer documentation for more details.
+* Single configuration settings of the embedded web UI can be defined via `WEB_OPTION_xxx` environment variables.
+* A json based configuration file can be used via the `WEB_UI_CONFIG_FILE` environment variable.
+* If a json based configuration file is used, these configurations take precedence over single options set.
+
+=== Web UI Options
+
+Beside theming, see below, the behavior of the web UI can be configured via options. Behavior customization can be achieved by setting environment variables. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
+
+=== Web UI Config File
+
+When defined via the `WEB_UI_CONFIG_FILE`, the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
+
+== Embedding Web
+
+Web can be consumed by another application in a stripped-down version called “Embed mode”. This mode is supposed to be used in the context of selecting or sharing resources. For more details refer to the developer documentation https://owncloud.dev/clients/web/embed-mode/[ownCloud Web / Embed Mode]. See the environment variables: `WEB_OPTION_MODE` and `WEB_OPTION_EMBED_TARGET` to configure the embedded mode.
 
 == Customize the Web UI Configuration
 
-See the xref:deployment/webui/webui.adoc[Web UI] documentation for how to configure theming and customization or how to embed Web into another application.
+See the xref:deployment/webui/webui-customisation.adoc[ownCloud Web with Custom Configuration] documentation for details if you want:
 
-// you will find `Web UI Configuration`, `Web UI Options` and `Embedding Web` from the dev docs in that link.
+* Custom Compiled Web Assets
+* Extend Web UI With Apps
+
+== Custom Theming for the Web UI
+
+See the xref:deployment/webui/webui-theming.adoc[ownCloud Web with Custom Theming] for more details.
 
 == Configuration
 
