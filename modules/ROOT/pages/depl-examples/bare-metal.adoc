@@ -69,22 +69,23 @@ Note that this URL must resolve to the server running this installation.
 
 === Install and configure the Infinite Scale Binary
 
-Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file.
-
+* Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file.
++
 [source,bash,subs="attributes+"]
 ----
 sudo wget -O {ocis_bin}/ocis <file_url>
 ----
 
-Make the binary executable with:
-
+* Make the binary executable with:
++
 [source,bash,subs="attributes+"]
 ----
 sudo chmod +x {ocis_bin}/ocis
 ----
 
-Check the version installed:
-
+* Check the version installed:
++
+--
 [source,bash]
 ----
 ocis version  --skip-services
@@ -97,11 +98,12 @@ The output looks like this:
 Version: {ocis-actual-version}
 Compiled: {ocis-compiled}
 ----
+--
 
 === Create a Service User
 
-In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
-
+* In your operating system, create a user and group who will run the ocis service and own all the files of the Infinite Scale service but is not allowed to log in, has no shell and no home directory.
++
 [source,bash]
 ----
 sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
@@ -109,15 +111,15 @@ sudo useradd --system --no-create-home --shell=/sbin/nologin ocis
 
 === Infinite Scale Data Directory
 
-Create the ocis data directory. All system data will be stored here including all files uploaded by the users.
-
+* Create the ocis data directory. All system data will be stored here including all files uploaded by the users.
++
 [source,bash,subs="attributes+"]
 ----
 sudo mkdir -p {ocis_data}
 ----
 
-Make the service user `ocis` the owner of the data directory.
-
+* Make the service user `ocis` the owner of the data directory.
++
 [source,bash,subs="attributes+"]
 ----
 sudo chown ocis:ocis {ocis_data}
@@ -125,8 +127,9 @@ sudo chown ocis:ocis {ocis_data}
 
 === Infinite Scale Configuration File
 
-Create a directory and config file necessary for ocis. For security reasons, this user should have restricted permissions for this directory:
-
+* Create a directory and config file necessary for ocis. For security reasons, this user should have restricted permissions for this directory:
++
+--
 [source,bash,subs="attributes+"]
 ----
 sudo mkdir -p {ocis_env}
@@ -141,13 +144,11 @@ sudo touch {ocis_env}/ocis.env
 ----
 sudo chown -R ocis:ocis {ocis_env}
 ----
+--
 
-Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Information] section for more information about the environment variables used. 
-
-Setting the correct `OCIS_URL` is essential for the built-in openIDConnect IDP as the xref:{s-path}/idp.adoc[IDP service] needs to be reachable under the same host and port as the reverse proxy is configured. If this has not been configured the same, the IDP service will log errors like `origin does not match request URL`. See the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes of the `PROXY_TLS` environment variable.
-
-IMPORTANT: See the important notes for xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI].
-
+* Create the environment file `{ocis_env}/ocis.env` with the following content. Adjust the `OCIS_URL` variable to hold your domain where Infinite Scale will be reachable via `nginx`. Add the correct port to `OCIS_URL` if it deviates from the default port 443 like `\https://{ocis_url}:4242`. See the xref:deployment/general/general-info.adoc[General Information] section for more information about the environment variables used. 
++
+--
 [source,bash,subs="attributes+"]
 ----
 sudo vi {ocis_env}/ocis.env
@@ -167,9 +168,15 @@ OCIS_BASE_DATA_PATH={ocis_data}
 ----
 
 `PROXY_TLS` is set to `false` because xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS termination] will be done by the webserver. Though you also can secure the communication between Infinite Scale and the webserver, this is not covered by this document.
+--
 
-Generate the initial Infinite Scale configuration file, also see xref:deployment/general/ocis-init.adoc[The ocis init Command]:
+* Setting the correct `OCIS_URL` is essential for the built-in openIDConnect IDP as the xref:{s-path}/idp.adoc[IDP service] needs to be reachable under the same host and port as the reverse proxy is configured. If this has not been configured the same, the IDP service will log errors like `origin does not match request URL`. See the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes of the `PROXY_TLS` environment variable.
++
+IMPORTANT: See the important notes for xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI].
 
+* Generate the initial Infinite Scale configuration file, also see xref:deployment/general/ocis-init.adoc[The ocis init Command]:
++
+--
 [source,bash,subs="attributes+"]
 ----
 sudo -u ocis ocis init --config-path {ocis_env}
@@ -182,10 +189,15 @@ NOTE: The command when run successfully will show you the initial admin user's p
 This command will create the configuration file `{ocis_env}/ocis.yaml`.
 
 IMPORTANT: Do NOT delete the `ocis.yaml` file without creating a backup of it first. When you regenerate the `ocis.yaml` file, it will be out of sync with the stored user data in the ocis data directory `{ocis_data}`. If for some reason you still want to regenerate the config file, you first need to empty the data directory but beware if you already have user files stored there. Also see xref:deployment/general/ocis-init.adoc[The ocis init Command] for more details.
+--
 
 == Setup the systemd Service
 
+* {empty}
++
+--
 include::partial$deployment/systemd.adoc[]
+--
 
 include::partial$deployment/dependent_startup.adoc[leveloffset=+2]
 
@@ -220,8 +232,8 @@ Note that using `systemctl reload nginx` alone will NOT validate your configurat
 
 === Prepare nginx for certbot
 
-To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/nginx/sites-available` with the following content:
-
+* To set up nginx as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/nginx/sites-available` with the following content:
++
 include::partial$deployment/nginx_80_example.adoc[]
 
 * Activate the new nginx config:
@@ -244,8 +256,8 @@ sudo nginx -s reload
 
 === Issuing a Certificate via certbot for nginx
 
-Run `certbot` to issue the TLS certificates:
-
+* Run `certbot` to issue the TLS certificates:
++
 [source,bash,subs="attributes+"]
 ----
 sudo certbot --nginx -d {ocis_url}
@@ -253,8 +265,8 @@ sudo certbot --nginx -d {ocis_url}
 
 === Finalize the nginx Configuration
 
-Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
-
+* Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
++
 include::partial$deployment/nginx_proxy_example.adoc[]
 
 * Add the following to the SSL definition above if SSL security should be hardened / improved:
@@ -305,12 +317,13 @@ Note that using `systemctl reload apache2` alone will NOT validate your configur
 
 === Prepare Apache for certbot
 
-To set up Apache as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/apache2/sites-available` with the following content:
-
+* To set up Apache as a reverse proxy with Let's Encrypt TLS certificates, create a file called e.g. `ocis` under `/etc/apache2/sites-available` with the following content:
++
 include::partial$deployment/apache_80_example.adoc[]
 
-Activate the new Apache config and reload Apache:
-
+* Activate the new Apache config and reload Apache:
++
+--
 [source,bash]
 ----
 sudo ln -s /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
@@ -320,11 +333,12 @@ sudo ln -s /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
 ----
 sudo apache2ctl -k graceful
 ----
+--
 
 === Issuing a Certificate via certbot for Apache
 
-Run `certbot` to issue the TLS certificates:
-
+* Run `certbot` to issue the TLS certificates:
++
 [source,bash,subs="attributes+"]
 ----
 sudo certbot --apache -d {ocis_url}
@@ -332,16 +346,16 @@ sudo certbot --apache -d {ocis_url}
 
 === Finalize the Apache Configuration
 
-Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
-
+* Adapt the config to redirect automatically to https, use the newly generated certificates and add the required proxy configuration. The full config should look like this:
++
 include::partial$deployment/apache_proxy_example.adoc[]
 
-Add the following to the SSL definition above if SSL security should be hardened / improved:
-
+* Add the following to the SSL definition above if SSL security should be hardened / improved:
++
 include::partial$deployment/apache_harden_ssl.adoc[]
 
-Reload Apache:
-
+* Reload Apache:
++
 [source,bash]
 ----
 sudo apache2ctl -k graceful
