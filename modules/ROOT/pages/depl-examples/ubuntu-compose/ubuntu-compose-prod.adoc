@@ -89,10 +89,4 @@ Note that this guide expects:
 include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;shared_2]
 // tags=shared_1;hetzner_only_1;shared_2
 
-== Updating
-
-Note that this deploymment can only be updated within Infinite Scale v5.
-
-If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
-
 {empty} +

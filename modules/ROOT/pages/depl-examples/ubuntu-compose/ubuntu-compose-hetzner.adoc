@@ -35,7 +35,7 @@ This guide describes an installation of Infinite Scale on the Hetzner Cloud usin
 ====
 * Disk space +
 About 2.8GB of disk space is needed as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
-** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. Any migration of data from embedded disk space to a volume is *not covered* here.
+** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards.
 
 * Memory +
 We recommend at minimum 4-6GB of memory. 
@@ -82,11 +82,5 @@ For the OS, *Ubuntu LTS 24.04* has been selected.
 
 include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;hetzner_only_1;shared_2]
 // tags=shared_1;shared_2
-
-== Updating
-
-Note that this deploymment can only be updated within Infinite Scale v5.
-
-If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
 
 {empty} +
