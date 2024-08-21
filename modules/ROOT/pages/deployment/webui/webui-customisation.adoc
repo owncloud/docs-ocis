@@ -32,15 +32,15 @@ It's important to note, that the feature is at the moment only capable of provid
 
 === Loading Applications
 
-Web applications are loaded, if added in the Infinite Scale source code, at build-time from `<ocis_repo>/services/web/assets/apps`. This cannot be manipulated at runtime.
+* Web applications are loaded, if added in the Infinite Scale source code, at build-time from `<ocis_repo>/services/web/assets/apps`. This cannot be manipulated at runtime.
 
-Additionally, the administrator can provide custom applications by storing them in the path defined by the environment variable `WEB_ASSET_APPS_PATH`.
+* Additionally, the administrator can provide custom applications by storing them in the path defined by the environment variable `WEB_ASSET_APPS_PATH`.
 
-This environment variable defaults to the Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory] `$OCIS_BASE_DATA_PATH/web/assets/apps`, but can be redefined with any path set manually.
+* This environment variable defaults to the Infinite Scale xref:deployment/general/general-info.adoc#base-data-directory[base data directory] `$OCIS_BASE_DATA_PATH/web/assets/apps`, but can be redefined with any path set manually.
 
-The final list of available applications is composed of the built-in and the custom applications provided by the administrator via `WEB_ASSET_APPS_PATH`.
+* The final list of available applications is composed of the built-in and the custom applications provided by the administrator via `WEB_ASSET_APPS_PATH`.
 
-For example, if Infinite Scale would contain a built-in app named `image-viewer-dfx` and the administrator provides a custom application named `image-viewer-obj` via the `WEB_ASSET_APPS_PATH` directory, the user will be able to access both
+* For example, if Infinite Scale would contain a built-in app named `image-viewer-dfx` and the administrator provides a custom application named `image-viewer-obj` via the `WEB_ASSET_APPS_PATH` directory, the user will be able to access both
 applications from the Web UI.
 
 === Application Structure
