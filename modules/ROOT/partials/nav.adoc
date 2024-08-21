@@ -72,7 +72,7 @@
 **** xref:deployment/services/s-list/web.adoc[Web]
 **** xref:deployment/services/s-list/webdav.adoc[WebDAV]
 **** xref:deployment/services/s-list/webfinger.adoc[Webfinger]
-** xref:deployment/webui/webui.adoc[Web UI]
+** Web UI
 *** xref:deployment/webui/webui-customisation.adoc[Custom Configuration]
 *** xref:deployment/webui/webui-theming.adoc[Custom Theming]
 * Maintenance

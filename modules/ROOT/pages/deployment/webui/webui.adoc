@@ -1,9 +1,0 @@
-= Web UI
-:toc: right
-:description: Infinite Scale ships with an embedded web frontend named ownCloud Web. This web UI can be configured and themed.
-
-== Introduction
-
-{description}
-
-While theming handles the look and feel, you can manage behavior with customization.

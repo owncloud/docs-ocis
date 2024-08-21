@@ -1,32 +1,32 @@
 = ownCloud Web with Custom Configuration
 :toc: right
+:page-aliases: deployment/webui/webui.adoc
 :description: The behavior of the embedded web frontend named ownCloud Web can be configured. This guide shows you how to do so.
 
 == Introduction
 
 {description}
 
-== Web UI Configuration
+== Custom Compiled Web Assets
 
-* Single configuration settings of the embedded web UI can be defined via `WEB_OPTION_xxx` environment variables.
-* A json based configuration file can be used via the `WEB_UI_CONFIG_FILE` environment variable.
-* If a json based configuration file is used, these configurations take precedence over single options set.
+If you want to use your custom compiled web client assets instead of the embedded ones, then you can do that by setting the `WEB_ASSET_PATH` variable to point to your compiled files. See https://owncloud.dev/clients/web/getting-started/[ownCloud Web / Getting Started] and https://owncloud.dev/clients/web/backend-ocis/[ownCloud Web / Setup with oCIS] in the developer documentation for more details.
 
-=== Web UI Options
+=== Using Custom Assets
 
-Beside theming, the behavior of the web UI can be configured via options. Behavior customization can be achieved by setting environment variables in the xref:{s-path}/web.adoc[Web service]. Look for environment variables starting with `WEB_OPTION_xxx` for more details.
+Besides the configuration and application registration, in the process of loading the application assets, the system uses a mechanism to load custom assets.
 
-=== Web UI Config File
+This is very useful for cases where just a single asset should be overwritten, like a logo or similar.
 
-When defined via the `WEB_UI_CONFIG_FILE` xref:{s-path}/web.adoc[environment variable], the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
+Consider the following: Infinite Scale is shipped with a default web app named `image-viewer-dfx` which contains a logo,
+but the administrator wants to provide a custom logo for that application.
 
-== Embedding Web
+This can be achieved using the path defined via `WEB_ASSET_APPS_PATH` and adding a custom structure like `WEB_ASSET_APPS_PATH/image-viewer-dfx/`. Here you can add all custom assets to load like `logo.png`. On loading the web app, custom assets defined overwrite default ones.
 
-Web can be consumed by another application in a stripped-down version called “Embed mode”. This mode is supposed to be used in the context of selecting or sharing resources. For more details refer to the developer documentation https://owncloud.dev/clients/web/embed-mode/[ownCloud Web / Embed Mode]. See the environment variables: `WEB_OPTION_MODE` and `WEB_OPTION_EMBED_TARGET` to configure the embedded mode.
+This also applies for the `manifest.json` file, if the administrator wants to provide a custom one.
 
-== Web Apps
+== Extend Web UI With Apps
 
-The administrator of the environment is capable of providing custom web applications to the users. This feature is useful for organizations that want to provide third party or custom apps to their users.
+The Infinite Scale administrator is capable of providing custom web applications to the users. This feature is useful for organizations that want to provide third party or custom apps to their users. See the https://github.com/owncloud/web-extensions[WebUI extensions] repository for examples.
 
 It's important to note, that the feature is at the moment only capable of providing static (js, mjs, e.g.) web applications and does not support injection of dynamic web applications (custom dynamic backends).
 
@@ -40,8 +40,8 @@ This environment variable defaults to the Infinite Scale xref:deployment/general
 
 The final list of available applications is composed of the built-in and the custom applications provided by the administrator via `WEB_ASSET_APPS_PATH`.
 
-For example, if Infinite Scale would contain a built-in extension named `image-viewer-dfx` and the administrator provides a custom application named `image-viewer-obj` via the `WEB_ASSET_APPS_PATH` directory, the user will be able to access both
-applications from the WebUI.
+For example, if Infinite Scale would contain a built-in app named `image-viewer-dfx` and the administrator provides a custom application named `image-viewer-obj` via the `WEB_ASSET_APPS_PATH` directory, the user will be able to access both
+applications from the Web UI.
 
 === Application Structure
 
@@ -116,19 +116,6 @@ Defaults to `false`. If set to `true`, the application will not be loaded.
 {empty}
 
 NOTE: A local provided configuration yaml will always override the shipped application manifest configuration.
-
-=== Using Custom Assets
-
-Besides the configuration and application registration, in the process of loading the application assets, the system uses a mechanism to load custom assets.
-
-This is very useful for cases where just a single asset should be overwritten, like a logo or similar.
-
-Consider the following: Infinite Scale is shipped with a default web app named `image-viewer-dfx` which contains a logo,
-but the administrator wants to provide a custom logo for that application.
-
-This can be achieved using the path defined via `WEB_ASSET_APPS_PATH` and adding a custom structure like `WEB_ASSET_APPS_PATH/image-viewer-dfx/`. Here you can add all custom assets to load like `logo.png`. On loading the web app, custom assets defined overwrite default ones.
-
-This also applies for the `manifest.json` file, if the administrator wants to provide a custom one.
 
 == Miscellaneous
 
