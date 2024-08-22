@@ -381,5 +381,5 @@ endif::[]
 
 If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
-* If there is no release gap, you can update by stopping the runtime via systemd (`sudo systemctl stop ocis`), xref:install-and-configure-the-infinite-scale-binary[update the binary and make it executable] and start the runtime with systemd again (`sudo systemctl sartp ocis`).
+* If there is no release gap, you can update by stopping the runtime via systemd (`sudo systemctl stop ocis`), xref:install-and-configure-the-infinite-scale-binary[update the binary and make it executable] and start the runtime with systemd again (`sudo systemctl start ocis`).
 * For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must follow the procedure described above.
