@@ -18,6 +18,8 @@
 :ocis_url: ocis.example.com
 :ocis_port: 9200
 
+include::partial$multi-location/compose-version-rolling.adoc[]
+
 == Introduction
 
 {description}
@@ -95,7 +97,7 @@ The output looks like this:
 
 [source,plaintext,subs="attributes+"]
 ----
-Version: {ocis-actual-version}
+Version: {compose_version}
 Compiled: {ocis-compiled}
 ----
 --
@@ -169,6 +171,10 @@ OCIS_BASE_DATA_PATH={ocis_data}
 
 `PROXY_TLS` is set to `false` because xref:deployment/services/tls.adoc#tls-for-the-http-frontend[TLS termination] will be done by the webserver. Though you also can secure the communication between Infinite Scale and the webserver, this is not covered by this document.
 --
+
+* Set `OCIS_CONFIG_DIR` and `OCIS_BASE_DATA_PATH`
++
+IMPORTANT: It is important to set both the `config` and `data` directory environment variables in the `ocis.env` file. If this is omitted, ocis shell commands will not work.
 
 * Setting the correct `OCIS_URL` is essential for the built-in openIDConnect IDP as the xref:{s-path}/idp.adoc[IDP service] needs to be reachable under the same host and port as the reverse proxy is configured. If this has not been configured the same, the IDP service will log errors like `origin does not match request URL`. See the xref:deployment/general/general-info.adoc#using-the-embedded-idp-service[Using the Embedded IDP Service] for configuration notes of the `PROXY_TLS` environment variable.
 +
@@ -366,3 +372,14 @@ See the linked documentation how to enable the {apache_http2_url}[http2,window=_
 If the server is accessible from the web, see the free {ssl-labs-url}[SSL Labs] page to check the sites SSL security. 
 
 Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` and log in as admin user with the password returned by the `ocis init` command.
+
+== Updating
+
+ifeval::["{version-type}" == "rolling"]
+Note that this deploymment can, for the time being, only be updated within Infinite Scale rolling releases.
+endif::[]
+
+If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
+
+* If there is no release gap, you can update by stopping the runtime via systemd (`sudo systemctl stop ocis`), xref:install-and-configure-the-infinite-scale-binary[update the binary and make it executable] and start the runtime with systemd again (`sudo systemctl sartp ocis`).
+* For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must follow the procedure described above.
