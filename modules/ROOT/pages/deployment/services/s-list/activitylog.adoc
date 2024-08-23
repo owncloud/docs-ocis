@@ -21,6 +21,9 @@ include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 include::partial$multi-location/caching-list.adoc[]
 
+:envvar_name: ACTIVITYLOG_TRANSLATION_PATH
+include::partial$deployment/services/translations.adoc[]
+
 == Event Bus Configuration
 
 include::partial$multi-location/event-bus.adoc[]

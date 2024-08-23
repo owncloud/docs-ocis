@@ -77,35 +77,8 @@ or embedded as a CID source like:
 
 In the latter case, image files must be located in the `templates/html/img` subfolder. Supported embedded image types are `png`, `jpeg`, and `gif`. Consider that embedding images via a CID resource may not be fully supported in all email web clients.
 
-== Translations
-
-The `notifications` service has embedded translations sourced via transifex to provide a basic set of translated languages. These embedded translations are available for all deployment scenarios. In addition, the service supports custom translations, though it is currently not possible to just add custom translations to embedded ones. If custom translations are configured, the embedded ones are not used. To configure custom translations, the `NOTIFICATIONS_TRANSLATION_PATH` environment variable needs to point to a base folder that will contain the translation files. This path must be available from all instances of the userlog service, a shared storage is recommended. Translation files must be of type https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html#PO-Files[.po] or https://www.gnu.org/software/gettext/manual/html_node/Binaries.html[.mo]. For each language, the filename needs to be `userlog.po` (or `userlog.mo`) and stored in a folder structure defining the language code. In general the path/name pattern for a translation file needs to be:
-
-[source,plaintext]
-----
-{NOTIFICATIONS_TRANSLATION_PATH}/{language-code}/LC_MESSAGES/translations.po
-----
-
-The language code pattern is composed of `language[_territory]` where  `language` is the base language and `_territory` is optional and defines a country.
-
-For example, for the language `de`, one needs to place the corresponding translation files to
-
-[source,plaintext]
-----
-{NOTIFICATIONS_TRANSLATION_PATH}/de/LC_MESSAGES/translations.po
-----
-
-include::partial$deployment/services/webui_language_code.adoc[]
-
-=== Translation Rules
-
-*   If a requested language code is not available, the service tries to fall back to the base language if available. For example, if the requested language-code `de_DE` is not available, the service tries to fall back to translations in the `de` folder.
-*   If the base language `de` is also not available, the service falls back to the system's default English (`en`),
-which is the source of the texts provided by the code.
-
-== Default Language
-
-The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. See the xref:{s-path}/settings.adoc#default-language[settings] service for a detailed description.
+:envvar_name: NOTIFICATIONS_TRANSLATION_PATH
+include::partial$deployment/services/translations.adoc[]
 
 == Event Bus Configuration
 
