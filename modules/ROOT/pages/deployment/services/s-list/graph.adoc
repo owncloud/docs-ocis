@@ -90,6 +90,10 @@ The client that is used to authenticate with Keycloak has to be able to list use
 
 Note that these roles are only available to assign if the client is in the `master` realm.
 
+
+:envvar_name: GRAPH_TRANSLATION_PATH
+include::partial$deployment/services/translations.adoc[]
+
 == Event Bus Configuration
 
 include::partial$multi-location/event-bus.adoc[]
