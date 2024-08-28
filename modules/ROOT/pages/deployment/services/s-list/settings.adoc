@@ -67,9 +67,9 @@ The `OCIS_DEFAULT_LANGUAGE` setting impacts the `notification` and `userlog` ser
 
 == Custom Roles
 
-It is possible to _replace_ the default Infinite Scale roles (`admin`, `user`) with custom roles that contain custom permissions. One can set `SETTINGS_BUNDLES_PATH` to the path of a `json` file containing the new roles.
+It is possible to *replace* the default Infinite Scale roles (`admin`, `user`) with custom roles that contain custom permissions. One can set `SETTINGS_BUNDLES_PATH` to the path of a `json` file containing the new role definition.
 
-.Role Example:
+.Role Example (shortned):
 [source,json]
 ----
 [
@@ -93,7 +93,7 @@ To create custom roles:
 * Copy the role example to a `json` file.
 * Change `id`, `name`, and `displayName` according your requirements.
 * Copy the desired permissions from the `user-all-permissions` example to the `settings` array of the role.
-* Set the `SETTINGS_BUNDLE_PATH` environment variable to the path/json-file and start Infinite Scale.
+* Set the `SETTINGS_BUNDLE_PATH` environment variable to the path/json-file and (re)start Infinite Scale.
 
 See the full https://owncloud.dev/services/settings/#custom-roles[Custom Roles] json example in the developer documentation for more details.
 
