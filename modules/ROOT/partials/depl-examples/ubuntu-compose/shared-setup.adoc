@@ -533,8 +533,6 @@ endif::[]
 If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
 * If there is no release gap, you can update by just stopping and starting the compose environment.
-* For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must stop the compose environment, set the `OCIS_DOCKER_TAG` variable in the `.env` file accordingly and start the compose environment again. For the last release, you can remove any setting of `OCIS_DOCKER_TAG` as `latest` is used by default.
-
-In any case, containers will update automatically and you can continue using Infinite Scale as usual.
+* For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must stop the compose environment with `docker compose down`, set the `OCIS_DOCKER_TAG` variable in the `.env` file accordingly, pull the new image with `docker compose pull` and start the compose environment with `docker compose up -d` again. For the last release, you can remove any setting of `OCIS_DOCKER_TAG` as `latest` is used by default.
 
 end::shared_2[]
