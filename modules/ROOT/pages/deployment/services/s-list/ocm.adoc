@@ -19,59 +19,110 @@ Both API's have their roots in CERN where providing resources to trusted partner
 
 * OCM listens on port 9280 by default.
 
+== Enable OCM
+
+To enable OpenCloudMesh, you have to set the following environment variable.
+
+[source,bash]
+----
+OCIS_ENABLE_OCM=true
+----
+
 == Trust Between Instances
 
 IMPORTANT: For security reasons and data protection, invitations are limited to trusted instances only. These have to be defined by the administrator _before_ setting up any federation.
 
 The OCM service implements an invitation workflow for _trusted_ instances when creating federated shares.
 
-The list of trusted instances is managed by the `ocmproviderauthorizer` service. The only supported backend currently is `json` which stores the list in a json file on disk. Note that the `ocmproviders.json` file, which holds that configuration, is expected to be located in the root of the ocis config directory if not otherwise defined. See the `OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE` environment variable for more details.
+The list of trusts for an instance is defined via a json file. Note that this `ocmproviders.json` file, which holds that configuration, is expected to be located in the root of the Infinite Scale _config_ directory if not otherwise defined. See the `OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE` environment variable for more details.
 
-Example for a `ocmproviders.json` file:
+When all instances of a federation should trust each other, an `ocmproviders.json` file like this can be used for all instances. The following example federation consists of two instances: `cloud.owncloud.test` and `cloud.ocis.test` that can use the xref:invitation-workflow[Invitation Workflow] described below to generate, send and accept invitations.
 
 [source,json]
 ----
 [
     {
-        "name": "Example",
-        "full_name": "Example provider",
-        "organization": "ownCloud",
-        "domain": "example.com",
-        "homepage": "https://example.com",
+        "name": "oCIS Test",
+        "full_name": "oCIS Test provider",
+        "organization": "oCIS",
+        "domain": "cloud.ocis.test",
+        "homepage": "https://ocis.test",
+        "description": "oCIS Example cloud storage",
         "services": [
             {
                 "endpoint": {
                     "type": {
                         "name": "OCM",
-                        "description": "example.com Open Cloud Mesh API"
+                        "description": "cloud.ocis.test Open Cloud Mesh API"
                     },
-                    "name": "example.com - OCM API",
-                    "path": "https://example.com/ocm/",
+                    "name": "cloud.ocis.test - OCM API",
+                    "path": "https://cloud.ocis.test/ocm/",
                     "is_monitored": true
                 },
                 "api_version": "0.0.1",
-                "host": "example.com:port"
+                "host": "http://cloud.ocis.test"
+            },
+            {
+                "endpoint": {
+                    "type": {
+                        "name": "Webdav",
+                        "description": "cloud.ocis.test Webdav API"
+                    },
+                    "name": "cloud.ocis.test Example - Webdav API",
+                    "path": "https://cloud.ocis.test/dav/",
+                    "is_monitored": true
+                },
+                "api_version": "0.0.1",
+                "host": "https://cloud.ocis.test/"
+            }
+        ]
+    },
+    {
+        "name": "ownCloud Test",
+        "full_name": "ownCloud Test provider",
+        "organization": "ownCloud",
+        "domain": "cloud.owncloud.test",
+        "homepage": "https://owncloud.test",
+        "description": "ownCloud Example cloud storage",
+        "services": [
+            {
+                "endpoint": {
+                    "type": {
+                        "name": "OCM",
+                        "description": "cloud.owncloud.test Open Cloud Mesh API"
+                    },
+                    "name": "cloud.owncloud.test - OCM API",
+                    "path": "https://cloud.owncloud.test/ocm/",
+                    "is_monitored": true
+                },
+                "api_version": "0.0.1",
+                "host": "http://cloud.owncloud.test"
+            },
+            {
+                "endpoint": {
+                    "type": {
+                        "name": "Webdav",
+                        "description": "cloud.owncloud.test Webdav API"
+                    },
+                    "name": "cloud.owncloud.test Example - Webdav API",
+                    "path": "https://cloud.owncloud.test/dav/",
+                    "is_monitored": true
+                },
+                "api_version": "0.0.1",
+                "host": "https://cloud.owncloud.test/"
             }
         ]
     }
 ]
 ----
 
-Note that there is no limit to adding multiple trusted providers.
+NOTE: The `domain` *must not* contain the protocol as it has to match the https://developer.sciencemesh.io/docs/technical-documentation/central-database/#site-object[GOCDB site object domain].
 
 == Invitation Workflow
 
-Before sharing a resource with a remote user, this user has to be invited by the sharer.
+After the federation has been setup but before sharing a resource with a remote user, this user has to be invited by the sharer.
 
-In order to do so, a request is sent to the ScienceMesh API. The generated token is passed on to the receiver, who will then accept the invitation. As a result, remote users will be added on both sides.
-
-The data backend for the workflow, not the data itself, is configurable. The only supported backend is currently `json` which stores the data in a json file on disk.
-
-== Creating Shares
-
-OCM Shares are currently created using the xref:{s-path}/ocs.adoc[OCS] API, just like regular shares.
-
-The data backend for the workflow, not the data itself, is configurable. The only currently supported backend is `json` which stores the data in a json file on disk.
+Internally, a request is sent to the ScienceMesh API. The generated token is passed on to the receiver, who will then accept the invitation. As a result, remote users will be added on both sides and the data for this grant is saved in a file defined via the `OCM_OCM_INVITE_MANAGER_JSON_FILE` environment variable.
 
 == Configuration
 
