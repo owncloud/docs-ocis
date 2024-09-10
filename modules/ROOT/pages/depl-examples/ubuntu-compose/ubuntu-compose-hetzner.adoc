@@ -25,6 +25,8 @@ NOTE: With the minimum configuration available on Hetzner, you can start with ab
 
 NOTE: This guide references the latest production version of Infinite Scale.
 
+NOTE: With this setup, each deployment can only contain one instance of Infinite Scale.
+
 == Requirements
 
 === Hardware
