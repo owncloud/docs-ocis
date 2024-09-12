@@ -95,6 +95,8 @@
 ** Ubuntu with Docker Compose
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup]
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner]
+** Setup Federations
+*** xref:depl-examples/federation/sciencemesh.adoc[ScienceMesh Setup]
 * Additional Information
 ** xref:additional-information/knowledge-base.adoc[Knowledge Base]
 
