@@ -103,7 +103,7 @@ image:depl-examples/federation/science_mesh/sm_federation_b_setup.png[Federated 
 
 After the federation has been finally setup, federated users can now share resources. Note that a user must have accepted the invitaion to be selectable in the sharing dialogue.
 
-* In menu:Files App[Space or file > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
+* In menu:Files App[Space or file or folder > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
 +
 image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Search Federation User, width=250]
 +
