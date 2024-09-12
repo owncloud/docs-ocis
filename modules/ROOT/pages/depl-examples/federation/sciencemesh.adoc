@@ -14,7 +14,7 @@ toc::[]
 
 {description} See the https://sciencemesh.io[ScienceMesh] link for more framework details.  
 
-To setup a federation using ScienceMesh, only a view steps are necessary:
+To setup a federation using ScienceMesh, only a few steps are necessary:
 
 * Setup a trust between instances involved.
 * Setup the federation between users using generated tokens.
@@ -22,7 +22,7 @@ To setup a federation using ScienceMesh, only a view steps are necessary:
 
 == One Time Setup
 
-The following description has only to be done one time per instance involved to setup a trust relationship and requires sysadmins which have access to the Infinite Scale configuration files.
+The following description only has to be done one time per instance involved to setup a trust relationship and requires sysadmins which have access to the Infinite Scale configuration files.
 
 NOTE: For security reasons and data protection, invitations are limited to trusted instances only.
 
@@ -30,7 +30,7 @@ NOTE: For security reasons and data protection, invitations are limited to trust
 
 In the example below, a trust relationship is setup between the `ocis.owncloud.test` and `host.docker.internal` instances.
 
-The following needs sysadmin priviledges on both federation parties::
+The following needs sysadmin privileges on both federation parties::
 +
 --
 To prepare the Infinite Scale instances involved for federation, a trust relationship must be setup. To do so, an `ocmproviders.json` file needs to be created according the description in
@@ -38,12 +38,12 @@ xref:{s-path}/ocm.adoc#trust-between-instances[Trust Between Instances].
 
 When the file has been properly setup, `OpenCloudMesh` needs to be enabled via an environment variable. See xref:{s-path}/ocm.adoc#enable-OCM[Enable OCM] for more details.
 
-Finally, depending on the deployment, either all federation instances or each ocm service needs to be restarted to take the changes effective.
+Finally, depending on the deployment, either all federation instances or each ocm service needs to be restarted to make the changes effective.
 --
 
 === Setup a Federation Between Users
 
-Before sharing resources, a sharer must first invite a parter to join a federation. This only needs to be done one time per invitor/acceptor pair. This pair is now called a federation. After setting up the federation, sharing resources can mutually be created.
+Before sharing resources, a sharer must first invite a partner to join a federation. This only needs to be done one time per invitor/acceptor pair. This pair is now called a federation. After setting up the federation, sharing resources can mutually be created.
  
 The following can be carried out by any user of the trusted instances. When xref:deployment/general/general-info.adoc#demo-users-and-groups[demo users] have been setup, which should not be present in production, one federation partner must be a user that has been created manually.
 
@@ -88,7 +88,7 @@ image:depl-examples/federation/science_mesh/sm_invitations.png[Invitations Scree
 +
 image:depl-examples/federation/science_mesh/sm_user_accept_token.png[Invitation Data, width=250]
 
-* In window *Federated connections*, the setup federation is now shown and ready to share resources between the federation partners. This information is respective also shown on the inviter side of the federation:
+* In window *Federated connections*, the setup federation is now shown and ready to share resources between the federation partners. This information is also shown on the inviter side of the federation:
 +
 *Acceptor:*
 +
@@ -109,11 +109,11 @@ image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Se
 +
 [IMPORTANT]
 ====
-As rule of thumb:
+As rules of thumb:
 
 * You cannot share your personal space.
 * You should not share files from your personal space for security reasons.
-* Only share project spaces or files inside project spaces.
+* Only share project spaces or files/folders inside project spaces.
 ====
 
 * If you have more federations, you can add more users. With the three vertical dots, you can select additional options. When done, click btn:[Share]
