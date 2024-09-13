@@ -1,6 +1,6 @@
 = Collaboration
 :toc: right
-:description: The collaboration service connects Infinite Scale with document servers such as Collabora and ONLYOFFICE using the WOPI protocol.
+:description: The collaboration service connects Infinite Scale with document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol.
 
 :service_name: collaboration
 
@@ -9,6 +9,15 @@
 {description}
 
 IMPORTANT: Since this service requires an external document server, it won't start by default when using `ocis server` (xref:deployment/general/general-info.adoc#infinite-scale-supervised-services[supervised mode]). You must start it manually with the `ocis collaboration server` command.
+
+Because the collaboration service needs to be started manually, the following prerequisite applies: On collaboration service startup, particular environment variables are required to be populated. If environment variables have a default like the MICRO_REGISTRY_ADDRESS, the default will be used, if not set otherwise. Use for all others the instance values as defined. If these environment variables are not provided or misconfigured, the collaboration service will not start up.
+
+Required environment variables:
+
+* `OCIS_URL`
+* `OCIS_JWT_SECRET`
+* `OCIS_REVA_GATEWAY`
+* `MICRO_REGISTRY_ADDRESS`
 
 == Default Values
 
@@ -28,16 +37,20 @@ If any of the named services above have not been started or are not reachable, t
 
 There are a few variables that you need to set:
 
-* `COLLABORATION_WOPIAPP_ADDR`: +
-The URL of the WOPI app (onlyoffice, collabora, etc). +
-For example: `\https://office.example.com`.
+* `COLLABORATION_APP_NAME`: +
+  The name of the connected WebOffice app, which can be one of the following: +
+  `Collabora`, `OnlyOffice`, `Microsoft365` or `MicrosoftOfficeOnline`.
 
-* `COLLABORATION_HTTP_ADDR`: +
-The external address of the collaboration service. The target app (onlyoffice, collabora, etc) will use this address to read and write files from Infinite Scale. +
-For example: `\https://wopiserver.example.com`.
+* `COLLABORATION_APP_ADDR`: +
+  The URL of the collaborative editing app (onlyoffice, collabora, etc). +
+  For example: `\https://office.example.com`.
 
-* `COLLABORATION_HTTP_SCHEME`: +
-The scheme to be used when accessing the collaboration service. Either `http` or `https`. This will be used to finally build the URL that the WOPI app needs in order to contact the collaboration service.
+* `COLLABORATION_APP_INSECURE`: +
+  In case you are using a self signed certificate for the WOPI app you can tell the collaboration service to allow an insecure connection.
+
+* `COLLABORATION_APP_WOPISRC`: +
+  The external address of the collaboration service. The target app (onlyoffice, collabora, etc) will use this address to read and write files from Infinite Scale. +
+  For example: `\https://wopi.example.com`.
 
 The rest of the configuration options available can be left with the default values.
 
