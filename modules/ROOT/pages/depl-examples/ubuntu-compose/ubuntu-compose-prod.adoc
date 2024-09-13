@@ -21,6 +21,8 @@ toc::[]
 
 NOTE: This guide references the latest production version of Infinite Scale.
 
+NOTE: With this setup, each deployment only contains one instance of Infinite Scale.
+
 == Requirements
 
 === Hardware
@@ -88,5 +90,11 @@ Note that this guide expects:
 
 include::partial$depl-examples/ubuntu-compose/shared-setup.adoc[tags=shared_1;shared_2]
 // tags=shared_1;hetzner_only_1;shared_2
+
+== Updating
+
+Note that this deploymment can only be updated within Infinite Scale v5.
+
+If a new Infinite Scale v5 version is available, you must stop the compose environment with `docker compose down`, pull the new image with `docker compose pull` and start the compose environment with `docker compose up -d` again. You can use the `latest` tag in the `OCIS_DOCKER_TAG` variable as it will automatically point to the latest available production release.
 
 {empty} +
