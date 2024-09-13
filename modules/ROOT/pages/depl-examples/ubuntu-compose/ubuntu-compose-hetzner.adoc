@@ -37,7 +37,7 @@ This guide describes an installation of Infinite Scale on the Hetzner Cloud usin
 ====
 * Disk space +
 About 2.8GB of disk space is needed as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
-** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. Any migration of data from embedded disk space to a volume is *not covered* here.
+** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards.
 
 * Memory +
 We recommend at minimum 4-6GB of memory. 
