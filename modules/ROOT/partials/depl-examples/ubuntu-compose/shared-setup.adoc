@@ -27,12 +27,24 @@ first is hetzner, commented below local server
 
 tag::shared_1[]
 
+=== Volumes
+
+Volumes are the location where docker stores data. In a nutshell, docker can handle two types of volumes:
+
+* Volumes managed by docker: +
+These volumes are managed by docker and are located, if not otherwise defined, in the same partition where the OS is installed. While this is easy to handle and does not need extra configuration, you have dependencies that should be considered like sharing space, snapshotting, resetting, backup/restore, migration etc.
+
+* External volumes: +
+These volumes are not managed by docker. You need to provide docker a mount point for the volume which can be a folder, partition, external storage etc.
+
+Note that the term volume can be used in different contextes. For example, https://www.hetzner.com[Hetzer] uses the term volume for a definable disk space that is independently provisioned and charged. Such a volume can then be connected to a docker volume to store data.  
+
 === Other Requirements
 
 Firewall::
 Because the server configured {text_1} is exposed to the internet, we highly recommend configuring a firewall for security reasons. {text_2}
 +
-NOTE: The minimum configuration for the firewall is to allow port 22, 80 and 443. We also recommend to allow `ICMP` to be able to ping the server. {text_3}
+NOTE: The minimum configuration for the firewall is to allow TCP port 22, 80 and 443. We also recommend to allow `ICMP` to be able to ping the server. {text_3}
 
 Domain Name and Routing::
 To access Infinite Scale from the internet, you *must*:
@@ -45,7 +57,7 @@ To access Infinite Scale from the internet, you *must*:
 Note that you can use any domain provider of choice.
 --
 
-eMail::
+eMail (Optional)::
 The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details. Note that if this data is not available, Infinite Scale will start but no notifications can be sent.
 +
 --
@@ -83,14 +95,14 @@ The following (sub)domains are required at minimum, an example is printed for ea
 
 == Accessing Infinite Scale
 
-Infinite Scale can be accessed from the internet and from your local network with the `OCIS_DOMAIN` you have defined:
+Infinite Scale can be accessed from the internet and from your local network via a browser using the URL defined in `OCIS_DOMAIN`:
 
 image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400]
 
 == Limitations
 
 Data Location::
-All data is stored in volumes managed by docker in the same partition of the server. You need to manually reconfigure the docker volumes in the main docker compose file if you want to define your own volume paths instead of the ones managed by docker. This is highly recommended as described in the xref:hardware[Hardware] section above, but not part of this documentation.
+If not otherwise setup and configured, all data is stored in volumes managed by docker in the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file accordingly. This is highly recommended for production environments and described in the xref:hardware[Hardware] and xref:volumes[Volumes] sections above.
 
 User and User Access Management::
 The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
@@ -145,7 +157,7 @@ In the following screen, you can define the::
 * *SSH keys* (here you enter the public key you created before)
 * *Volumes* (add a volume if you want to separate the OS from the data, can be added later on too)
 * *Firewall* (add a rule for at minimum port 22, 80 and 443, can be added later on too)
-* ... more items
+* ... there can be more items not listed here, configure them according your needs.
 * *Name* (define a name for the server)
 --
 
@@ -166,7 +178,7 @@ After the server has been finally setup, you must use the IP address assigned to
 
 == Prepare the Server
 
-As a standard regular task, you need to update packages, especially after first server login:
+As a standard regular task, you need to update packages, especially after first server login. Open a shell on the server and issue the following command:
 
 [source,bash]
 ----
@@ -195,22 +207,28 @@ apt install unzip
 
 == Download and Transfer the Example
 
-Note that the client from where you download the example and upload it via `scp` must both have granted access to the server and the `scp` app installed. For the `scp` example, a Linux based client has been selected. Adapt the command according the OS used.
+NOTE: The client to download the example is not the server you upload to. The server does not have a graphical interface (GUI) and therefore no browser. The example commands below are based on a Linux client. If you are using macOS or Windows, the commands needs to be adapted accordingly. This mainly effects the location the browser downloads to (`~/Downloads`).
 
-To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[oCIS with WOPI server, window=_blank] developer example], open a browser and enter the following URL:
+NOTE: The client from where you download the example via a browser and upload it using `scp` must have granted access to the server and the `scp` app installed.
 
-[source,url,subs="attributes+"]
-----
-{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}
-----
+To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
+
+//[source,url,subs="attributes+,+macros"]
+//----
+//----
+
+[.gray-light-background]
+****
+{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[,windows=_blank]
+****
 
 The `.zip` file will be downloaded into your local `Download` directory.
 
-Transfer the `.zip` file created to the server by issuing the following command, replace the user accordingly:
+Transfer the `.zip` file created to the server by issuing the following command, *replace* `root@182.83.2.94` with the username and address of the server according your setup:
 
 [source,bash,subs="attributes+"]
 ----
-scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' <user>@<IP or domain>:/opt
+scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
 ----
 
 NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get *overwritten* without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
@@ -280,45 +298,75 @@ If you expect a higher amount of data in the instance, consider using own paths 
 * `SMTP_xxx` +
 Define these settings according to your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
 
-[NOTE]
-====
-* When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
+NOTE: When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
 
-* LetsEncrypt notes:
+== Certificate Generation Process
 
-** We recommend *before using live certificates*, to use the https://letsencrypt.org/docs/staging-environment/[staging environment of Letsencrypt, window=_blank] which you can configure via `TRAEFIK_ACME_CASERVER`. If certificates can be created and are issued by `Fake LE intermediate X1`, you can switch back to issuing valid certificates.
+The recommended process to generate live certificates is the following:
 
-** When switching back from the staging environment to valid certificate generation, you also *must* remove the traefik `certs` volume. To do so, see the commands in xref:solving-first-startup-issues[Solving First Startup Issues].
+. First, let LetsEncrypt generate "fake" certificates. These certifcates show that the process works but they cant be used in production. To do so, the environment variable `TRAEFIK_ACME_CASERVER` needs to be set to LetsEncrypt's https://letsencrypt.org/docs/staging-environment/[Staging Environment, window=_blank], see the `.env` file for the value to be set. By doing so, any restart after fixing issues will not count against the rate limit of LetsEncrypt.
 
-** To trigger certificate issuing via LetsEncrypt, it checks, in the request for creating valid certificates, if the response eMail address is valid and continues if so. The eMail address used is defined via the variable `TRAEFIK_ACME_MAIL`. Self-signed certificates are being used if the traefik log contains the message `Contact emails @example.org are forbidden`.
-====
+. Mandatory set the `TRAEFIK_ACME_MAIL` to a valid eMail address you own. When certificate issuing is triggered, LetsEncrypt checks in the request for creating valid certificates, if the response eMail address is valid and continues if so. If not, it logs an error and self-signed certificates are being used, see see xref:solving-first-startup-issues[Solving First Startup Issues].
 
-== Start the Compose Setup
+. xref:start-the-deployment[Start the Deployment].
 
-When you have finished the configuration, you can start the compose setup by issuing the following command:
+. Then, if any issues occur, you need to xref:stop-the-deployment[Stop the Deployment] and fix them before continuing with the next step. See xref:solving-first-startup-issues[Solving First Startup Issues] for a list of common issues, 
+
+. Finally, if there are no (more) issues which you can identify because `Fake LE intermediate X1` certificates have been generated (check the certificate issuer in the browser, Google for how to do so), you must xref:delete-cert-volume[delete the `cert-volume`] and set back the `TRAEFIK_ACME_CASERVER` environment variable to empty and startup the instance as described below.
+
+== Start the Deployment
+
+When you have finished the configuration, you can start the deployment by issuing the following command:
 
 [source,bash]
 ----
-docker compose up -d --remove-orphans
+docker compose up -d
 ----
 
 This command will download all necessary containers and starts up the instance according your settings in the background (flag `-d`).
 
-Check the logs via the `docker logs command`, especially the traefik logs. See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
+Check the logs::
+--
+* See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
+* First check the traefik logs for certificate issues, then other logs. See xref:solving-first-startup-issues[Solving First Startup Issues] for more details.
+--
 
-If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains. In case you have used staging certificates as suggested, down the compose environment, change the setting, remove the `cert` volume as described below and restart the compose environment. Recheck the xref:monitor-the-instance[traefik logs] and when all is fine, you can access your instance. 
+If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains.
+
+In case you have used staging certificates as suggested above,
+
+* xref:stop-the-deployment[stop the deployment],
+* xref:delete-cert-volume[delete the `cert-volume`]
+* and start the deployment as described above.
+
+When done, recheck the xref:monitor-the-instance[traefik logs] and when all is fine, you can access your instance, see xref:first-time-login[First Time Login].
 
 === Solving First Startup Issues
 
+Note, see xref:monitor-the-instance[Monitor the Instance] for more details on logging.
+
 If any issues are logged by traefik on first startup with respect to LetsEncrypt like:
 
+Common issues::
++
+--
+* `...Contact emails @example.org are forbidden`: +
+The environment variable `TRAEFIK_ACME_MAIL` needs to be set to a valid eMail address you own.
+
 * `...unable to generate a certificate for the domains...`, `acme: error: 400` and `acme-challenge`: +
-Check if the ports 80/443 are open in the firewall configured. You can run a test _during running compose_ to test if traefik can be reached on those ports. To do so visit https://letsdebug.net[Let's Debug].
+Check if the TCP ports 80/443 are open in the firewall configured. You can run a test _during running compose_ to test if traefik can be reached on those ports. To do so visit https://letsdebug.net[Let's Debug].
 
 * `...DNS problem: NXDOMAIN looking up A for...` +
 This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
 
-If you have a DNS issue at this stage or you have used the Letsencrypt staging environment, you will face follow-up issues on a consecutive compose start because the certificate volume now holds invalid data. Therefore, the `cert` volume needs to be deleted:
+For any issue fixed, before you bring up the instance again, some steps need to be taken. This is because the certificate volume now holds invalid data:
+--
+
+[#delete-cert-volume]
+Post fixing the issue::
++
+--
+The following actions need to be taken before starting the deployment again:
 
 .Shut down the deployment
 [source,bash]
@@ -338,21 +386,22 @@ docker volume ls
 ----
 docker volume rm ocis_wopi_certs
 ----
+--
 
-== Stop the Compose Setup
+== Stop the Deployment
 
-Stopping the compose setup is easy, just issue:
+Stopping the deployment is easy, just issue:
 
 [source,bash]
 ----
-docker compose down
+docker compose down --remove-orphans
 ----
 
-For safety reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. If deleting volumes is necessary, deleting them selectively is the preferred method, see the section above for an example.
+For safety reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. If deleting volumes is necessary, deleting them selectively is the preferred method, see the section above for an example. See the `docker compose down` https://docs.docker.com/reference/cli/docker/compose/down/#options[options] for more details.
 
 == Change Settings
  
-To change settings via the `.env` file, the compose setup _must be_ in the `down` state. See the section above for how to do so.
+To change settings via the `.env` file, the deployment _must be_ in the `down` state. See the section above for how to do so.
 
 == First Time Login
 
@@ -393,13 +442,13 @@ Among other topics described below, some basic xref:monitor-the-instance[monitor
 
 To get the state and the Container ID, issue one of the following commands:
 
-.This command will print the required Container ID, among other data 
+.Long form, this command will print the required Container ID, among other data 
 [source,bash]
 ----
 docker ps -a
 ----
 
-.Short form with only the Service name, State and Container ID:
+.Short form with only the Service name, State and Container ID, needs to be issued in `/opt/compose/ocis/{ocis_wopi}`:
 [source,bash]
 ----
 docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
@@ -407,12 +456,12 @@ docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 
 === Logs
 
-Issue the following command to monitor a log:
+Issue the following command to monitor a log which :
 
 .Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
 ----
-docker compose logs -f <container_id>
+docker logs -f <container_id>
 ----
 
 == Admin Password
@@ -462,7 +511,7 @@ This section gives some guidance if you want to migrate the Infinite Scale docke
 * Prepare two directories which will provide the mount point for Infinite Scale `data` and `config`. +
 The example will use the local path `/mnt/data` and `mnt/config`, adapt according your environment.
 
-* For the following steps, the compose setup _must be_ in the `up` state, the containers must provide a container ID for copying.
+* For the following steps, the deployment _must be_ in the `up` state, the containers must provide a container ID for copying.
 
 ** Stop the running instance. By doing so, the instance gets stopped but containers are not removed compared to when downing it:
 +
@@ -525,5 +574,9 @@ docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data
 Note that this deploymment can currently only be updated within Infinite Scale v5.
 
 If a new Infinite Scale v5 version is available, just down the compose environment and bring it back up. Containers will update automatically and you can continue using Infinite Scale as usual.
+
+== Certificate Renewal
+
+There is nothing special to do renewing certificates issued. Traefik takes care on the renewal process automatically. In case of a renewal issue, just restart the compose environment as traefik checks certificate expiry on startup.
 
 end::shared_2[]
