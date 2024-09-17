@@ -16,13 +16,16 @@ NAME:
    ocis migrate decomposedfs - run a decomposedfs migration
 
 USAGE:
-   ocis migrate decomposedfs [command options] [arguments...]
+   ocis migrate decomposedfs command [command options] 
+
+COMMANDS:
+   list     list decomposedfs migrations
+   help, h  Shows a list of commands or help for one command
 
 OPTIONS:
-   --direction value, -d value  direction of the migration to run ('up' or 'down') (default: "up")
+   --direction value, -d value  direction of the migration to run ('migrate' or 'rollback') (default: "migrate")
    --migration value, -m value  ID of the migration to run
    --root value, -r value       Path to the root directory of the decomposedfs
-   --list, -l                   Print a list of migrations incl. their state (default: false)
    --help, -h                   show help
 ----
 
@@ -30,7 +33,7 @@ Example Command 1::
 
 [source,bash]
 ----
-ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ -l
+ocis migrate decomposedfs -r /home/andre/.ocis/storage/users/ list
 
 +-----------+-----------+---------+
 | Migration |   State   | Message |
