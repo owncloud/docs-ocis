@@ -103,7 +103,7 @@ image:depl-examples/federation/science_mesh/sm_federation_b_setup.png[Federated 
 
 After the federation has been finally setup, federated users can now share resources. Note that a user must have accepted the invitaion to be selectable in the sharing dialogue.
 
-* In menu:Files App[Space or file or folder > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
+* In menu:Files App[Inside a Space > File or Folder > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
 +
 image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Search Federation User, width=250]
 +
@@ -112,8 +112,9 @@ image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Se
 As rule of thumb:
 
 * You cannot share your personal space.
+* You cannot share a project space.
 * You should not share files from your personal space for security reasons.
-* Only share project spaces or files inside project spaces.
+* Only share files and folders inside project spaces.
 ====
 
 * If you have more federations, you can add more users. With the three vertical dots, you can select additional options. When done, click btn:[Share]
