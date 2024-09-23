@@ -37,7 +37,7 @@ These volumes are managed by docker and are located, if not otherwise defined, i
 * External volumes: +
 These volumes are not managed by docker. You need to provide docker a mount point for the volume which can be a folder, partition, external storage etc.
 
-Note that the term volume can be used in different contextes. For example, https://www.hetzner.com[Hetzer] uses the term volume for a definable disk space that is independently provisioned and charged. Such a volume can then be connected to a docker volume to store data.  
+Note that the term volume can be used in different contexts. For example, https://www.hetzner.com[Hetzner] uses the term volume for a definable disk space that is independently provisioned and charged. Such a volume can then be connected to a docker volume to store data.  
 
 === Other Requirements
 
@@ -207,9 +207,9 @@ apt install unzip
 
 == Download and Transfer the Example
 
-NOTE: The client to download the example is not the server you upload to. The server does not have a graphical interface (GUI) and therefore no browser. The example commands below are based on a Linux client. If you are using macOS or Windows, the commands needs to be adapted accordingly. This mainly effects the location the browser downloads to (`~/Downloads`).
+NOTE: The client to download the example is not the server you upload to. The server does not have a graphical interface (GUI) and therefore no browser. The example commands below are based on a Linux client. If you are using macOS or Windows, the commands need to be adapted accordingly. This mainly effects the location the browser downloads to (`~/Downloads`).
 
-NOTE: The client from where you download the example via a browser and upload it using `scp` must have granted access to the server and the `scp` app installed.
+NOTE: The client from where you download the example via a browser and upload it using `scp` must have granted access to the server and have the `scp` app installed.
 
 To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
 
@@ -306,7 +306,7 @@ The recommended process to generate live certificates is the following:
 
 . First, let LetsEncrypt generate "fake" certificates. These certifcates show that the process works but they cant be used in production. To do so, the environment variable `TRAEFIK_ACME_CASERVER` needs to be set to LetsEncrypt's https://letsencrypt.org/docs/staging-environment/[Staging Environment, window=_blank], see the `.env` file for the value to be set. By doing so, any restart after fixing issues will not count against the rate limit of LetsEncrypt.
 
-. Mandatory set the `TRAEFIK_ACME_MAIL` to a valid eMail address you own. When certificate issuing is triggered, LetsEncrypt checks in the request for creating valid certificates, if the response eMail address is valid and continues if so. If not, it logs an error and self-signed certificates are being used, see see xref:solving-first-startup-issues[Solving First Startup Issues].
+. The `TRAEFIK_ACME_MAIL` must be set to a valid eMail address you own. When certificate issuing is triggered, LetsEncrypt checks in the request for creating valid certificates, if the response eMail address is valid and continues if so. If not, it logs an error and self-signed certificates are being used, see see xref:solving-first-startup-issues[Solving First Startup Issues].
 
 . xref:start-the-deployment[Start the Deployment].
 
@@ -327,7 +327,7 @@ This command will download all necessary containers and starts up the instance a
 
 Check the logs::
 --
-* See the xref:monitor-the-instance[Monitor the Instance] for more details on logging.
+* See xref:monitor-the-instance[Monitor the Instance] for more details on logging.
 * First check the traefik logs for certificate issues, then other logs. See xref:solving-first-startup-issues[Solving First Startup Issues] for more details.
 --
 
@@ -456,7 +456,7 @@ docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 
 === Logs
 
-Issue the following command to monitor a log which :
+Issue the following command to monitor a log:
 
 .Replace the <container_id> according to the container for which you want to monitor the log.
 [source,bash]
@@ -577,6 +577,6 @@ If a new Infinite Scale v5 version is available, just down the compose environme
 
 == Certificate Renewal
 
-There is nothing special to do renewing certificates issued. Traefik takes care on the renewal process automatically. In case of a renewal issue, just restart the compose environment as traefik checks certificate expiry on startup.
+There is nothing special to do renewing certificates issued. Traefik takes care of the renewal process automatically. In case of a renewal issue, just restart the compose environment as Traefik checks certificate expiry on startup.
 
 end::shared_2[]
