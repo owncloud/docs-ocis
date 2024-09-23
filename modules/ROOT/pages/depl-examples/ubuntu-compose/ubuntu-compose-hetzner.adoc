@@ -19,7 +19,7 @@ toc::[]
 
 {description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
 
-IMPORTANT: *Some decisions and steps in order need to be taken when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
+IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
 
 IMPORTANT: With the decision to use https://www.hetzner.com[Hetzner] for our cloud deployment example, you can select from a variety of server locations which include many residing in the EU. Using a location inside the EU has a big *positive* impact for your data in terms of General Data Protection Regulation (GDPR).
 

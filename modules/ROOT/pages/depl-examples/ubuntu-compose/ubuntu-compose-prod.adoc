@@ -19,7 +19,7 @@ toc::[]
 
 {description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
 
-IMPORTANT: *Some decisions and steps in order need to be taken when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
+IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
 
 NOTE: This guide references the latest {version-type} version of Infinite Scale.
 
@@ -39,7 +39,7 @@ This guide describes an installation of Infinite Scale based on Ubuntu LTS and d
 [NOTE]
 ====
 * Disk space +
-About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. If not otherwise defined, this guide used docker managed volumes. See the xref:volumes[Volumes] description for an explanation of the term volume.
+About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. If not otherwise defined, this guide uses docker managed volumes. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
 * Memory +
 We recommend at minimum 4-6GB of memory. 
