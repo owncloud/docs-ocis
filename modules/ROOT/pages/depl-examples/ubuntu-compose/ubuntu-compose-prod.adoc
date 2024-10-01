@@ -21,7 +21,7 @@ toc::[]
 
 IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
 
-NOTE: This guide references the latest {version-type} version of Infinite Scale.
+NOTE: This guide references the latest {compose_version} version of Infinite Scale.
 
 NOTE: With this setup, each deployment only contains one instance of Infinite Scale.
 
