@@ -1,4 +1,4 @@
-= Deploy Infinite Scale on the Hetzner Cloud for Production Use
+= Deploy Infinite Scale on the Hetzner Cloud
 :toc: macro
 :toclevels: 3
 :keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
@@ -19,11 +19,15 @@ toc::[]
 
 {description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
 
+IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
+
 IMPORTANT: With the decision to use https://www.hetzner.com[Hetzner] for our cloud deployment example, you can select from a variety of server locations which include many residing in the EU. Using a location inside the EU has a big *positive* impact for your data in terms of General Data Protection Regulation (GDPR).
 
 NOTE: With the minimum configuration available on Hetzner, you can start with about €4/month for a cloud driven Infinite Scale deployment. Note that prices are subject to changes and only intended for informational purposes.
 
 NOTE: This guide references the latest {version-type} version of Infinite Scale.
+
+NOTE: With this setup, each deployment only contains one instance of Infinite Scale.
 
 == Requirements
 
@@ -31,11 +35,13 @@ NOTE: This guide references the latest {version-type} version of Infinite Scale.
 
 This guide describes an installation of Infinite Scale on the Hetzner Cloud using Ubuntu LTS as OS and docker compose. The underlying hardware can be configured according to the offers from Hetzner and your requirements. 
 
+At minimum and at the time of writing, type _CX22_ (2 shared Intel CPU's with 4GB RAM) with 40GB embedded space can be selected. The selection can be changed after deployment if more resources are needed.
+
 [NOTE]
 ====
 * Disk space +
 About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
-** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards.
+** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
 * Memory +
 We recommend at minimum 4-6GB of memory. 
@@ -54,11 +60,11 @@ You, as administrator, must have the following minimum knowledge stack.
 * Command line (bash) tools like: +
 Key generation, ssh, actions on files, edit files etc.
 
-* Maintaining a server and installing SW packages etc.
+* Maintaining a server and installing software packages etc.
 
 === Software Stack
 
-For the OS, *Ubuntu LTS 24.04* has been selected. 
+For the OS, *Ubuntu LTS 24.04* has been selected.
 
 // deployment specific text, this is for hetzner, alternatively use the commented ones below for local server
 
