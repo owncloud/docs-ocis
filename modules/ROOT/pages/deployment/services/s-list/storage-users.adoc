@@ -15,10 +15,6 @@
 
 * Storage-Users listens on port 9157 by default.
 
-== Deprecated Metadata Backend
-
-Starting with Infinite Scale version 3.0.0, the default backend for metadata switched to messagepack. If the setting `STORAGE_USERS_OCIS_METADATA_BACKEND` has not been defined manually, the backend will be migrated to `messagepack` automatically. Although it is still possible to manually configure `xattrs`, this setting should not be used anymore as it will be removed in a later version.
-
 == Graceful Shutdown
 
 With Infinite Scale, you can define a graceful shutdown period for the `storage-users` service.
