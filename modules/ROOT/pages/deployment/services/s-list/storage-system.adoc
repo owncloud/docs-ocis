@@ -1,14 +1,12 @@
 = Storage-System Service Configuration
 :toc: right
-:description: The Infinite Scale Storage-System service
+:description: The Infinite Scale Storage-System service persists and caches user related data that is defined via Infinite Scale.
 
 :service_name: storage-system
 
 == Introduction
 
-{description}
-
-// fixme: source description is still missing, and a better description is needed
+{description} This can be among other data role assignments, user settings and users shares.
 
 == Default Values
 
