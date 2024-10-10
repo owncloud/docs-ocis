@@ -233,12 +233,12 @@ Depending on the usecase, you can run Infinite Scale on:
 
 For _best performance_, _stability_, _support_, and _full functionality_ we officially support Infinite Scale running on the following Linux distributions:
 
-* Debian 10 and 11
-* Fedora 32 and 33
-* Red Hat Enterprise Linux 7.5 and 8 including all 100% compatible derivatives
-* SUSE Linux Enterprise Server 12 with SP4/5 and SLES 15
-* openSUSE Leap 15.2 and 15.3
-* Ubuntu 20.04 and 22.04
+* Debian 10 and higher
+* Fedora 32 and higher
+* Red Hat Enterprise Linux 7.5 and higher including all 100% compatible derivatives
+* SUSE Linux Enterprise Server 12 with SP4/5 and SLES 15.x
+* openSUSE Leap 15.2 and higher
+* Ubuntu 20.04 and higher
 
 == Usermanagement, Authorization and Authentication
 
@@ -276,9 +276,7 @@ Infinite Scale defines drivers for filesystems to store blobs and metadata. The 
 
 === Backend for Metadata
 
-Starting with Infinite Scale 3.0, metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
-
-If you have started to use Infinite Scale before version 3.0, metadata was stored in extended attributes (`xattrs`) and is converted with the upgrade automatically.
+Metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
 
 === Available Filesystem Drivers
 
@@ -293,6 +291,8 @@ Other drivers can be used too like for the Ceph or EOS filesystem, but no suppor
 === Supported POSIX-compliant Filesystems
 
 The supported Infinite Scale POSIX-compliant filesystems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is definable on some filesystems and if applicable, is for informational purposes only:
+
+{empty}
 
 [caption=]
 .Local Filesystems
@@ -314,6 +314,8 @@ The supported Infinite Scale POSIX-compliant filesystems are the following. Note
 | 128K
 |===
 
+{empty}
+
 [caption=]
 .Remote Filesystems
 [width="80%",cols="26%,90%",options="header"]
@@ -322,17 +324,8 @@ The supported Infinite Scale POSIX-compliant filesystems are the following. Note
 | Default Block Size
 
 | {nfs_url}[NFS]
-| The block size depends on the `rsize` parameter in the mount options. Defaults to 4K, usually set to 32K.
+| The block size depends on the `rsize` parameter in the mount options. Defaults to 4K which is fine when using NFS for metadata only, usually set to 32K when also storing user data.
 |===
-
-Extended Attributes::
-+
-[IMPORTANT]
-====
-Only when using Infinite Scale _before_ version 3.0.
-
-* See the documentation and notes about xref:prerequisites/xattrs.adoc[Extended Attributes] for metadata.  
-====
 
 Ceph Notes::
 +
@@ -364,8 +357,6 @@ Spaces for the mobile apps are available in versions:
 
 * iOS app 12.0
 * Android app 4.0
-
-Pre-release versions for https://owncloud.com/beta-testing/#ios[iOS] and https://owncloud.com/beta-testing/#android[Android] are already available for testing.
 
 == Supported Languages
 
