@@ -1,14 +1,14 @@
 = Graph Service Configuration
 :toc: right
-:description: The Infinite Scale Graph service provides a simple graph world API which can be used by clients or other services or extensions.
+:description: The graph service provides the Graph API which is a RESTful web API used to access Infinite Scale resources.
 
 :service_name: graph
 
+include::partial$multi-location/compose-version-rolling.adoc[]
+
 == Introduction
 
-{description}
-
-// fixme: source description is still missing, and a better description is needed
+{description} It is inspired by the https://learn.microsoft.com/en-us/graph/use-the-api[Microsoft Graph API,window=_blank] and can be used by clients or other services or extensions. Visit the https://owncloud.dev/libre-graph-api/[Libre Graph API,window=_blank] for a detailed specification of the API implemented by the graph service.
 
 == Default Values
 
@@ -16,7 +16,7 @@
 
 == Restrict Username Patterns
 
-Usernames can be restricted to follow certain patterns. Such patterns can be neccessary when using the xref:{s-path}/idm.adoc[internal IDM] for example to align with local Unix username restrictions. Username restrictions can also be handled with an external IDM like Keycloak. The environment variable `GRAPH_USERNAME_MATCH` can be set to the following values to define where and how these restriction are handled:
+Usernames can be restricted to follow certain patterns. Such patterns can be neccessary when using the xref:{s-path}/idm.adoc[internal IDM,window=_blank] for example to align with local Unix username restrictions. Username restrictions can also be handled with an external IDM like Keycloak. The environment variable `GRAPH_USERNAME_MATCH` can be set to the following values to define where and how these restriction are handled:
 
 * `none` +
 There is no internal username checking. Restrictions, if any, are defined in the _external_ IDM like Keycloak.
@@ -32,7 +32,7 @@ Usernames are restricted by the following criteria:
 
 == Manual Filters
 
-Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API] for examples in the https://owncloud.dev[developer documentation]. Note that you can use `and` and `or` to refine results.
+Using the API, you can manually filter like for users. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API,window=_blank] for examples in the https://owncloud.dev[developer documentation,window=_blank]. Note that you can use `and` and `or` to refine results.
 
 == Sequence Diagram
 
@@ -41,6 +41,36 @@ The following image gives an overview of the scenario when a client requests to 
 // referencing: https://github.com/owncloud/ocis/pull/3816 ([docs-only] add client protocol overview)
 
 image::deployment/services/graph/mermaid-graph.svg[width=600]
+
+== Users and Groups API
+
+The graph service provides endpoints for querying users and groups. It features two different backend implementations:
+
+* *ldap*: +
+This is currently the default backend. It queries user and group information from an LDAP server. Depending on the configuration, it can also be used to manage (create, update, delete) users and groups provided by an LDAP server.
+
+* *cs3*: +
+This backend queries users and groups using the CS3 identity APIs as implemented by the `users` and `groups` service. This backend is currently still experimental and only implements a subset of the Libre Graph API. It should not be used in production.
+
+=== LDAP Configuration
+
+The LDAP backend is configured using a set of environment variables. A detailed list of all the available configuration options can be found in the xref:configuration[configuration section] below. The LDAP related options are prefixed with `OCIS_LDAP_` (or `GRAPH_LDAP_` for settings specific to the graph service).
+
+==== Read-Only Access to Existing LDAP Servers
+
+To connect the graph service to an existing LDAP server, set `OCIS_LDAP_SERVER_WRITE_ENABLED` to `false` to prevent the graph service from sending write operations to the LDAP server. Also set the various `OCIS_LDAP_*` environment variables to match the configuration of the LDAP server you are connecting to. An example configuration for connecting Infinite Scale to an instance of Microsoft Active Directory is available https://owncloud.dev/ocis/identity-provider/ldap-active-directory/[here,window=_blank].
+
+==== Using a Write Enabled LDAP Server
+
+To use the graph service for managing (create, update, delete) users and groups, a write enabled LDAP server is required. In the default configuration, the graph service will use the simple LDAP server that is bundled with infinite Scale in the xref:{s-path}/idm.adoc[idm] service which provides all the required features. It is also possible to setup up an external LDAP server with write access for use with Infinite Scale. It is recommended to use OpenLDAP for this. The LDAP server needs to fulfill a couple of requirements with respect to the available schema:
+
+* The LDAP server must provide the `inetOrgPerson` object class for users and the `groupOfNames` object class for groups.
+
+* The graph service maintains a few additional attributes for users and groups that are not available in the standard LDAP schema. A schema file (ldif), ready to use with OpenLDAP defining those additional attributes, is available: {compose_url}v{compose_version}{compose_final_path}/ocis_ldap/config/ldap/schemas/[here,window=_blank].
+
+== Query Filters Provided by the Graph API
+
+Some API endpoints provided by the graph service allow query filters to be specified. The filter syntax is based on the https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter[OData Specification,window=_blank]. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API,window=_blank] for examples on the filters supported when querying users.
 
 == Caching
 

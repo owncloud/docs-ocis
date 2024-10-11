@@ -222,7 +222,7 @@ To download and extract the necessary deployment example footnote:[Derived from 
 
 [.gray-light-background]
 ****
-{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[,windows=_blank]
+{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[,window=_blank]
 ****
 
 The `.zip` file will be downloaded into your local `Download` directory.
