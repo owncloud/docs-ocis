@@ -26,7 +26,7 @@ include::partial$deployment/services/auth-service-family.adoc[]
 
 {empty}
 
-.Enironment variables related to starting the {service_name} service
+.Environment variables related to starting the {service_name} service
 [source,bash]
 ----
 OCIS_ADD_RUN_SERVICES=auth-app  # deployment specific. Alternatively you can start the service explicitly via the command line.
