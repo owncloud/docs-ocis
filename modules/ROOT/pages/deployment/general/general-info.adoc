@@ -49,14 +49,14 @@ When typing `ocis <service-name> --help`, you will get detailed help regarding t
 In supervised mode, all services are started with one command as you can see below in the example when using the binary setup. Note that the services started with the runtime share the same PID.
 
 Start the Infinite Scale Runtime::
-
++
 [source,bash]
 ----
 ocis server
 ----
 
 List running services::
-
++
 [source,bash]
 ----
 ocis list
@@ -120,16 +120,15 @@ Special configuration settings can be the following:
 * Configurations that can only be made with yaml but not with environment variables.
 * yaml configurations that use an OS environment variable for the value.
 
-.yaml only settings
+yaml only settings::
 There are certain situations where multiple settings using the same keys apply for a configuration set. This can be like in the xref:{s-path}/app-registry.adoc[app-registry] service where default apps for mimetypes are defined. A single environment variable cannot hold all that information. For this case, a yaml configuration is the only way possible. Note that both installation methods, binary and container, can deal with yaml configuration files.
 
-.Using OS environment variables in yaml files
+Using OS environment variables in yaml files::
 OS environment variables can be used in yaml config files for Infinite Scale services which will be replaced by the actual value of the environment variable at runtime. This method allows defining a standardized setup, but parameterize it for different use cases. Default values can be specified after a `|` character.
 
 {empty}
 
 .Example:
---
 [source,yaml]
 ----
 proxy:
@@ -144,7 +143,6 @@ In the example above, the value of the OS environment variable `PROXY_HTTP_ADDR`
 * Infinite Scale uses the `|` character for its config defaults in yaml files.
 * Other software like Docker uses a bash style `:-` for defining defaults.
 ====
---
 
 == Default Paths
 
@@ -525,16 +523,16 @@ When using `0.0.0.0:9200`, the proxy will listen to all available interfaces. If
 
 IMPORTANT: The bind address for `PROXY_HTTP_ADDR` must be on the same interface where the configured URL from the `OCIS_URL` environment variable is reachable. 
 
-.Common reasons binding to a particular IP address
-{empty}
+Common reasons binding to a particular IP address::
++
 --
 * Multiple network interfaces configured for specific tasks like web, storage, administration.
 * Binding SSL certificates to IP addresses.
 * ...
 --
 
-.Examples
-{empty}
+Examples::
++
 --
 * `PROXY_HTTP_ADDR=127.0.0.0:9200` +
 This causes Infinite Scale to *only* bind to the local network interface.
@@ -602,6 +600,8 @@ NOTE: If you have not declared demo user creation during initializing, you can f
 === Admin User
 
 An admin user will be created when running the `ocis init` command with the following credentials:
+
+{empty}
 
 [caption=]
 .Admin user and group created on first ocis start
@@ -678,7 +678,8 @@ This is the local path where the Infinite Scale configuration is stored. When li
 
 * `<ocis-version>` +
 The Infinite Scale version used like `latest` or `{compose_version}` or ... .
-
++
+--
 [source,bash]
 ----
 sudo docker run -it --rm \
@@ -688,11 +689,13 @@ sudo docker run -it --rm \
 ----
 
 With `--rm`, the container gets removed after execution to avoid any orphaned containers.
+--
 
 [#docker-volumes]
 When you have defined docker volumes for storing data::
 Volume names can be used as paths, which is the case when using docker compose. Note that _full volume names_ need to be identified and used. You can identify them by issuing the following command:
-
++
+--
 [source,bash]
 ----
 sudo docker volume ls
@@ -715,6 +718,7 @@ The volume names needed to reset the password are:
 
 * `ocis_wopi_ocis-data` and
 * `ocis_wopi_ocis-config`.
+--
 
 === Demo Users and Groups
 
@@ -732,6 +736,8 @@ To let Infinite Scale create these demo users and groups for you, start the _run
 IDM_CREATE_DEMO_USERS=true \
 ocis init
 ----
+
+{empty}
 
 include::partial$deployment/demo_user_table.adoc[]
 
