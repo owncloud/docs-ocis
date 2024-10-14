@@ -1,10 +1,10 @@
 = Registry
 :toc: right
-:description: Services need, to be able to communicate with each other, register in a common registry.
+:description: All services need to be able to communicate with each other. To do so, they register in a common registry.
 
 == Introduction
 
-{description} The registry is defined via xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables].
+{description} The registry is defined via xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables]. Also see the xref:{s-path}/nats.adoc[nats] service which provides an embedded nats based registry.
 
 == Available Registries
 
