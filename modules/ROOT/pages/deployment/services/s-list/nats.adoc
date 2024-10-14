@@ -15,7 +15,7 @@ Services can `Consume` events from the nats service by registering to a `Consume
 == Default Values
 
 * Thumbnails listens on port 9230 by default.
-* The default location storing events is $OCIS_BASE_DATA_PATH:/nats
+* The default location storing events is $OCIS_BASE_DATA_PATH/nats
 
 == Underlying Technology
 
@@ -29,7 +29,7 @@ NOTE: When `MICRO_REGISTRY` is configured using `kubernetes`, the NATS service w
 
 == Persistence
 
-To be able to deliver events even after a system or service restart, nats will store events in a folder on the local filesystem. This folder can be specified by setting the `NATS_NATS_STORE_DIR` environment variable. If not set, the service will fall back to `$OCIS_BASE_DATA_PATH:/nats`.
+To be able to deliver events even after a system or service restart, the built in nats will store events in a folder on the local filesystem. This folder can be specified by setting the `NATS_NATS_STORE_DIR` environment variable. If not set, the service will fall back to `$OCIS_BASE_DATA_PATH/nats`.
 
 == TLS Encryption
 

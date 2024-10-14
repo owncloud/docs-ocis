@@ -20,6 +20,8 @@ Note that for each global environment variable, a service-based one might be ava
 {empty} +
 {empty} +
 
+tag::store-types-list[]
+
 [width=100%,cols="25%,85%",options=header]
 |===
 | Store Type
@@ -49,6 +51,8 @@ Note that for each global environment variable, a service-based one might be ava
 | `nats-js`
 | *(deprecated)* Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 |===
+
+end::store-types-list[]
 
 Other store types may work but are currently not supported.
 
