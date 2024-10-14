@@ -20,17 +20,6 @@ include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 Running the `userlog` service without running the xref:{s-path}/eventhistory.adoc[eventhistory] service is not possible.
 
-== Storing
-
-// renders dependent on is_cache or is_stat
-:is_stat: true
-
-include::partial$multi-location/caching-list.adoc[]
-
-== Event Bus Configuration
-
-include::partial$multi-location/event-bus.adoc[]
-
 == Configuring Events
 
 Currently, the configuration which user-related events are of interest is hard-coded and cannot be changed.
@@ -86,6 +75,17 @@ to remove a global message is a restricted action, see the xref:authentication[A
 
 :envvar_name: USERLOG_TRANSLATION_PATH
 include::partial$deployment/services/translations.adoc[]
+
+== Storing
+
+// renders dependent on is_cache or is_stat
+:is_stat: true
+
+include::partial$multi-location/caching-list.adoc[]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

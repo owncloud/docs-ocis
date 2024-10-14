@@ -148,15 +148,6 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 
 * In a production deployment, you want to have basic authentication (`PROXY_ENABLE_BASIC_AUTH`) _disabled_ which is the default state. You should also set up a firewall to only allow requests to the proxy service or the reverse proxy if you have one. Requests to the other services should be blocked by the firewall.
 
-== Caching
-
-Important, also see section xref:presigned-urls[Presigned Urls] below.
-
-// renders dependent on is_cache or is_stat
-:is_cache: true
-
-include::partial$multi-location/caching-list.adoc[]
-
 == Presigned Urls
 
 Important, also see section xref:caching[caching] above.
@@ -204,6 +195,19 @@ When using the Infinite Scale xref:{s-path}/idp.adoc[IDP service] instead of an 
 == Metrics
 
 For details on monitoring see the xref:monitoring/prometheus.adoc[Metrics for Prometheus] documentation.
+
+== Caching
+
+Important, also see section xref:presigned-urls[Presigned Urls] below.
+
+// renders dependent on is_cache or is_stat
+:is_cache: true
+
+include::partial$multi-location/caching-list.adoc[]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

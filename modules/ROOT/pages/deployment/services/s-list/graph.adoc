@@ -72,13 +72,6 @@ To use the graph service for managing (create, update, delete) users and groups,
 
 Some API endpoints provided by the graph service allow query filters to be specified. The filter syntax is based on the https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter[OData Specification,window=_blank]. See the https://owncloud.dev/libre-graph-api/#/users/ListUsers[Libre Graph API,window=_blank] for examples on the filters supported when querying users.
 
-== Caching
-
-// renders dependent on is_cache or is_stat
-:is_cache: true
-
-include::partial$multi-location/caching-list.adoc[]
-
 == Keycloak Configuration for the Personal Data Export
 
 If Keycloak is used for authentication, GDPR regulations require to add all personal identifiable information that Keycloak has about the user to the personal data export. To do this, the following environment variables must be set:
@@ -123,6 +116,13 @@ Note that these roles are only available to assign if the client is in the `mast
 
 :envvar_name: GRAPH_TRANSLATION_PATH
 include::partial$deployment/services/translations.adoc[]
+
+== Caching
+
+// renders dependent on is_cache or is_stat
+:is_cache: true
+
+include::partial$multi-location/caching-list.adoc[]
 
 == Event Bus Configuration
 

@@ -30,15 +30,6 @@ The settings service supports two different backends for persisting the data. Th
   multiple intances of the `settings` service in a scale-out deployment and should be therefore considered
   deprecated.
 
-== Caching
-
-// renders dependent on is_cache or is_stat
-:is_cache: true
-
-When using `SETTINGS_STORE_TYPE=metadata`, the `settings` service caches the results of queries against the storage backend to provide faster responses. The content of this cache is independent of the cache used in the `storage-system` service as it caches directory listing and settings content stored in files.
-
-include::partial$multi-location/caching-list.adoc[]
-
 == Settings Management
 
 Infinite Scale services can register *settings bundles* with the settings service.
@@ -96,6 +87,19 @@ To create custom roles:
 * Set the `SETTINGS_BUNDLE_PATH` environment variable to the path/json-file and (re)start Infinite Scale.
 
 See the full https://owncloud.dev/services/settings/#custom-roles[Custom Roles] json example in the developer documentation for more details.
+
+== Caching
+
+// renders dependent on is_cache or is_stat
+:is_cache: true
+
+When using `SETTINGS_STORE_TYPE=metadata`, the `settings` service caches the results of queries against the storage backend to provide faster responses. The content of this cache is independent of the cache used in the `storage-system` service as it caches directory listing and settings content stored in files.
+
+include::partial$multi-location/caching-list.adoc[]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 
