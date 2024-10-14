@@ -36,6 +36,8 @@ see the readme.md file in that folder.
  
 :service_name: extended
 
+Note, see the xref:deployment/services/registry.adoc[Registry] documentation for details on the Micro Registry and their available settings.
+
 include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-only]
 
 

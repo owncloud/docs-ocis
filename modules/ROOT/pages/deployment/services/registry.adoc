@@ -1,0 +1,22 @@
+= Registry
+:toc: right
+:description: Services need, to be able to communicate with each other, register in a common registry.
+
+== Introduction
+
+{description} The registry is defined via xref:deployment/services/env-vars-special-scope.adoc#extended-environment-variables[Extended Environment Variables].
+
+== Available Registries
+
+The type of registry to use can be configured with the `MICRO_REGISTRY` environment variable and subsequent ones. Supported values are:
+
+* *nats-js-kv* (Default) +
+Set the environment variable to `nats-js-kv` or leave it empty to use a nats-js key value store as registry.
++
+NOTE: If not running _build-in nats_, `MICRO_REGISTRY_ADDRESS` needs to be set to the address of the nats-js cluster, which is the same value as `OCIS_EVENTS_ENDPOINT`. Optional: Use `MICRO_REGISTRY_AUTH_USERNAME` and `MICRO_REGISTRY_AUTH_PASSWORD` to authenticate with the nats cluster.
+
+* *kubernetes* +
+When deploying in a kubernetes cluster, the Kubernetes registry can be used. Additionally, the `MICRO_REGISTRY_ADDRESS` environment variable needs to be set to the url of the Kubernetes registry.
+
+* *memory* +
+Setting the environment variable to memory starts an in-memory registry. This only works with the single binary deployment.
