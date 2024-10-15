@@ -43,7 +43,7 @@ Finally, depending on the deployment, either all federation instances or each oc
 
 === Setup a Federation Between Users
 
-Before sharing resources, a sharer must first invite a parter to join a federation. This only needs to be done one time per invitor/acceptor pair. This pair is now called a federation. After setting up the federation, sharing resources can mutually be created.
+Before sharing resources, a sharer must first invite a parter to join a federation. This only needs to be done one time per invitor/acceptor pair of users. After setting up the federation, shared resources can mutually be created.
  
 The following can be carried out by any user of the trusted instances. When xref:deployment/general/general-info.adoc#demo-users-and-groups[demo users] have been setup, which should not be present in production, one federation partner must be a user that has been created manually.
 
