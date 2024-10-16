@@ -19,6 +19,10 @@
 
 include::partial$multi-location/caching-list.adoc[]
 
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

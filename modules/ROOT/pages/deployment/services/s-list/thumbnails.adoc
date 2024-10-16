@@ -13,7 +13,7 @@ Note for developers, more information is available with regards to querying thum
 == Default Values
 
 * Thumbnails listens on port 9185 by default.
-* The default location storing thumbnails is $OCIS_BASE_DATA_PATH:/thumbnails
+* The default location storing thumbnails is $OCIS_BASE_DATA_PATH/thumbnails
 
 == Configuration Hints
 

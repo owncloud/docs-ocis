@@ -97,10 +97,6 @@ ocis postprocessing restart -s "finished"  # Equivalent to the above.
 ocis postprocessing restart -s "virusscan" # Restart all uploads currently in virusscan step.
 ----
 
-== Event Bus Configuration
-
-include::partial$multi-location/event-bus.adoc[]
-
 == Storing
 
 // renders dependent on is_cache or is_stat
@@ -109,6 +105,10 @@ include::partial$multi-location/event-bus.adoc[]
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
 
 include::partial$multi-location/caching-list.adoc[]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
 
 == Configuration
 

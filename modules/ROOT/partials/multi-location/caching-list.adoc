@@ -17,8 +17,11 @@ The {service_name} service can use a configured store via the global `{env_store
 
 Note that for each global environment variable, a service-based one might be available additionally. For precedences see xref:deployment/services/env-var-note.adoc[Environment Variable Notes]. Check the configuration section below. Supported stores are:
 
-{empty} +
-{empty} +
+{empty}
+
+// note *in this case* the comment for the tag block is NECCESSARY: https://asciidoc.zulipchat.com/#narrow/stream/335214-general/topic/Tag.20region.20question.20-.20rendering.20issue.20in.20some.20cases
+
+// tag::store-types-list[]
 
 [width=100%,cols="25%,85%",options=header]
 |===
@@ -26,31 +29,21 @@ Note that for each global environment variable, a service-based one might be ava
 | Description
 
 | `memory`
-| Basic in-memory store and the default.
+| Basic in-memory store. +
+Usually the default for caches, see the store environment variable for which one is used.
 
 | `redis-sentinel`
 | Stores data in a configured Redis Sentinel cluster.
 
 | `nats-js-kv`
-| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
+| Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. +
+Usually the default for stores, see the store environment variable for which one is used.
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
-
-| `ocmem`
-| *(deprecated)* Advanced in-memory store allowing max size.
-
-| `redis`
-| *(deprecated)* Stores data in a configured Redis cluster.
-
-| `etcd`
-| *(deprecated)* Stores data in a configured etcd cluster.
-
-| `nats-js`
-| *(deprecated)* Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 |===
 
-Other store types may work but are currently not supported.
+// end::store-types-list[]
 
 NOTE: The {service_name} service can only be scaled if not using the `memory` store and the stores are configured identically over all instances!
 
@@ -63,7 +56,7 @@ Store specific notes::
 The Redis master to use is configured via e.g. `{env_nodes}` in the form of `<sentinel-host>:<sentinel-port>/<redis-master>` like `10.10.0.200:26379/mymaster`.
 
 * When using `nats-js-kv`: +
-** It is recommended to set `{env_nodes}` to the same value as `OCIS_EVENTS_ENDPOINT`. That way the cache uses the same nats instance as the event bus.
+** It is recommended to set `{env_nodes}` to the same value as `OCIS_EVENTS_ENDPOINT`. That way the cache uses the same nats instance as the event bus. See the xref:event-bus-configuration[Event Bus Configuration] for more details.
 ** Authentication can be added, if configured, via `OCIS_CACHE_AUTH_USERNAME` and `OCIS_CACHE_AUTH_PASSWORD`.
 ** It is possible to set `OCIS_CACHE_DISABLE_PERSISTENCE` to instruct nats to not persist cache data on disc.
 --

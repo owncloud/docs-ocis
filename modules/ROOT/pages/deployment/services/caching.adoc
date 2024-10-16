@@ -17,7 +17,7 @@ With this kind of store, saving information temporarily on a persistent media is
 * *Scaling* +
 When services are scaled horizontally (instantiated), a common and persistent base for generated data is necessary.
 
-=== Identifying Caches by their Name
+=== Identifying Caches by Their Name
 
 * *Performance caches* +
 Can be identified via environment variables ending with `xxx_CACHE_STORE` which is valid for both local and global ones.
@@ -33,6 +33,14 @@ This type has best performance but is not suitable for all requirements as it ha
 
 * *External products* +
 These products like `nats-js-kv` or `redis-sentinel` are independent services not related to Infinite Scale. They are usually installed on separate hardware requiring their own performance, availability and scalability measures. These products are connected via a fast network. Infinite Scale connects to these store types and uses their services like a black box.
+
+=== Overview of Available Types
+
+The following table gives an overview of store types available in Infinite Scale.
+
+{empty}
+
+include::partial$multi-location/caching-list.adoc[tag=store-types-list]
 
 === Local vs Global Configuration
 
