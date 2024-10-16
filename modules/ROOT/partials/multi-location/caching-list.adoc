@@ -19,7 +19,7 @@ Note that for each global environment variable, a service-based one might be ava
 
 {empty}
 
-// note *in this case* the comment for the tag is necessary: https://asciidoc.zulipchat.com/#narrow/stream/335214-general/topic/Tag.20region.20question.20-.20rendering.20issue.20in.20some.20cases
+// note *in this case* the comment for the tag block is NECCESSARY: https://asciidoc.zulipchat.com/#narrow/stream/335214-general/topic/Tag.20region.20question.20-.20rendering.20issue.20in.20some.20cases
 
 // tag::store-types-list[]
 
@@ -41,23 +41,9 @@ Usually the default for stores, see store environment variable which one is used
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
-
-| `ocmem`
-| *(deprecated)* Advanced in-memory store allowing max size.
-
-| `redis`
-| *(deprecated)* Stores data in a configured Redis cluster.
-
-| `etcd`
-| *(deprecated)* Stores data in a configured etcd cluster.
-
-| `nats-js`
-| *(deprecated)* Stores data using the key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream].
 |===
 
 // end::store-types-list[]
-
-Other store types may work but are currently not supported.
 
 NOTE: The {service_name} service can only be scaled if not using the `memory` store and the stores are configured identically over all instances!
 
