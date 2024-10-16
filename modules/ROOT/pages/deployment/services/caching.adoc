@@ -36,7 +36,7 @@ These products like `nats-js-kv` or `redis-sentinel` are independent services no
 
 === Overview of Available Types
 
-The following table gives an overview of store types available in Ininite Scale.
+The following table gives an overview of store types available in Infinite Scale.
 
 {empty}
 

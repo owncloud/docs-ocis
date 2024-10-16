@@ -279,7 +279,7 @@ ocis storage-users trash-bin restore [command options] ['spaceID' required] ['it
 
 == Resource Optimisation
 
-See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` environment variable.
+See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details about configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` environment variable.
 
 == Caching
 

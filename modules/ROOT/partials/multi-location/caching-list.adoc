@@ -30,14 +30,14 @@ Note that for each global environment variable, a service-based one might be ava
 
 | `memory`
 | Basic in-memory store. +
-Usually the default for caches, see store environment variable which one is used.
+Usually the default for caches, see the store environment variable for which one is used.
 
 | `redis-sentinel`
 | Stores data in a configured Redis Sentinel cluster.
 
 | `nats-js-kv`
 | Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. +
-Usually the default for stores, see store environment variable which one is used.
+Usually the default for stores, see the store environment variable for which one is used.
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
