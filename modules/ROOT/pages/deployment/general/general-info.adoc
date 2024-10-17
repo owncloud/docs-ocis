@@ -2,7 +2,7 @@
 :toc: right
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
 
-include::partial$multi-location/compose-version-production.adoc[]
+include::partial$multi-location/compose-version.adoc[]
 
 == Introduction
 

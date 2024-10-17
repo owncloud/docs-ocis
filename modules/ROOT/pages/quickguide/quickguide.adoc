@@ -2,6 +2,8 @@
 :toc:right
 :description: This quick guide provides copy and paste commands to have an Infinite Scale instance up and running within minutes for hands on use. Read the documentation for details before you dive down and plan to deploy into production.
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description}
@@ -17,7 +19,7 @@ Open a shell and copy/paste the following commands:
 [source,bash,subs="attributes+"]
 ----
 sudo wget -O /usr/local/bin/ocis \
-  {ocis-downloadpage-url}{ocis-actual-version}/ocis-{ocis-actual-version}-linux-amd64
+  {ocis-downloadpage-url}/{download-type}/{compose_version}/ocis-{compose_version}-linux-amd64
 ----
 
 [source,bash]

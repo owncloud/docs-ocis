@@ -7,8 +7,15 @@ nav:
 
 asciidoc:
   attributes:
+    # with antora 3.2, there will be new attributes `antora-component-version` and `antora-component-name`
+    # the ones used below need to be replaced when antora has been updated to 3.2 
+    # https://gitlab.com/antora/antora/-/merge_requests/1048/diffs
     latest-ocis-version: {page-component-version}   # do not change, this is the value of the version key
     previous-ocis-version: {page-component-version} # do not change, this is the value of the version key
+
+    # must be removed when antora 3.2 has been updated, because this is then an intrinsic attribute
+    # the branched value is the value for the production release like '7.0.0'
+    antora-component-version: 'next'
 
     # used to define the include path for services without trailing /
     # note that any changes of this path also need adjustment in

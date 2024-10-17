@@ -7,7 +7,7 @@
 // the folder to use for the example
 :ocis_wopi: ocis_full
 
-include::partial$multi-location/compose-version-rolling.adoc[]
+include::partial$multi-location/compose-version.adoc[]
 
 image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]
 

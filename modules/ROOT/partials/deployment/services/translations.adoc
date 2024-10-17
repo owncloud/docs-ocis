@@ -15,7 +15,7 @@ For example, for the language `de`, one needs to place the corresponding transla
 
 [source,plaintext,subs="attributes+"]
 ----
-{{envvar_name}}//de/LC_MESSAGES/{service_name}.po
+{{envvar_name}}/de/LC_MESSAGES/{service_name}.po
 ----
 
 {empty} +
