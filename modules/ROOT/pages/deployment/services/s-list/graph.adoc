@@ -4,7 +4,7 @@
 
 :service_name: graph
 
-include::partial$multi-location/compose-version-rolling.adoc[]
+include::partial$multi-location/compose-version.adoc[]
 
 == Introduction
 

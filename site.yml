@@ -42,15 +42,15 @@ asciidoc:
 #   ocis
     latest-ocis-version: 'next@'   # do not change, soft set, correctly defined via antora.yml
     previous-ocis-version: 'next@' # do not change, soft set, correctly defined via antora.yml
-    # Versions mainly for printing like in docs-main release info and in docs-ocis to define the latest production version.
+    # Versions mainly for printing like in docs-main release info.
     # Versions in the ocis docs need to be defined in the branch specific docs-ocis/antora.yaml file.
     # To do so, change the values in the branch of docs-ocis/antora.yml like service_xxx and compose_xxx.
     ocis-actual-version: '5.0.8'
     ocis-former-version: '4.0.7'
-    # Needed in docs-ocis to define which rolling release to print like in the envvars table or in deployment examples
+    # Needed in docs-ocis to define which rolling release to print like in the envvars table
     ocis-rolling-version: '6.5.0'
     ocis-compiled: '2024-09-12 00:00:00 +0000 UTC'
-    ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis/stable/'
+    ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis'
   extensions:
     - ./ext-asciidoc/tabs.js
     - ./ext-asciidoc/remote-include-processor.js

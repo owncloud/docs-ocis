@@ -1,0 +1,27 @@
+////
+depending of the version (production/rolling) attributes get defined dynamically
+
+'compose_tab_text' from the version (branch) can be 'master' (only in next). in this case we must use the site.yml's 'ocis-rolling-version' to point to a number and not master. this is necessary to dynamically have a version number used and never master as this does not work with docker! we also cant use 'latest' as we have to stick to the referenced stable version.
+
+antora-component-version: is either next or a branched version defined in antora.yml
+ocis-rolling-version:     is the actual rolling version defined in site.yml
+compose_tab_text:         is either master or a stable version defined in antora.yml
+////
+
+// production (because it is an own branch)
+:compose_version: {compose_tab_text}
+ifeval::["{antora-component-version}" == "next"]
+// rolling (it is in the master branch which is next)
+:compose_version: {ocis-rolling-version}
+endif::[]
+
+:version-type: production
+ifeval::["{antora-component-version}" == "next"]
+:version-type: rolling
+endif::[]
+
+:download-type: stable
+ifeval::["{antora-component-version}" == "next"]
+:download-type: rolling
+endif::[]
+
