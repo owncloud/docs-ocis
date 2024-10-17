@@ -10,18 +10,13 @@ compose_tab_text:         is either master or a stable version defined in antora
 
 // production (because it is an own branch)
 :compose_version: {compose_tab_text}
+:version-type: production
+:download-type: stable
+
 ifeval::["{antora-component-version}" == "next"]
+
 // rolling (it is in the master branch which is next)
 :compose_version: {ocis-rolling-version}
-endif::[]
-
-:version-type: production
-ifeval::["{antora-component-version}" == "next"]
 :version-type: rolling
-endif::[]
-
-:download-type: stable
-ifeval::["{antora-component-version}" == "next"]
 :download-type: rolling
 endif::[]
-
