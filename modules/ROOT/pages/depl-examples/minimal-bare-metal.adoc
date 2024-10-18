@@ -55,7 +55,7 @@ For those who want to skip reading the full document, use this summary of comman
 
 IMPORTANT: With this approach, the system you install Infinite Scale on *must* have a GUI present. A headless system has different requirements and needs an extended setup, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
 
-Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 
 [source,bash,subs="attributes+"]
 ----
@@ -83,7 +83,7 @@ Congratulations, you now have access to your Infinite Scale instance.
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
 +
 --
 To download use:
