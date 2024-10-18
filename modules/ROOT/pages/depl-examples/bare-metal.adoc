@@ -24,9 +24,11 @@ include::partial$multi-location/compose-version.adoc[]
 
 {description}
 
-This deployment example addresses a small production environment. For a minimal test and development environment, see the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. The main differences between the setup described in this document and a minimal test environment is, the use of systemd, letsencrypt and a reverse proxy.
+This deployment example addresses a small production environment without running online office applications etc. For a minimal test and development environment, see the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment]. The main differences between the setup described in this document and a minimal test environment is, the use of systemd, letsencrypt and a reverse proxy. If you intend to run a complete setup using online office, full text search etc., see the *Ubuntu with Docker Compose* deployment examples.
 
 Note that this guide expects that prerequisite of a computer with an installed Linux distribution of choice is met and required software other than Infinite Scale is installed and preconfigured. There is no detailed explanation but, where possible, links for more information are provided.
+
+Note that there is a difference in internal thumbnail processing when using binary vs container deployments. For details see the xref:{s-path}/thumbnails.adoc#thumbnailing-performance[thumbnails] service.
 
 This guide was tested on a Debian 11 (bullseye) host but should work on any other modern Linux system with systemd.
 
