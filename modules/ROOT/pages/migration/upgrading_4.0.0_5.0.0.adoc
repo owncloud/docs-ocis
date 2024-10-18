@@ -2,7 +2,7 @@
 :toc: right
 :description: This document describes the necessary steps when upgrading Infinite Scale from release 4.0.x to 5.0.0.
 
-include::partial$multi-location/compose-version-production.adoc[]
+include::partial$multi-location/compose-version.adoc[]
 
 == Introduction
 
@@ -22,10 +22,10 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 +
 [source,bash,subs="attributes+"]
 ----
-docker pull owncloud/ocis:{compose_version}
+docker pull owncloud/ocis:5.0.8
 ----
 
-* or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 --
 
 == Manage Breaking Changes
