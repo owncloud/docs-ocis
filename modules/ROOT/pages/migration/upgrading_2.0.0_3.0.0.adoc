@@ -21,7 +21,7 @@ IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#in
 docker pull owncloud/ocis:3.0.0
 ----
 
-* or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 --
 
 . Manually add the xref:{s-path}/graph.adoc#environment-variables[GRAPH_APPLICATION_ID,window=_blank] to the config. The value can be any text string using characters defined by the https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID definition] and is preferably a UUID4 string.

@@ -21,7 +21,7 @@ IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#in
 docker pull owncloud/ocis:4.0.0
 ----
 
-* or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 --
 
 . Migrate the Space Index to Messagepack: +

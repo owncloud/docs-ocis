@@ -25,7 +25,7 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 docker pull owncloud/ocis:{compose_version}
 ----
 
-* or get the binary from {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank].
+* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 --
 
 == Manage Breaking Changes

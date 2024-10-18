@@ -7,7 +7,7 @@
 
 {description}
 
-NOTE: For any Infinite Scale version to upgrade to, see {ocis-downloadpage-url}?sort=time&order=desc[download.owncloud.com,window=_blank] or {docker_ocis_prod_url}[Infinite Scale image] to get the right version.
+NOTE: For any Infinite Scale version to upgrade to, see {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank] or {docker_ocis_prod_url}[Infinite Scale image] to get the right version.
 
 IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[backup] first.
 
