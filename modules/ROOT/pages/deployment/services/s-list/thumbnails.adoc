@@ -17,7 +17,7 @@ Note for developers, more information is available with regards to querying thum
 
 == Thumbnailing Performance
 
-Thumbnail generation can consume considerably resources. For thumbnailing, two libraries are available where one is embedded in the thumbnail service and one is external. The external shared library is not only much faster, but also provides more image types that can be converted. While the internal library is only available with the binary deployment, the external library is built and preconfigured with the container deployment only. Note, if required, you can manually add the shared library and build Infinite Scale for the binary deployment on your own using this library. To do so see, the https://owncloud.dev/services/thumbnails/[developer documentation, window=_blank] for more details.
+Thumbnail generation can consume considerably resources. For thumbnailing, two libraries are available. One library is embedded in the thumbnail service and statically linked where the other one is an external shared library, dynamically linked and must be available via the OS when accessing. The external shared library is not only much faster, but also provides more possible image types that can be converted. While the embedded library is only available with the binary deployment, the external library is built and preconfigured with the container deployment only. Note, if required, you can manually add the shared library to your OS and build Infinite Scale for the binary deployment on your own. To do so, see the https://owncloud.dev/services/thumbnails/[developer documentation, window=_blank] for more details.
 
 == Configuration Hints
 
