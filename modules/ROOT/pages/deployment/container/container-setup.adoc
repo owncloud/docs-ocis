@@ -186,7 +186,7 @@ The Infinite Scale container runs internally with the default user and group ID 
 
 [source,bash]
 ----
-docker inspect owncloud/ocis -f '{{.ContainerConfig.User}}'
+docker inspect owncloud/ocis -f '{{.Config.User}}'
 ----
 
 [source,plaintext]
