@@ -29,8 +29,8 @@ Note that for each global environment variable, an independent service-based one
 | Description
 
 | `memory`
-| Basic in-memory store. Usually the default for _caches_. +
-See the store environment variable for which one is used.
+| Basic in-memory store. Will not survive a restart. +
+Usually the default for _caches_. See the store environment variable for which one is used.
 
 | `nats-js-kv`
 | Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. +
