@@ -33,7 +33,7 @@ The following port ranges are used by services:
 | 9154-9156  | xref:{s-path}/storage-shares.adoc[storage-shares]
 | 9157-9159  | xref:{s-path}/storage-users.adoc[storage-users]
 | 9160-9162  | xref:{s-path}/groups.adoc[groups]
-| 9163       | xref:{s-path}/ocdav.adoc[ocdav]
+| 9163       | xref:{s-path}/ocdav.adoc[ocdav] (also see port 9350)
 | 9164       | xref:{s-path}/groups.adoc[groups]
 | 9165       | xref:{s-path}/app-provider.adoc[app-provider]
 | 9166-9169  | xref:{s-path}/auth-machine.adoc[auth-machine]
@@ -60,5 +60,5 @@ The following port ranges are used by services:
 | 9270-9274  | xref:{s-path}/eventhistory.adoc[eventhistory]
 | 9280-9284  | xref:{s-path}/ocm.adoc[ocm]
 | 9300-9304  | xref:{s-path}/collaboration.adoc[collaboration]
-| 9460-9464  | xref:{s-path}/store.adoc[store]
+| 9350-9354  | xref:{s-path}/ocdav.adoc[ocdav]
 |===
