@@ -1,5 +1,5 @@
 ////
-This partial contains the commonly used list of cache stores plus notes.
+This partial contains the commonly used list of caches and stores plus notes.
 It is used as partial so when there is a change, we only need to do it in one place
 ////
 
@@ -15,7 +15,7 @@ endif::is_stat[]
 
 The {service_name} service can use a configured store via the global `{env_store}` environment variable.
 
-Note that for each global environment variable, a service-based one might be available additionally. For precedences see xref:deployment/services/env-var-note.adoc[Environment Variable Notes]. Check the configuration section below. Supported stores are:
+Note that for each global environment variable, an independent service-based one might be available additionally. For precedences see xref:deployment/services/env-var-note.adoc[Environment Variable Notes]. Check the configuration section below. Supported stores are:
 
 {empty}
 
@@ -29,15 +29,15 @@ Note that for each global environment variable, a service-based one might be ava
 | Description
 
 | `memory`
-| Basic in-memory store. +
-Usually the default for caches, see the store environment variable for which one is used.
-
-| `redis-sentinel`
-| Stores data in a configured Redis Sentinel cluster.
+| Basic in-memory store. Will not survive a restart. +
+Usually the default for _caches_. See the store environment variable for which one is used.
 
 | `nats-js-kv`
 | Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/jetstream/key-value-store[NATS JetStream]. +
 Usually the default for stores, see the store environment variable for which one is used.
+
+| `redis-sentinel`
+| Stores data in a configured Redis Sentinel cluster.
 
 | `noop`
 | Stores nothing. Useful for testing. Not recommended in production environments.
@@ -60,3 +60,10 @@ The Redis master to use is configured via e.g. `{env_nodes}` in the form of `<se
 ** Authentication can be added, if configured, via `OCIS_CACHE_AUTH_USERNAME` and `OCIS_CACHE_AUTH_PASSWORD`.
 ** It is possible to set `OCIS_CACHE_DISABLE_PERSISTENCE` to instruct nats to not persist cache data on disc.
 --
+
+// create a reference manually so that the link from above is resolved
+
+ifdef::no_event_bus[]
+[#event-bus-configuration]
+Note that the {service_name} service does not use the event bus, but other services like the xref:{s-path}/userlog.adoc[userlog] service do.
+endif::no_event_bus[]

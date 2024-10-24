@@ -52,7 +52,19 @@ There are a few variables that you need to set:
   The external address of the collaboration service. The target app (onlyoffice, collabora, etc) will use this address to read and write files from Infinite Scale. +
   For example: `\https://wopi.example.com`.
 
+* `COLLABORATION_WOPI_SHORTTOKENS`: +
+  Needs to be set if the office application like `Microsoft Office Online` complains about the URL is too long and refuses to work. If enabled, a xref:storing[store] must be configured.
+
 The rest of the configuration options available can be left with the default values.
+
+== Storing
+
+// renders dependent on is_cache or is_stat
+:is_stat: true
+// add a manual anchor + text because the service does not use the event bus
+:no_event_bus: true
+
+include::partial$multi-location/caching-list.adoc[]
 
 == Configuration
 
