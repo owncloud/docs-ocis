@@ -8,10 +8,10 @@ ifdef::is_cache[]
 :env_nodes: OCIS_CACHE_STORE_NODES
 endif::is_cache[]
 
-ifdef::is_stat[]
+ifdef::is_store[]
 :env_store: OCIS_PERSISTENT_STORE
 :env_nodes: OCIS_PERSISTENT_STORE_NODES
-endif::is_stat[]
+endif::is_store[]
 
 The {service_name} service can use a configured store via the global `{env_store}` environment variable.
 

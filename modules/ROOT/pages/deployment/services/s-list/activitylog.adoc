@@ -16,10 +16,10 @@ include::partial$deployment/services/log-service-ecosystem.adoc[]
 
 == Storing
 
-// renders dependent on is_cache or is_stat
-:is_stat: true
+// renders dependent on is_cache or is_store
+:is_store: true
 
-include::partial$multi-location/caching-list.adoc[]
+include::partial$multi-location/cache-store.adoc[]
 
 :envvar_name: ACTIVITYLOG_TRANSLATION_PATH
 include::partial$deployment/services/translations.adoc[]

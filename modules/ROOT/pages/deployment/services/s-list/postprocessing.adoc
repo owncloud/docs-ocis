@@ -99,12 +99,12 @@ ocis postprocessing restart -s "virusscan" # Restart all uploads currently in vi
 
 == Storing
 
-// renders dependent on is_cache or is_stat
-:is_stat: true
+// renders dependent on is_cache or is_store
+:is_store: true
 
 The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
 
-include::partial$multi-location/caching-list.adoc[]
+include::partial$multi-location/cache-store.adoc[]
 
 == Event Bus Configuration
 
