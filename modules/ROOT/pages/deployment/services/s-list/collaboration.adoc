@@ -53,7 +53,7 @@ There are a few variables that you need to set:
   For example: `\https://wopi.example.com`.
 
 * `COLLABORATION_WOPI_SHORTTOKENS`: +
-  Needs to be set if the office application like `Office Online` complains about the URL is too long and refuses to work. If enabled, a xref:storing[store] must be configured.
+  Needs to be set if the office application like `Microsoft Office Online` complains about the URL is too long and refuses to work. If enabled, a xref:storing[store] must be configured.
 
 The rest of the configuration options available can be left with the default values.
 
