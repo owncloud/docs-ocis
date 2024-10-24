@@ -200,10 +200,10 @@ For details on monitoring see the xref:monitoring/prometheus.adoc[Metrics for Pr
 
 Important, also see section xref:presigned-urls[Presigned Urls] below.
 
-// renders dependent on is_cache or is_stat
+// renders dependent on is_cache or is_store
 :is_cache: true
 
-include::partial$multi-location/caching-list.adoc[]
+include::partial$multi-location/cache-store.adoc[]
 
 == Event Bus Configuration
 
