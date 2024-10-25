@@ -119,10 +119,10 @@ include::partial$deployment/services/translations.adoc[]
 
 == Caching
 
-// renders dependent on is_cache or is_stat
+// renders dependent on is_cache or is_store
 :is_cache: true
 
-include::partial$multi-location/caching-list.adoc[]
+include::partial$multi-location/cache-store.adoc[]
 
 == Event Bus Configuration
 

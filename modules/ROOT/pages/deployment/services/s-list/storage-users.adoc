@@ -283,12 +283,12 @@ See the xref:deployment/storage/general-considerations.adoc#resource-optimisatio
 
 == Caching
 
-// renders dependent on is_cache or is_stat
+// renders dependent on is_cache or is_store
 :is_cache: true
 
 The `storage-users` service caches stat, metadata and uuids of files and folders via the configured stores.
 
-include::partial$multi-location/caching-list.adoc[]
+include::partial$multi-location/cache-store.adoc[]
 
 == Event Bus Configuration
 
