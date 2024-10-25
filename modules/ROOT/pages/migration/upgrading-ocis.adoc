@@ -19,6 +19,20 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 
 IMPORTANT: When upgrading from an older release to the desired one, mandatory configuration settings may have been added or removed. To see the changes required, you can run `ocis init --diff` after upgrading but before finally starting. For more details, see the xref:deployment/general/ocis-init.adoc[ocis init command] description.
 
+== Version 5.0.x to 7.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* lets see what will come here
+
+=== Breaking Changes Requiring Manual Intervention
+
+* All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_5.0.x_7.0.0.adoc[Upgrading from 5.0.x to 7.0.0] documentation.
+
 == Version 4.0.0 to 5.0.0
 
 === Notable Changes Requiring Manual Intervention

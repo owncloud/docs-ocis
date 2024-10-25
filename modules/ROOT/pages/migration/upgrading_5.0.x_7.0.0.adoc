@@ -1,0 +1,50 @@
+= Upgrading from 5.0.x to 7.0.0
+:toc: right
+:description: This document describes the necessary steps when upgrading Infinite Scale from release 5.0.x to 7.0.0.
+
+include::partial$multi-location/compose-version.adoc[]
+
+== Introduction
+
+{description}
+
+IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#introduction[Upgrading Infinite Scale] documentation before you start.
+
+IMPORTANT: Check below, if you are affected by breaking changes and prepare all steps mentioned before you start the upgrade.
+
+== Upgrade Steps
+
+. Shut down the Infinite Scale instance.
+. Update Infinite Scale via:
++
+--
+* Docker
++
+[source,bash,subs="attributes+"]
+----
+docker pull owncloud/ocis:7.0.0
+----
+
+* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
+--
+
+== Manage Breaking Changes
+
+* All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
+
+=== How to Identify if You Are Affected
+
+* If you are using deprecated environment variables in your config.
+** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
+
+In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
+
+=== How to Manage the Change
+
+* Manage deprecated variables
+** Environment variables that have been deprecated without successor can safely be removed from the configuration. These envvars do not harm as they are not used anymore.
+** Environment variables that have been deprecated with a successor need to be updated accordingly.
+
+=== Deprecations
+
+* lets see what will come here
