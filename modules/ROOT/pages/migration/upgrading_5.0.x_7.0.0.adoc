@@ -14,25 +14,35 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Upgrade Steps
 
-. Shut down the Infinite Scale instance, *do not start it after upgrading*!
-. Update Infinite Scale via:
-+
---
-* Docker and docker compose
+. Shut down the Infinite Scale instance and +
+*do not start it after downloading the binary or image*!
+. Download and install Infinite Scale
+. Manage Breaking Changes
+. Start Infinite Scale
+
+== Download and Install Infinite Scale
+
+Download and install Infinite Scale via:
+
+* *Binary* +
+Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation] section of the bare metal deployment example.
+
+* *Docker and Docker Compose*
 +
 [source,bash,subs="attributes+"]
 ----
 docker pull owncloud/ocis:7.0.0
 ----
 
-** When using Docker Compose
+** When using `docker run`
 
-*** Update every compose file where the `ocis image` is referenced accordingly.
+*** Update the image version used in the docker run command.
 
-*** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:https://doc.owncloud.com/ocis/next/depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section carefully. 
+** When using `docker compose`
 
-* or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
---
+*** Update _every_ compose file where the `ocis image` is referenced accordingly.
+
+*** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of that pages carefully. 
 
 == Manage Breaking Changes
 
@@ -58,51 +68,102 @@ In all other cases, there is nothing that needs to be done.
 To do so, the following steps need to be taken, here is the overview:
 +
 --
-. Get the new binary/container, but do not start Infinite Scale
+. Get the new binary/image, but do not start Infinite Scale
 . Get the config diff via command
 . Apply the diff created
 --
 +
 See the detailed steps below.
 
+* You can now start Infinite Scale as usual
+
 {empty}
 
 Update Config Settings::
-* If not already done, get the new Infinite Scale version as described in xref:upgrade-steps[Upgrade Steps] above.
+* If not already done, get the new Infinite Scale version as described in xref:download-and-install-infinite-scale[Download and Install Infinite Scale].
+
 * Run the `ocis init --diff` command: +
-Because this will now run the updated ocis code, it will create in case of changes found two files:
+Because this will now run the new ocis code, it will create in case of changes found two files:
 +
 --
 . `ocis.config.patch` which contains all the changes that can be applied and
 . `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
 --
 +
-Depending on the deployment, you need to run this command differently:
+The diff option will NOT overwrite anything though questions will be asked. Consider using the correct setting for `certificate checking` as this will influence the respective diff output.
++
+Depending on the deployment chosen, you need to prepare for this command differently, assuming the location of the config directory is the default:
 
-** *Binary deployment*:
+** *Binary Deployment*:
 +
 --
 [source,bash]
 ----
 ocis init --diff
 ----
-Change into the Infinite Scale config directory and apply the changes with:
+Change into the Infinite Scale config directory located at `$HOME/.ocis/config/` and apply the changes with:
+
 [source,bash]
 ----
 patch < ocis.config.patch
 ----
-You can now start infinite Scale as usual.
 --
 
-** *Docker deployment*:
+** *Docker Deployment*:
 +
 --
-asasd
+This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the mount/volume definition where the configuration settings are stored to make the `ocis init` command work. The bind mount from below is just an example and fails if the local directory does not exist!
+
+[source,bash]
+----
+sudo docker run --rm -it \
+    owncloud/ocis:7.0.0 \
+    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
+    sh
+----
+
+Then, when the containers shell is available, type:
+
+[source,bash]
+----
+ocis init --diff
+----
+Change into the containers config directory `/etc/ocis` and apply the changes with:
+
+[source,bash]
+----
+patch < ocis.config.patch
+----
+--
+
+** *Docker Compose Deployment*:
++
+--
+This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the volume definition where the configuration settings are stored defined in the compose file to make the `ocis init` command work. The named volume from below is just an example and uses the volume name from our docker compose deployment examples.
+
+[source,bash]
+----
+sudo docker run --rm -it \
+    owncloud/ocis:7.0.0 \
+    -v ocis-config:/etc/ocis \
+    sh
+----
+
+Then, when the containers shell is available, type:
+
+[source,bash]
+----
+ocis init --diff
+----
+Change into the containers config directory `/etc/ocis` and apply the changes with:
+
+[source,bash]
+----
+patch < ocis.config.patch
+----
 --
 
 
-
-
-=== Deprecations
+== Deprecations
 
 * lets see what will come here
