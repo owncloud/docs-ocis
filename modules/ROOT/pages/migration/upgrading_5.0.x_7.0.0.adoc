@@ -14,16 +14,22 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Upgrade Steps
 
-. Shut down the Infinite Scale instance.
+. Shut down the Infinite Scale instance, *do not start it after upgrading*!
 . Update Infinite Scale via:
 +
 --
-* Docker
+* Docker and docker compose
 +
 [source,bash,subs="attributes+"]
 ----
 docker pull owncloud/ocis:7.0.0
 ----
+
+** When using Docker Compose
+
+*** Update every compose file where the `ocis image` is referenced accordingly.
+
+*** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:https://doc.owncloud.com/ocis/next/depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section carefully. 
 
 * or get the binary from {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank].
 --
@@ -31,19 +37,71 @@ docker pull owncloud/ocis:7.0.0
 == Manage Breaking Changes
 
 * All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
+* A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added.
 
 === How to Identify if You Are Affected
 
 * If you are using deprecated environment variables in your config.
 ** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
 
-In all other cases, there is nothing that needs to be done as the new defaults for client pool selectors will be used automatically.
+* Because the `activitylog` service has been added, everyone who upgrades is affected.
+
+In all other cases, there is nothing that needs to be done.
 
 === How to Manage the Change
 
 * Manage deprecated variables
 ** Environment variables that have been deprecated without successor can safely be removed from the configuration. These envvars do not harm as they are not used anymore.
 ** Environment variables that have been deprecated with a successor need to be updated accordingly.
+
+* Add new Infnite Scale config settings. +
+To do so, the following steps need to be taken, here is the overview:
++
+--
+. Get the new binary/container, but do not start Infinite Scale
+. Get the config diff via command
+. Apply the diff created
+--
++
+See the detailed steps below.
+
+{empty}
+
+Update Config Settings::
+* If not already done, get the new Infinite Scale version as described in xref:upgrade-steps[Upgrade Steps] above.
+* Run the `ocis init --diff` command: +
+Because this will now run the updated ocis code, it will create in case of changes found two files:
++
+--
+. `ocis.config.patch` which contains all the changes that can be applied and
+. `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
+--
++
+Depending on the deployment, you need to run this command differently:
+
+** *Binary deployment*:
++
+--
+[source,bash]
+----
+ocis init --diff
+----
+Change into the Infinite Scale config directory and apply the changes with:
+[source,bash]
+----
+patch < ocis.config.patch
+----
+You can now start infinite Scale as usual.
+--
+
+** *Docker deployment*:
++
+--
+asasd
+--
+
+
+
 
 === Deprecations
 
