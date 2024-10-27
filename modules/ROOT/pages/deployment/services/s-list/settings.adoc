@@ -95,7 +95,8 @@ See the full https://owncloud.dev/services/settings/#custom-roles[Custom Roles] 
 
 When using `SETTINGS_STORE_TYPE=metadata`, the `settings` service caches the results of queries against the storage backend to provide faster responses. The content of this cache is independent of the cache used in the `storage-system` service as it caches directory listing and settings content stored in files.
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Event Bus Configuration
 

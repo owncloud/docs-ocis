@@ -288,7 +288,8 @@ See the xref:deployment/storage/general-considerations.adoc#resource-optimisatio
 
 The `storage-users` service caches stat, metadata and uuids of files and folders via the configured stores.
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Event Bus Configuration
 

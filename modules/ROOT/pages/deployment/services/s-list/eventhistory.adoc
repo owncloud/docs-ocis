@@ -25,7 +25,8 @@ The `eventhistory` services consumes all events from the configured event system
 // renders dependent on is_cache or is_store
 :is_store: true
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 === Retrieving
 

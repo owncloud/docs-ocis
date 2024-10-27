@@ -73,6 +73,7 @@ https://<your-ocis-instance>/ocs/v2.php/apps/notifications/api/v1/notifications/
 to remove a global message is a restricted action, see the xref:authentication[Authentication] section for more details.
 --
 
+// include common translations text
 :envvar_name: USERLOG_TRANSLATION_PATH
 include::partial$deployment/services/translations.adoc[]
 
@@ -81,7 +82,8 @@ include::partial$deployment/services/translations.adoc[]
 // renders dependent on is_cache or is_store
 :is_store: true
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Event Bus Configuration
 

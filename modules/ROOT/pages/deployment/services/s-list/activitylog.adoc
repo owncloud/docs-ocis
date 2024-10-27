@@ -14,15 +14,17 @@
 
 include::partial$deployment/services/log-service-ecosystem.adoc[]
 
+// include common translations text
+:envvar_name: ACTIVITYLOG_TRANSLATION_PATH
+include::partial$deployment/services/translations.adoc[]
+
 == Storing
 
 // renders dependent on is_cache or is_store
 :is_store: true
 
-include::partial$multi-location/cache-store.adoc[]
-
-:envvar_name: ACTIVITYLOG_TRANSLATION_PATH
-include::partial$deployment/services/translations.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Event Bus Configuration
 
