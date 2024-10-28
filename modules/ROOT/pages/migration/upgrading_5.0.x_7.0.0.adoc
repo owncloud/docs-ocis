@@ -14,9 +14,9 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Upgrade Steps
 
-. Shut down the Infinite Scale instance and +
-*do not start it after downloading the binary or image*!
-. Download and install Infinite Scale
+. Shut down the Infinite Scale instance
+. Download and install Infinite Scale +
+*Do not start it after downloading the binary or image*!
 . Manage Breaking Changes
 . Start Infinite Scale
 
@@ -27,7 +27,7 @@ Download and install Infinite Scale via:
 * *Binary* +
 Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation] section of the bare metal deployment example.
 
-* *Docker and Docker Compose*
+* *Image Based Deployments*
 +
 [source,bash,subs="attributes+"]
 ----
@@ -35,14 +35,14 @@ docker pull owncloud/ocis:7.0.0
 ----
 
 ** When using `docker run`
-
 *** Update the image version used in the docker run command.
 
 ** When using `docker compose`
-
 *** Update _every_ compose file where the `ocis image` is referenced accordingly.
-
 *** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of that pages carefully. 
+
+** When using `Kubernetes - Helm`
+*** Update `{{ .Values.image.tag }}` and/or `{{ .Chart.AppVersion }}` accordingly.
 
 == Manage Breaking Changes
 
@@ -54,9 +54,7 @@ docker pull owncloud/ocis:7.0.0
 * If you are using deprecated environment variables in your config.
 ** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
 
-* Because the `activitylog` service has been added, everyone who upgrades is affected.
-
-In all other cases, there is nothing that needs to be done.
+* Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, everyone who upgrades is affected.
 
 === How to Manage the Change
 
@@ -90,9 +88,9 @@ Because this will now run the new ocis code, it will create in case of changes f
 . `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
 --
 +
-The diff option will NOT overwrite anything though questions will be asked. Consider using the correct setting for `certificate checking` as this will influence the respective diff output.
+The diff option will NOT overwrite anything though questions will be asked. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
 +
-Depending on the deployment chosen, you need to prepare for this command differently, assuming the location of the config directory is the default:
+Depending on the deployment selected, you need to prepare for this command differently, assuming the location of the config directory is the default:
 
 ** *Binary Deployment*:
 +
@@ -107,6 +105,7 @@ Change into the Infinite Scale config directory located at `$HOME/.ocis/config/`
 ----
 patch < ocis.config.patch
 ----
+{empty}
 --
 
 ** *Docker Deployment*:
@@ -118,7 +117,7 @@ This will open a shell in a temporary container using the new Infinite Scale ima
 ----
 sudo docker run --rm -it \
     owncloud/ocis:7.0.0 \
-    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
     sh
 ----
 
@@ -134,6 +133,7 @@ Change into the containers config directory `/etc/ocis` and apply the changes wi
 ----
 patch < ocis.config.patch
 ----
+{empty}
 --
 
 ** *Docker Compose Deployment*:
@@ -161,8 +161,14 @@ Change into the containers config directory `/etc/ocis` and apply the changes wi
 ----
 patch < ocis.config.patch
 ----
+{empty}
 --
 
+** *Any Other Image Based Deployment*:
++
+--
+Use one of the Docker based examples from above and derive from. 
+--
 
 == Deprecations
 
