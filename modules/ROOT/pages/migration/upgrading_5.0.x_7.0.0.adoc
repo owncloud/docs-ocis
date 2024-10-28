@@ -174,6 +174,8 @@ Use one of the Docker based examples from above and derive from.
 
 See the link for a detailed description of the respective CLI command if available. If a command has been backported to version 5, always use the latest production version of that release.
 
+* A `health` command was added to each service: `ocis <service-name> health`.
+
 * xref:maintenance/commands/commands.adoc#purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items]  +
 The `ocis storage-users uploads` got restructured. +
 The deprecated `list` option is now removed, the `clean` option is now part of the `sessons command`.
@@ -181,14 +183,13 @@ The deprecated `list` option is now removed, the `clean` option is now part of t
 * xref:maintenance/commands/commands.adoc#reset-password-for-idm-users[Reset Password for IDM Users] +
 The `ocis idm resetpassword` can now specify the user name via the `--user-name` (`-u`) flag.
 
-* A `health` command was added to each service: `ocis <service-name> health`.
-
 * xref:maintenance/commands/commands.adoc#trash-purge[Trash Purge]. +
-The `ocis trash purge-empty-dirs` command has been added.
+The `ocis trash purge-empty-dirs` command allows to remove empty folders from the trashbin.
 
 * xref:maintenance/commands/commands.adoc#revisions-cleanup[Revisions Cleanup] +
-The `ocis revisions purge` command allows removing revisions of files in the storage. +
-Note that this command has also been backported to version 5.
+The `ocis revisions purge` command allows removing revisions of files in the storage. Note that this command has also been backported to version 5 available with its latest release.
+
+* The `ocis graph list-unified-roles` command simplifies the process of finding out which UID belongs to which role. Note that this command is described in the https://github.com/owncloud/ocis/tree/master/ocis#list-unified-roles[ocis repository, window=_blank] and has been added for completeness only.
 
 == Deprecations
 
