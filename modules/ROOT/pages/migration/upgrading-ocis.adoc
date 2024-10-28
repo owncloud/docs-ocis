@@ -29,7 +29,7 @@ IMPORTANT: When upgrading from an older release to the desired one, mandatory co
 === Breaking Changes Requiring Manual Intervention
 
 * All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
-* A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added. If not adding this config, `activities` will not get handled.
+* A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added. If this config is not set, `activities` will not be recorded.
 
 === Upgrade Steps
 

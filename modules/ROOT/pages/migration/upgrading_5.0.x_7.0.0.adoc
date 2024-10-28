@@ -39,7 +39,7 @@ docker pull owncloud/ocis:7.0.0
 
 ** When using `docker compose`
 *** Update _every_ compose file where the `ocis image` is referenced accordingly.
-*** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of that pages carefully. 
+*** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of those pages carefully. 
 
 ** When using `Kubernetes - Helm`
 *** Update `{{ .Values.image.tag }}` and/or `{{ .Chart.AppVersion }}` accordingly.
@@ -81,7 +81,7 @@ Update Config Settings::
 * If not already done, get the new Infinite Scale version as described in xref:download-and-install-infinite-scale[Download and Install Infinite Scale].
 
 * Run the `ocis init --diff` command: +
-Because this will now run the new ocis code, it will create in case of changes found two files:
+Because this will now run the new ocis code, it will create two files to help manage the needed changes:
 +
 --
 . `ocis.config.patch` which contains all the changes that can be applied and
