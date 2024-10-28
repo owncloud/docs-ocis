@@ -1,5 +1,6 @@
 = Container Setup
 :toc: right
+:page-aliases: deployment/container/container-setup.adoc
 :description: Images for a container-based setup of Infinite Scale are available on Docker Hub. You can easily download and start such an image with only a few commands. 
 
 :install-docker-server-url: https://docs.docker.com/engine/install/#server
@@ -87,13 +88,9 @@ If the group does not exist or you are not a member, continue with {docker-post-
 
 === Download the Infinite Scale Image
 
-// fixme: things are gonna change: after a call with mbarz and crichter it turns out that latest is not a good idea to use as latest will always point to the master (!) but not to a stable version. atm to use a stable version you would need to use a tag! most likely a "stable" tag will be introduced pointing to the latest stable release and latest will point to the latest master release. this will also be announced/described on dockerhub. this means that we have to review the commands below regarding installation, version and upgrade. see: https://github.com/owncloud/ocis/issues/3578 [Proposal] Use stable tag for most recent stable release of ocis
-
-// fixme: have other and more default registries (locations where you can download containers), means we have to add a url-prefix to define where to download, see: https://github.com/owncloud/ocis/issues/3577 [Proposal] Parallel pushing to multiple registries
-
 To give some terminology guidance, images are unchangeable snapshots of live containers, while containers are running (or stopped) instances of an image.
 
-* To download the {docker_ocis_prod_url}[latest Infinite Scale image], run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available, but might be in the future. If not explicitly declared otherwise, the _latest_ tag is implicitely used and always reflects the current master branch. Consider using a stable release when planning ocis for production:
+* To download the {docker_ocis_prod_url}[latest Infinite Scale image], run the following command. Note that this command will download the correct image suitable for your OS if available. For Windows, Infinite Scale Docker images are not available. If not explicitly declared otherwise, the _latest_ tag is implicitely used and always reflects the latest *production* version. If you want to test out a rolling release use `owncloud/ocis-rolling` instead:
 +
 [source,bash]
 ----
@@ -127,7 +124,7 @@ docker inspect owncloud/ocis:latest \
 .Example output
 [source,plaintext]
 ----
-latest
+v7.0.0
 ----
 
 === Update an Image
@@ -179,8 +176,8 @@ Refer to the xref:deployment/general/general-info.adoc#default-users-and-groups[
 
 In the examples shown below, bind mounts with the following folders are used to keep data persistent and located in your home directory. Change the locations according your needs:
  
-* For the config we use the folder `$PWD/ocis/ocis-config`.
-* For data we use the folder `$PWD/ocis/ocis-data`.
+* For the config we use the folder `$HOME/ocis/ocis-config`.
+* For data we use the folder `$HOME/ocis/ocis-data`.
 
 The Infinite Scale container runs internally with the default user and group ID of 1000. To check this, type:
 
@@ -201,11 +198,11 @@ For the folders above, the following rules apply:
 --
 [source,bash]
 ----
-mkdir -p $PWD/ocis/ocis-config
+mkdir -p $HOME/ocis/ocis-config
 ----
 [source,bash]
 ----
-mkdir -p $PWD/ocis/ocis-data
+mkdir -p $HOME/ocis/ocis-data
 ----
 --
 
@@ -214,7 +211,7 @@ mkdir -p $PWD/ocis/ocis-data
 --
 [source,bash]
 ----
-sudo chown -Rfv 1000:1000 $PWD/ocis/
+sudo chown -Rfv 1000:1000 $HOME/ocis/
 ----
 In this case, you need to access the content of the `ocis` folder with root privileges or with a user matching the owner ID.
 --
@@ -226,7 +223,7 @@ Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infi
 [source,bash]
 ----
 docker run --rm -it \
-    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
     owncloud/ocis init
 ----
 
@@ -263,8 +260,8 @@ docker run \
     --rm \
     -it \
     -p 9200:9200 \
-    --mount type=bind,source=$PWD/ocis/ocis-config,target=/etc/ocis \
-    --mount type=bind,source=$PWD/ocis/ocis-data,target=/var/lib/ocis \
+    --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$HOME/ocis/ocis-data,target=/var/lib/ocis \
     -e OCIS_INSECURE=true \
     -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
     -e OCIS_URL=https://<your-hostname>:9200 \
@@ -327,7 +324,7 @@ See the details in the _docker run_ documentation for available options. Conside
 * {docker-mount-url}[Docker volumes] (`--type=volume`) are completely managed by Docker and have no server OS dependency. See {docker-mount-nfs-url}[Create a service which creates an NFS volume] for an example.
 ** Note the volume mount target path `target=/var/lib/ocis` which uses the default Infinite Scale data path if not otherwise defined.
 ** Note that the directory on the host must already exist, it will not be created by docker.
-** Note the use of `$PWD/ocis/...` for the paths when using the users home directory. When using `~/ocis/...`, you will get an error like `mount path must be absolute`.
+** Note the use of `$HOME/ocis/...` for the paths when using the users home directory. When using `~/ocis/...`, you will get an error like `mount path must be absolute`.
 
 * {docker-bindmount-url}[Bind mounts] (`--type=bind`) depend on the directory structure and OS of your server. Use this type to mount a local directory of your OS. Example: `-v /some/host/dir:/var/lib/ocis`, which uses the default Infinite Scale data path if not otherwise defined. You should always create the source directories upfront because of correct permissions (see: xref:preparation[Preparation]), despite the fact that bind-mounts create directories that do not yet exist on the host. In such a case, the directory will be created automatically using the user the _docker service_ runs with, usually the root user, making the source path inaccessible to the user inside the docker container.
 +
@@ -358,7 +355,7 @@ docker ps
 .Example output
 [source,plaintext,options="nowrap"]
 ----
-CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+CONTAINER ID   IMAGE           COMMAND                        CREATED         STATUS         PORTS                                       NAMES
 a0e4db3e91e8   owncloud/ocis   "/usr/local/bin/ocis server"   8 seconds ago   Up 6 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp   ocis_runtime
 ----
 
