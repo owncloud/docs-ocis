@@ -48,9 +48,9 @@ Infinite Scale provides a xref:maintenance/commands/revisions-cleanup.adoc[CLI c
 
 Infinite Scale provides a xref:maintenance/commands/trash.adoc[CLI command] with which you can remove empty folders from the trashbin.
 
-=== Reset the Admin Password
+=== Reset Password for IDM Users
 
-If you need to reset the admin password from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+If you need to reset the password for the admin or a user in the xref:{s-path}/idm.adoc[idm] service from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
 
 == Online Only Commands
 
