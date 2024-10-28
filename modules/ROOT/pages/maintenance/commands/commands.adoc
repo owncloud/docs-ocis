@@ -62,7 +62,7 @@ Compared to unfinished uploads which are handled by the system, managing expired
 
 === Purge Expired Space Trash-Bin Items
 
-This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc#cli-commands[CLI Commands]section at the _Storage Users_ service for details.
+This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc#cli-commands[CLI Commands] section at the _Storage Users_ service for details.
 
 === Reindex Spaces for Search
 
