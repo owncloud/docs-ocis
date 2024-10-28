@@ -118,7 +118,8 @@ A lot of user management is done via the standardized LibreGraph API. Depending 
 // renders dependent on is_cache or is_store
 :is_cache: true
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Event Bus Configuration
 

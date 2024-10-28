@@ -1,6 +1,10 @@
 ////
 This partial contains the commonly used list of caches and stores plus notes.
 It is used as partial so when there is a change, we only need to do it in one place
+
+Note that if you include the whole page and not only the tagged region, you must use tag filtering with
+tag=** in the include definition to select all the lines in the document except for lines that contain a tag directive, see:
+https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/#tag-filtering
 ////
 
 ifdef::is_cache[]
@@ -19,9 +23,7 @@ Note that for each global environment variable, an independent service-based one
 
 {empty}
 
-// note *in this case* the comment for the tag block is NECCESSARY: https://asciidoc.zulipchat.com/#narrow/stream/335214-general/topic/Tag.20region.20question.20-.20rendering.20issue.20in.20some.20cases
-
-// tag::store-types-list[]
+tag::store-types-list[]
 
 [width=100%,cols="25%,85%",options=header]
 |===
@@ -43,7 +45,7 @@ Usually the default for stores, see the store environment variable for which one
 | Stores nothing. Useful for testing. Not recommended in production environments.
 |===
 
-// end::store-types-list[]
+end::store-types-list[]
 
 NOTE: The {service_name} service can only be scaled if not using the `memory` store and the stores are configured identically over all instances!
 

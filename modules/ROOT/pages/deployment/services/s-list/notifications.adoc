@@ -79,6 +79,7 @@ or embedded as a CID source like:
 
 In the latter case, image files must be located in the `templates/html/img` subfolder. Supported embedded image types are `png`, `jpeg`, and `gif`. Consider that embedding images via a CID resource may not be fully supported in all email web clients.
 
+// include common translations text
 :envvar_name: NOTIFICATIONS_TRANSLATION_PATH
 include::partial$deployment/services/translations.adoc[]
 

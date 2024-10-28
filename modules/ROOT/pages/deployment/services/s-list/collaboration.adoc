@@ -64,7 +64,8 @@ The rest of the configuration options available can be left with the default val
 // add a manual anchor + text because the service does not use the event bus
 :no_event_bus: true
 
-include::partial$multi-location/cache-store.adoc[]
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
 
 == Configuration
 
