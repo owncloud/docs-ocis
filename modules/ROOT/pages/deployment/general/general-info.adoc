@@ -622,13 +622,15 @@ An admin user will be created when running the `ocis init` command with the foll
 
 Login to the webinterface with this admin user and change relevant data according your needs or create new users. As an example to reach out the webinterface use `\https://localhost:9200`.
 
-=== Password Reset for the Admin User
+=== Password Reset for IDM Users
 
 The admin password can be reset via command line if it has been forgotten and the admin can't enter the webUI anymore. Note that the admin user must already exist which happens if you have xref:deployment/general/ocis-init.adoc[initialized Infinite Scale].
 
-After running the respective command and entering a new password, the admin can relogin using the new password.
+See the command below for details and options.
+ 
+After running the respective command and entering a new password, the admin or user can relogin using the new password.
 
-Note that when Infinite Scale gets initialized with xref:deployment/general/ocis-init.adoc[The ocis init Command], an admin password is created and stored in the `ocis.yaml` file. The lifespan of this admin password is up to the point when it either gets changed in the webUI or via the resetpassword command. Any admin password changes are NOT written back to the `ocis.yaml` file nor manual changes to the `admin_password` are considered as a new password.
+Note that when Infinite Scale gets initialized with xref:deployment/general/ocis-init.adoc[The ocis init Command], an admin password is created and stored in the `ocis.yaml` file. The lifespan of this admin password is up to the point when it either gets changed in the webUI or via the resetpassword command. Any admin password changes are *NOT* written back to the `ocis.yaml` file nor manual changes to the `admin_password` are considered as a new password.
 
 [source,yaml]
 ----
@@ -657,7 +659,7 @@ When the prerequisite from the note above is fulfilled, you can reset the admin 
 
 ==== Binary Setup
 
-Run the following command to reset the admin password:
+Run the following command to reset the admin password, use `--user-name <user>` for ordinary users:
 
 [source,bash]
 ----
