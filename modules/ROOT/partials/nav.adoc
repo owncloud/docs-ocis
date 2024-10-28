@@ -12,7 +12,6 @@
 *** xref:deployment/storage/s3.adoc[S3]
 ** xref:deployment/general/general-info.adoc[General Information]
 ** xref:deployment/general/ocis-init.adoc[The ocis init Command]
-** xref:deployment/container/container-setup.adoc[Container Setup]
 ** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
 ** xref:deployment/wopi/wopi.adoc[Office Applications using WOPI]
 ** xref:deployment/security/security.adoc[Securing oCIS]
@@ -93,6 +92,7 @@
 * Deployment Examples
 ** xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal]
 ** xref:depl-examples/bare-metal.adoc[Bare Metal with systemd]
+** xref:depl-examples/container-setup.adoc[Container Setup]
 ** Ubuntu with Docker Compose
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup]
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner]
