@@ -172,7 +172,7 @@ Use one of the Docker based examples from above and derive from.
 
 == Changed or Added CLI Commands
 
-See the link for a detailed description of the respective CLI command if available. If a command has been backported to version 5, always use the latest production version of that release.
+See the link for a detailed description of the respective CLI command if available.
 
 * xref:maintenance/commands/commands.adoc#purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items]  +
 The `ocis storage-users uploads` got restructured. +
