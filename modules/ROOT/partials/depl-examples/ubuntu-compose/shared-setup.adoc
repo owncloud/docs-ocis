@@ -304,7 +304,7 @@ Define these settings according to your eMail configuration. With the settings d
 
 NOTE: When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
 
-NOTE: There can be additional options to be configured like web apps. These should be configured after successfully starting the deployment without issues. This eases fining any first startup issues that need to be solved first.
+NOTE: There can be additional options to be configured like web apps. These should be configured after successfully starting the deployment without issues. This eases finding any first startup issues that need to be solved first.
  
 == Certificate Generation Process
 
