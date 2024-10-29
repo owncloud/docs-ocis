@@ -24,7 +24,7 @@ IMPORTANT: When upgrading from an older release to the desired one, mandatory co
 === Notable Changes Requiring Manual Intervention
 
 * Resharing has finally been removed.
-* The maintenance command `ocis storage-users uploads list` has been removed.
+* The maintenance command `ocis storage-users uploads list` has been removed. Its functionality is now part of other options.
 
 === Breaking Changes Requiring Manual Intervention
 
