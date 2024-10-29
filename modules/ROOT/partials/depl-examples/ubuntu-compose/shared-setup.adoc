@@ -304,6 +304,8 @@ Define these settings according to your eMail configuration. With the settings d
 
 NOTE: When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
 
+NOTE: There can be additional options to be configured like web apps. These should be configured after successfully starting the deployment without issues. This eases fining any first startup issues that need to be solved first.
+ 
 == Certificate Generation Process
 
 The recommended process to generate live certificates is the following:
@@ -577,12 +579,13 @@ docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data
 
 === Updating
 
-:version-type: production
+// for testing
+//:version-type: production
 
 ifeval::["{version-type}" == "rolling"]
 For rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on consecutive updates to be taken.
 
-If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available rolling release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
+If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available rolling release for internal update reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
 * Each upgrade consists of a set of commands:
 +
@@ -601,7 +604,7 @@ sudo docker compose up -d --remove-orphans
 
 * Finally, you can remove any old images if no longer used.
 
-Note that we advice to manually check if the deployment source has changed. If this is the case, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then re-apply the configuration and bring the deployment up!
+Note that we advice to manually check if the deployment source has changed. If this is the case, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then re-apply your configuration settings and bring the deployment up.
 
 endif::[]
 
@@ -612,7 +615,7 @@ Follow these steps to update between production releases:
 For patch releases only!::
 +
 --
-These commands will stop the deployment, updates ALL images and starts the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
+These commands will stop the deployment, updates all images and starts the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
 
 [source,bash]
 ----
@@ -637,9 +640,11 @@ For all major and minor releases including from rolling to production::
 sudo docker compose stop
 ----
 
+* If upgrading from rolling to production, change the `OCIS_DOCKER_IMAGE` environment variable from `owncloud/ocis-rolling` to `owncloud/ocis` in the `.env` file.
+
 * Follow the respective xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide.
 
-* Backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources] - if they have been changed, re-apply the configuration!
+* Backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources] - if they have been changed, re-apply your configuration settings.
 
 * Re-pull the deployment. This will update all images that versions might have changed.
 +
