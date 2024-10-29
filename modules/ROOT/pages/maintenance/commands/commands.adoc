@@ -25,14 +25,14 @@ Compared to online commands that need to be issued during operation of Infinite 
 Infinite Scale offers a variety of offline CLI commands to monitor or repair Infinite Scale installations. Many of these commands have a common mandatory parameter: `--basePath` (or `-p`) which needs to point to a storage provider. Example paths are:
 
 ----
-.ocis/storage/users          # bare metal deployment
+$HOME/.ocis/storage/users    # bare metal deployment
 
-/var/tmp/ocis/storage/users  # docker deployment
+/var/lib/ocis/storage/users  # docker deployment 
 
 ...
 ----
 
-These paths can vary depending on your Infinite Scale installation.
+These paths can vary depending on your Infinite Scale installation, for more information see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
 
 === Backup Consistency
 
