@@ -1,0 +1,32 @@
+= Service Health
+
+The service health CLI command allows checking the health status of a service. If there are no issues found, nothing health related will get printed.
+
+[source,bash]
+----
+ocis <service-name> health
+----
+
+Examples::
++
+--
+* The `collaboration` service has been started but not configured and is therefore not in a healthy state:
++
+[source,bash]
+----
+ocis collaboration health
+
+The WOPI secret has not been set properly in your config for collaboration. Make sure your /root/.ocis/config config contains the proper values (e.g. by running ocis init or setting it manually in the config/corresponding environment variable).
+----
+
+* The `antivirus` service has not been started, the health check responds accordingly.
++
+[source,bash]
+----
+ocis antivirus health
+
+{"level":"fatal","service":"antivirus","error":"Get \"http://127.0.0.1:9277/healthz\": dial tcp 127.0.0.1:9277: connect: connection refused","time":"2024-10-28T17:47:54+01:00","message":"Failed to request health check"}
+----
+--
+
+
