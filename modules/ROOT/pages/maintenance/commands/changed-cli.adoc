@@ -1,0 +1,29 @@
+= Changed or Added CLI Commands
+:toc: right
+:description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 5.0.x and 7.0.0.
+
+== Introduction
+
+{description}
+
+== Affected CLI Commands
+
+See the link for a detailed description of the respective CLI command if available.
+
+* xref:maintenance/commands/commands.adoc#purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items]  +
+The `ocis storage-users uploads` got restructured. +
+The deprecated `list` option is now removed, the `clean` option is now part of the `sessons command`.
+
+* xref:maintenance/commands/commands.adoc#reset-password-for-idm-users[Reset Password for IDM Users] +
+The `ocis idm resetpassword` can now specify the user name via the `--user-name` (`-u`) flag.
+
+* xref:maintenance/commands/commands.adoc#revisions-cleanup[Revisions Cleanup] +
+The `ocis revisions purge` command allows removing revisions of files in the storage. Note that this command has also been backported to version 5 available with its latest release.
+
+* xref:maintenance/commands/commands.adoc#service-health[Service Health] +
+A `health` command has been added to each service: `ocis <service-name> health`.
+
+* xref:maintenance/commands/commands.adoc#trash-purge[Trash Purge]. +
+The `ocis trash purge-empty-dirs` command allows to remove empty folders from the trashbin.
+
+* The `ocis graph list-unified-roles` command simplifies the process of finding out which UID belongs to which role. Note that this command is described in the https://github.com/owncloud/ocis/tree/master/ocis#list-unified-roles[ocis repository, window=_blank] and has been added for completeness only.

@@ -33,7 +33,7 @@ IMPORTANT: When upgrading from an older release to the desired one, mandatory co
 
 === Upgrade Steps
 
-For a detailed description of the steps to upgrade, see the xref:migration/upgrading_5.0.x_7.0.0.adoc[Upgrading from 5.0.x to 7.0.0] documentation.
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_5.0.x_7.0.0.adoc[Upgrading from 5.0.x to 7.0.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
 
 == Version 4.0.0 to 5.0.0
 

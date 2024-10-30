@@ -16,6 +16,10 @@
 This could happen if services are developed which are not shipped as part of the single binary.
 ====
 
+== Changed CLI Commands
+
+CLI commands can get added, changed or removed between versions. See the xref:maintenance/commands/changed-cli.adoc[Changed or Added CLI Commands] document for details.
+ 
 == Offline Commands
 
 Compared to online commands that need to be issued during operation of Infinite Scale, offline commands can, and somtimes must only be issued if Infinite Scale is not running.
