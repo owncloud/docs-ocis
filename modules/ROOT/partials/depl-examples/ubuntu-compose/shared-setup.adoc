@@ -508,7 +508,7 @@ If no password can be identified, you must reset the admin password via the comm
 
 === Command Line Password Reset
 
-To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
 
 == Volume Migration
 
