@@ -583,7 +583,7 @@ docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data
 //:version-type: production
 
 ifeval::["{version-type}" == "rolling"]
-For rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on consecutive updates to be taken.
+For rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on all updates being done consecutively.
 
 If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available rolling release for internal update reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
@@ -604,7 +604,7 @@ sudo docker compose up -d --remove-orphans
 
 * Finally, you can remove any old images if no longer used.
 
-Note that we advice to manually check if the deployment source has changed. If this is the case, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then re-apply your configuration settings and bring the deployment up.
+Note that we advise to manually check if the deployment source has changed. If this is the case, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then re-apply your configuration settings and bring the deployment up.
 
 endif::[]
 
@@ -615,7 +615,7 @@ Follow these steps to update between production releases:
 For patch releases only!::
 +
 --
-These commands will stop the deployment, updates all images and starts the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
+These commands will stop the deployment, update all images and start the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
 
 [source,bash]
 ----
@@ -630,7 +630,7 @@ endif::[]
 
 === Upgrading
 
-For all major and minor releases including from rolling to production::
+For all major and minor releases including from former rolling to production::
 +
 --
 * Stop the deployment with:
@@ -646,7 +646,7 @@ sudo docker compose stop
 
 * Backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources] - if they have been changed, re-apply your configuration settings.
 
-* Re-pull the deployment. This will update all images that versions might have changed.
+* Re-pull the deployment. This will update all images with any versions that might have changed.
 +
 [source,bash]
 ----
