@@ -8,6 +8,8 @@
 
 Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
 
+End users can enable seeing the WebDAV Urls in their personal preferences.
+
 The following prerequisites apply:
 
 * The administrator must have shell access where Infinite Scale runs.
