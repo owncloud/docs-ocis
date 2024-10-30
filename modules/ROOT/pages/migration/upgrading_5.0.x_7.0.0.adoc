@@ -81,7 +81,7 @@ Update Config Settings::
 * If not already done, get the new Infinite Scale version as described in xref:download-and-install-infinite-scale[Download and Install Infinite Scale].
 
 * Run the `ocis init --diff` command: +
-Because this will now run the new ocis code, it will create two files to help manage the needed changes:
+Because this will now run the new ocis code, it will create two files to help manage the needed changes. Note that the patch file is only created if changes are found:
 +
 --
 . `ocis.config.patch` which contains all the changes that can be applied and
@@ -89,6 +89,8 @@ Because this will now run the new ocis code, it will create two files to help ma
 --
 +
 The diff option will NOT overwrite anything though questions will be asked. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
++
+If a patch file is created, do a review before applying it.
 +
 Depending on the deployment selected, you need to prepare for this command differently, assuming the location of the config directory is the default:
 
@@ -115,10 +117,11 @@ This will open a shell in a temporary container using the new Infinite Scale ima
 
 [source,bash]
 ----
-sudo docker run --rm -it \
-    owncloud/ocis:7.0.0 \
+sudo docker run \
+    --rm -it \
+    --entrypoint sh \
     --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
-    sh
+    owncloud/ocis:7.0.0
 ----
 
 Then, when the containers shell is available, type:
@@ -139,14 +142,15 @@ patch < ocis.config.patch
 ** *Docker Compose Deployment*:
 +
 --
-This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the volume definition where the configuration settings are stored defined in the compose file to make the `ocis init` command work. The named volume from below is just an example and uses the volume name from our docker compose deployment examples.
+This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the volume definition (either the volume name or the local path) where the configuration settings are stored defined in the compose file to make the `ocis init` command work. The named volume `ocis-config` from below is just an example and derives from our docker compose deployment examples.
 
 [source,bash]
 ----
-sudo docker run --rm -it \
-    owncloud/ocis:7.0.0 \
+sudo docker run \
+    --rm -it \
+    --entrypoint sh \
     -v ocis-config:/etc/ocis \
-    sh
+    owncloud/ocis:7.0.0
 ----
 
 Then, when the containers shell is available, type:
