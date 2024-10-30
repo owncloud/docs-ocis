@@ -12,7 +12,7 @@ See the link for a detailed description of the respective CLI command if availab
 
 * xref:maintenance/commands/commands.adoc#purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items]  +
 The `ocis storage-users uploads` got restructured. +
-The deprecated `list` option is now removed, the `clean` option is now part of the `sessons command`.
+The deprecated `list` option is now removed, the `clean` option is now part of the `sessions command`.
 
 * xref:maintenance/commands/commands.adoc#reset-password-for-idm-users[Reset Password for IDM Users] +
 The `ocis idm resetpassword` can now specify the user name via the `--user-name` (`-u`) flag.
@@ -24,6 +24,6 @@ The `ocis revisions purge` command allows removing revisions of files in the sto
 A `health` command has been added to each service: `ocis <service-name> health`.
 
 * xref:maintenance/commands/commands.adoc#trash-purge[Trash Purge]. +
-The `ocis trash purge-empty-dirs` command allows to remove empty folders from the trashbin.
+The `ocis trash purge-empty-dirs` command allows removing empty folders from the trashbin.
 
 * The `ocis graph list-unified-roles` command simplifies the process of finding out which UID belongs to which role. Note that this command is described in the https://github.com/owncloud/ocis/tree/master/ocis#list-unified-roles[ocis repository, window=_blank] and has been added for completeness only.
