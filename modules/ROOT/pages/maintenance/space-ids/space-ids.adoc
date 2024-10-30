@@ -6,9 +6,8 @@
 
 {description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
 
-Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
-
-End users can enable seeing the WebDAV Urls in their personal preferences.
+* Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
+* End users can enable seeing the WebDAV Urls in their personal preferences of the Infinite Scale WebUI.
 
 The following prerequisites apply:
 
