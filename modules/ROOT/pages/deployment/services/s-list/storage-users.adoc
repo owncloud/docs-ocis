@@ -80,12 +80,12 @@ NOTE: There can never be a clear identification of a failed upload session due t
 
 [NOTE]
 ====
-If not noted otherwise, `the `restart` option can also be replaced the `resume` option. This changes behaviour slightly.
+If not noted otherwise, the `restart` option can also be replaced the `resume` option. This changes behaviour slightly.
 
 * `restart` +
 When restarting an upload, all steps for open items will be restarted, except if otherwise defined.
 * `resume` +
-When resuming an upload, processing will continue for unfinished items from their last completed step.
+When resuming an upload, processing will continue unfinished items from their last completed step.
 ====
 
 [source,bash]
