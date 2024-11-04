@@ -65,12 +65,12 @@ The backoff behavior as mentioned in the `retry` outcome can be configured using
 
 [NOTE]
 ====
-If not noted otherwise, `commands with the `restart` option can also use the `resume` option. This changes behaviour slightly.
+If not noted otherwise, commands with the `restart` option can also use the `resume` option. This changes behaviour slightly.
 
 * `restart` +
 When restarting an upload, all steps for open items will be restarted, except if otherwise defined.
 * `resume` +
-When resuming an upload, processing will continue for unfinished items from their last completed step.
+When resuming an upload, processing will continue unfinished items from their last completed step.
 ====
 
 If post-processing fails in one step due to an unforeseen error, current uploads will not be resumed automatically. A system administrator can instead run CLI commands to resume the failed upload manually which is at minimum a two step process.
@@ -102,12 +102,12 @@ ocis storage-users uploads sessions --resume
 --
 
 * *Particular failed uploads* +
-Use the `postprocessing` command to resume defined failed uploads. For postprocessing steps, the default is to resume . Note that at the moment, `resume` is an alias for `restart` to keep old functionality. `restart` is subject of change and will most likely be removed in a later version. 
+Use the `postprocessing` command to resume defined failed uploads. For postprocessing steps, the default is to resume . Note that at the moment, `resume` is an alias for `restart` to keep old functionality. `restart` is subject of change and will most likely be removed in a later version.
  
 ** *Defined by ID*
 +
 --
-If you want to resume only a specific upload, use the postprocessing restart command with the ID selected:
+If you want to resume only a specific upload, use the postprocessing resume command with the ID selected:
 
 [source,bash]
 ----
@@ -125,9 +125,9 @@ Examples:
 
 [source,bash]
 ----
-ocis postprocessing resume                # Restarts all uploads where postprocessing is finished, but upload is not finished.
+ocis postprocessing resume                # Resumes all uploads where postprocessing is finished, but upload is not finished.
 ocis postprocessing resume -s "finished"  # Equivalent to the above.
-ocis postprocessing resume -s "virusscan" # Restart all uploads currently in virusscan step.
+ocis postprocessing resume -s "virusscan" # Resume all uploads currently in virusscan step.
 ----
 --
 

@@ -12,7 +12,7 @@ See the link for a detailed description of the respective CLI command if availab
 
 * xref:maintenance/commands/commands.adoc#manage-expired-uploads[Manage Expired Uploads]  +
 The `ocis storage-users uploads sessions --restart` command got an alternative `--resume` option. +
-Resume can be used in the same way as `restart` with a slighly different behavior change.
+Resume can be used in the same way as restart with a slighly different behavior change.
 
 * xref:maintenance/commands/commands.adoc#purge-expired-space-trash-bin-items[Purge Expired Space Trash-Bin Items]  +
 The `ocis storage-users uploads` got restructured. +
@@ -20,7 +20,7 @@ The deprecated `list` option is now removed, the `clean` option is now part of t
 
 * xref:maintenance/commands/commands.adoc#resume-post-processing[Resume Post-Processing]  +
 The `ocis postprocessing restart` command got an alternative `resume` option. +
-Resume can be used in the same way as `restart` with a slighly different behavior change.
+Resume can be used in the same way as restart with a slighly different behavior change.
 
 * xref:maintenance/commands/commands.adoc#reset-password-for-idm-users[Reset Password for IDM Users] +
 The `ocis idm resetpassword` can now specify the user name via the `--user-name` (`-u`) flag.
