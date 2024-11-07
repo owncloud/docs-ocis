@@ -23,4 +23,9 @@ Removed::
 --
 include::{source_path}{env_var_delta_name}-removed.adoc[]
 --
+Deprecated::
++
+--
+include::{source_path}{env_var_delta_name}-deprecated.adoc[]
+--
 ====
