@@ -352,6 +352,13 @@ minikube tunnel
 :t1_text: Helm chart with default configurations.
 :t2_text: Description of the values.yaml file.
 
+* Add accessible oCIS domain to `externalDomain` in `values.yaml`
++
+[source,yaml]
+----
+externalDomain: "ocis.kube.owncloud.test"
+----
+
 * When installing Infinite Scale in Minikube on MacOS, you need to set the `hostAliases` option:
 +
 [source,yaml]
