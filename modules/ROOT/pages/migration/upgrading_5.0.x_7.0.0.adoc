@@ -14,11 +14,13 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Upgrade Steps
 
-. Shut down the Infinite Scale instance
 . Download and install Infinite Scale +
 *Do not start it after downloading the binary or image*!
+. Shut down the Infinite Scale instance
 . Manage Breaking Changes
 . Start Infinite Scale
+
+:sectnums:
 
 == Download and Install Infinite Scale
 
@@ -43,6 +45,19 @@ docker pull owncloud/ocis:7.0.0
 
 ** When using `Kubernetes - Helm`
 *** Update `{{ .Values.image.tag }}` and/or `{{ .Chart.AppVersion }}` accordingly.
+
+== Shut Down the Infinite Scale Instance
+
+Depending how you deployed Infinite Scale, you need to shut it down differently.
+
+* For binary deployments, do a graceful shutdown as described in xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale].
+
+* For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].
+
+* For deployments using `docker compose` do a graceful shutdown as described in xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#stop-the-deployment[Stop the Deployment].
+
+* For any other image based deployment, shut down Infinite Scale according the vendors deployment description.
+
 
 == Manage Breaking Changes
 
@@ -173,6 +188,10 @@ patch < ocis.config.patch
 --
 Use one of the Docker based examples from above and derive from. 
 --
+
+== Start Infinite Scale
+
+:sectnums!:
 
 == Changed or Added CLI Commands
 
