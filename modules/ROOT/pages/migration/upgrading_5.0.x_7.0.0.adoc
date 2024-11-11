@@ -122,6 +122,8 @@ The diff option will NOT overwrite anything though questions will be asked. Cons
 
 If a patch file is created, do a review before applying it.
 
+NOTE: If the `patch` command is not present in your deployment, you must apply the changes provided by the patch file manually to the `ocis.yaml` file.
+
 Depending on the deployment selected, you need to prepare for this command differently, assuming the location of the config directory is the default:
 
 * *Binary Deployment*:
