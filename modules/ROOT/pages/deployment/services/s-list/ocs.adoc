@@ -30,15 +30,11 @@ Stores data using key-value-store feature of https://docs.nats.io/nats-concepts/
 * `redis-sentinel` +
 Stores data in a configured Redis Sentinel cluster.
 
-* `ocisstoreservice` +
-Stores data in the _deprecated_ Infinite Scale xref:deployment/services/s-list/store.adoc[store] service. +
-Requires setting `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` to `com.owncloud.api.store`.
-
 [NOTE]
 ====
-* The `memory` or `ocmem` stores cannot be used as they do not share the memory from the ocs service signing key memory store, even in a single process.
+* The `memory` store cannot be used as they do not share the memory from the ocs service signing key memory store, even in a single process.
 
-* Make sure to configure the same store in the proxy service.
+* Make sure to configure the same store for pre-signed URLs as in the proxy service.
 ====
 
 Store specific notes:
