@@ -81,6 +81,8 @@ Reconfigure the deployment to use the new image:
 
 * All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
 * A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added.
+* A new mandatory Infinite Scale config setting for the `collaboration` service named `secret` has been added.
+* Deployment examples based on one of the `Ubuntu with Docker Compose` deployments have been updated/upgraded.
 
 === How to Identify if You Are Affected
 
@@ -88,6 +90,12 @@ Reconfigure the deployment to use the new image:
 ** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
 
 * Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, _everyone_ who upgrades is affected.
+
+* Because the xref:{s-path}/collaboration.adoc[collaboration] service has been added and is started automatically, _everyone_ who upgrades is affected.
+
+** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, the are a candidate for future deprecations.
+
+* If you have used a rolling release and deployed web office document servers like the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner] deployment example, you should follow the reconfiguration section below because the deployment files have been updated/upgraded. 
 
 === How to Manage the Change
 
@@ -209,9 +217,24 @@ patch < ocis.config.patch
 Use one of the Docker based examples from above and derive from. 
 --
 
+=== Reconfigure web Office Document Deployments
+
+With the introduction of the xref:{s-path}/collaboration.adoc[collaboration] service, the external https://github.com/cs3org/wopiserver[cs3org/wopi] server is no longer required. Deployments using the external cs3org/wopi server should upgrade. This upgrade is a breaking change, but if you have used one of the `Ubuntu with Docker Compose` deployment examples, a re-deployment is quite easy. If you have setup your own deployment not based on the examples, you can derive from the changes based on the deployment files.
+
+The following steps are based on the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. The steps are identical for the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
+
+* Backup the the base folder containing the existing deployment example by renaming it. +
+You will need your configuration details with the new example.
+
+* Follow the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#download-and-transfer-the-example[Download and Transfer the Example] to get the new deployment and extract it as described in the following section of the guide.
+
+* Reconfigure the new `.env` file based on settings made in the `.env` file of the backup.
+
 == Start Infinite Scale
 
-When you have finished upgrading, you can now start infinite Scale as ususal.
+When you have finished upgrading, you now can start Infinite Scale as ususal.
+
+For any deployment used, you now can delete/remove old binaries or images/containers.
 
 :sectnums!:
 
