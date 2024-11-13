@@ -91,7 +91,7 @@ Reconfigure the deployment to use the new image:
 
 * Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, _everyone_ who upgrades is affected.
 
-* Because the xref:{s-path}/collaboration.adoc[collaboration] service has been added and is started automatically, _everyone_ who upgrades is affected.
+* The xref:{s-path}/collaboration.adoc[collaboration] service has been added. Though this service needs to be started manually, it requires a secret (preferred a random UUID string) when started. For safety reasons on a fresh install, this secret is added when running the `ocis init` command and should be added on upgrades. The used upgrade procedure provides a secret if not present in the config. Note that the secret can be overwritten in the config or with an environment variable if necessary.
 
 ** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, the are a candidate for future deprecations.
 
