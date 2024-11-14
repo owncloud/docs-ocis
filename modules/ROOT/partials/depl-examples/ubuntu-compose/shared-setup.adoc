@@ -502,7 +502,7 @@ Use the container ID identified in the following command to read the Infinite Sc
 docker logs <CONTAINER ID> 2>&1 | less
 ----
 
-The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
+The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll through the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
 
 If no password can be identified, you must reset the admin password via the command line as described below.
 
