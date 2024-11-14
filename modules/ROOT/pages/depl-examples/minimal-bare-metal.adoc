@@ -258,6 +258,8 @@ ps -ax | \
    xargs sudo kill -15
 ----
 
+Note: When ocis runs under systemd, use this to stop the complete runtime: `service ocis stop`
+
 Stopping a particular ocis PID::
 First identify which PID you want to terminate:
 +
