@@ -1,7 +1,7 @@
 = Upgrading Infinite Scale
 :toc: right
 :toclevels: 2
-:description: When upgrading Infinite Scale, migration steps may be required. This document guides thru the necessary steps based on the versions used.
+:description: When upgrading Infinite Scale, migration steps may be required. This document guides you through the necessary steps based on the versions used.
 
 include::partial$multi-location/compose-version.adoc[]
 
@@ -11,9 +11,9 @@ include::partial$multi-location/compose-version.adoc[]
 
 NOTE: For any Infinite Scale version to upgrade to, see {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank] or {docker_ocis_prod_url}[Infinite Scale image] to get the right version.
 
-IMPORTANT: Before starting any upgrade, make a xref:maintenance/b-r/backup.adoc[backup] first.
+IMPORTANT: Before starting any upgrade, first make a xref:maintenance/b-r/backup.adoc[backup].
 
-IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a backstep is neither supported nor recommended and will most likely break the instance.
+IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a step back is neither supported nor recommended and will most likely break the instance.
 
 IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
 
