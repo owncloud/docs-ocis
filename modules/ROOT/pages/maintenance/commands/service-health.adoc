@@ -16,7 +16,7 @@ Examples::
 ----
 ocis collaboration health
 
-The WOPI secret has not been set properly in your config for collaboration. Make sure your /root/.ocis/config config contains the proper values (e.g. by running ocis init or setting it manually in the config/corresponding environment variable).
+The WOPI secret has not been set properly in your config for collaboration. Make sure your /root/.ocis/config config contains the proper values (e.g. by using 'ocis init --diff' and applying the patch or setting a value manually in the config/corresponding environment variable).
 ----
 
 * The `antivirus` service has not been started, the health check responds accordingly.
