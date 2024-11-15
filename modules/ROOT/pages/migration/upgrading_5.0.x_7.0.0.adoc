@@ -119,14 +119,14 @@ See the next section for *details* how to update the config settings.
 
 Run the `ocis init --diff` command:
 
-Because this will now run the new ocis code, it will create two files to help manage the needed changes. Note that the patch file is only created if changes are found:
+Because this will now run the new ocis code, it will create two files in the config directory to help manage the needed changes. Note that the patch file is only created if changes are found:
 
 . `ocis.config.patch` which contains all the changes that can be applied and
 . `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
 
 Note that after applying the patch file, the created files by the `--diff` option must be deleted manually.
  
-The diff option will NOT overwrite anything though questions will be asked. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
+The diff option will NOT overwrite anything (except an earlier `ocis.config.patch`). It may ask questions though. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
 
 If a patch file is created, do a review before applying it.
 
