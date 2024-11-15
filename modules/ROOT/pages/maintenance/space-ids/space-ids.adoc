@@ -26,6 +26,8 @@ Note that the life span of the bearer token is short, in  particular less than a
 
 When the user has enabled in his personal preferences menu:Show WebDAV information in details view[], the space ID can be identified the following:
 
+* Select a space and toggle the sidbar button on the top right to show the details.
+
 * The WebDAV URL shows: + 
 `<your host url>/remote.php/dav/spaces/c7763488-...-20badd5126b4/<optional file name>`
 
