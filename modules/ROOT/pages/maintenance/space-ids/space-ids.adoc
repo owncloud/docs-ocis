@@ -1,83 +1,143 @@
 = Listing Space IDs
 :toc: right
-:description: There are rare situations like when using shell commands that require the ID of a space as parameter. This page shows how to get it.
+:description: There are rare situations like when using shell commands that require the space ID as parameter. This page shows how to get it.
 
 == Introduction
 
 {description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
 
-Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
+. Via WebDav +
+Users can enable seeing WebDAV URLs via their personal preferences of the Infinite Scale WebUI. This URL contains the space ID.
 
+. Via CLI +
+Alternatively, administrators can impersonate the respective user and get the space ID via shell commands using an authenticated curl GET accessing the Infinite Scale https://owncloud.dev/apis/[API].
++
+--
 The following prerequisites apply:
 
 * The administrator must have shell access where Infinite Scale runs.
-* The administrator needs to use their active bearer token in the request described below.
+* The administrator needs to use the active bearer token in the request described below.
 * For ease of reading the result, the https://jqlang.github.io/jq/[jq] library should be installed on the OS where the shell command is executed. It is used in the examples.
 
 Note that the life span of the bearer token is short, in  particular less than a minute. If the token expires, the curl command will fail with an unauthorized message. So it is important to be prepared.
+--
 
-== Preparation
+== Via WebDav
+
+When the user has enabled in his personal preferences menu:Show WebDAV information in details view[], the space ID can be identified the following:
+
+* The WebDAV URL shows: + 
+`<your host url>/remote.php/dav/spaces/c7763488-...-20badd5126b4/<optional file name>`
+
+* The space ID is `c7763488-...-20badd5126b4`.
+
+* Copy the ID and _embed_ it in single quotes for any tasks that require a space ID as parameter.
++
+--
+Example:
+
+`'c7763488-...-20badd5126b4'`
+
+Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
+--
+
+== Via CLI
+
+=== Preparation
 
 * Open a terminal window for shell access
-** The generated curl command described will be executed here.
-* Prepare an editor
-** Open an editor of choice where you can easily copy and paste to and add the following on top. The example lists `personal` users space ID's. Replace it with `project` for listing manually created spaces. Replace `<your host:9200>` with the URL:port of the Infinite Scale instance. Note to add a trailing blank line in the example as content is copied afterwards.
+** The assembled curl command from the editor will be executed here.
+
+* Prepare an editor. +
+The editor is used to assemble the command that is further copied to the console to get the final result. This is necessary because you need a valid bearer token with a limited lifetime you get from the browser.
+
+** Open an editor of choice. +
+Paste the following on top of the editor:
+
+*** Replace `<your host(:port)>` with the URL:port of your Infinite Scale instance. +
+You can omit the port if default.
+
+*** The example lists `personal` users space ID's. +
+Replace it with `project` for listing manually created spaces.
+
+*** The `\{token}` placeholder will later be replaced by the real bearer token you get from the browser. 
+
+*** Note to add a trailing blank line in the example as content is copied afterwards.
 +
 --
 [source,bash]
 ----
-curl -XGET -vk 'https://<your host:9200>/graph/v1.0/drives?$filter=driveType+eq+personal' \
-  -H 'Authorization: Bearer ...
-| jq '.'
-
+curl -vk \
+  'https://<your host:9200>/graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token} \
+  | jq '.'
 ----
+Omit `-v (add verbosity)` or `-k (skip certificate verification)` if not needed.
 --
 
 * Open a browser
-** Login as administrator at `\https://<your host:9200>`, replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
+
+** Login as administrator at `\https://<your host:9200>`
+*** Replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
+*** Use the files view as starting point.
+
 ** Open the browsers menu:Developer Console[].
+
 ** Open the menu:Network[] tab.
+
 ** Select btn:[XHR], browser dependent, it is maybe called `Fetch XHR`.
+
 ** Reload the page to get updated content for XHR
-** In the column where you see `Name Status Type ...` check that `Method` is present. +
+
+** In the column where you see `Name`, `Status`, `Type`, ... check that `Method` is present. +
 If not, right click on one column item and select menu:Method[].
+
 ** Click on btn:[Method] to sort, a `PROPFIND` line should be the first entry.
 
-== Get Space IDs
+=== Get Space IDs
 
-=== Command Preparation
+==== Command Preparation
 
 * Reload the screen in the browser to get an updated bearer token.
-* Right click on the line containing `PROPFIND` and select menu:Copy[Copy as cURL (bash)].
-* Paste the copied result into the editor under the blank line, this may now look like this, the bearer is shortened in the example for ease of readbility:
+
+* Right click on the line containing btn:[PROPFIND] and select menu:Copy[Copy as cURL (bash)].
+
+* Paste the copied result into the editor *under* the blank line, this may now look like this, the bearer is shortened in the example for ease of readbility:
 +
 --
 [source,bash]
 ----
-curl -XGET -vk 'https://<your host:9200>/graph/v1.0/drives?$filter=driveType+eq+personal' \
-  -H 'Authorization: Bearer ...
-| jq '.'
+curl -vk \
+  'https://<your host:9200>/graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token} \
+  | jq '.'
 
 curl 'https://<your host:9200>/remote.php/dav/spaces/59ee3b90-3231-4621-81aa-4531d33e7671%24fb9e2625-cdb0-4f21-8a34-db775a976707' \
   -X 'PROPFIND' \
-  -H 'Accept: */*' \
-  -H 'Accept-Language: en' \
-  -H 'Authorization: Bearer eyJhb ... C1wUs' \
+  -H 'accept: */*' \
+  -H 'accept-Language: en' \
+  -H 'authorization: Bearer eyJhb ... C1wUs' \
   -H 'Connection: keep-alive' \
   ...
 ----
 --
-* After `++  -H 'Accept-Language: en' \++`: +
-Copy the complete line `++  -H 'Authorization: Bearer eyJhb ... C1wUs' \++`
-* Replace the `Authorisation` line on top containing the prepared command with the copied content. +
-You now have a full curl command including an active bearer token for authentication that can be used in the next step.
 
-=== Command Execution
+* Copy the complete line: +
+`++  -H 'Authorization: Bearer eyJhb ... C1wUs' \++`
+
+* Replace the authorisation line on top containing the prepared command with the copied content. +
+You now have a full curl command including an active bearer token for authentication that is used in the next step.
+
+==== Command Execution
 
 * Copy the full curl command from the top and paste it into the prepared shell. +
 You should get prettyfied json strings printed.
 
-=== Output
+* If you get no output or, when using verbosity an output on top contaning: `Closing connection`, the bearer token has expired and needs to be refreshed for authentication. To do so, start again with xref:command-preparation[Command Preparation]. 
+
+==== Output
 
 Personal Space::
 +
@@ -129,19 +189,24 @@ Project Space::
 ----
 --
 
-== Output Interpretation and Usage
+=== Output Interpretation and Usage
 
-Depending on if you are looking for a personal or project space, find the name of the space in the `name` or the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
-
+* For any *personal* or *project* space, find the name of the space in the `name` or the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
++
+--
 [source,json]
 ----
 "id": "59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8",
 ----
 
-Copy the ID _excluding_ the surrounding double quotes and _embed_ it in single quotes for any tasks that require a space ID as parameter. Example:
+* Copy the ID
+** _excluding_ the surrounding double quotes and
+** _embed_ it in single quotes for any tasks that require a space ID as parameter.
+
+Example:
 
 `"59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8"` -> +
 `'59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8'`
 
-The single quotes are necessary as the ID contains a `$` sign and `$` is a special shell character.
-
+Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
+--
