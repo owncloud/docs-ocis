@@ -73,7 +73,7 @@ Note that this URL must resolve to the server running this installation.
 
 === Install and configure the Infinite Scale Binary
 
-* Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Replace `<file_url>` and `<version>` in the commands accordingly.
+* Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Replace `<file_url>` and `<file_name>` in the commands accordingly.
 +
 --
 Download the binary:
@@ -88,7 +88,7 @@ sudo wget -P {ocis_bin} <file_url>
 +
 [source,bash,subs="attributes+"]
 ----
-sudo chmod a+x {ocis_bin}/ocis-<version>
+sudo chmod a+x {ocis_bin}/<file_name>
 ----
 
 * Create a link from the versioned ocis binary name to the final executable named `ocis`: +
@@ -96,7 +96,7 @@ Note when using a symbolic link like this, upgrading and/or testing is much easi
 +
 [source,bash,subs="attributes+"]
 ----
-sudo ln -s {ocis_bin}/ocis-<version> {ocis_bin}/ocis
+sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 * Check the version installed:

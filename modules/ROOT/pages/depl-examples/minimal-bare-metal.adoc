@@ -57,7 +57,7 @@ For those who want to skip reading the full document, use this summary of comman
 
 IMPORTANT: With this approach, the system you install Infinite Scale on *must* have a GUI present. A headless system has different requirements and needs an extended setup, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
 
-Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], replace `<version>` in the command accordingly.
+Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], replace `<file_name>` in the command accordingly.
 
 [source,bash,subs="attributes+"]
 ----
@@ -66,13 +66,13 @@ sudo wget -P {ocis_bin} <file_url>
 
 [source,bash,subs="attributes+"]
 ----
-sudo chmod a+x {ocis_bin}/ocis-<version>
+sudo chmod a+x {ocis_bin}/<file_name>
 ----
 
 [source,bash,subs="attributes+"]
 ----
 
-sudo ln -s {ocis_bin}/ocis-<version> {ocis_bin}/ocis
+sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 [source,bash]
@@ -91,7 +91,7 @@ Congratulations, you now have access to your Infinite Scale instance.
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`. Replace `<file_url>` and `<version>` in the commands accordingly.
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`. Replace `<file_url>` and `<file_name>` in the commands accordingly.
 +
 --
 Download the binary:
@@ -106,7 +106,7 @@ sudo wget -P {ocis_bin} <file_url>
 +
 [source,bash,subs="attributes+"]
 ----
-sudo chmod a+x {ocis_bin}/ocis-<version>
+sudo chmod a+x {ocis_bin}/<file_name>
 ----
 
 * Create a link from the versione ocis binary to the final executable named `ocis`: +
@@ -114,7 +114,7 @@ Note when using a symbolic link like this, upgrading and/or testing is much easi
 +
 [source,bash,subs="attributes+"]
 ----
-sudo ln -s {ocis_bin}/ocis-<version> {ocis_bin}/ocis
+sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 * Check the version installed:
