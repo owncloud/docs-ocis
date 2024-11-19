@@ -6,7 +6,7 @@
 
 {description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
 
-. Via WebDav +
+. Via the web UI +
 Users can enable seeing WebDAV URLs via their personal preferences of the Infinite Scale WebUI. This URL contains the space ID.
 
 . Via CLI +
@@ -22,7 +22,7 @@ The following prerequisites apply:
 Note that the life span of the bearer token is short, in  particular less than a minute. If the token expires, the curl command will fail with an unauthorized message. So it is important to be prepared.
 --
 
-== Via WebDav
+== Via the web UI
 
 When the user has enabled in his personal preferences menu:Show WebDAV information in details view[], the space ID can be identified the following:
 
@@ -33,12 +33,12 @@ When the user has enabled in his personal preferences menu:Show WebDAV informati
 
 * The space ID is `c7763488-...-20badd5126b4`.
 
-* Copy the ID and _embed_ it in single quotes for any tasks that require a space ID as parameter.
+* Copy the ID *and* embed it in single quotes for any tasks that require a space ID as parameter.
 +
 --
 Example:
 
-`'c7763488-...-20badd5126b4'`
+`c7763488-...-20badd5126b4` -> `'c7763488-...-20badd5126b4'`
 
 Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
 --
@@ -207,8 +207,7 @@ Project Space::
 
 Example:
 
-`"59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8"` -> +
-`'59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8'`
+`"59ee3b90-...-a7f5-4e5435d2b4e8"` -> `'59ee3b90-...-a7f5-4e5435d2b4e8'`
 
 Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
 --
