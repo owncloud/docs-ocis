@@ -56,7 +56,7 @@ The editor is used to assemble the command that is further copied to the console
 ** Open an editor of choice. +
 Paste the following on top of the editor:
 
-*** Replace `<your host(:port)>` with the URL:port of your Infinite Scale instance. +
+*** Replace `<your host[:port]>` with the URL:port of your Infinite Scale instance. +
 You can omit the port if default.
 
 *** The example lists `personal` users space ID's. +
@@ -72,7 +72,7 @@ Replace it with `project` for listing manually created spaces.
 curl -vk \
   'https://<your host:9200>/graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27' \
   -H 'accept: application/json' \
-  -H 'authorization: Bearer {token} \
+  -H 'authorization: Bearer {token}' \
   | jq '.'
 ----
 Omit `-v (add verbosity)` or `-k (skip certificate verification)` if not needed.
@@ -84,7 +84,7 @@ Omit `-v (add verbosity)` or `-k (skip certificate verification)` if not needed.
 *** Replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
 *** Use the files view as starting point.
 
-** Open the browsers menu:Developer Console[].
+** Open the browsers menu:Developer Console[] (in Firefox: menu:More Tools[Web > Developer Tools])
 
 ** Open the menu:Network[] tab.
 
