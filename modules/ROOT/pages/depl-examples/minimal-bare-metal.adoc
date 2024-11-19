@@ -94,7 +94,7 @@ Congratulations, you now have access to your Infinite Scale instance.
 * To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`. Replace `<file_url>` and `<version>` in the commands accordingly.
 +
 --
-Download the source:
+Download the binary:
 
 [source,bash,subs="attributes+"]
 ----
@@ -109,8 +109,8 @@ sudo wget -P {ocis_bin} <file_url>
 sudo chmod a+x {ocis_bin}/ocis-<version>
 ----
 
-* Create a link from the source to the final executable named `ocis`: +
-Note when using a link to the source, upgrading and/or testing is much easier.
+* Create a link from the versione ocis binary to the final executable named `ocis`: +
+Note when using a symbolic link like this, upgrading and/or testing is much easier.
 +
 [source,bash,subs="attributes+"]
 ----
