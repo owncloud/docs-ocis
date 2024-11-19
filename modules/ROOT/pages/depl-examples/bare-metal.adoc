@@ -73,26 +73,38 @@ Note that this URL must resolve to the server running this installation.
 
 === Install and configure the Infinite Scale Binary
 
-* Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file.
+* Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Replace `<file_url>` and `<version>` in the commands accordingly.
 +
+--
+Download the source:
+
 [source,bash,subs="attributes+"]
 ----
-sudo wget -O {ocis_bin}/ocis <file_url>
+sudo wget -P {ocis_bin} <file_url>
 ----
+--
 
 * Make the binary executable with:
 +
 [source,bash,subs="attributes+"]
 ----
-sudo chmod +x {ocis_bin}/ocis
+sudo chmod a+x {ocis_bin}/ocis-<version>
+----
+
+* Create a link from the source to the final executable named `ocis`: +
+Note when using a link to the source, upgrading and/or testing is much easier.
++
+[source,bash,subs="attributes+"]
+----
+sudo ln -s {ocis_bin}/ocis-<version> {ocis_bin}/ocis
 ----
 
 * Check the version installed:
 +
 --
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-ocis version  --skip-services
+ocis version --skip-services
 ----
 
 The output looks like this:
@@ -102,7 +114,11 @@ The output looks like this:
 Version: {compose_version}
 Compiled: {ocis-compiled}
 ----
+
+Note that if you omit `--skip-services`, you will get additional information about services printed.
 --
+
+NOTE: If you already have a running instance, you must stop and restart the instance to activate the new version.
 
 === Create a Service User
 
