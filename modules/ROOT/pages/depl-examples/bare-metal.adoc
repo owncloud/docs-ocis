@@ -378,7 +378,7 @@ Open a web browser, navigate to your Infinite Scale URL `\https://{ocis_url}` an
 == Updating
 
 ifeval::["{version-type}" == "rolling"]
-Note that this deploymment can, for the time being, only be updated within Infinite Scale rolling releases.
+Note that this deployment can, for the time being, only be updated within Infinite Scale rolling releases.
 endif::[]
 
 If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available release for internal upgrade reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
