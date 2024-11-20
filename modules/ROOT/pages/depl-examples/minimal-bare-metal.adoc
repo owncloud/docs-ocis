@@ -109,7 +109,7 @@ sudo wget -P {ocis_bin} <file_url>
 sudo chmod a+x {ocis_bin}/<file_name>
 ----
 
-* Create a link from the versione ocis binary to the final executable named `ocis`: +
+* Create a link from the versioned ocis binary to the final executable named `ocis`: +
 Note when using a symbolic link like this, upgrading and/or testing is much easier.
 +
 [source,bash,subs="attributes+"]
