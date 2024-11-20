@@ -57,16 +57,22 @@ For those who want to skip reading the full document, use this summary of comman
 
 IMPORTANT: With this approach, the system you install Infinite Scale on *must* have a GUI present. A headless system has different requirements and needs an extended setup, see xref:accessing-infinite-scale-other-than-localhost[Accessing Infinite Scale Other Than Localhost].
 
-Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank].
+Define a stable binary to use as replacement for `<file_url>` via {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], replace `<file_name>` in the command accordingly.
 
 [source,bash,subs="attributes+"]
 ----
-sudo wget -O {ocis_bin}/ocis <file_url>
+sudo wget -P {ocis_bin} <file_url>
 ----
 
 [source,bash,subs="attributes+"]
 ----
-sudo chmod +x {ocis_bin}/ocis
+sudo chmod a+x {ocis_bin}/<file_name>
+----
+
+[source,bash,subs="attributes+"]
+----
+
+sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 [source,bash]
@@ -85,25 +91,31 @@ Congratulations, you now have access to your Infinite Scale instance.
 
 == Installation
 
-* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`.
+* To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Check the sort order on the modification date to get the most recent releases on top. Depending on your system and preferences, you may want to save the binary in `{ocis_bin}`. Replace `<file_url>` and `<file_name>` in the commands accordingly.
 +
 --
-To download use:
+Download the binary:
 
 [source,bash,subs="attributes+"]
 ----
-sudo wget -O {ocis_bin}/ocis <file_url>
+sudo wget -P {ocis_bin} <file_url>
 ----
 --
 
 * Make the binary executable with:
 +
---
 [source,bash,subs="attributes+"]
 ----
-sudo chmod +x {ocis_bin}/ocis
+sudo chmod a+x {ocis_bin}/<file_name>
 ----
---
+
+* Create a link from the versioned ocis binary to the final executable named `ocis`: +
+Note when using a symbolic link like this, upgrading and/or testing is much easier.
++
+[source,bash,subs="attributes+"]
+----
+sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
+----
 
 * Check the version installed:
 +
@@ -123,6 +135,8 @@ Compiled: {ocis-compiled}
 
 Note that if you omit `--skip-services`, you will get additional information about services printed.
 --
+
+NOTE: If you already have a running instance, you must stop and restart the instance to activate the new version.
 
 == Getting Command Line Help
 
@@ -237,46 +251,16 @@ ps ax | grep ocis | grep -v grep
 [source,plaintext]
 ----
  221297 pts/1    Sl     0:04 ocis server
- 221706 pts/0    Sl     0:00 ocis proxy
+ 221706 pts/0    Sl     0:00 ocis notifications
 ----
 
 == Stopping Infinite Scale
 
-Depending on what you want to stop, different commands need to be applied.
+To properly stop Infinite Scale, the signal `SIGTERM` (15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on. Do not use `SIGKILL` (9) as this will initiate a dirty shutdown.
 
-If a service is being terminated with its PID, the signal `SIGTERM` (-15) is used. Note that SIGTERM politely asks a process to terminate. It will terminate gracefully, cleaning up all resources (files, sockets, child processes, etc.), deleting temporary files and so on. Do not use `SIGKILL` (-9) as this will initiate a dirty shutdown.
+The following command stops the runtime with all its services plus any extra started services which are not part of the runtime and have been started manually. Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for the killall command for proper permissions.
 
-Stopping the complete runtime with all its running services::
-Depending on the user you started `ocis` with and which user you are currently logged in as, you may need to use `sudo` for the kill command for proper permissions.
-+ 
 [source,bash]
 ----
-ps -ax | \
-   grep "ocis server" | \
-   grep -v grep | \
-   awk '{ print $1 }' | \
-   xargs sudo kill -15
-----
-
-Stopping a particular ocis PID::
-First identify which PID you want to terminate:
-+
-[source,bash]
-----
-ps ax | grep "ocis" | grep -v grep
-----
-+
-This may give an output like the following:
-+
-[source,plaintext]
-----
- 221297 pts/1    Sl     0:04 ocis server
- 221706 pts/0    Sl     0:00 ocis proxy
-----
-+
-To terminate the `ocis proxy` service type the following command, where `sudo` may not be necessary depending on the permissions of the logged-in user. Replace the PID according the output from above:
-+
-[source,bash]
-----
-sudo kill -15 221706
+killall -v -s 15 ocis
 ----
