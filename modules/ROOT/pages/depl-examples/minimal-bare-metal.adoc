@@ -70,7 +70,7 @@ sudo chmod a+x {ocis_bin}/<file_name>
 [source,bash,subs="attributes+"]
 ----
 
-sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
+sudo ln -s -f {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 [source,bash]
@@ -112,7 +112,7 @@ Note when using a symbolic link like this, upgrading and/or testing is much easi
 +
 [source,bash,subs="attributes+"]
 ----
-sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
+sudo ln -s -f {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 * Check the version installed:
