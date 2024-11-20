@@ -1,0 +1,119 @@
+// for testing
+//:curl_url_1: /graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27
+//:curl_url_2: /remote.php/dav/spaces/59ee3b90-3231-4621-81aa-4531d33e7671%24fb9e2625-cdb0-4f21-8a34-db775a976707
+
+tag::explanation[]
+
+== Explanation
+
+Infinite Scale, except if not otherwise configured via the xref:{s-path}/auth-basic.adoc[auth-basic] service, does not accept basic authentication for security reasons. Therefore, if using a curl command, one must login via the browser and get the short living bearer token via the developer view for further processing. 
+
+end::explanation[]
+
+tag::common_prep[]
+
+== Preparation
+
+* Open a terminal window for shell access.
+** The assembled curl command from the editor will be used for final execution.
+
+* Prepare an editor. +
+The editor is used to assemble the command that is further copied to the console to get the final result.
+
+** Open an editor of choice. +
+Paste the following on top of the editor:
+
+*** Replace `<your host[:port]>` with the URL:port of your Infinite Scale instance. +
+You can omit the port if default.
+
+*** The example lists `personal` users space ID's. +
+Replace it with `project` for listing manually created spaces.
+
+*** The `\{token}` placeholder will later be replaced by the real bearer token you get from the browser. 
+
+*** Note to add a trailing blank line in the example as content is copied afterwards.
++
+--
+[source,bash,subs="+attributes"]
+----
+curl -vk \
+  'https://<your host:9200>{curl_url_1}' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer \{token}' \
+  | jq '.'
+----
+Omit `-v (add verbosity)` or `-k (skip certificate verification)` if not needed.
+--
+
+* Open a browser
+
+** Login as administrator at `\https://<your host:9200>`
+*** Replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
+*** Use the files view as starting point.
+
+** Open the browsers menu:Developer Console[] +
+In Firefox: menu:More Tools[Web > Developer Tools]
+
+** Open the menu:Network[] tab.
+
+** Select btn:[XHR], browser dependent, it is maybe called btn:[Fetch XHR].
+
+** Reload the page to get updated content for XHR
+
+** In the column where you see `Name`, `Status`, `Type`, ... check that `Method` is present. +
+If not, right click on one column item and select menu:Method[] to make it visible.
+
+** Click on btn:[Method] to sort, a `PROPFIND` line should be the first entry.
+
+end::common_prep[]
+
+tag::command_prep[]
+
+== Command Preparation
+
+* Reload the screen in the browser to get an updated bearer token.
+
+* Right click on the line containing btn:[PROPFIND] and select menu:Copy[Copy as cURL (bash)].
+
+* Paste the copied result into the editor *under* the blank line, this may now look like this, the bearer is shortened in the example for ease of readbility.
+** Note that only the header authorization line in the response is of interrest.
+ 
++
+--
+[source,bash,subs="+attributes"]
+----
+curl -vk \
+  'https://<your host:9200>{curl_url_1}' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer \{token} \
+  | jq '.'
+
+curl 'https://<your host:9200>{curl_url_2}' \
+  -X 'PROPFIND' \
+  -H 'accept: */*' \
+  -H 'accept-Language: en' \
+  -H 'authorization: Bearer eyJhb ... C1wUs' \
+  -H 'Connection: keep-alive' \
+  ...
+----
+--
+
+* Copy the complete line: +
+`++  -H 'Authorization: Bearer eyJhb ... C1wUs' \++`
+
+* Replace the authorisation line on top containing the prepared command with the copied content.
+
+* You now have a full curl command including an active bearer token for authentication that is used in the next step.
+
+end::command_prep[]
+
+tag::command_exec[]
+
+== Command Execution
+
+* Copy the full curl command from the top and paste it into the prepared shell. +
+You should get prettyfied json strings printed.
+
+* If you get no output or, when using verbosity an output on top contaning: `Closing connection`, the bearer token has expired and needs to be refreshed for authentication. To do so, start again with xref:command-preparation[Command Preparation]. 
+
+end::command_exec[]
