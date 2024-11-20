@@ -1,83 +1,64 @@
 = Listing Space IDs
 :toc: right
-:description: There are rare situations like when using shell commands that require the ID of a space as parameter. This page shows how to get it.
+:description: There are rare situations like when using shell commands that require the space ID as parameter. This page shows how to get it.
 
 == Introduction
 
 {description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set.
 
-Space IDs can currently not be listed by the administrator via the WebUI. They can only be listed via the shell using an authenticated curl GET command accessing the Infinite Scale https://owncloud.dev/apis/[API].
+. Via the web UI +
+Users can enable seeing WebDAV URLs via their personal preferences of the Infinite Scale WebUI. This URL contains the space ID.
 
+. Via CLI +
+Alternatively, administrators can impersonate the respective user and get the space ID via shell commands using an authenticated curl GET accessing the Infinite Scale https://owncloud.dev/apis/[API].
++
+--
 The following prerequisites apply:
 
 * The administrator must have shell access where Infinite Scale runs.
-* The administrator needs to use their active bearer token in the request described below.
+* The administrator needs to use the active bearer token in the request described below.
 * For ease of reading the result, the https://jqlang.github.io/jq/[jq] library should be installed on the OS where the shell command is executed. It is used in the examples.
 
 Note that the life span of the bearer token is short, in  particular less than a minute. If the token expires, the curl command will fail with an unauthorized message. So it is important to be prepared.
+--
 
-== Preparation
+== Via the web UI
 
-* Open a terminal window for shell access
-** The generated curl command described will be executed here.
-* Prepare an editor
-** Open an editor of choice where you can easily copy and paste to and add the following on top. The example lists `personal` users space ID's. Replace it with `project` for listing manually created spaces. Replace `<your host:9200>` with the URL:port of the Infinite Scale instance. Note to add a trailing blank line in the example as content is copied afterwards.
+When the user has enabled in his personal preferences menu:Show WebDAV information in details view[], the space ID can be identified the following:
+
+* Select a space and toggle the sidbar button on the top right to show the details.
+
+* The WebDAV URL shows: + 
+`<your host url>/remote.php/dav/spaces/c7763488-...-20badd5126b4/<optional file name>`
+
+* The space ID is `c7763488-...-20badd5126b4`.
+
+* Copy the ID *and* embed it in single quotes for any tasks that require a space ID as parameter.
 +
 --
-[source,bash]
-----
-curl -XGET -vk 'https://<your host:9200>/graph/v1.0/drives?$filter=driveType+eq+personal' \
-  -H 'Authorization: Bearer ...
-| jq '.'
+Example:
 
-----
+`c7763488-...-20badd5126b4` -> `'c7763488-...-20badd5126b4'`
+
+Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
 --
 
-* Open a browser
-** Login as administrator at `\https://<your host:9200>`, replace `<your host:9200>` with the URL:port of the Infinite Scale instance.
-** Open the browsers menu:Developer Console[].
-** Open the menu:Network[] tab.
-** Select btn:[XHR], browser dependent, it is maybe called `Fetch XHR`.
-** Reload the page to get updated content for XHR
-** In the column where you see `Name Status Type ...` check that `Method` is present. +
-If not, right click on one column item and select menu:Method[].
-** Click on btn:[Method] to sort, a `PROPFIND` line should be the first entry.
+== Via CLI
 
-== Get Space IDs
+include::partial$multi-location/get-bearer-token.adoc[tags=explanation,leveloffset=+1]
 
-=== Command Preparation
+:curl_url_1: /graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27
+include::partial$multi-location/get-bearer-token.adoc[tags=common_prep,leveloffset=+1]
 
-* Reload the screen in the browser to get an updated bearer token.
-* Right click on the line containing `PROPFIND` and select menu:Copy[Copy as cURL (bash)].
-* Paste the copied result into the editor under the blank line, this may now look like this, the bearer is shortened in the example for ease of readbility:
-+
---
-[source,bash]
-----
-curl -XGET -vk 'https://<your host:9200>/graph/v1.0/drives?$filter=driveType+eq+personal' \
-  -H 'Authorization: Bearer ...
-| jq '.'
+=== Get Space IDs
 
-curl 'https://<your host:9200>/remote.php/dav/spaces/59ee3b90-3231-4621-81aa-4531d33e7671%24fb9e2625-cdb0-4f21-8a34-db775a976707' \
-  -X 'PROPFIND' \
-  -H 'Accept: */*' \
-  -H 'Accept-Language: en' \
-  -H 'Authorization: Bearer eyJhb ... C1wUs' \
-  -H 'Connection: keep-alive' \
-  ...
-----
---
-* After `++  -H 'Accept-Language: en' \++`: +
-Copy the complete line `++  -H 'Authorization: Bearer eyJhb ... C1wUs' \++`
-* Replace the `Authorisation` line on top containing the prepared command with the copied content. +
-You now have a full curl command including an active bearer token for authentication that can be used in the next step.
+:curl_url_1: /graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27
+:curl_url_2: /remote.php/dav/spaces/59ee3b90-3231-4621-81aa-4531d33e7671%24fb9e2625-cdb0-4f21-8a34-db775a976707
+include::partial$multi-location/get-bearer-token.adoc[tags=command_prep,leveloffset=+2]
 
-=== Command Execution
+include::partial$multi-location/get-bearer-token.adoc[tags=command_exec,leveloffset=+2]
 
-* Copy the full curl command from the top and paste it into the prepared shell. +
-You should get prettyfied json strings printed.
-
-=== Output
+==== Output
 
 Personal Space::
 +
@@ -129,19 +110,23 @@ Project Space::
 ----
 --
 
-== Output Interpretation and Usage
+=== Output Interpretation and Usage
 
-Depending on if you are looking for a personal or project space, find the name of the space in the `name` or the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
-
+* For any *personal* or *project* space, find the name of the space in the `name` or the `driveAlias` field. The ID identifying the space is under `driveType` named `id` like:
++
+--
 [source,json]
 ----
 "id": "59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8",
 ----
 
-Copy the ID _excluding_ the surrounding double quotes and _embed_ it in single quotes for any tasks that require a space ID as parameter. Example:
+* Copy the ID
+** _excluding_ the surrounding double quotes and
+** _embed_ it in single quotes for any tasks that require a space ID as parameter.
 
-`"59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8"` -> +
-`'59ee3b90-3231-4621-81aa-4531d33e7671$ee008d1d-b17d-4c61-a7f5-4e5435d2b4e8'`
+Example:
 
-The single quotes are necessary as the ID contains a `$` sign and `$` is a special shell character.
+`"59ee3b90-...-a7f5-4e5435d2b4e8"` -> `'59ee3b90-...-a7f5-4e5435d2b4e8'`
 
+Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
+--
