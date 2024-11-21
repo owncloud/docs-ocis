@@ -95,7 +95,7 @@ WARNING: Use this command with absolute care. It is not intended to play around 
 
 === Resume Post-Processing
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#cli-commands[CLI Commands] to retry the failed upload.
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#cli-commands[CLI Command] to retry the failed upload.
 
 
 === Roll Back / Roll Forward Decomposedfs Migrations

@@ -102,7 +102,7 @@ ocis storage-users uploads sessions --resume
 --
 
 * *Particular failed uploads* +
-Use the `postprocessing` command to resume defined failed uploads. For postprocessing steps, the default is to resume . Note that at the moment, `resume` is an alias for `restart` to keep old functionality. `restart` is subject of change and will most likely be removed in a later version.
+Use the `postprocessing` command to resume defined failed uploads. For postprocessing steps, the default is to resume . Note that at the moment, `resume` is an alias for `restart` to keep old functionality. `restart` is subject to change and will most likely be removed in a later version.
  
 ** *Defined by ID*
 +

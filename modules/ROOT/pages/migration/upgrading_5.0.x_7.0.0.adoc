@@ -93,7 +93,7 @@ Reconfigure the deployment to use the new image:
 
 * The xref:{s-path}/collaboration.adoc[collaboration] service has been added. Though this service needs to be started manually, it requires a secret (preferred a random UUID string) when started. For safety reasons on a fresh install, this secret is added when running the `ocis init` command and should be added on upgrades. The used upgrade procedure provides a secret if not present in the config. Note that the secret can be overwritten in the config or with an environment variable if necessary.
 
-** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, the are a candidate for future deprecations.
+** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, they are a candidate for future deprecations.
 
 * If you have used a rolling release and deployed web office document servers like the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner] deployment example, you should follow the reconfiguration section below because the deployment files have been updated/upgraded. 
 
@@ -103,9 +103,9 @@ Reconfigure the deployment to use the new image:
 
 * Environment variables that have been deprecated without successor can safely be removed from the configuration. These envvars do not harm as they are not used anymore.
 * Environment variables that have been deprecated with a successor need to be updated accordingly.
-* Environment variables that habe been removed from Infinite Scale can safely be removed from the config if set manually.
+* Environment variables that have been removed from Infinite Scale can safely be removed from the config if set manually.
 
-==== Add new Infnite Scale config settings
+==== Add new Infinite Scale config settings
 
 To do so, the following steps need to be taken, here is the *overview*:
 
@@ -124,7 +124,7 @@ Because this will now run the new ocis code, it will create two files in the con
 . `ocis.config.patch` which contains all the changes that can be applied and
 . `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
 
-Note that after applying the patch file, the created files by the `--diff` option must be deleted manually.
+Note that after applying the patch file, the files created by the `--diff` option must be deleted manually.
  
 The diff option will NOT overwrite anything (except an earlier `ocis.config.patch`). It may ask questions though. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
 
@@ -214,7 +214,7 @@ patch < ocis.config.patch
 * *Any Other Image Based Deployment*:
 +
 --
-Use one of the Docker based examples from above and derive from. 
+Use one of the Docker based examples from above and adjust for your deployment.
 --
 
 === Reconfigure web Office Document Deployments
@@ -226,7 +226,7 @@ The following steps are based on the xref:depl-examples/ubuntu-compose/ubuntu-co
 * Backup the the base folder containing the existing deployment example by renaming it. +
 You will need your configuration details with the new example.
 
-* Follow the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#download-and-transfer-the-example[Download and Transfer the Example] to get the new deployment and extract it as described in the following section of the guide.
+* Follow the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#download-and-transfer-the-example[Download and Transfer Example] to get the new deployment and extract it as described in the following section of the guide.
 
 * Reconfigure the new `.env` file based on settings made in the `.env` file of the backup.
 

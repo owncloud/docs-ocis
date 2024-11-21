@@ -80,7 +80,7 @@ NOTE: There can never be a clear identification of a failed upload session due t
 
 [NOTE]
 ====
-If not noted otherwise, the `restart` option can also be replaced the `resume` option. This changes behaviour slightly.
+If not noted otherwise, the `restart` option can also be replaced with the `resume` option. This changes behaviour slightly.
 
 * `restart` +
 When restarting an upload, all steps for open items will be restarted, except if otherwise defined.
