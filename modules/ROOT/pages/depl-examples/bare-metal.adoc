@@ -71,7 +71,7 @@ Note that this URL must resolve to the server running this installation.
 
 == Install and Prepare Infinite Scale
 
-=== Install and configure the Infinite Scale Binary
+=== Install and Configure the Infinite Scale Binary
 
 * Download and install the Infinite Scale binary. To get the stable binary from ownCloud, visit {ocis-downloadpage-url}/{download-type}/?sort=time&order=desc[download.owncloud.com,window=_blank], select the version and the platform of choice and copy the link of the file. Replace `<file_url>` and `<file_name>` in the commands accordingly.
 +
@@ -96,7 +96,7 @@ Note when using a symbolic link like this, upgrading and/or testing is much easi
 +
 [source,bash,subs="attributes+"]
 ----
-sudo ln -s {ocis_bin}/<file_name> {ocis_bin}/ocis
+sudo ln -s -f {ocis_bin}/<file_name> {ocis_bin}/ocis
 ----
 
 * Check the version installed:
@@ -265,7 +265,7 @@ include::partial$deployment/nginx_80_example.adoc[]
 --
 [source,bash]
 ----
-sudo ln -s /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
+sudo ln -s -f /etc/nginx/sites-available/ocis /etc/nginx/sites-enabled/ocis
 ----
 --
 
@@ -350,7 +350,7 @@ include::partial$deployment/apache_80_example.adoc[]
 --
 [source,bash]
 ----
-sudo ln -s /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
+sudo ln -s -f /etc/apache2/sites-available/ocis /etc/apache2/sites-enabled/ocis
 ----
 
 [source,bash]
