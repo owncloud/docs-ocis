@@ -22,6 +22,9 @@ asciidoc:
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
 
+    # the name of the sub directory that defines the sources used in the compose deployment examples
+    ocis_wopi: ocis_full
+
     # note that service_url_component is used for services ONLY
     # service_url_component will be used to assemble the url for services to include content (tables) sourced from the ocis repo.
     service_url_component: 'docs' # docs for master or for stable, like docs-stable-5.0

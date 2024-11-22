@@ -2,6 +2,8 @@
 :toc: right
 :description: This document describes the necessary steps when upgrading Infinite Scale from release 5.0.x to 7.0.0.
 
+:actual_seven_version: 7.0.0
+
 include::partial$multi-location/compose-version.adoc[]
 
 == Introduction
@@ -38,7 +40,7 @@ Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation]
 +
 [source,bash,subs="attributes+"]
 ----
-docker pull owncloud/ocis:7.0.0
+docker pull owncloud/ocis:{actual_seven_version}
 ----
 
 == Shut Down the Infinite Scale Instance
@@ -89,9 +91,11 @@ Reconfigure the deployment to use the new image:
 * If you are using removed or deprecated environment variables in your config.
 ** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
 
-* Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, _everyone_ who upgrades is affected.
+* Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, *everyone* is affected.
 
-* The xref:{s-path}/collaboration.adoc[collaboration] service has been added. Though this service needs to be started manually, it requires a secret (preferred a random UUID string) when started. For safety reasons on a fresh install, this secret is added when running the `ocis init` command and should be added on upgrades. The used upgrade procedure provides a secret if not present in the config. Note that the secret can be overwritten in the config or with an environment variable if necessary.
+* Because of the implementation of a Content Security Policy (CSP), *everyone* is affected *if* any external services like an IDP (e.g. Keycloak, Authentik, etc.) or web office servers have been used.
+
+* The xref:{s-path}/collaboration.adoc[collaboration] service has been added which replaces the external https://github.com/cs3org/wopiserver[cs3org/wopi] server used before. Though the collaboration service needs to be started manually, it requires a secret (preferred a random UUID string) when started. For safety reasons on a fresh install, this secret is added automatically when running the `ocis init` command and should be added on upgrades. The used upgrade procedure provides a secret if not present in the config. Note that the secret can be overwritten in the config or with an environment variable if necessary at any time.
 
 ** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, they are a candidate for future deprecations.
 
@@ -156,13 +160,13 @@ patch < ocis.config.patch
 --
 This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the mount/volume definition where the configuration settings are stored to make the `ocis init` command work. The bind mount from below is just an example and fails if the local directory does not exist!
 
-[source,bash]
+[source,bash,subs="attributes+"]]
 ----
 sudo docker run \
     --rm -it \
     --entrypoint sh \
     --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
-    owncloud/ocis:7.0.0
+    owncloud/ocis:{actual_seven_version}
 ----
 
 Then, when the containers shell is available, type:
@@ -186,13 +190,13 @@ patch < ocis.config.patch
 --
 This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the volume definition (either the volume name or the local path) where the configuration settings are stored defined in the compose file to make the `ocis init` command work. The named volume `ocis-config` from below is just an example and derives from our docker compose deployment examples.
 
-[source,bash]
+[source,bash,subs="attributes+"]]
 ----
 sudo docker run \
     --rm -it \
     --entrypoint sh \
     -v ocis-config:/etc/ocis \
-    owncloud/ocis:7.0.0
+    owncloud/ocis:{actual_seven_version}
 ----
 
 Then, when the containers shell is available, type:
@@ -217,9 +221,17 @@ patch < ocis.config.patch
 Use one of the Docker based examples from above and adjust for your deployment.
 --
 
+=== Define a Content Security Policy
+
+To set a Content Security Policy (CSP), you need to create a yaml file containing the definitions. To activate the settings, reference the file as value in the `PROXY_CSP_CONFIG_FILE_LOCATION` environment variable. For each change, a restart of the Infinite Scale deployment or the proxy service is required.
+
+For details how to define a CSP, see the xref:{s-path}/proxy.adoc#content-security-policy[Content Security Policy, window=_blank] section in the proxy service documentation.
+
+The reconfiguration of web office document deployments as described in the next section already contain a preconfigured CSP.
+
 === Reconfigure web Office Document Deployments
 
-With the introduction of the xref:{s-path}/collaboration.adoc[collaboration] service, the external https://github.com/cs3org/wopiserver[cs3org/wopi] server is no longer required. Deployments using the external cs3org/wopi server should upgrade. This upgrade is a breaking change, but if you have used one of the `Ubuntu with Docker Compose` deployment examples, a re-deployment is quite easy. If you have setup your own deployment not based on the examples, you can derive from the changes based on the deployment files.
+With the introduction of the xref:{s-path}/collaboration.adoc[collaboration] service, the external https://github.com/cs3org/wopiserver[cs3org/wopi] server is no longer required. Deployments using the external cs3org/wopi server must upgrade. This upgrade is a breaking change because of the need to use a CSP which is provided. If you have used one of the `Ubuntu with Docker Compose` deployment examples, a re-deployment is quite easy. If you have setup your own deployment not based on the examples, you can derive from the changes based on the deployment files.
 
 The following steps are based on the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. The steps are identical for the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
 
