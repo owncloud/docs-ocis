@@ -63,8 +63,8 @@ The following data needs to be available to configure the Infinite Scale eMail s
 
 [NOTE]
 ====
-* Note that you must configure at minimum the `SMTP_SENDER`, even it is a dummy email like `noreply@example.com`, the deployment will not startup otherwise.
-* Note that if all other data is not available, Infinite Scale will start but no notifications can be sent.
+* You must configure at minimum the `SMTP_SENDER`, even it is a dummy email like `noreply@example.com`, the deployment will not startup otherwise.
+* If all other email data is not available, Infinite Scale will start but no notifications can be sent.
 ====
 
 * `SMTP_HOST` +
