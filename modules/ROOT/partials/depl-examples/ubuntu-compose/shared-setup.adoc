@@ -57,10 +57,16 @@ To access Infinite Scale from the internet, you *must*:
 Note that you can use any domain provider of choice.
 --
 
-eMail (Optional)::
-The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details. Note that if this data is not available, Infinite Scale will start but no notifications can be sent.
-+
+eMail::
 --
+The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details.
+
+[NOTE]
+====
+* You must configure at minimum the `SMTP_SENDER`, even it is a dummy email like `noreply@example.com`, the deployment will not startup otherwise.
+* If all other email data is not available, Infinite Scale will start but no notifications can be sent.
+====
+
 * `SMTP_HOST` +
 SMTP host to connect to.
 * `SMTP_PORT` +
