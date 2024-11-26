@@ -13,6 +13,15 @@ With the `auth-app` service, you can create tokens that can be used to authentic
 
 To enable `{service_name}`, you first must set `PROXY_ENABLE_APP_AUTH` to `true`.
 
+// just for reference: https://github.com/owncloud/ocis/blob/master/ocis/pkg/runtime/service/service.go#L313-L347
+
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that generating access tokens is security relevant.
+====
+
 == Default Values
 
 * Auth Basic listens on port 9245 by default.

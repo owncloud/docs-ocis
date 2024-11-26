@@ -8,6 +8,13 @@
 
 {description} 
 
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that you must have a defined rulset available. If the ruleset is not available, the {service_name} service will prevent other services from starting up.
+====
+
 Policies are written in the https://www.openpolicyagent.org/docs/latest/policy-language/[Rego query language, window=_blank]. The location of the Rego files can be configured via yaml. A configuration using environment variables is not possible.
 
 == Default Values

@@ -11,6 +11,13 @@
 *   Users invited via the Invitation Manager (via the LibreGraph API) will have the `userType="Guest"`.
 *   Users belonging to the organization have the `userType="Member"`.
 
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that you need upfront a business decision if your organisation will allow inviting external users.
+====
+
 == Provisioning Backends
 
 When Infinite Scale is used via the IDM service for the user management, users are created using the `/graph/v1.0/users` endpoint via the LibreGraph API. For larger deployments, the Keycloak admin API can be used to provision users. In a future step, the endpoint, credentials and body might be made configurable using templates.

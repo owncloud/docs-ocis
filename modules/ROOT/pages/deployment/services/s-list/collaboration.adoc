@@ -10,6 +10,13 @@
 
 IMPORTANT: Since this service requires an external document server, it won't start by default when using `ocis server` (xref:deployment/general/general-info.adoc#infinite-scale-supervised-services[supervised mode]). You must start it manually with the `ocis collaboration server` command.
 
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that the service may need to be started multiple times but with own configs for each web office document server used.
+====
+
 Because the collaboration service needs to be started manually, the following prerequisite applies: On collaboration service startup, particular environment variables are required to be populated. If environment variables have a default like the MICRO_REGISTRY_ADDRESS, the default will be used, if not set otherwise. Use for all others the instance values as defined. If these environment variables are not provided or misconfigured, the collaboration service will not start up.
 
 Required environment variables:
