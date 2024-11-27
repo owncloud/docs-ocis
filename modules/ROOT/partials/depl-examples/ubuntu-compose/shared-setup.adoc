@@ -130,11 +130,34 @@ tag::hetzner_only_1[]
 
 We recommend using key-based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
 
-Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm. The keys to use after generation are located in `~/.ssh`.
+All OS::
+Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm and a passphrase for enhanced security. The keys to use after generation are located in `~/.ssh`. Name the keys during the generation process accordingly to avoid overwrite existing ones.
 
-When using Putty (Windows) to access your server, you must convert the private key generated into the `ppk` format to be usable for Putty. Read the  https://www.puttygen.com[puttygen] guide to do so.
+Use the public key::
++
+--
+* During server setup described in one of the sections below, you can use the content of the public key file to setup ssh authentication when asked.
 
-After the server has been created, you can copy new private keys to the server by adding them into the `~/.ssh/authorized_keys` file.
+* Alternativerly, after the server has been created, you can copy the _public_ key to the server by adding the _contents_ of the generated `<key>.pub` file to the `~/.ssh/authorized_keys` file manually. This step is necessary, because the server does not have password authentication which would be required to transfer the key by command.
+--
+
+Additionally for Windows::
++
+--
+* When using Putty to access your server, you must convert the _private_ key generated into Putty's `ppk` format. Read the https://www.puttygen.com[puttygen] guide for how to do so. You need to specify on each login the ppk file generated via menu:Connection[SSH > Auth > Connections > Private key file].
+
+* When using the command shell with ssh to login or when using SCP, you need to:
+** The private/public keys must be located in `C:\Users\<user>\.ssh\`
+** Add the following to `C:\Users\<user>\.ssh\config`
++
+[source,plaintext]
+----
+Host <the-servers-public-url-or-ip>
+    PreferredAuthentications publickey
+    PasswordAuthentication no
+    IdentityFile C:\Users\<user>\.ssh\<private-key-name>
+----
+--
 
 === Login to Hetzner
 
@@ -234,8 +257,10 @@ Transfer the `.zip` file created to the server by issuing the following command,
 
 [source,bash,subs="attributes+"]
 ----
-scp '~/Downloads/owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
+scp ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
 ----
+
+Note that the command differs a bit on Windows due to way how the home directory and the path separator is defined.
 
 NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get *overwritten* without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
 
