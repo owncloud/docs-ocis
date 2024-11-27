@@ -45,6 +45,15 @@ Writes or any mutations to a file do not appear in the namespace until it is com
 * *Access Control:* +
 The way S3 APIs handle identity and access management (IAM) policies is incompatible with POSIX.
 
+== Encryption
+
+[quote,Amazon AWS,'Default encryption FAQ https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-encryption-faq.html[What do I have to do to take advantage of this change?]']
+____
+You are not required to make any changes to your existing applications. Because default encryption is enabled for all of your buckets, all new objects uploaded to Amazon S3 are automatically encrypted.
+____
+
+Note that this may be different with other S3 providers. Check their documentations accordingly.
+
 == Configuration
 
 Basically, two configurations need to be made.
