@@ -8,6 +8,13 @@
 
 {description} 
 
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that you only need it when you plan to implement auditing.
+====
+
 Supported log formats are `json` or a `minimal` human-readable format. The audit service takes note of actions conducted by users and administrators.
 
 Example minimal format::

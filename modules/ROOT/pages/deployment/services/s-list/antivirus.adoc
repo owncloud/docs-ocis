@@ -8,6 +8,13 @@
 
 {description} 
 
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that it needs an external antivirus service available and configured.
+====
+
 == Antivirus Configuration
 
 === Antivirus Scanner Type
