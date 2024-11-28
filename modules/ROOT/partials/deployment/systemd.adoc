@@ -6,7 +6,6 @@ sudo systemctl edit --force --full ocis.service
 ----
 
 Then copy the content of the systemd file below into the editor and save it.
-ocis_bin
 [caption=]
 .systemd file
 [source,plaintext,subs="attributes+"]
