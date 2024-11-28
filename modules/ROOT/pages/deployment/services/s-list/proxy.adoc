@@ -5,6 +5,8 @@
 
 :service_name: proxy
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front of an external reverse proxy.
@@ -173,6 +175,22 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 * The proxy service is the only service communicating to the outside and therefore needs the usual protection against DDOS, Slow Loris or other attack vectors. All other services are not exposed to the outside, but also need protective measures when it comes to distributed setups like when using container orchestration over various physical servers.
 
 * In a production deployment, you want to have basic authentication (`PROXY_ENABLE_BASIC_AUTH`) _disabled_ which is the default state. You should also set up a firewall to only allow requests to the proxy service or the reverse proxy if you have one. Requests to the other services should be blocked by the firewall.
+
+=== Content Security Policy
+
+What is a Content Security Policy (CSP) and why is it used in Infinite Scale::
++
+--
+A Content Security Policy (CSP) is a feature that helps to prevent or minimize the risk of certain types of security threats. It consists of a series of instructions from a website to a browser, which instruct the browser to place restrictions on the things that the code comprising site is allowed to do. It is mainly used as a defense against cross-site scripting (XSS) attacks, in which an attacker is able to inject malicious code into the victim's site and includes defending against clickjacking, and helping to ensure that a site's pages will be loaded over HTTPS.
+
+For Infinite Scale, external resources like an IDP (e.g. Keycloak) or when using web office documents or web apps, require defining a CSP. If not defined, the referenced services will not work.
+--
+
+To create a Content Security Policy (CSP), you need to create a yaml file containing the CSP definitions. To activate the settings, reference the file as value in the `PROXY_CSP_CONFIG_FILE_LOCATION` environment variable. For each change, a restart of the Infinite Scale deployment or the proxy service is required.
+
+A working example for a CSP can be found in a sub path of the `config` directory of the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[{ocis_wopi},window=_blank] deployment example which is the base for our xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] and the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
+
+See the https://content-security-policy.com[Content Security Policy (CSP) Quick Reference Guide,window=_blank] for a description of directives.
 
 == Presigned Urls
 

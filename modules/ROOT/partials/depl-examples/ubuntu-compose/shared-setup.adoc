@@ -533,13 +533,13 @@ Use the container ID identified in the following command to read the Infinite Sc
 docker logs <CONTAINER ID> 2>&1 | less
 ----
 
-The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll thru the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
+The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll through the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
 
 If no password can be identified, you must reset the admin password via the command line as described below.
 
 === Command Line Password Reset
 
-To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-the-admin-user[Password Reset for the Admin User].
+To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
 
 == Volume Migration
 

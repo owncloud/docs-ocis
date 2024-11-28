@@ -1,0 +1,255 @@
+= Upgrading from 5.0.x to 7.0.0
+:toc: right
+:description: This document describes the necessary steps when upgrading Infinite Scale from release 5.0.x to 7.0.0.
+
+:actual_seven_version: 7.0.0
+
+include::partial$multi-location/compose-version.adoc[]
+
+== Introduction
+
+{description}
+
+IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#introduction[Upgrading Infinite Scale] documentation before you start.
+
+IMPORTANT: Check below, if you are affected by breaking changes and prepare all steps mentioned before you start the upgrade.
+
+== Upgrade Steps
+
+. Download and install Infinite Scale +
+*Do not start it after downloading the binary or image*!
+. Shut down the Infinite Scale instance
+. We strongly recommend doing a backup
+. Reconfigure the deployment
+. Manage Breaking Changes
+. Start Infinite Scale
+
+:sectnums:
+
+== Download and Install Infinite Scale
+
+Download and install Infinite Scale via:
+
+=== Binary
+
+Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation] section of the bare metal deployment example.
+
+=== Image Based Deployments
+
+* Issue the following command to download the new image:
++
+[source,bash,subs="attributes+"]
+----
+docker pull owncloud/ocis:{actual_seven_version}
+----
+
+== Shut Down the Infinite Scale Instance
+
+Depending how you deployed Infinite Scale, you need to shut it down differently.
+
+* *Binary* +
+For binary deployments, do a graceful shutdown as described in xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale].
+
+* *docker run* +
+For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].
+
+* *docker compose* +
+For deployments using `docker compose` do a graceful shutdown as described in xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#stop-the-deployment[Stop the Deployment].
+
+* *Any other image based deployment* +
+For any other image based deployment, shut down Infinite Scale according the vendors deployment description.
+
+== Backup of Infinite Scale
+
+See the xref:maintenance/b-r/backup_considerations.adoc[Backup Considerations] and the xref:maintenance/b-r/backup.adoc[Backup] documentation for more details.
+
+== Reconfigure the Deployment
+
+Reconfigure the deployment to use the new image:
+
+* For binary, nothing extra needs to be done
+
+* When using `docker run`
+** Update the image version used in the docker run command.
+
+* When using `docker compose`
+** Update _every_ compose file where the `ocis image` is referenced accordingly.
+** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of those pages carefully. 
+
+* When using `Kubernetes - Helm`
+** Update `{{ .Values.image.tag }}` and/or `{{ .Chart.AppVersion }}` accordingly.
+
+== Manage Breaking Changes
+
+* All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
+* A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added.
+* A new mandatory Infinite Scale config setting for the `collaboration` service named `secret` has been added.
+* Deployment examples based on one of the `Ubuntu with Docker Compose` deployments have been updated/upgraded.
+
+=== How to Identify if You Are Affected
+
+* If you are using removed or deprecated environment variables in your config.
+** See the xref:deployment/services/env-var-changes.adoc[Added and Removed Environment Variables] documentation.
+
+* Because the xref:{s-path}/activitylog.adoc[activitylog] service has been added and is started automatically, *everyone* is affected.
+
+* Because of the implementation of a Content Security Policy (CSP), *everyone* is affected *if* any external services like an IDP (e.g. Keycloak, Authentik, etc.) or web office servers have been used.
+
+* The xref:{s-path}/collaboration.adoc[collaboration] service has been added which replaces the external https://github.com/cs3org/wopiserver[cs3org/wopi] server used before. Though the collaboration service needs to be started manually, it requires a secret (preferred a random UUID string) when started. For safety reasons on a fresh install, this secret is added automatically when running the `ocis init` command and should be added on upgrades. The used upgrade procedure provides a secret if not present in the config. Note that the secret can be overwritten in the config or with an environment variable if necessary at any time.
+
+** If you have used web office document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol with the external https://github.com/cs3org/wopiserver[cs3org/wopi] server, we highly recommend switching to the xref:{s-path}/collaboration.adoc[collaboration] service which requires deployment reconfiguration which is a breaking change. Though the environment variables from the xref:{s-path}/app-provider.adoc[app-provider] service formerly used for web office document deployments are currently not deprecated, they are a candidate for future deprecations.
+
+* If you have used a rolling release and deployed web office document servers like the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner] deployment example, you should follow the reconfiguration section below because the deployment files have been updated/upgraded. 
+
+=== How to Manage the Change
+
+==== Manage deprecated variables
+
+* Environment variables that have been deprecated without successor can safely be removed from the configuration. These envvars do not harm as they are not used anymore.
+* Environment variables that have been deprecated with a successor need to be updated accordingly.
+* Environment variables that have been removed from Infinite Scale can safely be removed from the config if set manually.
+
+==== Add new Infinite Scale config settings
+
+To do so, the following steps need to be taken, here is the *overview*:
+
+. Get the config diff via command
+. Apply the diff created
+. Start Infinite Scale as usual
+
+See the next section for *details* how to update the config settings.
+
+=== Update Config Settings
+
+Run the `ocis init --diff` command:
+
+Because this will now run the new ocis code, it will create two files in the config directory to help manage the needed changes. Note that the patch file is only created if changes are found:
+
+. `ocis.config.patch` which contains all the changes that can be applied and
+. `ocis.yaml.<time-stamp>.backup` containing a backup of the original config.
+
+Note that after applying the patch file, the files created by the `--diff` option must be deleted manually.
+ 
+The diff option will NOT overwrite anything (except an earlier `ocis.config.patch`). It may ask questions though. Consider using the correct answer for `certificate checking` as this will influence the respective diff output.
+
+If a patch file is created, do a review before applying it.
+
+NOTE: If the `patch` command is not present in your deployment, you must apply the changes provided by the patch file manually to the `ocis.yaml` file.
+
+Depending on the deployment selected, you need to prepare for this command differently, assuming the location of the config directory is the default:
+
+* *Binary Deployment*:
++
+--
+[source,bash]
+----
+ocis init --diff
+----
+Change into the Infinite Scale config directory located at `$HOME/.ocis/config/` and apply the changes with:
+
+[source,bash]
+----
+patch < ocis.config.patch
+----
+--
+
+{empty}
+
+* *Docker Deployment*:
++
+--
+This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the mount/volume definition where the configuration settings are stored to make the `ocis init` command work. The bind mount from below is just an example and fails if the local directory does not exist!
+
+[source,bash,subs="attributes+"]]
+----
+sudo docker run \
+    --rm -it \
+    --entrypoint sh \
+    --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
+    owncloud/ocis:{actual_seven_version}
+----
+
+Then, when the containers shell is available, type:
+
+[source,bash]
+----
+ocis init --diff
+----
+Change into the containers config directory `/etc/ocis` and apply the changes with:
+
+[source,bash]
+----
+patch < ocis.config.patch
+----
+--
+
+{empty}
+
+* *Docker Compose Deployment*:
++
+--
+This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the volume definition (either the volume name or the local path) where the configuration settings are stored defined in the compose file to make the `ocis init` command work. The named volume `ocis-config` from below is just an example and derives from our docker compose deployment examples.
+
+[source,bash,subs="attributes+"]]
+----
+sudo docker run \
+    --rm -it \
+    --entrypoint sh \
+    -v ocis-config:/etc/ocis \
+    owncloud/ocis:{actual_seven_version}
+----
+
+Then, when the containers shell is available, type:
+
+[source,bash]
+----
+ocis init --diff
+----
+Change into the containers config directory `/etc/ocis` and apply the changes with:
+
+[source,bash]
+----
+patch < ocis.config.patch
+----
+--
+
+{empty}
+
+* *Any Other Image Based Deployment*:
++
+--
+Use one of the Docker based examples from above and adjust for your deployment.
+--
+
+=== Define a Content Security Policy
+
+To set a Content Security Policy (CSP), you need to create a yaml file containing the definitions. To activate the settings, reference the file as value in the `PROXY_CSP_CONFIG_FILE_LOCATION` environment variable. For each change, a restart of the Infinite Scale deployment or the proxy service is required.
+
+For details how to define a CSP, see the xref:{s-path}/proxy.adoc#content-security-policy[Content Security Policy, window=_blank] section in the proxy service documentation.
+
+The reconfiguration of web office document deployments as described in the next section already contain a preconfigured CSP.
+
+=== Reconfigure web Office Document Deployments
+
+With the introduction of the xref:{s-path}/collaboration.adoc[collaboration] service, the external https://github.com/cs3org/wopiserver[cs3org/wopi] server is no longer required. Deployments using the external cs3org/wopi server must upgrade. This upgrade is a breaking change because of the need to use a CSP which is provided. If you have used one of the `Ubuntu with Docker Compose` deployment examples, a re-deployment is quite easy. If you have setup your own deployment not based on the examples, you can derive from the changes based on the deployment files.
+
+The following steps are based on the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. The steps are identical for the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
+
+* Backup the the base folder containing the existing deployment example by renaming it. +
+You will need your configuration details with the new example.
+
+* Follow the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#download-and-transfer-the-example[Download and Transfer Example] to get the new deployment and extract it as described in the following section of the guide.
+
+* Reconfigure the new `.env` file based on settings made in the `.env` file of the backup.
+
+== Start Infinite Scale
+
+When you have finished upgrading, you now can start Infinite Scale as ususal.
+
+For any deployment used, you now can delete/remove old binaries or images/containers.
+
+:sectnums!:
+
+== Changed or Added CLI Commands
+
+See the xref:maintenance/commands/changed-cli.adoc[Changed or Added CLI Commands] document for details.

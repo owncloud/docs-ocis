@@ -4,9 +4,6 @@
 :keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
 :description: Install Infinite Scale using Docker Compose on the Hetzner Cloud for production use.
 
-// the folder to use for the example
-:ocis_wopi: ocis_full
-
 include::partial$multi-location/compose-version.adoc[]
 
 image:depl-examples/ubuntu-compose/ubuntu-basic-teaser-image.png[Teaser Image, width=650]

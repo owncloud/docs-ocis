@@ -23,7 +23,7 @@ IMPORTANT: The graceful shutdown period is only applicable if the `storage-users
 
 When hard-stopping Infinite Scale, for example with the `kill <pid>` command (SIGKILL), it is possible and likely that not all data from the decomposedfs (metadata) has been written to the storage which may result in an inconsistent decomposedfs. When gracefully shutting down Infinite Scale, using a command like SIGTERM, the process will no longer accept any write requests from _other_ services and will try to write the internal open  requests which can take an undefined duration based on many factors. To mitigate that situation, the following things have been implemented:
 
-*   With the value of the environment variable `STORAGE_USERS_GRACEFUL_SHUTDOWN_TIMEOUT`, the `storage-users` service will delay its shutdown giving it time to finalize writing necessary data. This delay can be necessary if there is a lot of data to be saved and/or if storage access/thruput is slow. In such a case you would receive an error log entry informing you that not all data could be saved in time. To prevent such occurrences, you must increase the default value.
+*   With the value of the environment variable `STORAGE_USERS_GRACEFUL_SHUTDOWN_TIMEOUT`, the `storage-users` service will delay its shutdown giving it time to finalize writing necessary data. This delay can be necessary if there is a lot of data to be saved and/or if storage access/throughput is slow. In such a case you would receive an error log entry informing you that not all data could be saved in time. To prevent such occurrences, you must increase the default value.
 
 *   If a shutdown error has been logged, the command-line maintenance tool xref:maintenance/commands/commands.adoc#inspect-and-manipulate-node-metadata[Inspect and Manipulate Node Metadata] can help to fix the issue. Please contact support for details. 
 
@@ -69,21 +69,29 @@ ocis storage-users uploads <command>
 ----
 COMMANDS:
    sessions  Print a list of upload sessions
-   clean     Clean up leftovers from expired uploads (deprecated, do not use it)
-   list      Print a list of all incomplete uploads  (deprecated, do not use it)
 ----
 --
 
 ==== Sessions command
 
-The `sessions` command is the entry point for listing, restarting and cleaning unfinished uploads.
+The `sessions` command is the entry point for listing, restarting/resuming and cleaning unfinished uploads.
+
+NOTE: There can never be a clear identification of a failed upload session due to various reasons causing them. You need to apply more critera like free space on disk, a failed service like antivirus etc. to declare an upload as failed.
+
+[NOTE]
+====
+If not noted otherwise, the `restart` option can also be replaced with the `resume` option. This changes behaviour slightly.
+
+* `restart` +
+When restarting an upload, all steps for open items will be restarted, except if otherwise defined.
+* `resume` +
+When resuming an upload, processing will continue unfinished items from their last completed step.
+====
 
 [source,bash]
 ----
 ocis storage-users uploads sessions
 ----
-
-Note, though possible, do not use the deprecated upload commands listed above. Their function has been embedded in the session command as command options.
 
 [source,plaintext]
 ----
@@ -100,6 +108,7 @@ OPTIONS:
    --has-virus   filter sessions by virus scan result (default: unset)
    --json        output as json                       (default: false)
    --restart     send restart event for all listed sessions (default: false)
+   --resume      send resume event for all listed sessions (default: false)
    --clean       remove uploads                       (default: false)
    --help, -h    show help
 ----
@@ -165,7 +174,7 @@ ocis storage-users uploads sessions --expired=false --processing=false
 |
 |===
 
-The sessions command can also clear and restart uploads. The output is the same as if run without the `--clean` or `--restart` flag. Note that it is recommended to run the command first without the `--clean` (`--processing`) flag to double check which uploads get cleaned (restarted).
+The sessions command can also clear and restart/resume uploads. The output is the same as if run without the `--clean` or `--restart/--resume` option. Note that it is recommended to run the command first without the `--clean` (`--processing`) option to double check which uploads would get cleaned (restarted/resumed).
 
 .Cleans all expired uploads regardless of processing and virus state.
 [source,bash]
@@ -175,13 +184,13 @@ ocis storage-users uploads sessions \
      --clean
 ----
 
-.Restarts all uploads that are processing and are not virus infected
+.Resume all uploads that are currently processing and are not virus infected
 [source,bash]
 ----
 ocis storage-users uploads sessions \
      --processing=false \
      --has-virus=false \
-     --restart
+     --resume
 ----
 
 === Manage Trash-Bin Items
