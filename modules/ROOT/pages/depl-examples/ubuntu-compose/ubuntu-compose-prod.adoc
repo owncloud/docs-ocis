@@ -38,8 +38,9 @@ This guide describes an installation of Infinite Scale based on Ubuntu LTS and d
 * Disk space +
 About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. If not otherwise defined, this guide uses docker managed volumes. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
-* Memory +
-We recommend at minimum 4-6GB of memory. 
+* Memory
+** We recommend at minimum 4-6GB of memory.
+** If you plan to enable antivirus scanning, see the memory consideration section in the xref:{s-path}/antivirus.adoc[antivirus] service for additional memory requirements. 
 ====
 
 === Knowledge Stack

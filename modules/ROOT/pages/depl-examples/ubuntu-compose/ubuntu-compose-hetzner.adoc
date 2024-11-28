@@ -40,8 +40,9 @@ At minimum and at the time of writing, type _CX22_ (2 shared Intel CPU's with 4G
 About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
 ** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
-* Memory +
-We recommend at minimum 4-6GB of memory. 
+* Memory
+** We recommend at minimum 4-6GB of memory.
+** If you plan to enable antivirus scanning, see the memory consideration section in the xref:{s-path}/antivirus.adoc[antivirus] service for additional memory requirements.
 ====
 
 === Knowledge Stack
