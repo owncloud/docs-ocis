@@ -70,5 +70,5 @@ Example:
 
 `"4c510ada-...-42cdf82c3d51"` -> `'4c510ada-...-42cdf82c3d51'`
 
-Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
+Single quotes are necessary because the ID can contain a `$` sign which is a special character for the shell.
 --
