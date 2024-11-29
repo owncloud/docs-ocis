@@ -22,7 +22,6 @@ In this mode, a service has been started independently and outside the single pr
 +
 [source,plaintext]
 ----
-activitylog
 eventhistory
 graph
 idp
