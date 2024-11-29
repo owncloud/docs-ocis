@@ -670,7 +670,7 @@ endif::[]
 Update non-Infinite Scale Images::
 +
 --
-Some images used do not have a particular release defined but use `latest`. These containers can be updated if there are new releases available, like for security or bug fixes. To do so, use the following commands:
+Some images used do not have a particular release defined but use `latest`. These images can be updated if there are new releases available, like for security or bug fixes. To do so, use the following commands:
 
 [source,bash]
 ----
