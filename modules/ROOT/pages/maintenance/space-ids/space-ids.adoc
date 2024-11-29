@@ -131,5 +131,5 @@ Example:
 
 `"59ee3b90-...-a7f5-4e5435d2b4e8"` -> `'59ee3b90-...-a7f5-4e5435d2b4e8'`
 
-Single quotes are necessary because the ID can contain a `$` sign which is a special character the shell.
+Single quotes are necessary because the ID can contain a `$` sign which is a special character for the shell.
 --
