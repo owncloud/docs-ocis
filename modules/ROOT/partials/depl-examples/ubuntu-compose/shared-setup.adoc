@@ -600,7 +600,7 @@ OCIS_CONFIG_DIR=/mnt/config
 +
 [source,bash]
 ----
-docker compose up
+docker compose up -d
 ----
 
 ** If the containers come up without reporting issues, you have successfully moved your Infinite Scale docker internal volumes to local paths.
