@@ -617,11 +617,15 @@ docker volume rm {ocis_wopi}_ocis-config {ocis_wopi}_ocis-data
 
 === Updating
 
-// for testing
+// for testing only
+//:version-type: rolling
 //:version-type: production
 
+Infinite Scale::
++
+--
 ifeval::["{version-type}" == "rolling"]
-For rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on all updates being done consecutively.
+For Infinite Scale rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on all updates being done consecutively.
 
 If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available rolling release for internal update reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
 
@@ -629,7 +633,7 @@ If new Infinite Scale releases are available, you *must not* skip any version in
 +
 [source,bash]
 ----
-sudo docker compose stop \
+sudo docker compose down \
 sudo docker compose pull \
 sudo docker compose up -d --remove-orphans
 ----
@@ -638,7 +642,7 @@ sudo docker compose up -d --remove-orphans
 
 * For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must run the command block from above once and set the respective release in the `OCIS_DOCKER_TAG` _before_ pulling. Use no value for the last release, it defaults to `latest`.
 
-* Check if there are any Infinite Scale config changes. To do so, run a `ocis init --diff` plus apply any patches. The detailed how-to is described in the xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide for 7.0.0. When done, bring the deployment up.
+* Check if there are any Infinite Scale config changes. To do so, run a `ocis init --diff` plus apply any patches. The detailed how-to is described in the xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide for 7.0.0. When done, restart the deployment.
 
 * Finally, you can remove any old images if no longer used.
 
@@ -650,25 +654,34 @@ ifeval::["{version-type}" != "rolling"]
 
 Follow these steps to update between production releases:
 
-For patch releases only!::
-+
---
+For Infinite Scale patch releases only!::
 These commands will stop the deployment, update all images and start the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
-
++
 [source,bash]
 ----
-sudo docker compose stop \
+sudo docker compose down \
 sudo docker compose pull \
 sudo docker compose up -d --remove-orphans
 ----
-{empty}
---
 
 endif::[]
+--
+
+Update non-Infinite Scale Images::
++
+--
+Some images used do not have a particular release defined but use `latest`. These containers can be updated if there are new releases available, like for security or bug fixes. To do so, use the following commands:
+
+[source,bash]
+----
+sudo docker compose pull \
+sudo docker compose up -d --remove-orphans
+----
+--
 
 === Upgrading
 
-For all major and minor releases including from former rolling to production::
+For all Infinite Scale major and minor releases including from former rolling to production::
 +
 --
 * Stop the deployment with:
