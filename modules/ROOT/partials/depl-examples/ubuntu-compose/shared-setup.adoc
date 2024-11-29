@@ -335,8 +335,15 @@ Define these settings according to your eMail configuration. With the settings d
 
 NOTE: When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
 
-NOTE: There can be additional options to be configured like web apps. These should be configured after successfully starting the deployment without issues. This eases finding any first startup issues that need to be solved first.
- 
+NOTE: Additional options can be configured like web apps. These should be configured _after_ successfully starting the deployment without issues. This eases finding any first startup issues that need to be solved first.
+
+When the configuration is completed, you can optionally print the final assembled docker compose yml setup before starting it by using the following command. This output helps finding configuration issues more easily.
+
+[source,bash]
+----
+docker compose config
+----
+
 == Certificate Generation Process
 
 The recommended process to generate live certificates is the following:
