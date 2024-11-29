@@ -18,7 +18,7 @@ In single process mode, all Infinite Scale services are running inside a single 
 
 Standalone Mode::
 // grep -rl metrics.Metrics | sort | sed 's/\/.*$//' | uniq
-In this mode, a servic has been started independent and outside the single process mode. Either via an own defined service startup or a startup as own container via docker. The metrics of the following services are exposed on their own metrics endpoint:
+In this mode, a service has been started independently and outside the single process mode. Either via an own defined service startup or a startup as own container via docker. The metrics of the following services are exposed on their own metrics endpoint:
 +
 [source,plaintext]
 ----
