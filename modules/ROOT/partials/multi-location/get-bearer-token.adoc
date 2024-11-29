@@ -2,6 +2,11 @@
 //:curl_url_1: /graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27
 //:curl_url_2: /remote.php/dav/spaces/59ee3b90-3231-4621-81aa-4531d33e7671%24fb9e2625-cdb0-4f21-8a34-db775a976707
 
+//:what_is_listed: The example lists `personal` users space ID's. + \
+//Replace it with `project` for listing manually created spaces.
+
+//:what_is_listed: Replace the `\{username}` placeholder with the name of the user.
+
 tag::explanation[]
 
 == Explanation
@@ -26,8 +31,14 @@ Paste the following on top of the editor:
 *** Replace `<your host[:port]>` with the URL:port of your Infinite Scale instance. +
 You can omit the port if default.
 
-*** The example lists `personal` users space ID's. +
-Replace it with `project` for listing manually created spaces.
+*** {empty}
++
+--
+// https://docs.asciidoctor.org/asciidoc/latest/attributes/attribute-entry-substitutions/#change-substitutions-when-referencing-an-attribute
+
+[subs="specialchars,attributes,quotes,replacements,macros,post_replacements"]
+{what_is_listed}
+--
 
 *** The `\{token}` placeholder will later be replaced by the real bearer token you get from the browser. 
 

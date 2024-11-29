@@ -4,7 +4,7 @@
 
 == Introduction
 
-{description} As an example of a use case, see the xref:deployment/services/s-list/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set or the xref:{s-path}/search.adoc#manually-trigger-re-indexing-spaces[Manually Trigger Re-Indexing Spaces].
+{description} As an example of a use case, see the xref:{s-path}/storage-users.adoc#manage-trash-bin-items[Manage Trash-Bin Items] command set or the xref:{s-path}/search.adoc#manually-trigger-re-indexing-spaces[Manually Trigger Re-Indexing Spaces].
 
 . Via the web UI +
 Users can enable seeing WebDAV URLs via their personal preferences of the Infinite Scale WebUI. This URL contains the space ID.
@@ -48,6 +48,9 @@ Single quotes are necessary because the ID can contain a `$` sign which is a spe
 include::partial$multi-location/get-bearer-token.adoc[tags=explanation,leveloffset=+1]
 
 :curl_url_1: /graph/v1.0/drives?%24orderby=name%20asc&%24filter=driveType%20eq%20%27personal%27
+:what_is_listed: The example lists `personal` users space ID's. + \
+Replace it with `project` for listing manually created spaces.
+
 include::partial$multi-location/get-bearer-token.adoc[tags=common_prep,leveloffset=+1]
 
 === Get Space IDs
