@@ -280,11 +280,16 @@ Metadata is stored as {messagepack}[messagepack] files. Messagepack files have a
 
 === Available Filesystem Drivers
 
+See the xref:deployment/storage/general-considerations.adoc[General Storage Considerations] documentation for more details on individual filesystem drivers.
+
 The ocis filesystem driver::
 When the `ocis` driver is used, blobs and metadata must be on a POSIX-compliant filesystem. This driver decomposes the metadata and persists it in a POSIX filesystem. Blobs are stored on the filesystem as well. This layout makes extensive use of symlinks. A filesystem like xfs or zfs without practical inode size limitations is recommended. A further integration with file systems like CephFS or GPFS is under investigation.
 
 The s3ng filesystem driver::
 When the `s3ng` driver is used, blobs reside on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several Infinite Scale instances like when deploying with a xref:deployment/container/orchestration/orchestration.adoc[container orchestration], consider using NFS for storing this metadata. This splitting is necessary for performance reasons.
+
+The PosixFS filesystem driver (experimental)::
+When the `posixfs` driver is used, you can connect to a fully compliant posix filesystems with shared access. It requires some mandatory posix filesystem features to be available like handling extended attributes and notification processes. This also differenciate it from other drivers that use messagepack for metadata. Note that extended attributes need to be included in the backup strategy.
 
 Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
 
@@ -348,15 +353,15 @@ The storage system must not impose a cap on the input/output operations per seco
 
 == Compatible Apps and Clients
 
-At the moment, spaces are supported with the new ownCloud Web interface and the Desktop app version 3.0.
+Spaces are supported with the ownCloud Web interface and since the Desktop app version 3.0.
 
 * Web (embedded in Infinite Scale)
-* Desktop app 3.0
+* Desktop app > 3.0
 
-Spaces for the mobile apps are available in versions:
+Spaces for the mobile apps are available since versions:
 
-* iOS app 12.0
-* Android app 4.0
+* iOS app > 12.0
+* Android app > 4.0
 
 == Supported Languages
 
