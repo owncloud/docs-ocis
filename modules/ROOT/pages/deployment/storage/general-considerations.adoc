@@ -34,7 +34,7 @@ NFS for metadata and other data
 
 | --
 | Special usecase +
-Shared access to the underlaying filesystem by Infinite Scale and ordinary OS users or services
+Shared access to the underlying filesystem by Infinite Scale and ordinary OS users or services
 | PosixFS (experimental)
 |===
 

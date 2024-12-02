@@ -15,18 +15,18 @@ POSIX is not equal to PosixFS
 
 * *POSIX* defines standards for operating systems in general and filesystems in particular. A native posix compliant filesystem is for example ext3/4, zfs or NFS, while S3 or CIFS are not and need additional abstraction layers to be posix compliant with some exceptions.
 
-* *PosixFS* is an Infinite Scale storage driver implementation that can use fully compliant posix filesystems with shared access. It requires some mandatory posix filesystem features to be available like handling extended attributes and notification processes. Note that when mounting an external filesystem like SMB into a posix compliant filesystem, PosixFS may not work due to incompatibilies.
+* *PosixFS* is an Infinite Scale storage driver implementation that can use fully compliant posix filesystems with shared access. It requires some mandatory posix filesystem features to be available like handling extended attributes and notification processes. Note that when mounting an external filesystem like SMB into a posix compliant filesystem, PosixFS may not work due to incompatibilities.
 ====
 
 == PosixFS Overview
 
-When PosixFS is configured, a user may not only access data via Infinite Scale as usual, but also via the filesysem directly. This concept allows for example services like printers, scanners to write data to a location Infinite Scale has access to and treats these files like they were managed thru Infinite Scale directly. On the other hand side, users or services can access data for further processing as they would normally do via the filesystem without going thru Infinite Scale.
+When PosixFS is configured, a user may not only access data via Infinite Scale as usual, but also via the filesysem directly. This concept allows, for example, services like printers, scanners to write data to a location Infinite Scale has access to and treats these files like they were managed thru Infinite Scale directly. On the other hand, users or services can access data for further processing as they would normally do via the filesystem without going thru Infinite Scale.
 
 Comparison of private vs shared storage in Infinite Scale::
 * When *private storage* is configured: +
-Only Infinite Scale can manage data. It is in full control over the data and structure, which is not easy human readble.
+Only Infinite Scale can manage data. It is in full control over the data and structure, which is not easily human readable.
 * When *shared storage* is configured: +
-Infinite Scale is not in full control over the underlaying data and structure. It needs to be notified on changes and has to add required metatdata via extended attributes to make the process flow working like in a private storage.
+Infinite Scale is not in full control over the underlying data and structure. It needs to be notified of changes and has to add required metatdata via extended attributes to make the process flow work like in a private storage.
 
 == Limitations
 
@@ -38,11 +38,11 @@ For mounted filesystems, `inotifywait` must be installed.
 * No support for CephFS or other mounted filesystems like NFSv3 or SMB yet. +
 NFSv4.2 is working. This filesystem provides sufficient extended attribute capabilities. Check the documentation of your storage provider for details.
 * Postprocessing like antivirus scanning does not get triggered for file actions that are not initiated by Infinite Scale.
-* Though there are more options available, we recommend to use a group based access for the shared storage. This means, that both Infinite Scale and the accessing users/services must use a common group. The default umask in the directory used has to allow group writing all over the place.
+* Though there are more options available, we recommend using a group based access for the shared storage. This means, that both Infinite Scale and the accessing users/services must use a common group. The default umask in the directory used has to allow group writing all over the place.
 
 == Setup
 
-Note that it is possible to use different storage drivers in the same Infinite Scale installation. For example, one is set up for one space running on PosixFS Storage Driver while all others run Decomposed FS with a private storage. This is an enhanced configuration and requires multiple instances of the xref:{s-path}/storage-users.adoc[Storage-Users] service running, individual configured and not covered here.
+Note that it is possible to use different storage drivers in the same Infinite Scale installation. For example, one is set up for one space running on PosixFS Storage Driver while all others run Decomposed FS with a private storage. This is an enhanced configuration and requires multiple instances of the xref:{s-path}/storage-users.adoc[Storage-Users] service running, individually configured. The details are not covered here.
 
 === Prerequisites
 
@@ -57,7 +57,7 @@ Network mounts require `inotifywait` to be installed (inotify does not work here
 
 === Configuration
 
-The following is an example configuration you can derive from with environment variables that configures Infinite Scale to use the PosixFS Storage Driver for all spaces. It works with Personal and Project Spaces. Use these settings in your deployment and replace `<local-path>` with your root entry point Infinite Scale will access data.
+The following is an example configuration you can derive from with environment variables that configures Infinite Scale to use the PosixFS Storage Driver for all spaces. It works with Personal and Project Spaces. Use these settings in your deployment and replace `<local-path>` with your root entry point where Infinite Scale will access data.
 
 [source,yaml]
 ----
@@ -71,13 +71,13 @@ STORAGE_USERS_POSIX_USE_SPACE_GROUPS="true"
 
 === GPFS Specifics
 
-When using GPFS as the underlying filesystem, the machine running the according xref:{s-path}/storage-users.adoc[Storage-Users] service needs to have the GPFS filesystem mounted locally. The mount path is given to ocis as the `STORAGE_USERS_POSIX_ROOT` path.
+When using GPFS as the underlying filesystem, the machine running the xref:{s-path}/storage-users.adoc[Storage-Users] service needs to have the GPFS filesystem mounted locally. The mount path is given to ocis as the `STORAGE_USERS_POSIX_ROOT` path.
 
 Other than that there a few other points to consider:
 
 ==== Extended Attributes
 
-As described above, metadata is stored as extended attributes of the according entities and thus is suspect to their limitations. In GPFS, extended attributes are first stored in the inode itself but can then also use an overflow block which is at least 64KB and up to the metadata block size. Inode and metadata block size should be chosen accordingly.
+As described above, metadata is stored as extended attributes of the entities and thus is subject to their limitations. In GPFS, extended attributes are first stored in the inode itself but can then also use an overflow block which is at least 64KB and up to the metadata block size. Inode and metadata block size should be chosen accordingly.
 
 ==== FS Watcher
 
