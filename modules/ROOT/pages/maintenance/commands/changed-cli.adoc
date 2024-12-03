@@ -11,7 +11,7 @@
 See the link for a detailed description of the respective CLI command if available.
 
 * xref:maintenance/commands/commands.adoc#cleanup-orphaned-shares[Cleanup Orphaned Shares] +
-The `ocis shares cleanup` command allows removing share orphans that occur when a shared space or directory got deleted.
+The `ocis shares cleanup` command allows for removing share orphans that occur when a shared space or directory got deleted.
 
 * xref:maintenance/commands/commands.adoc#manage-expired-uploads[Manage Expired Uploads] +
 The `ocis storage-users uploads sessions --restart` command got an alternative `--resume` option. +
