@@ -31,8 +31,7 @@ Infinite Scale is not in full control over the underlying data and structure. It
 == Limitations
 
 * A filesystem must be posix compliant and must fully support extended attributes.
-* Only inotify and GPFS file system change notification methods are supported. +
-For mounted filesystems, `inotifywait` must be installed.
+* Only `inotify` and `GPFS file system change notification` notification methods are currently supported.
 * Versioning is not supported yet.
 * The spaces are folders in the filesystem and named after the UUID, not the real space name
 * No support for CephFS or other mounted filesystems like NFSv3 or SMB yet. +
@@ -48,9 +47,9 @@ Note that it is possible to use different storage drivers in the same Infinite S
 
 To use the PosixFS Storage Driver, the following prerequisites have to be fulfilled:
 
-* There must be storage available to store meta data and blobs, available under a root path.
-* When using inotify, the storage must be local on the same machine. +
-Network mounts require `inotifywait` to be installed (inotify does not work here).
+* There must be storage available to store meta data (extended attributes) and files (equivalent to blobs when using NFS or S3), available under a root path.
+* When using the `inotify` mechanism, the storage must be local on the same machine.
+** This requires `inotifywait` to be installed.
 * The storage root path must be writeable and executable by the same user or group Infinite Scale is running under.
 * Infinite Scale must be at version 7 or higher.
 * You must use `nats-js-kv` as cache service, see xref:deployment/services/caching.adoc[Caching and Persistence] for more details.
@@ -71,7 +70,7 @@ STORAGE_USERS_POSIX_USE_SPACE_GROUPS="true"
 
 === GPFS Specifics
 
-When using GPFS as the underlying filesystem, the machine running the xref:{s-path}/storage-users.adoc[Storage-Users] service needs to have the GPFS filesystem mounted locally. The mount path is given to ocis as the `STORAGE_USERS_POSIX_ROOT` path.
+When using GPFS as the underlying filesystem, the machine running the xref:{s-path}/storage-users.adoc[Storage-Users] service needs to have the GPFS filesystem mounted locally. The mount path for Infinite Scale is defined via the `STORAGE_USERS_POSIX_ROOT` environment variable and can be any directory inside the mount as entry point.
 
 Other than that there a few other points to consider:
 
