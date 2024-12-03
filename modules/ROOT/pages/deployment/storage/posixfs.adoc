@@ -20,7 +20,7 @@ POSIX is not equal to PosixFS
 
 == PosixFS Overview
 
-When PosixFS is configured, a user may not only access data via Infinite Scale as usual, but also via the filesysem directly. This concept allows, for example, services like printers, scanners to write data to a location Infinite Scale has access to and treats these files like they were managed thru Infinite Scale directly. On the other hand, users or services can access data for further processing as they would normally do via the filesystem without going thru Infinite Scale.
+When PosixFS is configured, a user may not only access data via Infinite Scale as usual, but also via the filesystem directly. This concept allows, for example, services like printers, scanners to write data to a location Infinite Scale has access to and treats these files like they were managed through Infinite Scale directly. On the other hand, users or services can access data for further processing as they would normally do via the filesystem without going through Infinite Scale.
 
 Comparison of private vs shared storage in Infinite Scale::
 * When *private storage* is configured: +
