@@ -64,6 +64,10 @@ Infinite Scale provides a xref:maintenance/commands/trash.adoc[CLI command] with
 
 Compared to offline commands that can be issued when Infinite Scale is shut down, online commands must be issued when Infinite Scale and the respective service(es) are running.
 
+=== Cleanup Orphaned Shares
+
+When a shared space or directory got deleted, use the following xref:maintenance/commands/shares-cleanup.adoc[CLI command] to cleanup those share orphans. This can't be done automatically at the moment.
+
 === Inspect and Manipulate Node Metadata
 
 Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
