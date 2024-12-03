@@ -1,0 +1,33 @@
+= Cleanup Orphaned Shares
+
+[source,bash]
+----
+ocis shares -h
+NAME:
+   ocis shares - cli tools to manage entries in the share manager.
+
+USAGE:
+   ocis shares command [command options]
+
+COMMANDS:
+   cleanup  clean up stale entries in the share manager.
+   help, h  Shows a list of commands or help for one command
+
+OPTIONS:
+   --help, -h  show help
+----
+
+[source,bash]
+----
+ocis shares -h cleanup
+NAME:
+   ocis shares cleanup - clean up stale entries in the share manager.
+
+USAGE:
+   ocis shares cleanup [command options]
+
+OPTIONS:
+   --service-account-id value      Name of the service account to use for the cleanup [$OCIS_SERVICE_ACCOUNT_ID]
+   --service-account-secret value  Secret for the service account [$OCIS_SERVICE_ACCOUNT_SECRET]
+   --help, -h                      show help
+----
