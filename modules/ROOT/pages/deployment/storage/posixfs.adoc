@@ -1,0 +1,102 @@
+= PosixFS
+:toc: right
+:toclevels: 2
+:description: Infinite Scale can store metadata and files on posix based filesystems with shared access. This document gives some general information and considerations for the use of PosixFS.
+
+== Introduction
+
+{description} See the xref:deployment/storage/general-considerations.adoc#posixfs[General Storage Considerations] in the PosixFS section for more details.
+
+IMPORTANT: The PosixFS storage driver integration is an experimental feature and should not used in production.
+
+[IMPORTANT]
+====
+POSIX is not equal to PosixFS
+
+* *POSIX* defines standards for operating systems in general and filesystems in particular. A native posix compliant filesystem is for example ext3/4, zfs or NFS, while S3 or CIFS are not and need additional abstraction layers to be posix compliant with some exceptions.
+
+* *PosixFS* is an Infinite Scale storage driver implementation that can use fully compliant posix filesystems with shared access. It requires some mandatory posix filesystem features to be available like handling extended attributes and notification processes. Note that when mounting an external filesystem like SMB into a posix compliant filesystem, PosixFS may not work due to incompatibilities.
+====
+
+== PosixFS Overview
+
+When PosixFS is configured, a user may not only access data via Infinite Scale as usual, but also via the filesystem directly. This concept allows, for example, services like printers, scanners to write data to a location Infinite Scale has access to and treats these files like they were managed through Infinite Scale directly. On the other hand, users or services can access data for further processing as they would normally do via the filesystem without going through Infinite Scale.
+
+Comparison of private vs shared storage in Infinite Scale::
+* When *private storage* is configured: +
+Only Infinite Scale can manage data. It is in full control over the data and structure, which is not easily human readable.
+* When *shared storage* is configured: +
+Infinite Scale is not in full control over the underlying data and structure. It needs to be notified of changes and has to add required metatdata via extended attributes to make the process flow work like in a private storage.
+
+== Limitations
+
+* A filesystem must be posix compliant and must fully support extended attributes.
+* Only `inotify` and `GPFS file system change notification` notification methods are currently supported.
+* Versioning is not supported yet.
+* The spaces are folders in the filesystem and named after the UUID, not the real space name
+* No support for CephFS or other mounted filesystems like NFSv3 or SMB yet. +
+NFSv4.2 is working. This filesystem provides sufficient extended attribute capabilities. Check the documentation of your storage provider for details.
+* Postprocessing like antivirus scanning does not get triggered for file actions that are not initiated by Infinite Scale.
+* Though there are more options available, we recommend using a group based access for the shared storage. This means, that both Infinite Scale and the accessing users/services must use a common group. The default umask in the directory used has to allow group writing all over the place.
+
+== Setup
+
+Note that it is possible to use different storage drivers in the same Infinite Scale installation. For example, one is set up for one space running on PosixFS Storage Driver while all others run Decomposed FS with a private storage. This is an enhanced configuration and requires multiple instances of the xref:{s-path}/storage-users.adoc[Storage-Users] service running, individually configured. The details are not covered here.
+
+=== Prerequisites
+
+To use the PosixFS Storage Driver, the following prerequisites have to be fulfilled:
+
+* There must be storage available to store meta data (extended attributes) and files, available under a root path.
+* When using the `inotify` mechanism, `inotifywait` is required and has to be installed if not present.
+* The storage root path must be writeable and executable by the same user or group Infinite Scale is running under.
+* Infinite Scale must be at version 7 or higher.
+* You must use `nats-js-kv` as cache service, see xref:deployment/services/caching.adoc[Caching and Persistence] for more details.
+
+=== Configuration
+
+The following is an example configuration you can derive from with environment variables that configures Infinite Scale to use the PosixFS Storage Driver for all spaces. It works with Personal and Project Spaces. Use these settings in your deployment and replace `<local-path>` with your root entry point where Infinite Scale will access data.
+
+[source,yaml]
+----
+STORAGE_USERS_DRIVER="posix"
+STORAGE_USERS_POSIX_ROOT=<local-path>
+STORAGE_USERS_POSIX_WATCH_TYPE="inotifywait"
+STORAGE_USERS_ID_CACHE_STORE="nats-js-kv"
+STORAGE_USERS_ID_CACHE_STORE_NODES="localhost:9233"
+STORAGE_USERS_POSIX_USE_SPACE_GROUPS="true"          
+----
+
+=== GPFS Specifics
+
+When using GPFS as the underlying filesystem, the machine running the xref:{s-path}/storage-users.adoc[Storage-Users] service needs to have the GPFS filesystem mounted locally. The mount path for Infinite Scale is defined via the `STORAGE_USERS_POSIX_ROOT` environment variable and can be any directory inside the mount as entry point.
+
+Other than that there a few other points to consider:
+
+==== Extended Attributes
+
+As described above, metadata is stored as extended attributes of the entities and thus is subject to their limitations. In GPFS, extended attributes are first stored in the inode itself but can then also use an overflow block which is at least 64KB and up to the metadata block size. Inode and metadata block size should be chosen accordingly.
+
+==== FS Watcher
+
+The PosixFS Storage Driver supports two different watchers for detecting changes to the filesystem. The watchfolder watcher is better tested and supported at that point.
+
+===== GPFS File Audit Logging
+
+The `gpfsfileauditlogging` watcher tails a GPFS file audit log and parses the JSON events to detect relevant changes.
+
+[source,yaml]
+----
+STORAGE_USERS_POSIX_WATCH_TYPE="gpfsfileauditlogging"
+STORAGE_USERS_POSIX_WATCH_PATH="/path/to/current/audit/log"
+----
+
+===== GPFS Watchfolder
+
+The `gpfswatchfolder` watcher connects to a kafka cluster which is being filled with filesystem events by the GPFS watchfolder service.
+
+[source,yaml]
+----
+STORAGE_USERS_POSIX_WATCH_TYPE="gpfswatchfolder"
+STORAGE_USERS_POSIX_WATCH_PATH="fs1_audit"         # the kafka topic to watch
+----

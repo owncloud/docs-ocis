@@ -10,6 +10,7 @@
 *** xref:deployment/storage/general-considerations.adoc[General Storage Considerations]
 *** xref:deployment/storage/nfs.adoc[Network File System]
 *** xref:deployment/storage/s3.adoc[S3]
+*** xref:deployment/storage/posixfs.adoc[PosixFS]
 ** xref:deployment/general/general-info.adoc[General Information]
 ** xref:deployment/general/ocis-init.adoc[The ocis init Command]
 ** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
