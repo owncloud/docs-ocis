@@ -9,11 +9,11 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like xref:depl-examples/bare-metal.adoc[binary] or xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like as xref:depl-examples/bare-metal.adoc[binary] or via an xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing or usecase:
 
 {empty} +
 
-[role=center,width=100%,cols="25%,45%,45%",options="header"]
+[role=center,width=100%,cols="20%,45%,45%",options="header"]
 |===
 | Size
 | Case
@@ -31,6 +31,11 @@ For a quick and rough overview, the following storages are mapped against an exp
 | Large enterprises and hosters
 | S3 for blobs +
 NFS for metadata and other data
+
+| --
+| Special usecase +
+Shared access to the underlying filesystem by Infinite Scale and ordinary OS users or services
+| PosixFS (experimental)
 |===
 
 [NOTE]
@@ -39,9 +44,11 @@ NFS for metadata and other data
 * The levels of space requirement described below give an indication of what to expect, but never a number.
 ====
 
+IMPORTANT: See the note for distinguishing posix vs PosixFS in the xref:deployment/storage/posixfs.adoc[PosixFS] documentation.
+
 == Write Consistency
 
-Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. In any case, a file ID based on UUIDv4 is created to guarantee the uniqueness of file names. Proper file locking is implemented for writing metadata.
+Independent of the storage used and how many instances of the xref:{s-path}/storage-users.adoc[storage-users] service are running, Infinite Scale has mechanisms implemented to guarantee consistent writing to the backend for distributed setups. For all storage types except PosixFS, a file ID based on UUIDv4 is created to guarantee the uniqueness of file names. Proper file locking is implemented for writing metadata.
 
 == Important Data Distribution Notes
 
@@ -167,11 +174,18 @@ Alternatively NFS_4
 | High
 |===
 
+== PosixFS
+
+PosixFS is currently experimental only and should not be used in production environments.
+
+For details on PosixFS including setup and configuration notes see the xref:deployment/storage/posixfs.adoc[PosixFS] documentation.
+
 == Server Resource Optimisation
 
 Depending on the storage connected and the servers capabilities, Infinite Scale can be optimized using the servers resources. The relevant environment variable to configure this is:
 
-`STORAGE_USERS_OCIS_MAX_CONCURRENCY`
+`STORAGE_USERS_OCIS_MAX_CONCURRENCY` +
+(or `OCIS_MAX_CONCURRENCY` when defined on a global basis)
 
 The value to consider and only as a rule of thumb is based on how much CPU's and memory the server has the instance of the xref:{s-path}/storage-users.adoc[storage-users] service is running on, which kind of storage, POSIX or S3 is used for blobs and what you want to achieve.
 
