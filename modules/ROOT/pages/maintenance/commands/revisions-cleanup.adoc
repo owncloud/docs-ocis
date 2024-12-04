@@ -4,7 +4,7 @@ The revisions command allows removing the revisions of files in the storage.
 
 [source,bash]
 ----
-ocis revisions purge -p /base/path/storage/users
+ocis revisions purge [--dry-run=false] -p /base/path/storage/users
 ----
 
 It takes the `--resource-id` (or `--r`) parameter which specifies the scope of the command:
@@ -17,6 +17,7 @@ This command provides additional options:
 
 * `--dry-run` (default: `true`) +
 Do not remove any revisions but print the revisions that would be removed.
+Note: This is a safety measure so you don’t delete your revisions accidentally. You must specify `--dry-run=false` for the purge to be effective.
 
 * `-b` / `--blobstore` +
 Allows specifying the blobstore to use. Defaults to `ocis`. Can be switched to `s3ng` but needs addtional envvar configuration (see the `storage-users` service for more details).
