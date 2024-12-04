@@ -135,7 +135,7 @@ curl --request GET 'https://<your host:9200>/auth-app/tokens' \
 * **Delete a token** +
   The DELETE request requires:
 ** A `token` key/value pair in the form of `token=<token_issued>` +
-    Example: `token=Z3s2K7816M4vuSpd5`
+    Example: `token=$2a$11$EyudDGAJ18bBf5NG6PL9Ru9gygZAu0oPyLawdieNjGozcbXyyuUhG`
 ** An active bearer token +
 To get an active bearer token, see the xref:maintenance/space-ids/space-ids.adoc#via-cli[Preparation] section of the referenced document for more details.
 
