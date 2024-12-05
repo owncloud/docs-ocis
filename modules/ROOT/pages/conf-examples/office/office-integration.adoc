@@ -15,7 +15,7 @@ The docker compose stack provided consists of several containers where only a fe
 * {traefik_url}[Traefik], is a modern HTTP reverse proxy and load balancer which is terminating SSL and forwards the requests to Infinite Scale in the internal Docker network.
 * Then there is Infinite Scale,
 * the collaboration service,
-* the Collabora and/or OnlyOffice containers that can be individual enabled,
+* the Collabora and/or OnlyOffice containers that can be individually enabled,
 * supplemental containers with extended functionalities or to enhance the web UI with web-applications.
 
 == Configuration

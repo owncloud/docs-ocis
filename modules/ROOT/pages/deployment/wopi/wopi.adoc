@@ -30,7 +30,7 @@ Configured applications can be selected by users when opening a document via the
 Web office applications are:
 
 * *Provided* +
-Via the xref:{s-path}/collaboration.adoc[Collaboration] service because they are not able to register themselfs.
+Via the xref:{s-path}/collaboration.adoc[Collaboration] service because they are not able to register themselves.
 
 * *Configured* +
 For use with the web UI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. +
