@@ -1,137 +1,24 @@
 = Integrating Office Applications
 :toc: right
-:description: If you install the WOPI (Web Application Open Platform Interface) server extension, you can integrate major office applications like Collabora and ONLYOFFICE in Infinite Scale.
+:description: If you configure the Infinite Scale collaboration service, you can integrate major office applications like Collabora, ONLYOFFICE or Microsoft Online.
 
 :traefik_url: https://traefik.io/traefik/
-:wopiserver_url: https://hub.docker.com/r/cs3org/wopiserver/tags?page=1&ordering=last_updated
-:onlyoffice_hw_url: https://helpcenter.onlyoffice.com/installation/docs-community-sys-reqs-docker.aspx
-:page-aliases: conf-examples/office-integration.adoc
 
 == Introduction
 
 {description}
 
-For this purpose, ownCloud offers Docker containers with sample configurations available on {compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}[GitHub,window=_blank].
+NOTE: See the xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications Using WOPI] documentation for special notes on Microsoft Office.
 
-For details on how WOPI integrates with Infinite Scale see: xref:deployment/wopi/wopi.adoc[Office Applications using WOPI].
+The docker compose stack provided consists of several containers where only a few settings need to be configured via a central configuration file:
 
-The docker stack consists of several containers:
-
-* One of them is {traefik_url}[Traefik], a modern HTTP reverse proxy and load balancer which is terminating SSL and forwards the requests to Infinite Scale in the internal Docker network.
-* Then there is Infinite Scale configured with a custom mimetype,
-* the WOPI server,
-* and Collabora and OnlyOffice containers.
-
-Note that it is not mandatory to use and configure both example office application stacks. Configure only the application stacks that you need.
-
-== Hardware Requirements
-
-With focus on the office container, ONLYOFFICE provides a link with some guidance for hardware requirements depending on concurrent active users when using their community edition and docker. See {onlyoffice_hw_url}[ONLYOFFICE Docs Community Edition for Docker system requirements] for more details. This information gives estimates without any guarantees.
-
-== General Requirements
-
-You need a Linux server with docker and docker-compose installed.
-
-Then you need to set up the following domains pointing to your server:
-
-* ocis.* for serving Infinite Scale
-* collabora.* for serving Collabora
-* onlyoffice.* for serving OnlyOffice
-* wopiserver.* for serving the WOPI server
-* traefik.* for serving the Traefik dashboard
-
-The Traefik stack can also be run locally. One downside is, that Traefik can not obtain valid SSL certificates and therefore will create self-signed ones. This means that your browser will show security warnings. Another downside is, that you cannot point DNS entries to your localhost. So you have to add static host entries to your system. On Linux and macOS you can add them to your `/etc/hosts` file like this:
-
-[source,plaintext]
-----
-127.0.0.1 ocis.owncloud.test
-127.0.0.1 traefik.owncloud.test
-127.0.0.1 collabora.owncloud.test
-127.0.0.1 onlyoffice.owncloud.test
-127.0.0.1 wopiserver.owncloud.test
-----
-
-For the clients, make sure that the addresses can be resolved to the server(s) running this setup.
-
-== Installation
-
-Installing the Docker stacks only requires a few steps. Take care to use the relevant version. Select a base folder of choice for the target location. Note that the examples use the version corresponding to this release.
-
-. Get the deployment example:
-+
---
-Follow the xref:deployment/wopi/wopi.adoc#wopi-configuration-examples[WOPI Configuration Examples,window=_blank] to download the example files.
-
-After all resources have been downloaded, change into the directory:
-
-[source,bash]
-----
-cd ocis_wopi
-----
---
+* {traefik_url}[Traefik], is a modern HTTP reverse proxy and load balancer which is terminating SSL and forwards the requests to Infinite Scale in the internal Docker network.
+* Then there is Infinite Scale,
+* the collaboration service,
+* the Collabora and/or OnlyOffice containers that can be individually enabled,
+* supplemental containers with extended functionalities or to enhance the web UI with web-applications.
 
 == Configuration
 
-The configuration uses a xref:conf-examples/office/ext-files/docker-compose.adoc[docker-compose,window=_blank] file with an environment variable file for ease of handling. This docker-compose file defines which additional containers are needed and how the containers are configured.
+See the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] guide for details how to install and configure it.
 
-[start=2]
-. Firstly, the xref:conf-examples/office/ext-files/env.adoc[environment definition file,window=_blank] needs to be adapted. This file defines many basic settings in one location. Open it in a text editor and adjust it according to your needs.
-+
---
-For some hints on what to take into consideration, check the notes listed here:
-
-* If you are installing Infinite Scale on a server and Traefik will obtain valid certificates for you, remove `INSECURE=true` or set it to `false`.
-
-* If you want to use the Traefik dashboard, set `TRAEFIK_DASHBOARD` to `true` (default is `false` and therefore not active). If you activate it, you must set a domain for the Traefik dashboard in `TRAEFIK_DOMAIN=`, for example `TRAEFIK_DOMAIN=traefik.owncloud.test`.
-
-* The Traefik dashboard is secured by Basic Auth. Default credentials are the user `admin` with the password `admin`. To set your own credentials, generate a htpasswd (e.g. by using an https://htpasswdgenerator.de/[online tool] or a CLI tool).
-
-* Traefik will issue certificates with LetsEncrypt. Therefore you must set an email address in `TRAEFIK_ACME_MAIL=`.
-
-* By default Infinite Scale will be started with the latest version. If you want to run a specific version of Infinite Scale, set the version to `OCIS_DOCKER_TAG=`. Available versions can be found on https://hub.docker.com/r/owncloud/ocis/tags?page=1&ordering=last_updated[Docker Hub].
-
-* Set your domain for the Infinite Scale web frontend in `OCIS_DOMAIN=`, for example `OCIS_DOMAIN=ocis.owncloud.test`.
-
-* Set the initial admin user password in `ADMIN_PASSWORD=`. It defaults to `admin`.
-
-* By default, the CS3Org WOPI server will be started with the version from the examples, which might not be the latest stable released version. If you want to start a different or more recent version, you can set the `WOPISERVER_DOCKER_TAG=`. Available versions can be found on {wopiserver_url}[Docker Hub].
-
-* Set your domain for the CS3Org WOPI server in `WOPISERVER_DOMAIN=`, where all office suites can download the files via the WOPI protocol.
-
-* You also must override the default WOPI JWT secret for a secure setup. Do this by setting `WOPI_JWT_SECRET` to a long and random string.
-
-* For OnlyOffice, WOPI is not enabled by default. It has to be set explicitly via `WOPI_ENABLED: "true"`.
-
-* To set up Collabora, you need to specify the domain of Collabora in `COLLABORA_DOMAIN=`.
-
-* If you want to use the Collabora admin panel, you need to set the username and password for the administrator in `COLLABORA_ADMIN_USER=` and `COLLABORA_ADMIN_PASSWORD=`.
-
-* Next, enter the OnlyOffice domain in `ONLYOFFICE_DOMAIN=`.
---
-
-. Though no changes are needed, adapt the xref:conf-examples/office/ext-files/app-registry.adoc[UI representation,window=_blank] of the office applications for use in ownCloud Web if required. As an example, the settings currently do not have any icons defined that show up in the web UI with the names of available office applications to open. This can be changed if required.
-
-. For Microsoft Office 365, adapt the xref:conf-examples/office/ext-files/wopiserver.adoc[wopiserver.conf.dist,window=_blank] file by adding the correct proxy URL. For more details about the background and how to obtain this URL see xref:deployment/wopi/wopi.adoc#special-ms-note[Office Applications using WOPI,window=_blank].
-
-== Start the Docker Stack
-
-[start=5]
-. When the changed files have been saved, start the Docker stack with:
-+
-[source,docker]
-----
-docker-compose up -d
-----
-
-== Access Infinite Scale
-
-[start=6]
-. Enter your Infinite Scale domain in a browser and you're ready to log in and open office documents in the web client. It might take a few minutes for all services to become operational because the containers need to download first. Just keep reloading the pages from time to time or run:
-+
---
-[source,docker]
-----
-docker ps
-----
-to see the process status of the containers if they are up and running before accessing Infinite Scale.
---

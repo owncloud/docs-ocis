@@ -19,7 +19,7 @@ For the time being, the supported office applications are:
 
 == General Information
 
-Infinite Scale can be configured to use office applications as web applications via a browser in an iframe using the WOPI protocol. Among other things and depending on the use case, administrators can:
+Infinite Scale can be configured to use web office applications via a browser in an iframe using the WOPI protocol. Among other things and depending on the use case, administrators can:
 
 * provide multiple applications from different vendors in parallel,
 * define which icons are used for which applications,
@@ -27,20 +27,24 @@ Infinite Scale can be configured to use office applications as web applications 
 
 Configured applications can be selected by users when opening a document via the web UI. The list of available applications to open a file shows an icon and the app name for each entry.
 
-Office applications are:
+Web office applications are:
 
-* provided via the xref:{s-path}/app-provider.adoc[App-Provider Service] because they are not able to register themself, see the xref:#wopi-configuration-examples[docker-compose.yml] file. 
+* *Provided* +
+Via the xref:{s-path}/collaboration.adoc[Collaboration] service because they are not able to register themselves.
 
-* configured for use with the web UI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. Here, default office apps and their appearance in the list of available apps in the web UI are defined. For more information see the xref:#wopi-configuration-examples[app-registry.yaml] file.
+* *Configured* +
+For use with the web UI via the xref:{s-path}/app-registry.adoc[App-Registry Service]. +
+Here, default web office apps and their appearance in the list of available apps in the web UI are defined.
 
-{empty}
+For details configuring the collaboration service and the `app-registry.yaml` file, see the xref:#wopi-configuration-examples[WOPI Configuration Examples] section below. 
+
 [[special-ms-note]]
 Special note on Microsoft Office::
 --
-Microsoft distinguishes between two approaches running an office web application farm where you either need:
+Microsoft distinguishes between two approaches running a web office application farm where you either need an:
 
-- an {office-online-server-url}[Office Online Server] locally installed, or 
-- an active {office365-url}[Microsoft 365] subscription including the data provided by ownCloud, see xref:procedure-using-microsoft-365[Procedure using Microsoft 365].
+- {office-online-server-url}[Office Online Server] locally installed, or 
+- active {office365-url}[Microsoft 365] subscription including the data provided by ownCloud, see xref:procedure-using-microsoft-365[Procedure using Microsoft 365].
 --
 
 == Procedure using Microsoft 365
@@ -69,28 +73,10 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram,width=500]
 {compose_tab_text}::
 +
 --
-{compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}[Docker Compose WOPI deployment examples directory,window=_blank]
+{compose_url}{compose_url_component}{compose_final_path}/{ocis_wopi}[Docker compose `ocis_full` deployment examples directory,window=_blank]
 
 Using git version name: `{compose_url_component}`
 --
 ====
-+
---
-Note that github will not let you download a single directory easily. You can get the examples using the following methods requiring minimum space. For stable releases, check or update the version accordingly like when there is a new patch release available:
 
-* Using a shallow git clone which minimizes the required clone space like:
-+
-[source,bash,subs="attributes+"]
-----
-git clone --depth 1 https://github.com/owncloud/ocis.git -b {compose_git_name}
-----
-
-// https://stackoverflow.com/questions/7106012/download-a-single-folder-or-directory-from-a-github-repo
-
-* Using an external page providing you the folder to download as zip file like:
-+
-[source,plaintext,subs="attributes+"]
-----
-{download-gh-directory-url}?url={compose_url}{compose_url_component}{compose_final_path}{wopi_subdir}
-----
---
+* See the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] guide for details how to install and configure it.

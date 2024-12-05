@@ -84,5 +84,4 @@ asciidoc:
     ocis_services_final_path: '/services/_includes/'
 
     # used in deployment orchestration and depl-examples
-    wopi_subdir: /ocis_wopi
     download-gh-directory-url: https://download-directory.github.io
