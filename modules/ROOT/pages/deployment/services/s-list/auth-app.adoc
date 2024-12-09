@@ -150,6 +150,30 @@ curl --request DELETE 'https://<your host:9200>/auth-app/tokens?token={value}' \
 ----
 --
 
+=== Via Impersonation API
+
+When setting the environment variable `AUTH_APP_ENABLE_IMPERSONATION` to `true`, admins will be able to use the `/auth-app/tokens` endpoint to create tokens for other users but using their own bearer token for authentication. This can be important for migration scenarios, but should not be considered for regular tasks on a production system for security reasons.
+
+To impersonate, the respective requests from the CLI commands above extend with the following parameters, where you can use one or the other:
+
+* The `userID` in the form of: `userID=\{value}`
+**  Example: +
+`userID=4c510ada- ... -42cdf82c3d51`
+
+* The `userName` in the form of: `userName=\{value}`
+**  Example: +
+`userName=einstein`
+
+A final create request would then look like, where the bearer token is the one of the admin and not of the user:
+
+.Command
+[source,bash]
+----
+curl --request POST 'https://<your host:9200>/auth-app/tokens?expiry={value}&userName={value}' \
+     --header 'accept: application/json' \
+     --header 'authorization: Bearer {token}'
+----
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]
