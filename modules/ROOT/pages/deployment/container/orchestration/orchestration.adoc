@@ -429,7 +429,7 @@ helm install ocis ./charts/ocis
 
 === When using K3S
 
-CoreDNS needs to know how to resolve domains like `ocis.kube.owncloud.test` to the host, like `raspbian-bullseye-arm64`. To authenticate users via OIDC, the proxy service has to be able to resolve the `extarnalDomain:ocis.kube.owncloud.test`.
+CoreDNS needs to know how to resolve domains like `ocis.kube.owncloud.test` to the host, like `raspbian-bullseye-arm64`. To authenticate users via OIDC, the proxy service has to be able to resolve the `externalDomain:ocis.kube.owncloud.test`.
 
 Since all `*.kube.owncloud.test` domains should point to the host, the CorDNS rewrite plugin can be used like the following:
 
