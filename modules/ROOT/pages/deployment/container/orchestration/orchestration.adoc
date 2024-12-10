@@ -427,6 +427,57 @@ helm install ocis ./charts/ocis
 --
 ====
 
+=== When using K3S
+
+CoreDNS needs to know how to resolve domains like `ocis.kube.owncloud.test` to the host, like `raspbian-bullseye-arm64`. To authenticate users via OIDC, the proxy service has to be able to resolve the `extarnalDomain:ocis.kube.owncloud.test`.
+
+Since all `*.kube.owncloud.test` domains should point to the host, the CorDNS rewrite plugin can be used like the following:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns-custom
+  namespace: kube-system
+data:
+    rewritehost.override: |
+          rewrite name regex (.*).kube.owncloud.test raspbian-bullseye-arm64
+----
+
+Replace:
+
+* `raspbian-bullseye-arm64` with your hostname and
+* `(.*).kube.owncloud.test` with a regex for the domains you want to point back to the host.
+
+Apply the config and restart CoreDNS:
+
+[source,bash]
+----
+kubectl apply -f corednsms.yaml
+kubectl -n kube-system rollout restart deployment coredns
+----
+
+Finally, test that resolving the domain works:
+
+.Command
+[source,bash]
+----
+kubectl -n ocis get pods | grep proxy
+----
+
+.Output
+[source,plaintext]
+----
+proxy-76bdf4bdb6-j5rmp               1/1     Running   0             25h
+$ kubectl -n ocis exec proxy-76bdf4bdb6-j5rmp -- ping ocis.kube.owncloud.test
+PING ocis.kube.owncloud.test (192.168.1.208): 56 data bytes
+64 bytes from 192.168.1.208: seq=0 ttl=42 time=0.243 ms
+64 bytes from 192.168.1.208: seq=1 ttl=42 time=0.359 ms
+----
+
+See the following links for more information: https://github.com/k3s-io/k3s/blob/950473e35f6487c289285d18776fac805d8a4bb7/manifests/coredns.yaml#L75C8-L75C46[K3S CoreDNS config] and https://learn.microsoft.com/en-us/azure/aks/coredns-custom#hosts-plugin[MS Docs on how to customize CoreDNS].
+
 === Customize the Generic Setup
 
 In all examples, adapt the settings according your needs.
