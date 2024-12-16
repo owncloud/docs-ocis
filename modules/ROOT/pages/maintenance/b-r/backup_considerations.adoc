@@ -266,6 +266,12 @@ Contains web assets such as custom logos, themes etc. See the xref:{s-path}/web.
 * `assets`: +
 *BACKUP RECOMMENDED/OMITTABLE*. This folder contains custom web assets. Can be specified via `WEB_ASSET_CORE_PATH`. If no custom web assets are used, there is no need for a backup. If those exist but are not backed up, they need to be reuploaded.
 
-=== External Services
+== External Services
 
-When using an external idp/idm/nats or blobstore, its data needs to be backed up separately. Refer to your idp/idm/nats/blobstore documentation for backup details.
+When using an external:
+
+* idp/idm like Keycloak,
+* persistant store like NATS or
+* blobstore like S3
+
+its data needs to be backed up separately. Refer to the vendors documentation for backup and restore details.
