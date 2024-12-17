@@ -1,5 +1,5 @@
 ////
-This partial only defines the two attributes based on either if cache or sore is set
+This partial only defines the two attributes based on either if cache or store is set
 ////
 
 ifdef::is_cache[]
