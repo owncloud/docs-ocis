@@ -1,0 +1,15 @@
+////
+This partial only defines the two attributes based on either if cache or sore is set
+////
+
+ifdef::is_cache[]
+:env_store: OCIS_CACHE_STORE
+:env_nodes: OCIS_CACHE_STORE_NODES
+endif::is_cache[]
+
+ifdef::is_store[]
+:env_store: OCIS_PERSISTENT_STORE
+:env_nodes: OCIS_PERSISTENT_STORE_NODES
+endif::is_store[]
+
+:env_store_nodes: true
