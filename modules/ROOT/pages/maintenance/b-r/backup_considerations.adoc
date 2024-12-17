@@ -230,7 +230,7 @@ Contains Infinite Scale meta (and blob) data, depending on the blobstore. See th
 ----
 
 * `metadata`: +
-*BACKUP REQUIRED*. Contains system data. Path can be specified via `STORAGE_SYSTEM_OCIS_ROOT`. Not backing it up will remove shares from the system and will also remove custom settings.
+*BACKUP REQUIRED*. Contains system data. Path can be specified via `STORAGE_USERS_OCIS_ROOT`. Not backing it up will remove shares from the system and will also remove custom settings.
 * `ocm`: +
 *BACKUP REQUIRED/OMITABLE*. Contains ocm share data. When not using xref:{s-path}/ocm.adoc[ocm sharing], this folder does not need to be backed up.
 * `users`: +
