@@ -56,7 +56,7 @@ Note that this may be different with other S3 providers. Check their documentati
 
 == Configuration
 
-Basically, two configurations need to be made.
+Basically, only a few configurations need to be made.
 
 * The xref:{s-path}/storage-users.adoc[Storage-Users] service needs to be configured for the use of POSIX and S3 storage for Infinite Scale. This includes the following environment variables:
 +
@@ -76,6 +76,8 @@ STORAGE_USERS_S3NG_ACCESS_KEY:
 STORAGE_USERS_S3NG_SECRET_KEY:
 STORAGE_USERS_S3NG_BUCKET:
 ----
+
+* Check the `STORAGE_USERS_S3NG_PUT_OBJECT_PART_SIZE` environment variable if it meets your requirements. For details see xref:prevent-failing-uploads[Prevent Failing Uploads].
 
 * A xref:s3-bucket-policy[S3 Bucket Policy] needs to be created.
 
@@ -122,3 +124,60 @@ The following S3 bucket policies are a *requirement* for Infinite Scale when con
     ]
 }
 ----
+
+== Prevent Failing Uploads
+
+A file upload to S3 can fail in particular circumstances, though Infinite Scale can handle the file. Most of the limits are hard defined by S3, one limit can be configurated via Infinite Scale. All limits are described in: https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html[Amazon S3 multipart upload limits]. The relevant limits for Infinite Scale are:
+
+{empty}
+
+[width=100%,cols=".^45%,.^30%,^30%a",options="header"]
+|===
+|Item
+|Specification
+|Infinite Scale Configurable
+
+|Maximum object size
+|5 TiB
+| * [ ] {empty}
+
+|Maximum number of parts per upload
+|10.000
+| * [ ] {empty}
+
+|Part size
+|5 MiB to 5 GiB
+| * [x] {empty}
+|===
+
+--
+NOTE: The only item configurable via Infinite Scale is the part size. The corresponding environment variable is `STORAGE_USERS_S3NG_PUT_OBJECT_PART_SIZE` and defaults to 16MiB.
+
+* The part size configuration needs to be balanced between the maximum expected file size and parallelisation/recovery.
+* Any file size expected needs at minimum the same amount on temporary storage in Infinite Scale to buffer incoming data.
+--
+
+In general, an upload to S3 will fail if one of the following conditions is true::
++
+--
+* FileSize > Maximum object size
+* (Max parts per upload * Part size / FileSize) < 1
+
+IMPORTANT: If the 10.000th part has been uploaded, S3 automatically assumes it is the last one and assembles the final object. This leads to the situation, that file sizes and metadata will not match and the file becomes inaccessible.
+--
+
+With the default setting, the maximum file that can be uploaded calculates the following::
++
+--
+* Max parts per upload (10.000) * Part size (16 MiB) = *160 GiB*
+
+NOTE: If higher file sizes are expected, the part size environment variable must be configured accordingly.
+--
+
+With the minimum part size setting, the maximum file size calculates the following::
+* Max parts per upload (10.000) * Min part size (5 MiB) = *50 GiB*
+
+{empty}
+
+The maximum part size that can be configured to use the maximum number of parts allowing the maximum object size is::
+* Maximum object size (5 TiB) / Maximum parts per upload (10.000) = *500 MiB*
