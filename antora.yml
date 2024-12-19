@@ -1,6 +1,6 @@
 name: ocis
 title: Infinite Scale Documentation
-version: 'next'
+version: '7.0'
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/partials/nav.adoc
@@ -15,7 +15,7 @@ asciidoc:
 
     # must be removed when antora 3.2 has been updated, because this is then an intrinsic attribute
     # the branched value is the value for the production release like '7.0.0'
-    antora-component-version: 'next'
+    antora-component-version: '7.0.0'
 
     # used to define the include path for services without trailing /
     # note that any changes of this path also need adjustment in
@@ -27,27 +27,27 @@ asciidoc:
 
     # note that service_url_component is used for services ONLY
     # service_url_component will be used to assemble the url for services to include content (tables) sourced from the ocis repo.
-    service_url_component: 'docs' # docs for master or for stable, like docs-stable-5.0
+    service_url_component: 'docs-stable-7.0' # docs for master or for stable, like docs-stable-5.0
 
     # defines the url path component when accessing the ocis repo for versioned data includes 
-    ocis_repo_url_component: 'master' # master for master or for stable, like stable-5.0
+    ocis_repo_url_component: 'stable-7.0' # master for master or for stable, like stable-5.0
 
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
-    service_tab_text: 'master' # latest stable including patch releases like 5.0.0
+    service_tab_text: '7.0.0' # latest stable including patch releases like 5.0.0
 
     # note that compose_url_component is used for compose examples and for the EULA ONLY
     # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_url_component: 'master' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
+    compose_url_component: 'v7.0.0' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
 
     # compose_tab_text will be used as tab text for examples and all other stuff but not services
-    compose_tab_text: 'master' # latest stable including patch releases like 5.0.0
+    compose_tab_text: '7.0.0' # latest stable including patch releases like 5.0.0
 
     # use this attribute to define the branch name for git clone
     # the value is usually identical to compose_tab_text, but it should be separable to be independent
     # note that you must define a value and not an attribute from above 
-    compose_git_name: 'master' # latest stable including patch releases like 5.0.0 (must be without v !)
+    compose_git_name: '7.0.0' # latest stable including patch releases like 5.0.0 (must be without v !)
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
