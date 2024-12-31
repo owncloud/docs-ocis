@@ -58,7 +58,7 @@ Once generated, these tokens can be used to authenticate requests to ocis. They 
 
 === Via API
 
-An in-depth method to manage tokens is to use the API, which needs a bit more preperation, but offers more possibilities. 
+An in-depth method to manage tokens is to use the API, which needs a bit more preparation, but offers more possibilities.
 
 The `auth-app` service provides an API to create (POST), list (GET) and delete (DELETE) tokens at the `/auth-app/tokens` endpoint.
 
