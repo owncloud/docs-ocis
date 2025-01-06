@@ -23,22 +23,7 @@ output:
 asciidoc:
   attributes:
 #   branch-specific-variables: 'see antora.yml'
-#   build relevant
-    # asciidoctor prefix for section IDs
-    idprefix: ''
-    idseparator: '-'
-    # Antora User Interface Macros (btn, menu)
-    experimental: true
-    # Antora pagination (prev page, next page)
-    page-pagination: true
-#   common
-    docs-base-url: 'https://doc.owncloud.com'
-    oc-complete-base-url: 'https://download.owncloud.com/server/stable'
-    oc-contact-url: 'https://owncloud.com/contact/'
-    oc-help-url: 'https://owncloud.com/docs-guides/'
-    oc-marketplace-url: 'https://marketplace.owncloud.com'
-    oc-central-url: 'https://central.owncloud.org'
-    oc-support-url: 'https://owncloud.com/support'
+#   global attributes loaded via antora extension
 #   ocis
     latest-ocis-version: 'next@'   # do not change, soft set, correctly defined via antora.yml
     previous-ocis-version: 'next@' # do not change, soft set, correctly defined via antora.yml
@@ -49,13 +34,20 @@ asciidoc:
     ocis-former-version: '5.0.9'
     # Needed in docs-ocis to define which rolling release to print like in the envvars table
     ocis-rolling-version: '6.6.1'
-    ocis-compiled: '2024-12-17 00:00:00 +0000 UTC'
-    ocis-downloadpage-url: 'https://download.owncloud.com/ocis/ocis'
   extensions:
     - ./ext-asciidoc/tabs.js
     - ./ext-asciidoc/remote-include-processor.js
-    - asciidoctor-kroki
+    - asciidoctor-kroki # integrated via npm
 
 antora:
   extensions:
     - ./ext-antora/generate-index.js
+    #- ./ext-antora/comp-version.js
+    - require: ./ext-antora/load-global-site-attributes.js
+      attributefile: https://raw.githubusercontent.com/owncloud/docs/refs/heads/master/global-attributes.yml
+      #attributefile: ./global-attributes.yml
+      enabled: true
+    # for testing only, prints attributes used
+    # use only one or the other, output can be big
+    #- ./ext-antora/attributes-used-in-site-yml.js
+    #- ./ext-antora/attributes-used-in-antora-yml.js
