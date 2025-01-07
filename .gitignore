@@ -1,3 +1,4 @@
+global-attributes.yml
 site-dev.yml
 yarn-error.log
 cache/
@@ -7,3 +8,4 @@ pdf_web/
 tmp/
 .DS_Store
 .vscode/
+.idea/
