@@ -51,7 +51,7 @@ asciidoc:
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
-    env_var_delta_name: '5.0.0-7.0.0'
+    env_var_delta_name: '7.0.0-7.1.0'
 
     # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
     # note that tab 2 always contains the actual release and tab 3 the former
