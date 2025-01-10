@@ -12,7 +12,7 @@ In general, the xref:deployment/general/general-info.adoc#initialize-infinite-sc
 
 === Binary Deployment
 
-When using the a binary deployment like described in the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
+When using the binary deployment like described in the xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal Deployment], the command *is recommended* to be run manually once before first usage, though you can also fully configure the initial setup manually.
 
 * The following command line parameters or their equivalent environment variables can be defined to configure the `ocis init` command. When using environment variables the following structure is used; multiple variables are allowed:
 +
