@@ -1,0 +1,104 @@
+= Upgrading from 7.0.0 to 7.1.0
+:toc: right
+:description: This document describes the necessary steps when upgrading Infinite Scale from release 7.0.0 to 7.1.0.
+
+:actual_seven_version: 7.1.0
+
+include::partial$multi-location/compose-version.adoc[]
+
+== Introduction
+
+{description}
+
+IMPORTANT: Read the important notes in the xref:migration/upgrading-ocis.adoc#introduction[Upgrading Infinite Scale] documentation before you start.
+
+IMPORTANT: Check below, if you are affected by breaking changes and prepare all steps mentioned before you start the upgrade.
+
+== Upgrade Steps
+
+. Download and install Infinite Scale +
+*Do not start it after downloading the binary or image*!
+. Shut down the Infinite Scale instance
+. We strongly recommend doing a backup
+. Reconfigure the deployment
+. Manage Breaking Changes
+. Start Infinite Scale
+
+:sectnums:
+
+== Download and Install Infinite Scale
+
+Download and install Infinite Scale via:
+
+=== Binary
+
+Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation] section of the bare metal deployment example.
+
+=== Image Based Deployments
+
+* Issue the following command to download the new image:
++
+[source,bash,subs="attributes+"]
+----
+docker pull owncloud/ocis:{actual_seven_version}
+----
+
+== Shut Down the Infinite Scale Instance
+
+Depending how you deployed Infinite Scale, you need to shut it down differently.
+
+* *Binary* +
+For binary deployments, do a graceful shutdown as described in xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale].
+
+* *docker run* +
+For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].
+
+* *docker compose* +
+For deployments using `docker compose` do a graceful shutdown as described in xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#stop-the-deployment[Stop the Deployment].
+
+* *Any other image based deployment* +
+For any other image based deployment, shut down Infinite Scale according the vendors deployment description.
+
+== Backup of Infinite Scale
+
+See the xref:maintenance/b-r/backup_considerations.adoc[Backup Considerations] and the xref:maintenance/b-r/backup.adoc[Backup] documentation for more details.
+
+== Reconfigure the Deployment
+
+Reconfigure the deployment to use the new image:
+
+* For binary, nothing extra needs to be done
+
+* When using `docker run`
+** Update the image version used in the docker run command.
+
+* When using `docker compose`
+** Update _every_ compose file where the `ocis image` is referenced accordingly.
+** If you have used the deployment examples either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating and Upgrading* section of those pages carefully. 
+
+== Manage Breaking Changes
+
+* There are no breaking changes in Infinite Scale 7.1
+
+== Reconfigure web Office Document Deployments
+
+The following steps are based on the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. The steps are identical for the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
+
+* Backup the the base folder containing the existing deployment example by renaming it. +
+You will need your configuration details with the new example.
+
+* Follow the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#download-and-transfer-the-example[Download and Transfer Example] to get the new deployment and extract it as described in the following section of the guide.
+
+* Reconfigure the new `.env` file based on settings made in the `.env` file of the backup.
+
+== Start Infinite Scale
+
+When you have finished upgrading, you now can start Infinite Scale as ususal.
+
+For any deployment used, you now can delete/remove old binaries or images/containers.
+
+:sectnums!:
+
+== Changed or Added CLI Commands
+
+See the xref:maintenance/commands/changed-cli.adoc[Changed or Added CLI Commands] document for details.

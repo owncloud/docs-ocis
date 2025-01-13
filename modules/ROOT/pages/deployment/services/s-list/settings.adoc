@@ -42,6 +42,10 @@ Services can set or query Infinite Scale *setting values* of a user from setting
 
 The settings service needs to know the IDs of service accounts but it doesn't need their secrets. Currently only one service account can be configured which has the admin role. This can be set with the `SETTINGS_SERVICE_ACCOUNT_ID_ADMIN` envvar, but it will also pick up the global `OCIS_SERVICE_ACCOUNT_ID` envvar. Also see the xref:{s-path}/auth-service.adoc[auth-service] service description for additional details.
 
+// include common translations text
+:envvar_name: SETTINGS_TRANSLATION_PATH
+include::partial$deployment/services/translations.adoc[]
+
 == Default Language
 
 The default language can be defined via the `OCIS_DEFAULT_LANGUAGE` environment variable. If this variable is not defined, English will be used as default. The value has the ISO 639-1 format ("de", "en", etc.) and is limited to the list of supported languages. This setting can be used to set the default language for notification and invitation emails.
