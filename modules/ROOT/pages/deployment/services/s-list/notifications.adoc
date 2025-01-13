@@ -104,7 +104,7 @@ To initiate sending grouped emails like via a cron job, use the following comman
 ocis notifications send-email
 ----
 
-Note that the command *mandatory* requires at least one option which is `--daily` or `--weekly`. Note that both options can be used together.
+Note that at least one option, `--daily` or `--weekly`, must be provided. Both options can be used together.
 
 == Storing
 
