@@ -111,3 +111,7 @@ If post-processing fails in one step due to an unforeseen error, current uploads
 A xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+=== Sending Grouped Emails
+
+This command is about sending emails based on events stored in a named group bucket. See the xref:{s-path}/notifications.adoc#sending-grouped-emails[Sending Grouped Emails] section in the _notification_ service for details.
