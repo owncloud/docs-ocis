@@ -93,7 +93,7 @@ You will need your configuration details with the new example.
 
 == Start Infinite Scale
 
-When you have finished upgrading, you now can start Infinite Scale as ususal.
+When you have finished upgrading, you now can start Infinite Scale as usual.
 
 For any deployment used, you now can delete/remove old binaries or images/containers.
 
