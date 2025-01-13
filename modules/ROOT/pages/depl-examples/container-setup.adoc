@@ -224,6 +224,7 @@ Infinite Scale needs a xref:deployment/general/general-info.adoc#initialize-infi
 ----
 docker run --rm -it \
     --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
+    --mount type=bind,source=$HOME/ocis/ocis-data,target=/var/lib/ocis \
     owncloud/ocis init
 ----
 
