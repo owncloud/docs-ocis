@@ -15,7 +15,7 @@
 
 * The reason for excluding the {service_name} service from autostart is, that the service will block starting up all other services if the `NOTIFICATIONS_SMTP_SENDER` environment variable is not set. The value can be the real or a placeholder email address for startup testing purposes.
 
-* Once the notification service is configured, it can be added to startup using the (xref:deployment/services/env-vars-special-scope.adoc#special-environment-variables[`OCIS_ADD_RUN_SERVICES`] environmental variable.
+* Once the notification service is configured, it can be added to startup using the xref:deployment/services/env-vars-special-scope.adoc#special-environment-variables[`OCIS_ADD_RUN_SERVICES`] environmental variable.
 ====
 
 == Default Values
