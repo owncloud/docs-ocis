@@ -66,9 +66,9 @@ IMPORTANT: ownCloud highly recommends reading the xref:deployment/general/genera
 
 Similar to using _docker run_ and handing over command-line parameters for a single container, you can use a `docker-compose.yml` yaml file which defines all the settings and environment variables for each container in one or more files. This is the next step when having multi-container environments.
 
-* Consider that when planning to run Infinite Scale via Docker Compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server and other limitations but it usually offers more than running the pure binary when it comes to ease of configuration and maintaining your environment.
+* Consider that when planning to run Infinite Scale via Docker Compose, the degree of freedom is not the same as when using Kubernetes with Helm as you are limited to the same server and other limitations  when it comes to ease of configuration and maintaining your environment.
 
-* Use Docker Compose if you aim at an extended degree of freedom compared to the binary installation but don't need the full capabilities of Kubernetes and Helm.
+* Use Docker Compose if you aim at an extended degree of freedom but don't need the full capabilities of Kubernetes and Helm.
 
 === Prerequisites
 

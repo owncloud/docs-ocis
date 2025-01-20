@@ -14,9 +14,6 @@
 
 // IMPORTANT: this permalink origins to: https://cloud.owncloud.com/index.php/apps/files/?dir=/Shared/owncloud/Product%20Management/Presentations/2023-05-22_Infinite%20Scale%20current%20state&fileid=6005441
 
-See the following PDF document for a brief 
-https://cloud.owncloud.com/index.php/s/S7W9NPfKSHAoEYB[overview of Infinite Scale,window=_blank].
-
 === Target Audience
 
 This documentation addresses administrators and technically-oriented management:
@@ -37,7 +34,7 @@ The key benefits are::
 * No need for PHP or a database.
 * High performance, flexibility and scalability.
 * Extended functionality.
-* Single binary or container delivery, shipped with the user interface `ownCloud Web`.
+* Container delivery, shipped with the user interface `ownCloud Web`.
 
 See the following in-line YouTube video for more details or use the link:{ocis_youtube_long_url}[link, window=_blank] to view it in a separate browser tab.
 
@@ -65,7 +62,7 @@ With Infinite Scale, not much is needed to run your ownCloud server the way you 
 
 === Deployment
 
-Infinite Scale can be deployed via container or you can run the binary installed on a physical or virtual machine. Take a look at the xref:deployment/index.adoc[deployment] options for more details.
+Infinite Scale is deployed via container. Take a look at the Deployment Examples section in the navigation for more details.
 
 NOTE: We highly recommend reading the xref:deployment/general/general-info.adoc[General Info] document first before starting to plan or deploy Infinite Scale. This document contains important topics relevant for all deployments.
 
@@ -81,21 +78,6 @@ You can find more details on changes made in each release published in the https
 
 IMPORTANT: Rolling releases are published in a cycle of 3 weeks. Due to this relative short cycle, you will find the actual development and the current published rolling release documentation *not* separated. They are both part of the `next` segment in the URL. Compared to production releases where the respective release number is used, the actual rolling release number published can be found e.g. in each service description in section "Environment Variables".
 
-== Try Online
-
-You can try Infinite Scale before you install it locally to get hands-on experience and a feeling for how things work and integrate. Our development provides several instances with different setups to test. The instances are reset on a regular basis. See our https://owncloud.dev/ocis/deployment/continuous_deployment/[Continuous Deployment,window=_blank] page for more details.
-
 == End-User License Agreement (EULA)
 
 ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual {compose_raw_url}{compose_url_component}/assets/End-User-License-Agreement-for-ownCloud-Infinite-Scale.pdf[EULA] for details.
-
-////
-
-=== Maintenance
-
-Since the integrity and sovereignty of your data is the really important thing when it comes to working in a cloud, you'll need to perform regular backups of your data and keep your Infinite Scale up to date. You'll find everything you need to know in the xref:maintenance/index.adoc[Maintenance] section.
-
-== Upgrading from ownCloud 10
-
-If you already have an ownCloud 10 server running, you'll find the xref:migration/index.adoc[Migration] section most interesting.
-////

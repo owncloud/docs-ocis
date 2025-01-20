@@ -1,9 +1,0 @@
-[source,nginx,subs="attributes+"]
-----
-server {
-        listen 80 ;
-        listen [::]:80 ;
-
-        server_name {ocis_url};
-}
-----

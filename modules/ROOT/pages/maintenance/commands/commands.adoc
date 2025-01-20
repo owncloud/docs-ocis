@@ -8,12 +8,9 @@
 
 [NOTE]
 ====
-* Calling a service in the examples is made via the single binary.
+* Calling a service in the examples is made by entering the shell of the container first.
 * Generic call: +
 `ocis <service name> arguments options`.
-* This changes if some services are available as executable on their own, then it would be: +
-`<service name> arguments options`. +
-This could happen if services are developed which are not shipped as part of the single binary.
 ====
 
 == Changed CLI Commands
