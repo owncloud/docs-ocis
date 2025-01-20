@@ -1,5 +1,0 @@
-= Dependent Infinite Scale Service Startup
-
-If you want to ensure that you have a necessary service like a NFS mount point up and running _before_ the Infinite Scale service starts up, see xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted].
-
-NOTE: This step can be an important measure, because if the Infinite Scale service starts up but the necessary mount point is not available, you may be in an undefined Infinite Scale operating state.

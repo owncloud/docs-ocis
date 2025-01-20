@@ -35,7 +35,7 @@ Valid for all restore procedures:
 * first check the basic configuration of Infinite Scale on the backup to prepare the necessary volumes, mount points and directories if they are not present on your Infinite Scale instance,
 * Infinite Scale must be in stopped state.
 
-As a rule of thumb, consider also to restore the Infinite Scale binary or the backed-up container. This avoids difficulties after restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
+As a rule of thumb, consider also to restore the Infinite Scale backed-up container. This avoids difficulties after restoring the instance and possibly using an updated Infinite Scale version compared to the version used when backing up. Restoring and updating should always be different tasks.
 
 == Pure POSIX Setup
 

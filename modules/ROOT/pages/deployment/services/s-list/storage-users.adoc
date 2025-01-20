@@ -19,7 +19,7 @@
 
 With Infinite Scale, you can define a graceful shutdown period for the `storage-users` service.
 
-IMPORTANT: The graceful shutdown period is only applicable if the `storage-users` service runs as standalone service. It does not apply if the `storage-users` service runs as part of the single binary or as single Docker environment. To build an environment where the `storage-users` service runs as a standalone service, you must start two instances, one _without_ the `storage-users` service and one _only with_ the the `storage-users` service. Note that both instances must be able to communicate on the same network. 
+IMPORTANT: The graceful shutdown period is only applicable if the `storage-users` service runs as standalone service. It does not apply if the `storage-users` service runs as single Docker environment. To build an environment where the `storage-users` service runs as a standalone service, you must start two instances, one _without_ the `storage-users` service and one _only with_ the the `storage-users` service. Note that both instances must be able to communicate on the same network. 
 
 When hard-stopping Infinite Scale, for example with the `kill <pid>` command (SIGKILL), it is possible and likely that not all data from the decomposedfs (metadata) has been written to the storage which may result in an inconsistent decomposedfs. When gracefully shutting down Infinite Scale, using a command like SIGTERM, the process will no longer accept any write requests from _other_ services and will try to write the internal open  requests which can take an undefined duration based on many factors. To mitigate that situation, the following things have been implemented:
 
@@ -225,7 +225,7 @@ ocis storage-users trash-bin purge-expired
 The behaviour of the `purge-expired` command can be configured by using the following environment variables.
 
 * `STORAGE_USERS_PURGE_TRASH_BIN_USER_ID` +
-Used to obtain space trash-bin information and takes the system admin user as the default which is the `OCIS_ADMIN_USER_ID` but can be set individually. It should be noted, that the `OCIS_ADMIN_USER_ID` is only assigned automatically when using the single binary deployment and must be manually assigned in all other deployments. The command only considers spaces to which the assigned user has access and delete permission.
+Used to obtain space trash-bin information and takes the system admin user as the default which is the `OCIS_ADMIN_USER_ID` but can be set individually. It should be noted, that the `OCIS_ADMIN_USER_ID` must be manually assigned in all other deployments. The command only considers spaces to which the assigned user has access and delete permission.
 
 * `STORAGE_USERS_PURGE_TRASH_BIN_PERSONAL_DELETE_BEFORE` +
 Has a default value of `720h` which equals `30 days`. This means, the command will delete all files older than `30 days`. The value is human-readable, for valid values see the duration type described in the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types]. A value of `0` is equivalent to disable and prevents the deletion of `personal space` trash-bin files.

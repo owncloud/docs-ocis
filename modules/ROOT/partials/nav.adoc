@@ -1,5 +1,4 @@
 * xref:index.adoc[Introduction]
-** xref:quickguide/quickguide.adoc[Quick Guide]
 * Infinite Scale Overview
 ** xref:architecture/architecture.adoc[Architecture and Concepts]
 ** xref:availability_scaling/availability_scaling.adoc[Availability and Scalability]
@@ -92,8 +91,6 @@
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
-** xref:depl-examples/minimal-bare-metal.adoc[Minimal Bare Metal]
-** xref:depl-examples/bare-metal.adoc[Bare Metal with systemd]
 ** xref:depl-examples/container-setup.adoc[Container Setup]
 ** Ubuntu with Docker Compose
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup]

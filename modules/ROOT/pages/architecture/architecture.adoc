@@ -117,7 +117,7 @@ Every Infinite Scale service uses {ocis-pkg-url}[ocis-pkg], which implements the
 
 ==== Go-Micro
 
-While the {go-micro-url}[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download a single binary and start the contained Infinite Scale services with a single command: `ocis server`. This also makes packaging easier.
+While the {go-micro-url}[go-micro] framework provides abstractions as well as implementations for the different components in a microservice architecture, it uses a more developer-focused runtime philosophy: It is used to download services from a repo, compile them on the fly and start them as individual processes. For Infinite Scale we decided to use a more admin-friendly runtime: You can download container that internally use a single binary, which starts the contained Infinite Scale services with a single command: `ocis server`. This also makes packaging easier.
 
 ==== REVA and CS3
 
