@@ -9,7 +9,7 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like as xref:depl-examples/bare-metal.adoc[binary] or via an xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing or usecase:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like via the xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing or usecase:
 
 {empty} +
 

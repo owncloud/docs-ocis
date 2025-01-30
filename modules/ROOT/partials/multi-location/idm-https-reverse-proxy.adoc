@@ -11,5 +11,5 @@ See the following sections for more details and information:
 *** xref:deployment/general/general-info.adoc#configurations-to-access-the-web-ui[Configurations to Access the Web UI].
 
 * When accessing the server using a dedicated domain name:
-** You *must* use a reverse proxy. When Infinite Scale is accessed, it forwards requests to the embedded xref:{s-path}/idp.adoc[IDP service] which requires a secure connection and a domain name that matches the reverse proxy settings. See the xref:depl-examples/bare-metal.adoc[Bare Metal Deployment with systemd] for more details on using a reverse proxy setup.
+** You *must* use a reverse proxy. When Infinite Scale is accessed, it forwards requests to the embedded xref:{s-path}/idp.adoc[IDP service] which requires a secure connection and a domain name that matches the reverse proxy settings.
 ====

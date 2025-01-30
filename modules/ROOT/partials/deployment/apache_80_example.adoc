@@ -1,8 +1,0 @@
-[source,apache,subs="attributes+"]
-----
-<IfModule mod_rewrite.c>
-  <VirtualHost *:80>
-    ServerName {ocis_url}
-  </VirtualHost>
-</IfModule>
-----

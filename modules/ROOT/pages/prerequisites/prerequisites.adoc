@@ -24,7 +24,7 @@
 
 {description}
 
-Note that Infinite Scale is based on a highly dynamic interoperable _microservices_ concept, although it is delivered as a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
+Note that Infinite Scale is based on a highly dynamic interoperable _microservices_ concept, although it is delivered via a container that uses a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
 
 The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/architecture.adoc[Architecture and Concepts] and xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] first.
 
@@ -252,7 +252,7 @@ It is strongly recommend to use a reverse proxy for:
 . load balancing and
 . high availability.
 
-The Infinite Scale documentation will use *traefik* for examples, but you can use NGINX, Apache or others too. All three products provide either a binary or docker file to download.
+The Infinite Scale documentation will use *traefik* for deployment examples.
 
 [quote, '(C) {traefik_github_url}[Traefik Labs, The Cloud Native Application Proxy]']
 ____

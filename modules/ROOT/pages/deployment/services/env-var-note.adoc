@@ -39,11 +39,10 @@ Default values containing curly brackets::
 In the table showing the environment variables of a service, the _Default Value_ cell can sometimes contain values with curly brackets like `{{.Id.OpaqueId}}`. These are valid defaults.
 ====
 
-Note on paths for binary vs. container installations::
+Note on paths for container installations::
 If a service offers path customization like the `IDM_LDAPS_CERT` (see the xref:{s-path}/idm.adoc[IDM] documentation), the path set references the environment used. This means:
 +
 --
-* When using the binary installation, the path is based on the host filesystem.
 * When using a container installation, the path references a target inside the container.
 +
 [NOTE]

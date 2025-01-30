@@ -10,7 +10,7 @@
 
 {description} Using search is a good way to find documents based on various criteria. The search service will return results for documents the searcher is eligible to access. Read the description of the xref:{s-path}/search.adoc[search service] for more details.
 
-You can use basic search functionality without any configuration as it is preconfigured when using the default binary or container/orchestration deployment.
+You can use basic search functionality without any configuration as it is preconfigured when using the default container deployment.
 
 == Index Data
 
@@ -95,17 +95,6 @@ If you do not get a startup error message and accessing the container via `\http
 image::conf-examples/search/tika-welcome-screen.png[Tika welcome screen, width=400]
 
 you can use the container. Finally, you can keep the image when planning to use a container based setup but remove the test container with `docker stop <ID>` and `docker rm <ID>` where ID is the container ID of Tika.
-
-===== Manual Based
-
-If using the container does not work in your environment, you need to use the server installation of Tika which requires at least Java version 8 installed, check with `java -version` and install java if required. After downloading the https://tika.apache.org/download.html[Tika server .jar] file, you can start the server with:
-
-[source,bash,subs="attributes+"]
-----
-java -jar tika-server-standard-{tika-version}.jar
-----
-
-It is then accessible via `\http://your-server:9998`. Check that the Tika server is automatically started like when using systemd - which is not covered here though you can take xref:depl-examples/small-scale.adoc#setup-the-systemd-service[Setup the systemd Service] from the _Small-Scale Deployment with systemd_ as setup reference.
 
 ==== Configure Search using the Tika Extractor
 
