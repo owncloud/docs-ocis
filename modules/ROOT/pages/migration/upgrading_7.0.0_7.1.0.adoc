@@ -17,7 +17,7 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 == Upgrade Steps
 
 . Download and install Infinite Scale +
-*Do not start it after downloading the binary or image*!
+*Do not start it after downloading the image*!
 . Shut down the Infinite Scale instance
 . We strongly recommend doing a backup
 . Reconfigure the deployment
@@ -29,10 +29,6 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 == Download and Install Infinite Scale
 
 Download and install Infinite Scale via:
-
-=== Binary
-
-Follow the xref:depl-examples/minimal-bare-metal.adoc#installation[Installation] section of the bare metal deployment example.
 
 === Image Based Deployments
 
@@ -46,9 +42,6 @@ docker pull owncloud/ocis:{actual_seven_version}
 == Shut Down the Infinite Scale Instance
 
 Depending how you deployed Infinite Scale, you need to shut it down differently.
-
-* *Binary* +
-For binary deployments, do a graceful shutdown as described in xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale].
 
 * *docker run* +
 For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].

@@ -16,4 +16,4 @@ Set the environment variable to `nats-js-kv` or leave it empty to use a nats-js 
 NOTE: If not running _built-in nats_, `MICRO_REGISTRY_ADDRESS` needs to be set to the address of the nats-js cluster, which is the same value as `OCIS_EVENTS_ENDPOINT`. Optional: Use `MICRO_REGISTRY_AUTH_USERNAME` and `MICRO_REGISTRY_AUTH_PASSWORD` to authenticate with the nats cluster.
 
 * *memory* +
-Setting the environment variable to memory starts an in-memory registry. This only works with the single binary deployment.
+Setting the environment variable to memory starts an in-memory registry. This only works with the developer version of Infinite Scale.

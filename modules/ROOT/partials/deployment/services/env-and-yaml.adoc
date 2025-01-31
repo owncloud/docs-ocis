@@ -27,7 +27,7 @@ include::partial$multi-location/tab-text.adoc[]
 +
 --
 [caption=]
-.Environment variables only available for binary deployments
+.Environment variables to define services when starting the container
 [width="100%",cols="30%,70%",options="header"]
 |===
 | Name

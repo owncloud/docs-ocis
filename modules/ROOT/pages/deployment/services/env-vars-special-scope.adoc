@@ -10,7 +10,7 @@ Examples:
 
 * The global environment variable `OCIS_LOG_LEVEL` is available in multiple services.
 * The extended environment variable `OCIS_CONFIG_DIR` can be used with `ocis init`.
-* The special environment variable `OCIS_RUN_SERVICES` is only available with a binary deployment.
+* The special environment variable `OCIS_RUN_SERVICES` defines services to start when the container is started.
 
 
 == Special Environment Variables
@@ -19,7 +19,7 @@ Examples:
 // their source is in: https://github.com/owncloud/ocis/blob/master/ocis-pkg/config/config.go
 // at 'type Runtime struct'
 
-The following environment variables are only available when using a binary deployment. For additional information read the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] documentation. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
+The following environment variables are only available when using a developer version for Infinite Scale. For additional information read the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] documentation. Read the xref:deployment/services/envvar-types-description.adoc[Environment Variable Types] documentation for important details.
 
 include::partial$deployment/services/env-and-yaml.adoc[tag=special_envvars]
 

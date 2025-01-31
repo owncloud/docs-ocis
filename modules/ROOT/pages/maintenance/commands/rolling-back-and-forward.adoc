@@ -2,7 +2,7 @@
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
 
-It is important to disable clients and users logging in while any migration is in progress. To do so, start Infinite Scale with only two necessary services. The example uses the binary as base:
+It is important to disable clients and users logging in while any migration is in progress. To do so, start Infinite Scale container with only two necessary services:
 
 [source,bash]
 ----

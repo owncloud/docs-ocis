@@ -136,7 +136,7 @@ ocis postprocessing resume -s "virusscan" # Resume all uploads currently in viru
 // renders dependent on is_cache or is_store
 :is_store: true
 
-The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. When running in single binary mode, the default in-memory implementation will be just fine. In distributed deployments it is recommended to use a persistent store, see below for more details.
+The `postprocessing` service needs to store some metadata about uploads to be able to orchestrate post-processing. In distributed deployments it is recommended to use a persistent store, see below for more details.
 
 // get the complete .adoc page but do not render any contained tag directive when found in the middle
 include::partial$multi-location/cache-store.adoc[tag=**]
