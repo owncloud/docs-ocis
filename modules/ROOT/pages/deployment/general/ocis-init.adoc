@@ -10,10 +10,6 @@
 
 In general, the xref:deployment/general/general-info.adoc#initialize-infinite-scale[ocis init] command initializes ocis _for the first run_ and creates an `ocis.yaml` configuration file. See xref:deployment/general/general-info.adoc#configuration-rules[Configuration Rules] for the file location. This command is helpful if you do not provide the necessary settings manually, but some rules apply.
 
-=== Container Setup
-
-When deploying via `docker run` as described in xref:deployment/container/container-setup.adoc[Container Setup], initialisation needs to be triggered once before the first full start. See the referenced page how to do so.
-
 === Container Orchestration
  
 ==== Docker Compose

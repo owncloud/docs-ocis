@@ -91,7 +91,6 @@
 ** xref:conf-examples/office/office-integration.adoc[Office Integration]
 ** xref:conf-examples/search/configure-search.adoc[Search]
 * Deployment Examples
-** xref:depl-examples/container-setup.adoc[Container Setup]
 ** Ubuntu with Docker Compose
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup]
 *** xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner]

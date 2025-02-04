@@ -249,7 +249,7 @@ Read the xref:deployment/storage/s3.adoc[S3] documentation for more details on h
 
 == Initialize Infinite Scale
 
-Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. When using the xref:deployment/container/container-setup.adoc[Container Setup], you can prepare Infinite Scale for further configuration and recurring starts. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialization. To do so, run:
+Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialization. To do so, run:
 
 [source,bash]
 ----
