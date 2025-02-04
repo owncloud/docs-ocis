@@ -50,9 +50,6 @@ Depending how you deployed Infinite Scale, you need to shut it down differently.
 * *Binary* +
 For binary deployments, do a graceful shutdown as described in xref:depl-examples/minimal-bare-metal.adoc#stopping-infinite-scale[Stopping Infinite Scale].
 
-* *docker run* +
-For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].
-
 * *docker compose* +
 For deployments using `docker compose` do a graceful shutdown as described in xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#stop-the-deployment[Stop the Deployment].
 
@@ -68,9 +65,6 @@ See the xref:maintenance/b-r/backup_considerations.adoc[Backup Considerations] a
 Reconfigure the deployment to use the new image:
 
 * For binary, nothing extra needs to be done
-
-* When using `docker run`
-** Update the image version used in the docker run command.
 
 * When using `docker compose`
 ** Update _every_ compose file where the `ocis image` is referenced accordingly.
@@ -146,36 +140,6 @@ Depending on the deployment selected, you need to prepare for this command diffe
 ocis init --diff
 ----
 Change into the Infinite Scale config directory located at `$HOME/.ocis/config/` and apply the changes with:
-
-[source,bash]
-----
-patch < ocis.config.patch
-----
---
-
-{empty}
-
-* *Docker Deployment*:
-+
---
-This will open a shell in a temporary container using the new Infinite Scale image. Note that you *MUST* provide the mount/volume definition where the configuration settings are stored to make the `ocis init` command work. The bind mount from below is just an example and fails if the local directory does not exist!
-
-[source,bash,subs="attributes+"]]
-----
-sudo docker run \
-    --rm -it \
-    --entrypoint sh \
-    --mount type=bind,source=$HOME/ocis/ocis-config,target=/etc/ocis \
-    owncloud/ocis:{actual_seven_version}
-----
-
-Then, when the containers shell is available, type:
-
-[source,bash]
-----
-ocis init --diff
-----
-Change into the containers config directory `/etc/ocis` and apply the changes with:
 
 [source,bash]
 ----
