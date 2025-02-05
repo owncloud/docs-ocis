@@ -43,9 +43,6 @@ docker pull owncloud/ocis:{actual_seven_version}
 
 Depending how you deployed Infinite Scale, you need to shut it down differently.
 
-* *docker run* +
-For depoyments using `docker run` do a graceful shutdown as described in xref:depl-examples/container-setup.adoc#stop-a-running-container[Stop a Running Container].
-
 * *docker compose* +
 For deployments using `docker compose` do a graceful shutdown as described in xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc#stop-the-deployment[Stop the Deployment].
 
@@ -61,9 +58,6 @@ See the xref:maintenance/b-r/backup_considerations.adoc[Backup Considerations] a
 Reconfigure the deployment to use the new image:
 
 * For binary, nothing extra needs to be done
-
-* When using `docker run`
-** Update the image version used in the docker run command.
 
 * When using `docker compose`
 ** Update _every_ compose file where the `ocis image` is referenced accordingly.
