@@ -12,7 +12,6 @@
 *** xref:deployment/storage/posixfs.adoc[PosixFS]
 ** xref:deployment/general/general-info.adoc[General Information]
 ** xref:deployment/general/ocis-init.adoc[The ocis init Command]
-** xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]
 ** xref:deployment/wopi/wopi.adoc[Office Applications using WOPI]
 ** xref:deployment/security/security.adoc[Securing oCIS]
 ** xref:deployment/gdpr/gdpr.adoc[User Triggered GDPR Report]
