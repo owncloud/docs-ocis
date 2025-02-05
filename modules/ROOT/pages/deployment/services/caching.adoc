@@ -4,7 +4,7 @@
 
 == Introduction
 
-{description} Persistence is recommended for some services, for example, to manage event data for later processing, or, not limited to but especially when the underlying services are scaled via xref:deployment/container/orchestration/orchestration.adoc[container orchestration] providing consistent data across instantiated services.
+{description} Persistence is recommended for some services, for example, to manage event data for later processing, or, not limited to but especially when the underlying services are scaled, providing consistent data across instantiated services.
 
 == General Information
 

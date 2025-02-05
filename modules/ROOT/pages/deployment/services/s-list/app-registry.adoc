@@ -22,7 +22,7 @@ Administrators can set default applications for each MIME type and also allow th
 
 === MIME Type Configuration
 
-Modifing the MIME type config can only be achieved via a yaml configuration. Using environment variables is not possible. For an example, see the `ocis_wopi/config/ocis/app-registry.yaml` at xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[docker-compose example]. The following is a brief structure and a field description:
+Modifing the MIME type config can only be achieved via a yaml configuration. Using environment variables is not possible. For an example, see the `ocis_wopi/config/ocis/app-registry.yaml` at the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory. The following is a brief structure and a field description:
 
 Structure::
 +
@@ -71,7 +71,7 @@ The CS3org WOPI server app driver is included in Infinite Scale by default. It n
 
 === App Provider Configuration
 
-The configuration of the actual app provider in a xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[docker-compose example] can be found in the full `ocis-wopi` example directory especially in the config sections `ocis-appprovider-collabora` and `ocis-appprovider-onlyoffice`.
+A configuration of the actual app provider can be found in the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory especially in the config sections `ocis-appprovider-collabora` and `ocis-appprovider-onlyoffice`.
 
 == Configuration
 

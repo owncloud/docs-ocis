@@ -70,9 +70,6 @@ Reconfigure the deployment to use the new image:
 ** Update _every_ compose file where the `ocis image` is referenced accordingly.
 ** If you have used the deployment examples based on _rolling releases version 6.x_ either for xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] or xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner], read the *Updating* section of those pages carefully. 
 
-* When using `Kubernetes - Helm`
-** Update `{{ .Values.image.tag }}` and/or `{{ .Chart.AppVersion }}` accordingly.
-
 == Manage Breaking Changes
 
 * All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
