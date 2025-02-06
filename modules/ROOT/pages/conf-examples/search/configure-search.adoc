@@ -79,23 +79,6 @@ Though you can compile Tika manually on your system by following the https://tik
 
 The following describes how to make Tika available for your environment.
 
-===== Container Based
-
-Check that you have xref:deployment/container/container-setup.adoc#docker-prerequisites[docker] and xref:deployment/container/container-setup.adoc#docker-prerequisites[docker compose] and xref:deployment/container/orchestration/orchestration.adoc[container orchestration] installed.
-
-To see if the Tika container runs on your architecture, type:
-
-[source,bash]
-----
-docker run -d --name=tika --restart=always apache/tika
-----
-
-If you do not get a startup error message and accessing the container via `\http://your-server:9998` returns:
-
-image::conf-examples/search/tika-welcome-screen.png[Tika welcome screen, width=400]
-
-you can use the container. Finally, you can keep the image when planning to use a container based setup but remove the test container with `docker stop <ID>` and `docker rm <ID>` where ID is the container ID of Tika.
-
 ==== Configure Search using the Tika Extractor
 
 As prerequisite, Tika needs to be accessible via `\http://your-server:9998` either using the manual installation or via docker. You can decide to let Tika run on the same or a separate server from where the search service runs. The following configuration assumes that all Infinite Scale services including the search service and Tika run on the same hardware.
