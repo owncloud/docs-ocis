@@ -3,7 +3,6 @@
 :description: When using container orchestration, some considerations should be taken into account when deploying services with respect to scaling.
 
 :nats-clustering-url: https://docs.nats.io/running-a-nats-service/configuration/clustering
-:nats-helm-url: https://docs.nats.io/running-a-nats-service/nats-kubernetes/helm-charts
 
 == Introduction
 
@@ -21,4 +20,4 @@ Though the majority of services can be scaled by starting them multiple times, t
 
 * The xref:{s-path}/store.adoc[Store service] cannot be started multiple times. ownCloud is looking for ways of removing or making the store service able to scale.
 
-* The xref:{s-path}/nats.adoc[NATS service] cannot be started multiple times and should not be used in HA or scaled installations. Instead it must be replaced by a NATS installation that is HA / scaled enabled. For details see the https://nats.io pages: {nats-clustering-url}[NATS Server Clustering] and {nats-helm-url}[Deploying NATS with Helm] documentation.
+* The xref:{s-path}/nats.adoc[NATS service] cannot be started multiple times and should not be used in HA or scaled installations. Instead it must be replaced by a NATS installation that is HA / scaled enabled. For details see the https://nats.io page: {nats-clustering-url}[NATS Server Clustering] documentation.

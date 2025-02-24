@@ -4,6 +4,9 @@
 :fail2ban_url: https://www.fail2ban.org/wiki/index.php/Main_Page
 :kb_path: additional-information/kb-documents
 
+include::partial$multi-location/compose-version.adoc[]
+
+
 == Introduction
 
 {description} Information on topics listed here are not intended as a full and ready-to-go guide and may not be suitable for all deployment scenarios. Instead we give an overview on how things can be achieved.
@@ -18,7 +21,7 @@ Implementing a brute force protection against failing login attempts is somethin
 
 == CORS Settings with Keycloak
 
-When looking at the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples], in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the following setting responsible for CORS inside Infnite Scale:
+When looking at the {download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/ocis_keycloak[ocis_keycloak,window=_blank] deployment example on github, in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the following setting responsible for CORS inside Infnite Scale:
 
 [source,yaml]
 ----

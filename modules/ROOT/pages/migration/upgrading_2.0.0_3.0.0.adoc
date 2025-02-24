@@ -64,9 +64,6 @@ rm -rf <OCIS_BASE_DATA_PATH>/search/*
 NOTE: The empty search index will be recreated space by space when something changes in a space. You can also use the Infinite Scale CLI to manually trigger a xref:maintenance/commands/commands.adoc#reindex-a-space-for-search[Reindex a Space for Search].
 --
 
-. Changes in the Helm Charts +
-For any breaking changes that come along with Helm Charts, see the xref:deployment/container/orchestration/orchestration.adoc#breaking-changes[Breaking Changes,window=_blank] documentation.
-
 . Messagepack Readme First +
 If you have manually changed one of the following environment variables to a value other than the default or explicitly set one of the environment variables to the default which was `xattrs`:
 +

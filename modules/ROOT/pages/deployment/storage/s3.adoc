@@ -81,7 +81,7 @@ STORAGE_USERS_S3NG_BUCKET:
 
 * A xref:s3-bucket-policy[S3 Bucket Policy] needs to be created.
 
-Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples]  in particular `ocis_s3` and the xref:deployment/container/orchestration/orchestration.adoc#deploy-the-chart[Deploy the Chart] section in the `Container Orchestration` documentation.
+Also see the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory in particular `ocis_s3` configuration.
 
 === S3 Bucket Policy
 

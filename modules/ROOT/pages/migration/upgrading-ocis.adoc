@@ -53,7 +53,6 @@ For a detailed description of the steps to upgrade, see the xref:migration/upgra
 
 === Notable Changes Requiring Manual Intervention
 
-* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 * The maintenance command `ocis storage-users uploads list` has been deprecated and will be removed in a later release. A successor with more capabilities has been implemented, see the xref:deployment/services/s-list/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] documentation for more details.
 
 === Breaking Changes Requiring Manual Intervention
@@ -72,7 +71,6 @@ For a detailed description of the steps to upgrade, see the xref:migration/upgra
 === Notable Changes Requiring Manual Intervention
 
 * The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully. See Upgrade Steps below.
-* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Breaking Changes Requiring Manual Intervention
 
@@ -92,7 +90,6 @@ For a detailed description of the steps to upgrade see the xref:migration/upgrad
 * A new `OCIS_LDAP_DISABLE_USER_MECHANISM` environment variable has been introduced that needs a settings review.
 * The search index needs to be deleted as the layout has been changed.
 * The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
-* The xref:deployment/container/orchestration/orchestration.adoc#using-our-helm-charts-with-infinite-scale[Helm Chart] has been upgraded.
 
 === Upgrade Steps
 

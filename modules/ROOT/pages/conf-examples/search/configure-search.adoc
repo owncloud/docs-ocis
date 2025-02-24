@@ -73,7 +73,7 @@ To search for content, a content extraction engine needs to be installed and con
 
 === Tika Extractor
 
-Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform. The xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) is based on the container as it is ready to use.
+Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. Note that at the time of writing, containers are only available for the `amd64` platform. The xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example is based on this container and is ready to use.
 
 ==== Prerequisites
 
@@ -88,7 +88,7 @@ These configuration parameters need to be set for the use of Tika:
 * `SEARCH_EXTRACTOR_TYPE=tika`
 * `SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://your-server:9998`
 
-The parameters can either be set via environment variables or as part of a `yaml` configuration file. Also see the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) for an example using container orchestration which also downloads the necessary Tika image.
+The parameters can either be set via environment variables or as part of a `yaml` configuration file. Also see the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory for an example which also downloads the necessary Tika image.
 
 ==== Configuring Tika
 

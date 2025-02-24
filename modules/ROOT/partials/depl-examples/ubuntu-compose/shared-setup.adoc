@@ -25,6 +25,9 @@ first is hetzner, commented below local server
 // ubuntu-prod-install.drawio.svg
 ////
 
+// Note that the including page MANDATORY needs: include::partial$multi-location/compose-version.adoc[]
+// to resolve build dependenr required attributes !!
+
 tag::shared_1[]
 
 === Volumes

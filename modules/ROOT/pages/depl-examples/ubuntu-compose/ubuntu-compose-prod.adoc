@@ -1,7 +1,9 @@
 = Install Infinite Scale on a Server
 :toc: macro
 :toclevels: 3
-:page-aliases: depl-examples/minimal-bare-metal.adoc, depl-examples/bare-metal.adoc, depl-examples/small-scale.adoc
+:page-aliases: depl-examples/minimal-bare-metal.adoc, depl-examples/bare-metal.adoc, \
+depl-examples/small-scale.adoc, deployment/systemd.adoc, quickguide/quickguide.adoc, \
+depl-examples/container-setup.adoc
 :keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
 :description: Install Infinite Scale using Docker Compose on a server for production use.
 

@@ -68,7 +68,7 @@ NOTE: Content extraction and handling the extracted content can be very resource
 
 When using the Tika container and docker-compose, consider the following:
 
-* See the xref:deployment/container/orchestration/orchestration.adoc#docker-compose-examples[Docker Compose Examples] (ocis_wopi) for details.
+* See the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory for more details.
 * Containers for the linked service are reachable at a hostname identical to the alias or the service name if no alias was specified.
 
 When using the Tika extractor, make sure to also set `FRONTEND_FULL_TEXT_SEARCH_ENABLED` in the xref:{s-path}/frontend.adoc[frontend service] to `true`. This will tell the web client that full-text search has been enabled.

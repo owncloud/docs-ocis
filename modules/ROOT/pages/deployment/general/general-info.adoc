@@ -178,7 +178,7 @@ Because Infinite Scale does not use a database for storing information like user
 {empty}
 
 Path for System Data::
-The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required like when using a xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration] setup or recommended for using the xref:{s-path}/search.adoc[search service] or xref:{s-path}/thumbnails.adoc[thumbnails service].
+The environment variable `OCIS_BASE_DATA_PATH` sets the base path in a generic way. It has a xref:default-location[default location] but can also be manually defined. It is the root for many services which automatically add a subdirectory to that root for storing their data. Some services can manually define that path if necessary. Defining them independently can be required depending on the deployment method used is recommended for using the xref:{s-path}/search.adoc[search service] or xref:{s-path}/thumbnails.adoc[thumbnails service].
 
 // ocis/services$ grep -r 'OCIS_BASE_DATA_PATH' --include=*.go **/pkg/config
 // https://docs.asciidoctor.org/asciidoc/latest/subs/apply-subs-to-blocks/
@@ -249,7 +249,7 @@ Read the xref:deployment/storage/s3.adoc[S3] documentation for more details on h
 
 == Initialize Infinite Scale
 
-Infinite Scale can be run by manually defining the environment like you do when using xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialization. To do so, run:
+After reading xref:deployment/general/ocis-init.adoc[The ocis init Command] for important details, start the initialization. To do so, run:
 
 [source,bash]
 ----

@@ -9,7 +9,7 @@
 
 Note that depending on the storage used, special settings can be defined to optimize resources for memory and performance.
 
-For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup like via the xref:deployment/container/orchestration/orchestration.adoc[orchestration] with its variants usually comes along with the expected sizing or usecase:
+For a quick and rough overview, the following storages are mapped against an expected sizing. Note the way that Infinite Scale is setup usually comes along with the expected sizing or usecase:
 
 {empty} +
 
@@ -101,7 +101,7 @@ The following table describes where data should be stored when using Infinite Sc
 
 == NFS
 
-Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable as this is a requirement for xref:deployment/container/orchestration/orchestration.adoc[orchestrated environments]. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
+Using NFS is beneficial because the instance components are separated from the storage and can scale independently. Such a setup is used when you plan a production environment with many users. In addition, the Infinite Scale config is also stored on NFS using the xref:deployment/general/general-info.adoc#default-paths[OCIS_CONFIG_DIR] environment variable which can be beneficial when using the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. For details on NFS see the xref:deployment/storage/nfs.adoc[Network File System] documentation.
 
 {empty} +
 
