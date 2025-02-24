@@ -1,9 +1,7 @@
 # The Branching Workflow
 
-Note that at the moment **no branching** is necessary for the ocis repo as only the `master` branch is used that appears as `next` in the documentation. 
+Only three branches are maintained for this repo at any one time; these are `master` which is referenced with `next` on the web, the current, and the former product release, but only for major and minor versions. Any change to the documentation is made in a branch based off of `master` with only a view exceptions.
 
-<!--
-Only three branches are maintained at any one time; these are `master`, the current, and the former Branding Client release series. Any change to the documentation is made in a branch based on `master`. Once the branch's PR is approved and merged, the PR is backported to the branch for the **current** Brander release and the **former** release but only if it applies to it.
+Any documentation changes for a version is created in master and backported to the version it applies to. This keeps the content consistent.
 
-When a new ownCloud major or minor Branding version is released, a new branch is created to track the changes for that release. The branch for the oldest release is frozen, taken off the actively maintained branch list and is no longer maintained.
--->
+When a new major or minor version is released, a new branch is created to track the changes for that release, and the branch for the previous release is technically no longer maintained. That said, changes for patches and bugfixes to _some_ earlier versions are backported if reasonable.
