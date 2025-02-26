@@ -2,13 +2,9 @@
 :toc: right
 :description: There are several deployment options for Infinite Scale available. Consider which one serves your purposes best. Generally speaking, you can decide between using containers or manually set up a regular server.
 
-// https://owncloud.dev/ocis/deployment/
-
 {description}
 
 * The xref:deployment/general/general-info.adoc[General Info] section summarizes general and important information which is not dependent on the way that you install Infinite Scale. Any setup refers to this general information as prerequisite knowledge.
-
-* For a more complex or enterprise setup, consider reading xref:deployment/container/orchestration/orchestration.adoc[Container Orchestration]. This document also covers the use of Kubernetes and Helm Charts.
 
 * The next steps will likely be mounting a xref:deployment/storage/nfs.adoc[Network File System] and managing xref:deployment/services/services.adoc[Services].
 
