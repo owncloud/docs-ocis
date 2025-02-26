@@ -57,23 +57,7 @@ asciidoc:
     # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
     env_var_delta_name: '7.0.0-7.1.0'
 
-    # helm_tab_x will be used to assemble the url (tag) accessing the raw content for helm charts (tag)
-    # note that tab 2 always contains the actual release and tab 3 the former
-    helm_tab_1: 'master'
-    helm_tab_2: 'v0.5.0'
-    helm_tab_3: 'v0.4.0'
-
-    # helm_tab_x_tab_text will be used as tab text shown for tab_x
-    # note that tab 2 always contains the actual release and tab 3 the former
-    helm_tab_1_tab_text: 'latest'
-    helm_tab_2_tab_text: '0.5.0'
-    helm_tab_3_tab_text: '0.4.0'
-
     # set attributes defining path components which will be assembled in the document
-    secrets: 'deployment/container/orchestration/orchestration.adoc#define-secrets'
-    ocis-charts-raw-url: 'https://raw.githubusercontent.com/owncloud/ocis-charts/'
-    values-versions-url: '/charts/ocis/docs/values.adoc.yaml'
-    values-desc-versions-url: '/charts/ocis/docs/values-desc-table.adoc'
     compose_url: 'https://github.com/owncloud/ocis/tree/'
     compose_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     compose_final_path: '/deployments/examples'
@@ -87,5 +71,5 @@ asciidoc:
     ocis_services_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     ocis_services_final_path: '/services/_includes/'
 
-    # used in deployment orchestration and depl-examples
+    # used in depl-examples
     download-gh-directory-url: https://download-directory.github.io
