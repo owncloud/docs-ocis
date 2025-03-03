@@ -21,7 +21,7 @@ Implementing a brute force protection against failing login attempts is somethin
 
 == CORS Settings with Keycloak
 
-When looking at the {download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/ocis_keycloak[ocis_keycloak,window=_blank] deployment example on github, in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the following setting responsible for CORS inside Infnite Scale:
+When looking at the {download-gh-directory-url}?url={compose_url}{compose_version}{compose_final_path}/ocis_keycloak[ocis_keycloak,window=_blank] deployment example on github, in particular the file `ocis_keycloak/config/keycloak/ocis-realm.dist.json`, you will find the following setting responsible for CORS inside Infnite Scale:
 
 [source,yaml]
 ----

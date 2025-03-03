@@ -22,35 +22,37 @@ asciidoc:
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
 
-    # the name of the sub directory that defines the sources used in the compose deployment examples
+    # the name of the sub directory that defines the sources folder used in the compose deployment examples
     ocis_wopi: ocis_full
 
     # note that service_url_component is used for services ONLY
-    # service_url_component will be used to assemble the url for services to include content (tables) sourced from the ocis repo.
-    service_url_component: 'docs-stable-7.1' # docs for master or for stable, like docs-stable-5.0
+    # service_url_component will be used to assemble the url for services to include content (tables)
+    # sourced from the ocis repo.
+    # 'docs' for the next branch or 'docs-stable-7.0' for a production branch
+    service_url_component: 'docs-stable-7.1'
 
-    # defines the url path component when accessing the ocis repo for versioned data includes 
-    ocis_repo_url_component: 'stable-7.1' # master for master or for stable, like stable-5.0
+    # defines the url path component when accessing the ocis repo for versioned data includes or examples
+    # 'master' for the next branch or 'stable-7.0' for a production branch
+    ocis_repo_url_component: 'stable-7.1'
 
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
-    service_tab_text: '7.1.0' # latest stable including patch releases like 5.0.0
+    # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
+    service_tab_text: '7.1.0'
 
     # note that compose_url_component is used for compose examples and for the EULA ONLY
     # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_url_component: 'v7.1.0' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
+    # 'master' for the next branch or 'v7.0.0' for a production branch including patch releases like `v7.0.1'
+    # note the v ! as it is tagged
+    compose_url_component: 'v7.1.0'
 
     # compose_tab_text will be used as tab text for examples and all other stuff but not services
-    compose_tab_text: '7.1.0' # latest stable including patch releases like 5.0.0
-
-    # use this attribute to define the branch name for git clone
-    # the value is usually identical to compose_tab_text, but it should be separable to be independent
-    # note that you must define a value and not an attribute from above 
-    compose_git_name: '7.0.0' # latest stable including patch releases like 5.0.0 (must be without v !)
+    # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
+    compose_tab_text: '7.1.0'
 
     # this is the first part of the name for envvars between major versions that will be added or removed
-    # example for full name: 4.0.0-5.0.0-added.adoc or 4.0.0-5.0.0-removed.adoc
+    # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc
     env_var_delta_name: '7.0.0-7.1.0'
 
     # set attributes defining path components which will be assembled in the document
