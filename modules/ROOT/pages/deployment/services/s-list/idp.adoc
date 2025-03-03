@@ -10,7 +10,7 @@ include::partial$multi-location/compose-version.adoc[]
 
 {description}
 
-The IDP service is mainly suitable for smaller installations. The recommendation for larger setups is to replace IDP with and external OpenID Connect Provider. See the {download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/ocis_keycloak[ocis_keycloak,window=_blank] deployment example on github for more details.
+The IDP service is mainly suitable for smaller installations. The recommendation for larger setups is to replace IDP with and external OpenID Connect Provider. See the {download-gh-directory-url}?url={compose_url}{compose_version}{compose_final_path}/ocis_keycloak[ocis_keycloak,window=_blank] deployment example on github for more details.
 
 By default, the IDP service is configured to use the Infinite Scale xref:{s-path}/idm.adoc[IDM service] as its LDAP backend for looking up and authenticating users. Other backends like an external LDAP server can be configured via a set of environment variables. For details see below.
 

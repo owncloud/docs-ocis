@@ -246,7 +246,7 @@ NOTE: The client to download the example is not the server you upload to. The se
 
 NOTE: The client from where you download the example via a browser and upload it using `scp` must have granted access to the server and have the `scp` app installed.
 
-To download and extract the necessary deployment example footnote:[Derived from the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
+To download and extract the necessary deployment example footnote:[Derived from the {compose_url}{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
 
 //[source,url,subs="attributes+,+macros"]
 //----
@@ -254,7 +254,7 @@ To download and extract the necessary deployment example footnote:[Derived from 
 
 [.gray-light-background]
 ****
-{download-gh-directory-url}?url={compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[,window=_blank]
+{download-gh-directory-url}?url={compose_url}{compose_version}{compose_final_path}/{ocis_wopi}[,window=_blank]
 ****
 
 The `.zip` file will be downloaded into your local `Download` directory.
@@ -263,7 +263,7 @@ Transfer the `.zip` file created to the server by issuing the following command,
 
 [source,bash,subs="attributes+"]
 ----
-scp ~/Downloads/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
+scp ~/Downloads/'owncloud ocis {compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
 ----
 
 Note that the command differs a bit on Windows due to way how the home directory and the path separator is defined.
@@ -286,7 +286,7 @@ mkdir -p /opt/compose/ocis/{ocis_wopi}
 [source,bash,subs="attributes+"]
 ----
 unzip -d /opt/compose/ocis/{ocis_wopi} \
-  /opt/'owncloud ocis v{compose_version} deployments-examples_{ocis_wopi}.zip'
+  /opt/'owncloud ocis {compose_version} deployments-examples_{ocis_wopi}.zip'
 ----
 
 * When files have been extracted, list the directory with:

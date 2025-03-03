@@ -2,8 +2,6 @@
 :toc: right
 :description: This document covers general aspects of Infinite Scale like start modes, services, important minimum configuration etc. for a common understanding.
 
-include::partial$multi-location/compose-version.adoc[]
-
 == Introduction
 
 {description}
@@ -632,7 +630,7 @@ This is the local path the where Infinite Scale stores all data except the confi
 This is the local path where the Infinite Scale configuration is stored. When listing the content, you must see the file `ocis.yaml`. See the important information when using xref:docker-volumes[Docker Volumes].
 
 * `<ocis-version>` +
-The Infinite Scale version used like `latest` or `{compose_version}` or ... .
+The Infinite Scale version used like `latest` or `{ocis-actual-version}` or ... .
 +
 --
 [source,bash]
