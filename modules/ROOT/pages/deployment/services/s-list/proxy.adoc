@@ -188,7 +188,7 @@ For Infinite Scale, external resources like an IDP (e.g. Keycloak) or when using
 
 To create a Content Security Policy (CSP), you need to create a yaml file containing the CSP definitions. To activate the settings, reference the file as value in the `PROXY_CSP_CONFIG_FILE_LOCATION` environment variable. For each change, a restart of the Infinite Scale deployment or the proxy service is required.
 
-A working example for a CSP can be found in a sub path of the `config` directory of the {compose_url}v{compose_version}{compose_final_path}/{ocis_wopi}[{ocis_wopi},window=_blank] deployment example which is the base for our xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] and the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
+A working example for a CSP can be found in a sub path of the `config` directory of the {compose_url}{compose_version}{compose_final_path}/{ocis_wopi}[{ocis_wopi},window=_blank] deployment example which is the base for our xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] and the xref:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner].
 
 See the https://content-security-policy.com[Content Security Policy (CSP) Quick Reference Guide,window=_blank] for a description of directives.
 
