@@ -5,10 +5,6 @@ start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/partials/nav.adoc
 
-# !!! IMPORTANT !!!
-# Due to a decision of the ocis dev team, the 7.1 changes have been backported into 7.0
-# This implies that ressources pulled reference into 7.0.0 but are shown as 7.1.0 in the docs
-
 asciidoc:
   attributes:
     # with antora 3.2, there will be new attributes `antora-component-version` and `antora-component-name`
@@ -31,10 +27,10 @@ asciidoc:
 
     # note that service_url_component is used for services ONLY
     # service_url_component will be used to assemble the url for services to include content (tables) sourced from the ocis repo.
-    service_url_component: 'docs-stable-7.0' # docs for master or for stable, like docs-stable-5.0
+    service_url_component: 'docs-stable-7.1' # docs for master or for stable, like docs-stable-5.0
 
     # defines the url path component when accessing the ocis repo for versioned data includes 
-    ocis_repo_url_component: 'stable-7.0' # master for master or for stable, like stable-5.0
+    ocis_repo_url_component: 'stable-7.1' # master for master or for stable, like stable-5.0
 
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
@@ -43,7 +39,7 @@ asciidoc:
 
     # note that compose_url_component is used for compose examples and for the EULA ONLY
     # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
-    compose_url_component: 'v7.0.0' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
+    compose_url_component: 'v7.1.0' # latest stable including patch releases like v5.0.0 (note the v ! as it is tagged)
 
     # compose_tab_text will be used as tab text for examples and all other stuff but not services
     compose_tab_text: '7.1.0' # latest stable including patch releases like 5.0.0
