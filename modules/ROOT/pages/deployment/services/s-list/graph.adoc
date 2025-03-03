@@ -66,7 +66,7 @@ To use the graph service for managing (create, update, delete) users and groups,
 
 * The LDAP server must provide the `inetOrgPerson` object class for users and the `groupOfNames` object class for groups.
 
-* The graph service maintains a few additional attributes for users and groups that are not available in the standard LDAP schema. A schema file (ldif), ready to use with OpenLDAP defining those additional attributes, is available: {compose_url}v{compose_version}{compose_final_path}/ocis_ldap/config/ldap/schemas/[here,window=_blank].
+* The graph service maintains a few additional attributes for users and groups that are not available in the standard LDAP schema. A schema file (ldif), ready to use with OpenLDAP defining those additional attributes, is available: {compose_url}{compose_version}{compose_final_path}/ocis_ldap/config/ldap/schemas/[here,window=_blank].
 
 == Query Filters Provided by the Graph API
 
