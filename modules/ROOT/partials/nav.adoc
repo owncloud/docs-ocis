@@ -80,6 +80,7 @@
 *** xref:maintenance/b-r/backup.adoc[Backup]
 *** xref:maintenance/b-r/restore.adoc[Restore]
 ** xref:maintenance/commands/commands.adoc[Maintenance Commands]
+** xref:maintenance/m-mode/maintenance-mode.adoc[Maintenance Mode]
 ** xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs]
 ** xref:maintenance/user-ids/user-ids.adoc[Listing User IDs]
 * Migration and Upgrades
