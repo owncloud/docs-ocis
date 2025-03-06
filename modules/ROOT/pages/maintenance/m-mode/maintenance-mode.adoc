@@ -14,7 +14,7 @@
 * Any necessary reconfigurations/adaptations and tests have been done upfront, most likely with a staging environment. This guarantees short unavailability.
 * {empty}
 +
-IMPORTANT: To disable ANY access to the instance, you must MANUALLY configure the webserver to respond for  incoming traffic with `503 Service Unavailable`. This type of response is important because the webUI and apps have procedures to react properly to this response. In addition, a static html page can be created to show the current state for users trying to login. Such a page is not part of Infinite Scale, independent of it and must be provided by the admin.
+IMPORTANT: To disable ANY access to the instance, you must MANUALLY configure the webserver to respond for incoming traffic with `503 Service Unavailable`. This type of response is important because the webUI and apps have procedures to react properly to this response. In addition, a static html page can be created to show the current state for users trying to login. Such a page is not part of Infinite Scale, independent of it and must be provided by the admin.
 * If the instance is up and running again, you must re-enable full access to the instance on the webserver.
 
 == User View
