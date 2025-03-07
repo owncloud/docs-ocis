@@ -4,13 +4,13 @@
 
 == Introduction
 
-{description} The major points are what is maintenance mode and how to initiate it, respectively what are the user impacts.
+{description} The major points are; what is maintenance mode, how to initiate it, and what are the user impacts.
 
 == Backend View
 
 * The intention for bringing an instance into maintenance mode is to do updates/upgrades or reconfiguration.
 * An instance in maintenance mode is fully shut down and inaccessible by users but will be up and running again in a relatively short period of time.
-* Maintenance mode should be considered to be active only in off-working or off-peak hours.
+* Maintenance mode should be scheduled only in off-working or off-peak hours.
 * Any necessary reconfigurations/adaptations and tests have been done upfront, most likely with a staging environment. This guarantees short unavailability.
 * {empty}
 +
