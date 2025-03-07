@@ -1,0 +1,54 @@
+= Maintenance Mode
+:toc: right
+:description: There are a few things to consider when updating/upgrading Infinite Scale.
+
+== Introduction
+
+{description} The major points are; what is maintenance mode, how to initiate it, and what are the user impacts.
+
+[IMPORTANT]
+====
+* For users: +
+If an instance is in maintenance mode, it is important for users to know that it is currently inaccessible but will be available again soon.
+* For admins:
+** An instance in maintenance mode is fully shut down and inaccessible by users but will be up and running again in a relatively short period of time.
+** There is no command shutting down an instance because it is very dependent on how it is setup. Most important, each running service has to be terminated gracefully to avoid data loss. When using docker compose, the command to down the stack is sufficient.
+** Before shutting down the instance, it is highly recommended to reconfigure the webserver to respond for all incoming requests with 503.
+* For more details see the sections below.
+====
+
+== Backend View
+
+* The intention for bringing an instance into maintenance mode is to do updates/upgrades or reconfiguration.
+* Maintenance mode should be scheduled only in off-working or off-peak hours.
+* Any necessary reconfigurations/adaptations and tests have been done upfront, most likely with a staging environment. This guarantees short unavailability.
+* {empty}
++
+IMPORTANT: To disable ANY access to the instance, you must MANUALLY configure the webserver to respond for incoming traffic with `503 Service Unavailable`. This type of response is important because the webUI and apps have procedures to react properly to this response. In addition, a static html page can be created to show the current state for users trying to login. Such a page is not part of Infinite Scale, independent of it and must be provided by the admin.
+* If the instance is up and running again, you must re-enable full access to the instance on the webserver.
+
+== User View
+
+=== Apps
+
+* Any apps connected will show that Infinite Scale is currently inaccessible (compared to 404, Not Found) and continues to sync automatically if maintenance mode has finished.
+
+=== webUI
+
+* The webUI identifies the maintenance mode when the user tries to access a resource and gets back a 503 response.
+** This can be like when trying to open a file, changing a directory, selecting another Space or trying to save an edited file etc.
+* Because the user is already logged in, no error page will be shown and any handling is done via the webUI.
+* The 503 response is treated specially and a yellow bar is shown to the user that the instance is in maintenance mode and more info can be requested by clicking on that bar.
+* If the webUI has identified maintenance mode, it regulary checks internally if maintenance mode is still active.
+** If there is a regular response, the yellow bar is automatically removed and the webUI can be used normally again.
+* {empty}
++
+IMPORTANT: Bearer tokens (authentication) can expire for both the user authentication or the office web app if just in use. This can happen if the maintenance mode takes longer than the tokens auto-expiry and auto-refresh time. In this case, the user must re-login or re-open the office web app. For the latter, changes made might not have been saved and need to be restored from the backup the user hopefully has made as suggested.
+
+=== Login
+
+* If a user tries to login during active maintenance mode:
+** He will get an error page, if it was configured.
+** He will get a 503 Service Unavailable response in the browser, if an error page was not configured.
+* If an error page has been configured, a check mechanism can be added to identify if maintenance mode is still active, else the user has to retry manually.
+** Such a check can be to internally call the instance URL in intervals like 1min and act differntly if no 503 is responded.
