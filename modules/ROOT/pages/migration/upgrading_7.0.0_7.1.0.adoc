@@ -28,9 +28,7 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 
 == Download and Install Infinite Scale
 
-Download and install Infinite Scale via:
-
-=== Image Based Deployments
+Download and install Infinite Scale:
 
 * Issue the following command to download the new image:
 +
