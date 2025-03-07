@@ -6,10 +6,20 @@
 
 {description} The major points are; what is maintenance mode, how to initiate it, and what are the user impacts.
 
+[IMPORTANT]
+====
+* For users: +
+If an instance is in maintenance mode, it is important for users to know that it is currently inaccessible but will be available again soon.
+* For admins:
+** An instance in maintenance mode is fully shut down and inaccessible by users but will be up and running again in a relatively short period of time.
+** There is no command shutting down an instance because it is very dependent on how it is setup. Most important, each running service has to be terminated gracefully to avoid data loss. When using docker compose, the command to down the stack is sufficient.
+** Before shutting down the instance, it is highly recommended to reconfigure the webserver to respond for all incoming requests with 503.
+* For more details see the sections below.
+====
+
 == Backend View
 
 * The intention for bringing an instance into maintenance mode is to do updates/upgrades or reconfiguration.
-* An instance in maintenance mode is fully shut down and inaccessible by users but will be up and running again in a relatively short period of time.
 * Maintenance mode should be scheduled only in off-working or off-peak hours.
 * Any necessary reconfigurations/adaptations and tests have been done upfront, most likely with a staging environment. This guarantees short unavailability.
 * {empty}
