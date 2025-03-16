@@ -39,7 +39,7 @@ asciidoc:
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
     # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
-    service_tab_text: '7.1.0'
+    service_tab_text: '7.1.1'
 
     # note that compose_url_component is used for compose examples and for the EULA ONLY
     # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
@@ -49,7 +49,7 @@ asciidoc:
 
     # compose_tab_text will be used as tab text for examples and all other stuff but not services
     # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
-    compose_tab_text: '7.1.0'
+    compose_tab_text: '7.1.1'
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc
