@@ -38,21 +38,19 @@ asciidoc:
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
-    # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
+    # 'master' for the next branch or '7.1.0' for a production branch including patch releases like `7.1.1'
     service_tab_text: 'master'
 
-    # note that compose_url_component is used for compose examples and for the EULA ONLY
-    # compose_url_component will be used to assemble the url (tag) accessing the link for the services (tag)
-    # 'master' for the next branch or 'v7.0.0' for a production branch including patch releases like `v7.0.1'
-    # note the v ! as it is tagged
+    # the compose_url_component is used to assemble the url (tag) accessing source files from the ocis repo
+    # 'master' for the next branch or 'v7.1.0' for a production branch
+    # note the v ! as it is tagged for anything else than master !!
+    # only use values that are tagged in the ocis repo.
+    # example: {compose_url}{compose_url_component}{compose_final_path}
     compose_url_component: 'master'
-
-    # compose_tab_text will be used as tab text for examples and all other stuff but not services
-    # 'master' for the next branch or '7.0.0' for a production branch including patch releases like `7.0.1'
-    compose_tab_text: 'master'
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc
+    # note that the name must be exactly how it is defined in the ocis repo to access the source files!
     env_var_delta_name: '7.0.0-7.1.0'
 
     # set attributes defining path components which will be assembled in the document
