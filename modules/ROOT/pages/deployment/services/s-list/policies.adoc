@@ -161,7 +161,7 @@ The policies service contains a set of preconfigured example policies. See the d
 
 [tabs]
 ====
-{compose_tab_text}::
+{service_tab_text}::
 +
 --
 {compose_url}{compose_url_component}{compose_final_path}[Rego policies deployment examples directory,window=_blank]
