@@ -8,8 +8,7 @@ the outcome guarantees that we always access the correct paths to get or referen
 
 ocis-rolling-version:     defined in site.yml:      is the actual rolling version
 ocis_repo_url_component:  defined in antora.yml:    is either master or a branched version
-page-component-version:   intrinsic via antora.yml: is either next or a branched version like 7.1
-(antora-component-version: intrinsic via antora.yml: is either next or a branched version like 7.1)
+antora-component-version: intrinsic via antora.yml: is either next or a branched version like 7.1
 ////
 
 // first we define the default
@@ -18,7 +17,7 @@ page-component-version:   intrinsic via antora.yml: is either next or a branched
 :compose_version: {ocis_repo_url_component}
 :version-type: production
 
-ifeval::["{page-component-version}" == "next"]
+ifeval::["{antora-component-version}" == "next"]
 // but if it is the master branch defined as next, we need to redefine
 // rolling (it is in the master branch which is next)
 // global-attrtibutes.yml: like v6.6.1 or v7.1.1
