@@ -1,5 +1,6 @@
 = Storage-Users Service Configuration
 :toc: right
+:toclevels: 3
 :tus-url: https://tus.io
 :description: The Infinite Scale Storage-Users service
 
@@ -38,7 +39,7 @@ To authenticate CLI commands use:
 
 The `storage-users` CLI tool uses the default address to establish the connection to the xref:{s-path}/gateway.adoc[gateway] service. If the connection fails, check your custom `gateway` service `GATEWAY_GRPC_ADDR` configuration and set the same address in `storage-users` `OCIS_GATEWAY_GRPC_ADDR` or `STORAGE_USERS_GATEWAY_GRPC_ADDR`.
 
-=== Manage Unfinished Uploads
+=== Manage Unfinished or Stale Uploads
 
 When using Infinite Scale as user storage, a directory named `storage/users/uploads` can be found in the Infinite Scale data folder. This is an intermediate directory based on {tus-url}[TUS] which is an open protocol for resumable uploads. Each upload consists of a _blob_ and a _blob.info_ file. Note that the term _blob_ is just a placeholder.
 
@@ -56,25 +57,35 @@ Example cases for expired uploads::
 * When a user uploads a big file but the file exceeds the user-quota, the upload can't be moved to the target after it has finished. The file stays at the upload location until it is manually cleared.
 * If the bandwith is limited and the file to transfer can't be transferred completely before the upload expiration time is reached, the file expires and can't be processed.
 * If the upload was technically successful, but the postprocessing step failed due to an internal error, it will not get further processed. See the procedure in the xref:{s-path}/postprocessing.adoc#resume-post-processing[Resume Post-Processing] documentation for details how to solve this.
+* If the upload and the session for that upload gets disconnected.
 
 The following commands are available to manage unfinished uploads::
 +
 --
 [source,bash]
 ----
-ocis storage-users uploads <command>
+ocis storage-users uploads
 ----
 
 [source,plaintext]
 ----
+ocis storage-users uploads
+NAME:
+   ocis storage-users uploads - manage unfinished uploads
+
+USAGE:
+   ocis storage-users uploads command [command options]
+
 COMMANDS:
-   sessions  Print a list of upload sessions
+   sessions            Print a list of upload sessions
+   delete-stale-nodes  Delete all nodes in processing state that are not referenced by any upload session
+   help, h             Shows a list of commands or help for one command
 ----
 --
 
-==== Sessions command
+==== Sessions Command
 
-The `sessions` command is the entry point for listing, restarting/resuming and cleaning unfinished uploads.
+The `sessions` command is the entry point for listing, restarting/resuming and cleaning unfinished uploads. See the xref:remove-stale-uploads[Remove Stale Uploads] command to manage uploads that have lost connection to a session.
 
 NOTE: There can never be a clear identification of a failed upload session due to various reasons causing them. You need to apply more critera like free space on disk, a failed service like antivirus etc. to declare an upload as failed.
 
@@ -122,7 +133,7 @@ If `Offset` == `Size` the server has received all bytes of the upload.
 * `Scan Date` and `Scan Result` indicate the scanning status. +
 If `Scan Date` is set and `Scan Result` is empty the file is not virus infected.
 
-==== Command Examples
+===== Command Examples
 
 Command to list ongoing upload sessions
 
@@ -193,13 +204,41 @@ ocis storage-users uploads sessions \
      --resume
 ----
 
+==== Remove Stale Uploads
+
+Unlike the xref:sessions-command[Sessions Command] set above, this command deletes all nodes that are in processing state and not referenced by an upload session. Although this is a very rare occurrence, a command has been added to identify and remove these stale uploads, if they exist.
+
+This command can be used to run on a specific Space, on all Spaces, and with a dry-run option to print only stale uploads as they are found.
+
+See the xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs] to get the Space ID if you want the command to run only for a specific Space.
+
+[source,bash]
+----
+ocis storage-users uploads delete-stale-nodes help
+----
+
+[source,plaintext]
+----
+NAME:
+   ocis storage-users uploads delete-stale-nodes - Delete all nodes in processing state that are not referenced by any upload session
+
+USAGE:
+   ocis storage-users uploads delete-stale-nodes [command options]
+
+OPTIONS:
+   --spaceid value  Space ID to check for processing nodes (omit to check all spaces)
+   --dry-run        Only show what would be deleted without actually deleting (default: true)
+   --verbose        Enable verbose logging (default: false)
+   --help, -h       show help
+----
+
 === Manage Trash-Bin Items
 
 This command set provides commands to get an overview of trash-bin items, restore items and purge old items of `personal` spaces and `project` spaces (spaces that have been created manually). `trash-bin` commands require a `spaceID` as parameter. See xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs] for details of how to get them.
 
 [source,bash]
 ----
-ocis storage-users trash-bin <command>
+ocis storage-users trash-bin help
 ----
 
 [source,plaintext]
@@ -209,6 +248,7 @@ COMMANDS:
    list           Print a list of all trash-bin items of a space.
    restore-all    Restore all trash-bin items for a space.
    restore        Restore a trash-bin item by ID.
+   help, h        Shows a list of commands or help for one command
 ----
 
 ==== Purge Expired
