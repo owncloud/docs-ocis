@@ -79,7 +79,8 @@ WARNING: Use this command with absolute care. It is not intended to play around 
 
 Infinite Scale provides a xref:maintenance/commands/node-tree-size.adoc[CLI command] with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
+
 === Manage Expired Uploads
 
 Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularly. See the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] section at the _Storage Users_ service for details.
