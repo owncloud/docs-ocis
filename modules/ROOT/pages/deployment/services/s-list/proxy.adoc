@@ -180,7 +180,7 @@ If required, users can be assigned or removed to Spaces via OIDC claims. This ma
 The following rules apply if enabled:
 
 * If the claim is not found, it is not considered but the incident is logged.
-* A faulty regex prevents the proxy service to start. By this, admins can immediately identify a major configuration issue. The incident is logged.
+* A faulty regex prevents the proxy service from starting. By this, admins can immediately identify a major configuration issue. The incident is logged.
 * Entries in a claim that do not match the regex are not considered, the incident is not logged ^(1)^.
 * Unknown Space IDs and unknown roles are not considered, the incident is not logged ^(1)^.
 * When multiple entries are created with the same Space ID but different roles, the role with the highest permission counts.
