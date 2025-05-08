@@ -169,7 +169,7 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 ====
 * This is an experimental/preview feature and may change.
 * This feature only works using an external IDP. The embedded IDP does not support this.
-* If you enable this feature, you can no longer use the Web UI to manually assign or remove users to Spaces. The Web UI no longer displays related configuration options. Assigning or removing users from a Space can only be done by claims managed through the IDP.
+* If you enable this feature, you can no longer use the Web UI to manually to assign or remove users to Spaces. The Web UI no longer displays related configuration options. Assigning or removing users from a Space can only be done by claims managed through the IDP.
 * If enabled and a user is not assigned a claim with defined spaces and roles, the user can only access his personal space.
 ====
 
