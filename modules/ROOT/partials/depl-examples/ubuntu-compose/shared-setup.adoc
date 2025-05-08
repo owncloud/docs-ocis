@@ -32,15 +32,15 @@ tag::shared_1[]
 
 === Volumes
 
-Volumes are the location where docker stores data. In a nutshell, docker can handle two types of volumes:
+Volumes are, where Docker stores data. In short, Docker can handle two types of volumes:
 
-* Volumes managed by docker: +
-These volumes are managed by docker and are located, if not otherwise defined, in the same partition where the OS is installed. While this is easy to handle and does not need extra configuration, you have dependencies that should be considered like sharing space, snapshotting, resetting, backup/restore, migration etc.
+* *Volumes managed by docker:* +
+These volumes are managed by Docker and, unless otherwise specified, are located in the same partition where the operating system is installed. While this is easy to use and requires no additional configuration, there are dependencies that should be considered, such as space sharing, snapshots, resetting, backup/restore, migration, etc.
 
-* External volumes: +
-These volumes are not managed by docker. You need to provide docker a mount point for the volume which can be a folder, partition, external storage etc.
+* *External volumes:* +
+These volumes are not managed by Docker. You must provide Docker with a mount point for the volume, which can be a folder, partition, external storage, etc.
 
-Note that the term volume can be used in different contexts. For example, https://www.hetzner.com[Hetzner] uses the term volume for a definable disk space that is independently provisioned and charged. Such a volume can then be connected to a docker volume to store data.  
+Note that the term volume can be used in different contexts. For example, https://www.hetzner.com[Hetzner], as a provider of computing resources, uses the term volume to refer to a definable disk space that is independently provisioned and billed. Such a volume can then be attached to a Docker volume to store data.  
 
 === Other Requirements
 
@@ -54,7 +54,7 @@ To access Infinite Scale from the internet, you *must*:
 +
 --
 * Own a domain name which will get multiple subdomains configured.
-** You can also use a wildcard operator for the subdomains in the DNS configuration. In cases where you already use subdomains for other purposes, we recommend using a subdomain as entry point and add the wildcard operator there to allow different IP configurations.
+** You can also use a wildcard operator for the subdomains in the DNS configuration. In cases where you already use subdomains for other purposes, we recommend using a subdomain as an entry point and adding the wildcard operator there to allow for different IP configurations.
 * The IP address {text_4} needs to be used for the (sub)domains configured.
 
 Note that you can use any domain provider of choice.
@@ -62,11 +62,11 @@ Note that you can use any domain provider of choice.
 
 eMail::
 --
-The following data needs to be available to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details.
+The following data is required to configure the Infinite Scale eMail setup, see the xref:{s-path}/notifications.adoc[notifications service] for more details.
 
 [NOTE]
 ====
-* You must configure at minimum the `SMTP_SENDER`, even it is a dummy email like `noreply@example.com`, the deployment will not startup otherwise.
+* You must configure at least the `SMTP_SENDER`, even if it is a dummy email like `noreply@example.com`, otherwise the deployment will not start.
 * If all other email data is not available, Infinite Scale will start but no notifications can be sent.
 ====
 
@@ -89,9 +89,9 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires that multiple (sub)domain names are available. You have to deviate from the examples according to your environment. The (sub)domains must be configured to point to the server you configured. The same is true when using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
+This environment requires multiple (sub)domain names to be available. You will need to modify the examples to suit your environment. The (sub)domains must be configured to point to the server you are configuring. The same applies if you are using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
 
-The following (sub)domains are required at minimum, an example is printed for each, replace them according to your environment:
+The following (sub)domains are required as a minimum, an example is printed for each, replace them according to your environment:
 
 * `OCIS_DOMAIN` +
 [.blue]##`ocis.yourdomain.com`##
@@ -102,26 +102,26 @@ The following (sub)domains are required at minimum, an example is printed for ea
 * `WOPISERVER_DOMAIN` +
 [.blue]##`wopiserver.yourdomain.com`##
 
-Note that more (sub)domains may be required depending on your setup. See the `.env` file more details.
+Note that depending on your setup, more (sub)domains may be required. See the `.env` file for more details..
 
 == Accessing Infinite Scale
 
-Infinite Scale can be accessed from the internet and from your local network via a browser using the URL defined in `OCIS_DOMAIN`:
+Infinite Scale can be accessed from the Internet and from your local network via a browser using the URL defined in `OCIS_DOMAIN`:
 
 image::depl-examples/ubuntu-compose/{overview_image}[Network Overview, width=400]
 
 == Limitations
 
 Data Location::
-If not otherwise setup and configured, all data is stored in volumes managed by docker in the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file accordingly. This is highly recommended for production environments and described in the xref:hardware[Hardware] and xref:volumes[Volumes] sections above.
+Unless otherwise set up and configured, all data is stored in volumes managed by Docker on the same partition of the server. If you want to define your own volume paths, provide the paths and configure them in the `.env` file. This is highly recommended for production environments and is described in the xref:hardware[Hardware] and xref:volumes[Volumes] sections above.
 
 User and User Access Management::
-The following embedded services are well suited for home use and smaller businesses though Infinite Scale can be configured to use external products which is relevant for bigger installations and not covered here.
+The following embedded services are well suited for home and small business use, although Infinite Scale can be configured to use external products that are relevant to larger installations and are not covered here.
 +
 --
-* Infinite Scale has an embedded identity management (IDM footnote:[See the xref:{s-path}/idm.adoc[IDM, window=_blank] service for more details]) which takes care of creating, storing, and managing user identity information.
+* Infinite Scale has an embedded identity management (IDM footnote:[See the xref:{s-path}/idm.adoc[IDM, window=_blank] service for more details]) that takes care of creating, storing, and managing user identity information.
 
-* In addition, it also has an embedded identity provider (IDP footnote:[See the xref:{s-path}/idp.adoc[IDP, window=_blank] service for more details]) to track and manage user identities, as well as the permissions and access levels associated with those identities.
+* In addition, it also has an embedded Identity Provider (IDP footnote:[See the xref:{s-path}/idp.adoc[IDP, window=_blank] service for more details]) to track and manage user identities, as well as the permissions and access levels associated with those identities.
 --
 
 end::shared_1[]
@@ -133,27 +133,27 @@ tag::hetzner_only_1[]
 
 === SSH Key
 
-We recommend using key-based authentication for ssh to access the configured server instead of using user and password. This is not only beneficial for security reasons but also because you can define the public key to be installed  during the initial server configuration.
+We recommend that you use key-based authentication for ssh to access the configured server, rather than using a user and password. This is not only beneficial for security reasons, but also because you can specify the public key to be installed during the initial server configuration.
 
 All OS::
-Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend, if possible, using the `ed25519` algorithm and a passphrase for enhanced security. The keys to use after generation are located in `~/.ssh`. Name the keys during the generation process accordingly to avoid overwriting existing ones.
+Follow the https://www.ssh.com/academy/ssh/keygen[ssh-keygen guide] to generate the required keys. We recommend using the `ed25519` algorithm and a passphrase for increased security. The keys to be used after generation are located in `~/.ssh`. Rename the keys during the generation process to avoid overwriting existing keys.
 
 Use the public key::
 +
 --
-* During server setup described in one of the sections below, you can use the content of the public key file to setup ssh authentication when asked.
+* During the server setup described in one of the sections below, you can use the contents of the public key file to set up ssh authentication when prompted.
 
-* Alternatively, after the server has been created, you can copy the _public_ key to the server by adding the _contents_ of the generated `<key>.pub` file to the `~/.ssh/authorized_keys` file manually. This step is necessary, because the server does not have password authentication which would be required to transfer the key by command.
+* Alternatively, after the server has been created, you can copy the _public_ key to the server by manually adding the _contents_ of the generated `<key>.pub` file to the `~/.ssh/authorized_keys` file. This step is necessary because the server does not have password authentication, which would be required to transfer the key by command.
 --
 
 Additionally for Windows::
 +
 --
-* When using Putty to access your server, you must convert the _private_ key generated into Putty's `ppk` format. Read the https://www.puttygen.com[puttygen] guide for how to do so. You need to specify on each login the ppk file generated via menu:Connection[SSH > Auth > Connections > Private key file].
+* If you are using Putty to access your server, you will need to convert the generated _private_ key to Putty's `ppk` format. See the https://www.puttygen.com[puttygen] guide for how to do this. You must specify the ppk file generated via menu:Connection[SSH > Auth > Connections > Private Key File] on each login.
 
-* When using the command shell with ssh to login or when using SCP, you must:
-** Have the private/public keys in `C:\Users\<user>\.ssh\`
-** Add the following to `C:\Users\<user>\.ssh\config`
+* If you are using the command shell with ssh to log in, or if you are using SCP, you must
+** Have the private/public keys in `C:\Users\<user>\.ssh\`.
+** Add the following to `C:\Users\<user>\.ssh\config`:
 +
 [source,plaintext]
 ----
@@ -166,21 +166,21 @@ Host <the-servers-public-url-or-ip>
 
 === Login to Hetzner
 
-If you do not already have an account on https://www.hetzner.com[Hetzner], register for free and log in.
+If you do not already have an account at https://www.hetzner.com[Hetzner], register for free and log in.
 
 image::depl-examples/ubuntu-compose/hetzner-register-login.png[Hetzner Login or register, width=250]
 
 === Configure and Order the Desired Server
 
-After logging in, select from the selector on the top right the `cloud` item.
+After logging in, select `cloud` from the drop-down menu at the top right.
 
 image::depl-examples/ubuntu-compose/hetzner-select-cloud.png[Select Cloud, width=150]
 
-Then, you either can use an existing project, if you have one, or create a `new project`.
+Then, you can either use an existing project, if you have one, or create a `new project`.
 
 image::depl-examples/ubuntu-compose/hetzner-create-new-project.png[Create new project, width=300]
 
-Select the project of choice and in the new screen click on btn:[Add Server].
+Select the project of your choice and in the new screen click on btn:[Add Server].
 
 In the following screen, you can define the::
 --
@@ -196,11 +196,11 @@ This can be done at any time after the first setup but needs data migration. The
 * *Name* (define a name for the server)
 --
 
-After you have finished, the server is built, and when done, you can click on it which opens a screen with more details and post-configuration options.
+When finished, the server will be built and you can click on it to open a screen with more details and post-configuration options.
 
 image::depl-examples/ubuntu-compose/hetzner-server-defined.png[Server View, width=300]
 
-NOTE: In this screen, you also see the IP address of the server that is necessary to be used for the domains pointing to this server.
+NOTE: This screen also shows the IP address of the server that must be used for the domains pointing to this server.
 
 end::hetzner_only_1[]
 
@@ -209,11 +209,11 @@ tag::shared_2[]
 
 == Add the IP Address to the Domains
 
-After the server has been finally setup, you must use the IP address assigned to {text_5} to configure DNS mapping at your DNS provider accordingly. If you have allowed ICMP requests in the firewall settings, you can then ping your server with one of the domain names defined.
+Once the server is finally set up, you will need to use the IP address assigned to {text_5} to configure DNS mapping at your DNS provider. If you have allowed ICMP requests in your firewall settings, you can then ping your server using one of the defined domain names.
 
 == Prepare the Server
 
-As a standard regular task, you need to update packages, especially after first server login. Open a shell on the server and issue the following command:
+As a standard periodic task, you will need to update packages, especially after the first server login. Open a shell on the server and issue the following command:
 
 [source,bash]
 ----
@@ -222,7 +222,7 @@ apt-get update && apt-get upgrade
 
 === Install Required Software Packages
 
-Note that we do not recommend using the Ubuntu embedded Docker installations but install and upgrade them manually to get the latest releases.
+Note that we do not recommend using the Ubuntu embedded Docker installations as they may be outdated, but rather installing and upgrading them manually to get the latest versions.
 
 Docker Engine::
 Follow this guide to install `docker`: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[Install using the apt repository, window=_blank].
@@ -233,7 +233,7 @@ Follow this guide to install `docker compose`: https://docs.docker.com/compose/i
 unzip::
 +
 --
-The package `unzip` may not be present. In case install with:
+The `unzip` package may not be available. In this case, install with:
 [source,bash]
 ----
 apt install unzip
@@ -242,9 +242,9 @@ apt install unzip
 
 == Download and Transfer the Example
 
-NOTE: The client to download the example is not the server you upload to. The server does not have a graphical interface (GUI) and therefore no browser. The example commands below are based on a Linux client. If you are using macOS or Windows, the commands need to be adapted accordingly. This mainly effects the location the browser downloads to (`~/Downloads`).
+NOTE: The client that downloads the example is not the server that you upload to. The server does not have a graphical user interface (GUI) and therefore does not have a browser. The sample commands below are based on a Linux client. If you are using MacOS or Windows, you will need to modify the commands accordingly. This mainly affects the location where the browser downloads to (`~/Downloads`).
 
-NOTE: The client from where you download the example via a browser and upload it using `scp` must have granted access to the server and have the `scp` app installed.
+NOTE: The client from which you download the example via a browser and upload it using `scp` must have access to the server and have the `scp` application installed.d.
 
 To download and extract the necessary deployment example footnote:[Derived from the {compose_url}{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
 
@@ -257,31 +257,31 @@ To download and extract the necessary deployment example footnote:[Derived from 
 {download-gh-directory-url}?url={compose_url}{compose_version}{compose_final_path}/{ocis_wopi}[,window=_blank]
 ****
 
-The `.zip` file will be downloaded into your local `Download` directory.
+The `.zip` file will be downloaded to your local `Download` directory.
 
-Transfer the `.zip` file created to the server by issuing the following command, *replace* `root@182.83.2.94` with the username and address of the server according your setup:
+Upload the resulting `.zip` file to the server by issuing the following command, *replace* `root@182.83.2.94` with the username and address of the server according to your setup:
 
 [source,bash,subs="attributes+"]
 ----
 scp ~/Downloads/'owncloud ocis {compose_version} deployments-examples_{ocis_wopi}.zip' root@182.83.2.94:/opt
 ----
 
-Note that the command differs a bit on Windows due to way how the home directory and the path separator is defined.
+Note that the command is slightly different on Windows due to the way the home directory and path separator are defined.
 
-NOTE: With the next step, if you have already unzipped that file before or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will get *overwritten* without notice and you need to xref:edit-the-configuration-file[reconfigure] this deployment!
+NOTE: With the next step, if you have already unpacked this file before, or if you intend to update an existing extract with a new compose version downloaded, the `.env` file will be *overwritten* without notice, and you will need to xref:edit-the-configuration-file[reconfigure] this deployment!
 
 == Extract the Example
 
 Login into the server and:
 
-* Create a subdirectory to save all compose files and folders.
+* Create a subdirectory to store all Compose files and folders.
 +
 [source,bash,subs="attributes+"]
 ----
 mkdir -p /opt/compose/ocis/{ocis_wopi}
 ----
 
-* Extract the zip file into the directory by issuing the following command:
+* Extract the zip file to the directory by issuing the following command:
 +
 [source,bash,subs="attributes+"]
 ----
@@ -289,7 +289,7 @@ unzip -d /opt/compose/ocis/{ocis_wopi} \
   /opt/'owncloud ocis {compose_version} deployments-examples_{ocis_wopi}.zip'
 ----
 
-* When files have been extracted, list the directory with:
+* If files have been extracted, list the directory with:
 +
 --
 [source,bash,subs="attributes+"]
@@ -297,7 +297,7 @@ unzip -d /opt/compose/ocis/{ocis_wopi} \
 ls -la /opt/compose/ocis/{ocis_wopi}/
 ----
 
-The listing should contain files and folders like the following:
+The list should contain files and folders such as the following:
 
 [source,subs="+quotes"]
 ----
@@ -334,13 +334,13 @@ Set the domain names as defined in xref:domain-names[Domain Names].
 If you expect a higher amount of data in the instance, consider using own paths instead of using docker internal volumes.
 
 * `SMTP_xxx` +
-Define these settings according to your eMail configuration. With the settings defined, Infinite Scale is able to send notifications to users. If the settings are not defined, Infinite Scale will start, but notifications can't be sent.
+Define these settings according to your email configuration. If the settings are defined, Infinite Scale will be able to send notifications to users. If the settings are not defined, Infinite Scale will start but won't be able to send notifications.
 
-NOTE: When not defining your own domain names, internal evaluation only domain names with self-signed certificates are used automatically.
+NOTE: If you do not define your own domain names, only domain names with self-signed certificates are automatically used for internal evaluation.
 
-NOTE: Additional options can be configured like web apps. These should be configured _after_ successfully starting the deployment without issues. This eases finding any first startup issues that need to be solved first.
+NOTE: Additional options can be configured like web applications. These should be configured _after_ the deployment has successfully started without problems. This makes it easier to find any initial startup issues that need to be resolved first.
 
-When the configuration is completed, you can optionally print the final assembled docker compose yml setup before starting it by using the following command. This output helps finding configuration issues more easily.
+When the configuration is complete, you can optionally print the final assembled Docker compose yml setup before running it by using the following command. This output will help you troubleshoot configuration issues.
 
 [source,bash]
 ----
@@ -349,78 +349,78 @@ docker compose config
 
 == Certificate Generation Process
 
-The recommended process to generate live certificates is the following:
+The recommended process for generating live certificates is as follows:
 
-. First, let LetsEncrypt generate "fake" certificates. These certifcates show that the process works but they cant be used in production. To do so, the environment variable `TRAEFIK_ACME_CASERVER` needs to be set to LetsEncrypt's https://letsencrypt.org/docs/staging-environment/[Staging Environment, window=_blank], see the `.env` file for the value to be set. By doing so, any restart after fixing issues will not count against the rate limit of LetsEncrypt.
+. First, have LetsEncrypt generate "fake" certificates. These certificates show that the process works, but they cannot be used in production. To do this, set the `TRAEFIK_ACME_CASERVER` environment variable to LetsEncrypt's https://letsencrypt.org/docs/staging-environment/[Staging Environment, window=_blank], see the `.env` file for the value to set. This will ensure that any restarts after fixing problems will not count against LetsEncrypt's rate limit.
 
-. The `TRAEFIK_ACME_MAIL` must be set to a valid eMail address you own. When certificate issuing is triggered, LetsEncrypt checks in the request for creating valid certificates, if the response eMail address is valid and continues if so. If not, it logs an error and self-signed certificates are being used, see see xref:solving-first-startup-issues[Solving First Startup Issues].
+. The `TRAEFIK_ACME_MAIL` must be set to a valid email address that you own. When certificate issuance is triggered, LetsEncrypt checks in the request to create valid certificates if the response email address is valid and proceeds if it is. If not, it logs an error and uses self-signed certificates, see xref:solving-first-startup-issues[Solving First Startup Issues].
 
 . xref:start-the-deployment[Start the Deployment].
 
-. Then, if any issues occur, you need to xref:stop-the-deployment[Stop the Deployment] and fix them before continuing with the next step. See xref:solving-first-startup-issues[Solving First Startup Issues] for a list of common issues, 
+. If any problems occur, you must xref:stop-the-deployment[Stop the Deployment] and fix them before proceeding to the next step. See xref:solving-first-startup-issues[Solving First Startup Issues] for a list of common issues.
 
-. Finally, if there are no (more) issues which you can identify because `Fake LE intermediate X1` certificates have been generated (check the certificate issuer in the browser, Google for how to do so), you must xref:delete-cert-volume[delete the `cert-volume`] and set back the `TRAEFIK_ACME_CASERVER` environment variable to empty and startup the instance as described below.
+. Finally, if there are no (more) problems that you can identify because `Fake LE Intermediate X1` certificates have been generated (check the certificate issuer in the browser, Google for how to do this), you need to xref:delete-cert-volume[delete the `cert-volume`] and set the `TRAEFIK_ACME_CASERVER` environment variable back to empty and start the instance as described below.
 
 == Start the Deployment
 
-When you have finished the configuration, you can start the deployment by issuing the following command:
+Once you have completed the configuration, you can start the deployment by issuing the following command:
 
 [source,bash]
 ----
 docker compose up -d
 ----
 
-This command will download all necessary containers and starts up the instance according your settings in the background (flag `-d`).
+This command will download all necessary containers and start the instance in the background according to your settings (flag `-d`).
 
 Check the logs::
 --
 * See xref:monitor-the-instance[Monitor the Instance] for more details on logging.
-* First check the traefik logs for certificate issues, then other logs. See xref:solving-first-startup-issues[Solving First Startup Issues] for more details.
+* Check the traefik logs for certificate problems first, then other logs. See xref:solving-first-startup-issues[Solving First Startup Issues] for more details.
 --
 
-If no issues are logged, traefik and LetsEncrypt were able to handle connectivity and domains.
+If no problems are logged, traefik and LetsEncrypt were able to handle the connectivity and domains.
 
-In case you have used staging certificates as suggested above,
+If you used staging certificates as suggested above,
 
 * xref:stop-the-deployment[stop the deployment],
 * xref:delete-cert-volume[delete the `cert-volume`]
 * and start the deployment as described above.
 
-When done, recheck the xref:monitor-the-instance[traefik logs] and when all is fine, you can access your instance, see xref:first-time-login[First Time Login].
+When this is done, check the xref:monitor-the-instance[traefik logs] again, and if all is well, you can access your instance, see xref:first-time-login[First Time Login].
 
 === Solving First Startup Issues
 
 Note, see xref:monitor-the-instance[Monitor the Instance] for more details on logging.
 
-If any issues are logged by traefik on first startup with respect to LetsEncrypt like:
+If any problems are logged by traefik on first start with respect to LetsEncrypt like:
 
 Common issues::
 +
 --
 * `...Contact emails @example.org are forbidden`: +
-The environment variable `TRAEFIK_ACME_MAIL` needs to be set to a valid eMail address you own.
+The environment variable `TRAEFIK_ACME_MAIL` must be set to a valid e-mail address that you own.
 
 * `...unable to generate a certificate for the domains...`, `acme: error: 400` and `acme-challenge`: +
-Check if the TCP ports 80/443 are open in the firewall configured. You can run a test _during running compose_ to test if traefik can be reached on those ports. To do so visit https://letsdebug.net[Let's Debug].
+Check that the TCP ports 80/443 are open in the configured firewall. You can run a test _while running compose_ to see if traefik can be reached on these ports. To do this, visit https://letsdebug.net[Let's Debug].
 
 * `...DNS problem: NXDOMAIN looking up A for...` +
-This points to a DNS resolution problem. Check if the domains entered in the DNS and in the `.env` file match. Note that when using wildcard domains on the DNS, the fixed part must match on both sides.
+This indicates a DNS resolution problem. Check that the domains in the DNS and the `.env` file match. Note that when using wildcard domains in the DNS, the fixed part must match on both sides.
 
-For any issue fixed, before you bring up the instance again, some steps need to be taken. This is because the certificate volume now holds invalid data:
+For each problem that is fixed, there are a few steps that must be taken before you can start the instance again. This is because the certificate volume now contains invalid data:
 --
 
 [#delete-cert-volume]
 Post fixing the issue::
 +
 --
-The following actions need to be taken before starting the deployment again:
+The following actions must be taken before restarting the deployment:
 
 .Shut down the deployment
 [source,bash]
 ----
 docker compose down
 ----
-Note, do not use the `-v` option as it will delete ALL volumes.
+Note, do not use the `-v` option as this will delete ALL volumes.
 
 .List the docker volumes
 [source,bash]
@@ -444,15 +444,15 @@ Stopping the deployment is easy, just issue:
 docker compose down --remove-orphans
 ----
 
-For safety reasons, *do not* add the `-v` (volumes) flag to the command as that would delete all volumes including their data. If deleting volumes is necessary, deleting them selectively is the preferred method, see the section above for an example. See the `docker compose down` https://docs.docker.com/reference/cli/docker/compose/down/#options[options] for more details.
+For safety's sake, *do not* add the `-v` (volumes) flag to the command, as this will delete all volumes, including their data. If deleting volumes is necessary, selective deletion is the preferred method, see the above section for an example. See the `docker compose down` https://docs.docker.com/reference/cli/docker/compose/down/#options[options] for more details.
 
 == Change Settings
  
-To change settings via the `.env` file, the deployment _must be_ in the `down` state. See the section above for how to do so.
+To change settings via the `.env` file, the deployment _must be_ in the `down` state. See the section above for how to do this.
 
 == First Time Login
 
-Now, after preparations have finished, you can access your instance *from any client*. To do so, open your browser and enter the instance URL as you have defined it:
+Now that the preparations are complete, you can access your instance *from any client*. To do this, open your browser and enter the instance URL as you defined it:
 
 [source,URL]
 ----
@@ -469,19 +469,19 @@ For the credentials, use:
 * `admin` for the password, +
 or the one you have defined manually during setup.
 
-NOTE: If you have defined an initial password via the `.env` file manually but forgot it, you need to follow one of the procedures described in the xref:admin-password[Admin Password] section.
+NOTE: If you have manually set an initial password via the `.env` file, but have forgotten it, you must follow one of the procedures described in the xref:admin-password[Admin Password] section.
 
 If you have logged in successfully, you should see the following screen:
 
 image::depl-examples/ubuntu-compose/infinite-scale-logged-in.png[Infinite Scale Logged In, width=300]
 
-*Congratulations*, you have successfully setup Infinite Scale with Web Office.
+*Congratulations*, you have successfully set up Infinite Scale with Web Office.
 
-TIP: Checkout the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] to sync files to/from clients.
+TIP: Check out the https://doc.owncloud.com/[Desktop App] or https://doc.owncloud.com/[Mobile Apps] to sync files to/from clients.
 
-NOTE: The Infinite Scale deployment will reboot automatically on a server reboot if the compose environment is not shut down by command.
+NOTE: The Infinite Scale deployment will automatically restart on a server reboot if the compose environment is not shut down by command.
 
-Among other topics described below, some basic xref:monitor-the-instance[monitoring] commands and a short description to xref:updating[update] Infinite Scale is provided.
+Among other topics described below, some basic xref:monitor-the-instance[monitoring] commands and a brief description of xref:updating[update] Infinite Scale are provided.
 
 == Monitor the Instance
 
@@ -515,7 +515,7 @@ docker logs -f <container_id>
 
 === Initial Admin Password from Docker Log
 
-If the manually set *initial* admin password has been forgotten *before* it got changed, you can get it from the docker log. See the https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logging.
+If the manually set *initial* admin password was forgotten *before* it was changed, you can get it from the docker log. See https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logs.
 
 First you need to get the Infinite Scale `CONTAINER ID`:
 
@@ -543,24 +543,24 @@ Use the container ID identified in the following command to read the Infinite Sc
 docker logs <CONTAINER ID> 2>&1 | less
 ----
 
-The output prints the log from the beginning. As first entry, the initial admin password set during first startup is shown. You can scroll through the log using the keyboard, see the https://wiki.ubuntuusers.de/less/[less description] for more details.
+The output prints the log from the beginning. The first entry is the initial admin password set at the first startup. You can scroll through the log using the keyboard, see https://wiki.ubuntuusers.de/less/[less description] for more details.
 
-If no password can be identified, you must reset the admin password via the command line as described below.
+If the password cannot be determined, you must reset the admin password from the command line, as described below.
 
 === Command Line Password Reset
 
-To change the admin password from the command line, which you can do at any time, follow the guide described in xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
+To change the admin password from the command line, which you can do at any time, follow the instructions in xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
 
 == Volume Migration
 
-This section gives some guidance if you want to migrate the Infinite Scale docker internal volumes to docker volumes using a local path. For example, this can be required to separate the container from its data or if a high data volume is expected. See additional documentation in the xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted] if you want to use network mounts like NFS or iSCSI for the data directory.
+This section provides some guidance if you want to migrate the Infinite Scale Docker internal volumes to Docker volumes using a local path. For example, this may be necessary to separate the container from its data, or if a large amount of data is expected. See additional documentation in the xref:deployment/tips/useful_mount_tip.adoc[Start a Service After a Resource is Mounted] if you want to use network mounts such as NFS or iSCSI for the data directory.
 
-* Prepare two directories which will provide the mount point for Infinite Scale `data` and `config`. +
-The example will use the local path `/mnt/data` and `mnt/config`, adapt according your environment.
+* Prepare two directories that will provide the mount point for Infinite Scale `data` and `config`. +
+The example will use the local path `/mnt/data` and `mnt/config`, adapt to your environment.
 
-* For the following steps, the deployment _must be_ in the `up` state, the containers must provide a container ID for copying.
+* For the following steps, the deployment must be in the `up` state, and the containers must provide a container ID for copying.
 
-** Stop the running instance. By doing so, the instance gets stopped but containers are not removed compared to when downing it:
+** Stop the running instance. This will stop the instance, but will not remove any containers, unlike shutting down the instance:
 +
 [source,bash]
 ----
@@ -569,7 +569,7 @@ docker compose stop
 
 ** Get the `ocis` container ID using one of the xref:container[maintenance - Container] commands.
 
-** Copy both the content of the docker internal `ocis-config` and `ocis-data` volume to their new local location by issuing the following commands, replace `<CONTAINER ID>` accordingly:
+** Copy the contents of both the Docker internal `ocis-config` and `ocis-data` volumes to their new local locations by issuing the following commands, replacing `<CONTAINER ID>` accordingly:
 +
 [source,bash]
 ----
@@ -577,7 +577,7 @@ docker cp <CONTAINER ID>:/etc/ocis/. /mnt/config
 docker cp <CONTAINER ID>:/var/lib/ocis/. /mnt/data
 ----
 
-** Change the ownership of the new source folders recursively. This step is _very important_ because the user inside the container is `1000` and will mostly not match the user who copied the folders:
+** Change the ownership of the new source folders recursively. This step is _very important_ because the user inside the container is `1000` and will most likely not be the user who copied the folders:
 +
 [source,bash]
 ----
@@ -606,7 +606,7 @@ OCIS_CONFIG_DIR=/mnt/config
 docker compose up -d
 ----
 
-** If the containers come up without reporting issues, you have successfully moved your Infinite Scale docker internal volumes to local paths.
+** If the containers start up without any problems, you have successfully moved your Infinite Scale docker internal volumes to local paths.
 
 * Finally, you can remove the docker internal volumes for `config` and `data`:
 +
@@ -628,9 +628,9 @@ Infinite Scale::
 +
 --
 ifeval::["{version-type}" == "rolling"]
-For Infinite Scale rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on all updates being done consecutively.
+For Infinite Scale rolling releases, the following steps are essential to avoid breaking the setup. This is because rolling releases depend on all updates being done in sequence.
 
-If new Infinite Scale releases are available, you *must not* skip any version in between the current running and the latest available rolling release for internal update reasons. All versions need to be downloaded and started one time. For more details see the https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] description in the developer documentation.
+When new versions of Infinite Scale are available, you *may* skip any version between the one you are currently running and the latest available rolling release for internal update reasons. All versions must be downloaded and launched at once. For more details, see https://owncloud.dev/ocis/release_roadmap/#updating-and-overlap[Updating and Overlap] in the developer documentation.
 
 * Each upgrade consists of a set of commands:
 +
@@ -643,13 +643,13 @@ sudo docker compose up -d --remove-orphans
 
 * If there is no release gap, run the command block once.
 
-* For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you must run the command block from above once and set the respective release in the `OCIS_DOCKER_TAG` _before_ pulling. Use no value for the last release, it defaults to `latest`.
+* * For *any* https://owncloud.dev/ocis/release_roadmap/#dates[release gap], you need to run the command block from above once and set the appropriate release in the `OCIS_DOCKER_TAG` _before_ pulling. Do not use a value for the last release, it defaults to `latest`.
 
-* Check if there are any Infinite Scale config changes. To do so, run a `ocis init --diff` plus apply any patches. The detailed how-to is described in the xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide for 7.0.0. When done, restart the deployment.
+* Check if there are any changes to the Infinite Scale configuration. To do this, run an `ocis init --diff` plus apply any patches. The detailed how-to is described in the xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] for 7.0.0. When done, restart the deployment.
 
-* Finally, you can remove any old images if no longer used.
+* Finally, you can remove old images if they are no longer in use.
 
-Note that we advise to manually check if the deployment source has changed. If this is the case, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then re-apply your configuration settings and bring the deployment up.
+Note that we recommend manually checking to see if the deployment source has changed. If it has, stop the deployment, backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources], then reapply your configuration settings and run the deployment.
 
 endif::[]
 
@@ -658,7 +658,7 @@ ifeval::["{version-type}" != "rolling"]
 Follow these steps to update between production releases:
 
 For Infinite Scale patch releases only!::
-These commands will stop the deployment, update all images and start the deployment again. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default while others have hardcoded versions set.
+These commands will stop the deployment, update all images, and restart the deployment. This works because the relevant `xxx_TAG` variables in the `.env` file are set to `latest` by default, while others have hardcoded versions.
 +
 [source,bash]
 ----
@@ -673,7 +673,7 @@ endif::[]
 Update non-Infinite Scale Images::
 +
 --
-Some images used do not have a particular release defined but use `latest`. These images can be updated if there are new releases available, like for security or bug fixes. To do so, use the following commands:
+Some images used do not have a specific release defined, but use `latest`. These images can be updated when new releases are available, for example for security or bug fixes. To do this, use the following commands:
 
 [source,bash]
 ----
@@ -684,7 +684,7 @@ sudo docker compose up -d --remove-orphans
 
 === Upgrading
 
-For all Infinite Scale major and minor releases including from former rolling to production::
+For all Infinite Scale major and minor releases, including previous rolling to production::
 +
 --
 * Stop the deployment with:
@@ -694,13 +694,13 @@ For all Infinite Scale major and minor releases including from former rolling to
 sudo docker compose stop
 ----
 
-* If upgrading from rolling to production, change the `OCIS_DOCKER_IMAGE` environment variable from `owncloud/ocis-rolling` to `owncloud/ocis` in the `.env` file.
+* When upgrading from rolling to production, change the `OCIS_DOCKER_IMAGE` environment variable from `owncloud/ocis-rolling` to `owncloud/ocis` in the `.env` file.
 
-* Follow the respective xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide.
+* Follow the appropriate xref:migration/upgrading-ocis.adoc[Upgrading Infinite Scale] guide.
 
-* Backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources] - if they have been changed, re-apply your configuration settings.
+* Backup your existing deployment source/configuration and update the xref:download-and-transfer-the-example[deployment sources] - if they have been changed, reapply your configuration settings.
 
-* Re-pull the deployment. This will update all images with any versions that might have changed.
+* Re-pull the deployment. This will update all images with any versions that may have changed.
 +
 [source,bash]
 ----
@@ -717,6 +717,6 @@ sudo docker compose up -d --remove-orphans
 
 == Certificate Renewal
 
-There is nothing special to do renewing certificates issued. Traefik takes care of the renewal process automatically. In case of a renewal issue, just restart the compose environment as Traefik checks certificate expiry on startup.
+There is nothing special to do to renew issued certificates. Traefik takes care of the renewal process automatically. In case of a renewal problem, just restart the compose environment as Traefik checks for certificate expiration on startup.
 
 end::shared_2[]
