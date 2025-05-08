@@ -193,17 +193,8 @@ The following rules apply if enabled:
 Example Setup::
 +
 --
-The following is a simple setup of what space management through OIDC claims can look like. Note that this example can be adapted to your needs. The only hard rule is, that the claim identifier, claim data, and regex must match.
+The following is a simple setup of what space management through OIDC claims can look like. The way how a claim is setup depends on the IDP used. It is important to understand, that the claim setup and the corresponding regex must match.
 
-As a rule of thumb, a claim should contain the following data:
-
-* The claim name by which the claim is identified.
-* An array defined by opening and closing square brackets `[ ]`.
-* Each line of an array element is enclosed in double quotes `" "`.
-** The name `spaceid=` followed by the ID of the Space.
-** A colon `:` separating the `spaceid` from the `role`.
-** The name `role=` followed by the name of the role.
-* Each line of an array element ends with a comma `,`.
 
 .A claim defined as `ocis-spaces` containing two entries:
 [source,JSON]
@@ -214,7 +205,7 @@ As a rule of thumb, a claim should contain the following data:
 ]
 ----
 
-The environment variables to extract the data from the above claim would look like the following:
+The environment variables to extract the data from the above claim look like this:
 
 .Environment variable definition
 [source, plaintext]
