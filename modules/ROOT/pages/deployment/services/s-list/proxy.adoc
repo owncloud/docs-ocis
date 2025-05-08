@@ -26,11 +26,15 @@ The following request authentication schemes are implemented:
 -   Signed URL
 -   Public Share Token
 
-== Automatic User and Group Provisioning
+== Automatic Assignments
+
+Some assignments can be automated using yaml files, environment variables and/or OIDC claims.
+
+=== Automatic User and Group Provisioning
 
 When using an external OpenID Connect IDP, the proxy can be configured to automatically provision users upon their first login.
 
-=== Prerequisites
+==== Prerequisites
 
 A number of prerequisites must be met for automatic user provisioning to work:
 
@@ -38,7 +42,7 @@ A number of prerequisites must be met for automatic user provisioning to work:
 * The `graph` service must be configured to allow updating users and groups (`GRAPH_LDAP_SERVER_WRITE_ENABLED`).
 * One of the claim values returned by the IDP as part of the userinfo response or the access token must be unique and stable for the user. I.e. the value must not change for the whole lifetime of the user. This claim is configured via the `PROXY_USER_OIDC_CLAIM` environment variable (see below). A natural choice would e.g. be the `sub` claim which is guaranteed to be unique and stable per IDP. If a claim like `email` or `preferred_username` is used, you have to ensure that the user's email address or username never changes.
 
-=== Configuration
+==== Configuration
 
 To enable automatic user provisioning, the following environment variables must be set for the proxy service:
 
@@ -57,7 +61,7 @@ When resolving an authenticated OIDC user, the value of this claim is used to lo
 * `PROXY_USER_CS3_CLAIM` +
 This is the name of the user attribute in ocis that is used to lookup the user by the value of the `PROXY_USER_OIDC_CLAIM`. For auto provisioning setups this usually needs to be set to `username`.
 
-=== How it Works
+==== How it Works
 
 When a user logs into ownCloud Infinite Scale for the first time, the proxy checks if that user already exists. This is done by querying the `users` service for users, where the attribute set in `PROXY_USER_CS3_CLAIM` matches the value of the OIDC claim configured in `PROXY_USER_OIDC_CLAIM`.
 
@@ -71,7 +75,7 @@ Unless the claim configured via `PROXY_AUTOPROVISION_CLAIM_EMAIL` is the same as
 Next, the proxy will check if the user is a member of the groups configured in `PROXY_AUTOPROVISION_CLAIM_GROUPS`. It will add the user to the groups listed via the OIDC claim that holds the groups defined in the envvar and removes it from
 all other groups that he is currently a member of. Groups that do not exist in the external IDP yet will be created. Note: This can be a somewhat costly operation, especially if the user is a member of a large number of groups. If the group memberships of a user are changed in the IDP after the first login, it can take up to 5 minutes until the changes are reflected in Infinite Scale.
 
-=== Claim Updates
+==== Claim Updates
 
 OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to a user's detail, like name, email or picture information. A scope can also contain among other things groups, roles, and permissions data. Each scope returns a set of attributes, which are called claims. The scopes an application requests, depends on which  attributes the application needs. Once the user authorizes the requested scopes, the claims are returned in a token.
 
@@ -86,7 +90,7 @@ These issued JWT tokens are immutable and integrity-protected. Which means, any 
 * Infinite Scale does not get aware when a group is being deleted in the IDP, a new claim will not hold any information from the deleted group. Infinite Scale does not track a claim history to compare. 
 ====
 
-==== Impacts
+===== Impacts
 
 For shares or space memberships based on groups, a renamed or deleted group will impact accessing the resource:
 
@@ -96,7 +100,7 @@ For shares or space memberships based on groups, a renamed or deleted group will
 
 To give access for rejected users on a resource, one with rights to share must update the group information.
 
-== Automatic Quota Assignments
+=== Quota Assignments
 
 It is possible to automatically assign a specific quota to new users depending on their role. To do this, you need to configure a mapping between roles defined by their ID and the quota in bytes. The assignment can only be done via a `yaml` configuration and not via environment variables. See the following `proxy.yaml` config snippet for a configuration example.
 
@@ -107,12 +111,9 @@ role_quotas:
     <role ID2>: <quota2>
 ----
 
-== Automatic Role Assignments
+=== Role Assignments
 
-When users log in, they automatically get a role assigned. The automatic role assignment can be
-configured in different ways. The `PROXY_ROLE_ASSIGNMENT_DRIVER` environment variable (or the `driver`
-setting in the `role_assignment` section of the configuration file) selects which mechanism to use for
-the automatic role assignment.
+When users log in, they automatically get a role assigned. The automatic role assignment can be configured in different ways. The `PROXY_ROLE_ASSIGNMENT_DRIVER` environment variable (or the `driver` setting in the `role_assignment` section of the configuration file) selects which mechanism to use for the automatic role assignment.
 
 * When `PROXY_ROLE_ASSIGNMENT_DRIVER` is set to `default`, all users that do not have a role assigned at the time of their first login will get the role 'user' assigned. (This is also the default behavior if `PROXY_ROLE_ASSIGNMENT_DRIVER` is unset.
 
@@ -136,23 +137,15 @@ role_assignment:
               claim_value: myGuestRole
 ----
 
-This would assign the role `admin` to users with the value `myAdminRole` in the claim `ocisRoles`.
-The role `user` to users with the values `myUserRole` in the claim `ocisRoles` and so on.
+This would assign the role `admin` to users with the value `myAdminRole` in the claim `ocisRoles`. The role `user` to users with the values `myUserRole` in the claim `ocisRoles` and so on.
 
 Claim values that are not mapped to a specific Infinite Scale role will be ignored.
 
 [NOTE]
 ====
-An Infinite Scale user can only have a single role assigned. If the configured
-`role_mapping` and a user's claim values result in multiple possible roles for a user, the order in
-which the role mappings are defined in the configuration is important. The first role in the
-`role_mappings` where the `claim_value` matches a value from the user's roles claim will be assigned
-to the user. So if e.g. a user's `ocisRoles` claim has the values `myUserRole` and
-`mySpaceAdminRole` that user will get the ocis role `spaceadmin` assigned (because `spaceadmin`
-appears before `user` in the above sample configuration).
+An Infinite Scale user can only have a single role assigned. If the configured `role_mapping` and a user's claim values result in multiple possible roles for a user, the order in which the role mappings are defined in the configuration is important. The first role in the `role_mappings` where the `claim_value` matches a value from the user's roles claim will be assigned to the user. So if e.g. a user's `ocisRoles` claim has the values `myUserRole` and `mySpaceAdminRole` that user will get the ocis role `spaceadmin` assigned (because `spaceadmin` appears before `user` in the above sample configuration).
 
-If a user's claim values don't match any of the configured role mappings, an error will be logged and
-the user will not be able to log in.
+If a user's claim values don't match any of the configured role mappings, an error will be logged and the user will not be able to log in.
 ====
 
 The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The default `role_mapping` is:
@@ -168,6 +161,71 @@ The default `role_claim` (or `PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM`) is `roles`. The
 - role_name: guest
   claim_value: ocisGuest
 ----
+--
+
+=== Space Management Through OIDC Claims
+
+[IMPORTANT]
+====
+* This is an experimental/preview feature and may change.
+* This feature only works using an external IDP. The embedded IDP does not support this.
+* If you enable this feature, you can no longer use the Web UI to manually to assign or remove users to Spaces. The Web UI no longer displays related configuration options. Assigning or removing users from a Space can only be done by claims managed through the IDP.
+* If enabled and a user is not assigned a claim with defined spaces and roles, the user can only access his personal space.
+====
+
+If required, users can be assigned or removed to Spaces via OIDC claims. This makes central user/Space management easy. Managed via environment variables, administrators can define the claim to use, a regex ruleset to extract the Space IDs and roles from a claim for provisioning. It is also possible to manually map OIDC roles to Infinite Scale Space roles. Note that assigning works both ways. Users can be added to Spaces as well as removed. Users must log out and log in again to activate any changes. The relevant environment variables that manage Spaces through OIDC claims follow the `OCIS_CLAIM_MANAGED_SPACES_xxx` pattern. See xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs] for how to obtain the ID of a Space.
+
+[NOTE]
+====
+The following rules apply if enabled:
+
+* If the claim is not found, it is not considered but the incident is logged.
+* A faulty regex prevents the proxy service from starting. By this, admins can immediately identify a major configuration issue. The incident is logged.
+* Entries in a claim that do not match the regex are not considered, the incident is not logged ^(1)^.
+* Unknown Space IDs and unknown roles are not considered, the incident is not logged ^(1)^.
+* When multiple entries are created with the same Space ID but different roles, the role with the highest permission counts.
+
+{empty}
+
+(1) ... These incidents cannot be logged due to the fact that claims can have a variety of layouts and may also contain data unrelated to Infinite Scale.
+====
+
+Example Setup::
++
+--
+The following is a simple setup of what space management through OIDC claims can look like. The way how a claim is setup depends on the IDP used. It is important to understand, that the claim setup and the corresponding regex must match.
+
+
+.A claim defined as `ocis-spaces` containing two entries:
+[source,JSON]
+----
+"ocis-spaces": [
+    "spaceid=b622d44a-1747-4eda-8905-89f3605d5849:role=member",
+    "spaceid=129cb9b6-c579-41b5-9316-93c6543484e5:role=spectator",
+]
+----
+
+The environment variables to extract the data from the above claim look like this:
+
+.Environment variable definition
+[source, plaintext]
+----
+OCIS_CLAIM_MANAGED_SPACES_ENABLED=true
+OCIS_CLAIM_MANAGED_SPACES_CLAIMNAME=ocis-spaces
+OCIS_CLAIM_MANAGED_SPACES_REGEXP="spaceid=([a-zA-Z0-9-]+):role=(.*)",
+OCIS_CLAIM_MANAGED_SPACES_MAPPING="member:editor,spectator:viewer"
+----
+
+{empty} +
+
+Result::
+This would add a user, to which this claim is assigned, to the following Spaces with defined roles:
+
+* `b622d44a-1747-4eda-8905-89f3605d5849` with the role `editor` and to
+* `129cb9b6-c579-41b5-9316-93c6543484e5` with the role `viewer`.
+
++
+Note that `OCIS_CLAIM_MANAGED_SPACES_MAPPING` can be omitted if roles in the claim already match roles defined by Infinite Scale.
 --
 
 == Recommendations for Production Deployments
