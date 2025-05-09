@@ -14,11 +14,11 @@ toc::[]
 
 == Introduction
 
-{description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
+{description} The goal of this guide is to get you up and running as quickly as possible with a deployment setup that includes Infinite Scale and Web Office document collaboration applications for home or small business use. It also uses valid certificates from Letsencrypt.
 
-IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
+IMPORTANT: *There are several decisions and steps that need to be taken when setting up and configuring the server. We strongly recommend that you read the manual and not just try to copy and paste commands.*
 
-IMPORTANT: With the decision to use https://www.hetzner.com[Hetzner] for our cloud deployment example, you can select from a variety of server locations which include many residing in the EU. Using a location inside the EU has a big *positive* impact for your data in terms of General Data Protection Regulation (GDPR).
+IMPORTANT: By choosing https://www.hetzner.com[Hetzner] for our cloud deployment example, you can choose from a variety of server locations, many of which are located in the EU. Using a location within the EU has a big *positive* impact on your data in terms of the General Data Protection Regulation (GDPR).
 
 NOTE: With the minimum configuration available on Hetzner, you can start with about €4/month for a cloud driven Infinite Scale deployment. Note that prices are subject to changes and only intended for informational purposes.
 
@@ -37,8 +37,8 @@ At minimum and at the time of writing, type _CX22_ (2 shared Intel CPU's with 4G
 [NOTE]
 ====
 * Disk space +
-About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup.
-** Depending on Hetzner's offers, an embedded diskspace of 40GB is included as part of the server. When the server is reset, the diskspace and ALL of its data is lost. Consider configuring independent volumes which can be sized according your needs but are at an extra monthly charge. Note that you can start with embedded disk space and reconfigure afterwards. See the xref:volumes[Volumes] description for an explanation of the term volume.
+Approximately 2.4GB of disk space is required for the default enabled services, as this setup provides not only Infinite Scale, but also office suites for online collaboration and other required software.
+** Depending on Hetzner's offerings, 40GB of embedded disk space is included as part of the server. If the server is reset, the disk space and ALL of its data will be lost. Consider configuring independent volumes that can be sized to your needs, but for an additional monthly fee. Note that you can start with embedded disk space and reconfigure later. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
 * Memory
 ** We recommend at minimum 4-6GB of memory.
