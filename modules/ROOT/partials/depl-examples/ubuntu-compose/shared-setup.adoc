@@ -32,7 +32,7 @@ tag::shared_1[]
 
 === Volumes
 
-Volumes are, where Docker stores data. In short, Docker can handle two types of volumes:
+Volumes are where Docker stores data. In short, Docker can handle two types of volumes:
 
 * *Volumes managed by docker:* +
 These volumes are managed by Docker and, unless otherwise specified, are located in the same partition where the operating system is installed. While this is easy to use and requires no additional configuration, there are dependencies that should be considered, such as space sharing, snapshots, resetting, backup/restore, migration, etc.
@@ -244,7 +244,7 @@ apt install unzip
 
 NOTE: The client that downloads the example is not the server that you upload to. The server does not have a graphical user interface (GUI) and therefore does not have a browser. The sample commands below are based on a Linux client. If you are using MacOS or Windows, you will need to modify the commands accordingly. This mainly affects the location where the browser downloads to (`~/Downloads`).
 
-NOTE: The client from which you download the example via a browser and upload it using `scp` must have access to the server and have the `scp` application installed.d.
+NOTE: The client from which you download the example via a browser and upload it using `scp` must have access to the server and have the `scp` application installed.
 
 To download and extract the necessary deployment example footnote:[Derived from the {compose_url}{compose_version}{compose_final_path}/{ocis_wopi}/[{ocis_wopi}, window=_blank] developer example], *open a browser* and enter the following URL:
 
