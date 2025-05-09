@@ -19,7 +19,7 @@ toc::[]
 
 {description} The aim of this guide is to be up and running as fast as possible using a deployment setup that includes *Infinite Scale and web office applications for document collaboration* for home usage or small businesses. It also uses valid certificates from Letsencrypt.
 
-IMPORTANT: *Some decisions and steps need to be taken in order when setting up and configuring the server. We therefore highly recommend reading the guide and not just trying to copy paste commands.*
+IMPORTANT: *There are several decisions and steps that need to be taken when setting up and configuring the server. We strongly recommend that you read the manual and not just try to copy and paste commands.*
 
 NOTE: This guide references the latest {version-type} version of Infinite Scale.
 
@@ -39,7 +39,7 @@ This guide describes an installation of Infinite Scale based on Ubuntu LTS and d
 [NOTE]
 ====
 * Disk space +
-About 2.4GB of disk space is needed for the default enabled services as you not only get Infinite Scale but also office packages for online collaboration and other required software to run this setup. If not otherwise defined, this guide uses docker managed volumes. See the xref:volumes[Volumes] description for an explanation of the term volume.
+Approximately 2.4GB of disk space is required for the default enabled services, as you will receive not only Infinite Scale, but also Office packages for online collaboration and other required software to run this setup. Unless otherwise specified, this guide uses Docker-managed volumes. See the xref:volumes[Volumes] description for an explanation of the term volume.
 
 * Memory
 ** We recommend at minimum 4-6GB of memory.
@@ -63,13 +63,13 @@ Setting or changing hostnames, IP configuration, installing software packages et
 
 === Software Stack
 
-For the OS, *Ubuntu LTS 24.04* has been selected, but it will also work with Ubuntu LTS 22.04. If you already have a server running Ubuntu LTS 24.04, you can use that one as long it meets the requirements listed below. 
+Ubuntu *LTS 24.04* has been selected as the operating system, but it will also work with Ubuntu LTS 22.04. If you already have a server running Ubuntu LTS 24.04, you can use it as long as it meets the requirements listed below
 
 Note that this guide expects:
 
-* The prerequisite of a server with the installed OS is met and any required software other than Infinite Scale like docker and docker compose is installed and preconfigured and all the software is updated to the latest version.
+* A server with the operating system installed and all required software other than Infinite Scale, such as docker and docker compose, installed and preconfigured, and all software updated to the latest version.
 
-* You have at minimum shell access and you can reach your host via ssh from another computer in your network. `sudo` permissions may be required in some steps later in the setup.
+* You have at least shell access and can ssh to your host from another machine on your network. You may need `sudo` permissions for some steps later in the setup.
 
 // deployment specific text, this is for local server, alternatively use the commented ones below for hetzner
 
