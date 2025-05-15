@@ -1,8 +1,8 @@
-= Setup Federations Using ScienceMesh
+= Setting Up Federations Using ScienceMesh
 :toc: macro
 :toclevels: 3
 :keywords: federation, sciencemesh, ocm
-:description: This document guides you to setup a federation between users of Infinite Scale instances using the ScienceMesh framework which includes the Open Cloud Mesh (OCM) technology.
+:description: This document will guide you through setting up a federation between users of Infinite Scale instances using the ScienceMesh framework, which includes the Open Cloud Mesh (OCM) technology.
 
 image:depl-examples/federation/science_mesh/sm_OpenCloudMesh_min.png[Teaser Image, width=500]
 
@@ -12,47 +12,56 @@ toc::[]
 
 == Introduction
 
-{description} See the https://sciencemesh.io[ScienceMesh] image:depl-examples/federation/science_mesh/sm_science_mesh_logo.svg[ScienceMesh Logo, width=60] link for more framework details.  
+{description}  
+
+include::partial$/multi-location/ocm-sciencemesh.adoc[]
 
 To setup a federation using ScienceMesh, only a view steps are necessary:
 
-* Setup a trust between instances involved.
-* Setup the federation between users using generated tokens.
-* Share resources between users of the federation.
+* *Setup a trust* between instances involved. +
+This is only required one time between instances.
+* *Setup the federation* between users using generated tokens. +
+This is only required one time between users who want to federate.
+* *Share resources* between users of the federation.
 
 == One Time Setup
 
-The following description has only to be done one time per instance involved to setup a trust relationship and requires sysadmins which have access to the Infinite Scale configuration files.
+The following description only needs to be done once per instance involved to establish a trust relationship, and requires sysadmins with access to the Infinite Scale configuration files. If a trust relationship has not been established, you must ask your sysadmin to establish one.
 
-NOTE: For security reasons and data protection, invitations are limited to trusted instances only.
+NOTE: For security, privacy, and data protection reasons, federation invitations are restricted to trusted instances.
+
+Once a trust relationship is established, the user can create a federation with another user from the trusted instance to share resources. Each federation only needs to be established once.
 
 === Setup a Trust Relationship
 
-In the example below, a trust relationship is setup between the `ocis.owncloud.test` and `host.docker.internal` instances.
+NOTE: For security reasons, only the instance *admins (sysadmins)* can establish a trust relationship.
 
-The following needs sysadmin priviledges on both federation parties::
+In the example below, a trust relationship is established between the `ocis.owncloud.test` and `host.docker.internal` instances.
+
+The following requires sysadmin privileges on both parties sharing a trust::
 +
 --
-To prepare the Infinite Scale instances involved for federation, a trust relationship must be setup. To do so, an `ocmproviders.json` file needs to be created according the description in
-xref:{s-path}/ocm.adoc#trust-between-instances[Trust Between Instances].
+To prepare the Infinite Scale instances involved for federation, a trust relationship must be established. This is done by creating an `ocmproviders.json` file according to the description in xref:{s-path}/ocm.adoc#trust-between-instances[Trust Between Instances].
 
-When the file has been properly setup, `OpenCloudMesh` needs to be enabled via an environment variable. See xref:{s-path}/ocm.adoc#enable-OCM[Enable OCM] for more details.
+Once the file is properly set up, `OpenCloudMesh` must be enabled via an environment variable. See xref:{s-path}/ocm.adoc#enable-ocm[Enable OCM] for more details.
 
-Finally, depending on the deployment, either all federation instances or each ocm service needs to be restarted to take the changes effective.
+Finally, depending on the deployment, either all trusted instances or each OCM service must be restarted for the changes to take effect.
 --
 
 === Setup a Federation Between Users
 
-Before sharing resources, a sharer must first invite a parter to join a federation. This only needs to be done one time per invitor/acceptor pair. This pair is now called a federation. After setting up the federation, sharing resources can mutually be created.
- 
-The following can be carried out by any user of the trusted instances. When xref:deployment/general/general-info.adoc#demo-users-and-groups[demo users] have been setup, which should not be present in production, one federation partner must be a user that has been created manually.
+NOTE: After trust is established between instances, *users* can now establish a federation with users from another instance, the federation partner.
 
-Generate an invite token by the invitor::
+Before sharing resources, a sharer must first invite a partner to join a federation. This only needs to be done once per inviter/acceptor pair. This pair is now called a federation. After the federation is set up, resources can be shared with each other.
+ 
+The following can be done by any user of the trusted instances. If xref:deployment/general/general-info.adoc#demo-users-and-groups[demo users] are set up that should not exist in production, one federation partner must be a manually created, non-demo user.
+
+Generate an invite token for a user on another instance::
 +
 --
-In our example, user `vlad` from the `ocis.owncloud.test` instance generates the invite token. 
+In our example, user `vlad` from instance `ocis.owncloud.test` generates the invite token. 
 
-* Select the *ScienceMesh* app, the selector can be opened by the square icon on the top left:
+* Select the *ScienceMesh* application, the app selector can be opened by clicking the square icon in the upper left corner:
 +
 image:depl-examples/federation/science_mesh/sm_select_app.png[Select the ScienceMesh App, width=250]
 
@@ -60,23 +69,23 @@ image:depl-examples/federation/science_mesh/sm_select_app.png[Select the Science
 +
 image:depl-examples/federation/science_mesh/sm_invitations.png[Invitations Screen, width=250]
 
-* In *Invite users*, click btn:[Generate new invitation], the following window appears. Optionally, enter a description and an eMail address of the partner user for the federation you want to create and click btn:[Generate]. If an eMail address is entered, a preformed URL with the token is sent to the sharee for ease of accepting. Note that you cant edit a generated token. You either must recreate or send it manually. 
+* In *Invite Users* click btn:[Generate new invitation], the following window will appear. Optionally, enter a description and an email address of the partner user for the federation you want to create and click btn:[Generate]. If an email address is entered, a preformed URL containing the token will be sent to the invited user for easy acceptance. Note that you cannot edit a generated token. You must either recreate it or send it manually.
 +
 image:depl-examples/federation/science_mesh/sm_user_generate_invite.png[Generate new invitation, width=250]
 
-* Back in *Invite users*, the generated token shows up. The remaining time to accept the invite before expiring is also shown.
+* Back in *Invite users*, the generated token is displayed. The remaining time to accept the invitation before it expires is also displayed.
 +
 image:depl-examples/federation/science_mesh/sm_user_token_generated.png[Show Generated Token, width=250]
 --
 
-Accept the invite token by the federation partner::
+Accept the invitation token from the federation partner::
 +
 --
 In our example, user `ludmilla` from the `host.docker.internal` instance is the federation partner and will accept the invite token.
 
-If the federation partner got an eMail to accept the invite, click on the btn:[link] provided in the eMail to open the *Invitations* screen with prefilled data in the *Acccept invitations* window.
+When the federation partner has received an email to accept the invitation, click on the btn:[link] provided in the email to open the *Invitations* screen with the pre-populated data in the *Accept invitations* window.
 
-* Select the ScienceMesh app, the selector can be opened by the square icon on the top left:
+* Select the *ScienceMesh* application, the selector can be opened by clicking the square icon in the upper left corner:
 +
 image:depl-examples/federation/science_mesh/sm_select_app.png[Select the ScienceMesh App, width=250]
 
@@ -84,26 +93,28 @@ image:depl-examples/federation/science_mesh/sm_select_app.png[Select the Science
 +
 image:depl-examples/federation/science_mesh/sm_invitations.png[Invitations Screen, width=250]
 
-* In *Acccept invitations*, if not prefilled via the eMail link, enter the token and select the institution of the user who sent the invite from the dropdown field. Token and institution must match to be acceptable. Click btn:[Accept invitation] when done:
+* In the *Accept invitations* field, if not pre-populated by the email link, enter the token and select the institution of the user who sent the invitation from the drop-down box. Token and institution must match to be accepted. When finished, click btn:[Accept invitation]:
 +
 image:depl-examples/federation/science_mesh/sm_user_accept_token.png[Invitation Data, width=250]
 
-* In window *Federated connections*, the setup federation is now shown and ready to share resources between the federation partners. This information is respective also shown on the inviter side of the federation:
-+
-*Acceptor:*
-+
-image:depl-examples/federation/science_mesh/sm_federation_a_setup.png[Federated Connections Sharee, width=250]
+* In the *Federated connections* window, the established federation is now displayed and ready to share resources between the federation partners. This information is also displayed on the inviter side of the federation:
 +
 *Invitor:*
 +
 image:depl-examples/federation/science_mesh/sm_federation_b_setup.png[Federated Connections Sharer, width=250]
++
+*Acceptor:*
++
+image:depl-examples/federation/science_mesh/sm_federation_a_setup.png[Federated Connections Sharee, width=250]
 --
 
 == Share Resources
 
-After the federation has been finally setup, federated users can now share resources. Note that a user must have accepted the invitaion to be selectable in the sharing dialogue.
+NOTE: An invited user must have accepted the invitation to be selected in the sharing dialog.
 
-* In menu:Files App[Inside a Space > File or Folder > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
+Once the federation is complete, federated users can share resources.
+
+* In the menu:Files App[Inside a Space / File or Folder > Sharing Icon], switch to `external` and start typing the user name. When found, select it:
 +
 image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Search Federation User, width=250]
 +
@@ -111,17 +122,19 @@ image:depl-examples/federation/science_mesh/sm_user_share_resource_search.png[Se
 ====
 As rule of thumb:
 
-* You cannot share your personal space.
-* You cannot share a project space.
-* You should not share files from your personal space for security reasons.
-* Only share files and folders inside project spaces.
+* You *cannot* share your personal space.
+* You *cannot* share a project space.
+* You *should not* share files from your personal space for security reasons.
+* *Only share* files and folders inside project spaces.
+* You *can* edit shared files with Web Office, but you *can't* work on the same file at the same time (collaborative editing) because of locking. +
+Collaborative editing would work if both instances were using the same Web Office backend.
 ====
 
-* If you have more federations, you can add more users. With the three vertical dots, you can select additional options. When done, click btn:[Share]
+* If you have more federations, you can add more users. Use the three vertical dots to select additional options. When you are done, click btn:[Share]:
 +
 image:depl-examples/federation/science_mesh/sm_user_share_resource_selected.png[Select More Users, width=250]
 
-* In menu:Files App[Shares], you can see all shares that are `Shared with me` or `Shared with others`: 
+* In menu:Files App[Shares], you can see all the shares that are: +
+`Shared with me` or `Shared with others`
 +
 image:depl-examples/federation/science_mesh/sm_user_resource_shared.png[Sharing Overview, width=250]
-

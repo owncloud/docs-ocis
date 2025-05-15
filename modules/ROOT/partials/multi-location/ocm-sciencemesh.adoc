@@ -1,0 +1,6 @@
+// a common text used in both the ocm service and depl-examples/federation/sciencmesh
+
+* https://sciencemesh.io[ScienceMesh, window=_blank] image:depl-examples/federation/science_mesh/sm_science_mesh_logo.svg[ScienceMesh Logo, width=60] is the Federated Science Cloud Mesh that connects existing and heterogeneous sites in a transparent way. It provides a managed white list of trusted federated sites.
+* The https://github.com/cs3org/OCM-API[Open Cloud Mesh Protocol, window=_blank] (OCM) provides the disovery and use of the RESTful API endpoints, request and response headers, possible response codes, request and response formats, hypermedia controls, error handling etc. Using this protocol, consumers do not need to accept a share, the shared resource will be available to them immediately.
+
+Both API's have their roots in CERN where providing resources to trusted partners in an easy way is a key for their daily scientific work.
