@@ -41,7 +41,7 @@ In the example below, a trust relationship is established between the `ocis.ownc
 The following requires sysadmin privileges on both parties sharing a trust::
 +
 --
-To prepare the Infinite Scale instances involved for federation, a trust relationship must be established. This is done by creating an `ocmproviders.json` file according to the description in in xref:{s-path}/ocm.adoc#trust-between-instances[Trust Between Instances].
+To prepare the Infinite Scale instances involved for federation, a trust relationship must be established. This is done by creating an `ocmproviders.json` file according to the description in xref:{s-path}/ocm.adoc#trust-between-instances[Trust Between Instances].
 
 Once the file is properly set up, `OpenCloudMesh` must be enabled via an environment variable. See xref:{s-path}/ocm.adoc#enable-ocm[Enable OCM] for more details.
 
