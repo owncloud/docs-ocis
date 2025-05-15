@@ -1,7 +1,9 @@
 = OCM Configuration
 :toc: right
-:description: The Infinite Scale OCM service provides federated sharing functionality based on the ScienceMesh and OCM HTTP APIs.
+:ocm-api-version: 1.1.0 
+:description: The Infinite Scale OCM service provides federated sharing functionality based on ScienceMesh and the OCM {ocm-api-version} HTTP API.
 
+:site-object-url: https://developer.sciencemesh.io/docs/technical-documentation/central-database/#site-object
 :service_name: ocm
 
 == Introduction
@@ -10,12 +12,9 @@
 
 Overview:
 
-* https://sciencemesh.io[ScienceMesh] is the Federated Science Cloud Mesh that connects existing and heterogeneous sites in a transparent way. It provides a managed white list of trusted federated sites.
-* The https://github.com/cs3org/OCM-API[Open Cloud Mesh Protocol] provides the disovery and use of the RESTful API endpoints, request and response headers, possible response codes, request and response formats, hypermedia controls, error handling etc. Using this protocol, consumers do not need to accept a share, the shared resource will be available to them immediately.
+include::partial$/multi-location/ocm-sciencemesh.adoc[]
 
-Both API's have their roots in CERN where providing resources to trusted partners in an easy way is a key for their daily scientific work.
-
-See the xref:depl-examples/federation/sciencemesh.adoc[Setup Federations Using ScienceMesh] for details on how to setup sharing between users via a federation using OCM. 
+See the xref:depl-examples/federation/sciencemesh.adoc[Setting Up Federations Using ScienceMesh] for details on how to set up sharing between users via a federation using OCM, the configuration of which is described here.
 
 == Default Values
 
@@ -32,15 +31,15 @@ OCIS_ENABLE_OCM=true
 
 == Trust Between Instances
 
-IMPORTANT: For security reasons and data protection, invitations are limited to trusted instances only. These have to be defined by the administrator _before_ setting up any federation.
+IMPORTANT: For security, privacy, and data protection reasons, federation invitations are restricted to trusted instances. These must be defined by the administrator _before_ users create a federation.
 
 The OCM service implements an invitation workflow for _trusted_ instances when creating federated shares.
 
-The list of trusts for an instance is defined via a json file. Note that this `ocmproviders.json` file, which holds that configuration, is expected to be located in the root of the Infinite Scale _config_ directory if not otherwise defined. See the `OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE` environment variable for more details.
+The list of trusted providers for an instance is defined by a json file. Note that this `ocmproviders.json` file, which contains this configuration, is expected to be in the root of the Infinite Scale _config_ directory, unless otherwise specified. See the `OCM_OCM_PROVIDER_AUTHORIZER_PROVIDERS_FILE` environment variable for more details.
 
-When all instances of a federation should trust each other, an `ocmproviders.json` file like this can be used for all instances. The following example federation consists of two instances: `cloud.owncloud.test` and `cloud.ocis.test` that can use the xref:invitation-workflow[Invitation Workflow] described below to generate, send and accept invitations.
+If you want all instances of a federation to trust each other, you can use an `ocmproviders.json` file like this for all instances. The following sample federation consists of two instances: `cloud.owncloud.test` and `cloud.ocis.test`, which can use the xref:invitation-workflow[Invitation Workflow] described below to create, send, and accept invitations.
 
-[source,json]
+[source,json,subs="attributes+"]
 ----
 [
     {
@@ -61,7 +60,7 @@ When all instances of a federation should trust each other, an `ocmproviders.jso
                     "path": "https://cloud.ocis.test/ocm/",
                     "is_monitored": true
                 },
-                "api_version": "0.0.1",
+                "api_version": "{ocm-api-version}",
                 "host": "http://cloud.ocis.test"
             },
             {
@@ -74,7 +73,7 @@ When all instances of a federation should trust each other, an `ocmproviders.jso
                     "path": "https://cloud.ocis.test/dav/",
                     "is_monitored": true
                 },
-                "api_version": "0.0.1",
+                "api_version": "{ocm-api-version}",
                 "host": "https://cloud.ocis.test/"
             }
         ]
@@ -97,7 +96,7 @@ When all instances of a federation should trust each other, an `ocmproviders.jso
                     "path": "https://cloud.owncloud.test/ocm/",
                     "is_monitored": true
                 },
-                "api_version": "0.0.1",
+                "api_version": "{ocm-api-version}",
                 "host": "http://cloud.owncloud.test"
             },
             {
@@ -110,7 +109,7 @@ When all instances of a federation should trust each other, an `ocmproviders.jso
                     "path": "https://cloud.owncloud.test/dav/",
                     "is_monitored": true
                 },
-                "api_version": "0.0.1",
+                "api_version": "{ocm-api-version}",
                 "host": "https://cloud.owncloud.test/"
             }
         ]
@@ -118,13 +117,13 @@ When all instances of a federation should trust each other, an `ocmproviders.jso
 ]
 ----
 
-NOTE: The `domain` *must not* contain the protocol as it has to match the https://developer.sciencemesh.io/docs/technical-documentation/central-database/#site-object[GOCDB site object domain].
+NOTE: The `domain` *must not* contain the protocol as it must match the {site-object-url}[GOCDB site object domain].
 
 == Invitation Workflow
 
-After the federation has been setup but before sharing a resource with a remote user, this user has to be invited by the sharer.
+After the federation is set up, but before a resource can be shared between remote users, a user must be invited by the sharer. See xref:depl-examples/federation/sciencemesh.adoc[Setting up Federations Using ScienceMesh] for more details.
 
-Internally, a request is sent to the ScienceMesh API. The generated token is passed on to the receiver, who will then accept the invitation. As a result, remote users will be added on both sides and the data for this grant is saved in a file defined via the `OCM_OCM_INVITE_MANAGER_JSON_FILE` environment variable.
+Internally, a request is sent to the ScienceMesh API. The generated token is passed to the recipient who then accepts the invitation. As a result, remote users are added on both sides and the data for this grant is stored in a file defined by the `OCM_OCM_INVITE_MANAGER_JSON_FILE` environment variable.
 
 == Configuration
 
