@@ -2,7 +2,7 @@
 :toc: right
 :description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
 
-:tika-version: 2.7.0
+:tika-version: 3.2.0
 
 :service_name: search
 
@@ -10,8 +10,8 @@
 
 {description} The following clarifies the extraction terms _metadata_ and _content_:
 
-* Metadata: all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
-* Content: all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
+* *Metadata:* all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
+* *Content:* all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
 
 == Default Values
 
@@ -22,68 +22,88 @@
 * To use the search service, an event system needs to be configured for all services like NATS, which is shipped and preconfigured.
 * The search service consumes events and does not block other tasks. 
 * When looking for content extraction, https://tika.apache.org[Apache Tika - a content analysis toolkit] can be used but needs to be installed separately.
+** Scaling of Tika, if configured, is not part of this documentation.
+* Although indexing metadata is essentially instantaneous, extracting and indexing content can take some time, depending on the setup and size of the document.
+* Indexing is a non-blocking operation. It is triggered by various events.
+* Consider using a dedicated hardware for this service in case more resources are needed.
 
-Extractions are stored as index via the search service. Consider that indexing requires adequate storage capacity - and the space requirement will grow. To avoid filling up the filesystem with the index and rendering Infinite Scale unusable, the index should reside on its own filesystem.
+NOTE: Both metadata and content extractions are stored as indexes via the search service. Keep in mind that indexing requires adequate storage capacity, and this requirement will grow over time. To prevent the index from filling up the file system and rendering Infinite Scale unusable, it should reside on its own file system.
 
-You can change the path to where search maintains its data in case the filesystem gets close to full and you need to relocate the data. Stop the service, move the data, reconfigure the path in the environment variable and restart the service.
+In case the file system gets close to full and you need to relocate {service_name} data, you can change the path to where {service_name} maintains its index data.
 
-When using content extraction, more resources and time are needed, because the content of the file needs to be analyzed. This is especially true for big and multiple concurrent files.
+The search service runs with the default "basic" configuration shipped out of the box. No additional configuration is necessary unless scaling or content extraction is being used.
 
-The search service runs out of the box with the shipped default `basic` configuration. No further configuration is needed, except when using content extraction.
+== Space Requirements
 
-Note that as of now, the search service can not be scaled. Consider using a dedicated hardware for this service in case more resources are needed.
+There is no definitive answer as to how much space is needed for storing the index, nor is there a way to calculate it. The only valid answer is that it depends, and you need to monitor it. Note that monitoring is not part of this document.
 
-== Search engines
+Here are some notes to provide guidance:
 
-By default, the search service is shipped with https://github.com/blevesearch/bleve[bleve] as its primary search engine.
+* Although extracting and indexing metadata uses little space compared to a content index, it can be significant in environments with many files and limited file system space.
+* As a rule of thumb, when extracting and indexing content, the range for the consumed index can be between 50% and 200% of the saved documents containing text. Taking a conservative approach and using a value of 150%, 3 TB of documents from which text-based data can be extracted would require up to 4.5 TB of space — and that's just for the content index.
+
+IMPORTANT: If the index is left unmonitored in its default location, it can silently fill up the file system and make Infinite Scale unresponsive. Since Infinite Scale and its data share the same file system with the OS, recovery can require considerable downtime.
+
+== Scaling
+
+The {service_name} service can be scaled by running multiple instances. Some rules apply:
+
+* With `SEARCH_ENGINE_BLEVE_SCALE=false`, which is the default , the {service_name} service has exclusive write access to the index. Once the first {service_name} process is started, any subsequent {service_name} processes attempting to access the index are locked out.
+
+* With `SEARCH_ENGINE_BLEVE_SCALE=true`, a {service_name} service will no longer have exclusive write access to the index. This setting must be enabled for all instances of the {service_name} service.
+
+== Search Engines
+
+By default, the {service_name} service is shipped with https://github.com/blevesearch/bleve[bleve] as its primary search engine.
 
 == Extraction Engines
 
-The search service provides the following extraction engines and their results are used as index for searching:
+The {service_name} service provides the following extraction engines and their results are used as index for searching:
 
-* The embedded `basic` configuration provides metadata extraction which is always on.
-* The `tika` configuration, which _additionally_ provides content extraction, if installed and configured.
+* The embedded `basic` configuration provides metadata extraction which is always on. This includes all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
+* The `tika` configuration, which _additionally_ provides content extraction, if installed and configured. This includes all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
 
 == Content Extraction
 
-The search service is able to manage and retrieve many types of information. For this purpose the following content extractors are included:
+The {service_name} service can manage and retrieve many types of information. To this end, the following content extractors are included. Extraction is triggered by events, see xref:state-changes-which-trigger-indexing[State Changes which Trigger Indexing] for more details.
 
 === Basic Extractor
 
-This extractor is the most simple one and just uses the resource information provided by Infinite Scale. It does not do any further analysis. The following fields are included in the index: `Name`, `Size`, `MimeType`, `Tags`, `Mtime`.
+This extractor is the most simple one and just uses the resource information provided by Infinite Scale. It needs no configuration and does not do any further analysis.
 
 === Tika Extractor
 
-This extractor is more advanced compared to the xref:basic-extractor[Basic extractor]. The main difference is that this extractor is able to provide file contents for the index.
-Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. See the https://github.com/apache/tika-docker#usage[Tika container usage document] for a quickstart. Note that at the time of writing, containers are only available for the `amd64` platform.
+This extractor is more advanced compared to the xref:basic-extractor[Basic extractor]. The main difference is that this extractor is able to provide file contents for the index. Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. See the https://github.com/apache/tika-docker#usage[Tika container usage document] for a quickstart.
 
 As soon as Tika is installed and accessible, the search service must be configured for the use with Tika. The following settings must be set:
 
 * `SEARCH_EXTRACTOR_TYPE=tika`
 * `SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://YOUR-TIKA.URL`
+* `FRONTEND_FULL_TEXT_SEARCH_ENABLED=true` +
+When using the Tika extractor, make sure to also set this enironment variable in the xref:{s-path}/frontend.adoc[frontend service]. This will tell the web client that full-text search has been enabled.
 
-When the search service can reach Tika, it begins to read out the content on demand. Note that files must be downloaded during the process, which can lead to delays with larger documents.
+When the search service can reach Tika, it begins to extract content on demand. Note that files must be downloaded by Tika during the extraction process, which can lead to delays with larger documents.
+
+When extracting content, you can specify whether [stop words](https://en.wikipedia.org/wiki/Stop_word) like `I`, `you`, `the` are ignored or not. Noramlly, these stop words are removed automatically. To keep them, the environment variable `SEARCH_EXTRACTOR_TIKA_CLEAN_STOP_WORDS` must be set to `false`.
 
 NOTE: Content extraction and handling the extracted content can be very resource intensive. Content extraction is therefore limited to files with a certain file size. The default limit is 20MB and can be configured using the `SEARCH_CONTENT_EXTRACTION_SIZE_LIMIT` variable.
 
 When using the Tika container and docker-compose, consider the following:
 
-* See the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory for more details.
+* See the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in particular the downloaded `tika.yml` file for more details.
 * Containers for the linked service are reachable at a hostname identical to the alias or the service name if no alias was specified.
-
-When using the Tika extractor, make sure to also set `FRONTEND_FULL_TEXT_SEARCH_ENABLED` in the xref:{s-path}/frontend.adoc[frontend service] to `true`. This will tell the web client that full-text search has been enabled.
 
 == Search Functionality
 
-The search service consists of two main parts which are file `indexing` and file `searching`.
+The {service_name} service consists of two main parts which are file `indexing` and file `searching`.
 
 === Indexing
 
-Every time a resource changes its state, a corresponding event is triggered. Based on the event, the search service processes the file and adds the result to its index. There are a few more steps between accepting the file and updating the index.
+Every time a resource changes its state, a corresponding event is triggered. Based on the event, the {service_name} service processes the file and adds the result to its index. There are a few more steps between accepting the file and updating the index.
 
 === Searching
 
-A query via the search service will return results based on the index created.
+A query via the {service_name} service will return results based on the index created.
 
 === State Changes which Trigger Indexing
 
@@ -91,23 +111,23 @@ The following state changes in the life cycle of a file can trigger the creation
 
 ==== Resource Trashed
 
-The service checks its index to see if the file has been processed. If an index entry exists, the index will be marked as deleted. In consequence, the file won't appear in search requests anymore. The index entry stays intact and could be restored via xref:resource-restored[Resource Restored].
+The {service_name} service checks its index to see if the file has been processed. If an index entry exists, the index will be marked as deleted. In consequence, the file won't appear in search requests anymore. The index entry stays intact and could be restored via xref:resource-restored[Resource Restored].
 
 ==== Resource Deleted
 
-The service checks its index to see if the file has been processed. If an index entry exists, the index will be finally deleted. In consequence, the file won't appear in search requests anymore.
+The {service_name} service checks its index to see if the file has been processed. If an index entry exists, the index will be finally deleted. In consequence, the file won't appear in search requests anymore.
 
 ==== Resource Restored
 
-This step is the counterpart of xref:resource-trashed[Resource Trashed]. When a file is deleted, is isn't removed from the index, instead the service just marks it as deleted. This mark is removed when the file has been restored, and it shows up in search results again.
+This step is the counterpart of xref:resource-trashed[Resource Trashed]. When a file is deleted, is isn't removed from the index, instead the {service_name} service just marks it as deleted. This mark is removed when the file has been restored, and it shows up in search results again.
 
 ==== Resource Moved
 
-This comes into play whenever a file or folder is renamed or moved. The search index then updates the resource location path or starts indexing if no index has been created so far for all items affected. See xref:notes[Notes] for an example.
+This comes into play whenever a file or folder is renamed or moved. The {service_name} index then updates the resource location path or starts indexing if no index has been created so far for all items affected. See xref:notes[Notes] for an example.
 
 ==== Folder Created
 
-The creation of a folder always triggers indexing. The search service extracts all necessary information and stores it in the search index
+The creation of a folder always triggers indexing. The {service_name} service extracts all necessary information and stores it in the search index
 
 ==== File Created
 
@@ -115,11 +135,11 @@ This case is similar to xref:folder-created[Folder created] with the difference 
 
 ==== File Version Restored
 
-Since Infinite Scale is capable of storing multiple versions of the same file, the search service also needs to take care of those versions. When a file version is restored, the service starts to extract all needed information, creates the index and makes the file discoverable.
+Since Infinite Scale is capable of storing multiple versions of the same file, the {service_name} service also needs to take care of those versions. When a file version is restored, the {service_name} service starts to extract all needed information, creates the index and makes the file discoverable.
 
 ==== Resource Tag Added
 
-Whenever a resource gets a new tag, the service takes care of it and makes that resource discoverable by the tag.
+Whenever a resource gets a new tag, the {service_name} service takes care of it and makes that resource discoverable by the tag.
 
 ==== Resource Tag Removed
 
@@ -133,27 +153,48 @@ This case only triggers indexing if `async post processing` is disabled. If so, 
 
 This is exactly the same as xref:file-uploaded-synchronous[File uploaded - synchronous] with the only difference that it is used for asynchronous uploads.
 
-== Manually Trigger Re-Indexing Spaces
+== Index Management 
+
+=== Index Location and Scaling
+
+* The location of the {service_name} index can be customized and should be on a fast backend.
+* Consider separate hardware for the {service_name} service if response time is critical for your environment.
+** Content extraction can consume considerable CPU and memory ressources and naturally competes with all other services if running on the same hardware. It has to extract every document and index it before it is available for searching.
+* The {service_name} index can be manually relocated and search reconfigured to use the new path.
+
+=== Reloacting the Index
+
+If it becomes necessary to relocate the {service_name} index, you need to:
+
+* Shut down the Infinite Scale instance. +
+This is necessary to avoid changes that miss triggering an index update.
+* Move the contents referenced via `SEARCH_ENGINE_BLEVE_DATA_PATH` to a new location.
+* Define the new location in `SEARCH_ENGINE_BLEVE_DATA_PATH`.
+* Restart the Infinite Scale instance.
+* Update your xref:maintenance/b-r/backup.adoc[backup]/xref:maintenance/b-r/restore.adoc[restore] plan and setup accordingly.
+
+=== Index Maintenance
+
+It can happen that an index needs to be recreated. Currently this can only be done on a per space / all spaces basis.
+
+==== Manually Trigger Re-Indexing Spaces
 
 The service includes a command-line interface to trigger re-indexing spaces:
 
 [source,bash]
 ----
-ocis search index --space $SPACE_ID --all-spaces --user $USER_ID
+ocis search index --space $SPACE_ID || --all-spaces
 ----
 
 * IDs but not names are necessary as parameter.
 ** See the xref:maintenance/space-ids/space-ids.adoc[Listing Space IDs] for how to retrieve a space ID.
-** The specified user ID needs to have access to the space to be indexed.
 * The arguments `-space` and `--all-spaces` are mutual exclusive , but one must be provided.
 
 == Notes
 
 The indexing process tries to be self-healing in some situations.
 
-In the following example, let's assume a file tree `foo/bar/baz` exists.  
-If the folder `bar` gets renamed to `new-bar`, the path to `baz` is no longer `foo/bar/baz` but `foo/new-bar/baz`.  
-The search service checks the change and either just updates the path in the index or creates a new index for all items affected if none was present.
+In the following example, let's assume a file tree `foo/bar/baz` exists. If the folder `bar` gets renamed to `new-bar`, the path to `baz` is no longer `foo/bar/baz` but `foo/new-bar/baz`. The search service checks the change and either just updates the path in the index or creates a new index for all items affected if none was present.
 
 == Event Bus Configuration
 
