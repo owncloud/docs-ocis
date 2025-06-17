@@ -76,7 +76,7 @@ SMTP host to connect to.
 Port of the SMTP host to connect to.
 * `SMTP_SENDER` +
 An eMail address that is used for sending Infinite Scale notification eMails like +
-[.blue]##`ocis <\noreply@yourdomain.com>`##.
+`[.blue]#ocis <\noreply@yourdomain.com>#`.
 * `SMTP_USERNAME` +
 Username for the SMTP host to connect to.
 * `SMTP_PASSWORD` +
@@ -89,20 +89,24 @@ Define using secure or insecure connections to the SMTP server.
 
 ==== Domain Names
 
-This environment requires multiple (sub)domain names to be available. You will need to modify the examples to suit your environment. The (sub)domains must be configured to point to the server you are configuring. The same applies if you are using a wildcard configuration. For a wildcard setup on the DNS, three (sub)domains must be provided to configure the `.env` file described in one of the next sections.
+This environment requires multiple (sub)domain names to be available. You will need to modify the examples to suit your environment. The (sub)domains must be configured to point to the server you are configuring. The same applies if you are using a wildcard configuration. For a wildcard setup on the DNS, these (sub)domains must be provided to configure the `.env` file described in one of the next sections.
 
 The following (sub)domains are required as a minimum, an example is printed for each, replace them according to your environment:
 
+.Mandatory
 * `OCIS_DOMAIN` +
-[.blue]##`ocis.yourdomain.com`##
+`[.blue]#ocis.yourdomain.com#`
 
+.If Collabora and/or Onlyoffice is configured via .env
 * `COLLABORA_DOMAIN` +
-[.blue]##`collabora.yourdomain.com`##
+`[.blue]#collabora.yourdomain.com#`
 
-* `WOPISERVER_DOMAIN` +
-[.blue]##`wopiserver.yourdomain.com`##
+* `ONLYOFFICE_DOMAIN` +
+`[.blue]#onlyoffice.yourdomain.com#`
 
 Note that depending on your setup, more (sub)domains may be required. See the `.env` file for more details..
+
+Note that any communication between ocis and any web office application is handled via the docker network and is not exposed to the outside.
 
 == Accessing Infinite Scale
 
@@ -327,7 +331,7 @@ Set the CAServer to staging, see the note below.
 * `OCIS_DOCKER_IMAGE` +
 Check that the correct image type is selected ({version-type}).
 
-* `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and `WOPISERVER_DOMAIN` +
+* `OCIS_DOMAIN`, `COLLABORA_DOMAIN` and/or `ONLYOFFICE_DOMAIN` +
 Set the domain names as defined in xref:domain-names[Domain Names].
 
 * `OCIS_CONFIG_DIR` and `OCIS_DATA_DIR` +
@@ -495,7 +499,7 @@ To get the state and the Container ID, issue one of the following commands:
 docker ps -a
 ----
 
-.Short form with only the Service name, State and Container ID, needs to be issued in `/opt/compose/ocis/{ocis_wopi}`:
+.Short form with only the Service name, State and Container ID, needs to be issued in '/opt/compose/ocis/{ocis_wopi}':
 [source,bash]
 ----
 docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
