@@ -84,7 +84,7 @@ When using the Tika extractor, make sure to also set this enironment variable in
 
 When the search service can reach Tika, it begins to extract content on demand. Note that files must be downloaded by Tika during the extraction process, which can lead to delays with larger documents.
 
-When extracting content, you can specify whether [stop words](https://en.wikipedia.org/wiki/Stop_word) like `I`, `you`, `the` are ignored or not. Noramlly, these stop words are removed automatically. To keep them, the environment variable `SEARCH_EXTRACTOR_TIKA_CLEAN_STOP_WORDS` must be set to `false`.
+When extracting content, you can specify whether [stop words](https://en.wikipedia.org/wiki/Stop_word) like `I`, `you`, `the` are ignored or not. Normally, these stop words are removed automatically. To keep them, the environment variable `SEARCH_EXTRACTOR_TIKA_CLEAN_STOP_WORDS` must be set to `false`.
 
 NOTE: Content extraction and handling the extracted content can be very resource intensive. Content extraction is therefore limited to files with a certain file size. The default limit is 20MB and can be configured using the `SEARCH_CONTENT_EXTRACTION_SIZE_LIMIT` variable.
 
