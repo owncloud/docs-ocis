@@ -1,6 +1,6 @@
 = Changed or Added CLI Commands
 :toc: right
-:description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 7.0.0 and 7.1.0.
+:description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 7.1.0 and 7.2.0.
 
 == Introduction
 
@@ -10,5 +10,5 @@
 
 See the link for a detailed description of the respective CLI command if available.
 
-* xref:maintenance/commands/commands.adoc#sending-grouped-emails[Sending Grouped Emails] +
-The `ocis auth-app create` command allows creating tokens to authenticate 3rd party access.
+* xref:maintenance/commands/commands.adoc#manage-expired-or-stale-uploads[Manage Expired or Stale Uploads] +
+The `ocis storage-users uploads delete-stale-nodes` command deletes all nodes that are in processing state and not referenced by an upload session.
