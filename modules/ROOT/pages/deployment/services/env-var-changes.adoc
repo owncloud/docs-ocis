@@ -1,9 +1,14 @@
 # Changed Environment Variables in Versions
 :toc: right
-:description: This page contains tables with added and removed environment variables between Infinite Scale version 7.0.0 and 7.1.0.
+:description: This page contains tables with added and removed environment variables between Infinite Scale version 7.1.0 and 7.2.0.
 
 :source_path: {ocis_services_raw_url}{service_url_component}{ocis_services_final_path}adoc/env-var-deltas/
-// https://raw.githubusercontent.com/owncloud/ocis/docs-stable-7.0/services/_includes/adoc/env-var-deltas/
+////
+ocis_services_raw_url:    https://raw.githubusercontent.com/owncloud/ocis/
+service_url_component:    docs || docs-stable-7.2
+ocis_services_final_path: /services/_includes/
+env_var_delta_name:       7.1.0-7.2.0
+////
 
 == Introduction
 

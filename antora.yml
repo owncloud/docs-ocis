@@ -51,7 +51,7 @@ asciidoc:
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc
     # note that the name must be exactly how it is defined in the ocis repo to access the source files!
-    env_var_delta_name: '7.0.0-7.1.0'
+    env_var_delta_name: '7.1.0-7.2.0'
 
     # set attributes defining path components which will be assembled in the document
     compose_url: 'https://github.com/owncloud/ocis/tree/'
