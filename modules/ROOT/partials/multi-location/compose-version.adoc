@@ -13,14 +13,16 @@ antora-component-version: intrinsic via antora.yml: is either next or a branched
 
 // first we define the default
 // production (because it has an own doc branch)
-// url is either master or like stable-7.1
+// url is either master or like stable-7.2
 :compose_version: {ocis_repo_url_component}
 :version-type: production
 
+// but:
+// if it is the master branch, defined as next, we need to redefine to a stable branch
+// master may contain non functional data
+// latest-ocis-version is defined in global-attributes.yml: 7.2 or 7.1
+// the file is included via an extension
 ifeval::["{antora-component-version}" == "next"]
-// but if it is the master branch defined as next, we need to redefine
-// rolling (it is in the master branch which is next)
-// global-attrtibutes.yml: like v6.6.1 or v7.1.1
-:compose_version: v{ocis-rolling-version}
+:compose_version: {ocis_repo_url_stable}
 :version-type: rolling
 endif::[]

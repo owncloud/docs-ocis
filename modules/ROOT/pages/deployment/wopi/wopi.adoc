@@ -7,6 +7,8 @@
 :wopi-wiki-url: https://en.wikipedia.org/wiki/Web_Application_Open_Platform_Interface
 :wopi-ms-url: https://learn.microsoft.com/en-us/openspecs/office_protocols/ms-wopi/6a8bb410-68ad-47e4-9dc3-6cf29c6b046b
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description} For more details on possible configuration values see the xref:conf-examples/office/office-integration.adoc[Office Integration] document at the configuration examples. More information about the WOPI protocol can be found on {wopi-wiki-url}[Wikipedia,window=_blank] or {wopi-ms-url}[Microsoft,window=_blank].
@@ -73,9 +75,9 @@ image::deployment/wopi/wopi-overview.svg[WOPI Overview Diagram,width=500]
 {service_tab_text}::
 +
 --
-{compose_url}{ocis_repo_url_component}{compose_final_path}/{ocis_wopi}[Docker compose `ocis_full` deployment examples directory,window=_blank]
+{compose_url}{compose_version}{compose_final_path}/{ocis_wopi}[Docker compose `ocis_full` deployment example directory,window=_blank]
 
-Using git branch name: `{ocis_repo_url_component}`
+Using git branch name: `{compose_version}`, to point to the latest stable version that also includes patches
 --
 ====
 

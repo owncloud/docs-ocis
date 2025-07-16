@@ -8,6 +8,8 @@
 :design-tokens-url: https://owncloud.design/#/Design%20Tokens
 :gh-webui-url: https://github.com/owncloud/web/issues/new
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description}  As an organization or company you may be interested in theming the ownCloud Web user interface with your brand and slogan and playful individuals may simply enjoy the fun of decorating ownCloud Web the way they like.
@@ -39,8 +41,8 @@ Some theme keys are mandatory, like the `common.shareRoles` settings. Such manda
 
 == Configuring a Theme
 
-.Sourced from https://github.com/owncloud/ocis/blob/{ocis_repo_url_component}{web_assets_path}theme.json[GitHub, _window=blank]
+.Sourced from https://github.com/owncloud/ocis/blob/{compose_version}{web_assets_path}theme.json[GitHub, _window=blank]
 [source,json]
 ----
-include::{ocis_services_raw_url}{ocis_repo_url_component}{web_assets_path}theme.json[]
+include::{ocis_services_raw_url}{compose_version}{web_assets_path}theme.json[]
 ----
