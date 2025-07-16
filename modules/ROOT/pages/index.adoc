@@ -8,6 +8,8 @@
 :ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
 :ocis_youtube_short_url: C4a4q9IGyFQ
 
+include::partial$multi-location/compose-version.adoc[]
+
 == Introduction
 
 {description}
@@ -80,4 +82,4 @@ IMPORTANT: Rolling releases are published in a cycle of 3 weeks. Due to this rel
 
 == End-User License Agreement (EULA)
 
-ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual {compose_raw_url}{compose_url_component}/assets/End-User-License-Agreement-for-ownCloud-Infinite-Scale.pdf[EULA] for details.
+ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual {compose_raw_url}{compose_version}/assets/End-User-License-Agreement-for-ownCloud-Infinite-Scale.pdf[EULA] for details.
