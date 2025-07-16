@@ -33,6 +33,7 @@ asciidoc:
 
     # defines the url path component when accessing the ocis repo for versioned data includes or examples
     # 'master' for the next branch or 'stable-7.1' for a production branch
+    # example: {compose_url}{ocis_repo_url_component}{compose_final_path}
     ocis_repo_url_component: 'master'
 
     # service_tab_text will be used as tab text shown for the tables in services only
@@ -40,13 +41,6 @@ asciidoc:
     # this does not apply to branched releases using semver, only to the master branch! 
     # 'master' for the next branch or '7.1.0' for a production branch including patch releases like `7.1.1'
     service_tab_text: 'master'
-
-    # the compose_url_component is used to assemble the url (tag) accessing source files from the ocis repo
-    # 'master' for the next branch or 'v7.1.0' for a production branch
-    # note the v ! as it is tagged for anything else than master !!
-    # only use values that are tagged in the ocis repo.
-    # example: {compose_url}{compose_url_component}{compose_final_path}
-    compose_url_component: 'master'
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc

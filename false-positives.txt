@@ -1,0 +1,14 @@
+# placeholder for false-positives for the find-orphaned-files extension
+# this will get updated in another PR
+# do not delete this file but update/remove lines only
+
+# used via: xref:{s-path}/services_rules.adoc
+modules/ROOT/pages/deployment/services/s-list/services_rules.adoc
+
+# xref:{kb_path}/fail2ban-protect-login.adoc
+modules/ROOT/pages/additional-information/kb-documents/fail2ban-protect-login.adoc
+
+# source images we want to keep for further development
+modules/ROOT/images/depl-examples/ubuntu-compose/ubuntu-hetzner-access.drawio.svg
+modules/ROOT/images/depl-examples/ubuntu-compose/ubuntu-prod-install.drawio.svg
+modules/ROOT/images/depl-examples/ubuntu-compose/ubuntu-server-access.drawio.svg
