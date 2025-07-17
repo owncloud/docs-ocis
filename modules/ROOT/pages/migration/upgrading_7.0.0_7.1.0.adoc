@@ -87,3 +87,7 @@ For any deployment used, you now can delete/remove old binaries or images/contai
 == Changed or Added CLI Commands
 
 See the xref:maintenance/commands/changed-cli.adoc[Changed or Added CLI Commands] document for details.
+
+== Changed Environment Variables
+
+See the xref:deployment/services/env-var-changes.adoc[Changed Environment Variables in Versions] document for details.
