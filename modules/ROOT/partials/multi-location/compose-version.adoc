@@ -6,9 +6,9 @@ if the branch is anything else, it is a production version and has its own branc
 
 the outcome guarantees that we always access the correct paths to get or reference source files from
 
-ocis-rolling-version:     defined in site.yml:      is the actual rolling version
 ocis_repo_url_component:  defined in antora.yml:    is either master or a branched version
-antora-component-version: intrinsic via antora.yml: is either next or a branched version like 7.1
+ocis_repo_url_stable:     defined in antora.yml:    is always the latest stable branch of this version
+antora-component-version: intrinsic via antora.yml: is either next or a branched version like 7.2
 ////
 
 // first we define the default

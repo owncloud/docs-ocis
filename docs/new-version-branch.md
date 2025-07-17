@@ -19,8 +19,9 @@ This step creates the branch locally, necessary for content changes and for the 
 1.  In `.drone.star` set `latest_version` to `x.y` (on top in section `def main(ctx)`).
 1.  Check in `site.yml` in section `content.sources` that the following value is set: `- url: .` and in `content.sources.url` the following value is set: `- HEAD`.
 1.  In `antora.yml`, set the `version:` key on top to the same as the branch name like `x.y`. Each branch must have it's unique version!
-1.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are required for local building.
-1.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are used for local building and will be correctly set in the docs repo when doing a full build. NOTE: any attribute values defined here overwrite any attributes included via the `load-global-site-attributes.js` extension. 
+1.  In `antora.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `xxx-ocis-version` keys. They are required for local building.
+1.  In `antora.yml`, in section `asciidoc.attributes`, adjust all other keys if required. They are used to set targets and define variable data for this version.
+1.  In `site.yml`, in section `asciidoc.attributes`, DO NOT adjust relevant `-version` keys. They are used for local building and will be correctly set in the docs repo when doing a full build. NOTE: any attribute values defined here overwrites any attributes included via the `load-global-site-attributes.js` extension. 
 1.  Run a build by entering `npm run antora-local`. No build errors should occur.
 1.  Commit the changes and push the new `x.y` branch. This makes the branch available for futher processing. DO NOT CREATE A PR!
 

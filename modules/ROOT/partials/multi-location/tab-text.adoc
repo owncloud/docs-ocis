@@ -1,14 +1,12 @@
 ////
-the tab text printed depends on if you are on master, then it is 'master + Rolling {ocis-rolling-version}'
+the tab text printed depends on if you are on master, then it is 'master + Rolling <version>'
 or it is the value of the name as defined in antora.yml
 ////
 
 // compute the correct tab text
 :tab_text: {service_tab_text}
 
-////
 // we do not make rolling releases anymore, keeping the code if that changes
-ifeval::["{service_tab_text}" == "master"]
-:tab_text: {service_tab_text} + Rolling {ocis-rolling-version}
-endif::[]
-////
+// ifeval::["{service_tab_text}" == "master"]
+// :tab_text: {service_tab_text} + Rolling {ocis-rolling-version}
+// endif::[]
