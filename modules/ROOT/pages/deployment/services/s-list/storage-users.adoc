@@ -199,7 +199,7 @@ ocis storage-users uploads sessions \
 [source,bash]
 ----
 ocis storage-users uploads sessions \
-     --processing=false \
+     --processing=true \
      --has-virus=false \
      --resume
 ----
