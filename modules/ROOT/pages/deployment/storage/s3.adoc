@@ -67,7 +67,7 @@ STORAGE_USERS_DRIVER: s3ng
 # Path to metadata stored on POSIX
 STORAGE_USERS_S3NG_ROOT:
 # keep system data on ocis storage
-STORAGE_USERS_DRIVER: ocis
+STORAGE_SYSTEM_DRIVER: ocis
 
 # s3ng specific settings
 STORAGE_USERS_S3NG_ENDPOINT:
