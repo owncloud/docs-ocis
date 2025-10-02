@@ -206,7 +206,7 @@ ocis storage-users uploads sessions \
 
 ==== Remove Stale Uploads
 
-Unlike the xref:sessions-command[Sessions Command] set above, this command deletes all nodes that are in processing state and not referenced by an upload session. Although this is a very rare occurrence, a command has been added to identify and remove these stale uploads, if they exist.
+Unlike the xref:sessions-command[Sessions Command] set above, this command deletes (or reverts) all nodes that are in processing state and not referenced by an upload session. Although this is a very rare occurrence, a command has been added to identify and remove these stale uploads, if they exist.
 
 This command can be used to run on a specific Space, on all Spaces, and with a dry-run option to print only stale uploads as they are found.
 
@@ -220,7 +220,7 @@ ocis storage-users uploads delete-stale-nodes help
 [source,plaintext]
 ----
 NAME:
-   ocis storage-users uploads delete-stale-nodes - Delete all nodes in processing state that are not referenced by any upload session
+   ocis storage-users uploads delete-stale-nodes - Delete (or revert) all nodes in processing state that are not referenced by any upload session
 
 USAGE:
    ocis storage-users uploads delete-stale-nodes [command options]

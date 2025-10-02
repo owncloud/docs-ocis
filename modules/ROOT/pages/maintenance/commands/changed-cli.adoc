@@ -8,6 +8,9 @@
 
 == Affected CLI Commands
 
-// See the link for a detailed description of the respective CLI command, if available.
+// None of the admin-related commands have changed.
 
-None of the admin-related commands have changed.
+See the link for a detailed description of the respective CLI command if available.
+
+* xref:maintenance/commands/commands.adoc#manage-expired-or-stale-uploads[Manage Expired or Stale Uploads] +
+The `ocis storage-users uploads delete-stale-nodes` command has been updated. Previously, only faulty nodes were deleted, which could cause issues when file versions were present. Now, after deleting faulty nodes, nodes are rolled back to the latest functional version if file versions are present.
