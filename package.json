@@ -25,12 +25,12 @@
     }
   ],
   "scripts": {
-    "antora": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch site.yml",
-    "antora-local": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch --url http://localhost:8080 site.yml",
-    "antora-staging": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch --url https://doc.staging.owncloud.com site.yml",
-    "antora-bundle": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch --ui-bundle-url ../docs-ui/build/ui-bundle.zip --url https://doc.staging.owncloud.com site.yml",
-    "antora-dev-local": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch --url http://localhost:8080 site-dev.yml",
-    "antora-dev-bundle": "antora --stacktrace --cache-dir cache --redirect-facility static --clean --fetch --ui-bundle-url ../docs-ui/build/ui-bundle.zip --url http://localhost:8080 site-dev.yml",
+    "antora": "antora --stacktrace site.yml",
+    "antora-local": "antora --stacktrace --url http://localhost:8080 site.yml",
+    "antora-staging": "antora --stacktrace --url https://doc.staging.owncloud.com site.yml",
+    "antora-bundle": "antora --stacktrace --ui-bundle-url ../docs-ui/build/ui-bundle.zip --url https://doc.staging.owncloud.com site.yml",
+    "antora-dev-local": "antora --stacktrace --url http://localhost:8080 site-dev.yml",
+    "antora-dev-bundle": "antora --stacktrace --ui-bundle-url ../docs-ui/build/ui-bundle.zip --url http://localhost:8080 site-dev.yml",
     "serve": "http-server public/ -d -i",
     "linkcheck": "broken-link-checker --filter-level 3 --recursive --verbose"
   },

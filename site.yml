@@ -16,6 +16,13 @@ ui:
     snapshot: true
     url: https://minio.owncloud.com/documentation/ui-bundle.zip
 
+runtime:
+  fetch: true
+  cache_dir: ./.cache/antora
+
+urls:
+  redirect_facility: static
+
 output:
   clean: true
   dir: public
@@ -39,7 +46,7 @@ asciidoc:
 
 antora:
   extensions:
-    - ./ext-antora/generate-index.js
+#    - ./ext-antora/generate-index.js
     #- ./ext-antora/comp-version.js
     - require: ./ext-antora/load-global-site-attributes.js
       attributefile: https://raw.githubusercontent.com/owncloud/docs/refs/heads/master/global-attributes.yml
