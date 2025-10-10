@@ -75,7 +75,9 @@ Unless the claim configured via `PROXY_AUTOPROVISION_CLAIM_EMAIL` is the same as
 Next, the proxy will check if the user is a member of the groups configured in `PROXY_AUTOPROVISION_CLAIM_GROUPS`. It will add the user to the groups listed via the OIDC claim that holds the groups defined in the envvar and removes it from
 all other groups that he is currently a member of. Groups that do not exist in the external IDP yet will be created. Note: This can be a somewhat costly operation, especially if the user is a member of a large number of groups. If the group memberships of a user are changed in the IDP after the first login, it can take up to 5 minutes until the changes are reflected in Infinite Scale.
 
-==== Claim Updates
+==== Claims
+
+===== Claim Updates
 
 OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to a user's detail, like name, email or picture information. A scope can also contain among other things groups, roles, and permissions data. Each scope returns a set of attributes, which are called claims. The scopes an application requests, depends on which  attributes the application needs. Once the user authorizes the requested scopes, the claims are returned in a token.
 
@@ -89,6 +91,21 @@ These issued JWT tokens are immutable and integrity-protected. Which means, any 
 
 * Infinite Scale does not get aware when a group is being deleted in the IDP, a new claim will not hold any information from the deleted group. Infinite Scale does not track a claim history to compare. 
 ====
+
+===== Claim Checks and Step-up Authentication
+
+Infinite Scale provides access control via the OpenID Connect (OIDC) "Authentication Class Reference" (ACR) claim. This can be used to enforce step-up authentication on specific routes. For instance, if a user logs in with basic authentication, they may need a higher level to access a sensitive route. If the user has not authenticated at the required level, access to the route will be denied.
+
+This is configurable via environment variables, such as:
+
+```
+OCIS_MFA_ENABLED: true
+OCIS_MFA_AUTH_LEVEL_NAME: advanced
+```
+
+This feature is disabled by default and requires an external Identity Provider (IDP) that supports step-up authentication and the ACR claim. Examples of such IDPs include Keycloak.
+
+If an authenticated user attempts to access a protected route without two-factor authentication (2FA), the server will respond with a 403 Forbidden error and an `X-OCIS-MFA-Required` header.
 
 ===== Impacts
 
