@@ -41,6 +41,12 @@ Infinite Scale provides a xref:maintenance/commands/backup-consistency.adoc[CLI 
 
 NOTE: This command MUST only be issued when Infinite Scale is offline and no services are running. This command will report false positives when issued during normal operation.
 
+=== Move Stuck Uploads
+
+In some cases of saturated disk usage, Infinite Scale metadata may become stuck. This can occur when file metadata is being moved to its final destination after file operations. This issue was primarily seen with shares where uploaded files could not be accessed. This command remedies the issue. See the xref:maintenance/commands/move-stuck-uploads.adoc[Move Stuck Uploads] commands for more details.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
+
 === Reset Password for IDM Users
 
 If you need to reset the password for the admin or a user in the xref:{s-path}/idm.adoc[idm] service from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
@@ -73,7 +79,7 @@ When a shared space or directory got deleted, use the following xref:maintenance
 
 Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
 
-WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
 
 === Inspect and Repair Node Tree Sizes
 
