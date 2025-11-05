@@ -43,7 +43,7 @@ NOTE: This command MUST only be issued when Infinite Scale is offline and no ser
 
 === Move Stuck Uploads
 
-In some cases of saturated disk usage, Infinite Scale metadata may become stuck. This can occur when a file is being moved to its final destination after being uploaded. This issue was primarily seen with shares where uploaded files could not be accessed. This command remedies the issue. See the xref:maintenance/commands/move-stuck-uploads.adoc[Move Stuck Uploads] commands for more details.
+In some cases of saturated disk usage, Infinite Scale metadata may become stuck. This can occur when file metadata is being moved to its final destination after file operations. This issue was primarily seen with shares where uploaded files could not be accessed. This command remedies the issue. See the xref:maintenance/commands/move-stuck-uploads.adoc[Move Stuck Uploads] commands for more details.
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
 
