@@ -1,6 +1,6 @@
 = Changed or Added CLI Commands
 :toc: right
-:description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 7.2.0 and 7.3.0.
+:description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 7.3.0 and 7.4.0.
 
 == Introduction
 
@@ -12,5 +12,5 @@
 
 See the link for a detailed description of the respective CLI command if available.
 
-* xref:maintenance/commands/commands.adoc#manage-expired-or-stale-uploads[Manage Expired or Stale Uploads] +
-The `ocis storage-users uploads delete-stale-nodes` command has been updated. Previously, only faulty nodes were deleted, which could cause issues when file versions were present. Now, after deleting faulty nodes, nodes are rolled back to the latest functional version if file versions are present.
+* xref:maintenance/commands/commands.adoc#move-stuck-uploads[Move Stuck Uploads] +
+This CLI command has been added to remedy the issue when Infinite Scale metadata may become stuck in some cases of saturated disk usage.
