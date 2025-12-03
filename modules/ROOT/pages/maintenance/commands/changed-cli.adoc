@@ -14,3 +14,6 @@ See the link for a detailed description of the respective CLI command if availab
 
 * xref:maintenance/commands/commands.adoc#move-stuck-uploads[Move Stuck Uploads] +
 This CLI command has been added to remedy the issue when Infinite Scale metadata may become stuck in some cases of saturated disk usage.
+
+* xref:maintenance/commands/commands.adoc#cleanup-orphaned-grants[Cleanup Orphaned Grants] +
+This CLI command has been added to cleanup orphaned grants when a share has been deleted but the removal process is not completed successfully.
