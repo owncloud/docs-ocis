@@ -1,21 +1,14 @@
 = Cleanup Orphaned Shares
+:page-aliases: shares-cleanup.adoc
+:toc:
 
-[source,bash]
-----
-ocis shares -h
-NAME:
-   ocis shares - cli tools to manage entries in the share manager.
+Use this CLI command to clean up shared space or directory orphans when a shared space or directory is deleted. This cannot be done automatically at the moment.
 
-USAGE:
-   ocis shares command [command options]
+include::partial$/maintenance/ocis-shares-cli.adoc[]
 
-COMMANDS:
-   cleanup  clean up stale entries in the share manager.
-   help, h  Shows a list of commands or help for one command
+== Command Details
 
-OPTIONS:
-   --help, -h  show help
-----
+.Usage:
 
 [source,bash]
 ----

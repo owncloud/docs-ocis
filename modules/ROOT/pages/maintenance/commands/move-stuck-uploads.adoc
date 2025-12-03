@@ -1,13 +1,33 @@
 = Move Stuck Uploads
 
+Detect and optionally move stuck uploads.
+
+include::partial$/maintenance/ocis-shares-cli.adoc[]
+
+== Command Details
+
 In some cases of saturated disk usage, Infinite Scale metadata may become stuck. This can occur when file metadata is being moved to its final destination after file operations. This issue was primarily seen with shares, where uploaded files could not be accessed. The required filename parameter aligns with Infinite Scale's internal processes and is used to complete the formerly stuck move action.
+
+.Usage:
 
 [source,bash]
 ----
-ocis shares move-stuck-upload-blobs [--dry-run=false] -p /base/path/storage/users
+ocis shares -h move-stuck-upload-blobs
+NAME:
+   ocis shares move-stuck-upload-blobs - Move stuck upload blobs to the jsoncs3 share-manager metadata
+
+USAGE:
+   ocis shares move-stuck-upload-blobs [command options]
+
+OPTIONS:
+   --dry-run                   Dry run mode enabled (default: false)
+   --basepath value, -p value  the basepath of the decomposedfs (e.g. /var/tmp/ocis/storage/users)
+   --filename value            File to move from uploads/ to share manager metadata blobs/ (default: "received.json")
+   --verbose, -v               Verbose logging enabled (default: false)
+   --help, -h                  show help
 ----
 
-This command provides additional options:
+.Notes:
 
 * `--dry-run` (default: `true`) +
 Only print found files stuck in transition.

@@ -1,0 +1,47 @@
+= Cleanup Orphaned Grants
+:toc:
+
+Detect and optionally delete storage grants that have no corresponding share-manager entry.
+
+include::partial$/maintenance/ocis-shares-cli.adoc[]
+
+== Command Details
+
+Sharing in ocis relies on two truths. The share manager and the grants. When a share is created, ocis will 
+
+. Create a grant for the specific file or folder. +
+This grant is _checked when access to the file is requested_.
+
+. Create an entry in the `created.json`/`received.json` files of the specific user. +
+These files are _checked whenever shares are listed_.
+
+The process for creating a share is as follows: first, ocis creates the grant, and then adds the share entry. The reverse order is followed when deleting a share. This means that if the second step fails, the grant will still be present. This can be visually confirmed in the webUI. The webUI details of the "share" section will show an error fetching information for orphan grants.
+
+The following command fixes the problem of orhaned grants.
+
+.Usage:
+
+[source,bash]
+----
+ocis shares -h clean-orphaned-grants
+NAME:
+   ocis shares clean-orphaned-grants - Detect and clean orphaned share-manager grants.
+
+USAGE:
+   ocis shares clean-orphaned-grants [command options]
+
+OPTIONS:
+   --service-account-id value      Name of the service account to use for the scan [$OCIS_SERVICE_ACCOUNT_ID]
+   --service-account-secret value  Secret for the service account [$OCIS_SERVICE_ACCOUNT_SECRET]
+   --space-id value                Limit the scan to a specific storage space (opaque ID)
+   --dry-run                       Dry run mode enabled (default: true)
+   --force                         Force removal of suspected orphans even when listing shares fails (default: false)
+   --verbose, -v                   Verbose logging enabled (default: false)
+   --help, -h                      show help
+----
+
+.Notes:
+
+- `--dry-run` defaults to `true` (no deletions). Set to `false` to remove orphaned grants.
+- `--space-id` Limit the scan to a specific storage space (opaque ID).
+- Public links are not touched.

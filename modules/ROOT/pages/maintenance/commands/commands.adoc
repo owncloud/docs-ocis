@@ -71,9 +71,13 @@ Compared to offline commands that can be issued when Infinite Scale is shut down
 
 App Tokens are used to authenticate 3rd party access via https like when using curl (apps) to access an API endpoint. These apps need to authenticate themselves, as no logged in user authenticates the request. To be able to use an app token, one must first create a token via the cli. For details see the description in the xref:{s-path}/auth-app.adoc[auth-app] service.
 
+=== Cleanup Orphaned Grants
+
+Detect and, if desired, delete storage grants that have no corresponding share-manager entry. This can occur when a share is deleted, but the removal process is not completed successfully. Use the following xref:maintenance/commands/cleanup-orphaned-grants.adoc[CLI command] to cleanup those orphaned share grants.
+
 === Cleanup Orphaned Shares
 
-When a shared space or directory got deleted, use the following xref:maintenance/commands/shares-cleanup.adoc[CLI command] to cleanup those share orphans. This can't be done automatically at the moment.
+When a shared space or directory got deleted, use the following xref:maintenance/commands/cleanup-orphaned-shares.adoc[CLI command] to cleanup those share orphans. This can't be done automatically at the moment.
 
 === Inspect and Manipulate Node Metadata
 
