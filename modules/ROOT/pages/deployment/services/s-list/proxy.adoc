@@ -344,7 +344,7 @@ Infinite Scale cannot always determine whether the entire communication chain be
                  Termination                Unsecured               Unsecured
 ----
 
-As you can see in Figure 2, the entire chain is secured by HTTPS, and the headers will be sent accordingly. The other figures illustrate that, although the client has a secure connection, the subsequent connection is insecure. The Infinite Scale proxy service detects this and sends back headers for an insecure connection.
+As you can see in Figure 2, the entire chain is secured by HTTPS, and the headers will be sent accordingly. The other figures illustrate that, although the client has a secure connection, the subsequent connection is insecure. Because the Infinite Scale proxy service can only detect his connection, it sends back headers for an insecure connection.
 
 To mitigate this issue, set the environment variable `PROXY_FORCE_STRICT_TRANSPORT_SECURITY` to true. This forces the sending of Strict-Transport-Security headers on all responses.
 
