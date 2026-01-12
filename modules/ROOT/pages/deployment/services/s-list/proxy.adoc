@@ -298,6 +298,56 @@ A working example for a CSP can be found in a sub path of the `config` directory
 
 See the https://content-security-policy.com[Content Security Policy (CSP) Quick Reference Guide,window=_blank] for a description of directives.
 
+=== Strict Transport Security Header
+
+Infinite Scale cannot always determine whether the entire communication chain between itself and the client is secure. Consider the following scenarios:
+
+.Client - Webserver - Infinite Scale (incomplete)
+[ditaa]
+----
++----------+         +------------+          +-----------+
+|          |  https  |            |   http   |   ocis    |
+|  Client  | <-----> |  Webserver |  <-----> |   proxy   |
+|          |         |            |          |  service  |
++----------+         +------------+          +-----------+
+                     ^                       ^
+                     |                       |
+                     |                       |
+                 Termination              Unsecured
+----
+
+.Client - Webserver - Infinite Scale (complete)
+[ditaa]
+----
++----------+         +------------+          +-----------+
+|          |  https  |            |   https  |   ocis    |
+|  Client  | <-----> |  Webserver |  <-----> |   proxy   |
+|          |         |            |          |  service  |
++----------+         +------------+          +-----------+
+                     ^                       ^
+                     |                       |
+                     |                       |
+                 Termination               Secured
+----
+
+.Client - Loadbalancer - Webserver - Infinite Scale (incomplete)
+[ditaa]
+----
++----------+         +--------------+          +------------+          +-----------+
+|          |  https  | Loadbalancer |   http   |            |   http   |   ocis    |
+|  Client  | <-----> +--------------+  <-----> |  Webserver |  <-----> |   proxy   |
+|          |         | Loadbalancer |          |            |          |  service  |
++----------+         +--------------+          +------------+          +-----------+
+                     ^                         ^                       ^
+                     |                         |                       |
+                     |                         |                       |
+                 Termination                Unsecured               Unsecured
+----
+
+As you can see in Figure 2, the entire chain is secured by HTTPS, and the headers will be sent accordingly. The other figures illustrate that, although the client has a secure connection, the subsequent connection is insecure. Because the Infinite Scale proxy service can only detect his connection, it sends back headers for an insecure connection.
+
+To mitigate this issue, set the environment variable `PROXY_FORCE_STRICT_TRANSPORT_SECURITY` to true. This forces the sending of Strict-Transport-Security headers on all responses.
+
 == Presigned Urls
 
 Important, also see section xref:caching[caching] above.
