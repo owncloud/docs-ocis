@@ -19,6 +19,21 @@ IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrad
 
 IMPORTANT: When upgrading from an older release to the desired one, mandatory configuration settings may have been added or removed. To see the changes required, you can run `ocis init --diff` after upgrading but before finally starting. For more details, see the xref:deployment/general/ocis-init.adoc[ocis init command] description.
 
+== Version 7.3.0 to 8.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+There are no notable changes requiring manual intervention in Infinite Scale 8.0
+
+=== Breaking Changes Requiring Manual Intervention
+
+There are breaking changes in Infinite Scale 8.0
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_7.3.0_8.0.0.adoc[Upgrading from 7.3.0 to 8.0.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+
 == Version 7.2.0 to 7.3.0
 
 === Notable Changes Requiring Manual Intervention
