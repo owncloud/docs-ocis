@@ -276,6 +276,10 @@ This would add a user, to which this claim is assigned, to the following Spaces 
 Note that `OCIS_CLAIM_MANAGED_SPACES_MAPPING` can be omitted if roles in the claim already match roles defined by Infinite Scale.
 --
 
+== Multi Instance Infinite Scale
+
+Infinite Scale can be used to configure multi-instance environments. This allows multiple instances to connect to the same external IDP. Without this configuration, only one-to-one setups are possible. The environment variables to configure such a setup start with `OCIS_MULTI_INSTANCE_xxx`. Since this setup requires in-depth knowledge of the environment, only a configuration example can be provided, which can be found at: https://github.com/owncloud/ocis/tree/master/deployments/examples/ocis_multi[Multi Instance Deployment Example,window=_blank].
+
 == Recommendations for Production Deployments
 
 * The proxy service is the only service communicating to the outside and therefore needs the usual protection against DDOS, Slow Loris or other attack vectors. All other services are not exposed to the outside, but also need protective measures when it comes to distributed setups like when using container orchestration over various physical servers.
