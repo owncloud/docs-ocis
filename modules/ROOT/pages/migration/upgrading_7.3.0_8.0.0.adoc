@@ -62,7 +62,7 @@ Reconfigure the deployment to use the new image:
 
 == Manage Breaking Changes
 
-There are breaking changes in Infinite Scale 8.0
+If you are not using OCM, no migrations are necessary to upgrade from Infinite Scale 7.3 to 8.0.
 
 == Added-Removed-Deprecated Environment Variables
 
