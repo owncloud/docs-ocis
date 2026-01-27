@@ -1,6 +1,6 @@
 name: ocis
 title: Infinite Scale Documentation
-version: 'next'
+version: '8.0'
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/partials/nav.adoc
@@ -15,7 +15,7 @@ asciidoc:
 
     # must be removed when antora 3.2 has been updated, because this is then an intrinsic attribute
     # the branched value is the value for the production release like 'next' or '7.1'
-    antora-component-version: 'next'
+    antora-component-version: '8.0'
 
     # used to define the include path for services without trailing /
     # note that any changes of this path also need adjustment in
@@ -34,18 +34,18 @@ asciidoc:
     # defines the url path component when accessing the ocis repo for versioned data includes or examples
     # 'master' for the next branch or 'stable-7.2' for a production branch
     # example: {compose_url}{ocis_repo_url_component}{compose_final_path}
-    ocis_repo_url_component: 'master'
+    ocis_repo_url_component: 'stable-8.0'
 
     # this always points to the latest stable branch such as 'stable-7.2'
     # this branch also includes patches if any
     # used for links where you would else download from master but the content better comes from stable
-    ocis_repo_url_stable: 'stable-7.3'
+    ocis_repo_url_stable: 'stable-8.0'
 
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
     # this does not apply to branched releases using semver, only to the master branch! 
     # 'master' for the next branch or '7.2.0' for a production branch including patch releases like `7.2.1'
-    service_tab_text: 'master'
+    service_tab_text: '8.0.0'
 
     # this is the first part of the name for envvars between major versions that will be added or removed
     # example for full name: 7.0.0-7.1.0-added.adoc or 7.0.0-7.1.0-removed.adoc
