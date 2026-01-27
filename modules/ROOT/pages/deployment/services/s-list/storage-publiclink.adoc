@@ -14,6 +14,44 @@
 
 * Storage-Publiclink listens on port 9175 by default.
 
+== Brute Force Protection
+
+Brute force protection prevents access to public links if incorrect passwords are entered. Its implementation is very similar to that of a rate limiter, but it takes into account only incorrect password attempts.
+
+[NOTE]
+====
+This feature:
+
+* Is enabled by default with the standard settings. +
+To disable the feature, set the relevant configuration values to 0.
+* If enabled, brute force protection uses a configurable store, see section xref:#storing[Storing]. No additional configuration is required if the global configuration (OCIS_) is used alongside the other default store settings.
+====
+
+By default, you're allowed a maximum of 5 failed attempts in 1 hour:
+
+* `STORAGE_PUBLICLINK_BRUTEFORCE_TIMEGAP=1h`
+* `STORAGE_PUBLICLINK_BRUTEFORCE_MAXATTEMPTS=5`
+
+You can adjust these values as you wish to define the failure rate threshold.
+
+[IMPORTANT]
+====
+* If a public link is blocked by brute force protection, it will be blocked for all users, regardless of whether an attempt has been successful in the meantime.
+* If the failure rate threshold is exceeded, the public link will be blocked until such rate goes below the threshold.
+** This means that it will remain blocked for an undefined time: a couple of seconds in the best case, or up to the setting of `STORAGE_PUBLICLINK_BRUTEFORCE_TIMEGAP` in the worst case.
+** After blocking, each new unsuccessful attempt retriggers the timer.
+====
+
+== Storing
+
+// renders dependent on is_cache or is_store
+:is_store: true
+// add a manual anchor + text because the service does not use the event bus
+:no_event_bus: true
+
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
+
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

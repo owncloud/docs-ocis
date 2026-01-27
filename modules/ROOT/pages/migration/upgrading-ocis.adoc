@@ -23,11 +23,11 @@ IMPORTANT: When upgrading from an older release to the desired one, mandatory co
 
 === Notable Changes Requiring Manual Intervention
 
-There are no notable changes requiring manual intervention in Infinite Scale 8.0
+There are no changes in Infinite Scale 8.0 that require manual intervention, but other notable changes have been implemented.
 
 === Breaking Changes Requiring Manual Intervention
 
-There are breaking changes in Infinite Scale 8.0
+There are breaking changes in Infinite Scale 8.0 that only apply when using the OCM service.
 
 === Upgrade Steps
 

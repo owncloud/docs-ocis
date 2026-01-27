@@ -22,6 +22,7 @@ IMPORTANT: Check below, if you are affected by breaking changes and prepare all 
 . We strongly recommend doing a backup
 . Reconfigure the deployment
 . Manage Breaking Changes
+. Notabale Changes
 . Manage Added/Removed/Deprecated environment variables
 . Start Infinite Scale
 
@@ -62,11 +63,14 @@ Reconfigure the deployment to use the new image:
 
 == Manage Breaking Changes
 
-There are breaking changes in Infinite Scale 8.0
+Breaking changes only apply when using OCM. +
+These changes mean, that OCM is now fully compatible with other Open Cloud Mesh services and can be federated with them. As drawback, all OCM invitations and shares no longer work and must be resetup.
 
-== Added-Removed-Deprecated Environment Variables
+== Notabale Changes
 
-* See the xref:deployment/services/env-var-changes.adoc[Changed Environment Variables in Versions] for more details.
+* A new feature has been implemented to protect against brute-force password attacks when using public links. This feature is enabled by default. See the xref:{s-path}/storage-publiclink.adoc#brute-force-protection[Storage-Publiclink] service for more details.
+
+* Some deprecated environment variables have finally been removed. If you are using them, you can remove them from your config. For details see the xref:#changed-environment-variables[Changed Environment Variables] section below.
 
 == Reconfigure Deployment Examples
 
