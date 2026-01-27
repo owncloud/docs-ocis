@@ -39,7 +39,7 @@ asciidoc:
     # this always points to the latest stable branch such as 'stable-7.2'
     # this branch also includes patches if any
     # used for links where you would else download from master but the content better comes from stable
-    ocis_repo_url_stable: 'stable-7.3'
+    ocis_repo_url_stable: 'stable-8.0'
 
     # service_tab_text will be used as tab text shown for the tables in services only
     # note when literally changing the word 'master' to something else, you also must adapt 'env-and-yaml.adoc'.
