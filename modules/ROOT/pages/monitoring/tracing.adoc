@@ -1,0 +1,227 @@
+= Enable tracing from oCIS to SigNoz
+
+== OpenTelemetry
+
+OpenTelemetry (OTel) is an open-source observability standard that helps describe what is happening inside an application or system. It defines a common way to represent and share telemetry data such as traces, metrics, and logs.
+
+By providing shared conventions and context across services, OpenTelemetry enables different tools to understand system behavior in a consistent way, making complex and distributed systems easier to observe.
+
+This guide walks you through a *fully working, local development setup* where:
+
+- oCIS runs in Docker
+- Traces are exported via *OpenTelemetry (OTLP)*
+- SigNoz receives and visualizes the traces
+- Everything runs on the same Docker network: `observability`
+
+The guide uses *exact commands* so you can copy-paste and get it running quickly.
+
+=== Prerequisites
+
+Make sure you have the following installed:
+
+- https://docs.docker.com/engine/install/[Docker Engine]
+
+- https://docs.docker.com/compose/install/[Docker Compose (v2)]
+
+Verify installation:
+
+[source,bash]
+----
+docker version
+docker compose version
+----
+
+To Enable tracing from oCIS to SigNoz:
+
+1. Create a working directory named `ocis-signoz-dev`
+
+[source,bash]
+----
+mkdir ocis-signoz-dev
+cd ocis-signoz-dev
+----
+
+2. Create directories for oCIS configuration and data:
+
+[source,bash]
+----
+mkdir ocis-config ocis-data
+----
+
+3. Create a shared Docker network for both oCIS and SigNoz:
+
+[source,bash]
+----
+docker network create observability
+----
+
+Verify the network:
+
+[source,bash]
+----
+docker network ls | grep observability
+----
+
+4. Initialize oCIS configuration. Run the oCIS init command to generate configuration and admin credentials:
+
+[source,bash]
+----
+docker run --rm -it \
+  --mount type=bind,source=$HOME/ocis-signoz-dev/ocis-config,target=/etc/ocis \
+  --mount type=bind,source=$HOME/ocis-signoz-dev/ocis-data,target=/var/lib/ocis \
+  owncloud/ocis init --insecure yes --force-overwrite
+----
+
+Example output:
+
+[source,text]
+----
+=========================================
+ generated OCIS Config
+=========================================
+ configpath : /etc/ocis/ocis.yaml
+ user       : admin
+ password   : xIo0Ct^&8.VOQoumSk&kZ!TApDBTkgrn
+=========================================
+----
+
+IMPORTANT: Save the admin password. You need it to log in to oCIS.
+
+5. Install SigNoz 
+
+a. Clone the SigNoz repository:
+
+[source,bash]
+----
+git clone https://github.com/SigNoz/signoz.git
+cd signoz/deploy/docker
+----
+
+b. Attach SigNoz to the observability network. Edit `docker-compose.yaml` and update the network section by replacing the existing network definition with:
+
+[source,yaml]
+----
+networks:
+  signoz-net:
+    external: true
+    name: observability
+----
+
+This ensures that *SigNoz, the OpenTelemetry Collector, and oCIS can communicate over the same Docker network*.
+
+c. Start SigNoz
+
+[source,bash]
+----
+docker compose up -d
+----
+
+d. Verify running containers:
+
+[source,bash]
+----
+docker ps
+----
+
+You should see containers such as:
+
+- `signoz`
+- `signoz-otel-collector`
+- `clickhouse`
+
+6. Access the SigNoz UI at:
+
+----
+http://localhost:8080
+----
+
+[NOTE]
+====
+At this stage, you *donot see any traces yet* in the SigNoz UI.
+
+This is expected behavior. Traces will only appear after:
+
+- oCIS is started with OpenTelemetry tracing enabled
+- You generate traffic in oCIS
+====
+
+
+7. Run oCIS with tracing enabled
+
+a. Return to the main project directory:
+
+[source,bash]
+----
+cd ~/ocis-signoz-dev
+----
+
+b. Start oCIS with OpenTelemetry tracing enabled:
+
+[source,bash]
+----
+docker run --rm -it \
+  --name ocis \
+  --network observability \
+  -p 9200:9200 \
+  --mount type=bind,source=$HOME/ocis-signoz-dev/ocis-config,target=/etc/ocis \
+  --mount type=bind,source=$HOME/ocis-signoz-dev/ocis-data,target=/var/lib/ocis \
+  -e OCIS_INSECURE=true \
+  -e PROXY_HTTP_ADDR=0.0.0.0:9200 \
+  -e OCIS_URL=https://localhost:9200 \
+  -e OCIS_TRACING_ENABLED=true \
+  -e OCIS_TRACING_TYPE=otlp \
+  -e OCIS_TRACING_ENDPOINT=signoz-otel-collector:4317 \
+  -e OCIS_TRACING_COLLECTOR=insecure \
+  owncloud/ocis
+----
+
+oCIS is now:
+
+- Running on `https://localhost:9200`
+- Exporting traces via OTLP
+- Sending traces to the SigNoz OpenTelemetry Collector
+
+8. Verify traces in SigNoz
+
+1. Open the SigNoz UI at `http://localhost:8080`
+2. Navigate to *Traces*
+3. Select the service name starting with `ocis`
+4. Perform actions in oCIS:
+   - Log in
+   - Browse files
+   - Create or upload files
+
+You should see traces appear within a few seconds.
+
+== Troubleshooting
+
+- Ensure all containers are on the same Docker network:
++
+[source,bash]
+----
+docker network inspect observability
+----
+
+- Check collector logs:
++
+[source,bash]
+----
+docker logs signoz-otel-collector
+----
+
+- Ensure the OTLP endpoint is correct:
++
+----
+signoz-otel-collector:4317
+----
+
+== Summary
+
+You now have:
+
+- oCIS running in Docker
+- OpenTelemetry tracing enabled
+- SigNoz receiving and visualizing traces
+- A fully reproducible dev-only observability setup
+
+This setup is ideal for *local debugging, demos, and experimentation*.
