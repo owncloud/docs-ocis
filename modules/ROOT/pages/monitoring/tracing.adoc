@@ -112,7 +112,7 @@ These settings:
 
 - Enable distributed tracing in oCIS
 - Configure OTLP as the tracing exporter
-- Send traces via gRPC to the SigNoz OpenTelemetry Collector
+- Send traces via gRPC to the SigNoz OpenTelemetry Collector. Using SigNoz Cloud is optional; if you opt for it, configure this to use the SigNoz Cloud OTLP gRPC endpoint.
 
 No changes to `.env` are required when using this approach.
 
