@@ -526,7 +526,7 @@ Once the container environment has been started, you can access the container's 
 docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 ----
 
-. Enter the following command to access the container's shell. If the name is differnt replace <ocis> with the relevant service name:
+. Enter the following command to access the container's shell. If the name is different replace <ocis> with the relevant service name:
 +
 [source,bash]
 ----
