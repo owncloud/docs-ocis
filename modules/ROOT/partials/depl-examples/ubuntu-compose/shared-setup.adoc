@@ -515,21 +515,46 @@ Issue the following command to monitor a log:
 docker logs -f <container_id>
 ----
 
+== Infinite Scale Command Line
+
+Once the container environment has been started, you can access the container's shell to use the OCI command line interface. Follow these steps to do so:
+
+. First, locate the name of the service that you wish to access. It is called `ocis` by default, but you may have named it differently in the deployment configuration:
++
+[source,bash]
+----
+docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
+----
+
+. Enter the following command to access the container's shell. If the name is different replace <ocis> with the relevant service name:
++
+[source,bash]
+----
+docker compose exec ocis /bin/sh
+----
+
+. Finally use the ocis CLI. See the example below:
++
+[source,bash]
+----
+ocis --help
+----
+
 == Admin Password
 
 === Initial Admin Password from Docker Log
 
 If the manually set *initial* admin password was forgotten *before* it was changed, you can get it from the docker log. See https://docs.docker.com/config/containers/logging/[View container logs] for more details on docker logs.
 
-First you need to get the Infinite Scale `CONTAINER ID`:
-
+. First you need to get the Infinite Scale `CONTAINER ID`:
++
 [source,bash]
 ----
 docker compose ps -a --format "table {{.Service}}\t{{.State}}\t{{.ID}}"
 ----
 
-From the output, see an example below, note the container ID that matches `ocis`:
-
+. From the output, see an example below, note the container ID that matches `ocis`:
++
 [source,subs="+quotes"]
 ----
 SERVICE         STATE     CONTAINER ID
@@ -540,8 +565,8 @@ tika            running   08ae7b0c9c0e
 traefik         running   5f0e1d03bcbf
 ----
 
-Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
-
+. Use the container ID identified in the following command to read the Infinite Scale logs to get the initial admin password created, replace <CONTAINER ID> accordingly:
++
 [source,bash]
 ----
 docker logs <CONTAINER ID> 2>&1 | less
