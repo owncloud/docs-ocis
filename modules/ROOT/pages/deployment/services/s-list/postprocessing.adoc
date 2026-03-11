@@ -61,7 +61,36 @@ The backoff behavior as mentioned in the `retry` outcome can be configured using
 
 == CLI Commands
 
+The postprocessing service provides a CLI which can be used to check its health status and to resume/restart uploads. See the following printout for a shortened list:
+
+[source,bash]
+----
+ocis postprocessing --help
+
+USAGE:
+   ocis postprocessing [command options]
+
+COMMANDS:
+   resume, restart  resume postprocessing for an uploadID
+   health           Check health status
+----
+
+=== Health
+
+The `{service_name}` service provides a `health` command. For details see the xref:maintenance/commands/commands.adoc[Maintenance Commands] description.
+
 === Resume Post-Processing
+
+If post-processing fails in one step due to an unforeseen error, current uploads will not be resumed/restarted automatically. A system administrator can instead run CLI commands to resume/restart the failed upload manually.
+
+The `{service_name}` service provides a `restart` and `resume` command which share common options:
+
+[source,plaintext]
+----
+OPTIONS:
+   --upload-id value, -u value  the uploadid to resume. Ignored if unset.
+   --step value, -s value       resume all uploads in the given postprocessing step. Ignored if upload-id is set. (default: "finished")
+----
 
 [NOTE]
 ====
@@ -73,13 +102,15 @@ When restarting an upload, all steps for open items will be restarted, except if
 When resuming an upload, processing will continue unfinished items from their last completed step.
 ====
 
-If post-processing fails in one step due to an unforeseen error, current uploads will not be resumed automatically. A system administrator can instead run CLI commands to resume the failed upload manually which is at minimum a two step process.
+The resume/restart command is, at a minimum, a two-step process that requires commands from the `storage-users` service.
 
 NOTE: For details on the `storage-users` command which provides many options see the xref:{s-path}/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] documentation.
 
 Depending if you want to restart/resume all or defined failed uploads, different commands are used.
 
-* First, list ongoing upload sessions to identify possibly failed ones. +
+* Failed uploads by session:
+
+** First, list ongoing upload sessions to identify possibly failed ones. +
 Note that there never can be a clear identification of a failed upload session due to various reasons causing them. You need to apply more critera like free space on disk, a failed service like antivirus etc. to declare an upload as failed.
 +
 [source,bash]
@@ -87,47 +118,51 @@ Note that there never can be a clear identification of a failed upload session d
 ocis storage-users uploads sessions
 ----
 
-{empty}
-
-* *All failed uploads*
-+
---
+** *All failed uploads* +
 If you want to restart/resume all failed uploads, just rerun the command with the relevant flag. Note that this is the preferred command to handle failed processing steps:
-
++
 [source,bash]
 ----
 ocis storage-users uploads sessions --resume
 ----
-{empty}
---
 
-* *Particular failed uploads* +
+{empty} +
+
+* Failed uploads by ID or step: +
 Use the `postprocessing` command to resume defined failed uploads. For postprocessing steps, the default is to resume . Note that at the moment, `resume` is an alias for `restart` to keep old functionality. `restart` is subject to change and will most likely be removed in a later version.
- 
-** *Defined by ID*
-+
---
-If you want to resume only a specific upload, use the postprocessing resume command with the ID selected:
 
+** *Defined by ID* +
+If you want to resume only a specific upload, use the postprocessing resume command with the ID selected:
++
 [source,bash]
 ----
 ocis postprocessing resume -u <uploadID>
 ----
-{empty}
---
 
-** *Defined by step*
+** *Defined by step* +
+Alternatively, instead of restarting one specific upload, a system admin can also resume all uploads that are currently in a specific step.
 +
 --
-Alternatively, instead of restarting one specific upload, a system admin can also resume all uploads that are currently in a specific step.
-
-Examples:
-
+Command examples:
 [source,bash]
 ----
 ocis postprocessing resume                # Resumes all uploads where postprocessing is finished, but upload is not finished.
 ocis postprocessing resume -s "finished"  # Equivalent to the above.
 ocis postprocessing resume -s "virusscan" # Resume all uploads currently in virusscan step.
+----
+
+Output example:
+[source,plaintext]
+----
+
+$ ocis postprocessing resume --step finished
+┌──────────────────────────────────────┬──────────────┬──────┬──────────┬──────────┬──────┐
+│              UPLOAD ID               │   FILENAME   │ SIZE │   STEP   │ FINISHED │ USER │
+├──────────────────────────────────────┼──────────────┼──────┼──────────┼──────────┼──────┤
+│ a5b81897-0471-4ca0-9965-259263363f35 │ New file.txt │ 4    │ finished │ false    │ paul │
+└──────────────────────────────────────┴──────────────┴──────┴──────────┴──────────┴──────┘
+
+Resumed 1 upload(s) at step "finished"
 ----
 --
 
