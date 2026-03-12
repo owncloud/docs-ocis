@@ -45,13 +45,15 @@ PROXY_ENABLE_APP_AUTH=true      # mandatory, allow app authentication. In case o
 
 == App Tokens
 
+In any example, replace `<your host[:port]>` with the URL:port of your Infinite Scale instance, and `$\{xxx}` accordingly. Note that variables in curly braces are command variables prepared for use with shell environment variables. The complete notation can be fully replaced by their value.
+
 === Via CLI 
 
-App Tokens are used to authenticate 3rd party access via https like when using curl (apps) to access an API endpoint. These apps need to authenticate themselves, as no logged in user authenticates the request. To be able to use an app token, one must first create a token via the cli. Replace the `user-name` with an existing Infinite Scale user. For the `token-expiration`, you can use any time abbreviation from the following list: `h, m, s`. Examples: `72h` or `1h` or `1m` or `1s.` Default is `72h`.
+App Tokens are used to authenticate 3rd party access via https like when using curl (apps) to access an API endpoint. These apps need to authenticate themselves, as no logged in user authenticates the request. To be able to use an app token, one must first create a token via the cli. Replace the `user-name` with an existing Infinite Scale user. For the `token_expiration`, you can use any time abbreviation from the following list: `h, m, s`. Examples: `72h` or `1h` or `1m` or `1s.` Default is `72h`.
 
 [source,bash]
 ----
-ocis auth-app create --user-name={user-name} --expiration={token-expiration}
+ocis auth-app create --user-name=${user} --expiration=${token_expiration}
 ----
 
 Once generated, these tokens can be used to authenticate requests to ocis. They are passed as part of the request as `Basic Auth` header.
@@ -62,7 +64,7 @@ An in-depth method to manage tokens is to use the API, which needs a bit more pr
 
 The `auth-app` service provides an API to create (POST), list (GET) and delete (DELETE) tokens at the `/auth-app/tokens` endpoint.
 
-When using curl for the respective command, you need to authenticate with a header. To do so, get from the browsers developer console the currently active bearer token. Consider that this token has a short lifetime. In any example, replace `<your host[:port]>` with the URL:port of your Infinite Scale instance, and `\{token}`  `\{value}` accordingly.
+When using curl for the respective command, you need to authenticate with a header. To do so, get from the browsers developer console the currently active bearer token. Consider that this token has a short lifetime.
 
 IMPORTANT: The active bearer token authenticates the user the token was issued for. Which means that any action taken and any output printed is only valid for the user authenticated.
 
@@ -79,9 +81,9 @@ To get an active bearer token, see the xref:maintenance/space-ids/space-ids.adoc
 .Command
 [source,bash]
 ----
-curl --request POST 'https://<your host:9200>/auth-app/tokens?expiry={value}' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer {token}'
+curl --request POST "https://<your host:9200>/auth-app/tokens?expiry=${token_expiration}" \
+     --header "accept: application/json" \
+     --header "authorization: Bearer ${token}"
 ----
 
 .Example output:
@@ -107,9 +109,9 @@ Note that `--request GET` is technically not required because it is curl default
 .Command
 [source,bash]
 ----
-curl --request GET 'https://<your host:9200>/auth-app/tokens' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer {token}'
+curl --request GET "https://<your host:9200>/auth-app/tokens" \
+     --header "accept: application/json" \
+     --header "authorization: Bearer ${token}"
 ----
 
 .Example output:
@@ -144,9 +146,9 @@ To get an active bearer token, see the xref:maintenance/space-ids/space-ids.adoc
 .Command
 [source,bash]
 ----
-curl --request DELETE 'https://<your host:9200>/auth-app/tokens?token={value}' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer {token}'
+curl --request DELETE "https://<your host:9200>/auth-app/tokens?token=${token_issued}" \
+     --header "accept: application/json" \
+     --header "authorization: Bearer ${token}"
 ----
 --
 
@@ -156,11 +158,11 @@ When setting the environment variable `AUTH_APP_ENABLE_IMPERSONATION` to `true`,
 
 To impersonate, the respective requests from the CLI commands above extend with the following parameters, where you can use one or the other:
 
-* The `userID` in the form of: `userID=\{value}`
+* The `userID` in the form of: `userID=$\{user}`
 **  Example: +
 `userID=4c510ada- ... -42cdf82c3d51`
 
-* The `userName` in the form of: `userName=\{value}`
+* The `userName` in the form of: `userName=$\{user}`
 **  Example: +
 `userName=einstein`
 
@@ -169,9 +171,9 @@ A final create request would then look like, where the bearer token is the one o
 .Command
 [source,bash]
 ----
-curl --request POST 'https://<your host:9200>/auth-app/tokens?expiry={value}&userName={value}' \
-     --header 'accept: application/json' \
-     --header 'authorization: Bearer {token}'
+curl --request POST "https://<your host:9200>/auth-app/tokens?expiry=\{value}&userName=${user}" \
+     --header "accept: application/json" \
+     --header "authorization: Bearer ${token}"
 ----
 
 == Configuration
