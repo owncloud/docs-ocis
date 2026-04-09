@@ -1,0 +1,99 @@
+= Terminology
+:toc: right
+:toclevels: 3
+
+Communication is hard. And clear communication is even harder. You may encounter the following terms throughout the documentation, in the code or when talking to other developers. Just keep in mind that whenever you hear or read _storage_, that term needs to be clarified, because on its own it is too vague. PR welcome.
+
+== Logical concepts
+
+=== Resources
+A _resource_ is the basic building block that oCIS manages. It can be of link:https://cs3org.github.io/cs3apis/#cs3.storage.provider.v1beta1.ResourceType[different types]:
+- an actual _file_
+- a _container_, e.g. a folder or bucket
+- a _symlink_, or
+- a xref:#references.adoc[_reference_] which can point to a resource in another xref:#storage-providers.adoc[_storage provider_]
+
+=== References
+A _reference_ identifies a xref:#resources.adoc[_resource_]. A link:https://cs3org.github.io/cs3apis/#cs3.storage.provider.v1beta1.Reference[_CS3 reference_] can carry a _path_ and a link:https://cs3org.github.io/cs3apis/#cs3.storage.provider.v1beta1.ResourceId[CS3 _resource id_]. The references come in two flavors: absolute and combined.
+Absolute references have either the _path_ or the _resource id_ set:
+- An absolute _path_ MUST start with a `/`. The _resource id_ MUST be empty.
+- An absolute _resource id_ uniquely identifies a xref:#resources.adoc[_resource_] and is used as a stable identifier for sharing. The _path_ MUST be empty.
+Combined references have both, _path_ and _resource id_ set:
+- the _resource id_ identifies the root xref:#resources.adoc[_resource_]
+- the _path_ is relative to that root. It MUST start with `.`
+== References
+
+A _reference_ is a logical concept that identifies a xref:#resources.adoc[_resource_]. A link:https://cs3org.github.io/cs3apis/#cs3.storage.provider.v1beta1.Reference[_CS3 reference_] consists of either
+- a _path_ based reference, used to identify a xref:#resources.adoc[_resource_] in the xref:./namespaces.adoc[_namespace_] of a xref:#storage-providers.adoc[_storage provider_]. It must start with a `/`.
+- a link:https://cs3org.github.io/cs3apis/#cs3.storage.provider.v1beta1.ResourceId[CS3 _id_ based reference], uniquely identifying a xref:#resources.adoc[_resource_] in the xref:./namespaces.adoc[_namespace_] of a xref:#storage-providers.adoc[_storage provider_]. It consists of a `storage provider id` and an `opaque id`. The `storage provider id` must NOT start with a `/`.
+
+[NOTE]
+====
+The `/` is important because currently the static xref:#storage-space-registries.adoc[_storage registry_] uses a map to look up which xref:#storage-providers.adoc[_storage provider_] is responsible for the resource. Paths must be prefixed with `/` so there can be no collisions between paths and storage provider ids in the same map.
+====
+
+
+== Storage Drivers
+
+A _storage driver_ implements access to a xref:#storage-systems.adoc[_storage system_]:
+
+It maps the _path_ and _id_ based CS3 _references_ to an appropriate xref:#storage-systems.adoc[_storage system_] specific reference, e.g.:
+- eos file ids
+- posix inodes or paths
+- deconstructed filesystem nodes
+
+[WARNING]
+====
+_Proposed Change_
+iOS clients can only queue single requests to be executed in the background. The queue an upload and need to be able to identify the uploaded file after it has been uploaded to the server. The disconnected nature of the connection might cause workflows or manual user interaction with the file on the server to move the file to a different place or changing the content while the device is offline. However, on the device users might have marked the file as favorite or added it to other iOS specific collections. To be able to reliably identify the file the client can generate a `uuid` and attach it to the file metadata during the upload. While it is not necessary to look up files by this `uuid` having a second file id that serves exactly the same purpose as the `file id` is redundant.
+
+Another aspect for the `file id` / `uuid` is that it must be a logical identifier that can be set, at least by internal systems. Without a writeable fileid we cannot restore backups or migrate storage spaces from one storage provider to another storage provider.
+
+Technically, this means that every storage driver needs to have a map of a `uuid` to in internal resource identifier. This internal resource identifier can be
+- an eos fileid, because eos can look up files by id
+- an inode if the filesystem and the storage driver support looking up by inode
+- a path if the storage driver has no way of looking up files by id.
+  - In this case other mechanisms like inotify, kernel audit or a fuse overlay might be used to keep the paths up to date.
+  - to prevent excessive writes when deep folders are renamed a reverse map might be used: it will map the `uuid` to `<parentuuid>:<childname>`, allowing to trade writes for reads
+
+====
+
+== Storage Providers
+
+== Technical concepts
+
+=== Storage Systems
+image::ocis/storage/storageprovider.drawio.svg[]
+
+A _storage provider_ manages multiple xref:#storage-space.adoc[_storage spaces_]
+by accessing a xref:#storage-systems.adoc[_storage system_] with a xref:#storage-drivers.adoc[_storage driver_].
+
+image::ocis/storage/storageprovider-spaces.drawio.svg[]
+
+== Storage Space Registries
+
+A xref:./spacesregistry.adoc[_storage spaces registry_] manages the xref:./namespaces.adoc[_namespace_] for a _user_
+
+== Storage Spaces
+A _storage space_ is a logical concept:
+It is a tree of xref:#resources.adoc[_resources_]_resources_
+with a single _owner_ (_user_ or _group_),
+a _quota_ and _permissions_, identified by a `storage space id`.
+
+image::ocis/storage/storagespace.drawio.svg[]
+
+Examples would be every user's home storage space, project storage spaces or group storage spaces. While they all serve different purposes and may or may not have workflows like antivirus scanning enabled, we need a way to identify and manage these subtrees in a generic way. By creating a dedicated concept for them this becomes easier and literally makes the codebase cleaner. A xref:#storage-space-registries.adoc[_storage space registry_] then allows listing the capabilities of xref:#storage-spaces.adoc[_storage spaces_], e.g. free space, quota, owner, syncable, root etag, upload workflow steps, ...
+
+Finally, a logical `storage space id` is not tied to a specific xref:#storage-providers.adoc[_storage provider_]. If the xref:#storage-drivers.adoc[_storage driver_] supports it, we can import existing files including their `file id`, which makes it possible to move xref:#storage-spaces.adoc[_storage spaces_] between xref:#storage-providers.adoc[_storage providers_] to implement storage classes, e.g. with or without archival, workflows, on SSDs or HDDs.
+
+== Shares
+_To be clarified: we are aware that xref:#storage-spaces.adoc[_storage spaces_] may be too 'heavyweight' for ad hoc sharing with groups. That being said, there is no technical reason why group shares should not be treated like xref:#storage-spaces.adoc[_storage spaces_] that users can provision themselves. They would share the quota with the users home xref:#storage-spaces.adoc[_storage space_] and the share initiator would be the sole owner. Technically, the mechanism of treating a share like a new xref:#storage-spaces.adoc[_storage space_] would be the same. This obviously also extends to user shares and even file individual shares that would be wrapped in a virtual collection. It would also become possible to share collections of arbitrary files in a single storage space, e.g. the ten best pictures from a large album._
+
+
+== Storage Systems
+Every _storage system_ has different native capabilities like id and path based lookups, recursive change time propagation, permissions, trash, versions, archival and more.
+A xref:#storage-providers.adoc[_storage provider_] makes the storage system available in the CS3 API by wrapping the capabilities as good as possible using a xref:./storagedrivers.adoc[_storage driver_].
+There might be multiple xref:./storagedrivers.adoc[_storage drivers_] for a _storage system_, implementing different tradeoffs to match varying requirements.
+
+=== Gateways
+A _gateway_ acts as a facade to the storage related services. It authenticates and forwards API calls that are publicly accessible.

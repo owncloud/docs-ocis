@@ -1,0 +1,8 @@
+= Environment Variables
+:toc: right
+:toclevels: 3
+
+Environment variables are an essential part of configuring services.
+
+If you are going to create new ones or deprecate existing ones, you must read the xref:services/general-info/envvars/envvar-naming-scopes.adoc[Envvar Naming Scope] and the 
+xref:services/general-info/envvars/deprecating-variables.adoc[Deprecating Variables] documentation for more details first before doing so.

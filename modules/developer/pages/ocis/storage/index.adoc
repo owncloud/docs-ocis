@@ -1,0 +1,30 @@
+= Storage
+:toc: right
+:toclevels: 3
+
+== Overview
+
+OCIS wraps link:https://github.com/cs3org/reva/[reva] and adds an opinionated configuration to provide two core services for the oCIS platform:
+1. A xref:./spacesregistry.adoc[_Spaces Registry_] that acts as a dictionary for storage _Spaces_ and their metadata
+2. A xref:./spacesprovider.adoc[_Spaces Provider_] that organizes _Resources_ in storage _Spaces_ and persists them in an underlying _Storage System_
+
+_Clients_ will use the _Spaces Registry_ to poll or get notified about changes in all _Spaces_ a user has access to. Every _Space_ has a dedicated `/dav/spaces/<spaceid>` WebDAV endpoint that is served by a _Spaces Provider_ which uses a specific reva storage driver to wrap an underlying _Storage System_.
+
+image::ocis/storage/overview.drawio.svg[]
+
+The dashed lines in the diagram indicate requests that are made to authenticate requests or lookup the storage provider:
+1. After authenticating a request, the proxy may either use the CS3 `userprovider` or the accounts service to fetch the user information that will be minted into the `x-access-token`.
+2. The gateway will verify the JWT signature of the `x-access-token` or try to authenticate the request itself, e.g. using a public link token.
+
+[WARNING]
+====
+The bottom part is lighter because we will deprecate it in favor of using only the CS3 user and group providers after moving some account functionality into reva and glauth. The metadata storage is not registered in the reva gateway to separate metadata necessary for running the service from data that is being served directly.
+====
+
+
+== Endpoints and references
+
+In order to reason about the request flow, two aspects in the architecture need to be understood well:
+1. What kind of xref:./namespaces.adoc[_namespaces_] are presented at the different WebDAV and CS3 endpoints?
+2. What kind of xref:./terminology.md#resources.adoc[_resource_] xref:./terminology.md#references.adoc[_references_] are exposed or required: path or id based?
+image::ocis/storage/storage.drawio.svg[]
