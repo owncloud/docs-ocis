@@ -1,0 +1,17 @@
+= Spaces Registry
+:toc: right
+:toclevels: 3
+
+[WARNING]
+====
+
+The current implementation in oCIS might not yet fully reflect this concept. Feel free to add links to ADRs, PRs and Issues in short warning boxes like this.
+
+====
+
+
+== Storage Space Registries
+
+A storage _spaces registry_ manages the xref:./namespaces.adoc[_namespace_] for a _user_: it is used by _clients_ to look up storage spaces a user has access to, the `/dav/spaces` endpoint to access it via WabDAV, and where the client should mount it in the users personal namespace.
+
+image::ocis/storage/spacesregistry.drawio.svg[]

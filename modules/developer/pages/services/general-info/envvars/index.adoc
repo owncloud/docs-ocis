@@ -1,0 +1,9 @@
+= Environment Variables
+:toc: right
+:toclevels: 3
+
+== General Information
+
+This section provides general information how to manage environment variables.
+
+Additionally read the link:https://github.com/owncloud/ocis/tree/master/docs/helpers#readme[helper README] for internal details how envvars are managed.

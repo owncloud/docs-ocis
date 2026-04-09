@@ -1,0 +1,7 @@
+= General Information
+:toc: right
+:toclevels: 3
+
+== General Information
+
+This section provides general information valid for all services.

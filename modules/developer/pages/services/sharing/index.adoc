@@ -1,0 +1,10 @@
+= Sharing
+:toc: right
+:toclevels: 3
+
+== Abstract
+
+This service implements the CS3 link:https://cs3org.github.io/cs3apis/#cs3.sharing.link.v1beta1.LinkAPI[LinkAPI] to manage public links as well as the link:https://cs3org.github.io/cs3apis/#cs3.sharing.collaboration.v1beta1.CollaborationAPI[CollaborationAPI] to manage user and group shares.
+
+== Table of Contents
+

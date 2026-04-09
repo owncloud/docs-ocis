@@ -1,0 +1,16 @@
+= Guides
+:toc: right
+:toclevels: 3
+
+
+== Step-by-step Guides
+
+These guides should extend the generic documentation and help admins to learn Infinite Scale through digestable "hands-on" sessions.
+
+=== Available Guides
+
+oCIS deployments are super simple, yet there are many configurations possible for advanced setups.
+
+- {{< icon "docker" >}} xref:ocis-mini-eval.adoc[Minimalistic Evaluation Guide for oCIS with Docker] - minimalistic evaluation
+- {{< icon "docker" >}} xref:ocis-local-docker.adoc[Discover oCIS with Docker] - configure domain, certificates and port
+- {{< icon "person-walking-luggage" >}} xref:migrate-data-rclone.adoc[Migrate data to Infinite Scale]

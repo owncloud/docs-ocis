@@ -1,0 +1,13 @@
+= Service Configuration
+:toc: right
+:toclevels: 3
+
+== Example YAML Config
+
+// AUTO-GENERATED CONTENT: services/_includes/antivirus-config-example.yaml
+[source,yaml]
+----
+// Include from: services/_includes/antivirus-config-example.yaml
+----
+
+// AUTO-GENERATED CONTENT: services/_includes/antivirus_configvars.md
