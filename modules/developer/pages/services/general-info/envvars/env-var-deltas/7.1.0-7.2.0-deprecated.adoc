@@ -1,0 +1,7 @@
+:toc: right
+:toclevels: 3
+
+Note that the links provided in the service column are non functional when clicked.
+
+| Service | Variable | Description | Removal Version | Deprecation Info |
+| --- | --- | --- | --- | --- |

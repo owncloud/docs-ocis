@@ -1,0 +1,18 @@
+= Create a New CLI Command
+:toc: right
+:toclevels: 3
+
+
+[NOTE]
+====
+Existing commands should be checked for commonly used options whenever a new CLI command is created, regardless of whether it is embedded in a service or not. For an example you can see the xref:./service_independent_cli.adoc[Service Independent CLI] documentation.
+====
+
+
+== CLI Embedded in a Service
+
+These commands are usually located in the `<service-name>/pkg/command` subfolder.
+
+== CLI Independent of a Service
+
+These commands are located in the `ocis/pkg/command` subfolder.

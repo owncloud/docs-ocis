@@ -1,0 +1,11 @@
+= Services
+:toc: right
+:toclevels: 3
+
+The documentation of services is intended for developers and only reflects the state of the master branch of the ocis repo.
+
+[WARNING]
+====
+See the link:https://doc.owncloud.com/ocis/next/deployment/services/services.html[admin documentation] which provides versioned content suitable for administrators. This documentation also offers other useful information including deployment guides.
+====
+

@@ -1,0 +1,13 @@
+= Service Configuration
+:toc: right
+:toclevels: 3
+
+== Example YAML Config
+
+// AUTO-GENERATED CONTENT: services/_includes/notifications-config-example.yaml
+[source,yaml]
+----
+// Include from: services/_includes/notifications-config-example.yaml
+----
+
+// AUTO-GENERATED CONTENT: services/_includes/notifications_configvars.md

@@ -1,0 +1,37 @@
+= Service Independent Envvars
+:toc: right
+:toclevels: 3
+
+The following environment variables are service independent. You will find the respective code in the `ocis-pkg/` directory. See the link:https://doc.owncloud.com/ocis/7.3/deployment/services/env-vars-special-scope.html[Admin Documentation - Environment Variables with Special Scopes] for a comprehensive list and explanation.
+
+
+[NOTE]
+====
+See the xref:../services/general-info/envvars/.adoc[Environment Variables] documentation for common and important details on envvars.
+====
+
+
+== Service Registry
+
+This package configures the service registry which will be used to look up for example the service addresses.
+
+Available registries are:
+
+-   nats-js-kv (default)
+-   memory
+
+To configure which registry to use, you have to set the environment variable `MICRO_REGISTRY`, and for all except `memory` you also have to set the registry address via `MICRO_REGISTRY_ADDRESS` and other envvars.
+
+== Startup Related Envvars
+
+These envvars define the startup of ocis and can for example add or remove services from the startup process such as `OCIS_ADD_RUN_SERVICES`.
+
+== Memory Limits
+
+[NOTE]
+====
+Note that this envvar is for development purposes only and not described in the admin docs.
+====
+
+
+oCIS will automatically set the go native `GOMEMLIMIT` to `0.9`. To disable the limit set `AUTOMEMLIMIT=off`. For more information take a look at the official link:https://go.dev/doc/gc-guide[Guide to the Go Garbage Collector].
