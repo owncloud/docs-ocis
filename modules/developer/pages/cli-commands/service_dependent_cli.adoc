@@ -1,0 +1,36 @@
+= Service Dependent CLI
+:toc: right
+:toclevels: 3
+
+This document describes ocis CLI commands that are _embedded in a service_.
+
+
+== Common Parameters
+
+The ocis package offers a variety of CLI commands for monitoring or repairing ocis installations. Most of these commands have common parameters such as:
+
+* `--help` (or `-h`)\
+  Use to print all available options.
+
+* `--basePath` (or `-p`)\
+  Needs to point to a storage provider, paths can vary depending on your ocis installation. Example paths are:
+  ```bash
+  .ocis/storage/users          # bare metal installation
+  /var/tmp/ocis/storage/users  # docker installation
+  ...
+  ```
+
+* `--dry-run`\
+  This parameter, when available, defaults to `true` and must explicitly set to `false`.
+
+* `--verbose` (or `-v`)\
+  Get a more verbose output.
+
+== List of CLI Commands
+
+For CLI commands that are _embedded in a service_, see the following services:
+
+* xref:../services/auth-app/.adoc[Auth-App]
+* xref:../services/graph/.adoc[Graph]
+* xref:../services/postprocessing/.adoc[Postprocessing]
+* xref:../services/storage-users/.adoc[Storage-Users]

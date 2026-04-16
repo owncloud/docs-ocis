@@ -1,0 +1,5 @@
+= Release Notes
+:toc: right
+:toclevels: 3
+
+The Infinite Scale Release Notes have been moved and are published with the link:https://doc.owncloud.com/docs/next/ocis_release_notes.html[ownCloud Documentation].

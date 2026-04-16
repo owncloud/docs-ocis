@@ -1,0 +1,107 @@
+= Continuous Deployment
+:toc: right
+:toclevels: 3
+
+
+We are continuously deploying the following deployment examples. Every example is deployed in two flavors:
+
+- Master: reflects the current master branch state of oCIS and will be updated with every commit to master
+- Rolling: reflects the latest rolling release of oCIS and will be updated with every rolling release
+- Production: reflects the latest production release of oCIS and will be updated with every production release
+
+The configuration for the continuous deployment can be found in the link:https://github.com/owncloud/ocis/tree/master/deployments/continuous-deployment-config[oCIS repository].
+
+= oCIS with Web Office
+
+This deployment is based on our modular xref:ocis_full.adoc[ocis_full Example] and uses the default configuration with Collabora Online as the office suite, traefik reverse proxy, cloudimporter and the mailpit mail catching server to showcase the full feature set of oCIS.
+
+Credentials:
+
+- oCIS: see xref:../getting-started#login-to-owncloud-web.adoc[default demo users]
+
+== Master
+
+- oCIS: link:https://ocis.ocis.master.owncloud.works[ocis.ocis.master.owncloud.works]
+- Mail: link:https://mail.ocis.master.owncloud.works[mail.ocis.master.owncloud.works]
+
+== Rolling Release
+
+- oCIS: link:https://ocis.ocis.rolling.owncloud.works[ocis.ocis.rolling.owncloud.works]
+- Mail: link:https://mail.ocis.rolling.owncloud.works[mail.ocis.rolling.owncloud.works]
+
+== Production Release
+
+- oCIS: link:https://ocis.ocis.production.owncloud.works[ocis.ocis.production.owncloud.works]
+- Mail: link:https://mail.ocis.production.owncloud.works[mail.ocis.production.owncloud.works]
+
+== Master with OnlyOffice
+
+This example is using OnlyOffice as the office suite.
+
+- oCIS: link:https://ocis.ocis-onlyoffice.master.owncloud.works[ocis.ocis-onlyoffice.master.owncloud.works]
+
+== Rolling Release with OnlyOffice
+
+This example is using OnlyOffice as the office suite.
+
+- oCIS: link:https://ocis.ocis-onlyoffice.rolling.owncloud.works[ocis.ocis-onlyoffice.rolling.owncloud.works]
+
+= oCIS and ownCloud Web with both most recent development versions
+
+Credentials:
+
+- oCIS: see xref:../getting-started#login-to-owncloud-web.adoc[default demo users]
+
+== Master branches
+
+- oCIS: link:https://ocis.ocis-web.master.owncloud.works[ocis.ocis-web.master.owncloud.works]
+
+= oCIS with Keycloak
+
+Credentials:
+
+- oCIS: see xref:../getting-started#login-to-owncloud-web.adoc[default demo users]
+- Keycloak:
+  - username: admin
+  - password: admin
+
+== Rolling Release
+
+- oCIS: link:https://ocis.ocis-keycloak.rolling.owncloud.works[ocis.ocis-keycloak.rolling.owncloud.works]
+- Keycloak admin access: link:https://keycloak.ocis-keycloak.rolling.owncloud.works[keycloak.ocis-keycloak.rolling.owncloud.works]
+- Keycloak account management: link:https://keycloak.ocis-keycloak.rolling.owncloud.works/realms/oCIS/account/#/[keycloak.ocis-keycloak.rolling.owncloud.works/realms/oCIS/account/#/]
+
+
+= oCIS with S3 storage backend (MinIO)
+
+This deployment is based on our modular xref:ocis_full.adoc[ocis_full Example], see the <<ocis_with_web_office,oCIS with Web Office>> description for the feature set. In addition to that, we deployed a MinIO S3 storage backend. oCIS stores the data in the S3 server and the metadata on the local disk by using the `s3ng` storage driver.
+
+The MinIO server provides a powerful Web UI for browser-based access to the storage which makes it possible to manage the data stored in the S3 server and understand how different policies and configurations affect the data.
+
+Credentials:
+
+- oCIS: see xref:../getting-started/demo-users/.adoc[default demo users]
+- MinIO:
+  - access key: ocis
+  - secret access key: ocis-secret-key
+
+== Rolling Release
+
+- oCIS: link:https://ocis.ocis-s3.rolling.owncloud.works[ocis.ocis-s3.rolling.owncloud.works]
+- MinIO: link:https://minio.ocis-s3.rolling.owncloud.works[minio.ocis-s3.rolling.owncloud.works]
+- Mail: link:https://mail.ocis-s3.rolling.owncloud.works[mail.ocis-s3.rolling.owncloud.works]
+
+= oCIS with LDAP for users and groups
+
+Credentials:
+
+- oCIS: see xref:../getting-started/demo-users/.adoc[default demo users]
+- LDAP admin:
+  - username: cn=admin,dc=owncloud,dc=com
+  - password: admin
+
+== Rolling Release
+
+- oCIS: link:https://ocis.ocis-ldap.rolling.owncloud.works[ocis.ocis-ldap.rolling.owncloud.works]
+- LDAP admin: link:https://ldap.ocis-ldap.rolling.owncloud.works[ldap.ocis-ldap.rolling.owncloud.works]
+
