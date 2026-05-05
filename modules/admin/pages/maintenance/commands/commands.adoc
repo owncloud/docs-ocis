@@ -1,0 +1,126 @@
+= Maintenance Commands
+:toc: right
+:description: There are commands availabe to maintain the Infinite Scale instance. This document gives an overview of the available commands and links to the related services where they are implemented for more details.
+:page-aliases: ROOT:maintenance/commands/commands.adoc
+
+== Introduction
+
+{description}
+
+[NOTE]
+====
+* Calling a service in the examples is made by entering the shell of the container first.
+* Generic call: +
+`ocis <service name> arguments options`.
+====
+
+== Changed CLI Commands
+
+CLI commands can get added, changed or removed between versions. See the xref:maintenance/commands/changed-cli.adoc[Changed or Added CLI Commands] document for details.
+ 
+== Offline Commands
+
+Compared to online commands that need to be issued during operation of Infinite Scale, offline commands can, and somtimes must only be issued if Infinite Scale is not running.
+
+=== Common Path Parameter
+
+Infinite Scale offers a variety of offline CLI commands to monitor or repair Infinite Scale installations. Many of these commands have a common mandatory parameter: `--basePath` (or `-p`) which needs to point to a storage provider. Example paths are:
+
+----
+$HOME/.ocis/storage/users    # bare metal deployment
+
+/var/lib/ocis/storage/users  # docker deployment 
+
+...
+----
+
+These paths can vary depending on your Infinite Scale installation, for more information see the xref:deployment/general/general-info.adoc#base-data-directory[Base Data Directory].
+
+=== Backup Consistency
+
+Infinite Scale provides a xref:maintenance/commands/backup-consistency.adoc[CLI command] with which you can inspect the consistency of an Infinite Scale storage.
+
+NOTE: This command MUST only be issued when Infinite Scale is offline and no services are running. This command will report false positives when issued during normal operation.
+
+=== Move Stuck Uploads
+
+In some cases of saturated disk usage, Infinite Scale metadata may become stuck. This can occur when file metadata is being moved to its final destination after file operations. This issue was primarily seen with shares where uploaded files could not be accessed. This command remedies the issue. See the xref:maintenance/commands/move-stuck-uploads.adoc[Move Stuck Uploads] commands for more details.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
+
+=== Reset Password for IDM Users
+
+If you need to reset the password for the admin or a user in the xref:{s-path}/idm.adoc[idm] service from the command line, follow the xref:deployment/general/general-info.adoc#password-reset-for-idm-users[Password Reset for IDM Users].
+
+=== Revisions Cleanup
+
+Infinite Scale provides a xref:maintenance/commands/revisions-cleanup.adoc[CLI command] which allows removing revisions of files in the storage.
+
+=== Service Health
+
+Infinite Scale provides a xref:maintenance/commands/service-health.adoc[CLI command] checking the health of a service.
+
+=== Trash Purge
+
+Infinite Scale provides a xref:maintenance/commands/trash.adoc[CLI command] with which you can remove empty folders from the trashbin.
+
+== Online Only Commands
+
+Compared to offline commands that can be issued when Infinite Scale is shut down, online commands must be issued when Infinite Scale and the respective service(es) are running.
+
+=== Auth-Tokens
+
+App Tokens are used to authenticate 3rd party access via https like when using curl (apps) to access an API endpoint. These apps need to authenticate themselves, as no logged in user authenticates the request. To be able to use an app token, one must first create a token via the cli. For details see the description in the xref:{s-path}/auth-app.adoc[auth-app] service.
+
+=== Cleanup Orphaned Grants
+
+Detect and, if desired, delete storage grants that have no corresponding share-manager entry. This can occur when a share is deleted, but the removal process is not completed successfully. Use the following xref:maintenance/commands/cleanup-orphaned-grants.adoc[CLI command] to cleanup those orphaned share grants.
+
+=== Cleanup Orphaned Shares
+
+When a shared space or directory got deleted, use the following xref:maintenance/commands/cleanup-orphaned-shares.adoc[CLI command] to cleanup those share orphans. This can't be done automatically at the moment.
+
+=== Inspect and Manipulate Node Metadata
+
+Infinite Scale provides a xref:maintenance/commands/node-metadata.adoc[CLI command] with which you can inspect and manipulate node metadata.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
+
+=== Inspect and Repair Node Tree Sizes
+
+Infinite Scale provides a xref:maintenance/commands/node-tree-size.adoc[CLI command] with which you can inspect and repair node tree sizes. This command can be necessary in very rare cases where spaces or files are shown in the Web UI with a size not matching reality. For the repair option Infinite Scale must be shut down.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
+
+=== Manage Expired or Stale Uploads
+
+Compared to unfinished uploads which are handled by the system, managing expired uploads can be a necessity as those files can pile up, blocking storage resources and need to be removed by command regularly. See the xref:{s-path}/storage-users.adoc#manage-unfinished-or-stale-uploads[Manage Unfinished or Stale Uploads] section at the _Storage Users_ service for details.
+
+=== Purge Expired Space Trash-Bin Items
+
+This command is about purging old trash-bin items of `project` spaces (spaces that have been created manually) and `personal` spaces. See the xref:{s-path}/storage-users.adoc#cli-commands[CLI Commands] section at the _Storage Users_ service for details.
+
+=== Reindex Spaces for Search
+
+In rare circumstances, it can be necessary to initiate indexing manually for a given space a user has access to or all spaces. Though the search service handles exception cases automatically, it can happen that the search service was not able to complete indexing due to a dirty shut-down of the service or because of a bug. Re-indexing should *only* be run on explicit request and supervision by ownCloud support. See the xref:{s-path}/search.adoc#manually-trigger-re-indexing-spaces[Manually Trigger Re-Indexing Spaces] section at the _Search_ service for details.
+
+=== Repair and Migrate jsoncs3 Indexes
+
+A xref:maintenance/commands/rebuild-jsoncs3-indexes.adoc[CLI command] is provided to repair and migrate jsoncs3 indexes. In rare circumstances the data for shares from the "Shared with others" and "Shared with me" index can be corrupted though no data is lost. When using this command, you can recreate that index and migrate it to a new layout which fixes the issue.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+=== Resume Post-Processing
+
+If post-processing fails in one step due to an unforeseen error, current uploads will not be retried automatically. A system administrator can instead run a xref:{s-path}/postprocessing.adoc#cli-commands[CLI Command] to retry the failed upload.
+
+
+=== Roll Back / Roll Forward Decomposedfs Migrations
+
+A xref:maintenance/commands/rolling-back-and-forward.adoc[CLI command] is provided to roll back or roll forward a decomposedfs migration.
+
+WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support. 
+
+=== Sending Grouped Emails
+
+This command is about sending emails based on events stored in a named group bucket. See the xref:{s-path}/notifications.adoc#sending-grouped-emails[Sending Grouped Emails] section in the _notification_ service for details.

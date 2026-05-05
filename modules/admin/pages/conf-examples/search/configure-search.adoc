@@ -1,0 +1,59 @@
+= Configuring Search
+:toc: right
+:toclevels: 3
+:description: This document gives some guidance and notes about how to configure the search service.
+:page-aliases: ROOT:conf-examples/search/configure-search.adoc
+
+:tika-version: 3.2.0
+:configure-tika-url: https://tika.apache.org/{tika-version}/configuring.html
+
+== Introduction
+
+{description} Using search is a good way to find documents based on various criteria. The search service will return results for documents the searcher is eligible to access. Read the description of the xref:{s-path}/search.adoc[search service] for more details.
+
+You can use basic search functionality without any configuration as it is preconfigured when using the default container deployment.
+
+== Index Data
+
+With basic search, only metadata is indexed. Content can be searched when configuring Tika as the content extraction engine.
+
+* *Metadata:* all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
+* *Content:* all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
+
+Depending on the configuration, space requirements can differ. 
+
+== General Considerations
+
+=== Space Requirements
+
+See the xref:{s-path}/search.adoc#space-requiremen[Space Requiremen] for more details.
+
+=== Index Management
+
+See the xref:{s-path}/search.adoc#index-management[Index Management] for more details.
+ 
+== Content Extraction and Indexing
+
+To search for content, a content extraction engine needs to be installed and configured. Infinite scale currently supports https://tika.apache.org[Apache Tika - a content analysis toolkit] to extract content.
+
+=== Tika Extractor
+
+Though you can compile Tika manually on your system by following the https://tika.apache.org/{tika-version}/gettingstarted.html[Getting Started with Apache Tika] guide (newer Tika versions may be available) or download a precompiled https://tika.apache.org/download.html[Tika server], you can also run Tika using a https://hub.docker.com/r/apache/tika[Tika container]. The xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example is based on this container and is ready to use.
+
+==== Prerequisites
+
+The following describes how to make Tika available for your environment.
+
+==== Configure Search using the Tika Extractor
+
+As prerequisite, Tika needs to be accessible via `\http://your-server:9998` either using the manual installation or via docker. You can decide to let Tika run on the same or a separate server from where the search service runs. The following configuration assumes that all Infinite Scale services including the search service and Tika run on the same hardware.
+
+The necessary environment variables to be set are described at the xref:{s-path}/search.adoc#tika-extractor[Tika Extractor] documentation.
+
+==== Configuring Tika
+
+Though in the majority of cases not necessary, components of Tika can be configured if required by providing an xml file with necessary data. For more information see {configure-tika-url}[Configuring Tika] on their web page.
+
+=== Scaling Tika
+
+Tika can be scaled and usually a loadbalancer is needed to distribute access to the Tika instances. This document does not cover how to do so. 

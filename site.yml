@@ -10,15 +10,29 @@ content:
     branches:
     - HEAD
 
-ui:
-  output_dir: assets
-  bundle:
-    snapshot: true
-    url: https://github.com/owncloud/docs-ui/releases/download/latest/ui-bundle.zip
+urls:
+  # https://docs.antora.org/antora/latest/playbook/urls-redirect-facility/
+  redirect_facility: static
+  # see https://docs.antora.org/antora/latest/playbook/urls-latest-prerelease-version-segment/
+  # for multi version components, the prerelease key defines if the latest segment is shown in the URL or only redirected when entered
+  latest_version_segment: latest
+  # latest_prerelease_version_segment: next  # do not enable, we are not using this. the upcoming release version is unknown
+  latest_version_segment_strategy: replace   # default, do not change. GH Pages currently do not support 302 as gitlab does
+
+runtime:
+  fetch: true
+  cache_dir: ./.cache
 
 output:
   clean: true
   dir: public
+
+ui:
+  # supplemental_files: supplemental
+  output_dir: assets
+  bundle:
+    snapshot: true
+    url: https://github.com/owncloud/docs-ui/releases/download/latest/ui-bundle.zip
 
 asciidoc:
   attributes:
@@ -30,8 +44,8 @@ asciidoc:
     # Versions mainly for printing like in docs-main release info.
     # Versions in the ocis docs need to be defined in the branch specific docs-ocis/antora.yaml file.
     # To do so, change the values in the branch of docs-ocis/antora.yml like service_xxx and compose_xxx.
-    ocis-actual-version: '7.2.0'
-    ocis-former-version: '7.1.3'
+    ocis-actual-version: '8.0.0'
+    ocis-former-version: '7.3.0'
   extensions:
     - ./ext-asciidoc/tabs.js
     - ./ext-asciidoc/remote-include-processor.js
