@@ -1,0 +1,41 @@
+= Logging
+:toc: right
+:description: Setting the proper log level is a way of filtering important information about the state of Infinite Scale. Depending on what you are looking for, the log output will be more or less verbose.
+:page-aliases: ROOT:deployment/services/logging.adoc
+
+== Introduction
+
+{description} By default Infinite Scale logs to `stderr`. For Docker, everything can be seen in the docker logs output.
+
+== Log Levels
+
+The following log levels are provided by Infinite Scale. You can set the log level on a global basis using the environment variable `OCIS_LOG_LEVEL` which is valid for all services. There are also independent logging variables for each service which are only valid for that service, overwriting the setting of the global one. Using this method is beneficial when drilling down an issue for a particular service without changing the level for other services. The default setting is `OCIS_LOG_LEVEL=error` without setting a particular log level for a service.
+
+=== FATAL
+
+FATAL means, that the application is about to stop a serious problem or corruption from happening. This level of logging shows that the application’s situation is catastrophic, such that an important function is not working. For example the application is unable to connect to the data store due to config errors or not able to parse the config.
+
+=== ERROR
+
+This is the default log level, all errors on this level are important for admins because they need to fix them. This log level is used when a severe issue is stopping functions within the application from operating correctly. Infinite Scale logs all kinds of inter-service-communication errors on this level because these need to be addressed.
+
+=== WARN
+
+The WARN log level is used when ocis detects an unexpected failure during an operation. It is also used if some operations might be incomplete. It does not mean that the application has been harmed, the code should continue to work as usual. Admins should eventually check these warnings just in case the problem reoccurs.
+
+=== INFO
+
+Messages on this level are documenting the normal behavior of applications. They state what happened. These entries are purely informative to confirm that the application is working as desired. The info log level also enables the Infinite Scale xref:{s-path}/proxy.adoc[Proxy] to write a full access log.
+
+=== DEBUG
+
+This log level provides diagnostic information in a detailed manner. It is verbose and has more information than you would need when using the application. This log level is used to understand problems in the application and during reproduction of problems. This log level could put a very high load on the output device and is not recommended in production environments. You should consider enabling this level only on a single service or very few services to pinpoint issues or bugs.
+
+== Correlate Incoming Requests
+
+To correlate client requests with logged Infinite Scale activity `X-Request-ID` headers are used.
+
+=== X-Request-ID
+
+All ownCloud clients follow the best practice to send an `X-Request-ID` header by default on each request without the need of explicitly enabling that behaviour. The `X-Request-ID` is a client generated random UUID v4 string and added by the backend to the logging metadata. You can find the string sent for reference in either the clients log or via the browser and correlate it with the backend log. When using `curl` for testing purposes and if you want to trace your request, you have to add the header manually via +
+`--header "X-Request-ID: <your-identification-string>"`.

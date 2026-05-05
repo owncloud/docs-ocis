@@ -1,0 +1,23 @@
+= Store Service Configuration
+:toc: right
+:description: The Infinite Scale Store service
+:page-aliases: ROOT:deployment/services/s-list/store.adoc
+
+:service_name: store
+
+== Introduction
+
+{description}
+
+NOTE: The store service is marked for deprecation and will be removed in a later version. Its tasks will be taken over by other services.
+
+
+// fixme: source description is still missing, and a better description is needed
+
+== Default Values
+
+* The store service listens on port 9460 by default.
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

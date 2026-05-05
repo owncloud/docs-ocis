@@ -1,0 +1,117 @@
+= Thumbnails Service Configuration
+:toc: right
+:description: The thumbnails service provides methods to generate thumbnails for various files and resolutions based on requests,
+:page-aliases: ROOT:deployment/services/s-list/thumbnails.adoc
+
+:service_name: thumbnails
+
+== Introduction
+
+{description} and is also responsible for presenting images, not only thumbnails to the client. It retrieves the sources at the location where the user files are stored and saves the thumbnails where system files are stored. Those locations have defaults but can be manually defined via environment variables.
+
+Note for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev/services/thumbnails/[Developer Documentation].
+
+== Default Values
+
+* Thumbnails listens on port 9185 by default.
+* The default location storing thumbnails is $OCIS_BASE_DATA_PATH/thumbnails
+
+== Thumbnailing Performance
+
+Thumbnail generation can consume considerably resources. For thumbnailing, two libraries are available. One library is embedded in the thumbnail service and statically linked where the other one is an external shared library, dynamically linked and must be available via the OS when accessing. The external shared library is not only much faster, but also provides more possible image types that can be converted. While the embedded library is only available with the developer version of Infinite Scale, the external library is built and preconfigured with the container deployment only. Note, if required, you can manually add the shared library to your OS and build Infinite Scale for the developer version on your own. To do so, see the https://owncloud.dev/services/thumbnails/[developer documentation, window=_blank] for more details.
+
+== Configuration Hints
+
+=== File Locations Overview
+
+The relevant environment variables defining file locations are:
+
+[width="100%",cols="35%,100%",options="header"]
+|===
+| Variable
+| Meaning
+
+| `OCIS_BASE_DATA_PATH` ^(1)^
+| Having a default set by the Infinite Scale code, but if defined, used as base path for other services.
+
+| `STORAGE_USERS_OCIS_ROOT`
+| Source files, defaults to ^(1)^ plus path component, but can be freely defined if required.  
+
+| `THUMBNAILS_FILESYSTEMSTORAGE_ROOT`
+| Target files, defaults to ^(1)^ plus path component, but can be freely defined if required.  
+|===
+
+=== Thumbnail Location
+
+It may be beneficial to define the location of the thumbnails to be other than the default (with system files). This is due to the fact that storing thumbnails can consume a lot of space over time which not necessarily needs to reside on the same partition or mount or expensive drives.
+
+=== Thumbnail Source File Types
+
+Thumbnails can be generated from the following source file types:
+
+-   png
+-   jpg
+-   gif
+-   tiff
+-   bmp
+-   txt
+
+The thumbnail service retrieves source files using the information provided by the backend. The Linux backend identifies source files usually based on the extension.
+
+If a file type was not properly assigned or the type identification failed, thumbnail generation will fail and an error will be logged.
+
+=== Thumbnail Target File Types
+
+Thumbnails can either be generated as `png`, `jpg` or `gif` files. These types are hardcoded and no other types can be requested. A requestor, like another service or a client, can request one of the available types to be generated. If more than one type is required, each type must be requested individually.
+
+=== Thumbnail Query String Parameters
+
+Clients can request thumbnail previews for files by adding `?preview=1` to the file URL. Requests for files with no thumbnail available respond with HTTP status 404. For a detailed list of parameters see: https://owncloud.dev/services/thumbnails/#thumbnail-query-string-parameters[Developer Documentation].
+
+=== Thumbnail Resolution
+
+Various resolutions can be defined via `THUMBNAILS_RESOLUTIONS`. A requestor can request any arbitrary resolution and the thumbnail service will use the one closest to the requested resolution. If more than one resolution is required, each resolution must be requested individually.
+
+{empty}
+
+[caption=]
+.Example
+[width="50%",cols="30%,40%",options="header"]
+|===
+| Type
+| Resolution
+
+| Requested
+| 18x12  
+
+| Available
+| 30x20, +
+15x10, +
+9x6  
+
+| Returned
+| 15x10  
+|===
+
+////
+=== Thumbnail Processors
+that section is covered in the dev docs only, see the comment in the page intro.
+////
+
+=== Deleting Thumbnails
+
+As of now, there is no automated thumbnail deletion. This is especially true when a source file gets deleted or moved. This situation will be solved at a later stage. For the time being, if you run short on physical thumbnails space, you have to manually delete the thumbnail store to free space. Thumbnails will then be recreated on request.
+
+=== Memory Considerations
+
+Since source files need to be loaded into memory when generating thumbnails, large source files could potentially crash this service if there is insufficient memory available. For bigger instances when using container orchestration deployment methods, this service can be dedicated to its own server(s) with more memory.
+
+To have more control over memory and CPU consumption, the maximum number of concurrent requests can be limited by setting the environment variable `THUMBNAILS_MAX_CONCURRENT_REQUESTS`. The default value is 0 which does not apply any restrictions to the number of concurrent requests. As soon as the number of concurrent requests is reached, any further request will be responded with `429/Too Many Requests` and a requesting client can retry at a later point in time.
+
+=== Thumbnails and SecureView
+
+If a resource is shared using SecureView, the share reciever will get a 403 (forbidden) response when requesting a thumbnail. The requesting client needs to decide what to show and usually a placeholder thumbnail is used.
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

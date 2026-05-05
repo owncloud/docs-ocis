@@ -1,0 +1,140 @@
+= Upgrading Infinite Scale
+:toc: right
+:toclevels: 2
+:description: When upgrading Infinite Scale, migration steps may be required. This document guides you through the necessary steps based on the versions used.
+:page-aliases: ROOT:migration/upgrading-ocis.adoc
+
+include::partial$multi-location/compose-version.adoc[]
+
+== Introduction
+
+{description}
+
+NOTE: For any Infinite Scale version to upgrade to, see {ocis-downloadpage-url}/stable/?sort=time&order=desc[download.owncloud.com,window=_blank] or {docker_ocis_prod_url}[Infinite Scale image] to get the right version.
+
+IMPORTANT: Before starting any upgrade, first make a xref:maintenance/b-r/backup.adoc[backup].
+
+IMPORTANT: If not explicitly mentioned, any upgrade is forward only and a step back is neither supported nor recommended and will most likely break the instance.
+
+IMPORTANT: When upgrading from an older release to the desired one, *ALL* upgrade steps from each release must be taken in order and none can be skipped.  
+
+IMPORTANT: When upgrading from an older release to the desired one, mandatory configuration settings may have been added or removed. To see the changes required, you can run `ocis init --diff` after upgrading but before finally starting. For more details, see the xref:deployment/general/ocis-init.adoc[ocis init command] description.
+
+== Version 7.3.0 to 8.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+There are no changes in Infinite Scale 8.0 that require manual intervention, but other notable changes have been implemented.
+
+=== Breaking Changes Requiring Manual Intervention
+
+There are breaking changes in Infinite Scale 8.0 that only apply when using the OCM service.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_7.3.0_8.0.0.adoc[Upgrading from 7.3.0 to 8.0.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+
+== Version 7.2.0 to 7.3.0
+
+=== Notable Changes Requiring Manual Intervention
+
+There are no notable changes requiring manual intervention in Infinite Scale 7.3
+
+=== Breaking Changes Requiring Manual Intervention
+
+There are no breaking changes in Infinite Scale 7.3
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_7.2.0_7.3.0.adoc[Upgrading from 7.2.0 to 7.3.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+== Version 7.1.0 to 7.2.0
+
+=== Notable Changes Requiring Manual Intervention
+
+There are no notable changes requiring manual intervention in Infinite Scale 7.2
+
+=== Breaking Changes Requiring Manual Intervention
+
+There are no breaking changes in Infinite Scale 7.2
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_7.1.0_7.2.0.adoc[Upgrading from 7.1.0 to 7.2.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+== Version 7.0.0 to 7.1.0
+
+=== Notable Changes Requiring Manual Intervention
+
+There are no notable changes requiring manual intervention in Infinite Scale 7.1
+
+=== Breaking Changes Requiring Manual Intervention
+
+There are no breaking changes in Infinite Scale 7.1
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_7.0.0_7.1.0.adoc[Upgrading from 7.0.0 to 7.1.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+== Version 5.0.x to 7.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* Resharing has finally been removed.
+* The maintenance command `ocis storage-users uploads list` has been removed. Its functionality is now part of other options.
+
+=== Breaking Changes Requiring Manual Intervention
+
+* All environment variables that were marked for deprecation in Infinite Scale release 5.0.x have finally been removed.
+* A new mandatory Infinite Scale config setting for the `activitylog` service named `service_account` has been added. If this config is not set, `activities` will not be recorded.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_5.0.x_7.0.0.adoc[Upgrading from 5.0.x to 7.0.0] documentation. Note that this document also contains references to added/changed/removed CLI commands and environment variables.
+
+== Version 4.0.0 to 5.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* The maintenance command `ocis storage-users uploads list` has been deprecated and will be removed in a later release. A successor with more capabilities has been implemented, see the xref:deployment/services/s-list/storage-users.adoc#manage-unfinished-uploads[Manage Unfinished Uploads] documentation for more details.
+
+=== Breaking Changes Requiring Manual Intervention
+
+* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* The default service registry has been changed.
+* Service accounts are now needed for some backend operations.
+* Resharing will be disabled and removed from the product.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade, see the xref:migration/upgrading_4.0.0_5.0.0.adoc[Upgrading from 4.0.0 to 5.0.0] documentation.
+
+== Version 3.0.0 to 4.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* The space index of the decomposedFS will be automatically migrated from symlinks to messagepack. This migration needs preparation to run successfully. See Upgrade Steps below.
+
+=== Breaking Changes Requiring Manual Intervention
+
+* All environment variables that were marked for deprecation in Infinite Scale release 4.0.0 have finally been removed.
+* Client pool selectors have changed from IP addresses `127.0.0.1:9xxx` to service names `com.owncloud.api.*`
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade see the xref:migration/upgrading_3.0.0_4.0.0.adoc[Upgrading from 3.0.0 to 4.0.0] documentation.
+
+== Version 2.0.0 to 3.0.0
+
+=== Notable Changes Requiring Manual Intervention
+
+* A new `GRAPH_APPLICATION_ID` environment variable has been added that must be populated.
+* Automatic Role Assignments have been introduced that need a settings review.
+* A new `OCIS_LDAP_DISABLE_USER_MECHANISM` environment variable has been introduced that needs a settings review.
+* The search index needs to be deleted as the layout has been changed.
+* The xref:prerequisites/prerequisites.adoc#backend-for-metadata[metadata backend] has changed.
+
+=== Upgrade Steps
+
+For a detailed description of the steps to upgrade see the xref:migration/upgrading_2.0.0_3.0.0.adoc[upgrading from 2.0.0 to 3.0.0] documentation.

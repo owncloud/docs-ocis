@@ -1,0 +1,116 @@
+// note that the module reference post xref is a mandatory element
+* Admin Manual
+
+** xref:admin:index.adoc[Introduction]
+
+** Infinite Scale Overview
+*** xref:admin:architecture/architecture.adoc[Architecture and Concepts]
+*** xref:admin:availability_scaling/availability_scaling.adoc[Availability and Scalability]
+*** xref:admin:security/security.adoc[Security Aspects]
+
+** xref:admin:deployment/index.adoc[Deployment]
+*** xref:admin:prerequisites/prerequisites.adoc[Prerequisites]
+*** Storage
+**** xref:admin:deployment/storage/general-considerations.adoc[General Storage Considerations]
+**** xref:admin:deployment/storage/nfs.adoc[Network File System]
+**** xref:admin:deployment/storage/s3.adoc[S3]
+**** xref:admin:deployment/storage/posixfs.adoc[PosixFS]
+*** xref:admin:deployment/general/general-info.adoc[General Information]
+*** xref:admin:deployment/general/ocis-init.adoc[The ocis init Command]
+*** xref:admin:deployment/wopi/wopi.adoc[Office Applications using WOPI]
+*** xref:admin:deployment/security/security.adoc[Securing oCIS]
+*** xref:admin:deployment/gdpr/gdpr.adoc[User Triggered GDPR Report]
+*** xref:admin:deployment/services/services.adoc[Services]
+**** General Information
+***** xref:admin:deployment/services/deployment-considerations.adoc[Deployment Considerations]
+***** xref:admin:deployment/services/env-var-note.adoc[Environment Variable Notes]
+***** xref:admin:deployment/services/env-vars-special-scope.adoc[Environment Variables with Special Scope]
+***** xref:admin:deployment/services/env-var-changes.adoc[Environment Variable Changes]
+***** xref:admin:deployment/services/registry.adoc[Registry]
+***** xref:admin:deployment/services/caching.adoc[Caching and Persistence]
+***** xref:admin:deployment/services/gateways.adoc[Gateways]
+***** xref:admin:deployment/services/logging.adoc[Logging]
+***** xref:admin:deployment/services/ports-used.adoc[Ports Used]
+***** xref:admin:deployment/services/tls.adoc[Transport Layer Security]
+**** List of Services
+***** xref:admin:deployment/services/s-list/activitylog.adoc[Activitylog]
+***** xref:admin:deployment/services/s-list/antivirus.adoc[Antivirus]
+***** xref:admin:deployment/services/s-list/app-provider.adoc[App Provider]
+***** xref:admin:deployment/services/s-list/app-registry.adoc[App Registry]
+***** xref:admin:deployment/services/s-list/audit.adoc[Audit]
+***** xref:admin:deployment/services/s-list/auth-app.adoc[Auth App]
+***** xref:admin:deployment/services/s-list/auth-basic.adoc[Auth Basic]
+***** xref:admin:deployment/services/s-list/auth-bearer.adoc[Auth Bearer]
+***** xref:admin:deployment/services/s-list/auth-machine.adoc[Auth Machine]
+***** xref:admin:deployment/services/s-list/auth-service.adoc[Auth Service]
+***** xref:admin:deployment/services/s-list/clientlog.adoc[Clientlog]
+***** xref:admin:deployment/services/s-list/collaboration.adoc[Collaboration]
+***** xref:admin:deployment/services/s-list/eventhistory.adoc[Eventhistory]
+***** xref:admin:deployment/services/s-list/frontend.adoc[Frontend]
+***** xref:admin:deployment/services/s-list/gateway.adoc[Gateway]
+***** xref:admin:deployment/services/s-list/graph.adoc[Graph]
+***** xref:admin:deployment/services/s-list/groups.adoc[Groups]
+***** xref:admin:deployment/services/s-list/idm.adoc[IDM]
+***** xref:admin:deployment/services/s-list/invitations.adoc[Invitations]
+***** xref:admin:deployment/services/s-list/idp.adoc[IDP]
+***** xref:admin:deployment/services/s-list/nats.adoc[NATS]
+***** xref:admin:deployment/services/s-list/notifications.adoc[Notifications]
+***** xref:admin:deployment/services/s-list/ocdav.adoc[OCDAV]
+***** xref:admin:deployment/services/s-list/ocm.adoc[OCM]
+***** xref:admin:deployment/services/s-list/ocs.adoc[OCS]
+***** xref:admin:deployment/services/s-list/policies.adoc[Policies]
+***** xref:admin:deployment/services/s-list/postprocessing.adoc[Postprocessing]
+***** xref:admin:deployment/services/s-list/proxy.adoc[Proxy]
+***** xref:admin:deployment/services/s-list/search.adoc[Search]
+***** xref:admin:deployment/services/s-list/settings.adoc[Settings]
+***** xref:admin:deployment/services/s-list/sharing.adoc[Sharing]
+***** xref:admin:deployment/services/s-list/sse.adoc[SSE]
+***** xref:admin:deployment/services/s-list/store.adoc[Store]
+***** xref:admin:deployment/services/s-list/storage-publiclink.adoc[Storage-Publiclink]
+***** xref:admin:deployment/services/s-list/storage-shares.adoc[Storage-Shares]
+***** xref:admin:deployment/services/s-list/storage-system.adoc[Storage-System]
+***** xref:admin:deployment/services/s-list/storage-users.adoc[Storage-Users]
+***** xref:admin:deployment/services/s-list/thumbnails.adoc[Thumbnails]
+***** xref:admin:deployment/services/s-list/userlog.adoc[Userlog]
+***** xref:admin:deployment/services/s-list/users.adoc[Users]
+***** xref:admin:deployment/services/s-list/web.adoc[Web]
+***** xref:admin:deployment/services/s-list/webdav.adoc[WebDAV]
+***** xref:admin:deployment/services/s-list/webfinger.adoc[Webfinger]
+*** Web UI
+**** xref:admin:deployment/webui/webui-customisation.adoc[Custom Configuration]
+**** xref:admin:deployment/webui/webui-theming.adoc[Custom Theming]
+
+** Maintenance
+*** Backup and Restore
+**** xref:admin:maintenance/b-r/backup_considerations.adoc[Backup Considerations]
+**** xref:admin:maintenance/b-r/backup.adoc[Backup]
+**** xref:admin:maintenance/b-r/restore.adoc[Restore]
+*** xref:admin:maintenance/commands/commands.adoc[Maintenance Commands]
+*** xref:admin:maintenance/m-mode/maintenance-mode.adoc[Maintenance Mode]
+*** xref:admin:maintenance/space-ids/space-ids.adoc[Listing Space IDs]
+*** xref:admin:maintenance/user-ids/user-ids.adoc[Listing User IDs]
+
+** Migration and Upgrades
+*** xref:admin:migration/upgrading-ocis.adoc[Upgrading Infinite Scale]
+
+** Monitoring
+*** xref:admin:monitoring/prometheus.adoc[Prometheus]
+
+** Configuration Examples
+*** xref:admin:conf-examples/office/office-integration.adoc[Office Integration]
+*** xref:admin:conf-examples/search/configure-search.adoc[Search]
+
+** Deployment Examples
+*** Ubuntu with Docker Compose
+**** xref:admin:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup]
+**** xref:admin:depl-examples/ubuntu-compose/ubuntu-compose-hetzner.adoc[Deployment on Hetzner]
+*** Setup Federations
+**** xref:admin:depl-examples/federation/sciencemesh.adoc[ScienceMesh Setup]
+
+** Additional Information
+*** xref:admin:additional-information/knowledge-base.adoc[Knowledge Base]
+
+////
+** Migration
+*** xref:admin:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
+////

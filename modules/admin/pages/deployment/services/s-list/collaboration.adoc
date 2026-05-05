@@ -1,0 +1,80 @@
+= Collaboration
+:toc: right
+:description: The collaboration service connects Infinite Scale with document servers such as Collabora, ONLYOFFICE or Microsoft using the WOPI protocol.
+:page-aliases: ROOT:deployment/services/s-list/collaboration.adoc
+
+:service_name: collaboration
+
+== Introduction
+
+{description}
+
+IMPORTANT: Since this service requires an external document server, it won't start by default when using `ocis server` (xref:deployment/general/general-info.adoc#infinite-scale-supervised-services[supervised mode]). You must start it manually with the `ocis collaboration server` command.
+
+[NOTE]
+====
+* The {service_name} service does not start automatically and must be started manually. For more details see the xref:deployment/general/general-info.adoc#start-infinite-scale[Start Infinite Scale] section.
+
+* The reason for excluding the {service_name} service from autostart is, that the service may need to be started multiple times but with own configs for each web office document server used.
+====
+
+Because the collaboration service needs to be started manually, the following prerequisite applies: On collaboration service startup, particular environment variables are required to be populated. If environment variables have a default like the MICRO_REGISTRY_ADDRESS, the default will be used, if not set otherwise. Use for all others the instance values as defined. If these environment variables are not provided or misconfigured, the collaboration service will not start up.
+
+Required environment variables:
+
+* `OCIS_URL`
+* `OCIS_JWT_SECRET`
+* `OCIS_REVA_GATEWAY`
+* `MICRO_REGISTRY_ADDRESS`
+
+== Default Values
+
+* The collaboration service listens on port 9300 by default.
+
+== Requirements
+
+The collaboration service requires the target document server (ONLYOFFICE, Collabora, etc.) to be up and running. Additionally, some Infinite Scale services are also required to be running in order to register the GRPC service for the `open in app` action in the webUI. The following internal and external services need to be available:
+
+* External document server
+* xref:{s-path}/gateway.adoc[gateway] service.
+* xref:{s-path}/app-provider.adoc[app provider] service.
+
+If any of the named services above have not been started or are not reachable, the collaboration service won't start. Check with the xref:deployment/general/general-info.adoc#infinite-scale-supervised-services[List running services] command if they have been started. If not, you must start them manually upfront before starting the collaboration service.
+
+== WOPI Configuration
+
+There are a few variables that you need to set:
+
+* `COLLABORATION_APP_NAME`: +
+  The name of the connected WebOffice app, which can be one of the following: +
+  `Collabora`, `OnlyOffice`, `Microsoft365` or `MicrosoftOfficeOnline`.
+
+* `COLLABORATION_APP_ADDR`: +
+  The URL of the collaborative editing app (onlyoffice, collabora, etc). +
+  For example: `\https://office.example.com`.
+
+* `COLLABORATION_APP_INSECURE`: +
+  In case you are using a self signed certificate for the WOPI app you can tell the collaboration service to allow an insecure connection.
+
+* `COLLABORATION_WOPI_SRC`: +
+  The external address of the collaboration service. The target app (onlyoffice, collabora, etc) will use this address to read and write files from Infinite Scale. +
+  For example: `\https://wopi.example.com`.
+
+* `COLLABORATION_WOPI_SHORTTOKENS`: +
+  Needs to be set if the office application like `Microsoft Office Online` complains about the URL is too long and refuses to work. If enabled, a xref:storing[store] must be configured.
+
+The rest of the configuration options available can be left with the default values.
+
+== Storing
+
+// renders dependent on is_cache or is_store
+:is_store: true
+// add a manual anchor + text because the service does not use the event bus
+:no_event_bus: true
+
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]
