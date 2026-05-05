@@ -1,0 +1,20 @@
+= Storage-Shares Service Configuration
+:toc: right
+:description: The Infinite Scale Storage-Shares service
+:page-aliases: ROOT:deployment/services/s-list/storage-shares.adoc
+
+:service_name: storage-shares
+
+== Introduction
+
+{description}
+
+// fixme: source description is still missing, and a better description is needed
+
+== Default Values
+
+* Storage-Shares listens on port 9154 by default.
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

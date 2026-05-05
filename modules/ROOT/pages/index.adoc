@@ -1,76 +1,15 @@
-= Introduction to Infinite Scale
+= The Infinite Scale Documentation
 :toc: right
 :toclevels: 2
-:description: Welcome to the Infinite Scale documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on general topics, on installation and administrative tasks for Infinite Scale.
+:description: Welcome to the Infinite Scale documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata.
 
-:github-url: https://github.com/owncloud/docs-ocis/issues
-
-:ocis_youtube_long_url: https://www.youtube.com/watch?v=C4a4q9IGyFQ&list=PLXpTv1ixYy3-b5LScHyYqMNwEsZYgejdX&index=16
-:ocis_youtube_short_url: C4a4q9IGyFQ
-
-include::partial$multi-location/compose-version.adoc[]
+include::admin:partial$multi-location/compose-version.adoc[]
 
 == Introduction
 
 {description}
 
-// IMPORTANT: this permalink origins to: https://cloud.owncloud.com/index.php/apps/files/?dir=/Shared/owncloud/Product%20Management/Presentations/2023-05-22_Infinite%20Scale%20current%20state&fileid=6005441
-
-=== Target Audience
-
-This documentation addresses administrators and technically-oriented management:
-
-* people responsible that services are up and running for users,
-* people responsible that the IT infrastructure is in line with the organization's compliance regulations,
-* technical advisors and technical buyers.
-
-=== Infinite Scale Key Benefits
-
-The Infinite Scale data platform is designed for multi-storage access, is cloud-native (microservices) and provides unified data access.
-
-The key benefits are::
-
-* Integration of distributed data sources into one cloud data ecosystem.
-* A unified data access layer across all data.
-* Combination of on-premises and cloud-operated environments into one user experience.
-* No need for PHP or a database.
-* High performance, flexibility and scalability.
-* Extended functionality.
-* Container delivery, shipped with the user interface `ownCloud Web`.
-
-See the following in-line YouTube video for more details or use the link:{ocis_youtube_long_url}[link, window=_blank] to view it in a separate browser tab.
-
-.Infinite Scale - A new era for ownCloud - ownCloud Conference 2021
-video::{ocis_youtube_short_url}[youtube]
-
-// fixme: we should have a cross-component link to ownCloud Web when available
-// fixme: shall we have a feature list page ?
-
-== Brief Overview
-
-NOTE: In configuration variables and comments, you'll often come across the word oCIS or ocis, short for "ownCloud Infinite Scale", while the product is simply called Infinite Scale.
-
-=== Architecture and Concepts
-
-To learn more about Infinite Scale, check out the xref:architecture/architecture.adoc[Architecture and Concepts] section first. This information may help deciding which environment is optimal for your use case and which hardware fits your needs best.
-
-=== Availability and Scalability
-
-With knowledge about architecture and concepts, look at the different xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] options to define the environment Infinite Scale should run on.
-
-=== Prerequisites
-
-With Infinite Scale, not much is needed to run your ownCloud server the way you want. Check out the details in the xref:prerequisites/prerequisites.adoc[Prerequisites] section. We strongly recommend to make up your mind about availability and scalability first.
-
-=== Deployment
-
-Infinite Scale is deployed via container. Take a look at the Deployment Examples section in the navigation for more details.
-
-NOTE: We highly recommend reading the xref:deployment/general/general-info.adoc[General Info] document first before starting to plan or deploy Infinite Scale. This document contains important topics relevant for all deployments.
-
-=== Configuration Examples
-
-Configuration of Infinite Scale might be quite different to what you are used to but it's very simple. It works with environment variables and optional configuration files for you to create depending on your specific needs. The settings in configuration files can always be overruled by setting the respective environment variables manually on the command line.
+This documentation provides xref:admin:index.adoc[admin] and xref:developer:index.adoc[developer] related information.
 
 == Release Life Cycle
 

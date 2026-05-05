@@ -1,0 +1,4 @@
+// note that the module reference post xref is a mandatory element
+* Developer Manual
+
+** xref:developer:index.adoc[Introduction]

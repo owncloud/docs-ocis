@@ -1,0 +1,30 @@
+= Storage-System Service Configuration
+:toc: right
+:description: The Infinite Scale Storage-System service persists and caches user related data that is defined via Infinite Scale.
+:page-aliases: ROOT:deployment/services/s-list/storage-system.adoc
+
+:service_name: storage-system
+
+== Introduction
+
+{description} This can be among other data role assignments, user settings and users shares.
+
+== Default Values
+
+* Storage-System listens on port 9215 by default.
+
+== Caching
+
+// renders dependent on is_cache or is_store
+:is_cache: true
+
+// get the complete .adoc page but do not render any contained tag directive when found in the middle
+include::partial$multi-location/cache-store.adoc[tag=**]
+
+== Event Bus Configuration
+
+include::partial$multi-location/event-bus.adoc[]
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

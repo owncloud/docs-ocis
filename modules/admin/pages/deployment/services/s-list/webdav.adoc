@@ -1,0 +1,38 @@
+= WebDAV Service Configuration
+:toc: right
+:description: The WebDAV service, like the ocdav service, provides a HTTP API following the WebDAV protocol.
+:page-aliases: ROOT:deployment/services/s-list/webdav.adoc
+
+:service_name: webdav
+
+== Introduction
+
+{description}  It receives HTTP calls from requestors like clients and issues gRPC calls to other services executing these requests. After the called service has finished the request, the webdav service will render their responses in `xml` and sends them back to the requestor. Also see the xref:{s-path}/ocdav.adoc[ocdav] service. 
+
+== Default Values
+
+* WebDav listens on port 9115 by default.
+
+== Endpoints Overview
+
+Currently, the webdav service handles request for two functionalities, which are for the `Thumbnails` and `Search` service.
+
+=== Thumbnails Service
+
+The webdav service provides various `GET` endpoints to get the thumbnails of a file in authenticated and unauthenticated contexts. It also provides thumbnails for spaces on different endpoints. 
+
+See the xref:{s-path}/thumbnails.adoc[thumbnails] service for more information about thumbnails.
+
+=== Search Service
+
+The webdav service provides access to the search functionality. It offers multiple `REPORT` endpoints for getting search results. 
+
+See the xref:{s-path}/search.adoc[search] service for more details about the search functionality. 
+
+== Scalability
+
+The webdav service does not persist any data and does not cache any information. Therefore multiple instances of this service can be spawned in a bigger deployment like when using container orchestration with Kubernetes, without any extra configuration.
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

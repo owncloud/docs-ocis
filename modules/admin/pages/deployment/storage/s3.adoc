@@ -1,0 +1,184 @@
+= S3 Simple Storage Service
+:toc: right
+:toclevels: 2
+:description: Infinite Scale can store blobs on S3 storage. This document gives some general information and considerations for the use of S3.
+:page-aliases: ROOT:deployment/storage/s3.adoc
+
+:aws-bucket-policy-url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
+
+== Introduction
+
+{description} See the xref:deployment/storage/general-considerations.adoc#s3[General Storage Considerations] in the S3 section for which data is stored where.
+
+== S3 Overview
+
+This section gives a brief description about S3 and how it compares to POSIX based filesystems.
+
+S3 based storage is well positioned for customers expecting a very high capacity demand for storing Infinite Scale blobs.
+
+* In S3, objects are stored by name in a collection called a bucket and have no hierarchical order. +
+Objects in a bucket are indexed and can be listed with a prefix based search. This provides a clear scaling advantage. Compared with POSIX, the consistency domain is constrained to a single bucket instead of the entire hierarchical tree.
+
+* The bucket is guaranteed eventually consistent. +
+The application must accept that an object that was just updated may or may not appear instantly in the list and may or may not have the latest information, the platform is allowed a best effort at being immediately consistent. Over time, the performance of the system shows that data is in general fully consistent. The architectural freedom to relax the constraint implies real performance and scalability advantages.
+
+* Object storage works best for static storage. +
+This is especially true for unstructured data, where you write data once but may need to read it many times.
+
+* Requests are REST based and self-contained. +
+This method is very well adapted to WAN based interactions.
+
+* Requests are signed with a shared secret, and communicated over an SSL connection. +
+This provides protection against man in the middle attacks and prevents passwords from being communicated in requests.
+
+For more details on S3 read the https://cloud.google.com/learn/what-is-object-storage[What is Object storage?, window=_blank] from Google.
+
+S3 comparison to POSIX::
+* *Performance:* +
+The POSIX filesystem interface is inherently IOPS centric. There is a lot of communication which is expensive and hard to scale. The RESTful S3 API addresses this by transforming IOPS into a throughput problem. Throughput is easier and cheaper to scale. This is the reason why an object storage has high performance at a massive scale.
+
+* *Semantics:* +
+There is no way to guarantee consistency correctness because object operations are atomic and immutable. As a consequence, uncommitted data can be lost in case of a crash or corruption issues can occur in case of shared buckets.
+
+* *Data Integrity:* +
+Writes or any mutations to a file do not appear in the namespace until it is committed. Concurrent access across shared buckets will not see any modifications. Shared access is therefore not the focus of S3.
+
+* *Access Control:* +
+The way S3 APIs handle identity and access management (IAM) policies is incompatible with POSIX.
+
+== Encryption
+
+[quote,Amazon AWS,'Default encryption FAQ https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-encryption-faq.html[What do I have to do to take advantage of this change?]']
+____
+You are not required to make any changes to your existing applications. Because default encryption is enabled for all of your buckets, all new objects uploaded to Amazon S3 are automatically encrypted.
+____
+
+Note that this may be different with other S3 providers. Check their documentations accordingly.
+
+== Configuration
+
+Basically, only a few configurations need to be made.
+
+* The xref:{s-path}/storage-users.adoc[Storage-Users] service needs to be configured for the use of POSIX and S3 storage for Infinite Scale. This includes the following environment variables:
++
+[source, yaml]
+----
+# activate s3ng storage driver
+STORAGE_USERS_DRIVER: s3ng
+# Path to metadata stored on POSIX
+STORAGE_USERS_S3NG_ROOT:
+# keep system data on ocis storage
+STORAGE_SYSTEM_DRIVER: ocis
+
+# s3ng specific settings
+STORAGE_USERS_S3NG_ENDPOINT:
+STORAGE_USERS_S3NG_REGION:
+STORAGE_USERS_S3NG_ACCESS_KEY:
+STORAGE_USERS_S3NG_SECRET_KEY:
+STORAGE_USERS_S3NG_BUCKET:
+----
+
+* Check the `STORAGE_USERS_S3NG_PUT_OBJECT_PART_SIZE` environment variable if it meets your requirements. For details see xref:prevent-failing-uploads[Prevent Failing Uploads].
+
+* A xref:s3-bucket-policy[S3 Bucket Policy] needs to be created.
+
+Also see the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example in the downloaded `ocis-wopi` example directory in particular `ocis_s3` configuration.
+
+=== S3 Bucket Policy
+
+Bucket policies are an Identity and Access Management (IAM) mechanism for controlling access to resources. They are a critical element in securing your S3 buckets against unauthorized access and attacks.
+
+Bucket policies, which are a collection of statements *defined on S3*, are evaluated one after another in order of appearance, that describe what a requester is allowed to do on a bucket and with each object contained in that bucket. It applies to a requester who has been authenticated to access the bucket in question. For more details see {aws-bucket-policy-url}[AWS: Using bucket policies, window=_blank]. 
+
+The following S3 bucket policies are a *requirement* for Infinite Scale when connecting to an S3 bucket. Replace the bucket name according your environment.
+
+{empty}
+
+[source,yaml]
+----
+# The S3NG driver needs an existing S3 bucket with the following permissions:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket-name"
+            ]
+        },
+        {
+            "Sid": "ActionsInBucketContext",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*Object",
+                "s3:*MultipartUpload",
+                "s3:ListMultipartUploadParts"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket-name/*"
+            ]
+        }
+    ]
+}
+----
+
+== Prevent Failing Uploads
+
+A file upload to S3 can fail in particular circumstances, though Infinite Scale can handle the file. Most of the limits are hard defined by S3, one limit can be configurated via Infinite Scale. All limits are described in: https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html[Amazon S3 multipart upload limits]. The relevant limits for Infinite Scale are:
+
+{empty}
+
+[width=100%,cols=".^45%,.^30%,^30%a",options="header"]
+|===
+|Item
+|Specification
+|Infinite Scale Configurable
+
+|Maximum object size
+|5 TiB
+| * [ ] {empty}
+
+|Maximum number of parts per upload
+|10.000
+| * [ ] {empty}
+
+|Part size
+|5 MiB to 5 GiB
+| * [x] {empty}
+|===
+
+--
+NOTE: The only item configurable via Infinite Scale is the part size. The corresponding environment variable is `STORAGE_USERS_S3NG_PUT_OBJECT_PART_SIZE` and defaults to 16MiB.
+
+* The part size configuration needs to be balanced between the maximum expected file size and parallelisation/recovery.
+* Any file size expected needs at minimum the same amount on temporary storage in Infinite Scale to buffer incoming data.
+--
+
+In general, an upload to S3 will fail if one of the following conditions is true::
++
+--
+* FileSize > Maximum object size
+* (Max parts per upload * Part size / FileSize) < 1
+
+IMPORTANT: If the 10.000th part has been uploaded, S3 automatically assumes it is the last one and assembles the final object. This leads to the situation, that file sizes and metadata will not match and the file becomes inaccessible.
+--
+
+With the default setting, the maximum file that can be uploaded calculates the following::
++
+--
+* Max parts per upload (10.000) * Part size (16 MiB) = *160 GiB*
+
+NOTE: If higher file sizes are expected, the part size environment variable must be configured accordingly.
+--
+
+With the minimum part size setting, the maximum file size calculates the following::
+* Max parts per upload (10.000) * Min part size (5 MiB) = *50 GiB*
+
+{empty}
+
+The maximum part size that can be configured to use the maximum number of parts allowing the maximum object size is::
+* Maximum object size (5 TiB) / Maximum parts per upload (10.000) = *500 MiB*
