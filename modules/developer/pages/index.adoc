@@ -1,0 +1,51 @@
+= Infinite Scale Developer Documentation
+:toc: right
+:toclevels: 2
+:description: Welcome to the Infinite Scale developer documentation. Infinite Scale is a data platform providing tools to integrate, organize, share and govern data and metadata. This guide provides information on developer related topics.
+
+include::admin:partial$multi-location/compose-version.adoc[]
+
+== Introduction
+
+{description}
+
+== Target Audience
+
+This documentation addresses developers only. +
+See the xref:admin:index.adoc[admin] documnetation for prerequisites, configurations and deployment examples.
+
+== Release Life Cycle
+
+Starting with version 6 of Infinite Scale, releases are now split into `production` and `rolling`. See the https://owncloud.dev/ocis/release_roadmap/[Developer Docs Release Life Cycle] page for more details and impacts.
+
+You can find more details on changes made in each release published in the https://doc.owncloud.com/ocis_release_notes.html[Infinite Scale Server Release Notes].
+
+IMPORTANT: Rolling releases are published in a cycle of 3 weeks. Due to this relative short cycle, you will find the actual development and the current published rolling release documentation *not* separated. They are both part of the `next` segment in the URL. Compared to production releases where the respective release number is used, the actual rolling release number published can be found e.g. in each service description in section "Environment Variables".
+
+== We Love Open Source
+
+The oCIS is Apache v2 licensed.
+
+The lower storage layer of oCIS is defined by the CS3 APIs and implemented in the REVA project. Our goal is to develop the CS3 APIs to an open standard and collaborate on the open source REVA reference implementation for CS3 APIs.
+
+You can also find all app sources at::
++
+--
+- https://github.com/owncloud/android[ownCloud Android App]
+- https://github.com/owncloud/ios-app[ownCloud iOS App]
+- https://github.com/owncloud/client[ownCloud Desktop App]
+--
+
+== Join the oCIS Community
+
+The https://github.com/owncloud/ocis[oCIS repository] is a good entry point to the oCIS project. The https://github.com/owncloud/web[Web repository] provides the web frontend for oCIS.
+
+To chat about development, join our public chat on https://matrix.to/#/#ocis:matrix.org[matrix: ownCloud Infinite Scale].
+
+If you want to help and improve, start coding or open issues on GitHub in the related repositories.
+
+We are very happy to hear your feedback and ideas!
+
+== End-User License Agreement (EULA)
+
+ownCloud provides an EULA to clarify, among various topics, who can use this software and which conditions apply to the groups of users defined. See the actual {compose_raw_url}{compose_version}/assets/End-User-License-Agreement-for-ownCloud-Infinite-Scale.pdf[EULA] for details.

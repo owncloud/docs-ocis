@@ -1,0 +1,374 @@
+= Prerequisites
+:toc: right
+:toclevels: 2
+:description: The prerequisites section gives an overview and background about minimum requirements with respect to hardware, virtualization, operating system and optional software to operate Infinite Scale successfully.
+:page-aliases: ROOT:prerequisites/prerequisites.adoc
+
+:ext4_url: https://en.wikipedia.org/wiki/Ext4
+:btrfs_url: https://en.wikipedia.org/wiki/Btrfs
+:zfs_url: https://en.wikipedia.org/wiki/ZFS
+:xfs_url: https://en.wikipedia.org/wiki/XFS
+:ceph_url: https://docs.ceph.com/en/latest/start/intro/
+:ceph_ram_url: https://docs.ceph.com/en/latest/start/hardware-recommendations/#ram
+:nfs_url: https://en.wikipedia.org/wiki/Network_File_System
+
+:what_is_nginx_url: https://www.nginx.com/resources/glossary/nginx/
+:nginx_url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+:what_is_traefik_url: https://doc.traefik.io/traefik/
+:traefik_github_url: https://github.com/traefik/traefik#readme
+:apache_rev_url: https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html
+:what_is_apache_url: https://www.apache.org/
+
+:messagepack: https://msgpack.org/index.html
+
+== Introduction
+
+{description}
+
+Note that Infinite Scale is based on a highly dynamic interoperable _microservices_ concept, although it is delivered via a container that uses a single binary. Of course, this software has to run on hardware, but its ability to adapt to various and maybe dynamic load scenarios across physical boundaries means that you can set up your physical environment flexibly, using modern technology.
+
+The following sections are fundamental to understanding the general prerequisites, but their implementation is very dependent on your use-case. To support your decision about the environment, we recommend reading the documents about  xref:architecture/architecture.adoc[Architecture and Concepts] and xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] first.
+
+== Hardware
+
+The minimum hardware requirements depend on the usage scenario you have in mind for your Infinite Scale instance. You need at least hardware that runs a Linux based operating system, preferably 64bit.
+
+* For simple testing purposes, you can even use a laptop or Raspberry Pi 4 (ARM64) with a minimum of 512MB of RAM.
+* For more intense testing purposes, the recommended start hardware is a multicore processor with at least 4GB of RAM.
+* For production environments, CPU and RAM are the main limiting factors. A clear guideline for CPUs can't be provided at this time since there are too many influencing factors. See xref:ram-considerations[RAM Considerations] for memory and xref:bandwidth-considerations[Bandwidth Considerations] for network-related factors.
+
+{empty}
+// only needed to separate from the list
+
+The following table shows the tested and supported hardware architecture matrix::
++
+[width="75%",cols="50%,50%",options="header"]
+|===
+| OS / Docker
+| Hardware Architecture
+
+| Linux on Bare Metal
+| 386, AMD64, ARM64
+
+| Linux Hardware Virtualized
+| 386, AMD64, ARM64
+
+| Linux Docker
+| AMD64, ARM64
+
+| Darwin (MacOS)
+| AMD64, ARM64, M1 (ARM64)
+|===
+
+Note when referencing software builds for a particular architecture, *ARM64* stands for ARM64(v8).
+
+=== RAM Considerations
+
+// harvested from https://owncloud.dev/architecture/efficient-stat-polling/
+// text adopted based on a discussion with jfd on 24.3.
+
+// fixme: how to read stat info (local and eg nfs)
+
+With regard to RAM, the question of how much is needed can be answered with: it depends.
+
+RAM requirements depend a lot on the quantity of spaces, the tasks that will run concurrently and if they access the storage back end. You can split this into the following main parts:
+
+OS-dependent::
+* Needs for the OS
+* Classic inode/block caching for storage back ends
+
+Infinite Scale-dependent::
+* Keeping the `stat info` in memory (`stat cache`)
+* Keeping static assets like for the web frontend
+* The number of concurrent clients accessing Infinite Scale
+* Computation processes like calculating thumbnails from files or images
+
+While memory for computational processes depends heavily on the use case, which can be very dynamic, the memory needed for keeping block and stat info is easier to predict. Therefore it is essential to make up your mind in which environment you will deploy Infinite Scale before you get started. Consider re-reading the xref:availability_scaling/availability_scaling.adoc[Availability and Scalability] section, with focus on _Scalability_ and _Deployment Evolution_.
+
+==== Keeping Things in Memory
+
+Infinite Scale has the concept of _spaces_ where a space contains files and folders, is not owned by a user by default, but gets assigned to users. Spaces can be the users home, any mount created or an unlimited quantity of shares and re-shares.
+
+Each space provides a virtual root and occupies at least one metadata block at its root. A metadata block will contain at minimum one inode, and can contain, dependent on the inode size, multiple inodes.
+
+Whenever a file or folder below the root of the tree changes its content or metadata, the inode changes and the change is propagated to the spaces root to indicate it. A new stat info is created and cached and ETags get recalculated if requested based on the stat info. To let a client detect changes, the discovery phase starts at the spaces root to check for changed ETags since the last discovery going forward in the tree based on changed ETags.
+
+Infinite Scale also has an internal process to identify when changes to files or folders happen to create a new stat info which is the base to calculate ETags.
+
+The number of spaces one Infinite Scale instance can handle can be huge without re-accessing the storage back end, limited only by the server's memory. If you chose a distributed deployment, there is no limit in spaces at all.
+
+Here are some numbers based on the ext4 filesystem, see xref:filesystems-and-shared-storage[Filesystems and Shared Storage] for different values:
+
+// fixme: https://unix.stackexchange.com/a/385341
+
+* An inode has a size of 256 bytes.
+* The blocksize that is cached by the OS is 4K.
+* A block therefore can contain max 16 inodes.
+* A spaces root needs at least one inode which results in occupying at least one 4k block.
+* The `stat info` managed and cached by Infinite Scale per space is 1K.
+* The size of an ETag is 40 bytes.
+
+The benefit of keeping the inode/stat/block in memory is easily explained. All clients accessing Infinite Scale poll for ETag changes. If the base infos are kept in memory, the response time minimizes.
+
+==== Calculation example:
+
+Taking the numbers from above:
+
+[[sample_environments]]
+[width="80%",cols="^90%,^60%,^60%,^60%",options="header"]
+|===
+| # of Spaces +
+(# of Root Blocks)
+| Block Cache +
+(4K)
+| Stat Cache +
+(1K)
+| Total RAM
+
+| 1.000
+| 4 MB
+| 1 MB
+| 5 MB
+
+| 100.000
+| 400 MB
+| 100 MB
+| 500 MB
+
+| 1.000.000
+| 4 GB
+| 1 GB
+| 5 GB
+|===
+
+
+Summary (caching view only)::
+[NOTE]
+====
+The above table can be interpreted as follows:
+
+* The memory needed for keeping the root inode is based on the number of spaces created (Infinite Scale relevant) and the blocksize (filesystem dependent).
+* The memory needed for caching stat info is directly related to the number of spaces (Infinite Scale relevant).
+====
+
+Consideration Summary::
+* Using 4GB of RAM is a good starting point.
+* Regularly check the quantity of spaces that the server(s) must handle.
+* Getting a VFS cache hit/miss ratio is hard. Keep an eye on Kernel `iostat` which measures raw io. When it starts increasing and all RAM has been used as buffer cache, you may need to increase the amount of available RAM or redistribute services.
+* When using a distributed deployment, it is much easier to scale and re-distribute dynamic loads accordingly.
+
+// fixme: where to tune in case the os (vfs_cache_pressure ?) or is this not needed/wanted
+// fixme: see https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that
+// fixme: https://manhart.blog/2020/04/linux-leistungsverbesserungen/
+// fixme: personal note: reducing vfs_cache_pressure from 100 to 20 improved the "real" component by 40% up to 90%!
+
+==== Background
+
+Storing metadata in memory is important with respect to access and synchronization performance.
+
+Backend Check::
+Infinite Scale has a notification process when a change occurs and manages the stat info accordingly. An ETAg gets computed if requested, based on the stat info.
+
+Client Check::
+Usually, every connected client polls their assigned spaces root ETag every 30 seconds and compares it to the former ETag received for changes. Based on detected changes, actions take place.
+
+This makes it clear why RAM can be an essential performance factor for client access and synchronization when more spaces are present.
+
+=== Bandwidth Considerations
+
+The bandwidth requirements and limitations are based on the following background. Note that this is a view on the internal network (LAN) only. Any considerations about access from the Internet are not part of this description but can be derived from the LAN point of view:
+
+Clients, which are accessing Infinite Scale, request information about what has changed. Depending on the response and if a file synchronization is required, different bandwidth needs may result. Note that when using e.g. the Desktop Client and virtual files (VFS), only those files get physically synced which are set to be locally present, preventing additional bandwidth consumption.
+
+// fixme: the bandwidth calculation in the devdocs is imho wrong as the bigger number is the response and not the request which is then the limiting factor
+
+Request for changed elements::
+To get the information about changes, the request always starts at the spaces root, looking for changed ETags, and follows only a path that has changed elements. Therefore PROPFIND requests and responses are used. A request has about 500 bytes and a response has roughly 800 bytes in size.
++
+[caption=]
+.Number of maximum concurrent PROPFIND responses per second
+[width="60%",cols="60%,80%",options="header"]
+|===
+| Network
+| max. PROPFIND responses/s
+
+| 100 Mbit (~10MB/s)
+| 12.500
+
+| 1 Gbit (~100MB/s)
+| 125.000
+
+| 10 Gbit (~1GB/s)
+| 1.250.000
+|===
+
+Request syncing changed files::
+When a file has been identified to be physically synced, the bandwidth requirements depend on the size and the time it should finish. Note that syncing changed files can saturate a network more easily than the handling of changed ETags!
+
+Calculation example::
+Consider 500 concurring syncing users, syncing with the default setting of every 30 sec, will create about ~3K PROPFIND requests (500 x 712 / 60 / 2) which consume about 2.4MB/s of bandwidth (3K x 800B) - without doing the file syncs necessary. The physical transfer will create extra bandwidth requirements.
+
+Summary::
+[NOTE]
+====
+As you can see above, the bandwidth requirements depend on:
+
+* The number of concurrent clients accessing Infinite Scale
+* The number of spaces to be synced
+* The dynamics of changes
+* The relative location of a change
+* The need to download changed files locally
+
+The quantity of files and folders in total has only an impact on the first, but not on recurring synchronizations.
+====
+
+== Virtualization
+
+Depending on the usecase, you can run Infinite Scale on:
+
+* No virtualization, bare metal
+* Virtualized hardware like VMWare, KVM, HyperV, VirtualBox etc.
+* Virtualized Linux operating system in Docker containers
+
+== Supported Operating Systems
+
+For _best performance_, _stability_, _support_, and _full functionality_ we officially support Infinite Scale running on the following Linux distributions:
+
+* Debian 10 and higher
+* Fedora 32 and higher
+* Red Hat Enterprise Linux 7.5 and higher including all 100% compatible derivatives
+* SUSE Linux Enterprise Server 12 with SP4/5 and SLES 15.x
+* openSUSE Leap 15.2 and higher
+* Ubuntu 20.04 and higher
+
+== Usermanagement, Authorization and Authentication
+
+Infinite Scale provides out of the box a minimal OpenID Connect provider via the xref:{s-path}/idp.adoc[IDP Service] and a minimal LDAP service via the xref:{s-path}/idm.adoc[IDM Service]. Both services are limited in the provided functionality, see the referenced services for important details. These services can be used for small environments like up to a few hundred users. For enterprise environments, it is highly recommended using enterprise grade external software like KeyCloak plus openLDAP or MS ADFS with Active Directory, which can be configured in the respective service. Please use the {oc-contact-url}[ownCloud contact form] to get in touch if other than the named IDP / IDM providers are required.
+
+== Additional Software
+
+It is strongly recommend to use a reverse proxy for:
+
+. security reasons,
+. load balancing and
+. high availability.
+
+The Infinite Scale documentation will use *traefik* for deployment examples.
+
+[quote, '(C) {traefik_github_url}[Traefik Labs, The Cloud Native Application Proxy]']
+____
+{what_is_traefik_url}[Traefik] is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy. Traefik integrates with your existing infrastructure components (https://www.docker.com/[Docker], https://docs.docker.com/engine/swarm/[Swarm mode], https://kubernetes.io/[Kubernetes], Marathon, Consul, Etcd, Rancher, Amazon ECS, ...) and configures itself automatically and dynamically. Pointing Traefik at your orchestrator should be the only configuration step you need.
+____
+
+[quote, '(C) {nginx_url}[NGINX Reverse Proxy]']
+____
+{what_is_nginx_url}[NGINX] is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.
+____
+
+
+[quote, '(C) {apache_rev_url}[Apache Reverse Proxy]']
+____
+{what_is_apache_url}[Apache] In addition to being a "basic" web server and providing static and dynamic content to end-users, Apache httpd (as well as most other web servers) can also act as a reverse proxy server, also-known-as a "gateway" server.
+____
+
+== Filesystems and Shared Storage
+
+Infinite Scale defines drivers for filesystems to store blobs and metadata. The drivers can be configured via the xref:{s-path}/storage-users.adoc[Storage-Users Service Configuration].
+
+=== Backend for Metadata
+
+Metadata is stored as {messagepack}[messagepack] files. Messagepack files have as filetype `.mpk`, contain compressed JSON data, are compact and fast. There is also no limit in metadata stored for one mpk file which makes using messagepack futureproof. Using messagepack allows the use of standard filesystems, see the supported list below.
+
+=== Available Filesystem Drivers
+
+See the xref:deployment/storage/general-considerations.adoc[General Storage Considerations] documentation for more details on individual filesystem drivers.
+
+The ocis filesystem driver::
+When the `ocis` driver is used, blobs and metadata must be on a POSIX-compliant filesystem. This driver decomposes the metadata and persists it in a POSIX filesystem. Blobs are stored on the filesystem as well. This layout makes extensive use of symlinks. A filesystem like xfs or zfs without practical inode size limitations is recommended. A further integration with file systems like CephFS or GPFS is under investigation.
+
+The s3ng filesystem driver::
+When the `s3ng` driver is used, blobs reside on a S3 bucket and the metadata will be stored on a POSIX-compliant filesystem which needs to be provisioned. As this POSIX-compliant filesystem usually needs to be mounted on several Infinite Scale instances like when using the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example, consider using NFS for storing this metadata. This splitting is necessary for performance reasons.
+
+The PosixFS filesystem driver (experimental)::
+When the `posixfs` driver is used, you can connect to fully compliant posix filesystems with shared access. It requires some mandatory posix filesystem features to be available like handling extended attributes and notification processes. This also differentiates it from other drivers that use messagepack for metadata. Note that extended attributes need to be included in the backup strategy.
+
+Other drivers can be used too like for the Ceph or EOS filesystem, but no support can be given because they are not developed or maintained by ownCloud. 
+
+=== Supported POSIX-compliant Filesystems
+
+The supported Infinite Scale POSIX-compliant filesystems are the following. Note that the default block size impacts the calculation example at xref:sample_environments[RAM Considerations], which is definable on some filesystems and if applicable, is for informational purposes only:
+
+{empty}
+
+[caption=]
+.Local Filesystems
+[width="60%",cols="30%,70%",options="header"]
+|===
+| Name
+| Default Block Size
+
+| {ext4_url}[EXT4]
+| 4K
+
+| {xfs_url}[XFS]
+| 4K
+
+| {btrfs_url}[BTRFS]
+| 16K
+
+| {zfs_url}[ZFS]
+| 128K
+|===
+
+{empty}
+
+[caption=]
+.Remote Filesystems
+[width="80%",cols="26%,90%",options="header"]
+|===
+| Name
+| Default Block Size
+
+| {nfs_url}[NFS]
+| The block size depends on the `rsize` parameter in the mount options. Defaults to 4K which is fine when using NFS for metadata only, usually set to 32K when also storing user data.
+|===
+
+Ceph Notes::
++
+[NOTE]
+====
+* {ceph_url}[Ceph] is an open source flexible distributed storage system (multi-server, multi-rack, multi-site) with an object storage layer. Ceph-S3 presents that object storage with an API that emulates the AWS' S3 API.
+
+* Ceph follows a different concept with regard to handling metadata, which impacts memory requirements. See the {ceph_ram_url}[Ceph Hardware Recommendations] for more details.
+
+* Note that you cannot access the same files in CephFS and Ceph-S3. Ceph allows exposing commodity hardware as either blockstorage (RBD), S3 or CephFS. It is not possible to write a file via S3 and then read it via CephFS.
+====
+
+=== Required Character Encoding
+
+The required character encoding is 4-Byte UTF-8 Unicode Encoding.
+
+=== Disk Performance (IOPS)
+
+The storage system must not impose a cap on the input/output operations per second (IOPS). Imposing such limits can significantly degrade the performance, leading to suboptimal user experiences and decreased efficiency. Ensuring unrestricted IOPS capability is essential for maintaining optimal performance levels.
+
+== Compatible Apps and Clients
+
+Spaces are supported with the ownCloud Web interface and since the Desktop app version 3.0.
+
+* Web (embedded in Infinite Scale)
+* Desktop app > 3.0
+
+Spaces for the mobile apps are available since versions:
+
+* iOS app > 12.0
+* Android app > 4.0
+
+== Supported Languages
+
+Supported languages are:
+
+* English
+* German
+
+Additional languages may be contributed by the community but are not guaranteed to be complete.
