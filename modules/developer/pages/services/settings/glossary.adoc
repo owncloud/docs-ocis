@@ -4,31 +4,31 @@
 
 In the context of this extension and oCIS in general, we are using the following terminology.
 
-=== Configuration
+== Configuration
 
 - System configuration
 - e.g. service host names and ports
 - Changes need to be propagated to other services
 - Typically modified on the CLI
 
-=== Settings
+== Settings
 
 - Application level settings
 - e.g. default language
 - Can be modified at runtime without restarting the service
 
-=== Preferences
+== Preferences
 
 - User settings
 - Subset of "Settings"
 - e.g. preferred language of a user
 
-=== Settings Bundle
+== Settings Bundle
 
 - Collection of related settings
 - Registered by an oCIS extension
 
-=== Settings Value
+== Settings Value
 
 - Manifestation of a setting for a specific user
 - E.g. used for customization (at runtime) in `ocis-web`

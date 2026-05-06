@@ -1,0 +1,17 @@
+= Antivirus
+:toc: right
+:description: The Infinite Scale antivirus service is responsible for scanning files for viruses.
+
+:service_name: antivirus
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+{ocis_services_raw_url}{service_url_component}{ocis_services_final_path}
+
+== Configuration
+
+include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

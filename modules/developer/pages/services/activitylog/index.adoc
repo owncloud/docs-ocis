@@ -1,0 +1,21 @@
+= Activitylog
+:toc: right
+:description: The Infinite Scale activitylog service is responsible for scanning files for viruses.
+
+:service_name: activitylog
+
+// compute required links
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// use a predefined link text
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]
