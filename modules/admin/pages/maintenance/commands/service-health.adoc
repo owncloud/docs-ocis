@@ -1,4 +1,5 @@
 = Service Health
+:page-aliases: ROOT:maintenance/b-r/service-health.adoc
 
 The service health CLI command allows checking the health status of a service. If there are no issues found, nothing health related will get printed.
 

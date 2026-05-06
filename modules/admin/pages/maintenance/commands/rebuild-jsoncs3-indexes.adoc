@@ -1,4 +1,5 @@
 = Rebuild jsoncs3 Indexes
+:page-aliases: ROOT:maintenance/b-r/rebuild-jsoncs3-indexes.adoc
 
 WARNING: Use this command with absolute care. It is not intended to play around and should only be used on request and under supervision of ownCloud support.
 
