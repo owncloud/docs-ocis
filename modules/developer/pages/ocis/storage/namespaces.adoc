@@ -7,7 +7,7 @@ In ownCloud 10 all paths are considered relative to the users home. The CS3 API 
 
 image::ocis/storage/namespaces.drawio.svg[]
 
-The different paths in the namespaces need to be translated while passing xref:./terminology.md#references.adoc[_references_] from service to service. While the oc10 endpoints all work on paths we internally reference shared resources by id, so the shares don't break when a file is renamed or moved inside a storage xref:./spaces.adoc[_space_]. The following table lists the various namespaces, paths and id based references:
+The different paths in the namespaces need to be translated while passing xref:./terminology.adoc#references.adoc[_references_] from service to service. While the oc10 endpoints all work on paths we internally reference shared resources by id, so the shares don't break when a file is renamed or moved inside a storage xref:./spaces.adoc[_space_]. The following table lists the various namespaces, paths and id based references:
 
 | oc10 namespace                                   | CS3 global namespace                   | storage provider | reference | content |
 |--------------------------------------------------|----------------------------------------|------------------|-----------|---------|
@@ -31,7 +31,7 @@ In the global CS3 namespaces we plan to move `/home/Shares`, which currently lis
 
 == ownCloud namespaces
 
-In contrast to the global namespace of CS3, ownCloud always presented a user specific namespace on all endpoints. It will always list the users private files under `/`. Shares can be mounted at an arbitrary location in the users private spaces. See the xref:./spacesprovider#webdav.adoc[webdav] and xref:./spacesprovider#sharing.adoc[ocs] sections for more details end examples.
+In contrast to the global namespace of CS3, ownCloud always presented a user specific namespace on all endpoints. It will always list the users private files under `/`. Shares can be mounted at an arbitrary location in the users private spaces. See the xref:./spacesprovider.adoc#webdav[webdav] and xref:./spacesprovider.adoc#sharing[ocs] sections for more details end examples.
 
 With the spaces concept we are planning to introduce a global namespace to the ownCloud webdav endpoints. This will push the users private space down in the hierarchy: it will move from `/webdav` to `/webdav/home` or `/webdav/users/<username>`. The related xref:../../ocis/migration.adoc[migration stages] are subject to change.
 
@@ -56,7 +56,7 @@ Technically, the `/home` namespace is not necessary: the storage xref:./spacesre
 
 
 The `/shares` namespace is used to solve two problems:
-- To query all shares the current user has access to the _share manager_ can be used to list the resource ids. While the shares can then be navigated by resource id, they will return the relative path in the actual xref:./terminology.md#storage-providers.adoc[_storage provider_], leaking parent folders of the shared resource.
+- To query all shares the current user has access to the _share manager_ can be used to list the resource ids. While the shares can then be navigated by resource id, they will return the relative path in the actual xref:./terminology.adoc#storage-providers[_storage provider_], leaking parent folders of the shared resource.
 - When accepting a remote share e.g., for OCM the resource does not exist on the local instance. They are made accessible in the global namespace under the `/shares` namespace.
 
 [WARNING]
