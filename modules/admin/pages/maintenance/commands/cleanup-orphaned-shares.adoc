@@ -1,6 +1,6 @@
 = Cleanup Orphaned Shares
-:page-aliases: shares-cleanup.adoc
-:toc:
+:toc: right
+:page-aliases: ROOT:maintenance/b-r/cleanup-orphaned-shares.adoc
 
 Use this CLI command to clean up shared space or directory orphans when a shared space or directory is deleted. This cannot be done automatically at the moment.
 

@@ -1,4 +1,5 @@
 = Backup Consistency
+:page-aliases: ROOT:maintenance/b-r/backup-consistency.adoc
 
 The backup consistency command allows inspecting the consistency of an Infinite Scale storage:
 

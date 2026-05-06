@@ -1,4 +1,5 @@
 = Revisions Cleanup
+:page-aliases: ROOT:maintenance/b-r/revisions-cleanup.adoc
 
 The revisions command allows removing the revisions of files in the storage.
 
