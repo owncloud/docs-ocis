@@ -1,4 +1,6 @@
 = Move Stuck Uploads
+:toc: right
+:page-aliases: ROOT:maintenance/b-r/move-stuck-uploads.adoc
 
 Detect and optionally move stuck uploads.
 

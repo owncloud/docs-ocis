@@ -1,6 +1,7 @@
 = Changed or Added CLI Commands
 :toc: right
 :description: This page contains a list with added, changed or removed CLI commands between Infinite Scale version 7.3.0 and 8.0.0.
+:page-aliases: ROOT:maintenance/b-r/changed-cli.adoc
 
 == Introduction
 
