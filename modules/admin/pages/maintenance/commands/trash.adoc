@@ -1,4 +1,5 @@
 = Trash CLI
+:page-aliases: ROOT:maintenance/b-r/trash.adoc
 
 The trash CLI command allows removing empty folders from the trashbin. This should be used to speed up trash bin operations.
 
