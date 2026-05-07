@@ -1,6 +1,6 @@
 = OCDAV Service Configuration
 :toc: right
-:description: The ocDAV service is responsible for translating ownCloud-flavored WebDAV into CS3 API calls. Note that previews (thumbnails) are provided by the xref:{s-path}/webdav.adoc[WebDAV service].
+:description: The ocDAV service is responsible for translating ownCloud-flavored WebDAV into CS3 API calls. Note that previews (thumbnails) are provided by the WebDAV service.
 :page-aliases: ROOT:deployment/services/s-list/ocdav.adoc
 
 // references https://github.com/owncloud/ocis/pull/3864 ([docs-only] add PROPFIND sequence diagram examples)

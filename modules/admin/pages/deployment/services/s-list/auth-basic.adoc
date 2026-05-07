@@ -1,6 +1,6 @@
 = Auth Basic Service Configuration
 :toc: right
-:description: The Infinite Scale Auth Basic service provides basic authentication for those clients who cannot handle O>
+:description: The Infinite Scale Auth Basic service provides basic authentication for those clients who cannot handle OIDC. This is a rare case, is usually not necessary and mainly used for tests or development.
 :page-aliases: ROOT:deployment/services/s-list/auth-basic.adoc
 
 :service_name: auth-basic

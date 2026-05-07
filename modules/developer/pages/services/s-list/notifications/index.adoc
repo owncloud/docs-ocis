@@ -1,0 +1,21 @@
+= Notifications
+:toc: right
+:description: The notification service is responsible for sending emails to users informing them about events that happened.
+
+:service_name: notifications
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description} To do this, it hooks into the event system and listens for certain events that the users need to be informed about. As an example, when a user is added to a share, a notification email will be sent to the user.
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]
