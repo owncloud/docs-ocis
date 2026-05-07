@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.17.14",
+    "@sntke/antora-mermaid-extension": "^0.0.12",
     "antora": "^3.1.14",
     "asciidoctor": "^3.0.4",
     "asciidoctor-kroki": "^0.18.1",

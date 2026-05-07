@@ -25,7 +25,7 @@ asciidoc:
     s-path: 'deployment/services/s-list'
 
     # same as s-path but for the developer documentation
-    s-dev-path: 'services'
+    s-dev-path: 'services/s-list'
 
     # the name of the sub directory that defines the sources folder used in the compose deployment examples
     ocis_wopi: ocis_full

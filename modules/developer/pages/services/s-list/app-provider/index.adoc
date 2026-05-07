@@ -1,0 +1,21 @@
+= App Provider
+:toc: right
+:description: App providers represent apps that are not able to register themselves. Currently there is only the CS3org WOPI server app provider.
+
+:service_name: app-provider
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

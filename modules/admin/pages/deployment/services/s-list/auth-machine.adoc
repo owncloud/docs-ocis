@@ -1,6 +1,6 @@
 = Auth Machine Service Configuration
 :toc: right
-:description: The Infinite Scale Auth Machine service
+:description: The Infinite Scale Auth Machine service.
 :page-aliases: ROOT:deployment/services/s-list/auth-machine.adoc
 
 :service_name: auth-machine

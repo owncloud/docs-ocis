@@ -1,0 +1,21 @@
+= IDP
+:toc: right
+:description: The Infinite Scale IDP service provides a built-in minimal OpenID Connect provider.
+
+:service_name: idp
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description} It is mainly suitable for smaller installations. The recommendation for larger setups is to replace IDP with and external OpenID Connect Provider.
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]
