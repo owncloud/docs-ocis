@@ -308,6 +308,9 @@ See the https://content-security-policy.com[Content Security Policy (CSP) Quick 
 Infinite Scale cannot always determine whether the entire communication chain between itself and the client is secure. Consider the following scenarios:
 
 .Client - Webserver - Infinite Scale (incomplete)
+image:deployment/services/proxy/proxy-client-webserver-ocis-incomplete.png[]
+
+////
 [ditaa]
 ----
 +----------+         +------------+          +-----------+
@@ -320,8 +323,12 @@ Infinite Scale cannot always determine whether the entire communication chain be
                      |                       |
                  Termination              Unsecured
 ----
+////
 
 .Client - Webserver - Infinite Scale (complete)
+image:deployment/services/proxy/proxy-client-webserver-ocis-complete.png[]
+
+////
 [ditaa]
 ----
 +----------+         +------------+          +-----------+
@@ -334,8 +341,12 @@ Infinite Scale cannot always determine whether the entire communication chain be
                      |                       |
                  Termination               Secured
 ----
+////
 
 .Client - Loadbalancer - Webserver - Infinite Scale (incomplete)
+image:deployment/services/proxy/proxy-client-loadbalancer-ocis-incomplete.png[]
+
+////
 [ditaa]
 ----
 +----------+         +--------------+          +------------+          +-----------+
@@ -348,6 +359,7 @@ Infinite Scale cannot always determine whether the entire communication chain be
                      |                         |                       |
                  Termination                Unsecured               Unsecured
 ----
+////
 
 As you can see in Figure 2, the entire chain is secured by HTTPS, and the headers will be sent accordingly. The other figures illustrate that, although the client has a secure connection, the subsequent connection is insecure. Because the Infinite Scale proxy service can only detect his connection, it sends back headers for an insecure connection.
 
