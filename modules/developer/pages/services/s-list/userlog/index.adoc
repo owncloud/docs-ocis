@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= Userlog
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale userlog service is a mediator between the eventhistory service and clients who want to be informed about user-related events. It provides an API to retrieve those.
 
-:service_name: storage-publiclink
+:service_name: userlog
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]

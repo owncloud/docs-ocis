@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= Postprocessing
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description:  The Infinite Scale postprocessing service handles the coordination of asynchronous post-processing steps.
 
-:service_name: storage-publiclink
+:service_name: postprocessing
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]

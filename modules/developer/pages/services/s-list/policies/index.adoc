@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= Policies
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale policies service provides a new gRPC API which can be used to check whether a requested operation is allowed or not. To do so, Open Policy Agent (OPA) is used to define the set of rules of what is permitted and what is not.
 
-:service_name: storage-publiclink
+:service_name: policies
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]

@@ -9,7 +9,7 @@
 
 {description} and is also responsible for presenting images, not only thumbnails to the client. It retrieves the sources at the location where the user files are stored and saves the thumbnails where system files are stored. Those locations have defaults but can be manually defined via environment variables.
 
-Note for developers, more information is available with regards to querying thumbnails in the services section of the https://owncloud.dev/services/thumbnails/[Developer Documentation].
+Note for developers, more information is available with regards to querying thumbnails in the services section of the xref:developer:{s-dev-path}/thumbnails/thumbnails.adoc/[Developer Documentation].
 
 == Default Values
 

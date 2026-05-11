@@ -1,0 +1,24 @@
+= Search
+:toc: right
+:description: The Infinite Scale Search service is responsible for metadata and content extraction, stores that data as index and makes it searchable.
+
+:service_name: search
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description} The following clarifies the extraction terms _metadata_ and _content_:
+
+* *Metadata:* all data that _describes_ the file like `Name`, `Size`, `MimeType`, `Tags` and `Mtime`.
+* *Content:* all data that _relates to content_ of the file like `words`, `geo data`, `exif data` etc.
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

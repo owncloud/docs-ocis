@@ -1,15 +1,15 @@
-= Storage-Publiclink
+= Web
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The web service embeds and serves the static files for the Infinite Scale web client.
 
-:service_name: storage-publiclink
+:service_name: web
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]
 
 == Introduction
 
-{description}
+{description} See the https://github.com/owncloud/web[ownCloud Web] description on github for developer details.
 
 == Developer Readme
 

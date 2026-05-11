@@ -1,12 +1,12 @@
-= Protocol changes
+= Protocol Changes
 :toc: right
-:toclevels: 3
 
-The spaces concept allows clients to look up the space endpoints a user has access to and then do individual sync discoveries. Technically, we introduce an indirection that allows clients to rely on server provided URLs instead of hardcoded `/webdav` or `/dav/files/{username}` paths, that may change over time.
+The spaces concept allows clients to look up the space endpoints a user has access to and then do individual sync discoveries. Technically, we introduce an indirection that allows clients to rely on server provided URLs instead of hardcoded `/webdav` or `/dav/files/\{username}` paths, that may change over time.
 
-== Space discovery
+== Space Discovery
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -32,9 +32,9 @@ sequenceDiagram
         Client->>+SpaceB: PROPFIND {webDavURL for space B}
         SpaceB-->>-Client: 207 Multistatus PROPFIND response
     end
-// SHORTCODE: {{</mermaid>}}
+----
 
-=== New /dav/spaces/{spaceid} endpoint with spaceid and a relative path
+=== New /dav/spaces/\{spaceid} Endpoint With Spaceid and a Relative Path
 
 The ocDAV service is responsible for translating ownCloud flavoured WebDAV into CS3 API calls.
 
@@ -42,7 +42,8 @@ _General view_
 
 A PROPFIND finds its way to a storage provider like this:
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -57,7 +58,7 @@ sequenceDiagram
         ocDAV->>+StorageProvider: ListContainer({spaceid}, path: {relative/path})
         StorageProvider-->>-ocDAV: []ResourceInfo
         ocDAV-->>-Client: 207 Multistatus
-// SHORTCODE: {{</mermaid>}}
+----
 
 While the above is a simplification to get an understanding of what needs to go where, there are several places where sharding can happen.
 
@@ -65,7 +66,8 @@ _Proxy can do user based routing_
 
 The ocis proxy authenticates requests and can forward requests to different backends, depending on the logged-in user or cookies. For example multiple ocdav services can be configured to shard users based on username or affiliation.
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -86,13 +88,14 @@ sequenceDiagram
         proxy->>+ocDAV2: PROPFIND /dav/space/{spaceid}/{relative/path}
         ocDAV2-->>-Client: 207 Multistatus
     end
-// SHORTCODE: {{</mermaid>}}
+----
 
 _Gateway can do path or storage provider id based routing_
 
 The reva gateway acts as a facade to multiple storage providers that can be configured with the storage registry:
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -117,16 +120,16 @@ sequenceDiagram
         StorageProvider2-->>-Gateway: []ResourceInfo
     end
         Gateway-->>-ocDAV: []ResourceInfo
-// SHORTCODE: {{</mermaid>}}
+----
 
-
-=== Old /dav/files/{username} endpoint with username and a path relative to the users home
+=== Old /dav/files/\{username} Endpoint With Username and a Path Relative to the Users Home
 
 _PROPFIND request against old webdav endpoints_
 
 To route a PROPFIND request against the old webdav endpoints like `/dav/files/username`, ocdav first has to build a CS3 namespace prefix, e.g. `/users/{{.Id.OpaqueId}}` to the users home.
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -151,13 +154,14 @@ sequenceDiagram
         Gateway-->>-ocDAV: []ResourceInfo
         ocDAV-->>-Client: 207 Multistatus
     end
-// SHORTCODE: {{</mermaid>}}
+----
 
 _Handling legacy global namespace webdav endpoints_
 
 The reason ocis uses a path based lookup instead of looking up the current users home using the user id and a space type filter is, because there are deployments that use a global namespace at the legacy `/webdav` endpoint. To support these use cases, the gateway allows looking up spaces using their mount path.
 
-// SHORTCODE: {{<mermaid class="text-center">}}
+[mermaid]
+----
 %%{init: {"sequence": { "showSequenceNumbers":true, "messageFontFamily":"courier", "messageFontWeight":"normal", "messageFontSize":"11"}}}%%
 %% font weight is a css bug: https://github.com/mermaid-js/mermaid/issues/1976
 %% edit this diagram by pasting it into eg. https://mermaid.live
@@ -192,4 +196,4 @@ sequenceDiagram
         ocDAV->>+Gateway: ListContainer({spaceid}, path: {relative/path})
         Gateway-->>-ocDAV: []ResourceInfo
         ocDAV-->>-Client: 207 Multistatus
-// SHORTCODE: {{</mermaid>}}
+----
