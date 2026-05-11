@@ -1,9 +1,21 @@
 = Users
 :toc: right
-:toclevels: 3
+:description: The Infinite Scale User service.
 
-== Abstract
+:service_name: users
 
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
 
-== Table of Contents
+== Introduction
 
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

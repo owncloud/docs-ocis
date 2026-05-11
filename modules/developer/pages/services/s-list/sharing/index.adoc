@@ -1,10 +1,21 @@
 = Sharing
 :toc: right
-:toclevels: 3
+:description: The Infinite Scale Sharing service
 
-== Abstract
+:service_name: sharing
 
-This service implements the CS3 link:https://cs3org.github.io/cs3apis/#cs3.sharing.link.v1beta1.LinkAPI[LinkAPI] to manage public links as well as the link:https://cs3org.github.io/cs3apis/#cs3.sharing.collaboration.v1beta1.CollaborationAPI[CollaborationAPI] to manage user and group shares.
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
 
-== Table of Contents
+== Introduction
 
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

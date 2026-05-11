@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= SSE (Server-Sent Events)
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale sse service is responsible for sending sse (server-sent events) to a user.
 
-:service_name: storage-publiclink
+:service_name: sse
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]

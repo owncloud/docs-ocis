@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= Storage-Users
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale Storage-Users service
 
-:service_name: storage-publiclink
+:service_name: storage-users
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]

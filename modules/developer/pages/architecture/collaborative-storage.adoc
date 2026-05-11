@@ -1,7 +1,5 @@
 = Collaborative Storage
 :toc: right
-:toclevels: 3
-
 
 One of the envisioned design goals of Infinite Scale is to work with so called _collaborative storage_, which means that the file system it is running on is not exclusive for Infinite Scale, but can be manipulated in parallel through third party tools. Infinite Scale is expected to monitor the changes that happen independently and react in a consistent and user friendly way.
 
@@ -9,19 +7,18 @@ A real world example of that would be a third party "data producer" that submits
 
 This document outlines a few challenges and design concepts for collaborative storage. It is also the base "checklist" for custom storage provider implementations for certain storages, ie. for Ceph- or IBM Storage Scale which provide features that allow more sophisticated and efficient implementations of this goal.
 
-
-= Storage Driver Components
+== Storage Driver Components
 
 This discusses a few components and sub functions of the storage driver that have relevance for the collaborative storage.
 
-== Path Locations
+=== Path Locations
 
 What is called "the oCIS file system" is defined as the entire filetree underneath a special path in the local POSIX file system, which might either be a real local file system or a mounted net filesystem. It is expected that oCIS is the only consumer of that file tree, except what is expected behaviour with a collaborative file system, that adds and edits files in that tree.
 
 Underneath the oCIS file system root, there is an collection of different folders containing oCIS specific data.  Specific storage driver data is in the directory `storage/users`, organized by spaces.
 (TODO: Check again how different storage drivers work together without overwriting data of each other)
 
-== Spaces
+=== Spaces
 
 Infinite Scale provides spaces as an additional organization organizational unit for data. Each space is a separate entity with its own attributes such as access patterns and quota.
 
@@ -29,13 +26,13 @@ A storage driver has to model the separation of spaces and provide a list of spa
 
 On POSIX, each space could for example be mapped to it's own directory in a special spaces folder under the oCIS root folder.
 
-== ID to Path Lookup
+=== ID to Path Lookup
 
 Infinite Scale uses file IDs to efficiently identify files within a file tree. The lookup from a given ID to a path within the oCIS file tree is a very basic function that more or less defines the Infinite Scale performance. The functionality to for example query the file path for a given Inode number (which is the nearest equivalent for the Infinite Scale file ID) can not be done with standard POSIX system calls.
 
 The interface defining the collaborative storage needs an abstraction for this particular function, returning the file id for a given path, and returning the path for given id.
 
-== Change Notification
+=== Change Notification
 
 When a file is changed by a process outside of oCIS, this needs to be monitored by oCIS to quickly maintain internal caches and data structures as required.
 
@@ -45,7 +42,7 @@ For GPFS, there is a subsystem called delivering that:
 
 https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=reference-clustered-watch-folder]
 
-== ETag Propagation
+=== ETag Propagation
 
 ownCloud requires that changes which happen "down" in a tree, can be detected in the root element of the tree. That happens through the change of the ETag metadata of each file and/or directory. An ETag is a random, text based tag, that only has one requirement: It has to change its content if a resource further down in the file tree has changed either its content or its metadata. (See link:https://github.com/owncloud/ocis/issues/3782[this issue] for further discussion about the ETag/CTag).
 
@@ -55,11 +52,11 @@ Infinite Scale needs to implement ETag propagation "up". For the collaborative s
 
 Certain file systems implement this functionality either independently from Infinite Scale (EOS) or at least support proper change notifications (Ceph, GPFS?).
 
-== Metadata Management
+=== Metadata Management
 
 Metadata are data "snippets" that are as tightly attached to files as ever possible. In best case, a rename of a file silently keeps the metadata as well. In POSIX, this can be achieved by extended file attributes with certain limitations.
 
-== Quota
+=== Quota
 
 Each space has it's own quota, thus a storage driver implementation needs to consider that.
 
@@ -69,22 +66,23 @@ https://www.ibm.com/docs/en/gpfs/4.1.0.4?topic=interfaces-gpfs-quotactl-subrouti
 
 Other systems store quota data in the metadata storage and implement propagation of used quota similar to the ETag propagation.
 
-== User Management
+=== User Management
 
 With user management it is meant how to handle the users and groups within oCIS and how that reflects to the file system where data is stored.
 
-=== Exclusive Environment
+==== Exclusive Environment
 
 In exclusive environments (aka. decomposedFS) all files of oCIS (ie. the entire oCIS filetree) belongs to a system user with the name `ocis` typically.
 
-=== Collaborative Storage
+==== Collaborative Storage
 
 For collaborative storages, the approach described above does not longer work because users are supposed to be able to manipulate data in "their" file tree parts, and that is identified by ACLs and the owner of the files.
 
 That requires a few prerequisites that have to be fulfilled:
 
-1. oCIS as one "client" changing data and the system that allows to access the file tree directly have to use the same user provider, to ensure that each user that is available on a shell is also available in oCIS. That ensures that changes are authenticated through system ACLs and users. LDAP based authentication on the system via PAM and the same LDAP as source for the oCIS IDP should be a sufficient setup.
-2. oCIS must be able to write as a "different" user than the ocis system user. That means that we somehow have to impersonate file changing ooperations and run these as the user that is authenticated in oCIS.
+. oCIS as one "client" changing data and the system that allows to access the file tree directly have to use the same user provider, to ensure that each user that is available on a shell is also available in oCIS. That ensures that changes are authenticated through system ACLs and users. LDAP based authentication on the system via PAM and the same LDAP as source for the oCIS IDP should be a sufficient setup.
+
+. oCIS must be able to write as a "different" user than the ocis system user. That means that we somehow have to impersonate file changing ooperations and run these as the user that is authenticated in oCIS.
 
 Example: There is a user ben. It has to have an entry in the LDAP that is used by IDP which oCIS is running "behind". With that, ben is able to authenticate through the IDP and work in the oCIS web app. The oCIS linux process will do writes and other changes impersonated as user ben.
 

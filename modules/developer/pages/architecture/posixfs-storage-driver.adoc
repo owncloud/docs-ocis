@@ -1,7 +1,5 @@
 = PosixFS Storage Driver
 :toc: right
-:toclevels: 3
-
 
 The Posix FS Storage Driver is a new storage driver for Infinite Scale.
 
@@ -85,8 +83,8 @@ ID based lookups utilize an ID cache which needs to be shared between all storag
 
 In the future a powerful underlying file system could support Infinite Scale by providing an API that
 
-1. Provides the ID for a given file path referenced resource
-2. Provides the path for a given ID.
+. Provides the ID for a given file path referenced resource
+. Provides the path for a given ID.
 
 These two operations are very crucial for the performance of the entire system.
 
@@ -95,9 +93,12 @@ These two operations are very crucial for the performance of the entire system.
 With the requirement that data can be manipulated either through the filesystem or the Infinite Scale system, the question under which UID the manipulation happens is important.
 
 There are a few possible ways for user management:
-1. Changes can either be only accepted by the same  user that Infinite Scale is running under, for example the user `ocis`. All manipulations in the filesystem have to be done by, and only by this user.
-2. Group based: All users who should be able to manipulate files have to be in a unix group. The Infinite Scale user has also to be member of that group. The default umask in the directory used has to allow group writing all over the place.
-3. Impersonation: Infinite Scale impersonates the user who owns the folder on the file system to mimic the access as the user.
+
+. Changes can either be only accepted by the same  user that Infinite Scale is running under, for example the user `ocis`. All manipulations in the filesystem have to be done by, and only by this user.
+
+. Group based: All users who should be able to manipulate files have to be in a unix group. The Infinite Scale user has also to be member of that group. The default umask in the directory used has to allow group writing all over the place.
+
+. Impersonation: Infinite Scale impersonates the user who owns the folder on the file system to mimic the access as the user.
 
 All possibilities have pros and cons for operations.
 
@@ -129,11 +130,11 @@ As of Q2/2024 the Posix FS Storage Driver is not officially supported and in tec
 
 The tech preview comes with the following limitations:
 
-1. Only inotify and GPFS file system change notification methods are supported
-1. Versioning is not supported yet
-1. The space/project folders in the filesystem are named after the UUID, not the real space name
-1. No CephFS support yet
-1. Postprocessing (ie. anti virus check) does not happen for file actions outside of Infinite Scale
+. Only inotify and GPFS file system change notification methods are supported
+. Versioning is not supported yet
+. The space/project folders in the filesystem are named after the UUID, not the real space name
+. No CephFS support yet
+. Postprocessing (ie. anti virus check) does not happen for file actions outside of Infinite Scale
 
 == Setup
 
@@ -145,11 +146,11 @@ It is possible to use different storage drivers in the same Infinite Scale insta
 
 To use the Posix FS Storage Driver, the following prerequisites have to be fulfilled:
 
-1. There must be storage available to store meta data and blobs, available under a root path.
-1. When using inotify, the storage must be local on the same machine. Network mounts do not work with inotify. `inotifywait` needs to be installed.
-1. The storage root path must be writeable and executable by the same user Infinite Scale is running under.
-1. An appropiate version of Infinite Scale is installed, version number 5.0.5 and later.
-1. `nats-js-kv` as cache service
+. There must be storage available to store meta data and blobs, available under a root path.
+. When using inotify, the storage must be local on the same machine. Network mounts do not work with inotify. `inotifywait` needs to be installed.
+. The storage root path must be writeable and executable by the same user Infinite Scale is running under.
+. An appropiate version of Infinite Scale is installed, version number 5.0.5 and later.
+. `nats-js-kv` as cache service
 
 
 === Setup Configuration

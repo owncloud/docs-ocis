@@ -1,8 +1,8 @@
-= Storage-Publiclink
+= Auth App
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale Auth App service provides authentication for 3rd party apps.
 
-:service_name: storage-publiclink
+:service_name: auth-app
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]
@@ -10,6 +10,10 @@ include::partial$services/compute-links.adoc[]
 == Introduction
 
 {description}
+
+With the `auth-app` service, you can create tokens that can be used to authenticate 3rd party apps accessing Infinite Scale.
+
+To enable `{service_name}`, you first must set `PROXY_ENABLE_APP_AUTH` to `true`.
 
 == Developer Readme
 

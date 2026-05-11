@@ -1,15 +1,15 @@
-= Storage-Publiclink
+= Storage-System
 :toc: right
-:description: The Infinite Scale Storage-Publiclink service
+:description: The Infinite Scale Storage-System service persists and caches user related data that is defined via Infinite Scale.
 
-:service_name: storage-publiclink
+:service_name: storage-system
 
 // compute required links as attributes
 include::partial$services/compute-links.adoc[]
 
 == Introduction
 
-{description}
+{description} This can be among other data role assignments, user settings and users shares.
 
 == Developer Readme
 

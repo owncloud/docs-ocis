@@ -1,19 +1,17 @@
 = Envvar Naming Scopes
 :toc: right
-:toclevels: 3
-
 
 The scope of an environment variable can be derived from its name. Therefore, it is important to follow the correct naming scheme to enable easy and proper identification. This is important when either:
 
--   a new local envvar is introduced.
--   a new global envvar is added to an existing local envvar.
+- a new local envvar is introduced.
+- a new global envvar is added to an existing local envvar.
 
 == Envvar Definition
 
--   A variable that is only used in a particular service is a _local envvar_.
--   A variable that is used in more than one service is a _global envvar_.
--   If applicapable, a global envvar has a local counterpart.
--   Variables that are not limited to any service are by definition global.
+- A variable that is only used in a particular service is a _local envvar_.
+- A variable that is used in more than one service is a _global envvar_.
+- If applicapable, a global envvar has a local counterpart.
+- Variables that are not limited to any service are by definition global.
 
 == Naming Scope
 
@@ -27,7 +25,7 @@ A global envvar always starts with `OCIS_` like `OCIS_LOG_FILE`.
 
 Note that this envvar is the global representation of the local example from above.
 
-To get a list of global envvars used in all services, see the link:https://doc.owncloud.com/ocis/next/deployment/services/env-vars-special-scope.html#global-environment-variables[Global Environment Variables] table in the ocis admin documentation.
+To get a list of global envvars used in all services, see the xref:admin:deployment/services/env-vars-special-scope.adoc#global-environment-variables[Global Environment Variables] table in the ocis admin documentation.
 
 === Reserved Envvar Names
 
@@ -46,22 +44,24 @@ The envvar struct tag contains at maximum the following key/value pairs to docum
 === Introduce new Envvars
 
 * If a _new_ envvar is introduced, the entire structure must be added, including the `introductionVersion` field. Note that 'introduced' means, that the new envvar was not present in any of the services.
-
++
+--
 [NOTE]
 ====
-  * During development, set the `introductionVersion` to a short, _alphabetic code name_ that represents the upcoming release such as `releaseX` or the project name for that release such as `Daledda`.
-  * This identifier stays constant until the release receives its final production semantic-version number.
-  * Although the pipeline checks the semver string when a PR is created, you can perform this check upfront manually by entering the following command from the ocis root:
-
-    ```bash
-    .make/check-env-var-annotations.sh
-    ```
+* During development, set the `introductionVersion` to a short, _alphabetic code name_ that represents the upcoming release such as `releaseX` or the project name for that release such as `Daledda`.
+* This identifier stays constant until the release receives its final production semantic-version number.
+* Although the pipeline checks the semver string when a PR is created, you can perform this check upfront manually by entering the following command from the ocis root:
++
+[source,bash]
+----
+.make/check-env-var-annotations.sh
+----
 ====
 
+The doc helper scripts render these alphabetic identifiers verbatim. They appear in the next (master) branch of the admin documentation exactly as they are entered.
+--
 
-  The doc helper scripts render these alphabetic identifiers verbatim. They appear in the next (master) branch of the admin documentation exactly as they are entered.
-
-* See the xref:./new-release-process/.adoc[Set the Correct IntroductionVersion] documentation before starting a new release candidate.
+* See the xref:services/general-info/envvars/new-release-process.adoc[Set the Correct IntroductionVersion] documentation before starting a new release candidate.
 
 === Adding Envvars to Existing Ones
 
@@ -69,7 +69,7 @@ If an envvar has been introduced with a particular release, the `introductionVer
 
 === Deprecate Existing Envvars
 
-See the xref:./deprecating-variables.adoc[deprecation rules] documentation for more details.
+See the xref:services/general-info/envvars/deprecating-variables.adoc[deprecation rules] documentation for more details.
 
 == Separating Multiple Envvars
 

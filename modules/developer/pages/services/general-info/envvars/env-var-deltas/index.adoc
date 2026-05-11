@@ -1,17 +1,17 @@
 = Deltas Between Versions
 :toc: right
-:toclevels: 3
+
+== Introduction
+
+This section provides information about the handling of `added`, `removed` and `deprecated` environment variables between two major/minor versions.
 
 == General Information
-
-This section provides information about `added`, `removed` and `deprecated` environment variables between two major/minor versions.
 
 [WARNING]
 ====
 * When creating a new release, this step should be completed _before_ the new `stable-x.y` branch is created. Then, all changes will go cleanly into this stable branch.
 * If the changes required are not part of the stable branch created for the release process, you must backport all `added`, `removed` and `deprecated` files created from the described process below into the stable branch. Backporting `env_vars.yaml`to the stable branch is not required and can be omitted.
 ====
-
 
 To create the changed envvar tables, you must proceed the following steps in order:
 
