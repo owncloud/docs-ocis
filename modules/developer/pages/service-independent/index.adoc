@@ -1,0 +1,6 @@
+= Service Independent Settings
+:toc: right
+:toclevels: 3
+
+
+Some components programmed are not bound to a service but are valid for all of ocis. These are for example environment variables that are used before any service gets started. For ocis CLI commands that are service independent, see the xref:../cli-commands/service_independent_cli.adoc[Service Independent CLI] documentation.

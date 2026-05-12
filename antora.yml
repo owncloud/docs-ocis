@@ -5,6 +5,7 @@ prerelease: true
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/partials/nav.adoc
+- modules/developer/partials/nav.adoc
 
 asciidoc:
   attributes:
@@ -22,6 +23,9 @@ asciidoc:
     # note that any changes of this path also need adjustment in
     # https://github.com/owncloud/ocis-charts/tree/master/charts/ocis/docs
     s-path: 'deployment/services/s-list'
+
+    # same as s-path but for the developer documentation
+    s-dev-path: 'services/s-list'
 
     # the name of the sub directory that defines the sources folder used in the compose deployment examples
     ocis_wopi: ocis_full
@@ -66,6 +70,7 @@ asciidoc:
     # static path components, used to assemble the final path dependent on service_url_component to include services
     ocis_services_raw_url: 'https://raw.githubusercontent.com/owncloud/ocis/'
     ocis_services_final_path: '/services/_includes/'
+    ocis_services_dev_path: '/services/'
 
     # only used in deployment/services/env-var-changes.adoc
     # static path component, used to assemble the final path

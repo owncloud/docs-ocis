@@ -1,0 +1,9 @@
+// provide computed attributes to the calling page
+// the attribute 'service_name' must be defined by the calling page to be used here.
+
+// Create a path to access the service folder
+// Use the correct path segment such as master or like stable-8.0
+:git-service-root: {compose_url}{ocis_repo_url_component}{ocis_services_dev_path}{service_name}
+
+// Create a path the the service in the admin docs 
+:service-path-to-admin: admin:{s-path}/{service_name}.adoc

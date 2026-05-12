@@ -1,0 +1,21 @@
+= OCS
+:toc: right
+:description: The Infinite Scale OCS service (open collaboration services) serves mainly one purpose: it has an endpoint for signing keys which the web frontend accesses when uploading data.
+
+:service_name: ocm
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

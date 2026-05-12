@@ -1,0 +1,21 @@
+= Groups
+:toc: right
+:description: The Infinite Scale Group service
+
+:service_name: groups
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description} It is inspired by the https://learn.microsoft.com/en-us/graph/use-the-api[Microsoft Graph API,window=_blank] and can be used by clients or other services or extensions. Visit the https://owncloud.dev/libre-graph-api/[Libre Graph API,window=_blank] for a detailed specification of the API implemented by the graph service.
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

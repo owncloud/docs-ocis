@@ -1,0 +1,7 @@
+= Releasing Processes
+:toc: right
+:toclevels: 3
+
+== General Information
+
+This section provides information how to prepare a new Infinite Scale release.

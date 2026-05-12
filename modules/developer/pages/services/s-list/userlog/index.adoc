@@ -1,0 +1,21 @@
+= Userlog
+:toc: right
+:description: The Infinite Scale userlog service is a mediator between the eventhistory service and clients who want to be informed about user-related events. It provides an API to retrieve those.
+
+:service_name: userlog
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

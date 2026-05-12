@@ -1,0 +1,4 @@
+// this link text is included in services
+Here you can find the developer link:{git-service-root}/README.md[README.md, window=_blank] for this service on the `{ocis_repo_url_component}` branch. Please note that the README is intended for developers and may differ from the description in the xref:{service-path-to-admin}[admin documentation, window=_blank]. Admin Docs provides information that has had specific, developer-only information removed, but it may contain additional administrative or configuration notes relevant to this service.
+
+Please note that the configuration section below remains the same.

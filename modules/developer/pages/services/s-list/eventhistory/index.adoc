@@ -1,0 +1,21 @@
+= Eventhistory
+:toc: right
+:description: The Infinite Scale eventhistory service consumes all events from the configured event system like NATS, stores them and allows other services to retrieve them via an event ID.
+
+:service_name: eventhistory
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

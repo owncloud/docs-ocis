@@ -1,0 +1,8 @@
+= Architecture Decisions
+:toc: right
+:toclevels: 3
+
+oCIS is documenting architecture decisions using link:https://adr.github.io/madr/[Markdown Architectural Decision Records] (MADR), following link:https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions[Documenting Architecture Decisions by Michael Nygard].
+
+
+To manage the records we use link:https://github.com/butonic/adr-tools[butonic/adr-tools], a fork of the original link:https://github.com/npryce/adr-tools[npryce/adr-tools], based on link:https://github.com/npryce/adr-tools/pull/43[a pull request that should have added MADR support]. It also supports a YAML header that is used by our Hugo based doc generation

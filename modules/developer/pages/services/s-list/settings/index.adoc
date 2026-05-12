@@ -1,0 +1,21 @@
+= Settings
+:toc: right
+:description: The Infinite Scale Settings service provides functionality for other services to register new settings as well as storing and retrieving the respective settings' values.
+
+:service_name: settings
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description}
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]

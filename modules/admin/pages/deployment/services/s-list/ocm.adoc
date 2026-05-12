@@ -1,7 +1,7 @@
 = OCM Configuration
 :toc: right
 :ocm-api-version: 1.1.0 
-:description: The Infinite Scale OCM service provides federated sharing functionality based on ScienceMesh and the OCM {ocm-api-version} HTTP API.
+:description: The Infinite Scale OCM service provides federated sharing functionality based on ScienceMesh and the OCM 1.1.0 HTTP API.
 :page-aliases: ROOT:deployment/services/s-list/ocm.adoc
 
 :site-object-url: https://developer.sciencemesh.io/docs/technical-documentation/central-database/#site-object

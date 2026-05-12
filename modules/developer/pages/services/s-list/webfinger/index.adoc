@@ -1,0 +1,23 @@
+= Webfinger
+:toc: right
+:description: The Infinite Scale webfinger service provides an RFC7033 WebFinger lookup of ownCloud instances relevant for a given user account.
+
+:webfinger-url: https://en.wikipedia.org/wiki/WebFinger
+
+:service_name: webfinger
+
+// compute required links as attributes
+include::partial$services/compute-links.adoc[]
+
+== Introduction
+
+{description} {webfinger-url}[WebFinger] is a protocol that allows for discovery of information about people and things identified by an URI.
+
+== Developer Readme
+
+// add a predefined text that uses the computed links
+include::partial$services/readme-link-text.adoc[]
+
+== Configuration
+
+include::partial$services/env-and-yaml.adoc[tag=envvars-yaml]dev-

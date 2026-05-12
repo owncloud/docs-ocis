@@ -12,7 +12,7 @@ include::partial$multi-location/compose-version.adoc[]
 
 {description} Every HTTP request goes through this service. Authentication, logging and other preprocessing of requests also happens here. Mechanisms like request rate limiting or intrusion prevention are **not** included in the proxy service and must be set up in front of an external reverse proxy.
 
-See the https://owncloud.dev/services/proxy/[Developer Documentation] for details if you want to write your own extensions and need to change or add routes to endpoints.
+See the xref:developer:{s-dev-path}/proxy/index.adoc[Developer Documentation] for details if you want to write your own extensions and need to change or add routes to endpoints.
 
 == Default Values
 

@@ -1,4 +1,3 @@
 * xref:index.adoc[Introduction]
 include::admin:partial$nav.adoc[]
-// include::developer:partial$nav.adoc[]
-
+include::developer:partial$nav.adoc[]
