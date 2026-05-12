@@ -1,7 +1,5 @@
 = Debugging
 :toc: right
-:toclevels: 3
-
 
 == Debugging
 
@@ -17,9 +15,10 @@ For debugging there are two workflows that work well, depending on your preferen
 
 Run the debug binary with `OCIS_LOG_LEVEL=debug bin/ocis-debug server` and then find the service you want to debug using:
 
-[source,console]
+[source,bash]
 ----
-# ps ax | grep ocis
+ps ax | grep ocis
+
 12837 pts/1    Sl+    0:00 bin/ocis-debug server
 12845 pts/1    Sl     0:00 bin/ocis-debug graph
 12847 pts/1    Sl     0:00 bin/ocis-debug reva-auth-bearer
@@ -62,10 +61,10 @@ Then you can set a breakpoint in the service you need and attach to the process 
 }
 ----
 
-==== Start all services independently to replace one of them with a debug process
+==== Start all Services Independently to Replace one of Them With a Debug Process
 
-1. You can use this `./ocis.sh` script to start all services independently, so they don't get restarted by the runtime when you kill them:
-
+. You can use this `./ocis.sh` script to start all services independently, so they don't get restarted by the runtime when you kill them:
++
 [source,bash]
 ----
 #/bin/sh
@@ -95,11 +94,12 @@ bin/ocis --log-level=$LOG_LEVEL reva-users &
 bin/ocis --log-level=$LOG_LEVEL proxy &
 ----
 
-2. Get the list of running processes:
-
-[source,console]
+. Get the list of running processes:
++
+[source,bash]
 ----
-# ps ax | grep ocis
+ps ax | grep ocis
+
 12837 pts/1    Sl+    0:00 bin/ocis-debug server
 12845 pts/1    Sl     0:00 bin/ocis-debug graph
 12847 pts/1    Sl     0:00 bin/ocis-debug reva-auth-bearer
@@ -124,38 +124,49 @@ bin/ocis --log-level=$LOG_LEVEL proxy &
 13015 pts/1    Sl     0:00 bin/ocis-debug reva-auth-basic
 ----
 
-3. Kill the service you want to start in debug mode:
-
+. Kill the service you want to start in debug mode:
++
 [source,console]
 ----
-# kill 17628
+kill 17628
 ----
 
-4. Start the service you are interested in debug mode. When using make to build the binary there is already a `bin/ocis-debug` binary for you. When running an IDE tell it which service to start by providing the corresponding sub command, e.g. `bin\ocis-debug reva-frontend`.
+. Start the service you are interested in debug mode. When using make to build the binary there is already a `bin/ocis-debug` binary for you. When running an IDE tell it which service to start by providing the corresponding sub command, e.g. `bin\ocis-debug reva-frontend`.
 
-=== Debugging the ocis in a docker container
+=== Debugging the ocis in a Docker Container
 
 Remote debugging is the debug mode commonly used to work with a debugger and target running on a remote machine or a container for example a wopi stack `deployments/examples/ocis_full/docker-compose.yml`. Docker compose lets us define a compose application model through multiple compose files. When doing so, compose follows certain rules to merge compose files. See link:https://docs.docker.com/compose/compose-file/13-merge/[Merge and override] in the Compose Specification. Based on this rules, we added the extra files `deployments/examples/ocis_full/debug-ocis.yml`, `deployments/examples/ocis_full/debug-collaboration-collabora.yml`, `deployments/examples/ocis_full/debug-collaboration-onlyoffice.yml` that overwrites the `command` attribute and extends the `ports` attribute.
 Below we describe the steps how to build the image, run the docker-compose and connect via remote debugger.
-1. Build the image:
+
+. Build the image:
++
 [source,bash]
 ----
 cd github.com/owncloud/ocis/ocis
 make debug-docker
 ----
-2. Change the tag label:
+
+. Change the tag label:
++
 [source,bash]
 ----
 export OCIS_DOCKER_TAG=debug
 ----
-3. Run docker compose
+
+. Run docker compose
++
+--
 Building the docker compose command depends on what you want to debug, for example `ocis` and `collaboration` with the `collabora` supports.
+
 [source,bash]
 ----
 docker compose -f docker-compose.yml -f ocis.yml -f collabora.yml -f debug-ocis.yml -f debug-collaboration-collabora.yml up -d
 ----
-4. Connect to remote `delve`
+--
+
+. Connect to remote `delve`
 * For the VS Code add the configuration to the `.vscode/launch.json` link:https://github.com/golang/vscode-go/wiki/debugging#remote-debugging[https://github.com/golang/vscode-go/wiki/debugging#remote-debugging]
++
 [source,json]
 ----
  {
@@ -189,8 +200,8 @@ docker compose -f docker-compose.yml -f ocis.yml -f collabora.yml -f debug-ocis.
   "showLog": true      // optional
 },
 ----
-* For the Jetbrains Goland add the configuration following the docs link:https://www.jetbrains.com/help/go/go-remote.html[https://www.jetbrains.com/help/go/go-remote.html]
 
+* For the Jetbrains Goland add the configuration following the docs link:https://www.jetbrains.com/help/go/go-remote.html[https://www.jetbrains.com/help/go/go-remote.html]
 
 === Gather error messages
 
@@ -205,9 +216,9 @@ ____
 
 This popped up when I tried to add `marie` as a collaborator in ownCloud Web. That triggers a request to the server which I copied as curl. We can strip a lot of headers and the gist of it is:
 
-[source,console]
+[source,bash]
 ----
-# curl 'https://localhost:9200/ocs/v1.php/apps/files_sharing/api/v1/shares' -d 'shareType=0&shareWith=marie&path=%2FNeuer+Ordner&permissions=1' -u einstein:relativity -k -v | xmllint -format -
+curl 'https://localhost:9200/ocs/v1.php/apps/files_sharing/api/v1/shares' -d 'shareType=0&shareWith=marie&path=%2FNeuer+Ordner&permissions=1' -u einstein:relativity -k -v | xmllint -format -
 [... headers ...]
 <?xml version="1.0" encoding="UTF-8"?>
 <ocs>
@@ -219,16 +230,9 @@ This popped up when I tried to add `marie` as a collaborator in ownCloud Web. Th
 </ocs>
 ----
 
-[NOTE]
-====
-The username and password only work when basic auth is available. Otherwise you have to obtain a bearer token, e.g. by grabbing it from the browser.
-====
+NOTE: The username and password only work when basic auth is available. Otherwise you have to obtain a bearer token, e.g. by grabbing it from the browser.
 
-[CAUTION]
-====
-TODO add ocis cli tool to obtain a bearer token.
-====
-
+WARNING: TODO add ocis cli tool to obtain a bearer token.
 
 We also have a few interesting log entries:
 
@@ -238,13 +242,9 @@ We also have a few interesting log entries:
 10:43PM ERR home/jfd/go/pkg/mod/github.com/cs3org/reva@v0.0.2-0.20200318111623-a2f97d4aa741/internal/http/services/owncloud/ocs/reqres.go:94 > error sending a grpc stat request error="rpc error: code = Unknown desc = gateway: error calling Stat: rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing dial tcp [::1]:9152: connect: connection refused\"" pid=17832 pkg=rhttp traceid=b4eb9a9f45921f7d3632523ca32a42b0
 ----
 
-[CAUTION]
-====
-TODO return the trace id in the response so we can correlate easier. For reva tracked in https://github.com/cs3org/reva/issues/587
-====
+WARNING: TODO return the trace id in the response so we can correlate easier. For reva tracked in https://github.com/cs3org/reva/issues/587
 
-
-The last line gives us a hint where the log message originated: `.../github.com/cs3org/reva@v0.0.2-0.20200318111623-a2f97d4aa741/internal/http/services/owncloud/ocs/reqres.go:94`. Which looks like this:
+The last line gives us a hint where the log message originated: + `.../github.com/cs3org/reva@v0.0.2-0.20200318111623-a2f97d4aa741/internal/http/services/owncloud/ocs/reqres.go:94`. Which looks like this:
 
 [source,go]
 ----
@@ -267,7 +267,7 @@ At this point it your familiarity with the codebase starts to become a factor. I
 
 Debug wherever the call trace leads you to ... good luck!
 
-=== Managing dependencies and testing changes
+=== Managing Dependencies and Testing Changes
 
 You can either run and manage the services independently, or you can update the `go.mod` file and replace dependencies with your local version.
 
@@ -280,10 +280,7 @@ replace github.com/owncloud/ocis-reva => ../ocis-reva
 replace github.com/cs3org/reva => ../reva
 ----
 
-[NOTE]
-====
-The username and password only work when basic auth is available. Otherwise you have to obtain a bearer token, e.g. by grabbing it from the browser.
-====
-
+NOTE: The username and password only work when basic auth is available. Otherwise you have to obtain a bearer token, e.g. by grabbing it from the browser.
 
 Rebuild ocis to make sure the dependency is used. It should be sufficient to just restart the service you want to debug.
+ 

@@ -1,6 +1,5 @@
 = 11. WebUI URL format
 :toc: right
-:toclevels: 3
 
 * Status: accepted
 * Deciders: link:https://github.com/refs[@refs], link:https://github.com/butonic[@butonic], link:https://github.com/micbar[@micbar], link:https://github.com/dragotin[@dragotin], link:https://github.com/hodyroff[@hodyroff], link:https://github.com/pmaier1[@pmaier1], link:https://github.com/fschade[@fschade], link:https://github.com/tbsbdr[@tbsbdr], link:https://github.com/kulmann[@kulmann]
@@ -58,7 +57,9 @@ With the new ownCloud web client (owncloud/web)
 On an OC10 backend the `fileid` query parameter takes precedence over the `dir`. In fact if `dir` is invalid but `fileid` isn't, the resolution will succeed, as opposed to if the `fileid` is wrong (doesn't exist) and `dir` correct, resolution will fail altogether with a 404.
 
 This ADR is limited to the scope of "how will a web client deal with the browser URL?". The API URLs will change with the spaces concept to `https://demo.owncloud.com/dav/spaces/<space_id>/relative/path/to/resource`. The Web UI can look up a space id and the mount path using the `/graph/v1.0/drives` API:
-1. TODO for a given resource id as part of the URL the `https://demo.owncloud.com/v1.0/drive/items/123456A14B0A7750!359?$select=parentReference` can be used to retrieve the drive/space:
+
+. TODO for a given resource id as part of the URL the `https://demo.owncloud.com/v1.0/drive/items/123456A14B0A7750!359?$select=parentReference` can be used to retrieve the drive/space:
++
 ----
 {
     "parentReference": {
@@ -69,12 +70,11 @@ This ADR is limited to the scope of "how will a web client deal with the browser
     }
 }
 ----
-2. TODO to fetch the list of all spaces with their mount points we need an API endpoint that allows clients (not only the web ui) to 'sync' the list of storages a user has access to from the storage registry on the server side. This allows clients to directly talk to a storage provider on another instance, allowing true storage federation. The MS graph api has no notion of mount points, so we will need to add a `mountpath` _(or `mountpoint`? or `alias`?)_ to our link:https://github.com/owncloud/open-graph-api/blob/dc6da5359eee0345429080b5b59762fd8c57b121/api/openapi-spec/v0.0.yaml#L351-L384[`drive` resource properties in the libreGraph spec]. Tracked in https://github.com/owncloud/open-graph-api/issues/6
+
+. TODO to fetch the list of all spaces with their mount points we need an API endpoint that allows clients (not only the web ui) to 'sync' the list of storages a user has access to from the storage registry on the server side. This allows clients to directly talk to a storage provider on another instance, allowing true storage federation. The MS graph api has no notion of mount points, so we will need to add a `mountpath` _(or `mountpoint`? or `alias`?)_ to our link:https://github.com/owncloud/open-graph-api/blob/dc6da5359eee0345429080b5b59762fd8c57b121/api/openapi-spec/v0.0.yaml#L351-L384[`drive` resource properties in the libreGraph spec]. Tracked in https://github.com/owncloud/open-graph-api/issues/6
 
 
-// SHORTCODE: {{< hint >}}
-@jfd: The graph api returns a `path` in the `parentReference`, which is part of the `root` in a `drive` resource. But it contains a value in the namespace of the `graph` endpoint, e.g.: `/drive/root:/Bilder` for the `/Bilder` folder in the root of the currently logged-in users personal drive/space. Which is again relative to the drive. To give the clients a way to determine the mount point we need to add a new `mountpath/point/alias` property.
-// SHORTCODE: {{< /hint >}}
+TIP: @jfd: The graph api returns a `path` in the `parentReference`, which is part of the `root` in a `drive` resource. But it contains a value in the namespace of the `graph` endpoint, e.g.: `/drive/root:/Bilder` for the `/Bilder` folder in the root of the currently logged-in users personal drive/space. Which is again relative to the drive. To give the clients a way to determine the mount point we need to add a new `mountpath/point/alias` property.
 
 == Decision Drivers
 
@@ -170,12 +170,13 @@ There is a customized ownCloud instance that uses path only based URLs:
 | `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607/relative/path/to/resource` | sub folder `/relative/path/to/resource` in the storage with id `b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`, works _*only*_ if path still exists  |
 | `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607/relative/path/to/resource?id=ba4c1820-df12-11eb-8dcd-ff21f12c1264:beb78dd6-df12-11eb-a05c-a395505126f6` | sub folder `/relative/path/to/resource` in the storage with id `b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`, lookup can fall back to the `id` |
 
-// SHORTCODE: {{< hint >}}
+[TIP]
+====
 * `/#` is used by the current vue router.
 * `/s` denotes that this is a space url.
 * `<space_id>` and `<resource_id>` both consist of `<storage_id>:<node_id>`, but the `space_id` can be replaced with a shorter id or an alias. See further down below.
 * `<relative/path>` takes precedence over the `<resource_id>`, both are optional
-// SHORTCODE: {{< /hint >}}
+====
 
 * Good, because the web UI does not need to look up the space id in a registry to build an API request for the `/dav/space` endpoint
 * Good, because the URLs reveal a relevant path context to users
@@ -189,42 +190,45 @@ There is a customized ownCloud instance that uses path only based URLs:
 
 With the above explained, let's see some use cases:
 
-==== Example 1: UserA shares something from her Home folder with UserB
+==== Example 1: UserA shares something from her Home Folder with UserB
 
-- open the browser and go to `demo.owncloud.com`
-- the browser's url changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`. You're now in YOUR home folder / personal space.
-- you create a new folder `/relative/path/to/resource` and navigate into `/relative/path/to`
-  - the URL now changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607/relative/path/to`
-- You share `resource` with some else
-- You navigate into `/relative/path/to/resource`
-  - now the URL would look like: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:3a9305da-df17-11eb-ab99-abe09d93e08a`
+* open the browser and go to `demo.owncloud.com`
+* the browser's url changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`. You're now in YOUR home folder / personal space.
+
+* you create a new folder `/relative/path/to/resource` and navigate into `/relative/path/to`
+** the URL now changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607/relative/path/to`
+
+* You share `resource` with some else
+* You navigate into `/relative/path/to/resource`
+** now the URL would look like: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:3a9305da-df17-11eb-ab99-abe09d93e08a`
 
 As you can see, even if you're the owner of `/relative/path/to/resource` and navigate into it, the URL changes due to a new space being entered. This ensures that while working in your home folder, copying URLs and giving them to the person you share the resource with, the receiver can still navigate within the new space.
 
 In short terms, while navigating using the WebUI, the URL has to constantly change whenever we change spaces to reflect the most explicit one.
 
-==== Example 2: UserA shares something from a Workspace
+==== Example 2: UserA Shares Something From a Workspace
 
 Assuming we only have one storage provider; a consequence of this, all storage spaces will start with the same storage_id.
 
-- open the browser and go to `demo.owncloud.com`
-- the browser's url changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`. You're now in YOUR home folder / personal space.
-- you have access to a workspace called `foo` (created by an admin)
-- navigate into workspace `foo`
-  - the URL now changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74`. You are now at the root of the workspace `foo`.
-    - because we only have one storage provider, the `space_id` section of the URL only updates the `node_id` part of it.
-    - had we had more than one storage provider, the `space_id` would depend on which storage provider contains the storage space.
-- you create a folder `/relative/path/to/resource`
-- you navigate into `/relative/path/to/resource`
-  - now the URL would look like: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/relative/path/to/resource`
-  - or a more robust url: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/relative/path/to/resource?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`
+* open the browser and go to `demo.owncloud.com`
+* the browser's url changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:194b4a97-597c-4461-ab56-afd4f5a21607`. You're now in YOUR home folder / personal space.
+* you have access to a workspace called `foo` (created by an admin)
+
+* navigate into workspace `foo`
+** the URL now changes to: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74`. You are now at the root of the workspace `foo`.
+*** because we only have one storage provider, the `space_id` section of the URL only updates the `node_id` part of it.
+*** had we had more than one storage provider, the `space_id` would depend on which storage provider contains the storage space.
+
+* you create a folder `/relative/path/to/resource`
+* you navigate into `/relative/path/to/resource`
+** now the URL would look like: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/relative/path/to/resource`
+** or a more robust url: `https://demo.owncloud.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/relative/path/to/resource?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`
 
 ==== Spaces Registry
 
 A big drawback against this idea is that the length of the URL is increased by a lot, rendering them almost unreadable. Introducing a Spaces Registry (SR) would shorten them. Let's see how.
 
-A URL without a SR would look like: `https://ocis.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/TEST?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`
-The same URL with a SR `https://ocis.com/#/s/workspaceFoo/TEST?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`
+A URL without a SR would look like: `https://ocis.com/#/s/b78c2044-5b51-446f-82f6-907a664d089c:d342f9ce-df18-11eb-b319-1b6d9df4bc74/TEST?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`. The same URL with a SR `https://ocis.com/#/s/workspaceFoo/TEST?id=b78c2044-5b51-446f-82f6-907a664d089c:04f1991c-df19-11eb-9cc7-3b09f04f9ca3`
 
 Space Registry resolution can happen at the client side (i.e: the client keeps a list of space name -> space id [where space id = storageid + nodeid]; the client queries a SR) or server side. Server side is more resilient due to clients can have limited networking; for instance if they are running on a tight intranet.
 
@@ -276,7 +280,7 @@ With these different namespaces the `/files` part in the URL becomes obsolete, b
 * Bad, because the web UI needs to look up the space alias in a registry to build an API request for the `/dav/space` endpoint
 
 
-=== Configurable path component in URLs
+=== Configurable Path Component in URLs
 
 Not every deployment may have the requirement to have the path in the URL. We could use id only based URLs, similar to onedrive and make showing paths configurable.
 
@@ -304,14 +308,10 @@ https://<host>/files</namespaced/alias></relative/path/to/resource>?id=<resource
 
 This means that only the _resource path_ is part of the URL path. Any other parameter, e.g. file `id`, `page` or sort order must be given as URL parameters.
 
-- [ ] To make lookup by id possible we need to implement the `/meta/<fileid>` endpoint so the sdk can use it to look up the path. We should not implement a redirect on the ocis server side because the same redirect logic would need to be added to oc10. Having it in ocis web is the right place.
+* [ ] To make lookup by id possible we need to implement the `/meta/<fileid>` endpoint so the sdk can use it to look up the path. We should not implement a redirect on the ocis server side because the same redirect logic would need to be added to oc10. Having it in ocis web is the right place.
 
-- [ ] The old sharing links and oc10 urls still need to be redirected by ocis/reva as in oc10.
+* [ ] The old sharing links and oc10 urls still need to be redirected by ocis/reva as in oc10.
 
 Public links would have the same format: `https://<host>/files?id=<resource_id>` The web UI has to detect if the user is logged in or not and adjust the ui accordingly.
 
-[WARNING]
-====
-Since there is no difference between public and private files a logged-in user cannot see the public version of a link unless he logs out.
-====
-
+WARNING: Since there is no difference between public and private files a logged-in user cannot see the public version of a link unless he logs out.

@@ -4,7 +4,7 @@
 
 TODO add this to the storage overview? or is this a different part? That should be started as a separate service ? And documented elsewhere, e.g. in the accounts?
 
-=== User and Group provisioning
+== User and Group Provisioning
 
 In oc10 users are identified by a username, which cannot change, because it is used as a foreign key in several tables. For oCIS we are internally identifying users by a UUID, while using the username in the WebDAV and OCS APIs for backwards compatability. To distinguish this in the URLs we are using `<username>` instead of `<userid>`. You may have encountered `<user_layout>`, which refers to a template that can be configured to build several path segments by filling in user properties, e.g. the first  character of the username (`{{substr 0 1 .Username}}/{{.Username}}`), the identity provider (`{{.Id.Idp}}/{{.Username}}`) or the email (`{{.Mail}}`)
 
@@ -13,25 +13,28 @@ In oc10 users are identified by a username, which cannot change, because it is u
 Make no mistake, the link:https://doc.owncloud.com/server/developer_manual/core/apis/provisioning-api.html[OCS Provisioning API] uses `userid` while it actually is the username, because it is what you use to login.
 ====
 
-
 We are currently working on adding link:https://github.com/owncloud/ocis/pull/1930[user management through the CS3 API] to handle user and group provisioning (and deprovisioning).
 
-=== Demo driver
+== Demo Driver
 
 This is a simple user driver for testing. It contains three users:
+
 ----
 einstein:relativity
 marie:radioactivity
 richard:superfluidity
 ----
+
 In order to use the `demo` driver you need to export the relevant environment variable:
+
 ----
 export STORAGE_USERS_DRIVER=demo
 ----
 
-=== JSON driver
+== JSON Driver
 
 In order to switch from the `ldap` driver to JSON based users you need to export the relevant environment variables:
+
 ----
 export STORAGE_USERS_DRIVER=json
 export STORAGE_USERS_JSON=/path/to/users.json
@@ -39,11 +42,12 @@ export STORAGE_USERS_JSON=/path/to/users.json
 
 For the format of the users.json have a look at the link:https://github.com/cs3org/reva/blob/master/examples/oc-phoenix/users.demo.json[reva examples]
 
-=== LDAP driver
+== LDAP Driver
 
 This is the default user driver.
 
 If the following defaults don't match your environment then change them accordingly:
+
 ----
 export STORAGE_LDAP_HOSTNAME=localhost
 export STORAGE_LDAP_PORT=9126
