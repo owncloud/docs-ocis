@@ -4,7 +4,8 @@
 
 == OCM Create Share Flow
 
-// SHORTCODE: {{< mermaid class="text-center">}}
+[mermaid]
+----
 sequenceDiagram
     box Instance A
         participant osp as ocmsharesprovider
@@ -56,4 +57,4 @@ sequenceDiagram
             Note left of gwa: Stat (storageprovider)
         gwa-->>-httpa: return
     httpa-->>-usera: return
-// SHORTCODE: {{< /mermaid >}}
+----

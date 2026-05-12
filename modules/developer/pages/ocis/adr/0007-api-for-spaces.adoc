@@ -1,6 +1,5 @@
 = 7. Open Graph API for oCIS File Spaces
 :toc: right
-:toclevels: 3
 
 * Status: accepted
 * Deciders: link:https://github.com/butonic[@butonic], link:https://github.com/micbar[@micbar], link:https://github.com/dragotin[@dragotin], link:https://github.com/hodyroff[@hodyroff], link:https://github.com/pmaier1[@pmaier1]
@@ -26,15 +25,15 @@ This API would even allow providing (WebDAV-) endpoints depending on the kind an
 
 == Decision Drivers
 
-- Make it easy to work with a dynamic list of spaces of a user for the clients.
-- No longer the need to make assumptions about WebDAV- and other routes in clients.
-- More meta data available about spaces for a better user experience.
-- Part of the bigger spaces plan.
-- Important to consider in client migration scenarios, i.e. in CERN.
+* Make it easy to work with a dynamic list of spaces of a user for the clients.
+* No longer the need to make assumptions about WebDAV- and other routes in clients.
+* More meta data available about spaces for a better user experience.
+* Part of the bigger spaces plan.
+* Important to consider in client migration scenarios, i.e. in CERN.
 
 == Considered Options
 
-1. link:https://developer.microsoft.com/en-us/graph[Microsoft Graph API] inspired API that provides the requested information.
+. link:https://developer.microsoft.com/en-us/graph[Microsoft Graph API] inspired API that provides the requested information.
 
 == Decision Outcome
 
@@ -62,7 +61,7 @@ Retrieve a list of available spaces of a user. This includes all spaces the user
 
 API Call: `/me/drives`: Returns a list of spaces.
 
-There is also `/drives`, returning the list of spaces the user has access to. This endpoint is used to access any space by id using `/drives/{drive-id}`.
+There is also `/drives`, returning the list of spaces the user has access to. This endpoint is used to access any space by id using `/drives/\{drive-id}`.
 
 === Common Reply
 
@@ -85,12 +84,23 @@ The reply to both calls is either one or a list of link:https://docs.microsoft.c
 
 The meaning of the objects in Open Graph API context are:
 
-1. _id_ - a persistent and unique ID identifying the space, called Storage Space ID.
-2. _driveType_ - describing the type of the space.
-3. _owner_ - an owner object to whom the space belongs
-4. _quota_ - quota information about this space
-5. _root_  - the root driveItem object.
-6. _webUrl_ - The URL to make this space visible in the browser.
+. _id_ +
+a persistent and unique ID identifying the space, called Storage Space ID.
+
+. _driveType_ +
+describing the type of the space.
+
+. _owner_ +
+an owner object to whom the space belongs
+
+. _quota_ +
+quota information about this space
+
+. _root_  +
+the root driveItem object.
+
+. _webUrl_ +
+The URL to make this space visible in the browser.
 
 The following _driveType_ values are available in the first step, but might be enhanced later:
 
@@ -131,11 +141,20 @@ This is an example object as it can be expected as `root` element. It is not com
 
 Meaningful fields of the root element in the context of the Open Graph API:
 
-1. _id_ - a persistent and unique ID identifying the root directory node.
-2. _webDavUrl_ - The webdav path of the top item of the space.
-3. _eTag_ - an identifier that changes automatically if the content _or_ metadata of the node or the underlying resources changes.
-4. _cTag_ - an identifier that changes automatically if the content of the root node or of one of the underlying resources changes.
-5. _webUrl_ - The URL to make this space visible in the browser.
+. _id_ +
+a persistent and unique ID identifying the root directory node.
+
+. _webDavUrl_ +
+The webdav path of the top item of the space.
+
+. _eTag_ +
+an identifier that changes automatically if the content _or_ metadata of the node or the underlying resources changes.
+
+. _cTag_ +
+an identifier that changes automatically if the content of the root node or of one of the underlying resources changes.
+
+. _webUrl_ +
+The URL to make this space visible in the browser.
 
 [quote]
 ____
@@ -145,19 +164,21 @@ ____
 
 === Positive Consequences
 
-- A well understood and mature API from Microsoft adopted to our needs.
-- Prerequisite for Spaces in oCIS.
-- Enables further steps in client development.
+* A well understood and mature API from Microsoft adopted to our needs.
+* Prerequisite for Spaces in oCIS.
+* Enables further steps in client development.
 
 === Negative Consequences
 
-- Migration impact on existing installations. Still to be investigated.
-- Requires additional webdav endpoint that allows accessing an arbitrary storage space, either
-  - with an id: `/dav/spaces/<spaceid>/relative/path/to/file.ext`, or
-  - with a global path: `/dav/global/<accessible>/<mount>/<point>/relative/path/to/file.ext`, e.g. `/dav/global/projects/Golive 2021/Resources/slides.odt`
+* Migration impact on existing installations. Still to be investigated.
+
+* Requires additional webdav endpoint that allows accessing an arbitrary storage space, either
+** with an id: `/dav/spaces/<spaceid>/relative/path/to/file.ext`, or
+** with a global path: `/dav/global/<accessible>/<mount>/<point>/relative/path/to/file.ext`, e.g. `/dav/global/projects/Golive 2021/Resources/slides.odt`
 
 === Open Topics
 
-- What are the WebDAV paths for Trashbin, Versions
-    + option: additional entries in the reply struct
-- The identitySet object used for "owner" and "coowner" require to implement the link:IdentitySet[https://docs.microsoft.com/de-de/graph/api/resources/identityset?view=graph-rest-1.0] JSON object, which contains information that seems to be of limited benefit for oCIS. An alternative would be to implement a simpler identity object for oCIS and use that.
+* What are the WebDAV paths for Trashbin, Versions + option: +
+additional entries in the reply struct
+
+* The identitySet object used for "owner" and "coowner" require to implement the link:IdentitySet[https://docs.microsoft.com/de-de/graph/api/resources/identityset?view=graph-rest-1.0] JSON object, which contains information that seems to be of limited benefit for oCIS. An alternative would be to implement a simpler identity object for oCIS and use that.
