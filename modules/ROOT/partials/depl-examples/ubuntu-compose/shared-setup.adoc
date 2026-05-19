@@ -340,6 +340,9 @@ If you expect a higher amount of data in the instance, consider using own paths 
 * `SMTP_xxx` +
 Define these settings according to your email configuration. If the settings are defined, Infinite Scale will be able to send notifications to users. If the settings are not defined, Infinite Scale will start but won't be able to send notifications.
 
+NOTE: The `OCIS_TRACING_ENDPOINT` must be reachable from the oCIS Docker network. When using SigNoz with Docker Compose, this is typically the
+`signoz-otel-collector` service.
+
 NOTE: If you do not define your own domain names, only domain names with self-signed certificates are automatically used for internal evaluation.
 
 NOTE: Additional options can be configured like web applications. These should be configured _after_ the deployment has successfully started without problems. This makes it easier to find any initial startup issues that need to be resolved first.
