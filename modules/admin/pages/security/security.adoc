@@ -33,7 +33,7 @@ Infinite Scale provides a flexible role system, which allows the permissions of 
 
 === Extension System
 
-Compared to the apps/extensions in ownCloud 10, the Infinite Scale extensions/services are more secure because they are developed and deployed as standalone services. They communicate via APIs with the core services and therefore can only use specific interfaces instead of having direct access to storages and data. A single extension which behaves incorrectly cannot corrupt the whole system.
+Compared to the apps/extensions in ownCloud Classic, the Infinite Scale extensions/services are more secure because they are developed and deployed as standalone services. They communicate via APIs with the core services and therefore can only use specific interfaces instead of having direct access to storages and data. A single extension which behaves incorrectly cannot corrupt the whole system.
 
 === File-based storage
 
