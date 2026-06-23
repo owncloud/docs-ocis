@@ -101,5 +101,5 @@
 
 ////
 * Migration
-** xref:migration/index.adoc[Migrating from ownCloud 10 to ownCloud Infinite Scale]
+** xref:migration/index.adoc[Migrating from ownCloud Classic to ownCloud Infinite Scale]
 ////
