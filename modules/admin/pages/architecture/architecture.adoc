@@ -74,7 +74,7 @@ For detailed information on the implementation of spaces, check out the https://
 
 ==== Federated Storage
 
-To create a truly federated storage architecture, Infinite Scale breaks down the ownCloud 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
+To create a truly federated storage architecture, Infinite Scale breaks down the ownCloud Classic 10 user-specific namespace, which is assembled on the server side, and makes the individual parts accessible to clients as storage spaces and storage space registries.
 
 The diagram below shows the core concepts of the new architecture:
 

@@ -27,7 +27,7 @@ Currently, the configuration which user-related events are of interest is hard-c
 
 == Retrieving
 
-The `userlog` service provides an API to retrieve configured events. For now, this API is mostly following the {oc10-api-url}[ownCloud Server notification GET API, window=_blank].
+The `userlog` service provides an API to retrieve configured events. For now, this API is mostly following the {oc10-api-url}[ownCloud Classic notification GET API, window=_blank].
 
 == Subscribing
 
