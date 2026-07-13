@@ -331,6 +331,67 @@ ocis storage-users trash-bin restore [command options] ['spaceID' required] ['it
 
 See the xref:deployment/storage/general-considerations.adoc#resource-optimisation[General Storage Considerations and Settings] documentation for details about configuring the `STORAGE_USERS_OCIS_MAX_CONCURRENCY` environment variable.
 
+== Vault Mode
+
+The `storage-users` service can be special configured to run as additional service providing vault mode.
+
+Vault mode provides dedicated vault storage that is stored separately and can be protected by multi-factor authentication (MFA). Vault resources are isolated from the default user storage and have their own search function, sharing options and workspaces, while public links are explicitly disallow
+
+=== Configuration
+
+Create a `storage-users-vault` service::
++
+--
+The following environment variables must be set in order to define an instance of the `storage-users` service as a vault:
+
+[source,.env]
+----
+STORAGE_USERS_SERVICE_NAME: storage-users-vault
+STORAGE_USERS_GRPC_ADDR: storage-users-vault:9285
+STORAGE_USERS_HTTP_ADDR: storage-users-vault:9286
+STORAGE_USERS_DATA_SERVER_URL: http://storage-users-vault:9286/data
+STORAGE_USERS_DEBUG_ADDR: storage-users-vault:9287
+STORAGE_USERS_OCIS_ROOT: /var/lib/ocis/storage/users-vault
+STORAGE_USERS_EVENTS_CONSUMER_GROUP: vault-dcfs
+----
+
+[IMPORTANT]
+====
+Additionally to the environment variables shown above and for the time being, caching cannot use the shared global environment variable `OCIS_CACHE_STORE_NODES`, as described in the xref:caching[Caching] section. For a vault-instance, you must define for caching either `memory` or `noop`. The affected environment variables to set the cache are:
+
+* `STORAGE_USERS_FILEMETADATA_CACHE_STORE`
+* `STORAGE_USERS_ID_CACHE_STORE`
+====
+--
+
+Configure instance communication::
++
+--
+These environment variables complete the configuration of the service instance. The example values for these environment variables are taken from the xref:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc[Local Production Setup] deployment example. To allow inter-service communication, they need to match the main configuration of the Infinite Scale instance.
+
+[source,.env]
+----
+OCIS_GATEWAY_GRPC_ADDR: ocis:9142
+OCIS_EVENTS_ENDPOINT: ocis:9233
+STORAGE_USERS_xxx_CACHE_STORE: 'memory'
+MICRO_REGISTRY_ADDRESS: ocis:9233
+----
+--
+
+Complete the configuration::
++
+--
+With the above configuration creating a `storage-users-vault` instance, you can now set the following environment variables. These envvars are only effective if the `storage-users` service is configured vault.
+
+The following environment variables can be used to make further configuration changes:
+
+* `OCIS_ENABLE_VAULT_MODE: true` +
+Enable the vault mode in a OCIS.
+
+* `OCIS_MFA_ENABLED: true` +
+Enable multi-factor authentication (MFA) for the use with vault.
+--
+
 == Caching
 
 // renders dependent on is_cache or is_store
