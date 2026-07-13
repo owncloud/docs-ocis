@@ -394,9 +394,6 @@ The Redis master to use is configured via e.g. `OCS_PRESIGNEDURL_SIGNING_KEYS_ST
 * When using `nats-js-kv` +
 It is recommended to set `PROXY_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` to the same value as `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES`. That way the `proxy` service uses the same nats instance as the xref:deployment/services/s-list/ocs.adoc[ocs] service.
 
-* When using `ocisstoreservice` +
-The `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` must be set to the service name `com.owncloud.api.store`. It does not support TTL and stores the presigning keys indefinitely.
-
 == Special Settings
 
 When using the Infinite Scale xref:{s-path}/idp.adoc[IDP service] instead of an external IDP:
