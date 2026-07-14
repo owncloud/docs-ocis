@@ -46,9 +46,6 @@ The Redis master to use is configured via e.g. `OCS_PRESIGNEDURL_SIGNING_KEYS_ST
 * When using `nats-js-kv` +
 It is recommended to set `PROXY_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` to the same value as `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES`. That way the xref:deployment/services/s-list/proxy.adoc[proxy] service uses the same nats instance as the ocs service.
 
-* When using `ocisstoreservice` +
-The `OCS_PRESIGNEDURL_SIGNING_KEYS_STORE_NODES` must be set to the service name `com.owncloud.api.store`. It does not support TTL and stores the presigning keys indefinitely. Also, the xref:deployment/services/s-list/store.adoc[store]  service needs to be started.
-
 == Configuration
 
 include::partial$deployment/services/env-and-yaml.adoc[tag=envvars-yaml]

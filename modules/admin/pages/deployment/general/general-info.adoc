@@ -211,7 +211,6 @@ The following environment variables can overwrite the base data path if required
 • xref:{s-path}/settings.adoc[SETTINGS_DATA_PATH, window=_blank]
 • xref:{s-path}/sharing.adoc[SHARING_USER_JSON_FILE, window=_blank]
 • xref:{s-path}/sharing.adoc[SHARING_PUBLIC_JSON_FILE, window=_blank]
-• xref:{s-path}/store.adoc[STORE_DATA_PATH, window=_blank]
 • xref:{s-path}/storage-system.adoc[STORAGE_SYSTEM_OCIS_ROOT, window=_blank]
 • xref:{s-path}/storage-users.adoc[STORAGE_USERS_OCIS_ROOT, window=_blank]
 • xref:{s-path}/storage-users.adoc[STORAGE_USERS_S3NG_ROOT, window=_blank]

@@ -65,7 +65,6 @@
 ***** xref:admin:deployment/services/s-list/settings.adoc[Settings]
 ***** xref:admin:deployment/services/s-list/sharing.adoc[Sharing]
 ***** xref:admin:deployment/services/s-list/sse.adoc[SSE]
-***** xref:admin:deployment/services/s-list/store.adoc[Store]
 ***** xref:admin:deployment/services/s-list/storage-publiclink.adoc[Storage-Publiclink]
 ***** xref:admin:deployment/services/s-list/storage-shares.adoc[Storage-Shares]
 ***** xref:admin:deployment/services/s-list/storage-system.adoc[Storage-System]
