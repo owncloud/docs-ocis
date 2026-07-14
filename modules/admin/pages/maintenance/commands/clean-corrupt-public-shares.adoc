@@ -1,0 +1,33 @@
+= Clean Corrupt Public Shares
+:toc: right
+
+Detect and optionally delete storage grants that have no corresponding share-manager entry.
+
+include::partial$/maintenance/ocis-shares-cli.adoc[]
+
+== Command Details
+
+If there is a single public-share entry with a corrupt `resource_id`, the public-share manager will be unable to read this public-share or any others from memory.
+
+The following command fixes the problem of corrupt public shares.
+
+.Usage:
+
+[source,bash]
+----
+ocis shares -h clean-corrupt-public-shares
+NAME:
+   ocis shares clean-corrupt-public-shares - Remove corrupt public-share entries (nil resource_id) that crash ListPublicShares.
+
+USAGE:
+   ocis shares clean-corrupt-public-shares [command options]
+
+OPTIONS:
+   --dry-run      Only report corrupt entries, do not modify anything (default: true)
+   --verbose, -v  Verbose logging enabled (default: false)
+   --help, -h     show help
+----
+
+.Notes:
+
+- `--dry-run` defaults to `true` (no deletions). Set to `false` to remove corrupt public shares.
