@@ -152,9 +152,6 @@ No services have been added with Infinite Scale version 4.0.0.
 | xref:{s-path}/sharing.adoc[Sharing]
 |
 
-| xref:{s-path}/store.adoc[Store]
-|
-
 | xref:{s-path}/storage-publiclink.adoc[Storage-Publiclink]
 |
 
