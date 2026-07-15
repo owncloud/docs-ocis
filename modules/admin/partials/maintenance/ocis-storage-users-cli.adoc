@@ -1,0 +1,31 @@
+== Command Set Overview
+
+The described command is part of the `ocis storage-users` command set:
+
+[source,bash]
+----
+ocis storage-users -h
+NAME:
+   ocis storage-users - storage-users service commands
+
+USAGE:
+   ocis storage-users [command options]
+
+CATEGORY:
+   services
+
+COMMANDS:
+   uploads    manage unfinished uploads
+   trash-bin  manage trash-bins
+   spaces     manage spaces
+   blobstore  manage the blobstore
+   help, h    Shows a list of commands or help for one command
+   info:
+     health   check health status
+     version  print the version of this binary and the running service instances
+   server:
+     server  start the storage-users service without runtime (unsupervised mode)
+
+OPTIONS:
+   --help, -h  show help
+----
