@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - '8.1'
       - '8.0'
       - '7.3'
     tags:
@@ -11,6 +12,7 @@ on:
   pull_request:
     branches:
       - master
+      - '8.1'
 
 jobs:
   docs-build:
