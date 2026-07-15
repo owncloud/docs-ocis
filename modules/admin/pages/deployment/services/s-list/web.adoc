@@ -29,7 +29,7 @@ Beside theming, see below, the behavior of the web UI can be configured via opti
 
 === Web UI Config File
 
-When defined via the `WEB_UI_CONFIG_FILE`, the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/web/tree/master/config[link,window=_blank] for examples.
+When defined via the `WEB_UI_CONFIG_FILE`, the configuration of the web UI can be made with a json based file. See the https://github.com/owncloud/ocis/tree/master/web/config[link,window=_blank] for examples.
 
 == Embedding Web
 
