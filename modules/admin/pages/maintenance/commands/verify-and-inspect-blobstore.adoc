@@ -1,0 +1,40 @@
+= Verify and Inspect a Blobstore
+:toc: right
+
+Verify and inspect the configured Blobstore without requiring direct access to the underlying storage system.
+
+include::partial$/maintenance/ocis-storage-users-cli.adoc[]
+
+== Command Details
+
+The following command can verify and inspect the configured Blobstore.
+
+.Usage:
+
+[source,bash]
+----
+ocis storage-users blobstore -h
+NAME:
+   ocis storage-users blobstore - manage the blobstore
+
+USAGE:
+   ocis storage-users blobstore [command options]
+
+COMMANDS:
+   check    check blobstore connectivity via an upload/download/delete round-trip
+   get      get a blob from the blobstore by ID
+   help, h  Shows a list of commands or help for one command
+
+OPTIONS:
+   --help, -h  show help
+----
+
+.Notes:
+
+* `blobstore check` +
+Performs a full upload/download/delete round-trip using a random payload. The payload size is configurable via `--blob-size` and accepts human-readable values such as `64`, `1KB` or `4MiB` (default: 64 bytes).
+
+* `blobstore get` +
+Downloads a specific blob by its ID to verify it is readable. The blob can be identified either with `--blob-id` and `--space-id`, or by passing the raw blob path from a log line directly via `--path`. Both the s3ng key format (`<spaceID>/<pathified_blobID>`) and the ocis filesystem path format (`…/spaces/<pathified_spaceID>/blobs/<pathified_blobID>`) are accepted. When using the s3ng driver without a known blob size, an automatic retry with the actual size is performed on a size mismatch.
+
+As both commands read the existing service configuration, they always target the same blobstore as the running service. Only the `ocis` and `s3ng` storage drivers are supported.
