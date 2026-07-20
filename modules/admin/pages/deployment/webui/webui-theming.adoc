@@ -5,9 +5,9 @@
 :page-aliases: ROOT:deployment/webui/webui-theming.adoc
 
 :web_assets_path: /services/web/assets/themes/owncloud/
-:example-theme-url: https://github.com/owncloud/web/tree/master/config
+:example-theme-url: https://github.com/owncloud/ocis/tree/master/web/config
 :design-tokens-url: https://owncloud.design/#/Design%20Tokens
-:gh-webui-url: https://github.com/owncloud/web/issues/new
+:gh-webui-url: https://github.com/owncloud/ocis/issues/new
 
 include::partial$multi-location/compose-version.adoc[]
 
