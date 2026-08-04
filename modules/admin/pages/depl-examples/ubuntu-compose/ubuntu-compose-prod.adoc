@@ -3,8 +3,7 @@
 :toclevels: 3
 :keywords: docker compose, raspberry pi, install, ocis, infinite scale, letsencrypt
 :description: Install Infinite Scale using Docker Compose on a server for production use.
-:page-aliases: \
-ROOT:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc, \
+:page-aliases: ROOT:depl-examples/ubuntu-compose/ubuntu-compose-prod.adoc, \
 ROOT:depl-examples/minimal-bare-metal.adoc, \
 ROOT:depl-examples/bare-metal.adoc, \
 ROOT:depl-examples/small-scale.adoc, \
