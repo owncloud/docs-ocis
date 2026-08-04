@@ -38,7 +38,7 @@ You can also find all app sources at::
 
 == Join the oCIS Community
 
-The https://github.com/owncloud/ocis[oCIS repository] is a good entry point to the oCIS project. The https://github.com/owncloud/web[Web repository] provides the web frontend for oCIS.
+The https://github.com/owncloud/ocis[oCIS repository] is a good entry point to the oCIS project. The https://github.com/owncloud/ocis/tree/master/web[Web frontend] is part of the oCIS monorepo.
 
 To chat about development, join our public chat on https://matrix.to/#/#ocis:matrix.org[matrix: ownCloud Infinite Scale].
 
