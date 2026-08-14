@@ -85,8 +85,8 @@ variables:
   description: dupe of MICRO_REGISTRY_ADDRESS
   do_ignore: true
 - rawname: _registryPasswordEnv
-  path: ../../ocis/ocis-pkg/natsjsregistry/registry.go:234
-  foundincode: false
+  path: ../../ocis/ocis-pkg/natsjsregistry/registry.go:243
+  foundincode: true
   name: MICRO_REGISTRY_AUTH_PASSWORD
   type: string
   default_value: ""
@@ -114,7 +114,8 @@ variables:
   name: MICRO_REGISTRY_TLS_INSECURE
   type: string
   default_value: ""
-  description: '''true'' or ''false'', defaults to false. Requires MICRO_REGISTRY_ENABLE_TLS to be true'
+  description: '''true'' or ''false'', defaults to false. Requires MICRO_REGISTRY_ENABLE_TLS
+    to be true'
   do_ignore: false
 - rawname: _registryTLSRootCAEnv
   path: ../../ocis/ocis-pkg/natsjsregistry/registry.go:257
@@ -153,7 +154,7 @@ variables:
     section in the documentation for more details on defaults.
   do_ignore: false
 - rawname: OCIS_INSECURE
-  path: ../../ocis/ocis-pkg/service/grpc/client.go:79
+  path: ../../ocis/ocis-pkg/service/grpc/client.go:77
   foundincode: true
   name: OCIS_INSECURE
   type: bool
@@ -161,14 +162,6 @@ variables:
   description: Insecure TLS mode is only allowed in development environments with
     OCIS_INSECURE=true
   do_ignore: false
-- rawname: OCIS_INSECURE
-  path: ../../ocis/services/idp/pkg/service/v0/service.go:366
-  foundincode: true
-  name: OCIS_INSECURE
-  type: ""
-  default_value: ""
-  description: ""
-  do_ignore: true
 - rawname: OCIS_LOG_LEVEL
   path: ../../ocis/services/graph/pkg/identity/ldap_integration_test.go:132
   foundincode: true
@@ -176,14 +169,6 @@ variables:
   type: ""
   default_value: ""
   description: false positive, a test catch only, ignoring
-  do_ignore: true
-- rawname: _registryPasswordEnv
-  path: ../../ocis/ocis-pkg/natsjsregistry/registry.go:243
-  foundincode: true
-  name: _registryPasswordEnv
-  type: ""
-  default_value: ""
-  description: dupe of MICRO_REGISTRY_AUTH_PASSWORD
   do_ignore: true
 - rawname: parts[0]
   path: ../../ocis/ocis-pkg/config/envdecode/envdecode.go:396
@@ -193,4 +178,4 @@ variables:
   default_value: ""
   description: false positive - code that extract envvars for config structs
   do_ignore: true
-
+  
