@@ -57,7 +57,7 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/oklog/run v1.2.0 // indirect
 	github.com/owncloud/libre-graph-api-go v1.0.5-0.20260216101009-eeac018af245 // indirect
-	github.com/owncloud/reva/v2 v2.0.0-20260812122437-aa0c3881c0af // indirect
+	github.com/owncloud/reva/v2 v2.0.0-20260813081456-8ed15f4851e1 // indirect
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pbnjay/memory v0.0.0-20210728143218-7b4eea64cf58 // indirect
