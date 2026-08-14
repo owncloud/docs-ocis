@@ -3,12 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - '8.2'
     tags:
       - '**'
   pull_request:
     branches:
-      - master
+      - '8.2'
 
 jobs:
   docs-build:
