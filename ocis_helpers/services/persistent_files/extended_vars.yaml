@@ -154,7 +154,7 @@ variables:
     section in the documentation for more details on defaults.
   do_ignore: false
 - rawname: OCIS_INSECURE
-  path: ../../ocis/ocis-pkg/service/grpc/client.go:79
+  path: ../../ocis/ocis-pkg/service/grpc/client.go:77
   foundincode: true
   name: OCIS_INSECURE
   type: bool
@@ -162,16 +162,8 @@ variables:
   description: Insecure TLS mode is only allowed in development environments with
     OCIS_INSECURE=true
   do_ignore: false
-- rawname: OCIS_INSECURE
-  path: ../../ocis/services/idp/pkg/service/v0/service.go:366
-  foundincode: true
-  name: OCIS_INSECURE
-  type: ""
-  default_value: ""
-  description: ""
-  do_ignore: true
 - rawname: OCIS_LOG_LEVEL
-  path: ../../ocis/services/graph/pkg/identity/ldap_integration_test.go:132
+  path: ../../ocis/services/graph/pkg/identity/ldap_integration_test.go:131
   foundincode: true
   name: OCIS_LOG_LEVEL
   type: ""
