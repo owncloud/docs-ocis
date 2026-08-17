@@ -19,6 +19,7 @@ The (sub)folders in `services` (see [Folder Structure](#folder-structure)) are t
       * [Branch Dependent Tasks](#branch-dependent-tasks)
          * [In the Master Branch](#in-the-master-branch)
          * [In a Version Branch](#in-a-version-branch)
+   * [Envvar Delta File Creation](#envvar-delta-file-creation)
 
 ## Prerequisites
 
@@ -219,11 +220,28 @@ The following tasks are done in `master`:
     * The process requires that all `env_vars.yaml` files compared are up-to-date.
     * To generate `added, deprecated and removed` files, the process accesses the version branches on GitHub, rather than locally. This is because the helper itself runs in a version branch and saves the results which must not be switched during processing.
 
-* Generate `added, deprecated and removed` envvar adoc files.
-  * Check the version set in the script and adapt if required.
-  * Run the `changed_envvars.py` script.\
-  This will create the required files in the `adoc` subfolder.
+* See the next section on how to generate `added, deprecated and removed` envvar adoc files.
 
 Please note that whenever a change is applied to the ocis stable branch that affects environment files, the procedure needs to be redone!
 
+## Envvar Delta File Creation
+
+To create the `added, deprecated and removed` environment variables adoc files for a version, the following prerequisites must be met and steps must be taken:
+
+* All versions compared must have an actual `env_vars.yaml` file merged in the respective version.  
+
+* Check the versions set in the `changed_envvars.py` script and adapt if required.
+  * Any changes of the script must be part of the commit. Which eases a possible post-merge re-run.
+
+* Run the `changed_envvars.py` script.\
+  This will create the required files in the `services/env_var_deltas/` subfolder.
+
+* Adapt the content of the output:
+  * Replace, if present, `xxx` with the appropriate service name.\
+    Consider that the string for `xref` needs to be all lower letters while the printed name starts with a capital letter.
+  * Group all envvars that belong to the same service and remove the xref directive  for all but the first. This makes reading much easier.
+
+* Before merging the changes, a docs build **must** be issued to ensure that all changes are picked up by the Antora build process and placed in the correct directory. If this step is not taken, the changes will not be visible in the documentation.
+
+Note that on any consecutive script run, any changes made are overwritten and you need to re-apply them!
 

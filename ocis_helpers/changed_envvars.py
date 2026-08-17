@@ -4,65 +4,73 @@ import os
 from datetime import date
 from urllib.request import urlopen
 
-## this python script generates based on defined variables adoc files for added, deprecated and removed 
-## envvars based on the env_vars.yaml that must exist in each referenced version.
-## it is CRUCIAL that the version compared TO is actual - do required updates first!
+## this python script generates adoc files for added, deprecated and removed
+## envvars based on the 'env_vars.yaml' that must exist in each referenced version.
+## it is CRUCIAL that versions compared are actual - do required updates first!
+#
 ## note the helpers have been migrated in summer 2026 from the ocis repo to docs.
 ## only 2 stable (production) versions are kept which you can compare. 
 ## note that we are always comparing from github sources and NOT local files
 
 ## when the files got created, you MUST do some post work manually like referencing services with xref:
-## when running, files get recreated, existing content gets overwritten!!
+## when executing, files get recreated, existing content will be overwritten!!
 
 ## !! you MUST run this script from the ocis_helper folder !!
 ## like: python3 changed_envvars.py
-## create a branch to prepare the changes
+#
+## create a branch beforehand to prepare for the changes
 
 ## WHAT TO CHANGE FOR A NEW RELEASE
 ##
-## versionOld:     To do a proper change comparision from the old to new version, update this var to the FORMER release
-## versionNew:     Change only if master already contains new ennvars that are NOT part of the new release.
-##                 Set to heads/stable-<new-release>
-##                 For the latter case, the relevant env_vars.yaml file must be part of the branch referenced !!
-## excludePattern: add the FORMER release to the list. The code then searches for anything that does not match the exclude pattern.
-## 'from_version' and 'to_version' are print strings only used in the generated adoc files
+## versionOld:     This is the version you are comparing FROM
+## versionNew:     This is the version you are comparing TO
+## excludePattern: add the FROM release to the list. The code then searches for anything that does not match the exclude pattern.
 
-# CHANGE according your needs:
+# CHANGE according your needs (version comparison):
 # 'versionOld' is the base version to compare from
 # 'versionNew' is the target version to compare to
-# branches are written the follwoing: master or x,y: 'heads/master' or 'heads/8.1'
-versionOld: str = 'heads/8.1'
-versionNew: str = 'heads/master'
+# branches are written the follwoing: master or x,y such as '8.1'
+versionOld: str    = '8.0'
+versionNew: str    = '8.1'
 
-# CHANGE according your needs
-from_version: str = '8.1.0'
-to_version: str = '8.2.0'
+# CHANGE according your needs (for printing)
+from_version: str  = '8.0.0'
+to_version: str    = '8.1.0'
 
-# CHANGE according your needs
-# this will create files such as 8.1.0-8.2.0-added and 8.1.0-8.2.0-removed
-# this should match which versions you compare. master is ok if that is the base for a named release
-nameComponent: str = '8.1.0-8.2.0'
+# CHANGE according your needs (for file names to be created)
+# this will create files such as 8.0.0-8.1.0-added, 8.0.0-8.1.0-removed etc.
+# this must match which versions you compare.
+nameComponent: str = '8.0.0-8.1.0'
 
 # ADD new elements when a new version has been published so that it gets EXCLUDED
 # array of version patterns to be excluded for added items. we dont need patch versions
-excludePattern: list[str] = ['pre5.0', '5.0', '6.0', '6.0.0', '6.0.1', '6.1.0', '6.7', '7.0', '7.0.0', '7.1.0', '7.2.0', '7.3.0', '8.0.0', '8.1.0']
+# the last excluded entry should be the version you take as comparison base.
+excludePattern: list[str] = ['pre5.0', '5.0', '6.0', '6.0.0', '6.0.1', '6.1.0', '6.7', '7.0', '7.0.0', '7.1.0', '7.2.0', '7.3.0', '8.0.0']
 
 # DO NOT CHANGE
-# this is the path the added/deprecated and removed files are written to
-# this path MUST align with the other helpers 
+# this is the sub-path the added/deprecated and removed files are written to
+# this path is independent of other helpers, although the first patch component (services) must match
 adocWritePath: str = 'services/env_var_deltas/'
+
+# DO NOT CHANGE
+# this is the sub-path the 'env_vars.yaml' file is located to read
+# this path MUST align with the other helpers 
+adocReadPath: str = 'services/persistent_files/'
 
 # define the path elements for github raw access
 # the right component is identical to local relative but will be updated by the code for github raw access
-git_left_dir: str  = 'https://raw.githubusercontent.com/owncloud/docs-ocis/refs/'
-git_right_dir: str = adocWritePath + 'env_vars.yaml'
+git_left_dir: str  = 'https://raw.githubusercontent.com/owncloud/docs-ocis/refs/heads/'
+git_right_dir: str = adocReadPath + 'env_vars.yaml'
+
+## functions to be called by main
+##
 
 def correct_git_right_dir() -> None:
 	# get the foldername of the current directory and correct the right git side fo rgithub raw access
-	# by that we are independent of any folder names the helpers are located
+	# by that we are independent of any folder names or levels the helpers are located
 	global git_right_dir
 
-	last_segment = os.path.basename(os.path.dirname(os.getcwd())) + '/'
+	last_segment = os.path.basename(os.getcwd()) + '/'
 	git_right_dir = last_segment + git_right_dir
 
 def create_target_directory() -> None:
@@ -76,16 +84,21 @@ def create_target_directory() -> None:
 				sys.exit()
 
 def get_sources(versionOld: str, versionNew: str) -> (str, str):
-	urlOld = git_left_dir + versionOld + git_right_dir
-	urlNew = git_left_dir + versionNew + git_right_dir
+	urlOld = git_left_dir + versionOld + '/' + git_right_dir
+	urlNew = git_left_dir + versionNew + '/' + git_right_dir
 
 	try:
 		fileOld = urlopen(urlOld).read().decode('utf-8')
 		fileNew = urlopen(urlNew).read().decode('utf-8')
+		print('Reading the following files for comparison:\n')
+		print('  ' + urlOld)
+		print('  ' + urlNew)
 		return	yaml.safe_load(fileOld), yaml.safe_load(fileNew)
 
 	except Exception as e:
 		print(e)
+		print(urlOld)
+		print(urlNew)
 		sys.exit()
 
 def get_added(fileNew: str, excludePattern: list[str]) -> set[str]:
@@ -246,7 +259,9 @@ def main() -> None:
 	write_output(r, 'removed')
 	write_output(d, 'deprecated')
 
-	print('Success, see files created in: ' + adocWritePath)
+	print('\nSuccess, see files created in: ' + adocWritePath)
+	print('First: check and update the files manually to group entries for easier reading and to fix service names (xxx).')
+	print('Second: you must run n Antora build. The files written are not tracked. Only a build makes them trackable.')
 
 if __name__ == '__main__':
 	main()
