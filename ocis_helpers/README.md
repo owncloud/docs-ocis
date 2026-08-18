@@ -233,8 +233,10 @@ To create the `added, deprecated and removed` environment variables adoc files f
 * Check the versions set in the `changed_envvars.py` script and adapt if required.
   * Any changes of the script must be part of the commit. Which eases a possible post-merge re-run.
 
-* Run the `changed_envvars.py` script.\
-  This will create the required files in the `services/env_var_deltas/` subfolder.
+* Run the `changed_envvars.py` script.
+  * This will create the required files in the `services/env_var_deltas/` subfolder.
+  * Use the `-d` flag (dryrun) beforehand to check if additional exclusion from backported introduction versions need to be applied. If the `TO` version is e.g. `8.1.0` but you also find `8.2.0` entries, you need to exclude them additionally in `extraExcludePattern` (not in `defaultExcludePattern`).
+  * Note that if placeholders are found that have not been catched with the bash script or if there are patch releases for introduction versions other than `0` (zero), you must fix them in the ocis branches (plural) first and recreate + merge the changed `env_vars.yaml` file before restarting.
 
 * Adapt the content of the output:
   * Replace, if present, `xxx` with the appropriate service name.\
