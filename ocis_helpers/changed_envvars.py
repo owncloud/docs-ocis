@@ -29,11 +29,11 @@ from urllib.request import urlopen
 # CHANGE according your needs (version comparison):
 # 'versionOld' is the base version to compare from
 # 'versionNew' is the target version to compare to
-# branches are written the follwoing: master or x,y such as '8.1'
+# branches are written the follwoing: 'master' or 'x,y' such as '8.1'
 versionOld: str    = '8.0'
 versionNew: str    = '8.1'
 
-# CHANGE according your needs (for printing)
+# CHANGE according your needs (for printing, to_version also to identify all other findings that should be excluded)
 from_version: str  = '8.0.0'
 to_version: str    = '8.1.0'
 
@@ -42,10 +42,18 @@ to_version: str    = '8.1.0'
 # this must match which versions you compare.
 nameComponent: str = '8.0.0-8.1.0'
 
-# ADD new elements when a new version has been published so that it gets EXCLUDED
-# array of version patterns to be excluded for added items. we dont need patch versions
-# the last excluded entry should be the version you take as comparison base.
-excludePattern: list[str] = ['pre5.0', '5.0', '6.0', '6.0.0', '6.0.1', '6.1.0', '6.7', '7.0', '7.0.0', '7.1.0', '7.2.0', '7.3.0', '8.0.0']
+# ADD elements of version that have been published so they get EXCLUDED from gathering.
+# from version 7 onwards we dont use patch versions anymore - they should be present.
+# fix any patch version in the ocis repo first and redo the whole helper process.
+# the last excluded entry should be the version you take as comparison base which is 'from_version'.
+defaultExcludePattern: list[str] = ['pre5.0', '5.0',
+									'6.0', '6.0.0', '6.0.1', '6.1.0', '6.7',
+									'7.0', '7.0.0', '7.1.0', '7.2.0', '7.3.0',
+									'8.0.0']
+
+# IMPORTANT: there may be additional unexpected versions that may appear from backporting in ocis which
+# must be excluded too. if found, they are printed to the console for furter investigation.
+extraExcludePattern: list[str]   = []
 
 # DO NOT CHANGE
 # this is the sub-path the added/deprecated and removed files are written to
@@ -57,13 +65,33 @@ adocWritePath: str = 'services/env_var_deltas/'
 # this path MUST align with the other helpers 
 adocReadPath: str = 'services/persistent_files/'
 
+# DO NOT CHANGE
 # define the path elements for github raw access
 # the right component is identical to local relative but will be updated by the code for github raw access
 git_left_dir: str  = 'https://raw.githubusercontent.com/owncloud/docs-ocis/refs/heads/'
 git_right_dir: str = adocReadPath + 'env_vars.yaml'
 
+##
 ## functions to be called by main
 ##
+
+def merge_exclude_lists(defaultExcludePattern, extraExcludePattern) -> list[str]:
+	# merge the arrays and remove duplicates if any
+	merged_array = list(set(defaultExcludePattern) | set(extraExcludePattern))
+	merged_array.sort()
+	return merged_array
+
+def get_cli_dryrun_param() -> bool:
+	# we only allow one cli parameter which is -h (help) or -d (dryrun)
+	param_1 = sys.argv[1]
+	if len(param_1) <= 1:
+		return False
+	match param_1:
+		case '-d':
+			return True
+		case '-h' | _:
+			print('Allowed CLI parameters are: -h (this help message ) or -d (dryrun), exiting\n')
+			sys.exit()
 
 def correct_git_right_dir() -> None:
 	# get the foldername of the current directory and correct the right git side fo rgithub raw access
@@ -97,17 +125,23 @@ def get_sources(versionOld: str, versionNew: str) -> (str, str):
 
 	except Exception as e:
 		print(e)
-		print(urlOld)
-		print(urlNew)
+		print('  ' + urlOld)
+		print('  ' + urlNew)
 		sys.exit()
 
-def get_added(fileNew: str, excludePattern: list[str]) -> set[str]:
+def get_added(fileNew: str, excludePattern: list[str], to_Version: str) -> set[str]:
 	# create dict with added items
 	addedWith: set[str] = {}
+	additionally_addedWith: set[str] = {}
 	for key, value in fileNew.items():
 		if not fileNew[key]['introductionVersion'] in str(excludePattern):
-			addedWith[key] = value
-	return addedWith
+			# the requirement says that we only want to catch the target version
+			if fileNew[key]['introductionVersion'] == to_Version:
+				addedWith[key] = value
+			# but if we find anonter version, we should add it to another list which later can be printed
+			else:
+				additionally_addedWith[key] = fileNew[key]['introductionVersion']
+	return addedWith, additionally_addedWith
 
 def get_removed(fileOld: str, fileNew: str) -> set[str]:
 	# create dict with removed items
@@ -238,22 +272,41 @@ def write_output(a: str, type_text: str) -> None:
 def main() -> None:
 	## here are the tasks in sequence
 
-	fileOld: str = ''
-	fileNew: str = ''
-	addedWith: set[str] = {}
-	removedWith: set[str] = {}
-	deprecatedWith: set[str] = {}
+	dry_run: bool						= False
+	fileOld: str						= ''
+	fileNew: str						= ''
+	addedWith: set[str]					= {}
+	additionally_addedWith: set[str]	= {}
+	removedWith: set[str]				= {}
+	deprecatedWith: set[str]			= {}
+	excludePattern: list[str]			= []
+
+	dry_run = get_cli_dryrun_param()
 
 	correct_git_right_dir()
 	create_target_directory()
-	fileOld, fileNew = get_sources(versionOld, versionNew)
-	addedWith = get_added(fileNew, excludePattern)
-	removedWith = get_removed(fileOld, fileNew)
-	deprecatedWith = get_deprecated(fileNew)
+	excludePattern						= merge_exclude_lists(defaultExcludePattern, extraExcludePattern)
+	fileOld, fileNew					= get_sources(versionOld, versionNew)
+	addedWith, additionally_addedWith	= get_added(fileNew, excludePattern, to_version)
+	removedWith							= get_removed(fileOld, fileNew)
+	deprecatedWith						= get_deprecated(fileNew)
 
-	a: str = create_table('Added', addedWith, from_version, to_version, date.today().strftime('%Y.%m.%d'))
-	r: str = create_table('Removed', removedWith, from_version, to_version, date.today().strftime('%Y.%m.%d'))
+	# additional, unexpected introduction versions have been found.
+	# although we just could exclude them automatically,
+	# we print them to investigate and for possible furter exclusion in the variable above.
+	if bool(additionally_addedWith):
+		print('\nThis additional out-of-scope envvars have been found in %s. They may require fixing in ocis or extra excluded here:\n' % to_version)
+		for key, value in additionally_addedWith.items():
+			print(key, value)
+		print('')
+
+	a: str = create_table('Added',      addedWith,      from_version, to_version, date.today().strftime('%Y.%m.%d'))
+	r: str = create_table('Removed',    removedWith,    from_version, to_version, date.today().strftime('%Y.%m.%d'))
 	d: str = create_table('Deprecated', deprecatedWith, from_version, to_version, date.today().strftime('%Y.%m.%d'), True)
+
+	if dry_run:
+		print('Creation of tables succeeded not being written due to the dryrun flag set\n')
+		sys.exit()
 
 	write_output(a, 'added')
 	write_output(r, 'removed')
