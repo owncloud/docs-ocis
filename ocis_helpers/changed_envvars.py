@@ -53,7 +53,7 @@ defaultExcludePattern: list[str] = ['pre5.0', '5.0',
 
 # IMPORTANT: there may be additional unexpected versions that may appear from backporting in ocis which
 # must be excluded too. if found, they are printed to the console for furter investigation.
-extraExcludePattern: list[str]   = []
+extraExcludePattern: list[str]   = ['8.2.0', '8.3.0']
 
 # DO NOT CHANGE
 # this is the sub-path the added/deprecated and removed files are written to
@@ -82,10 +82,12 @@ def merge_exclude_lists(defaultExcludePattern, extraExcludePattern) -> list[str]
 	return merged_array
 
 def get_cli_dryrun_param() -> bool:
+	# exit if there is no parameter added
+	if (len(sys.argv) -1) == 0:
+		return False
+	
 	# we only allow one cli parameter which is -h (help) or -d (dryrun)
 	param_1 = sys.argv[1]
-	if len(param_1) <= 1:
-		return False
 	match param_1:
 		case '-d':
 			return True
